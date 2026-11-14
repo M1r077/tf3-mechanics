@@ -68,6 +68,7 @@ A coal mine with 20 workplaces and "+84 %".
 - The cap of 20 kept arrivals and the 50 % rule mean that an industry with **more than 40 workplaces** (possible with mods) could never be boosted by workers.
 - The subsidy "Transport workers" is completed when this boost activates (official wiki, Subsidies).
 - Booster cargo (fertilizer, machines, tools) is a **separate** boost of raw industries, not covered here.
+- The [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) mod shows, in the industry window, which towns the assigned and boost workers come from, with arrows on the map.
 
 ```check
 official: "If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))

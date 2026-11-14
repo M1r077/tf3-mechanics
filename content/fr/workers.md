@@ -68,6 +68,7 @@ Une mine de charbon avec 20 emplois et « +84 % ».
 - La limite de 20 arrivées gardées et la règle des 50 % font qu'une industrie de **plus de 40 emplois** (possible avec des mods) ne pourrait jamais être boostée par les travailleurs.
 - La subvention « Transporter des travailleurs » est remplie quand ce bonus s'active (wiki officiel, Subventions).
 - Le fret booster (engrais, machines, outils) est un bonus **distinct** des industries de matières premières, non traité ici.
+- Le mod [Origine des travailleurs (Worker Origins)](https://mod.io/g/transportfever3/m/worker-origins) montre, dans la fenêtre d'industrie, de quelles villes viennent les travailleurs attribués et ceux du bonus, avec des flèches sur la carte.
 
 ```check
 official: « If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again. » ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))

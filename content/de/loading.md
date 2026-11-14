@@ -77,7 +77,7 @@ Ein Zug mit 8 Schüttgutwagen, 160 m lang, entlädt Kohle.
 
 - Bahnhöfe innerhalb einer Industrie sind immer auf die Fracht spezialisiert, die die Industrie braucht (offizielles Wiki).
 - Spezialisierte Lagermodule frieren außerdem die Lieferfrist der gelagerten Fracht ein (offizielles Wiki); ein Universallager nicht.
-- Platform Details zeigt beide Faktoren jedes Fahrzeugs am Bahnsteig und wohin die entladene Fracht ging.
+- [Platform Details](https://mod.io/g/transportfever3/m/platform-details) zeigt beide Faktoren jedes Fahrzeugs am Bahnsteig und wohin die entladene Fracht ging.
 
 ```check
 official: „Loading speed is also influenced by the vehicle's specialization, the terminal's specialization and where applicable, a warehouse's specialization.“ Spezialisierte Lager „enable faster loading / unloading speeds“. ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles), [Warehouses](https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses))

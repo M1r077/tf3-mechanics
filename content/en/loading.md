@@ -53,7 +53,7 @@ When cargo is unloaded, each unit goes to a receiver: a warehouse module, an ind
 - During one unloading the game serves the receivers **in turn**, so the speed changes while the train unloads when part of the cargo goes to a warehouse and part to an industry (measured in game).
 
 ```engine
-Which receiver gets each unit, and the final multiplication, happen in the engine. The factors above are the inputs the scripts give it; the result was checked with the values the engine exposes (Platform Details probe, October 2026).
+Which receiver gets each unit, and the final multiplication, happen in the engine. The factors above are the inputs the scripts give it; the result was checked with the values the engine exposes ([Platform Details](https://mod.io/g/transportfever3/m/platform-details) probe, October 2026).
 ```
 
 ## What the game shows
@@ -77,7 +77,7 @@ A train of 8 bulk wagons, 160 m long, unloading coal.
 
 - Stations inside an industry are always specialised to the cargo that industry needs (official wiki).
 - Specialised warehouse modules also freeze the delivery timer of the cargo they store (official wiki); a universal warehouse does not.
-- Platform Details shows both factors for every vehicle at a platform, and where the unloaded cargo went.
+- [Platform Details](https://mod.io/g/transportfever3/m/platform-details) shows both factors for every vehicle at a platform, and where the unloaded cargo went.
 
 ```check
 official: "Loading speed is also influenced by the vehicle's specialization, the terminal's specialization and where applicable, a warehouse's specialization." Specialized warehouses "enable faster loading / unloading speeds". ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles), [Warehouses](https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses))

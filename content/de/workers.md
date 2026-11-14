@@ -68,6 +68,7 @@ Ein Kohlebergwerk mit 20 Arbeitsplätzen und „+84 %“.
 - Die Grenze von 20 gemerkten Ankünften und die 50-%-Regel bedeuten, dass eine Industrie mit **mehr als 40 Arbeitsplätzen** (mit Mods möglich) nie durch Arbeiter geboostet werden könnte.
 - Die Subvention „Transportiere Arbeiter“ ist erfüllt, wenn dieser Bonus aktiv wird (offizielles Wiki, Subventionen).
 - Booster-Fracht (Dünger, Maschinen, Werkzeuge) ist ein **eigener** Bonus der Rohstoffindustrien und wird hier nicht behandelt.
+- Der Mod [Herkunft der Arbeiter (Worker Origins)](https://mod.io/g/transportfever3/m/worker-origins) zeigt im Industriefenster, aus welchen Städten die zugeteilten und die Bonus-Arbeiter kommen, mit Pfeilen auf der Karte.
 
 ```check
 official: „If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again.“ ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))

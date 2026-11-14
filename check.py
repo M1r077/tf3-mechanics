@@ -3,7 +3,8 @@
 1. every page exists in en, fr and de, with the same diagrams and the same source references;
 2. every `file.lua:12-20` reference names a real game file, and its lines exist;
 3. no long copy of game code (fenced code blocks of more than 3 lines are refused);
-4. every relative link of the built site points to an existing file.
+4. every relative link of the built site points to an existing file;
+5. every mod named in a page (data/mods.json) is a link to its own mod.io page.
 
     python check.py      (exit code 1 on any problem)
 """
@@ -64,6 +65,8 @@ def main():
                 if not any(last <= n for _sid, n in cands):
                     problems.append(f"{slug}: {name} has no line {last}")
 
+    problems += check_mod_links(pages["en"])
+
     for root, _d, fs in os.walk(DOCS):
         for f in fs:
             if f.endswith(".html"):
@@ -79,6 +82,34 @@ def main():
         print("  !", p)
     print(f"{len(problems)} problem(s); pages: {', '.join(pages['en'])}")
     return 1 if problems else 0
+
+
+MODIO = "https://mod.io/g/transportfever3/m/"
+
+
+def check_mod_links(slugs):
+    """A mod name outside a link, or a link to the wrong mod.io page, is a problem."""
+    with open(os.path.join(HERE, "data", "mods.json"), encoding="utf-8") as f:
+        mods = json.load(f)["mods"]
+    found = []
+    rx_link = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+    for l in LANGS:
+        for slug in slugs:
+            p = os.path.join(CONTENT, l, slug + ".md")
+            if not os.path.exists(p):
+                continue
+            text = open(p, encoding="utf-8").read()
+            spans = [(m.start(), m.end(), m.group(1), m.group(2)) for m in rx_link.finditer(text)]
+            for mid, info in mods.items():
+                # longest names first, so "Swiss Names - Romandie" is not taken for "Swiss Names"
+                for name in sorted(info["names"], key=len, reverse=True):
+                    for m in re.finditer(r"(?<![\w-])" + re.escape(name) + r"(?![\w-]| -)", text):
+                        inside = [s for s in spans if s[0] < m.start() < s[1]]
+                        if not inside:
+                            found.append(f"{l}/{slug}: mod '{name}' named without its mod.io link ({MODIO}{mid})")
+                        elif inside[0][3].rstrip("/").split("#")[0] != MODIO + mid:
+                            found.append(f"{l}/{slug}: '{name}' links to {inside[0][3]}, expected {MODIO}{mid}")
+    return found
 
 
 if __name__ == "__main__":

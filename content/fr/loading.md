@@ -53,7 +53,7 @@ Au déchargement, chaque unité va à un destinataire : un module d'entrepôt, u
 - Pendant un même déchargement, le jeu sert les destinataires **à tour de rôle** : la vitesse change pendant que le train décharge quand une partie du fret va à un entrepôt et une partie à une industrie (mesuré en jeu).
 
 ```engine
-Le choix du destinataire de chaque unité et la multiplication finale se font dans le moteur. Les facteurs ci-dessus sont les données que les scripts lui donnent ; le résultat a été vérifié avec les valeurs exposées par le moteur (sonde de Platform Details, octobre 2026).
+Le choix du destinataire de chaque unité et la multiplication finale se font dans le moteur. Les facteurs ci-dessus sont les données que les scripts lui donnent ; le résultat a été vérifié avec les valeurs exposées par le moteur (sonde de [Platform Details](https://mod.io/g/transportfever3/m/platform-details), octobre 2026).
 ```
 
 ## Ce que le jeu affiche
@@ -77,7 +77,7 @@ Un train de 8 wagons vrac, long de 160 m, qui décharge du charbon.
 
 - Les gares à l'intérieur d'une industrie sont toujours spécialisées pour le fret dont l'industrie a besoin (wiki officiel).
 - Les modules d'entrepôt spécialisés gèlent aussi le délai de livraison du fret stocké (wiki officiel) ; un entrepôt universel non.
-- Platform Details affiche les deux facteurs de chaque véhicule à quai, et où est parti le fret déchargé.
+- [Platform Details](https://mod.io/g/transportfever3/m/platform-details) affiche les deux facteurs de chaque véhicule à quai, et où est parti le fret déchargé.
 
 ```check
 official: « Loading speed is also influenced by the vehicle's specialization, the terminal's specialization and where applicable, a warehouse's specialization. » Les entrepôts spécialisés « enable faster loading / unloading speeds ». ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles), [Warehouses](https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses))
