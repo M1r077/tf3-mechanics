@@ -334,7 +334,232 @@ def loading_sections(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- income: the formula
+T_INC = {
+    "en": {"cap": "What one delivered cargo unit pays. Passengers use the same formula with a vehicle factor (see below).",
+           "c": [("3.8", "income factor", "the same for every cargo", GOLD),
+                 ("50–150 %", "Cargo Income", "game setting, 100 % in all presets", BLUE),
+                 ("km", "distance", "straight line + 8 × climb", TEAL),
+                 ("×1 → ×0.75", "company rank", "Inflation setting (Normal)", VIOLET),
+                 ("×2", "subsidy lines", "after a completed contract", GOLD)],
+           "res": "= income of the delivery", "not": "not in the formula: travel time, vehicle speed, real route length, late or on time"},
+    "fr": {"cap": "Ce que rapporte une unité de fret livrée. Les passagers suivent la même formule avec un facteur du véhicule (voir plus bas).",
+           "c": [("3,8", "facteur de revenu", "le même pour tous les frets", GOLD),
+                 ("50–150 %", "Revenu fret", "réglage de partie, 100 % dans tous les préréglages", BLUE),
+                 ("km", "distance", "ligne droite + 8 × la montée", TEAL),
+                 ("×1 → ×0,75", "rang d'entreprise", "réglage Inflation (Normale)", VIOLET),
+                 ("×2", "lignes du contrat", "après un contrat rempli", GOLD)],
+           "res": "= revenu de la livraison", "not": "absents de la formule : durée du trajet, vitesse, longueur réelle du trajet, retard ou non"},
+    "de": {"cap": "Was eine gelieferte Frachteinheit einbringt. Passagiere nutzen dieselbe Formel mit einem Fahrzeugfaktor (siehe unten).",
+           "c": [("3,8", "Einnahmefaktor", "für jede Fracht gleich", GOLD),
+                 ("50–150 %", "Gütereinnahmen", "Spieleinstellung, 100 % in allen Vorgaben", BLUE),
+                 ("km", "Entfernung", "Luftlinie + 8 × Steigung", TEAL),
+                 ("×1 → ×0,75", "Unternehmensrang", "Einstellung Inflation (Normal)", VIOLET),
+                 ("×2", "Linien der Subvention", "nach erfüllter Subvention", GOLD)],
+           "res": "= Einnahme der Lieferung", "not": "nicht in der Formel: Fahrzeit, Geschwindigkeit, echte Streckenlänge, verspätet oder pünktlich"},
+}
+
+
+def income_formula(lang):
+    t = T_INC[lang]
+    s = Svg("if", 900, 300)
+    w, g = 158, 27
+    for i, (big, title, sub, col) in enumerate(t["c"]):
+        x = 6 + i * (w + g)
+        optional = i >= 3
+        s.card(x, 20, w, 170, stroke=col if not optional else LINE, dash="6 5" if optional else None)
+        s.text(x + w / 2, 70, big, 25 if len(big) < 6 else 19, col, weight=800)
+        s.text(x + w / 2, 108, title, 14, TEXT, weight=700)
+        words, line, rows = sub.split(), "", []
+        for wd in words:
+            if len(line) + len(wd) + 1 > 21 and line:
+                rows.append(line)
+                line = wd
+            else:
+                line = (line + " " + wd).strip()
+        rows.append(line)
+        s.lines(x + w / 2, 132, rows, 12)
+        if i < 4:
+            s.text(x + w + g / 2, 112, "×", 26, GOLD, weight=300)
+    s.rect(180, 210, 540, 40, s.ref("teal"), r=20)
+    s.text(450, 236, t["res"], 16, DEEP, weight=800)
+    s.add(icons.place("cross", 120, 268, 14, RED, 2.5))
+    s.text(142, 280, t["not"], 13, RED, "start", 600)
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- income: distance
+T_DIST = {
+    "en": {"cap": "Paid: the straight line from where the cargo was picked up to where it is delivered, plus 8 m per metre of climb. "
+                  "The real route only costs (maintenance).",
+           "a": "origin", "b": "destination", "paid": "paid: straight line (3D)", "real": "real route: not paid, costs maintenance",
+           "climb": "climb h", "bonus": "+ 8 × h paid", "ex1": "5 km, 100 m higher", "ex2": "paid as 5.8 km (+16 %)",
+           "down": "the other way round: no bonus, no malus"},
+    "fr": {"cap": "Payé : la ligne droite entre l'endroit où le fret a été pris et celui où il est livré, plus 8 m par mètre de montée. "
+                  "Le vrai trajet ne fait que coûter (entretien).",
+           "a": "départ", "b": "destination", "paid": "payé : ligne droite (3D)", "real": "vrai trajet : pas payé, coûte l'entretien",
+           "climb": "montée h", "bonus": "+ 8 × h payés", "ex1": "5 km, 100 m plus haut", "ex2": "payé comme 5,8 km (+16 %)",
+           "down": "dans l'autre sens : ni bonus, ni malus"},
+    "de": {"cap": "Bezahlt wird die Luftlinie vom Abholort bis zum Lieferort, plus 8 m pro Meter Steigung. "
+                  "Die echte Strecke kostet nur (Unterhalt).",
+           "a": "Start", "b": "Ziel", "paid": "bezahlt: Luftlinie (3D)", "real": "echte Strecke: nicht bezahlt, kostet Unterhalt",
+           "climb": "Steigung h", "bonus": "+ 8 × h bezahlt", "ex1": "5 km, 100 m höher", "ex2": "bezahlt wie 5,8 km (+16 %)",
+           "down": "in der Gegenrichtung: kein Bonus, kein Malus"},
+}
+
+
+def income_distance(lang):
+    t = T_DIST[lang]
+    s = Svg("id", 900, 330)
+    # terrain
+    s.add(f'<path d="M0 290 C140 286 200 280 300 262 S520 200 640 176 S800 160 900 158 L900 330 L0 330 Z" fill="#17202a"/>')
+    s.add(f'<path d="M0 290 C140 286 200 280 300 262 S520 200 640 176 S800 160 900 158" fill="none" stroke="{LINE}" stroke-width="2"/>')
+    ax, ay, bx, by = 90, 270, 760, 150
+    # real route
+    s.add(f'<path d="M{ax} {ay} C180 200 260 320 350 250 S470 120 560 210 S700 120 {bx} {by}" fill="none" stroke="{GOLD}" '
+          f'stroke-width="3" stroke-dasharray="7 6" opacity=".8"/>')
+    s.text(420, 300, t["real"], 13, GOLD, weight=600)
+    # straight line
+    s.add(f'<line x1="{ax}" y1="{ay}" x2="{bx}" y2="{by}" stroke="{TEAL}" stroke-width="4" stroke-linecap="round"/>')
+    s.add(f'<text font-size="14" font-weight="700" fill="{TEAL}" font-family="{FONT}" text-anchor="middle" '
+          f'transform="translate(410 196) rotate(-10.2)">{html.escape(t["paid"])}</text>')
+    # climb
+    s.add(f'<line x1="{bx + 40}" y1="{ay}" x2="{bx + 40}" y2="{by}" stroke="{VIOLET}" stroke-width="2.5" marker-end="{s.ref("ah")}"/>')
+    s.add(f'<line x1="{ax}" y1="{ay}" x2="{bx + 50}" y2="{ay}" stroke="{DIM}" stroke-dasharray="3 4"/>')
+    s.text(bx + 52, 214, t["climb"], 13, VIOLET, "start", 700)
+    s.text(bx + 52, 232, t["bonus"], 13, VIOLET, "start", 600)
+    for x, y, lab, col, ic in ((ax, ay, t["a"], BLUE, "industries"), (bx, by, t["b"], TEAL, "towns")):
+        s.icon_badge(x, y, ic, col, 22, fill=s.ref("teal") if col == TEAL else None)
+        s.text(x, y + (40 if col == BLUE else -32), lab, 14, TEXT, weight=700)
+    s.card(24, 18, 300, 92, stroke=TEAL)
+    s.text(44, 50, t["ex1"], 15, TEXT, "start", 700)
+    s.text(44, 76, t["ex2"], 15, TEAL, "start", 800)
+    s.text(44, 98, t["down"], 12, DIM, "start")
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- delivery: time limits per cargo
+CARGO_TIMES = [  # timeToDeliverInSeconds in the base-game .cargo.lua files
+    (900, ["Meat"]), (1125, ["Beverages", "Fish", "Vegetables"]), (1286, ["Grain"]),
+    (1500, ["Clothes", "Fabric", "Fertilizer", "Plastic", "Tires", "Wool"]),
+    (1800, ["Books", "Chemicals", "Furniture", "Paper", "Rubber", "Tinned Food"]),
+    (2250, ["Cement", "Dyes", "Fuel", "Glass", "Machines", "Sawdust", "Tools", "Vehicles"]),
+    (3000, ["Bricks", "Clay", "Coal", "Crude Oil", "Logs", "Planks", "Sheet Metal"]),
+    (4500, ["Iron Ore", "Sand", "Steel", "Stone"]),
+]
+CARGO_NAMES = {
+    "fr": {"Meat": "Viande", "Beverages": "Boissons", "Fish": "Poisson", "Vegetables": "Légumes", "Grain": "Céréales",
+           "Clothes": "Vêtements", "Fabric": "Tissu", "Fertilizer": "Engrais", "Plastic": "Plastique", "Tires": "Pneus",
+           "Wool": "Laine", "Books": "Livres", "Chemicals": "Produits chimiques", "Furniture": "Meubles", "Paper": "Papier",
+           "Rubber": "Caoutchouc", "Tinned Food": "Tinned Food", "Cement": "Ciment", "Dyes": "Colorants", "Fuel": "Carburant",
+           "Glass": "Verre", "Machines": "Machines", "Sawdust": "Sciure", "Tools": "Outils", "Vehicles": "Véhicules",
+           "Bricks": "Briques", "Clay": "Argile", "Coal": "Charbon", "Crude Oil": "Pétrole brut", "Logs": "Bois",
+           "Planks": "Planches", "Sheet Metal": "Tôle", "Iron Ore": "Minerai de fer", "Sand": "Sable", "Steel": "Acier",
+           "Stone": "Pierre"},
+    "de": {"Meat": "Fleisch", "Beverages": "Getränke", "Fish": "Fisch", "Vegetables": "Gemüse", "Grain": "Getreide",
+           "Clothes": "Kleidung", "Fabric": "Stoff", "Fertilizer": "Dünger", "Plastic": "Kunststoff", "Tires": "Reifen",
+           "Wool": "Wolle", "Books": "Bücher", "Chemicals": "Chemikalien", "Furniture": "Möbel", "Paper": "Papier",
+           "Rubber": "Gummi", "Tinned Food": "Tinned Food", "Cement": "Zement", "Dyes": "Farbstoffe", "Fuel": "Treibstoff",
+           "Glass": "Glas", "Machines": "Maschinen", "Sawdust": "Sägespäne", "Tools": "Werkzeuge", "Vehicles": "Fahrzeuge",
+           "Bricks": "Ziegel", "Clay": "Lehm", "Coal": "Kohle", "Crude Oil": "Rohöl", "Logs": "Holz", "Planks": "Bretter",
+           "Sheet Metal": "Blech", "Iron Ore": "Eisenerz", "Sand": "Sand", "Steel": "Stahl", "Stone": "Stein"},
+}
+T_TIMES = {
+    "en": {"cap": "Time allowed before a delivery counts as delayed, relative to meat (the shortest). "
+                  "The game adjusts the actual time: Finances › Delivery Time shows it for your map.",
+           "short": "fresh food: hurry", "long": "raw materials: plenty of time"},
+    "fr": {"cap": "Délai accordé avant qu'une livraison soit retardée, comparé à la viande (le plus court). "
+                  "Le jeu ajuste le délai réel : Finances › Délai de livraison l'affiche pour ta carte.",
+           "short": "produits frais : vite", "long": "matières premières : large"},
+    "de": {"cap": "Erlaubte Zeit, bevor eine Lieferung als verzögert gilt, im Vergleich zu Fleisch (die kürzeste). "
+                  "Das Spiel passt die tatsächliche Zeit an: Finanzen › Lieferzeit zeigt sie für deine Karte.",
+           "short": "Frischware: schnell", "long": "Rohstoffe: viel Zeit"},
+}
+
+
+def delivery_times(lang):
+    t = T_TIMES[lang]
+    names = CARGO_NAMES.get(lang, {})
+    rows = len(CARGO_TIMES)
+    s = Svg("dt", 900, 60 + rows * 42)
+    x0, wmax = 24, 300
+    s.text(x0, 26, t["short"], 13, RED, "start", 700)
+    s.text(x0 + wmax + 70, 26, t["long"], 13, TEAL, "end", 700)
+    for i, (sec, cargos) in enumerate(CARGO_TIMES):
+        y = 44 + i * 42
+        w = wmax * sec / 4500
+        k = (sec - 900) / 3600
+        col = RED if k < .15 else GOLD if k < .45 else TEAL
+        s.rect(x0, y, wmax, 26, "#1b232d", r=8)
+        s.rect(x0, y, w, 26, col, r=8, opacity=.9)
+        rel = f"×{sec / 900:.2f}".rstrip("0").rstrip(".")
+        if lang != "en":
+            rel = rel.replace(".", ",")
+        s.text(x0 + wmax + 12, y + 18, rel, 14, TEXT, "start", 800)
+        label = ", ".join(names.get(c, c) for c in cargos)
+        s.text(x0 + wmax + 76, y + 18, label, 13.5, DIM if col != RED else TEXT, "start", 500)
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- delivery: town rating
+T_RATE = {
+    "en": {"cap": "The Delivery rating of a town from the share of deliveries on time over the last half year, "
+                  "for three settings of Delivery Sensitivity.",
+           "x": "deliveries on time (last half year)", "y": "Delivery rating",
+           "lines": [("Low", 0.75, BLUE), ("Normal", 1.0, GOLD), ("Very High", 2.0, RED)],
+           "pt": "90 % on time → 0.86"},
+    "fr": {"cap": "La note Livraison d'une ville selon la part de livraisons à l'heure sur le dernier semestre, "
+                  "pour trois réglages de Sensibilité aux livraisons.",
+           "x": "livraisons à l'heure (dernier semestre)", "y": "note Livraison",
+           "lines": [("Faible", 0.75, BLUE), ("Normale", 1.0, GOLD), ("Très élevée", 2.0, RED)],
+           "pt": "90 % à l'heure → 0,86"},
+    "de": {"cap": "Die Lieferungs-Bewertung einer Stadt aus dem Anteil pünktlicher Lieferungen im letzten Halbjahr, "
+                  "für drei Stufen der Lieferungsempfindlichkeit.",
+           "x": "pünktliche Lieferungen (letztes Halbjahr)", "y": "Lieferungs-Bewertung",
+           "lines": [("Niedrig", 0.75, BLUE), ("Normal", 1.0, GOLD), ("Sehr hoch", 2.0, RED)],
+           "pt": "90 % pünktlich → 0,86"},
+}
+
+
+def delivery_rating(lang):
+    import math
+    t = T_RATE[lang]
+    s = Svg("dr", 900, 330)
+    X0, Y0, W, H = 90, 270, 560, 220
+    px = lambda f: X0 + f * W
+    py = lambda r: Y0 - r * H
+    s.rect(X0, Y0 - H, W, H, "#121921", r=10, stroke=LINE)
+    for f in (0, .25, .5, .75, 1):
+        s.add(f'<line x1="{px(f)}" y1="{Y0 - H}" x2="{px(f)}" y2="{Y0}" stroke="{LINE}" stroke-dasharray="2 5"/>')
+        s.text(px(f), Y0 + 20, f"{int(f * 100)} %", 12, DIM)
+    for r in (0, .5, 1):
+        s.add(f'<line x1="{X0}" y1="{py(r)}" x2="{X0 + W}" y2="{py(r)}" stroke="{LINE}" stroke-dasharray="2 5"/>')
+        s.text(X0 - 12, py(r) + 4, str(r).replace(".", ",") if lang != "en" else str(r), 12, DIM, "end")
+    s.text(X0 + W / 2, Y0 + 46, t["x"], 13, TEXT, weight=600)
+    s.add(f'<text font-size="13" font-weight="600" fill="{TEXT}" font-family="{FONT}" text-anchor="middle" '
+          f'transform="translate({X0 - 52} {Y0 - H / 2}) rotate(-90)">{html.escape(t["y"])}</text>')
+    for i, (lab, sens, col) in enumerate(t["lines"]):
+        lo = 1 - math.exp(-0.35667 * sens)
+        c = min(max(sens, 0), 1)
+        hi = -1.2 * c * c + 2.2 * c
+        pts = [(px(0), py(0)), (px(lo), py(0)), (px(min(hi, 1)), py(1)), (px(1), py(1))]
+        d = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts)
+        s.add(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{3.5 if sens == 1 else 2.5}" stroke-linejoin="round"/>')
+        ly = 70 + i * 40
+        s.rect(690, ly - 14, 26, 6, col, r=3)
+        s.text(728, ly - 6, lab, 14, TEXT, "start", 700)
+        s.text(728, ly + 12, f"0 → {int(round(lo * 100))} %, 1 ← {int(round(min(hi, 1) * 100))} %", 12, DIM, "start")
+    fx, fy = px(.9), py((0.9 - 0.3) / 0.7)
+    s.add(f'<circle cx="{fx}" cy="{fy}" r="7" fill="{GOLD}" stroke="{DEEP}" stroke-width="2"/>')
+    s.chip(fx - 200, fy - 14, t["pt"], GOLD, h=26, size=13)
+    return s.svg(), t["cap"]
+
+
 REGISTRY = {
+    "income_formula": income_formula,
+    "income_distance": income_distance,
+    "delivery_times": delivery_times,
+    "delivery_rating": delivery_rating,
     "workers_flow": workers_flow,
     "workers_window": workers_window,
     "loading_factors": loading_factors,
