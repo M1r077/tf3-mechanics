@@ -79,7 +79,7 @@ Late cargo is paid in full, but each town keeps a **Delivery** rating (`town_uti
 ```diagram delivery_rating
 ```
 
-The town ratings slow down a town's growth; how they combine is explained on the coming Towns page.
+Delivery is one of the six ratings whose lowest sets the town's growth rate: one Very Poor rating stops the town (see [Town growth](towns.html)).
 
 ## Example
 

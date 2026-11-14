@@ -79,7 +79,7 @@ Verspätete Fracht wird voll bezahlt, aber jede Stadt führt eine **Lieferungs**
 ```diagram delivery_rating
 ```
 
-Die Stadtbewertungen bremsen das Wachstum einer Stadt; wie sie zusammenwirken, erklärt die kommende Seite über Städte.
+Lieferung ist eine der sechs Wertungen, deren niedrigste die Wachstumsrate der Stadt bestimmt: eine einzige Wertung Sehr schlecht stoppt die Stadt (siehe [Stadtwachstum](towns.html)).
 
 ## Beispiel
 

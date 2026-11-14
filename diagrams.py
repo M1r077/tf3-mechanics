@@ -555,7 +555,186 @@ def delivery_rating(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- towns: where XP comes from
+T_TXP = {
+    "en": {"cap": "Raw XP from your passengers and cargo, multiplied by the town's growth rate, fills the level bar; "
+                  "each level makes the town bigger.",
+           "src": [("person", "Passengers", "5 · 10 · 20 XP", "from the same town · a neighbour town · farther", GOLD),
+                   ("truck", "Cargo unit", "10 · 20 · 40 XP", "by cargo tier 0 · 1 · 2", TEAL),
+                   ("subsidies", "Subsidy reward", "% of the level", "some contracts, also × growth rate", VIOLET)],
+           "mul": "× growth rate", "mul2": "0–100 %", "mul3": "Authority × Supplies", "hq": "+5 % per HQ part",
+           "lv": "Town level", "lv2": "level 2 after 1,000 XP,", "lv3": "each next level × 1.5",
+           "sz": "Town size", "sz2": "grows with the levels gained", "sz3": "since the start of the game",
+           "not": "no XP: time passing, trips to industries, trips without your lines"},
+    "fr": {"cap": "L'XP brute de tes passagers et de ton fret, multipliée par le taux de croissance de la ville, remplit la barre de niveau ; "
+                  "chaque niveau agrandit la ville.",
+           "src": [("person", "Passagers", "5 · 10 · 20 XP", "même ville · ville voisine · plus loin", GOLD),
+                   ("truck", "Unité de fret", "10 · 20 · 40 XP", "selon le niveau du fret 0 · 1 · 2", TEAL),
+                   ("subsidies", "Récompense de contrat", "% du niveau", "certains contrats, aussi × le taux", VIOLET)],
+           "mul": "× taux de croissance", "mul2": "0–100 %", "mul3": "Autorité × Apports", "hq": "+5 % par partie du siège",
+           "lv": "Niveau de la ville", "lv2": "niveau 2 après 1 000 XP,", "lv3": "chaque niveau suivant × 1,5",
+           "sz": "Taille de la ville", "sz2": "grandit avec les niveaux gagnés", "sz3": "depuis le début de la partie",
+           "not": "pas d'XP : le temps qui passe, les trajets vers les industries, les trajets sans tes lignes"},
+    "de": {"cap": "Roh-XP aus deinen Passagieren und deiner Fracht, multipliziert mit der Wachstumsrate der Stadt, füllt den Stufenbalken; "
+                  "jede Stufe macht die Stadt größer.",
+           "src": [("person", "Passagiere", "5 · 10 · 20 XP", "gleiche Stadt · Nachbarstadt · weiter weg", GOLD),
+                   ("truck", "Frachteinheit", "10 · 20 · 40 XP", "nach Frachtstufe 0 · 1 · 2", TEAL),
+                   ("subsidies", "Subventionsbelohnung", "% der Stufe", "manche Aufträge, auch × Rate", VIOLET)],
+           "mul": "× Wachstumsrate", "mul2": "0–100 %", "mul3": "Verwaltung × Versorgung", "hq": "+5 % pro HQ-Teil",
+           "lv": "Stadtstufe", "lv2": "Stufe 2 nach 1.000 XP,", "lv3": "jede weitere Stufe × 1,5",
+           "sz": "Stadtgröße", "sz2": "wächst mit den gewonnenen Stufen", "sz3": "seit Spielbeginn",
+           "not": "keine XP: verstrichene Zeit, Fahrten zu Industrien, Fahrten ohne deine Linien"},
+}
+
+
+def town_xp(lang):
+    t = T_TXP[lang]
+    s = Svg("tx", 900, 350)
+    for i, (ic, title, big, sub, col) in enumerate(t["src"]):
+        y = 16 + i * 92
+        s.card(16, y, 300, 78, stroke=col)
+        s.icon_badge(54, y + 39, ic, col, 22)
+        s.text(88, y + 26, title, 14, TEXT, "start", 700)
+        s.text(88, y + 48, big, 15, col, "start", 800)
+        s.text(88, y + 66, sub, 11.5, DIM, "start")
+        s.flow(322, y + 39, 382, 140, col, 2.5)
+    s.add(f'<circle cx="460" cy="140" r="74" fill="{s.ref("card")}" stroke="{GOLD}" stroke-width="2" filter="{s.ref("sh")}"/>')
+    s.text(460, 118, t["mul"], 14 if len(t["mul"]) < 17 else 12, GOLD, weight=800)
+    s.text(460, 146, t["mul2"], 22, TEXT, weight=800)
+    s.text(460, 168, t["mul3"], 11.5, DIM)
+    s.chip(460 - (len(t["hq"]) * 12 * .62 + 22) / 2, 226, t["hq"], VIOLET, size=12, h=24)
+    s.flow(538, 140, 590, 140, GOLD, 3)
+    s.card(598, 30, 286, 96, stroke=TEAL)
+    s.text(618, 60, t["lv"], 15, TEAL, "start", 800)
+    s.text(618, 84, t["lv2"], 12.5, TEXT, "start")
+    s.text(618, 104, t["lv3"], 12.5, TEXT, "start")
+    s.add(f'<line x1="741" y1="128" x2="741" y2="152" stroke="{TEAL}" stroke-width="2" marker-end="{s.ref("ah")}"/>')
+    s.card(598, 156, 286, 96, stroke=LINE)
+    s.text(618, 186, t["sz"], 15, TEXT, "start", 800)
+    s.text(618, 210, t["sz2"], 12.5, DIM, "start")
+    s.text(618, 230, t["sz3"], 12.5, DIM, "start")
+    s.add(icons.place("cross", 30, 310, 14, RED, 2.5))
+    s.text(52, 322, t["not"], 13, RED, "start", 600)
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- towns: growth rate matrix
+GROWTH_XP = [0, .2, .4, .6, .8, 1.0]
+
+
+def _growth_index(auth, sup):
+    """Growth level 0..5 from authority level 0..5 and supplies level (None = no deliveries); town_util.tl:607-633."""
+    w = [1.4 ** i for i in range(6)]
+    tot, acc, thr = sum(w), 0, []
+    for x in w:
+        acc += x / tot
+        thr.append(acc)
+    g = auth / 5 * (0 if sup is None else (sup + 1) / 6)
+    for i, th in enumerate(thr):
+        if g < th:
+            return i
+    return 5
+
+
+T_GM = {
+    "en": {"cap": "Growth rate (× on all XP) from the two ratings of the town window. Headquarters bonus on top.",
+           "lv": ["Very Poor", "Poor", "Mediocre", "Good", "Very Good", "Excellent"], "none": "no deliveries",
+           "sup": "Supplies", "auth": "Town Authority (lowest of 6 ratings)",
+           "g": ["Stagnant", "Growing Very Slowly", "Growing Slowly", "Growing", "Growing Fast", "Growing Lightning Fast"]},
+    "fr": {"cap": "Taux de croissance (× sur toute l'XP) selon les deux notes de la fenêtre de la ville. Bonus du siège social en plus.",
+           "lv": ["Très insuffisant", "Insuffisant", "Médiocre", "Bon", "Très bon", "Excellent"], "none": "aucune livraison",
+           "sup": "Apports", "auth": "Autorité municipale (la plus basse des 6 notes)",
+           "g": ["Stagnante", "Croissance très lente", "Croissance lente", "En croissance", "Croissance rapide", "Croissance fulgurante"]},
+    "de": {"cap": "Wachstumsrate (× auf alle XP) aus den zwei Wertungen des Stadtfensters. Hauptquartier-Bonus obendrauf.",
+           "lv": ["Sehr schlecht", "Schlecht", "Mittelmässig", "Gut", "Sehr gut", "Ausgezeichnet"], "none": "keine Lieferungen",
+           "sup": "Versorgung", "auth": "Stadtverwaltung (niedrigste der 6 Wertungen)",
+           "g": ["Stagnierend", "Sehr Langsames Wachstum", "Langsames Wachstum", "Wachsend", "Schnell Wachsend", "Unfassbar schnell wachsend"]},
+}
+GM_COL = ["#5a2a2a", "#7a3f2c", "#8a6a2a", "#4f7a4a", "#2f8f80", "#38d1bf"]
+
+
+def growth_matrix(lang):
+    t = T_GM[lang]
+    s = Svg("gm", 900, 470)
+    X0, Y0, CW, RH = 250, 104, 88, 44
+    cols = [None] + list(range(6))
+    s.text(X0 + CW * 3.5, 24, t["sup"], 15, GOLD, weight=800)
+    for j, c in enumerate(cols):
+        lab = t["none"] if c is None else t["lv"][c]
+        s.wrapped(X0 + j * CW + CW / 2, 66, lab, 14, 11.5, DIM if c is None else TEXT, "middle", 600)
+    s.add(f'<text font-size="12.5" font-weight="800" fill="{TEAL}" font-family="{FONT}" text-anchor="middle" '
+          f'transform="translate(30 {Y0 + RH * 3}) rotate(-90)">{html.escape(t["auth"])}</text>')
+    for r in range(6):
+        a = 5 - r
+        y = Y0 + r * RH
+        s.text(X0 - 14, y + RH / 2 + 5, t["lv"][a], 12.5, TEXT, "end", 600)
+        for j, c in enumerate(cols):
+            gi = _growth_index(a, c)
+            x = X0 + j * CW
+            s.rect(x + 2, y + 2, CW - 4, RH - 4, GM_COL[gi], r=6)
+            s.text(x + CW / 2, y + RH / 2 + 5, f"{int(GROWTH_XP[gi] * 100)} %", 14, DEEP if gi >= 4 else TEXT, weight=800)
+    ly = Y0 + 6 * RH + 30
+    for k in range(6):
+        x = 40 + (k % 3) * 285
+        y = ly + (k // 3) * 32
+        s.rect(x, y - 13, 18, 18, GM_COL[k], r=4)
+        s.text(x + 28, y + 1, f"{int(GROWTH_XP[k] * 100)} %  {t['g'][k]}", 12.5, TEXT, "start", 500)
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- towns: size per levels gained
+T_TS = {
+    "en": {"cap": "Target size of a town (all its districts together) compared with its size at the start, "
+                  "by levels gained since then.",
+           "x": "levels gained since the start", "y": "size × start", "rows": "levels gained → size"},
+    "fr": {"cap": "Taille visée d'une ville (tous ses quartiers ensemble) comparée à sa taille au départ, "
+                  "selon les niveaux gagnés depuis.",
+           "x": "niveaux gagnés depuis le départ", "y": "taille × départ", "rows": "niveaux gagnés → taille"},
+    "de": {"cap": "Zielgröße einer Stadt (alle Viertel zusammen) im Vergleich zu ihrer Größe am Anfang, "
+                  "nach den seitdem gewonnenen Stufen.",
+           "x": "gewonnene Stufen seit dem Start", "y": "Größe × Start", "rows": "gewonnene Stufen → Größe"},
+}
+
+
+def _size_factor(levels_gained):
+    l = levels_gained + 1  # town_cargo_util.tl:107
+    return 0.00930472 * l ** 3 - 0.08061382 * l ** 2 + 0.63330472 * l + 0.438
+
+
+def town_size(lang):
+    t = T_TS[lang]
+    s = Svg("ts", 900, 320)
+    X0, Y0, W, H = 80, 256, 540, 210
+    px = lambda g: X0 + g / 17 * W
+    py = lambda f: Y0 - (f - 1) / 39 * H
+    fmt = (lambda v: f"{v:.1f}") if lang == "en" else (lambda v: f"{v:.1f}".replace(".", ","))
+    s.rect(X0, Y0 - H, W, H, "#121921", r=10, stroke=LINE)
+    for f in (1, 10, 20, 30, 40):
+        s.add(f'<line x1="{X0}" y1="{py(f)}" x2="{X0 + W}" y2="{py(f)}" stroke="{LINE}" stroke-dasharray="2 5"/>')
+        s.text(X0 - 10, py(f) + 4, f"×{f}", 12, DIM, "end")
+    for g in (0, 4, 8, 12, 17):
+        s.text(px(g), Y0 + 20, str(g), 12, DIM)
+    s.text(X0 + W / 2, Y0 + 46, t["x"], 13, TEXT, weight=600)
+    s.add(f'<text font-size="13" font-weight="600" fill="{TEXT}" font-family="{FONT}" text-anchor="middle" '
+          f'transform="translate({X0 - 52} {Y0 - H / 2}) rotate(-90)">{html.escape(t["y"])}</text>')
+    pts = [(px(g / 4), py(_size_factor(g / 4))) for g in range(0, 69)]
+    d = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts)
+    s.add(f'<path d="{d}" fill="none" stroke="{TEAL}" stroke-width="3.5" stroke-linejoin="round"/>')
+    s.card(660, 40, 224, 216, stroke=TEAL)
+    s.text(680, 70, t["rows"], 13, TEAL, "start", 800)
+    for i, g in enumerate((1, 4, 8, 12, 17)):
+        f = _size_factor(g)
+        s.add(f'<circle cx="{px(g)}" cy="{py(f)}" r="5" fill="{GOLD}" stroke="{DEEP}" stroke-width="2"/>')
+        y = 104 + i * 32
+        s.text(690, y, f"+{g}", 15, TEXT, "start", 700)
+        s.text(860, y, f"×{fmt(f)}", 15, GOLD, "end", 800)
+    return s.svg(), t["cap"]
+
+
 REGISTRY = {
+    "town_xp": town_xp,
+    "growth_matrix": growth_matrix,
+    "town_size": town_size,
     "income_formula": income_formula,
     "income_distance": income_distance,
     "delivery_times": delivery_times,

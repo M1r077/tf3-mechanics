@@ -79,7 +79,7 @@ Le fret en retard est payé en entier, mais chaque ville garde une note **Livrai
 ```diagram delivery_rating
 ```
 
-Les notes d'une ville freinent sa croissance ; la façon dont elles se combinent sera expliquée dans la future page Villes.
+Livraison est l'une des six notes dont la plus basse fixe le taux de croissance de la ville : une seule note Très insuffisant arrête la ville (voir [Croissance des villes](towns.html)).
 
 ## Exemple
 

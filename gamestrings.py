@@ -30,9 +30,10 @@ def main():
     args = sys.argv[1:]
     if args and args[0] == "--find":
         needle = args[1].lower()
-        for k in sorted(catalog("fr")._catalog):
+        for k in sorted(catalog("fr")._catalog, key=str):
             if isinstance(k, str) and needle in k.lower():
-                print(f"{k!r:60} fr={tr(k, 'fr')!r}  de={tr(k, 'de')!r}")
+                fr, de = catalog("fr")._catalog.get(k), catalog("de")._catalog.get(k)
+                print(f"{k!r:60} fr={fr!r}  de={de!r}")
         return
     for msgid in args:
         print(msgid)
