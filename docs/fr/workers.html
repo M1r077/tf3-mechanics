@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Travailleurs et bonus des travailleurs · Mécaniques TF3</title>
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header><div class="wrap top"><a class="brand" href="../fr/index.html">TF3 <span>MECHANICS</span></a>
+<nav class="langs"><a href="../en/workers.html" class="" hreflang="en">EN</a><a href="../fr/workers.html" class="on" hreflang="fr">FR</a><a href="../de/workers.html" class="" hreflang="de">DE</a></nav></div></header>
+<main><div class="wrap"><p><a href="index.html">← Index</a></p><h1>Travailleurs et bonus des travailleurs</h1><p class="lead">Comment les habitants obtiennent un emploi dans une industrie, lesquels comptent pour le bonus, et quelle est sa taille.</p><div class="meta"><span class="pill verified">Vérifié</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster">Wiki officiel ↗</a><span class="pill">Mis à jour 2026-11-14</span></div><p>Chaque industrie offre des emplois. Quand assez de travailleurs <strong>arrivent par tes lignes de passagers</strong>, l'industrie produit davantage. La fenêtre de l'industrie affiche deux nombres différents, et les confondre est la première source de malentendus.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="900" role="img"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="40" width="170" height="110" rx="8" fill="#1d2329" stroke="#2e363e" stroke-width="2"/><text x="105" y="85" font-size="20" fill="#e6e9ec" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Logement</text><text x="105" y="112.0" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">dans une ville</text><rect x="330" y="40" width="240" height="110" rx="8" fill="#1d2329" stroke="#e8b13a" stroke-width="2"/><text x="450" y="85" font-size="18" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Tes lignes de passagers</text><text x="450" y="112.0" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">à pied et en voiture</text><text x="450" y="130.9" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">interdit</text><rect x="710" y="40" width="170" height="110" rx="8" fill="#1d2329" stroke="#2e363e" stroke-width="2"/><text x="795" y="85" font-size="20" fill="#e6e9ec" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Industrie</text><text x="795" y="112.0" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">20 emplois</text><line x1="190" y1="95" x2="326" y2="95" stroke="#e8b13a" stroke-width="3" marker-end="url(#ah)"/><line x1="570" y1="95" x2="706" y2="95" stroke="#e8b13a" stroke-width="3" marker-end="url(#ah)"/><rect x="150" y="200" width="280" height="130" rx="8" fill="#1d2329" stroke="#9aa4ad" stroke-width="2" stroke-dasharray="6 5"/><text x="290" y="232" font-size="18" fill="#e6e9ec" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Attribués</text><text x="290" y="260.0" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">habitants dont l&#x27;emploi</text><text x="290" y="278.9" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">est cette industrie</text><text x="290" y="297.8" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">(jauge des emplois)</text><rect x="470" y="200" width="280" height="130" rx="8" fill="#1d2329" stroke="#3cc2b4" stroke-width="2"/><text x="610" y="232" font-size="18" fill="#3cc2b4" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Comptés pour le bonus</text><text x="610" y="260.0" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">arrivées par tes lignes</text><text x="610" y="278.9" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">sur les 2 dernières années,</text><text x="610" y="297.8" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">les 20 dernières gardées</text><line x1="795" y1="150" x2="700" y2="196" stroke="#9aa4ad" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><line x1="795" y1="150" x2="380" y2="196" stroke="#9aa4ad" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><rect x="150" y="352" width="600" height="62" rx="8" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><text x="450" y="378" font-size="16" fill="#e6e9ec" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Bonus quand les comptés ≥ 50 % des emplois (10 sur 20)</text><text x="450" y="401" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Production × 1,5 à 2,5 (fixe pour chaque industrie)</text></svg><figcaption>Deux comptes différents : les habitants que le jeu attribue à l&#x27;industrie, et les arrivées qui comptent pour le bonus.</figcaption></figure>
+<h2 id="qui-peut-travailler-dans-une-industrie">Qui peut travailler dans une industrie</h2>
+<ul>
+<li>Chaque industrie du jeu de base a <strong>20 emplois</strong> (<code>industrialCapacity = 20</code> dans le .con.lua de chaque industrie).</li>
+<li>Les emplois sont réglés pour que les habitants <strong>ne puissent pas y aller à pied ni en voiture</strong> : seules tes lignes peuvent les amener (<code class="src">industryutil.lua:451-457</code>, <code>disallowedMoveModes = {"WALK", "DRIVE"}</code>).</li>
+<li>Chaque habitant a un logement, un commerce et un emploi. Le jeu choisit l'emploi parmi les lieux que l'habitant peut atteindre ; une industrie a un poids de destination de 2,0 (<code class="src">industryutil.lua:455</code>).</li>
+</ul>
+<blockquote class="engine"><strong>Décidé par le moteur du jeu (C++), non visible dans les scripts.</strong><p>La façon dont un habitant choisit un emploi parmi tous les lieux qu'il peut atteindre (temps de trajet, coût, poids de 2,0) est calculée par le moteur. Les scripts ne donnent que les données d'entrée.</p></blockquote>
+<h2 id="travailleurs-attribues">Travailleurs attribués</h2>
+<p>Les habitants dont l'emploi est cette industrie. C'est la jauge des emplois de la fenêtre de l'industrie et la colonne <strong>Lieux de travail</strong> des statistiques des industries (« 12/20 ») (<code class="src">entity_window_util.tl:1238</code>, <code class="src">statistic_industries.tl:305</code>). Être attribué ne suffit <strong>pas</strong> pour le bonus : il faut vraiment faire le trajet.</p>
+<h2 id="travailleurs-comptes-pour-le-bonus">Travailleurs comptés pour le bonus</h2>
+<p>Un petit script du jeu, <code class="src">industry_workers.script.tl</code>, surveille chaque arrivée :</p>
+<ol>
+<li>Quand un habitant arrive à une industrie et que son <strong>dernier trajet s'est fait par tes lignes</strong>, l'arrivée est notée avec l'heure du jeu (<code class="src">industry_workers.script.tl:86-118</code>).</li>
+<li>Seules les arrivées des <strong>2 dernières années de jeu</strong> sont gardées (<code class="src">industry_productivity_util.tl:3</code> : <code>2 * getDefaultYearDuration()</code>).</li>
+<li>Au plus les <strong>20 dernières</strong> arrivées sont gardées (<code class="src">industry_workers.script.tl:4</code>, <code>KeepHistoryCount = 20</code>).</li>
+<li>Quand la même personne arrive à nouveau, la nouvelle arrivée remplace l'ancienne : chaque habitant compte <strong>une seule fois</strong> (<code class="src">industry_workers.script.tl:56-70</code>).</li>
+</ol>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" width="900" role="img"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="120" y="60" width="700" height="70" rx="8" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><line x1="40" y1="95" x2="870" y2="95" stroke="#9aa4ad" stroke-width="2"/><text x="820" y="160" font-size="15" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">maintenant</text><text x="120" y="160" font-size="15" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">il y a 2 ans</text><circle cx="170" cy="95" r="9" fill="#3cc2b4"/><circle cx="230" cy="95" r="9" fill="#3cc2b4"/><circle cx="300" cy="95" r="9" fill="#3cc2b4"/><circle cx="340" cy="95" r="9" fill="#3cc2b4"/><circle cx="420" cy="95" r="9" fill="#3cc2b4"/><circle cx="470" cy="95" r="9" fill="#3cc2b4"/><circle cx="540" cy="95" r="9" fill="#3cc2b4"/><circle cx="610" cy="95" r="9" fill="#3cc2b4"/><circle cx="650" cy="95" r="9" fill="#3cc2b4"/><circle cx="720" cy="95" r="9" fill="#3cc2b4"/><circle cx="780" cy="95" r="9" fill="#3cc2b4"/><circle cx="55" cy="95" r="9" fill="#2e363e" stroke="#9aa4ad"/><circle cx="85" cy="95" r="9" fill="#2e363e" stroke="#9aa4ad"/><text x="470" y="50" font-size="15" fill="#3cc2b4" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">comptée</text><text x="70" y="50" font-size="13" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">trop ancienne : retirée</text><text x="450" y="200" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">même personne à nouveau : seule la dernière arrivée est gardée</text></svg><figcaption>Chaque arrivée par tes lignes est retenue 2 années de jeu ; au plus les 20 dernières sont gardées.</figcaption></figure>
+<h2 id="quand-le-bonus-demarre-et-sarrete">Quand le bonus démarre et s'arrête</h2>
+<ul>
+<li>L'industrie est boostée quand les travailleurs comptés atteignent <strong>la moitié des emplois</strong> : <code>comptés ≥ emplois × 0,5</code> (<code class="src">industry_productivity_util.tl:35-48</code>, <code>RequiredWorkersFractionForBoost = 0.5</code>). Avec 20 emplois : <strong>10 travailleurs</strong>.</li>
+<li>La section Boosters de la fenêtre de l'industrie affiche exactement cela : « comptés / nécessaires », arrondi au supérieur (<code class="src">industry_react_util.tl:627</code>).</li>
+<li>La vérification est refaite à chaque nouvelle arrivée ou quand la plus ancienne dépasse 2 ans (<code class="src">industry_workers.script.tl:40-43</code>). Le bonus <strong>s'arrête donc tout seul</strong> environ 2 ans après que les travailleurs ne viennent plus.</li>
+</ul>
+<h2 id="taille-du-bonus">Taille du bonus</h2>
+<ul>
+<li>La production est multipliée par le <strong>facteur de bonus</strong> de l'industrie, affiché « +X % » dans la fenêtre (<code class="src">industry_react_util.tl:716</code>).</li>
+<li>Ce facteur est tiré une fois à partir de la graine aléatoire de l'industrie : <strong>entre ×1,5 et ×2,5</strong>, et il ne change jamais pour cette industrie (<code class="src">industry_productivity_util.tl:58-72</code>). Une industrie sans graine utilise ×2.</li>
+<li>Deux mines identiques peuvent donc avoir des bonus différents : regarde le « +X % » avant de choisir laquelle desservir.</li>
+</ul>
+<h2 id="exemple">Exemple</h2>
+<p>Une mine de charbon avec 20 emplois et « +84 % ».</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Comptés</th>
+<th>Boostée ?</th>
+<th>Production</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nouvelle ligne de bus : 14 habitants attribués, aucun n'est encore arrivé</td>
+<td>0</td>
+<td>non</td>
+<td>×1</td>
+</tr>
+<tr>
+<td>12 habitants différents sont arrivés en bus cette année</td>
+<td>12</td>
+<td>oui (≥ 10)</td>
+<td>×1,84</td>
+</tr>
+<tr>
+<td>Ligne supprimée ; personne n'arrive pendant 2 ans</td>
+<td>tombe à 0</td>
+<td>s'arrête</td>
+<td>×1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bon-a-savoir">Bon à savoir</h2>
+<ul>
+<li>La limite de 20 arrivées gardées et la règle des 50 % font qu'une industrie de <strong>plus de 40 emplois</strong> (possible avec des mods) ne pourrait jamais être boostée par les travailleurs.</li>
+<li>La subvention « Transporter des travailleurs » est remplie quand ce bonus s'active (wiki officiel, Subventions).</li>
+<li>Le fret booster (engrais, machines, outils) est un bonus <strong>distinct</strong> des industries de matières premières, non traité ici.</li>
+</ul>
+<div class="check"><h4>Vérifié avec</h4><dl><dt>Wiki officiel</dt><dd>« If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again. » (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster">Industries and Cargo</a>)</dd><dt>Scripts du jeu</dt><dd>« Suffisamment » = la moitié des emplois (10 sur 20) ; « récemment » = les 2 dernières années de jeu, 20 dernières arrivées, une par personne, uniquement par tes lignes ; facteur de bonus ×1,5 à ×2,5 selon l'industrie.</dd><dt></dt><dd class="res refines">précise</dd></dl></div><p class="src"><small>Les chemins sont dans le dossier base/content du jeu ou dans ses fichiers zip.</small></p></div></main>
+<footer><div class="wrap">Projet de fan par Miro. Non affilié à Urban Games. Textes et images : CC BY 4.0. Code du jeu © Urban Games : seules de courtes références sont montrées. · <a href="https://wiki.transportfever3.com">Wiki officiel</a></div></footer>
+</body></html>

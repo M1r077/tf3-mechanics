@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vitesse de chargement et de déchargement · Mécaniques TF3</title>
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header><div class="wrap top"><a class="brand" href="../fr/index.html">TF3 <span>MECHANICS</span></a>
+<nav class="langs"><a href="../en/loading.html" class="" hreflang="en">EN</a><a href="../fr/loading.html" class="on" hreflang="fr">FR</a><a href="../de/loading.html" class="" hreflang="de">DE</a></nav></div></header>
+<main><div class="wrap"><p><a href="index.html">← Index</a></p><h1>Vitesse de chargement et de déchargement</h1><p class="lead">Ce qui fait qu&#x27;un véhicule charge vite ou lentement à un arrêt : le véhicule, les sections du quai et le stock qui donne ou reçoit le fret.</p><div class="meta"><span class="pill verified">Vérifié</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles#loading_speed">Wiki officiel ↗</a><span class="pill">Mis à jour 2026-11-14</span></div><p>Le temps qu'un véhicule passe à charger ou décharger, c'est sa propre vitesse de chargement multipliée par deux facteurs : un pour le <strong>quai</strong>, un pour le <strong>stock</strong> de l'autre côté (entrepôt, industrie, ville).</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="50" width="220" height="200" rx="8" fill="#1d2329" stroke="#2e363e" stroke-width="2"/><text x="130" y="92" font-size="20" fill="#e6e9ec" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Véhicule</text><text x="130" y="122.0" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">vitesse de base</text><text x="130" y="140.9" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">(magasin de véhicules)</text><text x="270" y="160" font-size="34" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">×</text><rect x="300" y="30" width="300" height="240" rx="8" fill="#1d2329" stroke="#e8b13a" stroke-width="2"/><text x="450" y="66" font-size="20" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Facteur du quai</text><text x="450" y="98.0" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x2 wagons sur une section</text><text x="450" y="116.9" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">de leur classe</text><text x="450" y="135.8" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x1 section universelle</text><text x="450" y="154.7" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x0,25 aucune section adaptée</text><text x="450" y="173.60000000000002" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x0,25 partie plus longue</text><text x="450" y="192.5" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">que le quai</text><text x="630" y="160" font-size="34" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">×</text><rect x="660" y="50" width="220" height="200" rx="8" fill="#1d2329" stroke="#3cc2b4" stroke-width="2"/><text x="770" y="92" font-size="20" fill="#3cc2b4" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Facteur du stock</text><text x="770" y="124.0" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x2 module d&#x27;entrepôt</text><text x="770" y="142.9" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">spécialisé</text><text x="770" y="161.8" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x1 entrepôt universel,</text><text x="770" y="180.7" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">industrie, ville</text></svg><figcaption>Vitesse de chargement = vitesse de base du véhicule × facteur du quai × facteur du stock.</figcaption></figure>
+<h2 id="1-le-vehicule">1. Le véhicule</h2>
+<p>Chaque véhicule a une vitesse de chargement de base, affichée dans le magasin de véhicules et la fenêtre du véhicule (« 2.0x »). Tout ce qui suit la multiplie.</p>
+<h2 id="2-le-facteur-du-quai">2. Le facteur du quai</h2>
+<p>Pour le jeu, un quai n'est pas une rangée de modules : c'est une <strong>liste de sections, une par classe de fret</strong>, avec les longueurs de tous les modules de cette classe additionnées.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 250" width="900" role="img"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><text x="450" y="30" font-size="16" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Quai 160 m</text><rect x="60" y="45" width="585" height="50" rx="4" fill="#3a3220" stroke="#e8b13a" stroke-width="2"/><text x="352" y="77" font-size="16" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Vrac 120 m</text><rect x="645" y="45" width="195" height="50" rx="4" fill="#1d2329" stroke="#9aa4ad" stroke-width="2"/><text x="742" y="77" font-size="16" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Universel 40 m</text><rect x="70" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="166" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="262" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="358" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="454" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="550" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="646" y="115" width="86" height="34" rx="4" fill="#2e363e" stroke="#9aa4ad" stroke-width="2"/><rect x="742" y="115" width="86" height="34" rx="4" fill="#2e363e" stroke="#9aa4ad" stroke-width="2"/><text x="352" y="180" font-size="15" fill="#3cc2b4" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">wagons vrac sur 120 m : x2</text><text x="742" y="180" font-size="15" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">les autres wagons : x1 (universel)</text><text x="450" y="225" font-size="15" fill="#e0675a" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">aucune section vrac : x0,25</text></svg><figcaption>Un quai est une liste de sections, une par classe de fret, avec les longueurs des modules de chaque classe additionnées. L&#x27;endroit où s&#x27;arrête un wagon ne compte pas.</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Wagons…</th>
+<th>Facteur</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sur une section de leur classe (wagons vrac, section vrac)</td>
+<td><strong>×2</strong></td>
+<td><code class="src">modular_station.script.lua:1042</code></td>
+</tr>
+<tr>
+<td>sur une section universelle</td>
+<td>×1</td>
+<td><code class="src">modular_station.script.lua:1042</code></td>
+</tr>
+<tr>
+<td>sans aucune section de leur classe sur le quai</td>
+<td><strong>×0,25</strong></td>
+<td><code class="src">cargo_react_util.tl:60</code></td>
+</tr>
+<tr>
+<td>au-delà de la longueur du quai (train trop long)</td>
+<td><strong>×0,25</strong></td>
+<td><code class="src">cargo_react_util.tl:61</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Le facteur est un <strong>mélange selon la part du train</strong> : si 3/4 des wagons correspondent et 1/4 non, le facteur vaut ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (<code class="src">cargo_react_util.tl:63-70</code>, le même découpage que le jeu affiche comme « Terminal partiellement spécialisé »).</li>
+<li><strong>L'endroit</strong> où les wagons s'arrêtent sur le quai ne compte pas, seules les longueurs additionnées comptent (mesuré en jeu).</li>
+<li>Route : les terminaux de camions spécialisés donnent ×2 (<code class="src">modular_terminal.script.lua:2956</code>) ; les petits arrêts de rue sont toujours à ×1 (<code class="src">small_stops.script.lua:19</code>).</li>
+<li>Les quais de passagers sont à ×1.</li>
+</ul>
+<h2 id="3-le-facteur-du-stock">3. Le facteur du stock</h2>
+<p>Au déchargement, chaque unité va à un destinataire : un module d'entrepôt, une industrie ou un bâtiment de ville. Le stock du destinataire a son propre facteur.</p>
+<table>
+<thead>
+<tr>
+<th>Destinataire</th>
+<th>Facteur</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>module d'entrepôt <strong>spécialisé</strong> (liquide, vrac, plateau, marchandises)</td>
+<td><strong>×2</strong></td>
+<td><code class="src">modules.script.lua:120</code>, <code class="src">warehouse.script.lua:297-314</code></td>
+</tr>
+<tr>
+<td>entrepôt <strong>universel</strong></td>
+<td>×1</td>
+<td><code class="src">warehouse.script.lua:272-285</code></td>
+</tr>
+<tr>
+<td>industrie</td>
+<td>×1</td>
+<td>mesuré en jeu</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Chaque module d'entrepôt demande ×2, mais les modules universels ne font qu'ajouter de la capacité à <strong>un stock universel commun</strong>, créé à ×1. Seuls les modules spécialisés ont leur propre stock à ×2.</li>
+<li>L'info-bulle du jeu appelle ce facteur « Entrepôt spécialisé : +100 % » (<code class="src">cargo_react_util.tl:51-54</code>).</li>
+<li>Pendant un même déchargement, le jeu sert les destinataires <strong>à tour de rôle</strong> : la vitesse change pendant que le train décharge quand une partie du fret va à un entrepôt et une partie à une industrie (mesuré en jeu).</li>
+</ul>
+<blockquote class="engine"><strong>Décidé par le moteur du jeu (C++), non visible dans les scripts.</strong><p>Le choix du destinataire de chaque unité et la multiplication finale se font dans le moteur. Les facteurs ci-dessus sont les données que les scripts lui donnent ; le résultat a été vérifié avec les valeurs exposées par le moteur (sonde de Platform Details, octobre 2026).</p></blockquote>
+<h2 id="ce-que-le-jeu-affiche">Ce que le jeu affiche</h2>
+<ul>
+<li>L'indicateur de chargement est dessiné <strong>accéléré</strong> au-dessus de ×1,5 et <strong>ralenti</strong> en dessous de ×0,75 (<code class="src">cargo_react_util.tl:119-122</code>).</li>
+<li>Survole-le : l'info-bulle liste « Terminal spécialisé », « Spécialisations incompatibles », « Terminal trop court » et « Entrepôt spécialisé », chacun avec son pourcentage (<code class="src">cargo_react_util.tl:76-99</code>).</li>
+</ul>
+<h2 id="exemple">Exemple</h2>
+<p>Un train de 8 wagons vrac, long de 160 m, qui décharge du charbon.</p>
+<table>
+<thead>
+<tr>
+<th>Gare</th>
+<th>Quai</th>
+<th>Destinataire</th>
+<th>Facteur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>quai universel 160 m</td>
+<td>×1</td>
+<td>aciérie</td>
+<td><strong>×1</strong></td>
+</tr>
+<tr>
+<td>quai vrac 160 m</td>
+<td>×2</td>
+<td>aciérie</td>
+<td><strong>×2</strong></td>
+</tr>
+<tr>
+<td>quai vrac 160 m</td>
+<td>×2</td>
+<td>entrepôt vrac spécialisé</td>
+<td><strong>×4</strong></td>
+</tr>
+<tr>
+<td>quai vrac 160 m</td>
+<td>×2</td>
+<td>entrepôt universel</td>
+<td><strong>×2</strong></td>
+</tr>
+<tr>
+<td>quai universel 120 m (train trop long de 40 m)</td>
+<td>¾ × 1 + ¼ × 0,25 ≈ ×0,81</td>
+<td>aciérie</td>
+<td><strong>×0,81</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="bon-a-savoir">Bon à savoir</h2>
+<ul>
+<li>Les gares à l'intérieur d'une industrie sont toujours spécialisées pour le fret dont l'industrie a besoin (wiki officiel).</li>
+<li>Les modules d'entrepôt spécialisés gèlent aussi le délai de livraison du fret stocké (wiki officiel) ; un entrepôt universel non.</li>
+<li>Platform Details affiche les deux facteurs de chaque véhicule à quai, et où est parti le fret déchargé.</li>
+</ul>
+<div class="check"><h4>Vérifié avec</h4><dl><dt>Wiki officiel</dt><dd>« Loading speed is also influenced by the vehicle's specialization, the terminal's specialization and where applicable, a warehouse's specialization. » Les entrepôts spécialisés « enable faster loading / unloading speeds ». (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles">Lines and Vehicles</a>, <a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses">Warehouses</a>)</dd><dt>Scripts du jeu</dt><dd>Section spécialisée ×2, universelle ×1, aucune section adaptée ×0,25, au-delà du quai ×0,25, mélangés selon la part du train ; module d'entrepôt spécialisé ×2, entrepôt universel ×1.</dd><dt></dt><dd class="res refines">précise</dd></dl></div><p class="src"><small>Les chemins sont dans le dossier base/content du jeu ou dans ses fichiers zip.</small></p></div></main>
+<footer><div class="wrap">Projet de fan par Miro. Non affilié à Urban Games. Textes et images : CC BY 4.0. Code du jeu © Urban Games : seules de courtes références sont montrées. · <a href="https://wiki.transportfever3.com">Wiki officiel</a></div></footer>
+</body></html>

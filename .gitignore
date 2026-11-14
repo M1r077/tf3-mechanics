@@ -1,0 +1,5 @@
+# derived from the game files: kept local, never published
+data/index.json
+cache/
+__pycache__/
+*.pyc

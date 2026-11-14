@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lade- und Entladegeschwindigkeit · TF3-Mechaniken</title>
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<header><div class="wrap top"><a class="brand" href="../de/index.html">TF3 <span>MECHANICS</span></a>
+<nav class="langs"><a href="../en/loading.html" class="" hreflang="en">EN</a><a href="../fr/loading.html" class="" hreflang="fr">FR</a><a href="../de/loading.html" class="on" hreflang="de">DE</a></nav></div></header>
+<main><div class="wrap"><p><a href="index.html">← Index</a></p><h1>Lade- und Entladegeschwindigkeit</h1><p class="lead">Was ein Fahrzeug an einem Halt schnell oder langsam laden lässt: das Fahrzeug, die Bahnsteigabschnitte und das Lager, das die Fracht gibt oder nimmt.</p><div class="meta"><span class="pill verified">Geprüft</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles#loading_speed">Offizielles Wiki ↗</a><span class="pill">Aktualisiert 2026-11-14</span></div><p>Die Zeit, die ein Fahrzeug zum Laden oder Entladen braucht, ist seine eigene Ladegeschwindigkeit mal zwei Faktoren: einer für den <strong>Bahnsteig</strong>, einer für das <strong>Lager</strong> auf der anderen Seite (Lager, Industrie, Stadt).</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="50" width="220" height="200" rx="8" fill="#1d2329" stroke="#2e363e" stroke-width="2"/><text x="130" y="92" font-size="20" fill="#e6e9ec" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Fahrzeug</text><text x="130" y="122.0" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Grund-Ladegeschw.</text><text x="130" y="140.9" font-size="14" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">(Fahrzeugkauf)</text><text x="270" y="160" font-size="34" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">×</text><rect x="300" y="30" width="300" height="240" rx="8" fill="#1d2329" stroke="#e8b13a" stroke-width="2"/><text x="450" y="66" font-size="20" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Bahnsteigfaktor</text><text x="450" y="98.0" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x2 Wagen auf Abschnitt</text><text x="450" y="116.9" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">ihrer Klasse</text><text x="450" y="135.8" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x1 Universalabschnitt</text><text x="450" y="154.7" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x0,25 kein passender Abschnitt</text><text x="450" y="173.60000000000002" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x0,25 Teil länger</text><text x="450" y="192.5" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">als der Bahnsteig</text><text x="630" y="160" font-size="34" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">×</text><rect x="660" y="50" width="220" height="200" rx="8" fill="#1d2329" stroke="#3cc2b4" stroke-width="2"/><text x="770" y="92" font-size="20" fill="#3cc2b4" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Lagerfaktor</text><text x="770" y="124.0" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x2 spezialisiertes</text><text x="770" y="142.9" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Lagermodul</text><text x="770" y="161.8" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">x1 Universallager,</text><text x="770" y="180.7" font-size="14" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Industrie, Stadt</text></svg><figcaption>Ladegeschwindigkeit = Grundgeschwindigkeit des Fahrzeugs × Bahnsteigfaktor × Lagerfaktor.</figcaption></figure>
+<h2 id="1-das-fahrzeug">1. Das Fahrzeug</h2>
+<p>Jedes Fahrzeug hat eine Grund-Ladegeschwindigkeit, angezeigt im Fahrzeugkauf und im Fahrzeugfenster („2.0x“). Alles Folgende multipliziert sie.</p>
+<h2 id="2-der-bahnsteigfaktor">2. Der Bahnsteigfaktor</h2>
+<p>Für das Spiel ist ein Bahnsteig keine Reihe von Modulen, sondern eine <strong>Liste von Abschnitten, einer pro Frachtklasse</strong>, mit den addierten Längen aller Module dieser Klasse.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 250" width="900" role="img"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><text x="450" y="30" font-size="16" fill="#9aa4ad" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Bahnsteig 160 m</text><rect x="60" y="45" width="585" height="50" rx="4" fill="#3a3220" stroke="#e8b13a" stroke-width="2"/><text x="352" y="77" font-size="16" fill="#e8b13a" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Schüttgut 120 m</text><rect x="645" y="45" width="195" height="50" rx="4" fill="#1d2329" stroke="#9aa4ad" stroke-width="2"/><text x="742" y="77" font-size="16" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">Universal 40 m</text><rect x="70" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="166" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="262" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="358" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="454" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="550" y="115" width="86" height="34" rx="4" fill="#18302d" stroke="#3cc2b4" stroke-width="2"/><rect x="646" y="115" width="86" height="34" rx="4" fill="#2e363e" stroke="#9aa4ad" stroke-width="2"/><rect x="742" y="115" width="86" height="34" rx="4" fill="#2e363e" stroke="#9aa4ad" stroke-width="2"/><text x="352" y="180" font-size="15" fill="#3cc2b4" text-anchor="middle" font-weight="bold" font-family="Segoe UI,system-ui,sans-serif">Schüttgutwagen auf 120 m: x2</text><text x="742" y="180" font-size="15" fill="#e6e9ec" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">die übrigen Wagen: x1 (universal)</text><text x="450" y="225" font-size="15" fill="#e0675a" text-anchor="middle" font-weight="normal" font-family="Segoe UI,system-ui,sans-serif">kein Schüttgut-Abschnitt: x0,25</text></svg><figcaption>Ein Bahnsteig ist eine Liste von Abschnitten, einer pro Frachtklasse, mit den addierten Modullängen jeder Klasse. Wo ein Wagen steht, zählt nicht.</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Wagen…</th>
+<th>Faktor</th>
+<th>Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auf einem Abschnitt ihrer Klasse (Schüttgutwagen, Schüttgut-Abschnitt)</td>
+<td><strong>×2</strong></td>
+<td><code class="src">modular_station.script.lua:1042</code></td>
+</tr>
+<tr>
+<td>auf einem Universalabschnitt</td>
+<td>×1</td>
+<td><code class="src">modular_station.script.lua:1042</code></td>
+</tr>
+<tr>
+<td>ohne Abschnitt ihrer Klasse am Bahnsteig</td>
+<td><strong>×0,25</strong></td>
+<td><code class="src">cargo_react_util.tl:60</code></td>
+</tr>
+<tr>
+<td>jenseits der Bahnsteiglänge (Zug zu lang)</td>
+<td><strong>×0,25</strong></td>
+<td><code class="src">cargo_react_util.tl:61</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Der Faktor ist eine <strong>Mischung nach Anteil am Zug</strong>: passen 3/4 der Wagen und 1/4 nicht, ist der Faktor ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (<code class="src">cargo_react_util.tl:63-70</code>, dieselbe Aufteilung, die das Spiel als „Teilweise spezialisiertes Terminal“ zeigt).</li>
+<li><strong>Wo</strong> die Wagen am Bahnsteig stehen, zählt nicht, nur die addierten Längen (im Spiel gemessen).</li>
+<li>Straße: spezialisierte LKW-Terminals geben ×2 (<code class="src">modular_terminal.script.lua:2956</code>); die kleinen Straßenhaltestellen sind immer ×1 (<code class="src">small_stops.script.lua:19</code>).</li>
+<li>Personenbahnsteige sind ×1.</li>
+</ul>
+<h2 id="3-der-lagerfaktor">3. Der Lagerfaktor</h2>
+<p>Beim Entladen geht jede Einheit an einen Empfänger: ein Lagermodul, eine Industrie oder ein Stadtgebäude. Das Lager des Empfängers hat seinen eigenen Faktor.</p>
+<table>
+<thead>
+<tr>
+<th>Empfänger</th>
+<th>Faktor</th>
+<th>Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>spezialisiertes</strong> Lagermodul (Flüssig, Schüttgut, Flachwagen, Stückgut)</td>
+<td><strong>×2</strong></td>
+<td><code class="src">modules.script.lua:120</code>, <code class="src">warehouse.script.lua:297-314</code></td>
+</tr>
+<tr>
+<td><strong>Universal</strong>lager</td>
+<td>×1</td>
+<td><code class="src">warehouse.script.lua:272-285</code></td>
+</tr>
+<tr>
+<td>Industrie</td>
+<td>×1</td>
+<td>im Spiel gemessen</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Jedes Lagermodul verlangt ×2, aber Universalmodule fügen nur Kapazität zu <strong>einem gemeinsamen Universallager</strong> hinzu, das mit ×1 angelegt wird. Nur spezialisierte Module haben ein eigenes Lager mit ×2.</li>
+<li>Der Tooltip des Spiels nennt diesen Faktor „Spezialisiertes Lager: +100 %“ (<code class="src">cargo_react_util.tl:51-54</code>).</li>
+<li>Während eines Entladevorgangs bedient das Spiel die Empfänger <strong>abwechselnd</strong>: die Geschwindigkeit ändert sich beim Entladen, wenn ein Teil der Fracht in ein Lager und ein Teil in eine Industrie geht (im Spiel gemessen).</li>
+</ul>
+<blockquote class="engine"><strong>Von der Spiel-Engine (C++) entschieden, in den Skripten nicht sichtbar.</strong><p>Welcher Empfänger jede Einheit bekommt und die endgültige Multiplikation geschehen in der Engine. Die Faktoren oben sind die Eingaben der Skripte; das Ergebnis wurde mit den Werten geprüft, die die Engine bereitstellt (Platform-Details-Sonde, Oktober 2026).</p></blockquote>
+<h2 id="was-das-spiel-zeigt">Was das Spiel zeigt</h2>
+<ul>
+<li>Die Ladeanzeige wird über ×1,5 als <strong>beschleunigt</strong> und unter ×0,75 als <strong>verlangsamt</strong> dargestellt (<code class="src">cargo_react_util.tl:119-122</code>).</li>
+<li>Fahr mit der Maus darüber: der Tooltip listet „Spezialisiertes Terminal“, „Spezialisierungen stimmen nicht überein“, „Terminal zu kurz“ und „Spezialisiertes Lager“, jeweils mit Prozentwert (<code class="src">cargo_react_util.tl:76-99</code>).</li>
+</ul>
+<h2 id="beispiel">Beispiel</h2>
+<p>Ein Zug mit 8 Schüttgutwagen, 160 m lang, entlädt Kohle.</p>
+<table>
+<thead>
+<tr>
+<th>Bahnhof</th>
+<th>Bahnsteig</th>
+<th>Empfänger</th>
+<th>Faktor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Universalbahnsteig 160 m</td>
+<td>×1</td>
+<td>Stahlwerk</td>
+<td><strong>×1</strong></td>
+</tr>
+<tr>
+<td>Schüttgut-Bahnsteig 160 m</td>
+<td>×2</td>
+<td>Stahlwerk</td>
+<td><strong>×2</strong></td>
+</tr>
+<tr>
+<td>Schüttgut-Bahnsteig 160 m</td>
+<td>×2</td>
+<td>spezialisiertes Schüttgutlager</td>
+<td><strong>×4</strong></td>
+</tr>
+<tr>
+<td>Schüttgut-Bahnsteig 160 m</td>
+<td>×2</td>
+<td>Universallager</td>
+<td><strong>×2</strong></td>
+</tr>
+<tr>
+<td>Universalbahnsteig 120 m (Zug 40 m zu lang)</td>
+<td>¾ × 1 + ¼ × 0,25 ≈ ×0,81</td>
+<td>Stahlwerk</td>
+<td><strong>×0,81</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="gut-zu-wissen">Gut zu wissen</h2>
+<ul>
+<li>Bahnhöfe innerhalb einer Industrie sind immer auf die Fracht spezialisiert, die die Industrie braucht (offizielles Wiki).</li>
+<li>Spezialisierte Lagermodule frieren außerdem die Lieferfrist der gelagerten Fracht ein (offizielles Wiki); ein Universallager nicht.</li>
+<li>Platform Details zeigt beide Faktoren jedes Fahrzeugs am Bahnsteig und wohin die entladene Fracht ging.</li>
+</ul>
+<div class="check"><h4>Geprüft mit</h4><dl><dt>Offizielles Wiki</dt><dd>„Loading speed is also influenced by the vehicle's specialization, the terminal's specialization and where applicable, a warehouse's specialization.“ Spezialisierte Lager „enable faster loading / unloading speeds“. (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles">Lines and Vehicles</a>, <a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses">Warehouses</a>)</dd><dt>Spielskripte</dt><dd>Spezialisierter Abschnitt ×2, universal ×1, kein passender Abschnitt ×0,25, jenseits des Bahnsteigs ×0,25, gemischt nach Anteil am Zug; spezialisiertes Lagermodul ×2, Universallager ×1.</dd><dt></dt><dd class="res refines">ergänzt</dd></dl></div><p class="src"><small>Die Pfade liegen im Ordner base/content des Spiels oder in seinen Zip-Dateien.</small></p></div></main>
+<footer><div class="wrap">Fanprojekt von Miro. Nicht mit Urban Games verbunden. Texte und Bilder: CC BY 4.0. Spielcode © Urban Games: es werden nur kurze Verweise gezeigt. · <a href="https://wiki.transportfever3.com">Offizielles Wiki</a></div></footer>
+</body></html>

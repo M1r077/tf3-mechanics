@@ -1,0 +1,142 @@
+[
+ {
+  "id": "gamemanual:installation:setup",
+  "title": "Setup",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:installation:setup"
+ },
+ {
+  "id": "gamemanual:installation:gamefilelocations",
+  "title": "Game File Locations",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:installation:gamefilelocations"
+ },
+ {
+  "id": "gamemanual:installation:troubleshooting",
+  "title": "Troubleshooting",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:installation:troubleshooting"
+ },
+ {
+  "id": "gamemanual:installation:updates",
+  "title": "Updates",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:installation:updates"
+ },
+ {
+  "id": "gamemanual:gettingstarted:about",
+  "title": "About the Game",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:about"
+ },
+ {
+  "id": "gamemanual:gettingstarted:tipstricks",
+  "title": "Tips and Tricks",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks"
+ },
+ {
+  "id": "gamemanual:gettingstarted:ingamehelp",
+  "title": "Ingame Help",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:ingamehelp"
+ },
+ {
+  "id": "gamemanual:gamemodes:campaign",
+  "title": "Campaign",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:campaign"
+ },
+ {
+  "id": "gamemanual:gamemodes:freegame",
+  "title": "Free Game",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:freegame"
+ },
+ {
+  "id": "gamemanual:gamemodes:mapeditor",
+  "title": "Map Editor",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:mapeditor"
+ },
+ {
+  "id": "gamemanual:gamemodes:achievements",
+  "title": "Achievements",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements"
+ },
+ {
+  "id": "gamemanual:ui:userinterface",
+  "title": "User Interface",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:userinterface"
+ },
+ {
+  "id": "gamemanual:ui:languages",
+  "title": "Languages",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:languages"
+ },
+ {
+  "id": "gamemanual:ui:controls",
+  "title": "Controls",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:controls"
+ },
+ {
+  "id": "gamemanual:ui:settings",
+  "title": "Settings",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:settings"
+ },
+ {
+  "id": "gamemanual:infrastructure:stationsdepots",
+  "title": "Stations and Depots",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"
+ },
+ {
+  "id": "gamemanual:infrastructure:streetstracks",
+  "title": "Streets and Tracks",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"
+ },
+ {
+  "id": "gamemanual:infrastructure:railwaysignals",
+  "title": "Railway Signals",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:railwaysignals"
+ },
+ {
+  "id": "gamemanual:infrastructure:warehouses",
+  "title": "Warehouses",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses"
+ },
+ {
+  "id": "gamemanual:infrastructure:landscaping",
+  "title": "Landscaping",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:landscaping"
+ },
+ {
+  "id": "gamemanual:infrastructure:bulldozing",
+  "title": "Bulldozing",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:bulldozing"
+ },
+ {
+  "id": "gamemanual:management:companyandfinances",
+  "title": "Company and Finances",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"
+ },
+ {
+  "id": "gamemanual:management:linesvehicles",
+  "title": "Lines and Vehicles",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles"
+ },
+ {
+  "id": "gamemanual:management:statisticsdatalayers",
+  "title": "Statistics and Data Layers",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:management:statisticsdatalayers"
+ },
+ {
+  "id": "gamemanual:management:subsidies",
+  "title": "Subsidies",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:management:subsidies"
+ },
+ {
+  "id": "gamemanual:simulation:overview",
+  "title": "Simulation Overview",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:overview"
+ },
+ {
+  "id": "gamemanual:simulation:towns",
+  "title": "Towns",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns"
+ },
+ {
+  "id": "gamemanual:simulation:industriescargos",
+  "title": "Industries and Cargos",
+  "url": "https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos"
+ }
+]
