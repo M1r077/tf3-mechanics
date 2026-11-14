@@ -344,6 +344,25 @@
    ],
    "need": "om te voltooien",
    "get": "na voltooiing"
+  },
+  "T_CYEAR": {
+   "cap": "Factoren die in de scripts van het kalenderjaar afhangen. Inkomsten hebben er geen; de instelling Inflatie verlaagt alleen de inkomsten met de bedrijfsrang.",
+   "x": "kalenderjaar",
+   "up": "onderhoud opslagplaatsen, havens, luchthavens",
+   "sub": "geld van subsidies",
+   "loan": "leningbedragen",
+   "inc": "inkomsten vracht en reizigers"
+  },
+  "T_LOAN": {
+   "cap": "Voorbeeld: 40 M tegen 8 %. De rente is één keer 8 % van het bedrag, wat de looptijd ook is, maand voor maand betaald met de aflossing. Vroeg afbetalen schrapt de rente die nog moest komen.",
+   "short": "5 jaar",
+   "long": "12 jaar",
+   "inside": "40 M + 3,2 M rente",
+   "py1": "3,2 M ÷ 5 = 0,64 M rente per jaar",
+   "py2": "3,2 M ÷ 12 = 0,27 M rente per jaar",
+   "rep": "Afbetalen na 3 jaar: nog 30 M te betalen",
+   "drop": "resterende rente (2,4 M): vervalt",
+   "same": "zelfde totale rente"
   }
  },
  "cargo": {

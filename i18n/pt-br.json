@@ -344,6 +344,25 @@
    ],
    "need": "para cumprir",
    "get": "ao cumprir"
+  },
+  "T_CYEAR": {
+   "cap": "Fatores definidos pelo ano do calendário nos scripts. A renda não tem nenhum; a configuração Inflação só baixa a renda com o ranque da empresa.",
+   "x": "ano do calendário",
+   "up": "manutenção de armazéns, portos, aeroportos",
+   "sub": "dinheiro dos subsídios",
+   "loan": "valor dos empréstimos",
+   "inc": "renda de carga e passageiros"
+  },
+  "T_LOAN": {
+   "cap": "Exemplo: 40 M a 8%. Os juros são uma vez só 8% do valor, seja qual for o prazo, pagos mês a mês com o principal. Quitar antes cancela os juros que ainda faltam.",
+   "short": "5 anos",
+   "long": "12 anos",
+   "inside": "40 M + 3,2 M de juros",
+   "py1": "3,2 M ÷ 5 = 0,64 M de juros por ano",
+   "py2": "3,2 M ÷ 12 = 0,27 M de juros por ano",
+   "rep": "Pagar após 3 anos: faltam 30 M a pagar",
+   "drop": "juros restantes (2,4 M): cancelados",
+   "same": "mesmo total de juros"
   }
  },
  "cargo": {

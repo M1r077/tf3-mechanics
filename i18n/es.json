@@ -344,6 +344,25 @@
    ],
    "need": "para cumplir",
    "get": "tras el cumplimiento"
+  },
+  "T_CYEAR": {
+   "cap": "Factores fijados por el año del calendario en los scripts. Los ingresos no tienen ninguno; el ajuste Inflación solo baja los ingresos con el rango de la empresa.",
+   "x": "año del calendario",
+   "up": "conservación de almacenes, puertos, aeropuertos",
+   "sub": "dinero de subvenciones",
+   "loan": "importe de los préstamos",
+   "inc": "ingresos de cargamento y pasajeros"
+  },
+  "T_LOAN": {
+   "cap": "Ejemplo: 40 M al 8 %. El interés es una sola vez el 8 % del importe, sea cual sea el plazo, pagado mes a mes con el capital. Reembolsar antes anula los intereses que faltan.",
+   "short": "5 años",
+   "long": "12 años",
+   "inside": "40 M + 3,2 M de intereses",
+   "py1": "3,2 M ÷ 5 = 0,64 M de intereses al año",
+   "py2": "3,2 M ÷ 12 = 0,27 M de intereses al año",
+   "rep": "Reembolsar a los 3 años: quedan 30 M por pagar",
+   "drop": "intereses restantes (2,4 M): anulados",
+   "same": "mismo interés total"
   }
  },
  "cargo": {

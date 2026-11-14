@@ -923,6 +923,114 @@ def subsidy_types(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- costs: what follows the calendar year
+T_CYEAR = {
+    "en": {"cap": "Factors set by the calendar year in the scripts. Income has none; the Inflation setting only lowers income with "
+                  "the company rank.",
+           "x": "calendar year", "up": "upkeep of warehouses, harbours, airports", "sub": "subsidy cash",
+           "loan": "loan amounts", "inc": "cargo and passenger income"},
+    "fr": {"cap": "Facteurs fixés par l'année du calendrier dans les scripts. Les revenus n'en ont aucun ; le réglage Inflation ne fait "
+                  "que baisser les revenus avec le rang de l'entreprise.",
+           "x": "année du calendrier", "up": "entretien des entrepôts, ports, aéroports", "sub": "argent des contrats",
+           "loan": "montant des emprunts", "inc": "revenus du fret et des passagers"},
+    "de": {"cap": "Faktoren, die in den Skripten vom Kalenderjahr abhängen. Einnahmen haben keinen; die Einstellung Inflation senkt "
+                  "nur die Einnahmen mit dem Firmenrang.",
+           "x": "Kalenderjahr", "up": "Unterhalt von Lagern, Häfen, Flughäfen", "sub": "Geld aus Subventionen",
+           "loan": "Darlehensbeträge", "inc": "Einnahmen aus Fracht und Passagieren"},
+}
+
+
+def cost_years(lang):
+    t = T_CYEAR[lang]
+    s = Svg("cy", 900, 330)
+    X0, Y0, W, H = 70, 280, 560, 240
+    px = lambda y: X0 + (y - 1900) / 120 * W
+    py = lambda f: Y0 - f / 6 * H
+    s.rect(X0, Y0 - H, W, H, "#121921", r=10, stroke=LINE)
+    for y in range(1900, 2021, 20):
+        s.add(f'<line x1="{px(y)}" y1="{Y0 - H}" x2="{px(y)}" y2="{Y0}" stroke="{LINE}" stroke-dasharray="2 5"/>')
+        s.text(px(y), Y0 + 20, str(y), 12, DIM)
+    for f in range(0, 7):
+        s.add(f'<line x1="{X0}" y1="{py(f)}" x2="{X0 + W}" y2="{py(f)}" stroke="{LINE}" stroke-dasharray="2 5"/>')
+        s.text(X0 - 10, py(f) + 4, f"×{f}", 12, DIM, "end")
+    s.text(X0 + W / 2, Y0 + 42, t["x"], 13, TEXT, weight=600)
+    import math
+    fx = lambda f: "×" + (str(int(f)) if f == int(f) else langs.num(f, lang))
+    up = [(1900, 1), (1920, 1.5), (1940, 2.2), (1960, 3.2), (1980, 4), (2000, 5), (2020, 6)]
+    lo, hi = math.log2(0.4), math.log2(2.4)  # loan_util.tl:7-10
+    loan = [(y, 2 ** (lo + (y - 1900) / 120 * (hi - lo))) for y in range(1900, 2021, 10)]
+    series = [
+        (t["up"], GOLD, up, True, "×1 → ×6"),
+        (t["sub"], VIOLET, [(1900, 1), (2000, 4), (2020, 4)], False, "×1 → ×4"),
+        (t["loan"], BLUE, loan, False, f"{fx(0.4)} → {fx(2.4)}"),
+        (t["inc"], TEAL, [(1900, 1), (2020, 1)], False, "×1"),
+    ]
+    for i, (lab, col, pts, dots, rng) in enumerate(series):
+        d = "M" + " L".join(f"{px(x):.1f} {py(f):.1f}" for x, f in pts)
+        dash = "" if dots else ' stroke-dasharray="7 5"'
+        s.add(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{3.5 if dots else 2.5}" stroke-linejoin="round"{dash}/>')
+        if dots:
+            for x, f in pts:
+                s.add(f'<circle cx="{px(x):.1f}" cy="{py(f):.1f}" r="5" fill="{col}" stroke="{DEEP}" stroke-width="2"/>')
+                s.text(px(x) - (10 if x == 2020 else 0), py(f) - 12, fx(f), 11.5, col, weight=700)
+        ly = 64 + i * 56
+        s.rect(660, ly - 10, 26, 6, col, r=3)
+        rows = wrap_rows(lab, 26)
+        s.lines(698, ly - 3, rows, 13, TEXT, "start", gap=1.3, weight=600)
+        s.text(698, ly - 3 + len(rows) * 17, rng, 12, col, "start", 700)
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- costs: a loan's interest
+T_LOAN = {
+    "en": {"cap": "Example: 40 M at 8 %. The interest is 8 % of the amount once, whatever the term, paid month by month with the "
+                  "principal. Repaying early drops the interest still to come.",
+           "short": "5 years", "long": "12 years", "inside": "40 M + 3.2 M interest",
+           "py1": "3.2 M ÷ 5 = 0.64 M interest per year", "py2": "3.2 M ÷ 12 = 0.27 M interest per year",
+           "rep": "Repay after 3 years: 30 M left to pay", "drop": "remaining interest (2.4 M): dropped",
+           "same": "same total interest"},
+    "fr": {"cap": "Exemple : 40 M à 8 %. L'intérêt vaut une seule fois 8 % du montant, quelle que soit la durée, payé mois par mois "
+                  "avec le capital. Rembourser plus tôt supprime les intérêts restants.",
+           "short": "5 ans", "long": "12 ans", "inside": "40 M + 3,2 M d'intérêts",
+           "py1": "3,2 M ÷ 5 = 0,64 M d'intérêts par an", "py2": "3,2 M ÷ 12 = 0,27 M d'intérêts par an",
+           "rep": "Rembourser après 3 ans : 30 M restent à payer", "drop": "intérêts restants (2,4 M) : supprimés",
+           "same": "même total d'intérêts"},
+    "de": {"cap": "Beispiel: 40 M zu 8 %. Die Zinsen sind einmal 8 % des Betrags, unabhängig von der Laufzeit, Monat für Monat mit "
+                  "der Tilgung bezahlt. Vorzeitiges Zurückzahlen streicht die noch ausstehenden Zinsen.",
+           "short": "5 Jahre", "long": "12 Jahre", "inside": "40 M + 3,2 M Zinsen",
+           "py1": "3,2 M ÷ 5 = 0,64 M Zinsen pro Jahr", "py2": "3,2 M ÷ 12 = 0,27 M Zinsen pro Jahr",
+           "rep": "Nach 3 Jahren zurückzahlen: 30 M noch offen", "drop": "restliche Zinsen (2,4 M): gestrichen",
+           "same": "gleiche Zinsen insgesamt"},
+}
+
+
+def loan_interest(lang):
+    t = T_LOAN[lang]
+    s = Svg("li", 900, 300)
+    X0, PER = 130, 52  # px per year
+    rows = ((t["short"], 5, t["py1"]), (t["long"], 12, t["py2"]))
+    for i, (lab, years, note) in enumerate(rows):
+        y = 44 + i * 114
+        s.text(X0 - 16, y + 24, lab, 15, TEXT, "end", 800)
+        s.text(X0, y - 10, t["inside"], 13, TEXT, "start", 700)
+        w = years * PER
+        s.rect(X0, y, w, 38, s.ref("teal"), r=9)
+        s.rect(X0, y, w, 7, GOLD, r=3)
+        for k in range(1, years):
+            s.add(f'<line x1="{X0 + k * PER}" y1="{y + 8}" x2="{X0 + k * PER}" y2="{y + 38}" stroke="{DEEP}" stroke-opacity=".35"/>')
+        s.text(X0, y + 60, note, 13, GOLD, "start", 700)
+    # repay early on the long loan
+    rx, ry = X0 + 3 * PER, 158
+    s.add(f'<rect x="{rx}" y="{ry}" width="{9 * PER}" height="38" rx="9" fill="{DEEP}" fill-opacity=".6" '
+          f'stroke="{RED}" stroke-width="1.5" stroke-dasharray="5 4"/>')
+    s.add(f'<line x1="{rx}" y1="{ry}" x2="{rx}" y2="{ry + 38}" stroke="{RED}" stroke-width="3"/>')
+    s.text(rx + 14, ry + 25, t["drop"], 12.5, RED, "start", 700)
+    s.text(rx + 14, 286, t["rep"], 13, TEXT, "start", 700)
+    s.add(f'<line x1="{rx}" y1="{ry + 40}" x2="{rx}" y2="{281}" stroke="{RED}" stroke-width="1.5" stroke-dasharray="3 3"/>')
+    s.chip(X0 + 5 * PER + 20, 51, t["same"], GOLD, size=12, h=24)
+    return s.svg(), t["cap"]
+
+
 def _load_translations():
     """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
     for code in langs.translated():
@@ -950,6 +1058,8 @@ REGISTRY = {
     "loading_sections": loading_sections,
     "subsidy_life": subsidy_life,
     "subsidy_types": subsidy_types,
+    "cost_years": cost_years,
+    "loan_interest": loan_interest,
 }
 
 

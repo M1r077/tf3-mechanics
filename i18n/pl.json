@@ -344,6 +344,25 @@
    ],
    "need": "aby wypełnić",
    "get": "po wypełnieniu"
+  },
+  "T_CYEAR": {
+   "cap": "Mnożniki zależne w skryptach od roku kalendarzowego. Przychód nie ma żadnego; ustawienie „Inflacja” tylko obniża przychód wraz z rangą firmy.",
+   "x": "rok kalendarzowy",
+   "up": "utrzymanie magazynów, portów, lotnisk",
+   "sub": "pieniądze z subsydiów",
+   "loan": "kwoty kredytów",
+   "inc": "przychód z towarów i pasażerów"
+  },
+  "T_LOAN": {
+   "cap": "Przykład: 40 M na 8 %. Odsetki to jednorazowo 8 % kwoty, niezależnie od terminu, płacone co miesiąc razem z kapitałem. Wcześniejsza spłata kasuje odsetki, które jeszcze zostały.",
+   "short": "5 lat",
+   "long": "12 lat",
+   "inside": "40 M + 3,2 M odsetek",
+   "py1": "3,2 M ÷ 5 = 0,64 M odsetek rocznie",
+   "py2": "3,2 M ÷ 12 = 0,27 M odsetek rocznie",
+   "rep": "Spłata po 3 latach: zostaje 30 M",
+   "drop": "pozostałe odsetki (2,4 M): przepadają",
+   "same": "te same odsetki łącznie"
   }
  },
  "cargo": {

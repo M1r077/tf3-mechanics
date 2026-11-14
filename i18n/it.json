@@ -344,6 +344,25 @@
    ],
    "need": "per completare",
    "get": "in adempimento"
+  },
+  "T_CYEAR": {
+   "cap": "Fattori fissati dall'anno del calendario negli script. Le entrate non ne hanno; l'impostazione Inflazione abbassa solo le entrate con il grado dell'azienda.",
+   "x": "anno del calendario",
+   "up": "manutenzione di magazzini, porti, aeroporti",
+   "sub": "denaro delle commesse",
+   "loan": "importo dei prestiti",
+   "inc": "entrate da merci e passeggeri"
+  },
+  "T_LOAN": {
+   "cap": "Esempio: 40 M all'8%. L'interesse è una sola volta l'8% dell'importo, qualunque sia la durata, pagato mese per mese con il capitale. Ripagare prima cancella gli interessi ancora da pagare.",
+   "short": "5 anni",
+   "long": "12 anni",
+   "inside": "40 M + 3,2 M di interessi",
+   "py1": "3,2 M ÷ 5 = 0,64 M di interessi all'anno",
+   "py2": "3,2 M ÷ 12 = 0,27 M di interessi all'anno",
+   "rep": "Ripaga dopo 3 anni: restano 30 M da pagare",
+   "drop": "interessi rimanenti (2,4 M): cancellati",
+   "same": "stessi interessi totali"
   }
  },
  "cargo": {
