@@ -73,6 +73,35 @@ Pociąg z 8 wagonów do towarów sypkich, o długości 160 m, rozładowuje węgi
 | peron do towarów sypkich 160 m | ×2 | magazyn uniwersalny | **×2** |
 | peron uniwersalny 120 m (pociąg dłuższy o 40 m) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | stalownia | **×0,81** |
 
+## Gdzie towar jest rozładowywany
+
+Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” przystanku. Na przystanku pojazd zatrzymuje na pokładzie towar z tej listy; reszta jest rozładowywana do każdego zapasu w obszarze obsługi, który ją przyjmuje, także do magazynu (zmierzone w grze).
+
+- Tak pociąg opróżnia się do magazynu w połowie swojej linii. W grze: na przystanku obok magazynu, z samym plastikiem na liście, narzędzia z pokładu trafiły do magazynu, choć był prawie pełny.
+- Peron pasażerski nie przeładowuje towarów: towar zostaje tam na pokładzie (`line_util.tl:554-559`, zmierzone w grze).
+- Aby zatrzymać towar na pokładzie, dodaj go do listy Ładunek tego przystanku.
+
+| Opcja w „Filtr towarów” | Co robi | Źródło |
+|---|---|---|
+| „Wymuś rozładowanie wszystkich towarów po przybyciu” | rozładowuje do pasujących zapasów, nawet gdy są pełne; to, co się nie mieści, jest niszczone. Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Przy zmianie konfiguracji zniszcz ładunek po przybyciu” | niszczy towar na pokładzie, gdy na tym przystanku czeka inny towar do załadunku | `cargofilter_window.tl:767` |
+| „Zastąp nowym ładunkiem, jeśli jest dostępny” | niszczy towar, który wrócił na przystanek, gdzie go załadowano, gdy czeka nowszy towar tego samego rodzaju | `cargofilter_window.tl:778` |
+
+- Gdy pierwsza opcja jest wyłączona, ikona towaru pokazuje „≤”, a podpowiedź „Rozładuj tylko, jeśli jest miejsce” (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Konfiguracja automatyczna
+
+Dopóki nikt nie zmienił filtrów towarów linii, gra sama wypełnia listy Ładunek, za każdym razem, gdy linia jest tworzona albo gdy przystanek lub punkt trasy jest dodawany, usuwany lub przesuwany (`manager_window.tl:6712-6963`). Zmiana peronu przystanku jej nie uruchamia (`manager_window.tl:6860`).
+
+- Zaczyna od pustych list, z pasażerami na stacjach pasażerskich (`line_util.tl:542-588`).
+- Szuka producentów i odbiorców tylko wśród zakładów i budynków miejskich: magazyny się nie liczą (`cargo_util.tl:518-526`).
+- Wpisuje towar na listę Ładunek przystanku, gdy towar jest potrzebny dalej, a na przystanku nic go nie przyjmuje. Magazyn liczy się tak, jakby przyjmował wszystko, co przechowuje (`line_util.tl:676-693`): na przystanku obok magazynu, który przechowuje ten towar, towar zostaje poza listą, a pociąg go tam rozładowuje.
+- Gdy tylko filtr zostanie zmieniony ręcznie, linia jest oznaczona jako własna (`cargofilter_window.tl:438`) i konfiguracja automatyczna już jej nie rusza, nawet gdy później dochodzą przystanki (`line_util.tl:496`).
+
+```engine
+Skrypty tylko zapisują listy Ładunek; samo rozładowanie wykonuje silnik. Powyższą regułę (to, czego nie ma na liście, jest rozładowywane do każdego zapasu, który to przyjmuje) zaobserwowano w grze z [Platform Details](https://mod.io/g/transportfever3/m/platform-details), listopad 2026.
+```
+
 ## Warto wiedzieć
 
 - Stacje wewnątrz zakładu przemysłowego są zawsze wyspecjalizowane w towarze, którego potrzebuje ten zakład (oficjalna wiki).

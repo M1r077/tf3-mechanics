@@ -73,6 +73,35 @@ Un treno di 8 vagoni per merci sfuse, lungo 160 m, che scarica carbone.
 | piattaforma per merci sfuse di 160 m | ×2 | magazzino universale | **×2** |
 | piattaforma universale di 120 m (treno più lungo di 40 m) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | acciaieria | **×0,81** |
 
+## Dove viene scaricato il carico
+
+Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico" della fermata. Alla fermata il veicolo tiene a bordo le merci di quella lista; il resto viene scaricato in qualsiasi scorta del bacino d'utenza che lo accetti, magazzini compresi (misurato in gioco).
+
+- È così che un treno finisce per svuotarsi in un magazzino a metà della sua linea. In gioco: a una fermata accanto a un magazzino, con solo plastica nella lista, gli attrezzi a bordo sono finiti nel magazzino, anche se era quasi pieno.
+- Una piattaforma passeggeri non trasferisce merci: lì le merci restano a bordo (`line_util.tl:554-559`, misurato in gioco).
+- Per tenere le merci a bordo, aggiungile alla lista Carico di quella fermata.
+
+| Opzione di "Filtro carico" | Che cosa fa | Fonte |
+|---|---|---|
+| "Forza scarico di tutte le merci all'arrivo" | scarica nelle scorte compatibili anche se sono piene; ciò che non entra viene distrutto. Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Distrugge il carico all'arrivo se la configurazione cambia" | distrugge il carico a bordo quando a questa fermata aspetta di essere caricata un'altra merce | `cargofilter_window.tl:767` |
+| "Sostituisci con nuovo carico se disponibile" | distrugge il carico tornato alla fermata dove era stato caricato, quando aspetta un carico più recente dello stesso tipo | `cargofilter_window.tl:778` |
+
+- Con la prima opzione disattivata, l'icona della merce mostra "≤" e il tooltip "Scarica solo se scorte hanno capacità" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## La configurazione automatica
+
+Finché nessuno ha cambiato i filtri carico di una linea, il gioco riempie da solo le liste Carico, ogni volta che la linea viene creata o che una fermata o un punto di passaggio viene aggiunto, tolto o spostato (`manager_window.tl:6712-6963`). Cambiare la piattaforma di una fermata non la riavvia (`manager_window.tl:6860`).
+
+- Riparte da liste vuote, con i passeggeri nelle stazioni passeggeri (`line_util.tl:542-588`).
+- Cerca produttori e consumatori solo tra industrie ed edifici della città: i magazzini non contano (`cargo_util.tl:518-526`).
+- Mette una merce nella lista Carico di una fermata quando serve più avanti e alla fermata niente la accetta. Un magazzino conta come se accettasse tutto ciò che immagazzina (`line_util.tl:676-693`): a una fermata accanto a un magazzino che conserva quella merce, la merce resta fuori dalla lista e il treno la scarica lì.
+- Non appena un filtro viene cambiato a mano, la linea è segnata come personalizzata (`cargofilter_window.tl:438`) e la configurazione automatica non la tocca più, nemmeno quando in seguito si aggiungono fermate (`line_util.tl:496`).
+
+```engine
+Gli script scrivono solo le liste Carico; lo scarico vero e proprio lo fa il motore. La regola qui sopra (ciò che non è nella lista viene scaricato in qualsiasi scorta che lo accetti) è stata osservata in gioco con [Platform Details](https://mod.io/g/transportfever3/m/platform-details), novembre 2026.
+```
+
 ## Da sapere
 
 - Le stazioni all'interno di un'industria sono sempre specializzate per il carico di cui quell'industria ha bisogno (wiki ufficiale).

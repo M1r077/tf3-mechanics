@@ -73,6 +73,35 @@ Un tren de 8 vagones a granel, de 160 m, descargando carbón.
 | andén a granel de 160 m | ×2 | almacén universal | **×2** |
 | andén universal de 120 m (tren 40 m demasiado largo) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | acería | **×0,81** |
 
+## Dónde se descarga el cargamento
+
+Cada parada de una línea tiene una lista **Carga**, en la ventana "Filtro de cargamento" de la parada. En la parada, el vehículo conserva a bordo el cargamento de esa lista; el resto se descarga en cualquier existencia de la zona de influencia que lo acepte, almacenes incluidos (medido en el juego).
+
+- Así es como un tren acaba vaciándose en un almacén a mitad de su línea. En el juego: en una parada junto a un almacén, con solo plástico en su lista, las herramientas a bordo fueron al almacén, aunque estaba casi lleno.
+- Un andén de pasajeros no transfiere mercancías: allí el cargamento se queda a bordo (`line_util.tl:554-559`, medido en el juego).
+- Para conservar el cargamento a bordo, añádelo a la lista Carga de esa parada.
+
+| Opción de "Filtro de cargamento" | Qué hace | Fuente |
+|---|---|---|
+| "Forzar la descarga de todo el cargamento al llegar" | descarga en las existencias compatibles aunque estén llenas; lo que no cabe se destruye. Desactivada en una parada nueva. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Destruir el cargamento al llegar cuando cambie la configuración" | destruye el cargamento a bordo cuando otro cargamento espera para cargarse en esta parada | `cargofilter_window.tl:767` |
+| "Sustituir por cargamento nuevo si hay disponibilidad" | destruye el cargamento que volvió a la parada donde se cargó, cuando espera cargamento más nuevo del mismo tipo | `cargofilter_window.tl:778` |
+
+- Con la primera opción desactivada, el icono del cargamento muestra "≤" y la descripción emergente "Descargar si no se ha alcanzado el límite de existencias" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## La configuración automática
+
+Mientras nadie haya cambiado los filtros de cargamento de una línea, el juego rellena él mismo las listas Carga, cada vez que se crea la línea o se añade, quita o mueve una parada o un punto de paso (`manager_window.tl:6712-6963`). Cambiar el andén de una parada no la vuelve a ejecutar (`manager_window.tl:6860`).
+
+- Empieza de nuevo con listas vacías, con pasajeros en las estaciones de pasajeros (`line_util.tl:542-588`).
+- Busca productores y consumidores solo entre industrias y edificios de la ciudad: los almacenes no cuentan (`cargo_util.tl:518-526`).
+- Pone un cargamento en la lista Carga de una parada cuando hace falta más adelante y nada en la parada lo acepta. Un almacén cuenta como si aceptara todo lo que almacena (`line_util.tl:676-693`): en una parada junto a un almacén que guarda ese cargamento, el cargamento queda fuera de la lista y el tren lo descarga allí.
+- En cuanto se cambia un filtro a mano, la línea queda marcada como personalizada (`cargofilter_window.tl:438`) y la configuración automática ya no la toca nunca, ni siquiera cuando después se añaden paradas (`line_util.tl:496`).
+
+```engine
+Los scripts solo escriben las listas Carga; la descarga en sí la hace el motor. La regla anterior (lo que no está en la lista se descarga en cualquier existencia que lo acepte) se observó en el juego con [Platform Details](https://mod.io/g/transportfever3/m/platform-details), noviembre de 2026.
+```
+
 ## Conviene saber
 
 - Las estaciones dentro de una industria están siempre especializadas en el cargamento que necesita esa industria (wiki oficial).

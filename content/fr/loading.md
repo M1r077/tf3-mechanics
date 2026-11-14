@@ -73,6 +73,35 @@ Un train de 8 wagons vrac, long de 160 m, qui décharge du charbon.
 | quai vrac 160 m | ×2 | entrepôt universel | **×2** |
 | quai universel 120 m (train trop long de 40 m) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | aciérie | **×0,81** |
 
+## Où le fret est déchargé
+
+Chaque arrêt d'une ligne a une liste **Charge**, dans la fenêtre « Filtre de fret » de l'arrêt. À l'arrêt, le véhicule garde à bord le fret de cette liste ; le reste est déchargé dans tout stock de la zone de desserte qui le prend, entrepôt compris (mesuré en jeu).
+
+- C'est ainsi qu'un train se vide dans un entrepôt au milieu de sa ligne. En jeu : à un arrêt à côté d'un entrepôt, avec seulement du plastique dans sa liste, les outils à bord sont partis dans l'entrepôt, alors qu'il était presque plein.
+- Un quai voyageurs ne fait pas de transfert de fret : le fret y reste à bord (`line_util.tl:554-559`, mesuré en jeu).
+- Pour garder le fret à bord, ajoute-le à la liste Charge de cet arrêt.
+
+| Option de « Filtre de fret » | Effet | Source |
+|---|---|---|
+| « Forcer le déchargement de tout le fret à l’arrivée » | décharge dans les stocks compatibles même pleins ; ce qui ne rentre pas est détruit. Désactivée pour un nouvel arrêt. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| « Détruire le fret à l’arrivée lorsque la configuration change » | détruit le fret à bord quand un autre fret attend d'être chargé à cet arrêt | `cargofilter_window.tl:767` |
+| « Remplacer par un fret plus récent si disponible » | détruit le fret revenu à l'arrêt où il a été chargé, quand du fret plus récent du même type attend | `cargofilter_window.tl:778` |
+
+- Quand la première option est désactivée, l'icône du fret affiche « ≤ » et l'info-bulle « Décharger uniquement si les stocks ont de la capacité » (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## La configuration automatique
+
+Tant que personne n'a modifié les filtres de fret d'une ligne, le jeu remplit lui-même les listes Charge, à chaque création de la ligne et à chaque arrêt ou point de passage ajouté, retiré ou déplacé (`manager_window.tl:6712-6963`). Changer le quai d'un arrêt ne la relance pas (`manager_window.tl:6860`).
+
+- Elle repart de listes vides, avec les passagers aux gares voyageurs (`line_util.tl:542-588`).
+- Elle cherche producteurs et clients parmi les industries et les bâtiments de ville seulement : les entrepôts ne comptent pas (`cargo_util.tl:518-526`).
+- Elle met un fret dans la liste Charge d'un arrêt quand ce fret sert plus loin et que rien ne le prend à cet arrêt. Un entrepôt compte comme prenant tout ce qu'il stocke (`line_util.tl:676-693`) : à un arrêt à côté d'un entrepôt qui stocke ce fret, le fret reste hors de la liste, et le train l'y décharge.
+- Dès qu'un filtre a été modifié à la main, la ligne est marquée comme personnalisée (`cargofilter_window.tl:438`) et la configuration automatique ne la touche plus, même quand on ajoute des arrêts ensuite (`line_util.tl:496`).
+
+```engine
+Les scripts ne font qu'écrire les listes Charge ; le déchargement lui-même est fait par le moteur. La règle ci-dessus (ce qui n'est pas dans la liste est déchargé dans tout stock qui le prend) a été observée en jeu avec [Platform Details](https://mod.io/g/transportfever3/m/platform-details), novembre 2026.
+```
+
 ## Bon à savoir
 
 - Les gares à l'intérieur d'une industrie sont toujours spécialisées pour le fret dont l'industrie a besoin (wiki officiel).

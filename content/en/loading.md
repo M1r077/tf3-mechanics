@@ -73,6 +73,35 @@ A train of 8 bulk wagons, 160 m long, unloading coal.
 | bulk platform 160 m | ×2 | universal warehouse | **×2** |
 | universal platform 120 m (train 40 m too long) | ¾ × 1 + ¼ × 0.25 ≈ ×0.81 | steel mill | **×0.81** |
 
+## Where the cargo is unloaded
+
+Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At the stop the vehicle keeps on board the cargo in that list; the rest is unloaded into any stock in the catchment area that takes it, a warehouse included (measured in game).
+
+- That is how a train ends up emptying itself into a warehouse halfway along its line. In game: at a stop next to a warehouse, with only plastic in its list, the tools on board went into the warehouse, although it was nearly full.
+- A passenger platform has no freight transfer: freight stays on board there (`line_util.tl:554-559`, measured in game).
+- To keep the cargo on board, add it to the Load list of that stop.
+
+| Option in "Cargo Filter" | What it does | Source |
+|---|---|---|
+| "Force Unload All Cargo On Arrival" | unloads into compatible stocks even when they are full; what does not fit is destroyed. Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Destroy Cargo On Arrival When Config Changes" | destroys the cargo on board when another cargo is waiting to be loaded at this stop | `cargofilter_window.tl:767` |
+| "Replace with Newer Cargo if Available" | destroys cargo that came back to the stop where it was loaded, when newer cargo of the same type is waiting | `cargofilter_window.tl:778` |
+
+- With the first option off, the cargo icon shows "≤" and the tooltip "Unload Only if Stocks Have Capacity" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## The automatic configuration
+
+As long as nobody has changed a line's cargo filters, the game fills the Load lists itself, each time the line is created or a stop or waypoint is added, removed or moved (`manager_window.tl:6712-6963`). Changing the platform of a stop does not run it (`manager_window.tl:6860`).
+
+- It starts again from empty lists, with passengers at passenger stations (`line_util.tl:542-588`).
+- It looks for producers and consumers among industries and town buildings only: warehouses do not count (`cargo_util.tl:518-526`).
+- It puts a cargo in a stop's Load list when the cargo is needed further on and nothing at the stop takes it. A warehouse counts as taking everything it stores (`line_util.tl:676-693`): at a stop next to a warehouse that stores the cargo, the cargo is left out of the list, and the train unloads it there.
+- Once a filter has been changed by hand, the line is marked as custom (`cargofilter_window.tl:438`) and the automatic configuration never touches it again, even when stops are added later (`line_util.tl:496`).
+
+```engine
+The scripts only write the Load lists; the unloading itself is done by the engine. The rule above (what is not in the list is unloaded into any stock that takes it) was observed in game with [Platform Details](https://mod.io/g/transportfever3/m/platform-details), November 2026.
+```
+
 ## Good to know
 
 - Stations inside an industry are always specialised to the cargo that industry needs (official wiki).

@@ -73,6 +73,35 @@ Een trein van 8 bulkwagons, 160 m lang, lost steenkool.
 | bulkperron 160 m | ×2 | universele opslagplaats | **×2** |
 | universeel perron 120 m (trein 40 m te lang) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | staalbedrijf | **×0,81** |
 
+## Waar de vracht gelost wordt
+
+Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter" van de halte. Bij de halte houdt het voertuig de vracht uit die lijst aan boord; de rest wordt gelost in elke voorraad in het verzorgingsgebied die hem aanneemt, ook in een opslagplaats (gemeten in het spel).
+
+- Zo leegt een trein zich halverwege zijn lijn in een opslagplaats. In het spel: bij een halte naast een opslagplaats, met alleen plastic in de lijst, gingen de gereedschappen aan boord naar de opslagplaats, ook al was die bijna vol.
+- Een passagiersperron heeft geen vrachtoverslag: daar blijft de vracht aan boord (`line_util.tl:554-559`, gemeten in het spel).
+- Wil je de vracht aan boord houden, voeg hem dan toe aan de lijst Lading van die halte.
+
+| Optie in "Vrachtfilter" | Wat het doet | Bron |
+|---|---|---|
+| "Alle vracht bij aankomst verplicht lossen" | lost in passende voorraden, ook als ze vol zijn; wat niet past, wordt vernietigd. Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Vracht bij aankomst vernietigen na wijziging configuratie" | vernietigt de vracht aan boord als er bij deze halte andere vracht wacht om geladen te worden | `cargofilter_window.tl:767` |
+| "Vervangen door nieuwere vracht indien beschikbaar" | vernietigt vracht die terug is bij de halte waar hij geladen werd, als er nieuwere vracht van hetzelfde type wacht | `cargofilter_window.tl:778` |
+
+- Staat de eerste optie uit, dan toont het vrachtpictogram "≤" en de tooltip "Alleen lossen als er ruimte is" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## De automatische configuratie
+
+Zolang niemand de vrachtfilters van een lijn heeft gewijzigd, vult het spel de lijsten Lading zelf, telkens als de lijn wordt aangemaakt of een halte of waypoint wordt toegevoegd, verwijderd of verplaatst (`manager_window.tl:6712-6963`). Het perron van een halte wijzigen start haar niet opnieuw (`manager_window.tl:6860`).
+
+- Ze begint opnieuw met lege lijsten, met passagiers bij passagiersstations (`line_util.tl:542-588`).
+- Ze zoekt producenten en afnemers alleen onder industriebedrijven en stadsgebouwen: opslagplaatsen tellen niet mee (`cargo_util.tl:518-526`).
+- Ze zet een vracht op de lijst Lading van een halte als die verderop nodig is en niets bij de halte hem aanneemt. Een opslagplaats telt alsof hij alles aanneemt wat hij opslaat (`line_util.tl:676-693`): bij een halte naast een opslagplaats die die vracht opslaat, blijft de vracht van de lijst en lost de trein hem daar.
+- Zodra een filter met de hand is gewijzigd, is de lijn gemarkeerd als aangepast (`cargofilter_window.tl:438`) en raakt de automatische configuratie haar nooit meer aan, ook niet als er later haltes bijkomen (`line_util.tl:496`).
+
+```engine
+De scripts schrijven alleen de lijsten Lading; het lossen zelf doet de engine. De regel hierboven (wat niet op de lijst staat, wordt gelost in elke voorraad die het aanneemt) is in het spel waargenomen met [Platform Details](https://mod.io/g/transportfever3/m/platform-details), november 2026.
+```
+
 ## Goed om te weten
 
 - Stations binnen een industriebedrijf zijn altijd gespecialiseerd in de vracht die dat bedrijf nodig heeft (officiële wiki).

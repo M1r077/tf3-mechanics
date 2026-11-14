@@ -73,6 +73,35 @@ Um trem de 8 vagões a granel, com 160 m, descarregando carvão.
 | plataforma a granel de 160 m | ×2 | armazém universal | **×2** |
 | plataforma universal de 120 m (trem 40 m longo demais) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | usina siderúrgica | **×0,81** |
 
+## Onde a carga é descarregada
+
+Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" da parada. Na parada, o veículo mantém a bordo a carga dessa lista; o resto é descarregado em qualquer estoque da área de cobertura que o aceite, armazéns incluídos (medido no jogo).
+
+- É assim que um trem acaba se esvaziando num armazém no meio da linha. No jogo: numa parada ao lado de um armazém, com só plástico na lista, as ferramentas a bordo foram para o armazém, embora ele estivesse quase cheio.
+- Uma plataforma de passageiros não transfere carga: ali a carga fica a bordo (`line_util.tl:554-559`, medido no jogo).
+- Para manter a carga a bordo, adicione-a à lista Volume dessa parada.
+
+| Opção de "Filtro de Cargas" | O que faz | Fonte |
+|---|---|---|
+| "Forçar descarregamento de todas as cargas na chegada" | descarrega nos estoques compatíveis mesmo cheios; o que não cabe é destruído. Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Destruir cargas na chegada quando a configuração mudar" | destrói a carga a bordo quando outra carga espera para ser carregada nesta parada | `cargofilter_window.tl:767` |
+| "Substituir com carga mais nova, se disponível" | destrói a carga que voltou à parada onde foi carregada, quando há carga mais nova do mesmo tipo esperando | `cargofilter_window.tl:778` |
+
+- Com a primeira opção desligada, o ícone da carga mostra "≤" e a dica "Descarregar somente se os estoques tiverem capacidade" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## A configuração automática
+
+Enquanto ninguém mudar os filtros de carga de uma linha, o próprio jogo preenche as listas Volume, cada vez que a linha é criada ou uma parada ou um ponto de passagem é adicionado, removido ou movido (`manager_window.tl:6712-6963`). Trocar a plataforma de uma parada não a executa de novo (`manager_window.tl:6860`).
+
+- Ela recomeça de listas vazias, com passageiros nas estações de passageiros (`line_util.tl:542-588`).
+- Ela procura produtores e consumidores só entre indústrias e prédios da cidade: armazéns não contam (`cargo_util.tl:518-526`).
+- Ela coloca uma carga na lista Volume de uma parada quando a carga é necessária mais adiante e nada na parada a aceita. Um armazém conta como se aceitasse tudo o que armazena (`line_util.tl:676-693`): numa parada ao lado de um armazém que guarda essa carga, a carga fica fora da lista e o trem a descarrega ali.
+- Assim que um filtro é mudado à mão, a linha fica marcada como personalizada (`cargofilter_window.tl:438`) e a configuração automática nunca mais mexe nela, nem quando paradas são adicionadas depois (`line_util.tl:496`).
+
+```engine
+Os scripts só escrevem as listas Volume; a descarga em si é feita pelo motor. A regra acima (o que não está na lista é descarregado em qualquer estoque que o aceite) foi observada no jogo com [Platform Details](https://mod.io/g/transportfever3/m/platform-details), novembro de 2026.
+```
+
 ## Bom saber
 
 - Estações dentro de uma indústria são sempre especializadas na carga de que a indústria precisa (wiki oficial).

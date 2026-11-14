@@ -73,6 +73,35 @@ Ein Zug mit 8 Schüttgutwagen, 160 m lang, entlädt Kohle.
 | Schüttgut-Bahnsteig 160 m | ×2 | Universallager | **×2** |
 | Universalbahnsteig 120 m (Zug 40 m zu lang) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | Stahlwerk | **×0,81** |
 
+## Wo die Fracht entladen wird
+
+Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ des Halts. Am Halt behält das Fahrzeug die Fracht dieser Liste an Bord; der Rest wird in jeden Bestand im Einzugsbereich entladen, der sie annimmt, auch in ein Lager (im Spiel gemessen).
+
+- So leert sich ein Zug mitten auf seiner Linie in ein Lager. Im Spiel: An einem Halt neben einem Lager, mit nur Kunststoff in der Liste, gingen die Werkzeuge an Bord ins Lager, obwohl es fast voll war.
+- Ein Personenbahnsteig hat keinen Güterumschlag: Die Fracht bleibt dort an Bord (`line_util.tl:554-559`, im Spiel gemessen).
+- Um die Fracht an Bord zu behalten, füge sie der Liste Ladung dieses Halts hinzu.
+
+| Option im „Güterfilter“ | Wirkung | Quelle |
+|---|---|---|
+| „Entladen aller Güter nach Ankunft erzwingen“ | entlädt in passende Bestände, auch wenn sie voll sind; was nicht hineinpasst, wird zerstört. Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Bei Konfigurationsänderung Güter nach Ankunft zerstören“ | zerstört die Fracht an Bord, wenn an diesem Halt eine andere Fracht zum Laden wartet | `cargofilter_window.tl:767` |
+| „Durch neuere Güter ersetzen, falls verfügbar“ | zerstört Fracht, die zu dem Halt zurückgekommen ist, an dem sie geladen wurde, wenn neuere Fracht derselben Art wartet | `cargofilter_window.tl:778` |
+
+- Ist die erste Option aus, zeigt das Frachtsymbol „≤“ und der Tooltip „Entladen nur, wenn Lagerkapazität vorhanden“ (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Die automatische Konfiguration
+
+Solange niemand die Güterfilter einer Linie geändert hat, füllt das Spiel die Listen Ladung selbst, jedes Mal wenn die Linie erstellt oder ein Halt oder Wegpunkt hinzugefügt, entfernt oder verschoben wird (`manager_window.tl:6712-6963`). Den Bahnsteig eines Halts zu ändern, startet sie nicht (`manager_window.tl:6860`).
+
+- Sie beginnt wieder mit leeren Listen, mit Passagieren an Personenbahnhöfen (`line_util.tl:542-588`).
+- Sie sucht Erzeuger und Abnehmer nur unter Industrien und Stadtgebäuden: Lager zählen nicht (`cargo_util.tl:518-526`).
+- Sie setzt eine Fracht auf die Liste Ladung eines Halts, wenn die Fracht weiter hinten gebraucht wird und am Halt nichts sie annimmt. Ein Lager zählt so, als nehme es alles an, was es lagert (`line_util.tl:676-693`): An einem Halt neben einem Lager, das die Fracht lagert, bleibt sie von der Liste, und der Zug entlädt sie dort.
+- Sobald ein Filter von Hand geändert wurde, ist die Linie als angepasst markiert (`cargofilter_window.tl:438`), und die automatische Konfiguration fasst sie nie wieder an, auch nicht, wenn später Halte hinzukommen (`line_util.tl:496`).
+
+```engine
+Die Skripte schreiben nur die Listen Ladung; das Entladen selbst macht die Engine. Die Regel oben (was nicht auf der Liste steht, wird in jeden Bestand entladen, der es annimmt) wurde im Spiel mit [Platform Details](https://mod.io/g/transportfever3/m/platform-details) beobachtet, November 2026.
+```
+
 ## Gut zu wissen
 
 - Bahnhöfe innerhalb einer Industrie sind immer auf die Fracht spezialisiert, die die Industrie braucht (offizielles Wiki).
