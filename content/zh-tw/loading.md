@@ -1,0 +1,86 @@
+---
+title: 裝載與卸貨速度
+summary: 是什麼讓車輛在停靠站裝貨變快或變慢：車輛本身、月台區段，以及另一端供應或接收貨物的庫存。
+domain: stations
+official: gamemanual:management:linesvehicles#loading_speed
+status: verified
+updated: 2026-11-14
+fact: ×2 | 專用月台區段
+fact: ×0.25 | 區段不符或列車過長
+fact: ×4 | 最佳情況：專用月台加專用貨物倉庫
+---
+
+車輛裝貨或卸貨所花的時間，等於它本身的裝載速度乘上兩個係數：一個來自**月台**，一個來自另一端的**庫存**（貨物倉庫、產業、城鎮）。
+
+```diagram loading_factors
+```
+
+## 1. 車輛
+
+每輛車都有基礎裝載速度，顯示在車輛商店與車輛視窗中（「2.0x」）。以下所有係數都乘在它上面。
+
+## 2. 月台係數
+
+對遊戲來說，月台並不是一排模組：它是一份**區段清單，每種貨物類別一段**，把該類別所有模組的長度加總。
+
+```diagram loading_sections
+```
+
+| 車廂…… | 係數 | 來源 |
+|---|---|---|
+| 位於同類別的區段上（散裝貨物車廂、散裝貨物區段） | **×2** | `modular_station.script.lua:1042` |
+| 位於通用區段上 | ×1 | `modular_station.script.lua:1042` |
+| 月台上沒有同類別的區段 | **×0.25** | `cargo_react_util.tl:60` |
+| 超出月台長度的部分（列車過長） | **×0.25** | `cargo_react_util.tl:61` |
+
+- 係數是**依列車所占比例混合**：如果 3/4 的車廂相符、1/4 不符，係數為 ¾ × 2 + ¼ × 0.25 ≈ ×1.56（`cargo_react_util.tl:63-70`，遊戲中顯示為「局部專用月台」的也是這種劃分）。
+- 車廂停在月台的**哪個位置**並不重要，只看加總後的長度（遊戲內實測）。
+- 道路：專用卡車月台給 ×2（`modular_terminal.script.lua:2956`）；路邊的小型站牌一律為 ×1（`small_stops.script.lua:19`）。
+- 客運月台為 ×1。
+
+## 3. 庫存係數
+
+卸貨時，每一單位貨物都會交給一個接收方：貨物倉庫模組、產業或城鎮建築。接收方的庫存有自己的係數。
+
+| 接收方 | 係數 | 來源 |
+|---|---|---|
+| **專用**貨物倉庫模組（液體、散裝、平板、一般貨物） | **×2** | `modules.script.lua:120`，`warehouse.script.lua:297-314` |
+| **通用**貨物倉庫 | ×1 | `warehouse.script.lua:272-285` |
+| 產業 | ×1 | 遊戲內實測 |
+
+- 每個貨物倉庫模組都會要求 ×2，但通用模組只是替**一個共用的通用庫存**增加容量，而這個庫存建立時就是 ×1。只有專用模組擁有自己的 ×2 庫存。
+- 遊戲的提示框把這個係數稱為「專用貨物倉庫：+100 %」（`cargo_react_util.tl:51-54`）。
+- 在一次卸貨中，遊戲會**輪流**服務各個接收方。因此當一部分貨物進貨物倉庫、一部分進產業時，列車卸貨過程中的速度會改變（遊戲內實測）。
+
+```engine
+每一單位交給哪個接收方，以及最後的乘法運算，都在引擎中完成。上面的係數是腳本交給引擎的輸入；結果已用引擎公開的數值核對過（[Platform Details](https://mod.io/g/transportfever3/m/platform-details) 探針，2026 年 10 月）。
+```
+
+## 遊戲中顯示的內容
+
+- 裝載指示器在高於 ×1.5 時顯示為**加速**，低於 ×0.75 時顯示為**減速**（`cargo_react_util.tl:119-122`）。
+- 將滑鼠游標停在上面：提示框會列出「專用月台」、「專用類型不符」、「總站長度不足」與「專用貨物倉庫」，每項附上百分比（`cargo_react_util.tl:76-99`）。
+
+## 範例
+
+一列由 8 節散裝貨物車廂組成、長 160 m 的列車，正在卸下煤。
+
+| 車站 | 月台 | 接收方 | 係數 |
+|---|---|---|---|
+| 通用月台 160 m | ×1 | 煉鋼廠 | **×1** |
+| 散裝貨物月台 160 m | ×2 | 煉鋼廠 | **×2** |
+| 散裝貨物月台 160 m | ×2 | 專用散裝貨物倉庫 | **×4** |
+| 散裝貨物月台 160 m | ×2 | 通用貨物倉庫 | **×2** |
+| 通用月台 120 m（列車超長 40 m） | ¾ × 1 + ¼ × 0.25 ≈ ×0.81 | 煉鋼廠 | **×0.81** |
+
+## 小知識
+
+- 產業內部的車站一律專用於該產業所需的貨物（官方 wiki）。
+- 專用貨物倉庫模組還會凍結所存貨物的配送計時（官方 wiki）；通用貨物倉庫不會。
+- [Platform Details](https://mod.io/g/transportfever3/m/platform-details) 會顯示月台上每輛車的兩個係數，以及卸下的貨物去了哪裡。
+
+```check
+official: "Loading speed is also influenced by the vehicle's specialization, the terminal's specialization and where applicable, a warehouse's specialization." Specialized warehouses "enable faster loading / unloading speeds". ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles), [Warehouses](https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses))
+scripts: 專用區段 ×2，通用 ×1，沒有相符區段 ×0.25，超出月台 ×0.25，依列車所占比例混合；專用貨物倉庫模組 ×2，通用貨物倉庫 ×1。
+result: refines
+```

@@ -1,0 +1,86 @@
+---
+title: Szybkość załadunku i rozładunku
+summary: Od czego zależy, czy pojazd ładuje się na przystanku szybko, czy wolno: od pojazdu, od sekcji peronu i od zapasu, który oddaje lub przyjmuje towar.
+domain: stations
+official: gamemanual:management:linesvehicles#loading_speed
+status: verified
+updated: 2026-11-14
+fact: ×2 | specjalistyczna sekcja peronu
+fact: ×0,25 | niewłaściwa sekcja lub za długi pociąg
+fact: ×4 | najlepszy przypadek: specjalistyczny peron i magazyn
+---
+
+Czas, jaki pojazd spędza na załadunku lub rozładunku, to jego własna szybkość załadunku pomnożona przez dwa mnożniki: jeden dla **peronu**, drugi dla **zapasu** po drugiej stronie (magazyn, zakład przemysłowy, miasto).
+
+```diagram loading_factors
+```
+
+## 1. Pojazd
+
+Każdy pojazd ma bazową szybkość załadunku, widoczną w sklepie z pojazdami i w oknie pojazdu („2.0x”). Wszystko, co opisano niżej, ją mnoży.
+
+## 2. Mnożnik peronu
+
+Dla gry peron nie jest rzędem modułów, lecz **listą sekcji, po jednej na każdą klasę towaru**, w której długości wszystkich modułów danej klasy są sumowane.
+
+```diagram loading_sections
+```
+
+| Wagony… | Mnożnik | Źródło |
+|---|---|---|
+| na sekcji swojej klasy (wagony do towarów sypkich na sekcji do towarów sypkich) | **×2** | `modular_station.script.lua:1042` |
+| na sekcji uniwersalnej | ×1 | `modular_station.script.lua:1042` |
+| na peronie nie ma sekcji ich klasy | **×0,25** | `cargo_react_util.tl:60` |
+| poza długością peronu (za długi pociąg) | **×0,25** | `cargo_react_util.tl:61` |
+
+- Mnożnik jest **mieszany według udziału w pociągu**: jeśli 3/4 wagonów pasuje, a 1/4 nie, mnożnik wynosi ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`; ten sam podział gra pokazuje jako „Częściowo specjalistyczny terminal”).
+- **Gdzie** wagony stoją na peronie, nie ma znaczenia, liczą się tylko zsumowane długości (zmierzone w grze).
+- Drogi: specjalistyczne terminale ciężarówek dają ×2 (`modular_terminal.script.lua:2956`); małe przystanki uliczne dają zawsze ×1 (`small_stops.script.lua:19`).
+- Perony pasażerskie dają ×1.
+
+## 3. Mnożnik zapasu
+
+Przy rozładunku każda jednostka towaru trafia do odbiorcy: modułu magazynu, zakładu przemysłowego lub budynku w mieście. Zapas odbiorcy ma własny mnożnik.
+
+| Odbiorca | Mnożnik | Źródło |
+|---|---|---|
+| **specjalistyczny** moduł magazynu (płyny, towary sypkie, towary niewymiarowe, produkty) | **×2** | `modules.script.lua:120`, `warehouse.script.lua:297-314` |
+| magazyn **uniwersalny** | ×1 | `warehouse.script.lua:272-285` |
+| zakład przemysłowy | ×1 | zmierzone w grze |
+
+- Każdy moduł magazynu żąda ×2, ale moduły uniwersalne tylko dodają pojemność do **jednego wspólnego zapasu uniwersalnego**, który jest tworzony z ×1. Własny zapas z ×2 dostają tylko moduły specjalistyczne.
+- Podpowiedź w grze nazywa ten mnożnik „Specjalistyczny magazyn: +100 %” (`cargo_react_util.tl:51-54`).
+- Podczas jednego rozładunku gra obsługuje odbiorców **po kolei**, więc gdy część towaru trafia do magazynu, a część do zakładu, szybkość zmienia się w trakcie rozładunku pociągu (zmierzone w grze).
+
+```engine
+To, który odbiorca dostaje każdą jednostkę, oraz końcowe mnożenie odbywają się w silniku. Powyższe mnożniki to dane wejściowe, które przekazują mu skrypty; wynik sprawdzono na wartościach udostępnianych przez silnik (sonda moda [Platform Details](https://mod.io/g/transportfever3/m/platform-details), październik 2026).
+```
+
+## Co pokazuje gra
+
+- Wskaźnik załadunku jest rysowany jako **przyspieszony** powyżej ×1,5 i jako **spowolniony** poniżej ×0,75 (`cargo_react_util.tl:119-122`).
+- Najedź na niego kursorem: podpowiedź wymienia „Specjalistyczny terminal”, „Specjalizacje nie pasują do siebie”, „Zbyt krótki terminal” i „Specjalistyczny magazyn”, każdy z jego wartością procentową (`cargo_react_util.tl:76-99`).
+
+## Przykład
+
+Pociąg z 8 wagonów do towarów sypkich, o długości 160 m, rozładowuje węgiel.
+
+| Stacja | Peron | Odbiorca | Mnożnik |
+|---|---|---|---|
+| peron uniwersalny 160 m | ×1 | stalownia | **×1** |
+| peron do towarów sypkich 160 m | ×2 | stalownia | **×2** |
+| peron do towarów sypkich 160 m | ×2 | specjalistyczny magazyn towarów sypkich | **×4** |
+| peron do towarów sypkich 160 m | ×2 | magazyn uniwersalny | **×2** |
+| peron uniwersalny 120 m (pociąg dłuższy o 40 m) | ¾ × 1 + ¼ × 0,25 ≈ ×0,81 | stalownia | **×0,81** |
+
+## Warto wiedzieć
+
+- Stacje wewnątrz zakładu przemysłowego są zawsze wyspecjalizowane w towarze, którego potrzebuje ten zakład (oficjalna wiki).
+- Specjalistyczne moduły magazynu dodatkowo zatrzymują licznik czasu dostawy przechowywanego towaru (oficjalna wiki); magazyn uniwersalny tego nie robi.
+- [Platform Details](https://mod.io/g/transportfever3/m/platform-details) pokazuje oba mnożniki dla każdego pojazdu przy peronie oraz to, dokąd trafił rozładowany towar.
+
+```check
+official: "Loading speed is also influenced by the vehicle's specialization, the terminal's specialization and where applicable, a warehouse's specialization." Specjalistyczne magazyny "enable faster loading / unloading speeds". ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles), [Warehouses](https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses))
+scripts: Sekcja specjalistyczna ×2, uniwersalna ×1, brak pasującej sekcji ×0,25, poza peronem ×0,25, mieszane według udziału w pociągu; specjalistyczny moduł magazynu ×2, magazyn uniwersalny ×1.
+result: refines
+```

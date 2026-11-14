@@ -1,0 +1,107 @@
+---
+title: 화물 수입과 배송 시간
+summary: 한 번의 배송으로 받는 금액(직선 거리, 오르막, 회사 랭크, 보조금)과 지연이 실제로 치르게 하는 대가.
+domain: economy
+official: gamemanual:management:companyandfinances
+status: verified
+updated: 2026-11-14
+fact: 3.8 | 모든 화물에 같은 수입 계수
+fact: +8 × 오르막 | 오르막 높이(m)가 거리에 더해짐
+fact: 100 % | 배송이 늦어도 전액 지급
+---
+
+배송 대금은 **직선 거리**만으로 정해지며, 이동의 다른 요소는 반영되지 않는다. 속도가 중요한 이유는 따로 있다. 화물마다 **제한 시간**이 있고, 늦은 배송은 수입이 아니라 마을의 **배송** 평가를 떨어뜨린다.
+
+```diagram income_formula
+```
+
+## 수입 공식
+
+공식 전체가 짧은 게임 스크립트 하나다(`cargo_income.script.lua:10-13`).
+
+1. 화물의 **수입 계수**. 기본 게임의 모든 화물이 같은 함수와 같은 가격(`initialPrice = 4`, `finalPrice = 3.2`)을 쓰므로 **36종 화물 모두 3.8**이다(`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). 같은 거리라면 석탄도 상품과 똑같이 번다.
+2. **화물 수입** 설정: 50 %, 75 %, 100 %, 125 % 또는 150 %(`difficulty_util.tl:38`, `mod.script.tl:211`). 네 가지 난이도 프리셋은 모두 100 %를 쓴다(`difficulty_util.tl:97`).
+3. **거리**, 아래 참조.
+
+이 함수는 이동 시간을 받지만 **사용하지 않는다**(`cargotype.script.lua:7-13`). 느린 배송이나 늦은 배송도 같은 금액을 받는다.
+
+## 거리: 직선과 오르막
+
+```diagram income_distance
+```
+
+- 거리는 두 지점 사이의 **3D 직선**이며, 노선의 길이가 아니다(`cargo_income.script.lua:3-7`).
+- 높이 차가 양수이면 **8 × 그 높이**가 더해진다(`cargo_income.script.lua:5`). 100 m 오르막은 800 m를 더 간 것처럼 지급된다. 반대 방향으로는 아무것도 빠지지 않는다.
+- 따라서 구불구불한 노선도 곧은 노선과 똑같이 벌지만, 건설한 선로나 도로는 1미터마다 유지비가 든다.
+
+```engine
+어떤 두 지점을 비교하는지(화물이 네트워크에 들어온 곳, 배송된 곳)와 높이 차의 부호는 엔진이 정한다. 공식 위키의 설명: "distances are measured as the crow flies between the source and the final destination"(거리는 출발지와 최종 목적지 사이의 직선으로 측정된다).
+```
+
+## 금액을 바꾸는 다른 요소
+
+| 요소 | 효과 | 출처 |
+|---|---|---|
+| **회사 랭크**와 인플레이션 설정 | 랭크 1: ×1, 랭크 15까지 균일하게 감소: ×0.9(낮음), **×0.75(보통)**, ×0.6(높음), ×0.5(매우 높음). 없음: 항상 ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **완료된 보조금** | 계약을 위해 배송한 노선에 ×2 | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **늦은 배송** | 수입에 영향 없음 | `cargotype.script.lua:7-13` |
+
+- 랭크 배수는 **모든** 화물 및 승객 수입에 적용된다(`company_growth.script.tl:159-170`). 난이도 프리셋별 인플레이션: 낮음(쉬움), 보통(보통), 높음(어려움), 매우 높음(매우 어려움)(`difficulty_util.tl:108`).
+- 보조금의 ×2는 계약 기간 동안 배송한 노선에만, 제한된 기간 동안 적용된다(공식 위키, 보조금).
+
+## 승객
+
+승객은 같은 거리와 약 3.61의 고정 수입 계수를 쓰며(`cargotype.script.lua:50-53`), 여기에 **0.5 + 운송 수단의 운임 계수**가 곱해진다(`cargo_income.script.lua:14-17`). 운송 수단 모델이 편안함 계수를 지정하지 않으면 게임은 운임 계수를 버스와 전차 0.3, 항공기 0.9, 선박 0.1, 열차 0.5로 설정한다(`base_mod.lua:46-61`). 다른 모델의 값은 엔진 값이라 스크립트에서 보이지 않는다. 승객 보조금도 해당 노선의 수입을 두 배로 만든다(`deliver_passengers.script.tl:284-298`).
+
+## 배송 제한 시간
+
+화물마다 고유한 제한 시간이 있다(각 .cargo.lua의 `timeToDeliverInSeconds`, 예: `meat.cargo.lua:30`, `coal.cargo.lua:30`). 신선 식품이 가장 짧고, 무거운 원자재는 다섯 배 길다.
+
+```diagram delivery_times
+```
+
+- **재정 › 배송 시간**에서 현재 맵의 화물별 제한 시간을 볼 수 있다. 화물 만족도 레이어는 경로를 초록색에서 빨간색까지 칠한다.
+- 제한 시간이 지난 뒤 도착한 배송은 **지연**으로 집계된다(`towns.script.tl:425`).
+- 특화된 창고 모듈은 보관 중인 화물의 타이머를 **멈춘다**(공식 위키, 창고).
+
+```engine
+엔진은 기본 시간을 재정에 표시되는 제한 시간으로 변환하고(스크립트는 getAdjustedDeliveryTime으로 읽는다) 화물이 언제 늦었는지 판정한다. 위의 상대적인 값만 화물 파일에서 나온다.
+```
+
+## 지연의 대가: 배송 평가
+
+늦은 화물도 전액 지급되지만, 마을마다 **배송** 평가가 있다(`town_util.tl:505-519`).
+
+1. 게임은 **최근 반년** 동안 마을에 들어온 배송 수와 그중 늦은 배송 수를 센다(최소 10회로 가정하므로 처음 몇 번의 배송으로 크게 흔들리지 않는다).
+2. 정시 비율 → 평가: 하한 미만이면 평가 0, 상한 초과면 1, 그 사이는 선형이다. 기본 민감도(**보통**)에서는 **정시 30 % → 0, 100 % → 1**이므로 정시 90 %는 0.86이 된다.
+3. **배달 민감도** 설정이 이 한계를 옮긴다(`difficulty_util.tl:47`). 끄기: 항상 1. 프리셋: 쉬움 낮음, 보통 보통, 어려움 높음, 매우 어려움 아주 높음(`difficulty_util.tl:113`).
+
+```diagram delivery_rating
+```
+
+배송은 여섯 가지 평가 중 하나이며, 그중 가장 낮은 평가가 마을의 성장률을 정한다. 매우 형편없음 평가가 하나라도 있으면 마을은 멈춘다([마을 성장](towns.html) 참조).
+
+## 예시
+
+직선 거리로 5 km 떨어진 같은 석탄 배송.
+
+| 상황 | 지급액 |
+|---|---|
+| 평지, 노선 길이 무관 | **100 %** |
+| 10 km 거리 | **200 %** |
+| 목적지가 100 m 더 높음 | **116 %** |
+| 늦게 배송 | **100 %**(배송 평가 하락) |
+| 회사 랭크 15, 인플레이션 보통 | **75 %** |
+| 완료된 보조금의 노선 | **200 %** |
+
+## 알아두면 좋은 점
+
+- 모든 화물이 킬로미터당 같은 금액을 받으므로, 가격이 아니라 **물량, 거리, 제한 시간으로 화물을 고르자**.
+- 제한 시간은 고기, 어류, 채소, 음료에서 가장 중요하다. 짧은 노선이나 타이머를 멈추는 창고를 쓰자.
+- 마을 건물에 배송된 화물 한 단위마다 그 마을에 경험치도 준다(`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+
+```check
+official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
+scripts: 모든 화물의 계수는 3.8로 같다. 거리는 3D 직선에 8 × 오르막을 더한 값. 회사 랭크는 수입을 랭크 15에서 ×0.75까지 낮춘다(인플레이션 보통). 보조금 완료 후 ×2. 수입에는 시간이 쓰이지 않는다. 배송 평가는 최근 반년의 정시 비율로 정해진다(보통: 30 % → 0, 100 % → 1).
+result: refines
+```

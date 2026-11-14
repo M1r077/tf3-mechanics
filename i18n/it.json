@@ -1,0 +1,460 @@
+{
+ "ui": {
+  "site": "Meccaniche di TF3",
+  "tagline": "Come funziona davvero Transport Fever 3, letto negli script del gioco stesso.",
+  "hero_kicker": "Wiki dei fan · script del gioco · wiki ufficiale",
+  "home": "Indice",
+  "official": "Wiki ufficiale",
+  "status": {
+   "verified": "Verificato negli script",
+   "draft": "Da scrivere",
+   "engine": "Deciso dal motore"
+  },
+  "check": "Wiki ufficiale e script del gioco",
+  "result": {
+   "agrees": "Concorda",
+   "refines": "Precisa",
+   "differs": "Diverge"
+  },
+  "official_says": "La wiki ufficiale dice",
+  "scripts_show": "Gli script del gioco mostrano",
+  "domains": "Sistemi di gioco",
+  "domains_sub": "Ogni sistema del gioco, con le domande dei giocatori e il numero di file di script che lo compongono.",
+  "pages": "Meccaniche spiegate",
+  "pages_sub": "Ogni pagina è verificata riga per riga nei file del gioco e confrontata con la wiki ufficiale.",
+  "files": "file di script",
+  "footer": "Progetto dei fan di Miro. Non affiliato a Urban Games.",
+  "lic": "Testi e immagini: CC BY 4.0 · Codice del gioco © Urban Games: sono mostrati solo brevi riferimenti.",
+  "engine_note": "Deciso dal motore di gioco",
+  "engine_sub": "C++, non visibile negli script",
+  "read_more": "Leggi",
+  "no_page": "Ancora nessuna pagina",
+  "updated": "Aggiornato",
+  "src_note": "I percorsi si trovano nella cartella base/content del gioco o nei suoi file zip.",
+  "toc": "In questa pagina",
+  "more": "Altre meccaniche",
+  "filter": "Filtra i sistemi di gioco…",
+  "st_pages": "meccaniche spiegate",
+  "st_dom": "sistemi di gioco",
+  "st_files": "file di script letti",
+  "st_lang": "lingue",
+  "sources": "riferimenti alle fonti",
+  "in": "in",
+  "translated": "Tradotto dall'inglese; le correzioni sono benvenute",
+  "lang_label": "Lingua"
+ },
+ "diagrams": {
+  "T_WORKERS": {
+   "cap": "Due conteggi diversi: i residenti che il gioco assegna all'industria e gli arrivi che contano per il booster.",
+   "home": "Casa",
+   "home2": "in una cittadina",
+   "lines": "Le tue linee passeggeri",
+   "lines2": "l'unico modo per arrivarci",
+   "no": "né a piedi, né in auto",
+   "ind": "Industria",
+   "ind2": "20 luoghi di lavoro",
+   "a": "Assegnati",
+   "a2": "residenti che lavorano in questa industria",
+   "b": "Contati per il booster",
+   "b2": "arrivi con le tue linee, ultimi 2 anni, max 20",
+   "ex": "es.",
+   "need": "10 necessari = 50%",
+   "rule": "Booster attivo",
+   "eff": "produzione da ×1,5 a ×2,5, fissa per industria",
+   "nob": "solo assegnati: nessun booster"
+  },
+  "T_WINDOW": {
+   "cap": "Ogni arrivo con le tue linee viene ricordato per 2 anni di gioco; si conservano al massimo i 20 più recenti.",
+   "now": "ora",
+   "ago": "2 anni fa",
+   "kept": "contati: arrivi degli ultimi 2 anni (max 20)",
+   "old": "troppo vecchi: scartati",
+   "same": "stessa persona di nuovo: conta solo l'ultimo arrivo"
+  },
+  "T_LOAD": {
+   "cap": "Velocità di caricamento = velocità di base del veicolo × fattore della piattaforma × fattore delle scorte.",
+   "veh": "Veicolo",
+   "veh2": [
+    "velocità di base",
+    "mostrata nel negozio"
+   ],
+   "plat": "Piattaforma",
+   "stock": "Scorte",
+   "p": [
+    [
+     "×2",
+     "vagoni su una sezione della loro classe",
+     "#38d1bf"
+    ],
+    [
+     "×1",
+     "sezione universale",
+     "#8f9bab"
+    ],
+    [
+     "×0,25",
+     "nessuna sezione della loro classe",
+     "#f0705f"
+    ],
+    [
+     "×0,25",
+     "parte oltre la piattaforma",
+     "#f0705f"
+    ]
+   ],
+   "k": [
+    [
+     "×2",
+     "modulo magazzino specializzato",
+     "#38d1bf"
+    ],
+    [
+     "×1",
+     "magazzino universale",
+     "#8f9bab"
+    ],
+    [
+     "×1",
+     "industria",
+     "#8f9bab"
+    ]
+   ],
+   "res": "velocità di caricamento"
+  },
+  "T_SECT": {
+   "cap": "Il gioco somma le lunghezze dei moduli di ogni classe di carico; non conta dove si trova un modulo o un vagone.",
+   "mods": "Moduli della piattaforma (40 m ciascuno), in qualsiasi ordine",
+   "sum": "sommati per classe",
+   "bulk": "Merci sfuse",
+   "uni": "Universale",
+   "train": "Treno di 8 vagoni per merci sfuse, 160 m: il fattore è pesato sulla quota del treno",
+   "s1": "120 m su sfuse: ×2",
+   "s2": "40 m: ×1",
+   "res": "≈ ×1,75",
+   "no": "Senza alcuna sezione per merci sfuse, questi vagoni avrebbero ×0,25."
+  },
+  "T_INC": {
+   "cap": "Quanto paga un'unità di merce consegnata. I passeggeri usano la stessa formula con un fattore del veicolo (vedi sotto).",
+   "c": [
+    [
+     "3,8",
+     "fattore di entrata",
+     "uguale per tutte le merci",
+     "#f2b84b"
+    ],
+    [
+     "50–150%",
+     "Entrate carichi",
+     "impostazione, 100% in tutti i livelli",
+     "#5aa9ff"
+    ],
+    [
+     "km",
+     "distanza",
+     "linea retta + 8 × salita",
+     "#38d1bf"
+    ],
+    [
+     "×1 → ×0,75",
+     "grado azienda",
+     "impostazione Inflazione (Normale)",
+     "#b49cf0"
+    ],
+    [
+     "×2",
+     "linee commessa",
+     "dopo un contratto completato",
+     "#f2b84b"
+    ]
+   ],
+   "res": "= entrata della consegna",
+   "not": "fuori dalla formula: tempo di viaggio, velocità, lunghezza reale del percorso, ritardo o puntualità"
+  },
+  "T_DIST": {
+   "cap": "Pagato: la linea retta da dove la merce è stata caricata a dove viene consegnata, più 8 m per ogni metro di salita. Il percorso reale costa soltanto (manutenzione).",
+   "a": "origine",
+   "b": "destinazione",
+   "paid": "pagato: linea retta (3D)",
+   "real": "percorso reale: non pagato, costa manutenzione",
+   "climb": "salita h",
+   "bonus": "+ 8 × h pagati",
+   "ex1": "5 km, 100 m più in alto",
+   "ex2": "pagato come 5,8 km (+16%)",
+   "down": "nel senso opposto: né bonus né malus"
+  },
+  "T_TIMES": {
+   "cap": "Tempo concesso prima che una consegna conti come in ritardo, rispetto alla carne (il più breve). Il gioco adatta il tempo effettivo: Finanze › Tempi di consegna lo mostra per la tua mappa.",
+   "short": "alimenti freschi: fretta",
+   "long": "materie prime: molto tempo"
+  },
+  "T_RATE": {
+   "cap": "La valutazione Consegna di una cittadina in base alla quota di consegne puntuali nell'ultimo mezzo anno, per tre livelli di Sensibilità consegne.",
+   "x": "consegne puntuali (ultimo mezzo anno)",
+   "y": "valutazione Consegna",
+   "lines": [
+    [
+     "Ridotta",
+     0.75,
+     "#5aa9ff"
+    ],
+    [
+     "Normale",
+     1.0,
+     "#f2b84b"
+    ],
+    [
+     "Molto elevata",
+     2.0,
+     "#f0705f"
+    ]
+   ],
+   "pt": "90% puntuali → 0,86"
+  },
+  "T_TXP": {
+   "cap": "L'XP grezzo dei tuoi passeggeri e delle tue merci, moltiplicato per l'indice di crescita della cittadina, riempie la barra del livello; ogni livello rende la cittadina più grande.",
+   "src": [
+    [
+     "person",
+     "Passeggeri",
+     "5 · 10 · 20 XP",
+     "stessa cittadina · vicina · più lontana",
+     "#f2b84b"
+    ],
+    [
+     "truck",
+     "Unità di merce",
+     "10 · 20 · 40 XP",
+     "per livello di merce 0 · 1 · 2",
+     "#38d1bf"
+    ],
+    [
+     "subsidies",
+     "Ricompensa commessa",
+     "% del livello",
+     "alcuni contratti, anche × indice",
+     "#b49cf0"
+    ]
+   ],
+   "mul": "× indice di crescita",
+   "mul2": "0–100%",
+   "mul3": "Autorità × Forniture",
+   "hq": "+5% per parte della sede",
+   "lv": "Livello cittadina",
+   "lv2": "livello 2 dopo 1.000 XP,",
+   "lv3": "ogni livello successivo × 1,5",
+   "sz": "Dimensioni cittadina",
+   "sz2": "crescono con i livelli guadagnati",
+   "sz3": "dall'inizio della partita",
+   "not": "niente XP: il tempo che passa, viaggi verso industrie, viaggi senza le tue linee"
+  },
+  "T_GM": {
+   "cap": "Indice di crescita (× su tutto l'XP) in base alle due valutazioni della finestra della cittadina. Bonus della sede centrale in aggiunta.",
+   "lv": [
+    "Pessima",
+    "Scadente",
+    "Mediocre",
+    "Buona",
+    "Ottima",
+    "Eccellente"
+   ],
+   "none": "nessuna consegna",
+   "sup": "Forniture",
+   "auth": "Autorità cittadina (la più bassa delle 6)",
+   "g": [
+    "Stagnante",
+    "Crescita molto lenta",
+    "Crescita lenta",
+    "In crescita",
+    "Crescita veloce",
+    "Crescita estremamente veloce"
+   ]
+  },
+  "T_TS": {
+   "cap": "Dimensione obiettivo di una cittadina (tutti i quartieri insieme) rispetto alla sua dimensione iniziale, in base ai livelli guadagnati da allora.",
+   "x": "livelli guadagnati dall'inizio",
+   "y": "dimensione × iniziale",
+   "rows": "livelli → dimensione"
+  }
+ },
+ "cargo": {
+  "Meat": "Carne",
+  "Beverages": "Bevande",
+  "Fish": "Pesce",
+  "Vegetables": "Verdure",
+  "Grain": "Cereali",
+  "Clothes": "Indumenti",
+  "Fabric": "Tessuti",
+  "Fertilizer": "Fertilizzanti",
+  "Plastic": "Plastica",
+  "Tires": "Pneumatici",
+  "Wool": "Lana",
+  "Books": "Libri",
+  "Chemicals": "Sostanze chimiche",
+  "Furniture": "Mobili",
+  "Paper": "Carta",
+  "Rubber": "Gomma",
+  "Tinned Food": "Cibo in scatola",
+  "Cement": "Cemento",
+  "Dyes": "Tinture",
+  "Fuel": "Carburante",
+  "Glass": "Vetro",
+  "Machines": "Macchinari",
+  "Sawdust": "Segatura",
+  "Tools": "Strumenti",
+  "Vehicles": "Veicoli",
+  "Bricks": "Mattoni",
+  "Clay": "Argilla",
+  "Coal": "Carbone",
+  "Crude Oil": "Petrolio grezzo",
+  "Logs": "Tronchi",
+  "Planks": "Assi",
+  "Sheet Metal": "Lamine di metallo",
+  "Iron Ore": "Minerale di ferro",
+  "Sand": "Sabbia",
+  "Steel": "Acciaio",
+  "Stone": "Pietra"
+ },
+ "domains": {
+  "industries": {
+   "name": "Industrie",
+   "what": "Regole di produzione, scorte, merci booster, booster dei lavoratori, comparsa e chiusura.",
+   "questions": [
+    "Perché la mia industria non ha il booster?",
+    "Quando chiude un'industria inutilizzata?"
+   ]
+  },
+  "stations": {
+   "name": "Stazioni e carico",
+   "what": "Sezioni delle piattaforme, area di attrazione, capacità e velocità di carico e scarico delle merci.",
+   "questions": [
+    "Perché il mio treno carica così lentamente?",
+    "Le piattaforme specializzate servono?"
+   ]
+  },
+  "warehouses": {
+   "name": "Magazzini",
+   "what": "Moduli universali e specializzati, capacità, trasferimenti tra linee.",
+   "questions": [
+    "Magazzino universale o specializzato?",
+    "Un magazzino accelera lo scarico?"
+   ]
+  },
+  "towns": {
+   "name": "Cittadine",
+   "what": "Livelli e XP di crescita, valutazioni di autorità e forniture, quartieri, richieste di merci.",
+   "questions": [
+    "Perché la mia cittadina non cresce?",
+    "Quale valutazione frena la mia cittadina?"
+   ]
+  },
+  "economy": {
+   "name": "Merci ed entrate",
+   "what": "Tipi e classi di merci, quanto paga una consegna, tempi limite di consegna.",
+   "questions": [
+    "Che cosa fa pagare di più una consegna?",
+    "Le merci in ritardo vengono pagate?"
+   ]
+  },
+  "company": {
+   "name": "Azienda e sede centrale",
+   "what": "Gradi dell'azienda, permessi, bonus della sede centrale, marketing e prospezione.",
+   "questions": [
+    "Come faccio salire di grado la mia azienda?",
+    "Che cosa dà la sede centrale?"
+   ]
+  },
+  "finance": {
+   "name": "Finanze e prestiti",
+   "what": "Conti, prestiti e interessi, le tabelle e i grafici delle finanze.",
+   "questions": [
+    "Quanto costano gli interessi di un prestito?",
+    "Dove finiscono i miei soldi?"
+   ]
+  },
+  "subsidies": {
+   "name": "Commesse",
+   "what": "I quattro tipi di contratto, le loro condizioni, i pagamenti e le scadenze.",
+   "questions": [
+    "Quando viene completata una commessa?",
+    "Che cosa succede se la manco?"
+   ]
+  },
+  "emission": {
+   "name": "Inquinamento e rumore",
+   "what": "Emissioni di veicoli ed edifici, il loro effetto sulle cittadine, l'impianto di bonifica.",
+   "questions": [
+    "Che cosa inquina la mia cittadina?",
+    "L'impianto di bonifica conviene?"
+   ]
+  },
+  "vehicles": {
+   "name": "Linee e veicoli",
+   "what": "Caratteristiche dei veicoli, invecchiamento e manutenzione, impostazioni delle linee e regole di partenza.",
+   "questions": [
+    "Quale veicolo carica più in fretta?",
+    "Quando devo sostituire i veicoli vecchi?"
+   ]
+  },
+  "infrastructure": {
+   "name": "Strade, binari e depositi",
+   "what": "Tipi di strada e di binario, ponti, gallerie, segnali, depositi ed edifici di manutenzione.",
+   "questions": [
+    "A che cosa servono gli edifici di manutenzione?",
+    "Di quale velocità dei binari ho bisogno?"
+   ]
+  },
+  "time": {
+   "name": "Tempo di gioco e calendario",
+   "what": "Durata del giorno, velocità del calendario, che cosa viene scalato quando il calendario è rallentato o in pausa.",
+   "questions": [
+    "Che cosa cambia con il calendario in pausa?",
+    "Quanto dura un anno di gioco?"
+   ]
+  },
+  "notifications": {
+   "name": "Notifiche e avvisi",
+   "what": "Perché compare ogni avviso: veicoli bloccati, stazioni inutili, sovraffollamento, problemi delle linee.",
+   "questions": [
+    "Perché la mia stazione è detta inutile?",
+    "Quando un veicolo viene segnalato come bloccato?"
+   ]
+  },
+  "landmarks": {
+   "name": "Luoghi di riferimento, vantaggi e festeggiamenti",
+   "what": "Luoghi di riferimento e i loro bonus, festeggiamenti quando una cittadina sale di livello, elementi decorativi.",
+   "questions": [
+    "Che cosa fa un luogo di riferimento per una cittadina?",
+    "Quando c'è un festeggiamento?"
+   ]
+  },
+  "achievements": {
+   "name": "Obiettivi",
+   "what": "Che cosa verifica ogni obiettivo, e quando.",
+   "questions": [
+    "Perché il mio obiettivo non si è sbloccato?"
+   ]
+  },
+  "map": {
+   "name": "Mappa, climi e natura",
+   "what": "Zone climatiche, generazione del terreno, rimboschimento, animali e nomi delle cittadine.",
+   "questions": [
+    "Quali industrie esistono nel mio clima?",
+    "Gli alberi ricrescono?"
+   ]
+  },
+  "missions": {
+   "name": "Campagna e tutorial",
+   "what": "Incarichi delle missioni, il sistema di guida e i tutorial.",
+   "questions": [
+    "Che cosa richiede davvero questo incarico della missione?"
+   ]
+  },
+  "interface": {
+   "name": "Interfaccia e strati di dati",
+   "what": "Da dove vengono i numeri delle finestre, delle statistiche e degli strati.",
+   "questions": [
+    "Che cosa significa questo numero nella finestra?"
+   ]
+  }
+ }
+}

@@ -394,9 +394,9 @@ T_INC = {
 def income_formula(lang):
     t = T_INC[lang]
     s = Svg("if", 900, 300)
-    w, g = 158, 27
+    w, g = 158, 25  # 5 cards + 4 gaps = 890, inside the 900 viewBox
     for i, (big, title, sub, col) in enumerate(t["c"]):
-        x = 6 + i * (w + g)
+        x = 5 + i * (w + g)
         optional = i >= 3
         s.card(x, 20, w, 170, stroke=col if not optional else LINE, dash="6 5" if optional else None)
         s.text(x + w / 2, 70, big, 25 if width(big) < 6 else 19, col, weight=800)
@@ -523,7 +523,7 @@ def delivery_times(lang):
         if width(label) <= 72:
             s.text(x0 + wmax + 76, y + 18, label, 13.5, DIM if col != RED else TEXT, "start", 500)
         else:
-            sep = "、" if langs.is_cjk(lang) else ", "
+            sep = "、" if langs.is_cjk(lang) and lang != "ko" else ", "  # Korean lists use commas
             half = (len(cargos) + 1) // 2
             for k, part in enumerate((cargos[:half], cargos[half:])):
                 txt = sep.join(names.get(c, c) for c in part) + ("," if k == 0 and sep == ", " else "")

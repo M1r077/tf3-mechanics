@@ -4,7 +4,6 @@
   --gold:#f2b84b;--gold2:#e09a2a;--teal:#38d1bf;--red:#f0705f;--violet:#b49cf0;--blue:#5aa9ff;
   --r:16px;--shadow:0 10px 30px -12px rgba(0,0,0,.6);
   --font:Inter,"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
-  --cjk:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Noto Sans SC";
   --mono:"Cascadia Code","JetBrains Mono",Consolas,ui-monospace,monospace;
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}
@@ -43,6 +42,7 @@ header.bar{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.72);backdr
 :lang(ko),:lang(ko) *{--font:Inter,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK KR","Noto Sans KR",sans-serif}
 :lang(zh-Hans),:lang(zh-Hans) *{--font:Inter,"Segoe UI","Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Noto Sans SC",sans-serif}
 :lang(zh-Hant),:lang(zh-Hant) *{--font:Inter,"Segoe UI","Microsoft JhengHei","PingFang TC","Noto Sans CJK TC","Noto Sans TC",sans-serif}
+:lang(ja) svg text,:lang(ko) svg text,:lang(zh-Hans) svg text,:lang(zh-Hant) svg text{font-family:var(--font)}
 :lang(ja) h1,:lang(ko) h1,:lang(zh-Hans) h1,:lang(zh-Hant) h1{letter-spacing:0;line-height:1.25}
 :lang(ja) body,:lang(ko) body,:lang(zh-Hans) body,:lang(zh-Hant) body{line-height:1.85}
 footer .tr{color:var(--dim)}footer .tr a{color:var(--soft)}

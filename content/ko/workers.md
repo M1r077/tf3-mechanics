@@ -1,0 +1,77 @@
+---
+title: 근로자와 근로자 부스트
+summary: 주민이 산업에 일자리를 얻는 방식, 부스트에 집계되는 근로자, 부스트의 크기.
+domain: industries
+official: gamemanual:simulation:industriescargos#booster
+status: verified
+updated: 2026-11-14
+fact: 10 / 20 | 부스트에 필요한 근로자
+fact: 2년 | 한 번의 도착이 집계되는 기간
+fact: ×1.5–2.5 | 부스트 계수, 산업마다 고정
+---
+
+모든 산업은 일자리를 제공한다. 충분한 근로자가 **플레이어의 승객 노선으로 도착하면** 산업의 생산량이 늘어난다. 산업 창에는 서로 다른 두 숫자가 표시되며, 이 둘을 혼동하는 것이 가장 흔한 오해의 원인이다.
+
+```diagram workers_flow
+```
+
+## 누가 산업에서 일할 수 있는가
+
+- 기본 게임의 모든 산업은 **일자리 20개**를 가진다(각 산업의 .con.lua에서 `industrialCapacity = 20`).
+- 이 일자리는 주민이 **걸어서나 자동차로 갈 수 없도록** 설정되어 있다. 플레이어의 노선만이 주민을 데려갈 수 있다(`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
+- 주민마다 집, 쇼핑 장소, 직장이 하나씩 있다. 게임은 그 주민이 도달할 수 있는 장소 중에서 직장을 고르며, 산업의 목적지 가중치는 2.0이다(`industryutil.lua:455`).
+
+```engine
+주민이 도달할 수 있는 모든 장소 중 하나를 직장으로 고르는 방식(이동 시간, 비용, 가중치 2.0)은 엔진이 계산한다. 스크립트는 입력값만 제공한다.
+```
+
+## 배정된 근로자
+
+이 산업을 직장으로 가진 주민이다. 산업 창의 일자리 막대와 산업 통계의 **직장** 열("12/20")이 이 숫자를 보여준다(`entity_window_util.tl:1238`, `statistic_industries.tl:305`). 배정된 근로자만으로는 아무것도 부스트되지 **않는다**. 실제로 그곳까지 이동해야 한다.
+
+## 부스트에 집계되는 근로자
+
+작은 게임 스크립트 `industry_workers.script.tl`이 모든 도착을 기록한다.
+
+1. 주민이 산업에 도착했고 **마지막 이동이 플레이어의 노선**이었다면, 그 도착이 게임 시간과 함께 기록된다(`industry_workers.script.tl:86-118`).
+2. **최근 2 게임년** 동안의 도착만 유지된다(`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).
+3. 최대 **최근 20회**의 도착만 유지된다(`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
+4. 같은 사람이 다시 도착하면 새 기록이 이전 기록을 대체한다. 주민 한 명은 **한 번만** 집계된다(`industry_workers.script.tl:56-70`).
+
+```diagram workers_window
+```
+
+## 부스트가 시작되고 멈추는 시점
+
+- 집계된 근로자가 **일자리의 절반**에 도달하면 산업이 부스트된다: `counted ≥ workplaces × 0.5`(`industry_productivity_util.tl:35-48`, `RequiredWorkersFractionForBoost = 0.5`). 일자리 20개라면 **근로자 10명**이다.
+- 산업 창의 부스터 항목이 바로 이것을 "집계 / 필요" 형태로 보여주며, 필요 인원은 올림 처리된다(`industry_react_util.tl:627`).
+- 새로운 도착이 생기거나 가장 오래된 도착이 2년을 넘길 때마다 다시 검사한다(`industry_workers.script.tl:40-43`). 따라서 근로자가 오지 않게 되면 약 2년 뒤 부스트는 **저절로 멈춘다**.
+
+## 부스트의 크기
+
+- 생산량에 산업의 **부스트 계수**가 곱해지며, 창에는 "+X %"로 표시된다(`industry_react_util.tl:716`).
+- 이 계수는 산업의 무작위 시드로 한 번만 정해진다. **×1.5에서 ×2.5 사이**이며, 해당 산업에서는 절대 바뀌지 않는다(`industry_productivity_util.tl:58-72`). 시드가 없는 산업은 ×2를 쓴다.
+- 따라서 똑같은 광산 두 곳의 근로자 부스트가 다를 수 있다. 어느 쪽에 노선을 연결할지 정하기 전에 "+X %"를 확인하자.
+
+## 예시
+
+일자리 20개, "+84 %"인 석탄 광산.
+
+| 상황 | 집계 | 부스트? | 생산량 |
+|---|---|---|---|
+| 새 버스 노선: 주민 14명 배정, 아직 아무도 도착하지 않음 | 0 | 아니요 | ×1 |
+| 올해 서로 다른 주민 12명이 버스로 도착 | 12 | 예(≥ 10) | ×1.84 |
+| 버스 노선 삭제, 2년 동안 아무도 도착하지 않음 | 0으로 감소 | 멈춤 | ×1 |
+
+## 알아두면 좋은 점
+
+- 최대 20회의 도착 기록과 50 % 규칙 때문에, **일자리가 40개를 넘는** 산업(모드로 가능)은 근로자로 절대 부스트될 수 없다.
+- 보조금 "근로자 운송"은 이 부스트가 활성화되면 완료된다(공식 위키, 보조금).
+- 부스터 화물(비료, 기계, 도구)은 원자재 산업의 **별개의** 부스트이며, 이 페이지에서는 다루지 않는다.
+- [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) 모드는 산업 창에 배정된 근로자와 부스트 근로자가 어느 마을에서 오는지 보여주고, 지도에 화살표로 표시한다.
+
+```check
+official: "If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))
+scripts: "Sufficient"(충분한) = 일자리의 절반(20개 중 10개), "recently"(최근) = 최근 2 게임년, 최근 20회 도착, 1인당 1회, 플레이어의 노선만. 부스트 계수는 산업마다 ×1.5에서 ×2.5.
+result: refines
+```

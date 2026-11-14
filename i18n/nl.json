@@ -1,0 +1,460 @@
+{
+ "ui": {
+  "site": "TF3-mechanismen",
+  "tagline": "Hoe Transport Fever 3 echt werkt, gelezen uit de eigen scripts van het spel.",
+  "hero_kicker": "Fanwiki · spelscripts · officiële wiki",
+  "home": "Index",
+  "official": "Officiële wiki",
+  "status": {
+   "verified": "Gecontroleerd in de scripts",
+   "draft": "Nog te schrijven",
+   "engine": "Bepaald door de engine"
+  },
+  "check": "Officiële wiki tegenover spelscripts",
+  "result": {
+   "agrees": "Klopt",
+   "refines": "Vult aan",
+   "differs": "Wijkt af"
+  },
+  "official_says": "De officiële wiki zegt",
+  "scripts_show": "De spelscripts tonen",
+  "domains": "Spelsystemen",
+  "domains_sub": "Elk systeem van het spel, met de vragen die spelers stellen en het aantal scriptbestanden erachter.",
+  "pages": "Uitgelegde mechanismen",
+  "pages_sub": "Elke pagina is regel voor regel gecontroleerd in de spelbestanden en vergeleken met de officiële wiki.",
+  "files": "scriptbestanden",
+  "footer": "Fanproject van Miro. Niet verbonden aan Urban Games.",
+  "lic": "Teksten en afbeeldingen: CC BY 4.0 · Spelcode © Urban Games: alleen korte verwijzingen worden getoond.",
+  "engine_note": "Bepaald door de game-engine",
+  "engine_sub": "C++, niet zichtbaar in de scripts",
+  "read_more": "Lezen",
+  "no_page": "Nog geen pagina",
+  "updated": "Bijgewerkt",
+  "src_note": "De paden liggen in de map base/content van het spel of in de zipbestanden ervan.",
+  "toc": "Op deze pagina",
+  "more": "Andere mechanismen",
+  "filter": "Spelsystemen filteren…",
+  "st_pages": "uitgelegde mechanismen",
+  "st_dom": "spelsystemen",
+  "st_files": "gelezen scriptbestanden",
+  "st_lang": "talen",
+  "sources": "bronverwijzingen",
+  "in": "in",
+  "translated": "Vertaald uit het Engels; correcties zijn welkom",
+  "lang_label": "Taal"
+ },
+ "diagrams": {
+  "T_WORKERS": {
+   "cap": "Twee verschillende tellingen: de inwoners die het spel aan het industriebedrijf toewijst, en de aankomsten die meetellen voor de boost.",
+   "home": "Woning",
+   "home2": "in een stad",
+   "lines": "Jouw reizigerslijnen",
+   "lines2": "de enige weg erheen",
+   "no": "niet te voet, niet per auto",
+   "ind": "Industriebedrijf",
+   "ind2": "20 werkplekken",
+   "a": "Toegewezen",
+   "a2": "inwoners met hun baan bij dit bedrijf",
+   "b": "Telt voor de boost",
+   "b2": "aankomsten met jouw lijnen, laatste 2 jaar, max. 20",
+   "ex": "bijv.",
+   "need": "10 nodig = 50%",
+   "rule": "Boost actief",
+   "eff": "productie ×1,5 tot ×2,5, vast per bedrijf",
+   "nob": "alleen toegewezen: geen boost"
+  },
+  "T_WINDOW": {
+   "cap": "Elke aankomst met jouw lijnen wordt 2 speljaren onthouden; hooguit de laatste 20 worden bewaard.",
+   "now": "nu",
+   "ago": "2 jaar geleden",
+   "kept": "geteld: aankomsten van de laatste 2 jaar (max. 20)",
+   "old": "te oud: vervalt",
+   "same": "zelfde persoon opnieuw: alleen de laatste aankomst telt"
+  },
+  "T_LOAD": {
+   "cap": "Laadsnelheid = basissnelheid van het voertuig × perronfactor × voorraadfactor.",
+   "veh": "Voertuig",
+   "veh2": [
+    "basislaadsnelheid",
+    "te zien in de showroom"
+   ],
+   "plat": "Perron",
+   "stock": "Voorraad",
+   "p": [
+    [
+     "×2",
+     "wagons op een sectie van hun klasse",
+     "#38d1bf"
+    ],
+    [
+     "×1",
+     "universele sectie",
+     "#8f9bab"
+    ],
+    [
+     "×0,25",
+     "geen sectie van hun klasse",
+     "#f0705f"
+    ],
+    [
+     "×0,25",
+     "deel voorbij het perron",
+     "#f0705f"
+    ]
+   ],
+   "k": [
+    [
+     "×2",
+     "gespecialiseerde opslagmodule",
+     "#38d1bf"
+    ],
+    [
+     "×1",
+     "universele opslagplaats",
+     "#8f9bab"
+    ],
+    [
+     "×1",
+     "industriebedrijf",
+     "#8f9bab"
+    ]
+   ],
+   "res": "laadsnelheid"
+  },
+  "T_SECT": {
+   "cap": "Het spel telt de modulelengtes per vrachtklasse op; waar een module of een wagon staat, telt niet.",
+   "mods": "Perronmodules (elk 40 m), in willekeurige volgorde",
+   "sum": "opgeteld per klasse",
+   "bulk": "Bulk",
+   "uni": "Universeel",
+   "train": "Trein van 8 bulkwagons, 160 m: de factor wordt gemengd naar aandeel van de trein",
+   "s1": "120 m op bulk: ×2",
+   "s2": "40 m: ×1",
+   "res": "≈ ×1,75",
+   "no": "Zonder enige bulksectie zouden deze bulkwagons ×0,25 krijgen."
+  },
+  "T_INC": {
+   "cap": "Wat één bezorgde vrachteenheid oplevert. Reizigers gebruiken dezelfde formule met een voertuigfactor (zie hieronder).",
+   "c": [
+    [
+     "3,8",
+     "inkomstenfactor",
+     "voor elke vracht gelijk",
+     "#f2b84b"
+    ],
+    [
+     "50–150%",
+     "Inkomsten vracht",
+     "instelling, 100% in alle presets",
+     "#5aa9ff"
+    ],
+    [
+     "km",
+     "afstand",
+     "rechte lijn + 8 × stijging",
+     "#38d1bf"
+    ],
+    [
+     "×1 → ×0,75",
+     "bedrijfsrang",
+     "instelling Inflatie (Gemiddeld)",
+     "#b49cf0"
+    ],
+    [
+     "×2",
+     "subsidielijnen",
+     "na een voltooid contract",
+     "#f2b84b"
+    ]
+   ],
+   "res": "= inkomsten van de bezorging",
+   "not": "niet in de formule: reistijd, voertuigsnelheid, echte routelengte, te laat of op tijd"
+  },
+  "T_DIST": {
+   "cap": "Betaald: de rechte lijn van waar de vracht werd opgehaald tot waar ze wordt bezorgd, plus 8 m per meter stijging. De echte route kost alleen (onderhoud).",
+   "a": "herkomst",
+   "b": "bestemming",
+   "paid": "betaald: rechte lijn (3D)",
+   "real": "echte route: niet betaald, kost onderhoud",
+   "climb": "stijging h",
+   "bonus": "+ 8×h betaald",
+   "ex1": "5 km, 100 m hoger",
+   "ex2": "betaald als 5,8 km (+16%)",
+   "down": "omgekeerd: geen bonus, geen malus"
+  },
+  "T_TIMES": {
+   "cap": "Toegestane tijd voordat een bezorging als vertraagd telt, ten opzichte van vlees (de kortste). Het spel past de echte tijd aan: Financiën › Bezorgtijd toont die voor jouw kaart.",
+   "short": "vers voedsel: haast",
+   "long": "grondstoffen: tijd zat"
+  },
+  "T_RATE": {
+   "cap": "De beoordeling Bezorging van een stad uit het aandeel bezorgingen op tijd in het afgelopen halfjaar, voor drie standen van Gevoeligheid bezorging.",
+   "x": "bezorgingen op tijd (afgelopen halfjaar)",
+   "y": "beoordeling Bezorging",
+   "lines": [
+    [
+     "Laag",
+     0.75,
+     "#5aa9ff"
+    ],
+    [
+     "Gemiddeld",
+     1.0,
+     "#f2b84b"
+    ],
+    [
+     "Zeer hoog",
+     2.0,
+     "#f0705f"
+    ]
+   ],
+   "pt": "90% op tijd → 0,86"
+  },
+  "T_TXP": {
+   "cap": "Ruwe XP van je reizigers en vracht, vermenigvuldigd met het groeitempo van de stad, vult de niveaubalk; elk niveau maakt de stad groter.",
+   "src": [
+    [
+     "person",
+     "Reizigers",
+     "5 · 10 · 20 XP",
+     "dezelfde stad · buurstad · verder weg",
+     "#f2b84b"
+    ],
+    [
+     "truck",
+     "Vrachteenheid",
+     "10 · 20 · 40 XP",
+     "naar vrachtniveau 0 · 1 · 2",
+     "#38d1bf"
+    ],
+    [
+     "subsidies",
+     "Subsidiebeloning",
+     "% van het niveau",
+     "sommige contracten, ook × tempo",
+     "#b49cf0"
+    ]
+   ],
+   "mul": "× groeitempo",
+   "mul2": "0–100%",
+   "mul3": "Autoriteit × Bevoorrading",
+   "hq": "+5% per deel hoofdkwartier",
+   "lv": "Stadsniveau",
+   "lv2": "niveau 2 na 1.000 XP,",
+   "lv3": "elk volgend niveau × 1,5",
+   "sz": "Stadsgrootte",
+   "sz2": "groeit met de gewonnen niveaus",
+   "sz3": "sinds de start van het spel",
+   "not": "geen XP: verstrijken van tijd, ritten naar industrie, ritten zonder jouw lijnen"
+  },
+  "T_GM": {
+   "cap": "Groeitempo (× op alle XP) uit de twee beoordelingen van het stadsvenster. Bonus van het hoofdkwartier daarbovenop.",
+   "lv": [
+    "Zeer slecht",
+    "Slecht",
+    "Middelmatig",
+    "Goed",
+    "Zeer goed",
+    "Uitstekend"
+   ],
+   "none": "geen bezorgingen",
+   "sup": "Bevoorrading",
+   "auth": "Plaatselijke autoriteit (laagste van 6)",
+   "g": [
+    "Stagnerend",
+    "Zeer trage groei",
+    "Trage groei",
+    "Groei",
+    "Snelle groei",
+    "Zeer snelle groei"
+   ]
+  },
+  "T_TS": {
+   "cap": "Doelgrootte van een stad (alle districten samen) vergeleken met haar grootte bij de start, naar niveaus die sindsdien zijn gewonnen.",
+   "x": "gewonnen niveaus sinds de start",
+   "y": "grootte × start",
+   "rows": "gewonnen niveaus → grootte"
+  }
+ },
+ "cargo": {
+  "Meat": "Vlees",
+  "Beverages": "Drank",
+  "Fish": "Vis",
+  "Vegetables": "Groente",
+  "Grain": "Graan",
+  "Clothes": "Kleding",
+  "Fabric": "Textiel",
+  "Fertilizer": "Kunstmest",
+  "Plastic": "Plastic",
+  "Tires": "Banden",
+  "Wool": "Wol",
+  "Books": "Boeken",
+  "Chemicals": "Chemicaliën",
+  "Furniture": "Meubels",
+  "Paper": "Papier",
+  "Rubber": "Rubber",
+  "Tinned Food": "Conserven",
+  "Cement": "Cement",
+  "Dyes": "Kleurstoffen",
+  "Fuel": "Brandstof",
+  "Glass": "Glas",
+  "Machines": "Machines",
+  "Sawdust": "Zaagsel",
+  "Tools": "Gereedschap",
+  "Vehicles": "Voertuigen",
+  "Bricks": "Bakstenen",
+  "Clay": "Klei",
+  "Coal": "Steenkool",
+  "Crude Oil": "Ruwe olie",
+  "Logs": "Boomstammen",
+  "Planks": "Planken",
+  "Sheet Metal": "Plaatmetaal",
+  "Iron Ore": "IJzererts",
+  "Sand": "Zand",
+  "Steel": "Staal",
+  "Stone": "Stenen"
+ },
+ "domains": {
+  "industries": {
+   "name": "Industriebedrijven",
+   "what": "Productieregels, voorraden, boostervracht, de werknemersboost, ontstaan en sluiting.",
+   "questions": [
+    "Waarom krijgt mijn industriebedrijf geen boost?",
+    "Wanneer sluit een ongebruikt industriebedrijf?"
+   ]
+  },
+  "stations": {
+   "name": "Stations en laden",
+   "what": "Perronsecties, verzorgingsgebied, capaciteit en hoe snel vracht wordt geladen en gelost.",
+   "questions": [
+    "Waarom laadt mijn trein zo langzaam?",
+    "Helpen gespecialiseerde perrons?"
+   ]
+  },
+  "warehouses": {
+   "name": "Opslagplaatsen",
+   "what": "Universele en gespecialiseerde modules, capaciteit, overslag tussen lijnen.",
+   "questions": [
+    "Universele of gespecialiseerde opslagplaats?",
+    "Versnelt een opslagplaats het lossen?"
+   ]
+  },
+  "towns": {
+   "name": "Steden",
+   "what": "Niveaus en groei-XP, beoordelingen van autoriteit en bevoorrading, districten, vrachtbehoeften.",
+   "questions": [
+    "Waarom groeit mijn stad niet?",
+    "Welke beoordeling houdt mijn stad tegen?"
+   ]
+  },
+  "economy": {
+   "name": "Vracht en inkomsten",
+   "what": "Vrachttypen en -klassen, wat een bezorging oplevert, tijdslimieten voor bezorging.",
+   "questions": [
+    "Waardoor levert een bezorging meer op?",
+    "Betaalt te late vracht nog?"
+   ]
+  },
+  "company": {
+   "name": "Bedrijf en hoofdkwartier",
+   "what": "Bedrijfsrangen, vergunningen, bonus van het hoofdkwartier, marketing en prospectie.",
+   "questions": [
+    "Hoe stijgt mijn bedrijf in rang?",
+    "Wat levert het hoofdkwartier op?"
+   ]
+  },
+  "finance": {
+   "name": "Financiën en leningen",
+   "what": "Rekeningen, leningen en rente, de financiële tabellen en grafieken.",
+   "questions": [
+    "Hoeveel rente kost een lening?",
+    "Waar gaat mijn geld naartoe?"
+   ]
+  },
+  "subsidies": {
+   "name": "Subsidies",
+   "what": "De vier soorten contracten, hun voorwaarden, betalingen en termijnen.",
+   "questions": [
+    "Wanneer is een subsidie voltooid?",
+    "Wat gebeurt er als ik hem mis?"
+   ]
+  },
+  "emission": {
+   "name": "Vervuiling en geluid",
+   "what": "Uitstoot van voertuigen en gebouwen, het effect op steden, de reinigingsinstallatie.",
+   "questions": [
+    "Wat vervuilt mijn stad?",
+    "Is de reinigingsinstallatie de moeite waard?"
+   ]
+  },
+  "vehicles": {
+   "name": "Lijnen en voertuigen",
+   "what": "Voertuigeigenschappen, veroudering en onderhoud, lijninstellingen en vertrekregels.",
+   "questions": [
+    "Welk voertuig laadt het snelst?",
+    "Wanneer vervang ik oude voertuigen?"
+   ]
+  },
+  "infrastructure": {
+   "name": "Straten, sporen en depots",
+   "what": "Soorten straten en sporen, bruggen, tunnels, seinen, depots en onderhoudsgebouwen.",
+   "questions": [
+    "Wat doen onderhoudsgebouwen?",
+    "Welke spoorsnelheid heb ik nodig?"
+   ]
+  },
+  "time": {
+   "name": "Speltijd en kalender",
+   "what": "Daglengte, kalendersnelheid, wat wordt geschaald als de kalender wordt vertraagd of gepauzeerd.",
+   "questions": [
+    "Wat verandert een gepauzeerde kalender?",
+    "Hoe lang duurt een speljaar?"
+   ]
+  },
+  "notifications": {
+   "name": "Meldingen en waarschuwingen",
+   "what": "Waarom elke waarschuwing verschijnt: vastgelopen voertuigen, nutteloze stations, overvolle stations, lijnproblemen.",
+   "questions": [
+    "Waarom heet mijn station nutteloos?",
+    "Wanneer wordt een voertuig als vastgelopen gemeld?"
+   ]
+  },
+  "landmarks": {
+   "name": "Bezienswaardigheden, voordelen en vieringen",
+   "what": "Bezienswaardigheden en hun bonussen, vieringen als een stad een niveau stijgt, leuke elementen.",
+   "questions": [
+    "Wat doet een bezienswaardigheid voor een stad?",
+    "Wanneer is er een viering?"
+   ]
+  },
+  "achievements": {
+   "name": "Prestaties",
+   "what": "Wat elke prestatie controleert, en wanneer.",
+   "questions": [
+    "Waarom is mijn prestatie niet ontgrendeld?"
+   ]
+  },
+  "map": {
+   "name": "Kaart, klimaten en natuur",
+   "what": "Klimaatzones, terreingeneratie, herbebossing, dieren en stadsnamen.",
+   "questions": [
+    "Welke industriebedrijven bestaan er in mijn klimaat?",
+    "Groeien bomen terug?"
+   ]
+  },
+  "missions": {
+   "name": "Campagne en tutorials",
+   "what": "Missietaken, het gidssysteem en de tutorials.",
+   "questions": [
+    "Wat vraagt deze missietaak echt?"
+   ]
+  },
+  "interface": {
+   "name": "Interface en datalagen",
+   "what": "Waar de getallen in de vensters, statistieken en lagen vandaan komen.",
+   "questions": [
+    "Wat betekent dit getal in het venster?"
+   ]
+  }
+ }
+}

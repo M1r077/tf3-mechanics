@@ -1,0 +1,460 @@
+{
+ "ui": {
+  "site": "Mechanika TF3",
+  "tagline": "Jak naprawdę działa Transport Fever 3: odczytane ze skryptów samej gry.",
+  "hero_kicker": "Wiki fanów · skrypty gry · oficjalna wiki",
+  "home": "Strona główna",
+  "official": "Oficjalna wiki",
+  "status": {
+   "verified": "Sprawdzone w skryptach",
+   "draft": "Do napisania",
+   "engine": "Decyduje silnik"
+  },
+  "check": "Oficjalna wiki a skrypty gry",
+  "result": {
+   "agrees": "Zgodne",
+   "refines": "Uzupełnia",
+   "differs": "Rozbieżne"
+  },
+  "official_says": "Oficjalna wiki",
+  "scripts_show": "Skrypty gry",
+  "domains": "Systemy gry",
+  "domains_sub": "Wszystkie systemy gry: pytania graczy i liczba plików skryptów za każdym z nich.",
+  "pages": "Omówione mechaniki",
+  "pages_sub": "Każda strona jest sprawdzona wiersz po wierszu w plikach gry i porównana z oficjalną wiki.",
+  "files": "plików skryptów",
+  "footer": "Projekt fanowski autorstwa Miro. Niezwiązany z Urban Games.",
+  "lic": "Teksty i obrazy: CC BY 4.0 · Kod gry © Urban Games: pokazano tylko krótkie odwołania.",
+  "engine_note": "Decyduje silnik gry",
+  "engine_sub": "C++, niewidoczne w skryptach",
+  "read_more": "Czytaj",
+  "no_page": "Brak strony",
+  "updated": "Aktualizacja",
+  "src_note": "Ścieżki są podane wewnątrz folderu gry base/content lub jego plików zip.",
+  "toc": "Na tej stronie",
+  "more": "Inne mechaniki",
+  "filter": "Filtruj systemy gry…",
+  "st_pages": "omówionych mechanik",
+  "st_dom": "systemów gry",
+  "st_files": "przeczytanych plików skryptów",
+  "st_lang": "języków",
+  "sources": "odwołań do źródeł",
+  "in": "w",
+  "translated": "Przetłumaczone z angielskiego; poprawki mile widziane",
+  "lang_label": "Język"
+ },
+ "diagrams": {
+  "T_WORKERS": {
+   "cap": "Dwie różne liczby: mieszkańcy, których gra przydziela do zakładu, i przyjazdy, które liczą się do premii.",
+   "home": "Dom",
+   "home2": "w mieście",
+   "lines": "Twoje linie",
+   "lines2": "pasażerskie: jedyna droga",
+   "no": "ani pieszo, ani autem",
+   "ind": "Zakład",
+   "ind2": "20 miejsc pracy",
+   "a": "Przydzieleni",
+   "a2": "mieszkańcy, którzy tu pracują",
+   "b": "Zaliczeni do premii",
+   "b2": "twoimi liniami, 2 lata, do 20 ostatnich",
+   "ex": "np.",
+   "need": "potrzeba 10 = 50 %",
+   "rule": "Premia",
+   "eff": "produkcja od ×1,5 do ×2,5, stała dla zakładu",
+   "nob": "sami przydzieleni: brak premii"
+  },
+  "T_WINDOW": {
+   "cap": "Każdy przyjazd twoimi liniami jest pamiętany przez 2 lata gry; przechowywanych jest najwyżej 20 ostatnich.",
+   "now": "teraz",
+   "ago": "2 lata temu",
+   "kept": "zaliczone: przyjazdy z ostatnich 2 lat (maks. 20)",
+   "old": "za stare: usunięte",
+   "same": "ta sama osoba ponownie: liczy się tylko ostatni przyjazd"
+  },
+  "T_LOAD": {
+   "cap": "Szybkość załadunku = bazowa szybkość pojazdu × mnożnik peronu × mnożnik zapasu.",
+   "veh": "Pojazd",
+   "veh2": [
+    "bazowa szybkość załadunku",
+    "widoczna w sklepie z pojazdami"
+   ],
+   "plat": "Peron",
+   "stock": "Zapas",
+   "p": [
+    [
+     "×2",
+     "wagony na sekcji swojej klasy",
+     "#38d1bf"
+    ],
+    [
+     "×1",
+     "sekcja uniwersalna",
+     "#8f9bab"
+    ],
+    [
+     "×0,25",
+     "brak sekcji ich klasy",
+     "#f0705f"
+    ],
+    [
+     "×0,25",
+     "część poza peronem",
+     "#f0705f"
+    ]
+   ],
+   "k": [
+    [
+     "×2",
+     "specjalistyczny moduł magazynu",
+     "#38d1bf"
+    ],
+    [
+     "×1",
+     "magazyn uniwersalny",
+     "#8f9bab"
+    ],
+    [
+     "×1",
+     "zakład przemysłowy",
+     "#8f9bab"
+    ]
+   ],
+   "res": "szybkość załadunku"
+  },
+  "T_SECT": {
+   "cap": "Gra sumuje długości modułów każdej klasy towaru; to, gdzie stoi moduł lub wagon, nie ma znaczenia.",
+   "mods": "Moduły peronu (po 40 m), w dowolnej kolejności",
+   "sum": "zsumowane według klas",
+   "bulk": "Sypkie",
+   "uni": "Uniwers.",
+   "train": "Pociąg z 8 wagonów do towarów sypkich, 160 m: mnożnik mieszany według udziału w pociągu",
+   "s1": "120 m na sypkich: ×2",
+   "s2": "40 m: ×1",
+   "res": "≈ ×1,75",
+   "no": "Bez żadnej sekcji do towarów sypkich te wagony dostałyby ×0,25."
+  },
+  "T_INC": {
+   "cap": "Ile płaci jedna dostarczona jednostka towaru. Pasażerowie używają tego samego wzoru z mnożnikiem pojazdu (patrz niżej).",
+   "c": [
+    [
+     "3,8",
+     "mnożnik przychodu",
+     "taki sam dla każdego towaru",
+     "#f2b84b"
+    ],
+    [
+     "50–150 %",
+     "Przychód z towarów",
+     "ustawienie gry, 100 % we wszystkich",
+     "#5aa9ff"
+    ],
+    [
+     "km",
+     "odległość",
+     "linia prosta + 8 × wzniesienie",
+     "#38d1bf"
+    ],
+    [
+     "×1 → ×0,75",
+     "ranga firmy",
+     "ustawienie „Inflacja” („Normalna”)",
+     "#b49cf0"
+    ],
+    [
+     "×2",
+     "linie subsydium",
+     "po wykonanym kontrakcie",
+     "#f2b84b"
+    ]
+   ],
+   "res": "= przychód z dostawy",
+   "not": "nie ma we wzorze: czasu podróży, prędkości, długości trasy, spóźnienia"
+  },
+  "T_DIST": {
+   "cap": "Płatna jest linia prosta od miejsca odbioru towaru do miejsca dostawy plus 8 m za każdy metr wzniesienia. Rzeczywista trasa tylko kosztuje (utrzymanie).",
+   "a": "skąd",
+   "b": "dokąd",
+   "paid": "płatne: linia prosta (3D)",
+   "real": "rzeczywista trasa: niepłatna, kosztuje utrzymanie",
+   "climb": "wzniesienie h",
+   "bonus": "płatne +8×h",
+   "ex1": "5 km, 100 m wyżej",
+   "ex2": "płatne jak 5,8 km (+16 %)",
+   "down": "w drugą stronę: ani premii, ani kary"
+  },
+  "T_TIMES": {
+   "cap": "Czas, po którym dostawa liczy się jako opóźniona, względem mięsa (najkrótszy). Gra koryguje rzeczywisty czas: Finanse › Czas dostawy pokazuje go dla twojej mapy.",
+   "short": "świeże: pośpiesz się",
+   "long": "surowce: dużo czasu"
+  },
+  "T_RATE": {
+   "cap": "Ocena „Dostawa” miasta według udziału dostaw na czas w ostatnim półroczu, dla trzech wartości ustawienia „Wrażliwość na dostawy”.",
+   "x": "dostawy na czas (ostatnie półrocze)",
+   "y": "ocena „Dostawa”",
+   "lines": [
+    [
+     "Mała",
+     0.75,
+     "#5aa9ff"
+    ],
+    [
+     "Normalna",
+     1.0,
+     "#f2b84b"
+    ],
+    [
+     "Bardzo duża",
+     2.0,
+     "#f0705f"
+    ]
+   ],
+   "pt": "90 % na czas → 0,86"
+  },
+  "T_TXP": {
+   "cap": "Bazowe XP od twoich pasażerów i towarów, pomnożone przez tempo rozwoju miasta, wypełnia pasek poziomu; każdy poziom powiększa miasto.",
+   "src": [
+    [
+     "person",
+     "Pasażerowie",
+     "5 · 10 · 20 XP",
+     "to samo miasto · sąsiednie · dalej",
+     "#f2b84b"
+    ],
+    [
+     "truck",
+     "Jednostka towaru",
+     "10 · 20 · 40 XP",
+     "wg poziomu towaru 0 · 1 · 2",
+     "#38d1bf"
+    ],
+    [
+     "subsidies",
+     "Nagroda za subsydium",
+     "% poziomu",
+     "część kontraktów, też × tempo",
+     "#b49cf0"
+    ]
+   ],
+   "mul": "× tempo rozwoju",
+   "mul2": "0–100 %",
+   "mul3": "Władze × Zaopatrzenie",
+   "hq": "+5 % za część centrali",
+   "lv": "Poziom miasta",
+   "lv2": "poziom 2 po 1000 XP,",
+   "lv3": "każdy kolejny poziom × 1,5",
+   "sz": "Wielkość miasta",
+   "sz2": "rośnie ze zdobytymi poziomami",
+   "sz3": "od początku gry",
+   "not": "brak XP: upływ czasu, podróże do zakładów, podróże bez twoich linii"
+  },
+  "T_GM": {
+   "cap": "Tempo rozwoju (× na całe XP) z dwóch ocen w oknie miasta. Premia centrali dochodzi do tego.",
+   "lv": [
+    "Bardzo złe",
+    "Złe",
+    "Kiepskie",
+    "Dobre",
+    "Bardzo dobre",
+    "Znakomite"
+   ],
+   "none": "bez dostaw",
+   "sup": "Zaopatrzenie",
+   "auth": "Władze miejskie (najniższa z 6 ocen)",
+   "g": [
+    "Stagnacja",
+    "Rośnie bardzo powoli",
+    "Rośnie powoli",
+    "Rośnie",
+    "Rośnie szybko",
+    "Rośnie błyskawicznie"
+   ]
+  },
+  "T_TS": {
+   "cap": "Wielkość docelowa miasta (wszystkie dzielnice razem) w porównaniu z wielkością na starcie, według poziomów zdobytych od tego czasu.",
+   "x": "poziomy zdobyte od startu",
+   "y": "wielkość × startowa",
+   "rows": "poziomy → wielkość"
+  }
+ },
+ "cargo": {
+  "Meat": "Mięso",
+  "Beverages": "Napoje",
+  "Fish": "Ryby",
+  "Vegetables": "Warzywa",
+  "Grain": "Zboża",
+  "Clothes": "Ubrania",
+  "Fabric": "Płótna",
+  "Fertilizer": "Nawozy",
+  "Plastic": "Tworzywa sztuczne",
+  "Tires": "Opony",
+  "Wool": "Wełna",
+  "Books": "Książki",
+  "Chemicals": "Chemikalia",
+  "Furniture": "Meble",
+  "Paper": "Papier",
+  "Rubber": "Guma",
+  "Tinned Food": "Konserwy",
+  "Cement": "Cement",
+  "Dyes": "Barwniki",
+  "Fuel": "Paliwo",
+  "Glass": "Szkło",
+  "Machines": "Maszyny",
+  "Sawdust": "Trociny",
+  "Tools": "Narzędzia",
+  "Vehicles": "Pojazdy",
+  "Bricks": "Cegły",
+  "Clay": "Glina",
+  "Coal": "Węgiel",
+  "Crude Oil": "Ropa surowa",
+  "Logs": "Drewno",
+  "Planks": "Deski",
+  "Sheet Metal": "Blacha",
+  "Iron Ore": "Ruda żelaza",
+  "Sand": "Piasek",
+  "Steel": "Stal",
+  "Stone": "Kamień"
+ },
+ "domains": {
+  "industries": {
+   "name": "Zakłady przemysłowe",
+   "what": "Zasady produkcji, zapasy, towary premiowe, premia za pracowników, powstawanie i zamykanie.",
+   "questions": [
+    "Dlaczego mój zakład nie ma premii?",
+    "Kiedy nieużywany zakład zostaje zamknięty?"
+   ]
+  },
+  "stations": {
+   "name": "Stacje i załadunek",
+   "what": "Sekcje peronów, strefa wychwytu, pojemność i szybkość załadunku i rozładunku towarów.",
+   "questions": [
+    "Dlaczego mój pociąg ładuje się tak wolno?",
+    "Czy specjalistyczne perony pomagają?"
+   ]
+  },
+  "warehouses": {
+   "name": "Magazyny",
+   "what": "Moduły uniwersalne i specjalistyczne, pojemność, przeładunek między liniami.",
+   "questions": [
+    "Magazyn uniwersalny czy specjalistyczny?",
+    "Czy magazyn przyspiesza rozładunek?"
+   ]
+  },
+  "towns": {
+   "name": "Miasta",
+   "what": "Poziomy i doświadczenie rozwoju, oceny władz i zaopatrzenia, dzielnice, zapotrzebowanie na towary.",
+   "questions": [
+    "Dlaczego moje miasto się nie rozwija?",
+    "Która ocena hamuje moje miasto?"
+   ]
+  },
+  "economy": {
+   "name": "Towary i przychód",
+   "what": "Rodzaje i klasy towarów, ile płaci dostawa, limity czasu dostawy.",
+   "questions": [
+    "Co sprawia, że dostawa płaci więcej?",
+    "Czy spóźniony towar jest nadal opłacany?"
+   ]
+  },
+  "company": {
+   "name": "Firma i centrala",
+   "what": "Rangi firmy, pozwolenia, premia centrali, marketing i poszukiwania.",
+   "questions": [
+    "Jak podnieść rangę firmy?",
+    "Co daje centrala?"
+   ]
+  },
+  "finance": {
+   "name": "Finanse i kredyty",
+   "what": "Rachunki, kredyty i odsetki, tabele i wykresy finansowe.",
+   "questions": [
+    "Ile kosztują odsetki od kredytu?",
+    "Na co idą moje pieniądze?"
+   ]
+  },
+  "subsidies": {
+   "name": "Subsydia",
+   "what": "Cztery rodzaje kontraktów, ich warunki, płatności i terminy.",
+   "questions": [
+    "Kiedy subsydium jest wykonane?",
+    "Co się stanie, jeśli je przegapię?"
+   ]
+  },
+  "emission": {
+   "name": "Zanieczyszczenie i hałas",
+   "what": "Emisje pojazdów i budynków, ich wpływ na miasta, oczyszczalnia.",
+   "questions": [
+    "Co zanieczyszcza moje miasto?",
+    "Czy oczyszczalnia się opłaca?"
+   ]
+  },
+  "vehicles": {
+   "name": "Linie i pojazdy",
+   "what": "Parametry pojazdów, starzenie się i konserwacja, ustawienia linii i zasady odjazdów.",
+   "questions": [
+    "Który pojazd ładuje się najszybciej?",
+    "Kiedy wymieniać stare pojazdy?"
+   ]
+  },
+  "infrastructure": {
+   "name": "Ulice, tory i bazy",
+   "what": "Rodzaje ulic i torów, mosty, tunele, sygnalizatory, bazy i budynki konserwacyjne.",
+   "questions": [
+    "Do czego służą budynki konserwacyjne?",
+    "Jakiej prędkości torów potrzebuję?"
+   ]
+  },
+  "time": {
+   "name": "Czas gry i kalendarz",
+   "what": "Długość dnia, szybkość kalendarza, co jest skalowane, gdy kalendarz jest spowolniony lub wstrzymany.",
+   "questions": [
+    "Co zmienia wstrzymany kalendarz?",
+    "Jak długo trwa rok w grze?"
+   ]
+  },
+  "notifications": {
+   "name": "Powiadomienia i ostrzeżenia",
+   "what": "Dlaczego pojawia się każde ostrzeżenie: utknięte pojazdy, bezużyteczne stacje, przepełnienie, problemy linii.",
+   "questions": [
+    "Dlaczego moja stacja jest nazwana bezużyteczną?",
+    "Kiedy pojazd jest zgłaszany jako utknięty?"
+   ]
+  },
+  "landmarks": {
+   "name": "Budynki specjalne, zalety i celebracje",
+   "what": "Budynki specjalne i ich premie, celebracje przy awansie miasta, elementy rozrywkowe.",
+   "questions": [
+    "Co budynek specjalny daje miastu?",
+    "Kiedy odbywa się celebracja?"
+   ]
+  },
+  "achievements": {
+   "name": "Osiągnięcia",
+   "what": "Co i kiedy sprawdza każde osiągnięcie.",
+   "questions": [
+    "Dlaczego moje osiągnięcie się nie odblokowało?"
+   ]
+  },
+  "map": {
+   "name": "Mapa, klimaty i przyroda",
+   "what": "Strefy klimatyczne, generowanie terenu, zalesianie, zwierzęta i nazwy miast.",
+   "questions": [
+    "Jakie zakłady istnieją w moim klimacie?",
+    "Czy drzewa odrastają?"
+   ]
+  },
+  "missions": {
+   "name": "Kampania i samouczki",
+   "what": "Zadania misji, system wskazówek i samouczki.",
+   "questions": [
+    "Czego naprawdę wymaga to zadanie misji?"
+   ]
+  },
+  "interface": {
+   "name": "Interfejs i warstwy danych",
+   "what": "Skąd pochodzą liczby w oknach, statystykach i warstwach.",
+   "questions": [
+    "Co oznacza ta liczba w oknie?"
+   ]
+  }
+ }
+}
