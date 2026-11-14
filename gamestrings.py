@@ -1,23 +1,25 @@
 """The game's own translations (base/strings/<lang>/LC_MESSAGES/base.mo), read-only.
 
-    python gamestrings.py "Specialized Warehouse: {boost}" [more msgids...]   # print en / fr / de
-    python gamestrings.py --find "Warehouse"                                 # search msgids
+    python gamestrings.py "Specialized Warehouse: {boost}" [more msgids...]   # print every wiki language
+    python gamestrings.py --lang ru,zh-cn "Cargo Income" ...                 # only some languages
+    python gamestrings.py --find "Warehouse" [--lang ...]                    # search msgids
 Used to quote the in-game labels exactly in each language of the wiki.
 """
 import gettext
 import os
 import sys
 
+import langs as L
 from sources import GAME
 
 STRINGS = os.path.join(GAME, "base", "strings")
-LANGS = ["en", "fr", "de"]
+LANGS = [l["code"] for l in L.ALL]
 _cat = {}
 
 
 def catalog(lang):
     if lang not in _cat:
-        with open(os.path.join(STRINGS, lang, "LC_MESSAGES", "base.mo"), "rb") as f:
+        with open(os.path.join(STRINGS, L.BY_CODE[lang]["game"], "LC_MESSAGES", "base.mo"), "rb") as f:
             _cat[lang] = gettext.GNUTranslations(f)
     return _cat[lang]
 
@@ -28,16 +30,23 @@ def tr(msgid, lang):
 
 def main():
     args = sys.argv[1:]
+    langs = LANGS
+    if "--lang" in args:
+        i = args.index("--lang")
+        langs = args[i + 1].split(",")
+        del args[i:i + 2]
     if args and args[0] == "--find":
         needle = args[1].lower()
         for k in sorted(catalog("fr")._catalog, key=str):
             if isinstance(k, str) and needle in k.lower():
-                fr, de = catalog("fr")._catalog.get(k), catalog("de")._catalog.get(k)
-                print(f"{k!r:60} fr={fr!r}  de={de!r}")
+                print(repr(k))
+                for lang in langs:
+                    if lang != "en":
+                        print(f"   {lang}: {catalog(lang)._catalog.get(k)!r}")
         return
     for msgid in args:
         print(msgid)
-        for lang in LANGS:
+        for lang in langs:
             print(f"   {lang}: {tr(msgid, lang)}")
 
 

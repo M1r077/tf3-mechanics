@@ -30,14 +30,17 @@ import sys
 import markdown
 
 import diagrams
+import langs as L
 from icons import P as ICONS, icon
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONTENT = os.path.join(HERE, "content")
-OUT = os.path.join(HERE, "docs")
+OUT = os.environ.get("WIKI_OUT") or os.path.join(HERE, "docs")  # WIKI_OUT: build elsewhere (previews)
 INDEX = os.path.join(HERE, "data", "index.json")
 DOMAINS = os.path.join(HERE, "data", "domains.json")
-LANGS = ["en", "fr", "de"]
+LANGS = L.present()
+SOURCE_LANGS = ("en", "fr", "de")  # written directly; the others are translated from English
+REPO = "https://github.com/M1r077/tf3-mechanics"
 OFFICIAL_BASE = "https://wiki.transportfever3.com/doku.php?id="
 
 UI = {
@@ -60,6 +63,7 @@ UI = {
         "toc": "On this page", "more": "Other mechanics", "filter": "Filter the game systems…",
         "st_pages": "explained mechanics", "st_dom": "game systems", "st_files": "script files read", "st_lang": "languages",
         "sources": "source references", "in": "in",
+        "translated": "Translated from English; corrections welcome", "lang_label": "Language",
     },
     "fr": {
         "site": "Mécaniques TF3", "tagline": "Comment Transport Fever 3 fonctionne vraiment, lu dans les scripts du jeu.",
@@ -80,6 +84,7 @@ UI = {
         "toc": "Sur cette page", "more": "Autres mécaniques", "filter": "Filtrer les systèmes du jeu…",
         "st_pages": "mécaniques expliquées", "st_dom": "systèmes du jeu", "st_files": "fichiers de scripts lus", "st_lang": "langues",
         "sources": "références aux sources", "in": "dans",
+        "translated": "Traduit de l'anglais ; corrections bienvenues", "lang_label": "Langue",
     },
     "de": {
         "site": "TF3-Mechaniken", "tagline": "Wie Transport Fever 3 wirklich funktioniert, gelesen in den Skripten des Spiels.",
@@ -100,8 +105,24 @@ UI = {
         "toc": "Auf dieser Seite", "more": "Weitere Mechaniken", "filter": "Spielsysteme filtern…",
         "st_pages": "erklärte Mechaniken", "st_dom": "Spielsysteme", "st_files": "gelesene Skriptdateien", "st_lang": "Sprachen",
         "sources": "Quellverweise", "in": "in",
+        "translated": "Aus dem Englischen übersetzt; Korrekturen willkommen", "lang_label": "Sprache",
     },
 }
+
+for _code in L.translated():
+    UI[_code] = L.texts(_code)["ui"]
+
+
+def load_domains():
+    """data/domains.json, plus the domain texts of the translated languages."""
+    domains = load_json(DOMAINS, [])
+    for code in L.translated():
+        tr = L.texts(code).get("domains", {})
+        for d in domains:
+            if d["id"] in tr:
+                d["text"][code] = tr[d["id"]]
+    return domains
+
 
 LOGO = ('<svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">'
         '<stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs>'
@@ -117,6 +138,7 @@ CSS = r"""
   --gold:#f2b84b;--gold2:#e09a2a;--teal:#38d1bf;--red:#f0705f;--violet:#b49cf0;--blue:#5aa9ff;
   --r:16px;--shadow:0 10px 30px -12px rgba(0,0,0,.6);
   --font:Inter,"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --cjk:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Noto Sans SC";
   --mono:"Cascadia Code","JetBrains Mono",Consolas,ui-monospace,monospace;
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}
@@ -139,9 +161,25 @@ header.bar{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.72);backdr
 .nav{display:flex;gap:4px;margin-left:12px}
 .nav a{color:var(--dim);font-size:14.5px;font-weight:600;padding:7px 12px;border-radius:9px;display:flex;align-items:center;gap:7px}
 .nav a:hover,.nav a.on{color:var(--text);background:rgba(255,255,255,.05)}
-.langs{margin-left:auto;display:flex;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:11px}
-.langs a{padding:4px 11px;border-radius:8px;color:var(--dim);font-size:12.5px;font-weight:700;letter-spacing:.06em}
-.langs a.on{color:#0f141b;background:linear-gradient(135deg,#f7cf72,#e09a2a)}
+.langs{margin-left:auto;position:relative}
+.langs summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:11px;
+  background:var(--panel);border:1px solid var(--line);color:var(--text);font-size:13.5px;font-weight:700;user-select:none}
+.langs summary::-webkit-details-marker{display:none}
+.langs summary:hover,.langs[open] summary{border-color:var(--gold)}
+.langs summary .chev{transition:transform .2s;color:var(--dim)}.langs[open] summary .chev{transform:rotate(180deg)}
+.langs .menu{position:absolute;right:0;top:calc(100% + 8px);min-width:210px;padding:6px;border-radius:14px;background:var(--panel2);
+  border:1px solid var(--line2);box-shadow:0 18px 40px -12px rgba(0,0,0,.7);display:grid;gap:2px;z-index:30}
+.langs .menu a{display:flex;justify-content:space-between;gap:14px;padding:7px 12px;border-radius:9px;color:var(--soft);font-size:14px;font-weight:600}
+.langs .menu a small{color:var(--dim);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.langs .menu a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+.langs .menu a.on{color:#0f141b;background:linear-gradient(135deg,#f7cf72,#e09a2a)}.langs .menu a.on small{color:#0f141b}
+:lang(ja),:lang(ja) *{--font:Inter,"Segoe UI","Yu Gothic UI","Yu Gothic","Hiragino Sans","Noto Sans CJK JP","Noto Sans JP",sans-serif}
+:lang(ko),:lang(ko) *{--font:Inter,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK KR","Noto Sans KR",sans-serif}
+:lang(zh-Hans),:lang(zh-Hans) *{--font:Inter,"Segoe UI","Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Noto Sans SC",sans-serif}
+:lang(zh-Hant),:lang(zh-Hant) *{--font:Inter,"Segoe UI","Microsoft JhengHei","PingFang TC","Noto Sans CJK TC","Noto Sans TC",sans-serif}
+:lang(ja) h1,:lang(ko) h1,:lang(zh-Hans) h1,:lang(zh-Hant) h1{letter-spacing:0;line-height:1.25}
+:lang(ja) body,:lang(ko) body,:lang(zh-Hans) body,:lang(zh-Hant) body{line-height:1.85}
+footer .tr{color:var(--dim)}footer .tr a{color:var(--soft)}
 
 /* hero */
 .hero{position:relative;padding:58px 0 40px;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -308,6 +346,7 @@ footer .links a{display:flex;align-items:center;gap:6px;color:var(--soft);font-w
 }
 @media (max-width:1020px){.layout{grid-template-columns:1fr}aside.toc{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){
+  .langs summary span{display:none}
   .wrap{padding:0 18px}.nav{display:none}.feat{grid-template-columns:1fr}.check .cols{grid-template-columns:1fr}
   .check .col+.col{border-left:0;border-top:1px solid var(--line)}figure{padding:12px}.hero{padding-top:38px}
 }
@@ -325,9 +364,9 @@ JS = r"""
   }
   var q=document.getElementById('q');
   if(q){q.addEventListener('input',function(){
-    var v=q.value.trim().toLowerCase(),n=0;
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
     [].forEach.call(document.querySelectorAll('.dcard'),function(c){
-      var ok=!v||c.textContent.toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
     document.querySelector('.empty').style.display=n?'none':'block';});}
 })();
 """
@@ -407,7 +446,10 @@ def render_body(text, lang, ui):
         return m.group(0)
 
     text = re.sub(r"```(diagram|check|engine)[ \t]*([^\n]*)\n(.*?)```", fence, text, flags=re.S)
-    out = markdown.markdown(text, extensions=["tables", "toc", "attr_list"])
+    # en/fr/de keep their ASCII anchors; other scripts need Unicode anchors (ASCII ones would all be "_1", "_2"...)
+    from markdown.extensions.toc import TocExtension, slugify, slugify_unicode
+    toc_ext = TocExtension(slugify=slugify if lang in SOURCE_LANGS else slugify_unicode)
+    out = markdown.markdown(text, extensions=["tables", toc_ext, "attr_list"])
     out = re.sub(r"<code>([\w./-]+\.(?:lua|tl)(?::\d+(?:-\d+)?)?)</code>", r'<code class="src">\1</code>', out)
     out = out.replace("<table>", '<div class="tbl"><table>').replace("</table>", "</table></div>")
     toc = []
@@ -426,11 +468,16 @@ def render_body(text, lang, ui):
 
 def page_shell(lang, title, body, alt_links, nav_on="", page_title=None):
     ui = UI[lang]
+    hl = {l: L.BY_CODE[l]["html"] for l in LANGS}
     langs = "".join(
-        f'<a href="{alt_links[l]}" class="{"on" if l == lang else ""}" hreflang="{l}" lang="{l}">{l.upper()}</a>' for l in LANGS)
+        f'<a href="{alt_links[l]}" class="{"on" if l == lang else ""}" hreflang="{hl[l]}" lang="{hl[l]}">'
+        f'{L.BY_CODE[l]["name"]}<small>{l}</small></a>' for l in LANGS)
+    alternates = "".join(f'<link rel="alternate" hreflang="{hl[l]}" href="{alt_links[l]}">' for l in LANGS)
+    tr_note = ("" if lang in SOURCE_LANGS else
+               f'<span class="tr">{ui["translated"]} (<a href="{REPO}/issues">GitHub</a>)</span>')
     t = f"{html.escape(page_title)} · {ui['site']}" if page_title else ui["site"]
     return f"""<!DOCTYPE html>
-<html lang="{lang}"><head><meta charset="utf-8">
+<html lang="{hl[lang]}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0b0f14">
@@ -438,18 +485,35 @@ def page_shell(lang, title, body, alt_links, nav_on="", page_title=None):
 <meta name="description" content="{html.escape(ui['tagline'])}">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../style.css">
+{alternates}
 </head><body>
 <header class="bar"><div class="wrap top">
 <a class="brand" href="index.html">{LOGO}<span>TF3 <b>MECHANICS</b></span></a>
 <nav class="nav"><a href="index.html" class="{"on" if nav_on == "home" else ""}">{icon("list", 17)}{ui["home"]}</a>
 <a href="https://wiki.transportfever3.com">{icon("book", 17)}{ui["official"]}{icon("external", 13)}</a></nav>
-<nav class="langs" aria-label="Language">{langs}</nav></div></header>
+<details class="langs"><summary aria-label="{ui["lang_label"]}">{icon("globe", 16)}<span>{L.BY_CODE[lang]["name"]}</span>{icon("chev", 14, "chev")}</summary><nav class="menu" aria-label="{ui["lang_label"]}">{langs}</nav></details></div></header>
 {body}
 <footer><div class="wrap"><a class="brand" href="index.html">{LOGO}<span>TF3 <b>MECHANICS</b></span></a>
-<div class="txt"><span>{ui["footer"]}</span><span>{ui["lic"]}</span></div>
+<div class="txt"><span>{ui["footer"]}</span><span>{ui["lic"]}</span>{tr_note}</div>
 <div class="links"><a href="https://wiki.transportfever3.com">{icon("book", 15)}{ui["official"]}</a></div></div></footer>
 <script>{JS.strip()}</script>
 </body></html>
+"""
+
+
+def root_redirect():
+    """Picks the visitor's language: zh-TW/HK/MO/Hant -> traditional, other zh -> simplified, pt -> pt-br."""
+    have = json.dumps(LANGS)
+    links = " · ".join(f'<a href="{l}/index.html" lang="{L.BY_CODE[l]["html"]}">{L.BY_CODE[l]["name"]}</a>' for l in LANGS)
+    return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><title>TF3 Mechanics</title>
+<meta http-equiv="refresh" content="1; url=en/index.html">
+<script>(function(){{var have={have};
+var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||"en"]);
+for(var i=0;i<ls.length;i++){{var t=ls[i].toLowerCase(),c=t.split("-")[0];
+if(c==="zh")c=/-(tw|hk|mo|hant)/.test(t)?"zh-tw":"zh-cn";else if(c==="pt")c="pt-br";
+if(have.indexOf(c)>=0){{location.replace(c+"/index.html");return;}}}}
+location.replace("en/index.html");}})();</script>
+</head><body style="background:#0b0f14;color:#c3cad4;font-family:system-ui,sans-serif">{links}</body></html>
 """
 
 
@@ -468,7 +532,7 @@ def first_diagram(text, lang):
 
 def build():
     index = load_json(INDEX, {"domains": {}, "files": {}})
-    domains = load_json(DOMAINS, [])
+    domains = load_domains()
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     os.makedirs(OUT)
@@ -589,13 +653,9 @@ def build():
             f.write(page_shell(lang, site, body, alt, nav_on="home"))
 
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8", newline="\n") as f:
-        f.write("""<!DOCTYPE html><html><head><meta charset="utf-8"><title>TF3 Mechanics</title>
-<meta http-equiv="refresh" content="0; url=en/index.html">
-<script>var l=(navigator.language||"en").slice(0,2);if(["fr","de"].indexOf(l)>=0)location.replace(l+"/index.html");</script>
-</head><body style="background:#0b0f14"><a href="en/index.html">English</a> · <a href="fr/index.html">Français</a> · <a href="de/index.html">Deutsch</a></body></html>
-""")
+        f.write(root_redirect())
     n = sum(len(p) for p in pages.values())
-    print(f"built {n} pages + {len(LANGS)} indexes -> {os.path.relpath(OUT, HERE)}")
+    print(f"built {n} pages + {len(LANGS)} indexes -> {OUT}")
 
 
 if __name__ == "__main__":

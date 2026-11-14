@@ -1,8 +1,8 @@
 {
   "_note": "Every mod named in the wiki must be a link to its mod.io page (check.py). Add a mod here before naming it in a page. Names may be translated in a page; the 'names' list holds every form used.",
   "mods": {
-    "platform-details": {"names": ["Platform Details", "Détails des quais", "Bahnsteigdetails"], "author": "Mir077"},
-    "worker-origins": {"names": ["Worker Origins", "Origine des travailleurs", "Herkunft der Arbeiter"], "author": "Mir077"},
+    "platform-details": {"names": ["Platform Details", "Détails des quais", "Bahnsteigdetails", "Detalhes das plataformas", "Детали платформ"], "author": "Mir077"},
+    "worker-origins": {"names": ["Worker Origins", "Origine des travailleurs", "Herkunft der Arbeiter", "Origem dos trabalhadores", "Откуда рабочие"], "author": "Mir077"},
     "second-screen-dashboard": {"names": ["Second Screen Dashboard", "TF3 Dashboard"], "author": "Mir077"},
     "wheel-amount": {"names": ["Scroll & Buy"], "author": "Mir077"},
     "miro-names-swiss-swiss-romandie": {"names": ["Swiss Names - Romandie"], "author": "Mir077"},

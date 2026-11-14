@@ -4,6 +4,7 @@
   --gold:#f2b84b;--gold2:#e09a2a;--teal:#38d1bf;--red:#f0705f;--violet:#b49cf0;--blue:#5aa9ff;
   --r:16px;--shadow:0 10px 30px -12px rgba(0,0,0,.6);
   --font:Inter,"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --cjk:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Noto Sans SC";
   --mono:"Cascadia Code","JetBrains Mono",Consolas,ui-monospace,monospace;
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}
@@ -26,9 +27,25 @@ header.bar{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.72);backdr
 .nav{display:flex;gap:4px;margin-left:12px}
 .nav a{color:var(--dim);font-size:14.5px;font-weight:600;padding:7px 12px;border-radius:9px;display:flex;align-items:center;gap:7px}
 .nav a:hover,.nav a.on{color:var(--text);background:rgba(255,255,255,.05)}
-.langs{margin-left:auto;display:flex;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:11px}
-.langs a{padding:4px 11px;border-radius:8px;color:var(--dim);font-size:12.5px;font-weight:700;letter-spacing:.06em}
-.langs a.on{color:#0f141b;background:linear-gradient(135deg,#f7cf72,#e09a2a)}
+.langs{margin-left:auto;position:relative}
+.langs summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:11px;
+  background:var(--panel);border:1px solid var(--line);color:var(--text);font-size:13.5px;font-weight:700;user-select:none}
+.langs summary::-webkit-details-marker{display:none}
+.langs summary:hover,.langs[open] summary{border-color:var(--gold)}
+.langs summary .chev{transition:transform .2s;color:var(--dim)}.langs[open] summary .chev{transform:rotate(180deg)}
+.langs .menu{position:absolute;right:0;top:calc(100% + 8px);min-width:210px;padding:6px;border-radius:14px;background:var(--panel2);
+  border:1px solid var(--line2);box-shadow:0 18px 40px -12px rgba(0,0,0,.7);display:grid;gap:2px;z-index:30}
+.langs .menu a{display:flex;justify-content:space-between;gap:14px;padding:7px 12px;border-radius:9px;color:var(--soft);font-size:14px;font-weight:600}
+.langs .menu a small{color:var(--dim);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.langs .menu a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+.langs .menu a.on{color:#0f141b;background:linear-gradient(135deg,#f7cf72,#e09a2a)}.langs .menu a.on small{color:#0f141b}
+:lang(ja),:lang(ja) *{--font:Inter,"Segoe UI","Yu Gothic UI","Yu Gothic","Hiragino Sans","Noto Sans CJK JP","Noto Sans JP",sans-serif}
+:lang(ko),:lang(ko) *{--font:Inter,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK KR","Noto Sans KR",sans-serif}
+:lang(zh-Hans),:lang(zh-Hans) *{--font:Inter,"Segoe UI","Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Noto Sans SC",sans-serif}
+:lang(zh-Hant),:lang(zh-Hant) *{--font:Inter,"Segoe UI","Microsoft JhengHei","PingFang TC","Noto Sans CJK TC","Noto Sans TC",sans-serif}
+:lang(ja) h1,:lang(ko) h1,:lang(zh-Hans) h1,:lang(zh-Hant) h1{letter-spacing:0;line-height:1.25}
+:lang(ja) body,:lang(ko) body,:lang(zh-Hans) body,:lang(zh-Hant) body{line-height:1.85}
+footer .tr{color:var(--dim)}footer .tr a{color:var(--soft)}
 
 /* hero */
 .hero{position:relative;padding:58px 0 40px;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -195,6 +212,7 @@ footer .links a{display:flex;align-items:center;gap:6px;color:var(--soft);font-w
 }
 @media (max-width:1020px){.layout{grid-template-columns:1fr}aside.toc{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){
+  .langs summary span{display:none}
   .wrap{padding:0 18px}.nav{display:none}.feat{grid-template-columns:1fr}.check .cols{grid-template-columns:1fr}
   .check .col+.col{border-left:0;border-top:1px solid var(--line)}figure{padding:12px}.hero{padding-top:38px}
 }

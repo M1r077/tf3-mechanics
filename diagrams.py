@@ -4,13 +4,45 @@ render(name, lang) -> (svg markup, caption).
 Every diagram gets its own id prefix, so several diagrams can sit on one page.
 """
 import html
+import unicodedata
 
 import icons
+import langs
 
 GOLD, TEAL, RED, DIM, TEXT, PANEL, LINE, VIOLET, BLUE = (
     "#f2b84b", "#38d1bf", "#f0705f", "#8f9bab", "#eef1f5", "#161c24", "#2a3340", "#b49cf0", "#5aa9ff")
 DEEP = "#0f141b"
-FONT = "Inter,Segoe UI Variable,Segoe UI,system-ui,sans-serif"
+FONT = ("Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,"
+        "PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif")
+
+
+def width(s):
+    """Display width in Latin characters: CJK and full-width characters count double."""
+    return sum(2 if unicodedata.east_asian_width(c) in "WF" else 1 for c in s)
+
+
+def split_at(s, n):
+    """Cut s before display width n: at the last space, or anywhere for CJK text without spaces."""
+    w, cut = 0, len(s)
+    for i, c in enumerate(s):
+        w += width(c)
+        if w > n:
+            cut = i
+            break
+    if cut == len(s):
+        return s, ""
+    sp = s.rfind(" ", 0, cut + 1)
+    if sp > 0:
+        return s[:sp], s[sp:].strip()
+    return s[:cut], s[cut:]
+
+
+def wrap_rows(s, n):
+    rows = []
+    while s:
+        a, s = split_at(s, n)
+        rows.append(a)
+    return rows or [""]
 
 
 class Svg:
@@ -57,7 +89,7 @@ class Svg:
         self.add(icons.place(name, cx - size / 2, cy - size / 2, size, color if not fill else DEEP, 2))
 
     def chip(self, x, y, label, color, w=None, h=26, size=14, dark=True):
-        w = w or (len(label) * size * 0.62 + 22)
+        w = w or (width(label) * size * 0.62 + 22)
         self.rect(x, y, w, h, color, r=h / 2)
         self.text(x + w / 2, y + h * 0.69, label, size, DEEP if dark else TEXT, weight=700)
         return w
@@ -71,13 +103,12 @@ class Svg:
 
     def wrapped(self, x, y, s, width_chars, size=13, color=TEXT, anchor="start", weight=400):
         """Text on one or two lines, split at the last space before width_chars; y is the middle."""
-        if len(s) <= width_chars:
+        a, b = split_at(s, width_chars)
+        if not b:
             self.text(x, y + size * .35, s, size, color, anchor, weight)
             return
-        cut = s.rfind(" ", 0, width_chars)
-        cut = cut if cut > 0 else width_chars
-        self.text(x, y - size * .35, s[:cut], size, color, anchor, weight)
-        self.text(x, y + size * 1.05, s[cut:].strip(), size, color, anchor, weight)
+        self.text(x, y - size * .35, a, size, color, anchor, weight)
+        self.text(x, y + size * 1.05, b, size, color, anchor, weight)
 
     def svg(self):
         return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" width="{self.w}" role="img">'
@@ -167,7 +198,7 @@ def workers_flow(lang):
     s.rect(240, 410, 620, 46, s.ref("teal"), r=23)
     s.add(icons.place("bolt", 262, 421, 24, DEEP))
     s.text(296, 440, t["rule"], 17, DEEP, "start", 800)
-    s.text(300 + len(t["rule"]) * 10.5, 440, t["eff"], 14.5, DEEP, "start", 500)
+    s.text(300 + width(t["rule"]) * 10.5, 440, t["eff"], 14.5, DEEP, "start", 500)
     return s.svg(), t["cap"]
 
 
@@ -368,16 +399,9 @@ def income_formula(lang):
         x = 6 + i * (w + g)
         optional = i >= 3
         s.card(x, 20, w, 170, stroke=col if not optional else LINE, dash="6 5" if optional else None)
-        s.text(x + w / 2, 70, big, 25 if len(big) < 6 else 19, col, weight=800)
+        s.text(x + w / 2, 70, big, 25 if width(big) < 6 else 19, col, weight=800)
         s.text(x + w / 2, 108, title, 14, TEXT, weight=700)
-        words, line, rows = sub.split(), "", []
-        for wd in words:
-            if len(line) + len(wd) + 1 > 21 and line:
-                rows.append(line)
-                line = wd
-            else:
-                line = (line + " " + wd).strip()
-        rows.append(line)
+        rows = wrap_rows(sub, 21)
         s.lines(x + w / 2, 132, rows, 12)
         if i < 4:
             s.text(x + w + g / 2, 112, "×", 26, GOLD, weight=300)
@@ -492,12 +516,18 @@ def delivery_times(lang):
         col = RED if k < .15 else GOLD if k < .45 else TEAL
         s.rect(x0, y, wmax, 26, "#1b232d", r=8)
         s.rect(x0, y, w, 26, col, r=8, opacity=.9)
-        rel = f"×{sec / 900:.2f}".rstrip("0").rstrip(".")
-        if lang != "en":
-            rel = rel.replace(".", ",")
+        rel = "×" + f"{sec / 900:.2f}".rstrip("0").rstrip(".").replace(".", langs.BY_CODE[lang]["dec"])
         s.text(x0 + wmax + 12, y + 18, rel, 14, TEXT, "start", 800)
         label = ", ".join(names.get(c, c) for c in cargos)
-        s.text(x0 + wmax + 76, y + 18, label, 13.5, DIM if col != RED else TEXT, "start", 500)
+        # 500 px after the bar: about 72 Latin characters at 13.5 px; longer lists go on two smaller lines
+        if width(label) <= 72:
+            s.text(x0 + wmax + 76, y + 18, label, 13.5, DIM if col != RED else TEXT, "start", 500)
+        else:
+            sep = "、" if langs.is_cjk(lang) else ", "
+            half = (len(cargos) + 1) // 2
+            for k, part in enumerate((cargos[:half], cargos[half:])):
+                txt = sep.join(names.get(c, c) for c in part) + ("," if k == 0 and sep == ", " else "")
+                s.text(x0 + wmax + 76, y + 9 + k * 15, txt, 12, DIM if col != RED else TEXT, "start", 500)
     return s.svg(), t["cap"]
 
 
@@ -534,7 +564,7 @@ def delivery_rating(lang):
         s.text(px(f), Y0 + 20, f"{int(f * 100)} %", 12, DIM)
     for r in (0, .5, 1):
         s.add(f'<line x1="{X0}" y1="{py(r)}" x2="{X0 + W}" y2="{py(r)}" stroke="{LINE}" stroke-dasharray="2 5"/>')
-        s.text(X0 - 12, py(r) + 4, str(r).replace(".", ",") if lang != "en" else str(r), 12, DIM, "end")
+        s.text(X0 - 12, py(r) + 4, langs.num(r, lang), 12, DIM, "end")
     s.text(X0 + W / 2, Y0 + 46, t["x"], 13, TEXT, weight=600)
     s.add(f'<text font-size="13" font-weight="600" fill="{TEXT}" font-family="{FONT}" text-anchor="middle" '
           f'transform="translate({X0 - 52} {Y0 - H / 2}) rotate(-90)">{html.escape(t["y"])}</text>')
@@ -599,10 +629,10 @@ def town_xp(lang):
         s.text(88, y + 66, sub, 11.5, DIM, "start")
         s.flow(322, y + 39, 382, 140, col, 2.5)
     s.add(f'<circle cx="460" cy="140" r="74" fill="{s.ref("card")}" stroke="{GOLD}" stroke-width="2" filter="{s.ref("sh")}"/>')
-    s.text(460, 118, t["mul"], 14 if len(t["mul"]) < 17 else 12, GOLD, weight=800)
+    s.text(460, 118, t["mul"], 14 if width(t["mul"]) < 17 else 12, GOLD, weight=800)
     s.text(460, 146, t["mul2"], 22, TEXT, weight=800)
     s.text(460, 168, t["mul3"], 11.5, DIM)
-    s.chip(460 - (len(t["hq"]) * 12 * .62 + 22) / 2, 226, t["hq"], VIOLET, size=12, h=24)
+    s.chip(460 - (width(t["hq"]) * 12 * .62 + 22) / 2, 226, t["hq"], VIOLET, size=12, h=24)
     s.flow(538, 140, 590, 140, GOLD, 3)
     s.card(598, 30, 286, 96, stroke=TEAL)
     s.text(618, 60, t["lv"], 15, TEAL, "start", 800)
@@ -707,7 +737,7 @@ def town_size(lang):
     X0, Y0, W, H = 80, 256, 540, 210
     px = lambda g: X0 + g / 17 * W
     py = lambda f: Y0 - (f - 1) / 39 * H
-    fmt = (lambda v: f"{v:.1f}") if lang == "en" else (lambda v: f"{v:.1f}".replace(".", ","))
+    fmt = lambda v: langs.num(v, lang, 1)
     s.rect(X0, Y0 - H, W, H, "#121921", r=10, stroke=LINE)
     for f in (1, 10, 20, 30, 40):
         s.add(f'<line x1="{X0}" y1="{py(f)}" x2="{X0 + W}" y2="{py(f)}" stroke="{LINE}" stroke-dasharray="2 5"/>')
@@ -730,6 +760,18 @@ def town_size(lang):
         s.text(860, y, f"×{fmt(f)}", 15, GOLD, "end", 800)
     return s.svg(), t["cap"]
 
+
+def _load_translations():
+    """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
+    for code in langs.translated():
+        t = langs.texts(code)
+        for name, table in t.get("diagrams", {}).items():
+            globals()[name][code] = table
+        if "cargo" in t:
+            CARGO_NAMES[code] = t["cargo"]
+
+
+_load_translations()
 
 REGISTRY = {
     "town_xp": town_xp,
