@@ -5,6 +5,9 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-14
+fact: ×2 | section de quai spécialisée
+fact: ×0,25 | mauvaise section ou train trop long
+fact: ×4 | au mieux : quai et entrepôt spécialisés
 ---
 
 Le temps qu'un véhicule passe à charger ou décharger, c'est sa propre vitesse de chargement multipliée par deux facteurs : un pour le **quai**, un pour le **stock** de l'autre côté (entrepôt, industrie, ville).

@@ -5,6 +5,9 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-14
+fact: 10 / 20 | workers needed for the boost
+fact: 2 years | how long an arrival counts
+fact: ×1.5–2.5 | boost factor, fixed per industry
 ---
 
 Every industry offers workplaces. When enough workers **arrive by your passenger lines**, the industry produces more. The industry window shows two different numbers, and mixing them up is the most common source of confusion.

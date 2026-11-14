@@ -5,6 +5,9 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-14
+fact: 10 / 20 | travailleurs requis pour le bonus
+fact: 2 ans | durée pendant laquelle une arrivée compte
+fact: ×1,5–2,5 | facteur de bonus, fixe pour chaque industrie
 ---
 
 Chaque industrie offre des emplois. Quand assez de travailleurs **arrivent par tes lignes de passagers**, l'industrie produit davantage. La fenêtre de l'industrie affiche deux nombres différents, et les confondre est la première source de malentendus.

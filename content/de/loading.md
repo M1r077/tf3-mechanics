@@ -5,6 +5,9 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-14
+fact: ×2 | spezialisierter Bahnsteigabschnitt
+fact: ×0,25 | falscher Abschnitt oder Zug zu lang
+fact: ×4 | bestenfalls: Bahnsteig und Lager spezialisiert
 ---
 
 Die Zeit, die ein Fahrzeug zum Laden oder Entladen braucht, ist seine eigene Ladegeschwindigkeit mal zwei Faktoren: einer für den **Bahnsteig**, einer für das **Lager** auf der anderen Seite (Lager, Industrie, Stadt).

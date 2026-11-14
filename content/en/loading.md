@@ -5,6 +5,9 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-14
+fact: ×2 | specialised platform section
+fact: ×0.25 | wrong section or train too long
+fact: ×4 | best case: specialised platform and warehouse
 ---
 
 The time a vehicle spends loading or unloading is its own load speed multiplied by two factors: one for the **platform**, one for the **stock** on the other side (warehouse, industry, town).

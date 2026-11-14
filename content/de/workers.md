@@ -5,6 +5,9 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-14
+fact: 10 / 20 | Arbeiter für den Bonus nötig
+fact: 2 Jahre | so lange zählt eine Ankunft
+fact: ×1,5–2,5 | Bonusfaktor, pro Industrie fest
 ---
 
 Jede Industrie bietet Arbeitsplätze. Wenn genug Arbeiter **mit deinen Personenlinien ankommen**, produziert die Industrie mehr. Das Industriefenster zeigt zwei verschiedene Zahlen, und sie zu verwechseln ist die häufigste Ursache für Missverständnisse.
