@@ -41,7 +41,11 @@
   "sources": "处源码引用",
   "in": "位于",
   "translated": "译自英文；欢迎指正",
-  "lang_label": "语言"
+  "lang_label": "语言",
+  "src_btn": "来源",
+  "src_toggle": "显示或隐藏脚本引用",
+  "src_show": "显示来源",
+  "src_hide": "隐藏来源"
  },
  "diagrams": {
   "T_WORKERS": {

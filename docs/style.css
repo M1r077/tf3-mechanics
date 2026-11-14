@@ -129,6 +129,16 @@ figcaption .ic{color:var(--gold);margin-top:2px}
 .check .off p{font-style:italic}
 
 .srcnote{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--dim);margin-top:30px}
+html:not(.srcon) .sr,html:not(.srcon) .sc,html:not(.srcon) .srcnote{display:none}
+.srcbtn{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:11px;background:var(--panel);border:1px solid var(--line);
+  color:var(--dim);font:700 13.5px var(--font);cursor:pointer}
+.srcbtn:hover{border-color:var(--teal);color:var(--text)}
+.srcon .srcbtn{color:var(--teal);border-color:rgba(56,209,191,.45);background:rgba(56,209,191,.08)}
+.srcbtn{margin-left:auto}.srcbtn+.langs{margin-left:0}
+.srcbox{display:flex;align-items:center;gap:7px;margin-top:12px;padding:0;background:none;border:0;color:var(--teal);font:600 14px var(--font);cursor:pointer}
+.srcbox:hover{color:var(--text)}
+.srcbox .h,.srcon .srcbox .s{display:none}.srcon .srcbox .h{display:inline}
+@media (max-width:640px){.srcbtn span{display:none}}
 
 /* toc */
 aside.toc{position:sticky;top:96px;align-self:start;font-size:14px}

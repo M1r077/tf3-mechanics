@@ -64,6 +64,7 @@ UI = {
         "st_pages": "explained mechanics", "st_dom": "game systems", "st_files": "script files read", "st_lang": "languages",
         "sources": "source references", "in": "in",
         "translated": "Translated from English; corrections welcome", "lang_label": "Language",
+        "src_btn": "Sources", "src_toggle": "Show or hide the script references", "src_show": "Show the sources", "src_hide": "Hide the sources",
     },
     "fr": {
         "site": "Mécaniques TF3", "tagline": "Comment Transport Fever 3 fonctionne vraiment, lu dans les scripts du jeu.",
@@ -85,6 +86,7 @@ UI = {
         "st_pages": "mécaniques expliquées", "st_dom": "systèmes du jeu", "st_files": "fichiers de scripts lus", "st_lang": "langues",
         "sources": "références aux sources", "in": "dans",
         "translated": "Traduit de l'anglais ; corrections bienvenues", "lang_label": "Langue",
+        "src_btn": "Sources", "src_toggle": "Afficher ou cacher les références aux scripts", "src_show": "Afficher les sources", "src_hide": "Cacher les sources",
     },
     "de": {
         "site": "TF3-Mechaniken", "tagline": "Wie Transport Fever 3 wirklich funktioniert, gelesen in den Skripten des Spiels.",
@@ -106,6 +108,7 @@ UI = {
         "st_pages": "erklärte Mechaniken", "st_dom": "Spielsysteme", "st_files": "gelesene Skriptdateien", "st_lang": "Sprachen",
         "sources": "Quellverweise", "in": "in",
         "translated": "Aus dem Englischen übersetzt; Korrekturen willkommen", "lang_label": "Sprache",
+        "src_btn": "Quellen", "src_toggle": "Skriptverweise ein- oder ausblenden", "src_show": "Quellen anzeigen", "src_hide": "Quellen ausblenden",
     },
 }
 
@@ -263,6 +266,16 @@ figcaption .ic{color:var(--gold);margin-top:2px}
 .check .off p{font-style:italic}
 
 .srcnote{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--dim);margin-top:30px}
+html:not(.srcon) .sr,html:not(.srcon) .sc,html:not(.srcon) .srcnote{display:none}
+.srcbtn{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:11px;background:var(--panel);border:1px solid var(--line);
+  color:var(--dim);font:700 13.5px var(--font);cursor:pointer}
+.srcbtn:hover{border-color:var(--teal);color:var(--text)}
+.srcon .srcbtn{color:var(--teal);border-color:rgba(56,209,191,.45);background:rgba(56,209,191,.08)}
+.srcbtn{margin-left:auto}.srcbtn+.langs{margin-left:0}
+.srcbox{display:flex;align-items:center;gap:7px;margin-top:12px;padding:0;background:none;border:0;color:var(--teal);font:600 14px var(--font);cursor:pointer}
+.srcbox:hover{color:var(--text)}
+.srcbox .h,.srcon .srcbox .s{display:none}.srcon .srcbox .h{display:inline}
+@media (max-width:640px){.srcbtn span{display:none}}
 
 /* toc */
 aside.toc{position:sticky;top:96px;align-self:start;font-size:14px}
@@ -354,6 +367,12 @@ footer .links a{display:flex;align-items:center;gap:6px;color:var(--soft);font-w
 
 JS = r"""
 (function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
   var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
   if(links.length&&'IntersectionObserver' in window){
     var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
@@ -450,7 +469,6 @@ def render_body(text, lang, ui):
     from markdown.extensions.toc import TocExtension, slugify, slugify_unicode
     toc_ext = TocExtension(slugify=slugify if lang in SOURCE_LANGS else slugify_unicode)
     out = markdown.markdown(text, extensions=["tables", toc_ext, "attr_list"])
-    out = re.sub(r"<code>([\w./-]+\.(?:lua|tl)(?::\d+(?:-\d+)?)?)</code>", r'<code class="src">\1</code>', out)
     out = out.replace("<table>", '<div class="tbl"><table>').replace("</table>", "</table></div>")
     toc = []
 
@@ -463,10 +481,79 @@ def render_body(text, lang, ui):
     out = re.sub(r'<h2 id="([^"]+)">(.*?)</h2>', h2, out)
     for key, snippet in blocks.items():
         out = out.replace(f"<p>{key}</p>", snippet).replace(key, snippet)
-    return out, toc
+    return mark_sources(out), toc
 
 
-def page_shell(lang, title, body, alt_links, nav_on="", page_title=None):
+SRC = r'<code class="src">[^<]*</code>'
+SRC_SEP = r'[,;、，；]'
+SRC_PAREN = re.compile(r'\s*[(（]\s*(?:' + SRC + r'(?:\s*' + SRC_SEP + r')?\s*)+[)）]')
+SRC_RUN = re.compile(SRC + r'(?:\s*' + SRC_SEP + r'\s*' + SRC + r')*')
+SRC_ONLY = re.compile(r'(?:\s|' + SRC + '|' + SRC_SEP + ')*')
+BLOCK_START = re.compile(r'<(?:p|li|td|th)[ >]')
+
+
+def mark_sources(out):
+    """Wraps the script references so the reader can hide them (class "sr"; table columns: class "sc").
+
+    A parenthesis holding only references is hidden whole. In a mixed parenthesis a run of references is
+    hidden with its separator when it opens the parenthesis or follows a separator; a run that the text
+    introduces ("for example `a.lua`") and references outside parentheses are part of the sentence and stay."""
+    out = re.sub(r"<code>([\w./-]+\.(?:lua|tl)(?::\d+(?:-\d+)?)?)</code>", r'<code class="src">\1</code>', out)
+    out = SRC_PAREN.sub(lambda m: f"\x01{m.group(0)}\x02", out)
+    src = out
+
+    def run(m):
+        pos = m.start()
+        if src.rfind("\x01", 0, pos) > src.rfind("\x02", 0, pos):
+            return m.group(0)
+        starts = [b.start() for b in BLOCK_START.finditer(src, 0, pos)]
+        before = re.sub(r"<[^>]+>|\x01.*?\x02", "", src[starts[-1] if starts else 0:pos], flags=re.S)
+        if before.count("(") + before.count("（") <= before.count(")") + before.count("）"):
+            return m.group(0)
+        sep = re.search(r"\s*" + SRC_SEP + r"\s*$", before)
+        if re.search(r"[(（]\s*$", before):
+            return f'<span class="sr">{m.group(0)}</span>'      # its separator after it is taken by after()
+        if sep:
+            return f'\x03{m.group(0)}</span>'                  # takes the separator before it
+        return m.group(0)
+
+    out = SRC_RUN.sub(run, out)
+    # a run that opens a parenthesis also hides the separator after it ("(`a.tl:3`: x)" -> "(x)")
+    out = re.sub(r'(<span class="sr">' + SRC_RUN.pattern + r')</span>(\s*[,;:、，；：。]\s*)', r'\1\2</span>', out)
+    out = re.sub(r'(\s*' + SRC_SEP + r'\s*)\x03', r'<span class="sr">\1', out)
+    out = out.replace("\x03", '<span class="sr">')
+    out = out.replace("\x01", '<span class="sr">').replace("\x02", "</span>")
+
+    def table(m):
+        tbl = m.group(0)
+        rows = re.findall(r"<tr>(.*?)</tr>", tbl, re.S)
+        cells = [re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", r, re.S) for r in rows]
+        body = cells[1:]
+        # a source column: no cell mixes references and text, and cells with only references are at least as
+        # many as cells with text (empty cells, or a note such as "measured in game")
+        def kind(r, i):
+            c = (r[i] if i < len(r) else "").strip()
+            if "src" in c:
+                return "src" if SRC_ONLY.fullmatch(c) else "mixed"
+            return "text" if c else "empty"
+        hide = set()
+        for i in range(len(cells[0]) if cells else 0):
+            kinds = [kind(r, i) for r in body]
+            if "mixed" not in kinds and kinds.count("src") and kinds.count("src") >= kinds.count("text"):
+                hide.add(i)
+        if not hide:
+            return tbl
+
+        def row(rm):
+            n = iter(range(99))
+            return re.sub(r"<t([hd])([^>]*)>",
+                          lambda c: f'<t{c.group(1)}{c.group(2)} class="sc">' if next(n) in hide else c.group(0), rm.group(0))
+        return re.sub(r"<tr>.*?</tr>", row, tbl, flags=re.S)
+
+    return re.sub(r"<table>.*?</table>", table, out, flags=re.S)
+
+
+def page_shell(lang, title, body, alt_links, nav_on="", page_title=None, has_src=False):
     ui = UI[lang]
     hl = {l: L.BY_CODE[l]["html"] for l in LANGS}
     langs = "".join(
@@ -485,12 +572,14 @@ def page_shell(lang, title, body, alt_links, nav_on="", page_title=None):
 <meta name="description" content="{html.escape(ui['tagline'])}">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../style.css">
+<script>try{{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}}catch(e){{}}</script>
 {alternates}
 </head><body>
 <header class="bar"><div class="wrap top">
 <a class="brand" href="index.html">{LOGO}<span>TF3 <b>MECHANICS</b></span></a>
 <nav class="nav"><a href="index.html" class="{"on" if nav_on == "home" else ""}">{icon("list", 17)}{ui["home"]}</a>
 <a href="https://wiki.transportfever3.com">{icon("book", 17)}{ui["official"]}{icon("external", 13)}</a></nav>
+{f'<button class="srcbtn" type="button" data-src title="{ui["src_toggle"]}">{icon("code", 16)}<span>{ui["src_btn"]}</span></button>' if has_src else ""}
 <details class="langs"><summary aria-label="{ui["lang_label"]}">{icon("globe", 16)}<span>{L.BY_CODE[lang]["name"]}</span>{icon("chev", 14, "chev")}</summary><nav class="menu" aria-label="{ui["lang_label"]}">{langs}</nav></details></div></header>
 {body}
 <footer><div class="wrap"><a class="brand" href="index.html">{LOGO}<span>TF3 <b>MECHANICS</b></span></a>
@@ -588,6 +677,8 @@ def build():
             toc_html = "".join(f'<li><a href="#{hid}">{html.escape(t)}</a></li>' for hid, t in toc)
             side = (f'<aside class="toc"><h5>{icon("list", 14)}{ui["toc"]}</h5><ol>{toc_html}</ol>'
                     f'<div class="box"><b>{count_refs(text)}</b><span>{ui["sources"]}</span>'
+                    f'<button class="srcbox" type="button" data-src>{icon("code", 15)}'
+                    f'<span class="s">{ui["src_show"]}</span><span class="h">{ui["src_hide"]}</span></button>'
                     + (f'<a href="{official_link(meta["official"])}">{icon("book", 15)}{ui["official"]}{icon("external", 12)}</a>'
                        if meta.get("official") else "") + '</div></aside>')
             others = "".join(
@@ -600,7 +691,8 @@ def build():
                     f'<p class="srcnote">{icon("code", 15)}{ui["src_note"]}</p></article>{side}</div>{more}')
             alt = {l: (f"../{l}/{slug}.html" if slug in pages[l] else f"../{l}/index.html") for l in LANGS}
             with open(os.path.join(OUT, lang, f"{slug}.html"), "w", encoding="utf-8", newline="\n") as f:
-                f.write(page_shell(lang, meta.get("title", slug), body, alt, page_title=meta.get("title", slug)))
+                f.write(page_shell(lang, meta.get("title", slug), body, alt, page_title=meta.get("title", slug),
+                                   has_src='class="sr"' in article or 'class="sc"' in article))
 
         # ---------------------------------------------------------------- index
         feat = []

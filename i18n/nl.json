@@ -41,7 +41,11 @@
   "sources": "bronverwijzingen",
   "in": "in",
   "translated": "Vertaald uit het Engels; correcties zijn welkom",
-  "lang_label": "Taal"
+  "lang_label": "Taal",
+  "src_btn": "Bronnen",
+  "src_toggle": "Scriptverwijzingen tonen of verbergen",
+  "src_show": "Bronnen tonen",
+  "src_hide": "Bronnen verbergen"
  },
  "diagrams": {
   "T_WORKERS": {

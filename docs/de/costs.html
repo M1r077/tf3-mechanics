@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Kosten, Unterhalt und Darlehen · TF3-Mechaniken</title>
+<meta name="description" content="Wie Transport Fever 3 wirklich funktioniert, gelesen in den Skripten des Spiels.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/costs.html"><link rel="alternate" hreflang="fr" href="../fr/costs.html"><link rel="alternate" hreflang="de" href="../de/costs.html"><link rel="alternate" hreflang="es" href="../es/costs.html"><link rel="alternate" hreflang="it" href="../it/costs.html"><link rel="alternate" hreflang="nl" href="../nl/costs.html"><link rel="alternate" hreflang="pl" href="../pl/costs.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/costs.html"><link rel="alternate" hreflang="ru" href="../ru/costs.html"><link rel="alternate" hreflang="ja" href="../ja/costs.html"><link rel="alternate" hreflang="ko" href="../ko/costs.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/costs.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/costs.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Index</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Skriptverweise ein- oder ausblenden"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Quellen</span></button>
+<details class="langs"><summary aria-label="Sprache"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Deutsch</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Sprache"><a href="../en/costs.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/costs.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/costs.html" class="on" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/costs.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/costs.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/costs.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/costs.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/costs.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/costs.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/costs.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/costs.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/costs.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/costs.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Index</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg>Finanzen und Kredite</span></div><h1 class="rise d1">Kosten, Unterhalt und Darlehen</h1><p class="lead rise d2">Was die Kosteneinstellungen ändern, welche Kosten mit dem Kalenderjahr steigen, wie Fahrzeugpreise berechnet werden und was ein Darlehen wirklich kostet.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>In den Skripten geprüft</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Aktualisiert 2026-11-14</span></div><div class=facts><div class="fact rise d1"><b>×6</b><span>Jahresfaktor auf den Unterhalt von Lagern, Häfen und Flughäfen bis 2020</span></div><div class="fact rise d2"><b>6 Jahre</b><span>Betriebskosten: der Preis eines Fahrzeugs</span></div><div class="fact rise d3"><b>einmal</b><span>wird der Zinssatz eines Darlehens auf den Betrag angewandt, nicht jedes Jahr</span></div><div class="fact rise d4"><b>4</b><span>Darlehen gleichzeitig</span></div></div></div></section><div class="wrap layout"><article><p>Die Einstellung <strong>Inflation</strong> erhöht keine Kosten: Sie senkt nur deine Einnahmen, wenn der Firmenrang steigt (siehe <a href="income.html">Fracht-Einnahmen</a>). Die Kosten steigen stattdessen mit dem <strong>Kalenderjahr</strong>, und vier Regler skalieren sie von Anfang an.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" width="900" role="img"><defs><linearGradient id="cy-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="cy-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="cy-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="cy-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="cy-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="cy-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="cy-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="70" y="40" width="560" height="240" rx="10" fill="#121921" stroke="#2a3340" stroke-width="1.5" opacity="1"/><line x1="70.0" y1="40" x2="70.0" y2="280" stroke="#2a3340" stroke-dasharray="2 5"/><text x="70.0" y="300" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1900</text><line x1="163.33333333333331" y1="40" x2="163.33333333333331" y2="280" stroke="#2a3340" stroke-dasharray="2 5"/><text x="163.33333333333331" y="300" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1920</text><line x1="256.66666666666663" y1="40" x2="256.66666666666663" y2="280" stroke="#2a3340" stroke-dasharray="2 5"/><text x="256.66666666666663" y="300" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1940</text><line x1="350.0" y1="40" x2="350.0" y2="280" stroke="#2a3340" stroke-dasharray="2 5"/><text x="350.0" y="300" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1960</text><line x1="443.3333333333333" y1="40" x2="443.3333333333333" y2="280" stroke="#2a3340" stroke-dasharray="2 5"/><text x="443.3333333333333" y="300" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1980</text><line x1="536.6666666666667" y1="40" x2="536.6666666666667" y2="280" stroke="#2a3340" stroke-dasharray="2 5"/><text x="536.6666666666667" y="300" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">2000</text><line x1="630.0" y1="40" x2="630.0" y2="280" stroke="#2a3340" stroke-dasharray="2 5"/><text x="630.0" y="300" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">2020</text><line x1="70" y1="280.0" x2="630" y2="280.0" stroke="#2a3340" stroke-dasharray="2 5"/><text x="60" y="284.0" font-size="12" fill="#8f9bab" text-anchor="end" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×0</text><line x1="70" y1="240.0" x2="630" y2="240.0" stroke="#2a3340" stroke-dasharray="2 5"/><text x="60" y="244.0" font-size="12" fill="#8f9bab" text-anchor="end" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×1</text><line x1="70" y1="200.0" x2="630" y2="200.0" stroke="#2a3340" stroke-dasharray="2 5"/><text x="60" y="204.0" font-size="12" fill="#8f9bab" text-anchor="end" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×2</text><line x1="70" y1="160.0" x2="630" y2="160.0" stroke="#2a3340" stroke-dasharray="2 5"/><text x="60" y="164.0" font-size="12" fill="#8f9bab" text-anchor="end" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×3</text><line x1="70" y1="120.0" x2="630" y2="120.0" stroke="#2a3340" stroke-dasharray="2 5"/><text x="60" y="124.0" font-size="12" fill="#8f9bab" text-anchor="end" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×4</text><line x1="70" y1="80.0" x2="630" y2="80.0" stroke="#2a3340" stroke-dasharray="2 5"/><text x="60" y="84.0" font-size="12" fill="#8f9bab" text-anchor="end" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×5</text><line x1="70" y1="40.0" x2="630" y2="40.0" stroke="#2a3340" stroke-dasharray="2 5"/><text x="60" y="44.0" font-size="12" fill="#8f9bab" text-anchor="end" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×6</text><text x="350.0" y="322" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Kalenderjahr</text><path d="M70.0 240.0 L163.3 220.0 L256.7 192.0 L350.0 152.0 L443.3 120.0 L536.7 80.0 L630.0 40.0" fill="none" stroke="#f2b84b" stroke-width="3.5" stroke-linejoin="round"/><circle cx="70.0" cy="240.0" r="5" fill="#f2b84b" stroke="#0f141b" stroke-width="2"/><text x="70.0" y="228.0" font-size="11.5" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×1</text><circle cx="163.3" cy="220.0" r="5" fill="#f2b84b" stroke="#0f141b" stroke-width="2"/><text x="163.33333333333331" y="208.0" font-size="11.5" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×1,5</text><circle cx="256.7" cy="192.0" r="5" fill="#f2b84b" stroke="#0f141b" stroke-width="2"/><text x="256.66666666666663" y="180.0" font-size="11.5" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×2,2</text><circle cx="350.0" cy="152.0" r="5" fill="#f2b84b" stroke="#0f141b" stroke-width="2"/><text x="350.0" y="140.0" font-size="11.5" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×3,2</text><circle cx="443.3" cy="120.0" r="5" fill="#f2b84b" stroke="#0f141b" stroke-width="2"/><text x="443.3333333333333" y="108.0" font-size="11.5" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×4</text><circle cx="536.7" cy="80.0" r="5" fill="#f2b84b" stroke="#0f141b" stroke-width="2"/><text x="536.6666666666667" y="68.0" font-size="11.5" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×5</text><circle cx="630.0" cy="40.0" r="5" fill="#f2b84b" stroke="#0f141b" stroke-width="2"/><text x="620.0" y="28.0" font-size="11.5" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×6</text><rect x="660" y="54" width="26" height="6" rx="3" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="1"/><text x="698" y="61.0" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Unterhalt von Lagern,</text><text x="698" y="77.9" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Häfen, Flughäfen</text><text x="698" y="95" font-size="12" fill="#f2b84b" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×1 → ×6</text><path d="M70.0 240.0 L536.7 120.0 L630.0 120.0" fill="none" stroke="#b49cf0" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="7 5"/><rect x="660" y="110" width="26" height="6" rx="3" fill="#b49cf0" stroke="none" stroke-width="1.5" opacity="1"/><text x="698" y="117.0" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Geld aus Subventionen</text><text x="698" y="134" font-size="12" fill="#b49cf0" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×1 → ×4</text><path d="M70.0 264.0 L116.7 261.4 L163.3 258.4 L210.0 255.0 L256.7 250.9 L303.3 246.2 L350.0 240.8 L396.7 234.5 L443.3 227.2 L490.0 218.7 L536.7 208.8 L583.3 197.3 L630.0 184.0" fill="none" stroke="#5aa9ff" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="7 5"/><rect x="660" y="166" width="26" height="6" rx="3" fill="#5aa9ff" stroke="none" stroke-width="1.5" opacity="1"/><text x="698" y="173.0" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Darlehensbeträge</text><text x="698" y="190" font-size="12" fill="#5aa9ff" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×0,4 → ×2,4</text><path d="M70.0 240.0 L630.0 240.0" fill="none" stroke="#38d1bf" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="7 5"/><rect x="660" y="222" width="26" height="6" rx="3" fill="#38d1bf" stroke="none" stroke-width="1.5" opacity="1"/><text x="698" y="229.0" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Einnahmen aus Fracht und</text><text x="698" y="245.9" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Passagieren</text><text x="698" y="263" font-size="12" fill="#38d1bf" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">×1</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Faktoren, die in den Skripten vom Kalenderjahr abhängen. Einnahmen haben keinen; die Einstellung Inflation senkt nur die Einnahmen mit dem Firmenrang.</span></figcaption></figure>
+<h2 id="die-kosteneinstellungen"><span class="n">1</span><span>Die Kosteneinstellungen</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Einstellung</th>
+<th>Werte</th>
+<th>Vorgaben Easy · Normal · Hard · Very Hard</th>
+<th class="sc">Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fahrzeugkosten</strong>, <strong>Fahrzeugwartung</strong></td>
+<td>50 % · 75 % · 100 % · 125 % · 150 %</td>
+<td>50 % · 100 % · 125 % · 150 %</td>
+<td class="sc"><code class="src">difficulty_util.tl:39</code>, <code class="src">difficulty_util.tl:98-99</code>, <code class="src">difficulty_util.tl:125-126</code></td>
+</tr>
+<tr>
+<td><strong>Infrastrukturkosten</strong>, <strong>Unterhalt der Infrastruktur</strong></td>
+<td>50 % · 75 % · 100 % · 125 % · 150 %</td>
+<td>50 % · 100 % · 125 % · 150 %</td>
+<td class="sc"><code class="src">difficulty_util.tl:100-101</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
+</tr>
+<tr>
+<td><strong>Fahrzeugwartungseffekt</strong></td>
+<td>Keiner ×0 · Niedrig ×0,5 · Mittel ×1 · Hoch ×1,5 · Sehr hoch ×2</td>
+<td>Niedrig · Mittel · Hoch · Sehr hoch</td>
+<td class="sc"><code class="src">difficulty_util.tl:42</code>, <code class="src">difficulty_util.tl:103</code>, <code class="src">difficulty_util.tl:185</code></td>
+</tr>
+<tr>
+<td><strong>Inflation</strong></td>
+<td>nur Einnahmen, siehe <a href="income.html">Fracht-Einnahmen</a></td>
+<td>Niedrig · Normal · Hoch · Sehr hoch</td>
+<td class="sc"><code class="src">difficulty_util.tl:50</code>, <code class="src">mod.script.tl:694-697</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Infrastrukturkosten</strong> skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Unterhalt der Infrastruktur</strong> skaliert deren Unterhalt<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Fahrzeugkosten</strong> und <strong>Fahrzeugwartung</strong> skalieren Kaufpreis und Betriebskosten jedes Fahrzeugs<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
+<li><strong>Fahrzeugwartungseffekt</strong> legt fest, wie stark ein Fahrzeug in schlechtem Zustand Geschwindigkeit, Leistung und Komfort verliert und Lärm, Verschmutzung und Betriebskosten gewinnt<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
+</ul>
+<h2 id="was-mit-dem-kalenderjahr-steigt"><span class="n">2</span><span>Was mit dem Kalenderjahr steigt</span></h2>
+<ul>
+<li><strong>Gebäudeunterhalt</strong>: ×1 im Jahr 1900, ×1,5 1920, ×2,2 1940, ×3,2 1960, ×4 1980, ×5 2000, ×6 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. Das Gebäudefenster und das Baumenü wenden ihn auf jedes Gebäude an, das dem Jahr folgen soll, und das Baumenü markiert diese: Lager, Flugfelder, Flughäfen und Häfen<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1149</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
+<li><strong>Module</strong> eines solchen Gebäudes kosten den Preis des Baujahrs des Gebäudes, ihr Unterhalt den des aktuellen Jahres<span class="sr"> (<code class="src">construction.tl:3720-3727</code>, <code class="src">construction.tl:4364-4367</code>)</span>.</li>
+<li><strong>Epochenvarianten</strong>: Depots, Wartungsstationen, Lager, Bahnhöfe, Häfen und Flughäfen haben eine Variante pro Epoche, und jede spätere Variante kostet <strong>×3</strong> (Epoche B) oder <strong>×9</strong> (Epoche C) der ersten<span class="sr"> (<code class="src">rail_depot.con.lua:7</code>, <code class="src">warehouse.tl:48</code>, <code class="src">modular_station.con.lua:71</code>, <code class="src">harbor_modular.tl:76</code>, <code class="src">airport.tl:8</code>)</span>.</li>
+<li><strong>Geld aus Subventionen</strong>: ×1 im Jahr 1900 bis ×4 ab 2000<span class="sr"> (<code class="src">finances_util.tl:87-90</code>)</span>. <strong>Darlehensbeträge</strong>: ×0,4 im Jahr 1900 bis ×2,4 im Jahr 2020<span class="sr"> (<code class="src">loan_util.tl:7-10</code>)</span>.</li>
+<li><strong>Einnahmen</strong> haben gar keinen Jahresfaktor<span class="sr"> (<code class="src">cargo_income.script.lua:10-13</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Der tatsächlich abgebuchte Unterhalt, und ob Straßen, Gleise und Fahrzeuge ebenfalls der Jahrestabelle folgen, entscheidet die Engine (getCostMultiplierForYear; die Grundkonfiguration setzt nur chargeMaintenanceInterval = 60, mod.script.tl:105). Die Skripte berechnen nur die Werte, die in den Fenstern und im Baumenü angezeigt werden, mit der Tabelle oben. Kein Skript setzt das Kennzeichen „dem Jahr folgen" der anderen Gebäude.</p></div></aside>
+<h2 id="gleise-straen-und-gebaude"><span class="n">3</span><span>Gleise, Straßen und Gebäude</span></h2>
+<p>Straßen- und Gleisdateien geben Preis und jährlichen Unterhalt pro Meter an; das Baumenü zeigt sie pro Kilometer<span class="sr"> (<code class="src">construction_react_util.tl:2463</code>, <code class="src">construction_react_util.tl:2477-2485</code>)</span>. Bei den meisten Typen beträgt der Unterhalt <strong>ein Sechstel</strong> des Baupreises:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Typ</th>
+<th>Verfügbar ab</th>
+<th>Bau pro km</th>
+<th>Unterhalt pro km und Jahr</th>
+<th class="sc">Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Einfaches Gleis</td>
+<td>Start</td>
+<td>60.000</td>
+<td>10.000</td>
+<td class="sc"><code class="src">simple.street_template.lua:9</code>, <code class="src">simple.street_template.lua:33</code></td>
+</tr>
+<tr>
+<td>Standardgleis</td>
+<td>1930</td>
+<td>180.000</td>
+<td>30.000</td>
+<td class="sc"><code class="src">standard.street_template.lua:11</code>, <code class="src">standard.street_template.lua:35</code></td>
+</tr>
+<tr>
+<td>Hochgeschwindigkeitsgleis</td>
+<td>1980</td>
+<td>540.000</td>
+<td>90.000</td>
+<td class="sc"><code class="src">high_speed.street_template.lua:11</code>, <code class="src">high_speed.street_template.lua:35</code></td>
+</tr>
+<tr>
+<td>Kleine alte Landstraße</td>
+<td>Start</td>
+<td>60.000</td>
+<td>10.000</td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
+</tr>
+<tr>
+<td>Große neue Stadtstraße</td>
+<td>1940</td>
+<td>540.000</td>
+<td>90.000</td>
+<td class="sc"><code class="src">town_new_large.street_template.lua:11</code>, <code class="src">town_new_large.street_template.lua:91</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Eine Oberleitung kostet zusätzlich <strong>30 %</strong> des Gleispreises; eine Busspur 10 %, ein Straßenbahngleis 20 %, ein elektrisches Straßenbahngleis 40 % des Straßenpreises<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
+<li>Gelände anheben kostet 4,5 pro m³, absenken 5,25 pro m³, ein Feld entfernen 200.000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
+<li>Ein Gebäude ohne eigenen Unterhalt zahlt <strong>ein Sechstel seines Preises</strong> pro Jahr<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Die Grundkonfiguration setzt einen Rückerstattungsfaktor beim Abriss von 0,75 und eine Frist von 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span>: Was du gerade gebaut hast, bringt beim Abriss den Großteil des Geldes zurück. Die Engine wendet das an.</li>
+</ul>
+<p>Jährlicher Unterhalt laut Dateien, für die erste Variante (vor 1940) und die späteren; Lager bekommen zusätzlich den Jahresfaktor oben:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Gebäude</th>
+<th>Erste Variante</th>
+<th>×3 (ab 1940)</th>
+<th>×9 (ab 1980)</th>
+<th class="sc">Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zugdepot, Schiffsdepot</td>
+<td>100.000</td>
+<td>300.000</td>
+<td>900.000</td>
+<td class="sc"><code class="src">rail_depot.con.lua:34</code>, <code class="src">water_depot.con.lua:32</code></td>
+</tr>
+<tr>
+<td>Straßendepot</td>
+<td>30.000</td>
+<td>90.000</td>
+<td>270.000</td>
+<td class="sc"><code class="src">road_depot.con.lua:32</code></td>
+</tr>
+<tr>
+<td>Straßenbahndepot</td>
+<td>20.000</td>
+<td>60.000</td>
+<td>180.000</td>
+<td class="sc"><code class="src">tram_depot.con.lua:34</code></td>
+</tr>
+<tr>
+<td>Wartungsstation Zug oder Schiff</td>
+<td>40.000</td>
+<td>120.000</td>
+<td>360.000</td>
+<td class="sc"><code class="src">rail_maint_station.con.lua:32</code>, <code class="src">water_maint_station.con.lua:32</code></td>
+</tr>
+<tr>
+<td>Wartungsstation Straße</td>
+<td>10.000</td>
+<td>30.000</td>
+<td>90.000</td>
+<td class="sc"><code class="src">road_maint_station.con.lua:32</code></td>
+</tr>
+<tr>
+<td>Universallager</td>
+<td>25.000</td>
+<td>75.000</td>
+<td>225.000</td>
+<td class="sc"><code class="src">warehouse.tl:48-52</code>, <code class="src">warehouse.tl:75</code></td>
+</tr>
+<tr>
+<td>Speziallager</td>
+<td>50.000</td>
+<td>150.000</td>
+<td>450.000</td>
+<td class="sc"><code class="src">warehouse.tl:51</code>, <code class="src">warehouse.tl:75</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Jedes dieser Gebäude kostet <strong>6 ×</strong> seinen Unterhalt im Bau<span class="sr"> (<code class="src">rail_depot.con.lua:35</code>, <code class="src">warehouse.tl:76</code>)</span>: 2,7 M für ein Speziallager der letzten Epoche, vor dem Jahresfaktor.</p>
+<ul>
+<li>Das erste <strong>Flugfeld</strong> (bis 1950) nutzt schon das ×3 der zweiten Epoche: Seine Prüfung liest das Endjahr der Variante statt des Startjahres<span class="sr"> (<code class="src">airfield.tl:8</code>, <code class="src">airfield_era_a.metacon.tl:3</code>)</span>.</li>
+</ul>
+<h2 id="fahrzeuge"><span class="n">4</span><span>Fahrzeuge</span></h2>
+<p>Kein Fahrzeug des Grundspiels hat einen festen Preis: Das Spiel berechnet ihn aus Geschwindigkeit und Kapazität, wenn es das Modell lädt<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span>:</p>
+<ol>
+<li><strong>Betriebskosten pro Jahr</strong> = etwa 675 × Durchschnittsgeschwindigkeit (m/s) × Kapazität / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. Die 675 kommen aus der durchschnittlichen Einnahme pro km, verringert, um Leerfahrten, den Kauf und die sinkenden Ticketpreise zu berücksichtigen<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
+<li>Die <strong>Durchschnittsgeschwindigkeit</strong> liegt unter der Höchstgeschwindigkeit: für Straßenfahrzeuge (Höchstgeschwindigkeit in km/h)^0,78 + 4, für Züge ^0,86 + 10, Schiffe 65 % der Höchstgeschwindigkeit<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li><strong>Züge</strong>: Ein Wagen zählt die Hälfte seiner Kapazität; eine Lok zählt zusätzlich Leistung ÷ Höchstgeschwindigkeit (km/h) × 12,5 als Kapazität, ebenfalls halbiert<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. Eine starke, langsame Lok ist teuer.</li>
+<li><strong>Preis</strong> = <strong>6 ×</strong> die jährlichen Betriebskosten<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
+</ol>
+<p>Beispiel bei 100 %: Ein Bus mit 35 km/h für 48 Passagiere kostet etwa 45.000 pro Jahr im Betrieb und etwa 270.000 im Kauf.</p>
+<ul>
+<li>Der Zustand eines Fahrzeugs hat fünf Stufen (100–80 %, dann alle 20 %)<span class="sr"> (<code class="src">vehicle_store_util.tl:231-234</code>)</span>; bei <strong>20 %</strong> warnt das Spiel, bis er wieder über 30 % liegt<span class="sr"> (<code class="src">notifications.script.tl:310-318</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Wie schnell der Zustand eines Fahrzeugs sinkt, wie stark die Betriebskosten dadurch steigen und ob sich Fahrzeugpreise mit dem Jahr ändern, sind Werte der Engine (getMaintenanceRunningCostPenalty und die anderen Abzüge); die Skripte skalieren sie nur mit dem Fahrzeugwartungseffekt.</p></div></aside>
+<h2 id="darlehen"><span class="n">5</span><span>Darlehen</span></h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><linearGradient id="li-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="li-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="li-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="li-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="li-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="li-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="li-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><text x="114" y="68" font-size="15" fill="#eef1f5" text-anchor="end" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">5 Jahre</text><text x="130" y="34" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">40 M + 3,2 M Zinsen</text><rect x="130" y="44" width="260" height="38" rx="9" fill="url(#li-teal)" stroke="none" stroke-width="1.5" opacity="1"/><rect x="130" y="44" width="260" height="7" rx="3" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="1"/><line x1="182" y1="52" x2="182" y2="82" stroke="#0f141b" stroke-opacity=".35"/><line x1="234" y1="52" x2="234" y2="82" stroke="#0f141b" stroke-opacity=".35"/><line x1="286" y1="52" x2="286" y2="82" stroke="#0f141b" stroke-opacity=".35"/><line x1="338" y1="52" x2="338" y2="82" stroke="#0f141b" stroke-opacity=".35"/><text x="130" y="104" font-size="13" fill="#f2b84b" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">3,2 M ÷ 5 = 0,64 M Zinsen pro Jahr</text><text x="114" y="182" font-size="15" fill="#eef1f5" text-anchor="end" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">12 Jahre</text><text x="130" y="148" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">40 M + 3,2 M Zinsen</text><rect x="130" y="158" width="624" height="38" rx="9" fill="url(#li-teal)" stroke="none" stroke-width="1.5" opacity="1"/><rect x="130" y="158" width="624" height="7" rx="3" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="1"/><line x1="182" y1="166" x2="182" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="234" y1="166" x2="234" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="286" y1="166" x2="286" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="338" y1="166" x2="338" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="390" y1="166" x2="390" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="442" y1="166" x2="442" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="494" y1="166" x2="494" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="546" y1="166" x2="546" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="598" y1="166" x2="598" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="650" y1="166" x2="650" y2="196" stroke="#0f141b" stroke-opacity=".35"/><line x1="702" y1="166" x2="702" y2="196" stroke="#0f141b" stroke-opacity=".35"/><text x="130" y="218" font-size="13" fill="#f2b84b" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">3,2 M ÷ 12 = 0,27 M Zinsen pro Jahr</text><rect x="286" y="158" width="468" height="38" rx="9" fill="#0f141b" fill-opacity=".6" stroke="#f0705f" stroke-width="1.5" stroke-dasharray="5 4"/><line x1="286" y1="158" x2="286" y2="196" stroke="#f0705f" stroke-width="3"/><text x="300" y="183" font-size="12.5" fill="#f0705f" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">restliche Zinsen (2,4 M): gestrichen</text><text x="300" y="286" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Nach 3 Jahren zurückzahlen: 30 M noch offen</text><line x1="286" y1="198" x2="286" y2="281" stroke="#f0705f" stroke-width="1.5" stroke-dasharray="3 3"/><rect x="410" y="51" width="200.56" height="24" rx="12.0" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="1"/><text x="510.28" y="67.56" font-size="12" fill="#0f141b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">gleiche Zinsen insgesamt</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Beispiel: 40 M zu 8 %. Die Zinsen sind einmal 8 % des Betrags, unabhängig von der Laufzeit, Monat für Monat mit der Tilgung bezahlt. Vorzeitiges Zurückzahlen streicht die noch ausstehenden Zinsen.</span></figcaption></figure>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Art</th>
+<th>Betrag um 1960 (×0,4 im Jahr 1900, ×2,4 im Jahr 2020)</th>
+<th>Laufzeit</th>
+<th>Zinssatz</th>
+<th class="sc">Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Klein</td>
+<td>5–10 M</td>
+<td>1–5 Jahre</td>
+<td>3–5 %</td>
+<td class="sc"><code class="src">loan_util.tl:12-22</code></td>
+</tr>
+<tr>
+<td>Mittel</td>
+<td>15–25 M</td>
+<td>3–8 Jahre</td>
+<td>5–8 %</td>
+<td class="sc"><code class="src">loan_util.tl:24-34</code></td>
+</tr>
+<tr>
+<td>Groß</td>
+<td>30–50 M</td>
+<td>5–12 Jahre</td>
+<td>8–10 %</td>
+<td class="sc"><code class="src">loan_util.tl:36-46</code></td>
+</tr>
+<tr>
+<td>Sehr groß</td>
+<td>40–60 M</td>
+<td>10–24 Jahre</td>
+<td>10–12 %</td>
+<td class="sc"><code class="src">loan_util.tl:48-58</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Die Karte nennt ihn <strong>Jährlicher Zinsfuss</strong>, aber der Satz wird <strong>einmal</strong> auf den Betrag angewandt: Die Zinsen insgesamt sind Betrag × Satz, unabhängig von der Laufzeit. Sie werden in gleichen Teilen jeden Monat mit der Tilgung bezahlt<span class="sr"> (<code class="src">loan_util.tl:102-111</code>, <code class="src">loan_util.tl:126-136</code>, <code class="src">loan.script.tl:83-99</code>)</span>. Ein langes Darlehen ist deshalb pro Jahr billiger als ein kurzes mit demselben Satz.</li>
+<li><strong>Zurückzahlen</strong> zahlt nur den Rest der Tilgung: Die restlichen Zinsen entfallen<span class="sr"> (<code class="src">loan.script.tl:171-190</code>)</span>. Der Knopf braucht diesen Betrag in bar<span class="sr"> (<code class="src">finances_loan_gui.tl:284-286</code>)</span>.</li>
+<li>Die Zinssätze hängen <strong>nicht</strong> vom Schwierigkeitsgrad ab: Jede Art hat ihre eigene feste Spanne<span class="sr"> (<code class="src">loan_util.tl:12-58</code>)</span>.</li>
+<li>Höchstens <strong>4 Darlehen</strong> gleichzeitig<span class="sr"> (<code class="src">loan_util.tl:4</code>, <code class="src">loan.script.tl:134</code>)</span>. Ein Angebot wird nach einem halben Jahr ersetzt; der Platz eines genommenen Darlehens bleibt 4 bis 8 Monate leer<span class="sr"> (<code class="src">loan.script.tl:61-76</code>, <code class="src">loan.script.tl:150</code>)</span>.</li>
+<li>Zu Spielbeginn bekommt jeder der vier Plätze die Werte einer zufälligen Art, das erste „kleine" Angebot kann also ein großes Darlehen sein; sobald ein Angebot erneuert wird, bietet jeder Platz seine eigene Art<span class="sr"> (<code class="src">loan_util.tl:60-74</code>, <code class="src">loan.script.tl:63-75</code>)</span>.</li>
+</ul>
+<h2 id="gut-zu-wissen"><span class="n">6</span><span>Gut zu wissen</span></h2>
+<ul>
+<li>Nimm das <strong>längste</strong> Darlehen, das du bekommst: Die Zinsen sind insgesamt gleich, auf mehr Monate verteilt, und du kannst vorzeitig zurückzahlen, ohne den Rest zu zahlen.</li>
+<li>Gebäude mit Epochenvarianten kosten in späteren Epochen ×3 und ×9, und ihr Unterhalt steigt weiter mit dem Jahr: Ein Speziallager der letzten Epoche ist ein großer Fixkostenblock.</li>
+<li>Ein schnelles Fahrzeug mit großer Kapazität kostet mehr im Betrieb, transportiert aber auch mehr: Preis und Betriebskosten folgen Geschwindigkeit × Kapazität, wie die Einnahmen, die es erzielen kann.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Offizielles Wiki und Spielskripte</h4><span class="res differs"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Weicht ab</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Das offizielle Wiki sagt</div><p>"It is recommended to pay back the loan as soon as possible because there is a monthly interest rate. How high this rate is depends on the level of difficulty." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances">Company and Finances</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Die Spielskripte zeigen</div><p>Der Zinssatz eines Darlehens hängt nur von seiner Art ab (3–12 %), nicht vom Schwierigkeitsgrad, und er wird einmal auf den Betrag angewandt, verteilt auf die Monate der Laufzeit; vorzeitiges Zurückzahlen streicht die restlichen Zinsen. Inflation ändert nur die Einnahmen; der Gebäudeunterhalt folgt dem Jahr (×1 bis ×6); Fahrzeugpreis = 6 × jährliche Betriebskosten, beide aus Geschwindigkeit und Kapazität.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Die Pfade liegen im Ordner base/content des Spiels oder in seinen Zip-Dateien.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Auf dieser Seite</h5><ol><li><a href="#die-kosteneinstellungen">Die Kosteneinstellungen</a></li><li><a href="#was-mit-dem-kalenderjahr-steigt">Was mit dem Kalenderjahr steigt</a></li><li><a href="#gleise-straen-und-gebaude">Gleise, Straßen und Gebäude</a></li><li><a href="#fahrzeuge">Fahrzeuge</a></li><li><a href="#darlehen">Darlehen</a></li><li><a href="#gut-zu-wissen">Gut zu wissen</a></li></ol><div class="box"><b>33</b><span>Quellverweise</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Quellen anzeigen</span><span class="h">Quellen ausblenden</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Weitere Mechaniken</h2><div class="mgrid"><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Gütereinnahmen und Lieferzeit</b><small>Fracht und Einnahmen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Lade- und Entladegeschwindigkeit</b><small>Bahnhöfe und Laden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subventionen: Angebote, Fristen und Belohnungen</b><small>Subventionen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Stadtwachstum: XP, Wertungen und Größe</b><small>Städte</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Arbeiter und Arbeiterbonus</b><small>Industrien</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Fanprojekt von Miro. Nicht mit Urban Games verbunden.</span><span>Texte und Bilder: CC BY 4.0 · Spielcode © Urban Games: es werden nur kurze Verweise gezeigt.</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

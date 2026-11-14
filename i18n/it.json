@@ -41,7 +41,11 @@
   "sources": "riferimenti alle fonti",
   "in": "in",
   "translated": "Tradotto dall'inglese; le correzioni sono benvenute",
-  "lang_label": "Lingua"
+  "lang_label": "Lingua",
+  "src_btn": "Fonti",
+  "src_toggle": "Mostra o nascondi i riferimenti agli script",
+  "src_show": "Mostra le fonti",
+  "src_hide": "Nascondi le fonti"
  },
  "diagrams": {
   "T_WORKERS": {

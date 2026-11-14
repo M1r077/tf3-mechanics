@@ -41,7 +41,11 @@
   "sources": "개 소스 참조",
   "in": "위치",
   "translated": "영어에서 번역됨. 수정 제안 환영",
-  "lang_label": "언어"
+  "lang_label": "언어",
+  "src_btn": "소스",
+  "src_toggle": "스크립트 참조 표시 또는 숨기기",
+  "src_show": "소스 보기",
+  "src_hide": "소스 숨기기"
  },
  "diagrams": {
   "T_WORKERS": {

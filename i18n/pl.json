@@ -41,7 +41,11 @@
   "sources": "odwołań do źródeł",
   "in": "w",
   "translated": "Przetłumaczone z angielskiego; poprawki mile widziane",
-  "lang_label": "Język"
+  "lang_label": "Język",
+  "src_btn": "Źródła",
+  "src_toggle": "Pokaż lub ukryj odwołania do skryptów",
+  "src_show": "Pokaż źródła",
+  "src_hide": "Ukryj źródła"
  },
  "diagrams": {
   "T_WORKERS": {
