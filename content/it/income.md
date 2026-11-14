@@ -35,7 +35,25 @@ La funzione riceve il tempo di viaggio ma **non lo usa** (`cargotype.script.lua:
 - Quindi una linea tortuosa rende quanto una diritta, ma paghi la manutenzione di ogni metro di binario o di strada che hai costruito.
 
 ```engine
-Quali due punti vengono confrontati (dove la merce è entrata nella tua rete, dove è stata consegnata) e il segno della differenza di quota sono decisi dal motore. La wiki ufficiale dice: "distances are measured as the crow flies between the source and the final destination".
+Il motore sceglie i due punti e li passa allo script. Misurato in gioco (vedi sotto): sono l'**origine** della merce (l'industria o l'edificio della cittadina che l'ha prodotta) e il **consumatore** che la riceve, come dice la wiki ufficiale ("between the source and the final destination").
+```
+
+## Merci che cambiano linea
+
+Quando un'unità viaggia su più linee, per esempio nave → magazzino → treno, il gioco la paga comunque **una sola volta**:
+
+```diagram income_split
+```
+
+1. Lo scarico in un magazzino o in una stazione di trasbordo non paga **nulla**. Su circa 17.000 pagamenti misurati, solo 43 sono andati a una destinazione che non era un consumatore.
+2. Quando l'ultimo veicolo consegna al consumatore, l'unità viene pagata con la formula qui sopra, per la linea retta **dall'origine al consumatore**. Le tratte e il percorso reale non contano, quindi una deviazione attraverso un magazzino non rende nulla in più.
+3. Quel denaro viene diviso tra le linee della catena **in proporzione alla lunghezza in linea retta di ogni tratta**: da un punto di carico al successivo, e dall'ultimo punto di carico al consumatore. Il bonus di salita non conta in questa ripartizione.
+4. Il veicolo che consegna trattiene prima l'intero importo, con una quota per tratta. Viene contabilizzato qualche secondo di tempo di gioco dopo (mediana circa 6 s), e ogni linea e ogni veicolo riceve la propria quota. Il saldo di una linea quindi si muove poco dopo la consegna, non al magazzino.
+
+Così una breve linea di adduzione verso un magazzino rende poco, anche se fa tutta la raccolta; la tratta lunga guadagna la maggior parte. Ogni linea mostra comunque la sua quota reale nel proprio saldo.
+
+```engine
+Gli script calcolano solo il totale (economy/cargo_income.script.lua); la ripartizione è fatta dal motore e non è visibile negli script. Le regole qui sopra sono state misurate con una mod di prova in sola lettura: circa 1.700 pagamenti di unità con 2 o 3 tratte, e le variazioni di conto di ogni linea e veicolo coinvolti. In 769 casi puliti (un'unità, un pagamento) la ripartizione corrispondeva alle lunghezze delle tratte entro l'1% ogni volta; una ripartizione con il bonus di salita corrispondeva solo nel 59% dei casi, una ripartizione in parti uguali in nessuno.
 ```
 
 ## Che cos'altro cambia l'importo
@@ -102,6 +120,6 @@ La stessa consegna di carbone, a 5 km in linea d'aria.
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Stesso fattore 3,8 per tutte le merci; distanza in 3D più 8 × la salita; il grado dell'azienda riduce le entrate fino a ×0,75 al grado 15 (Inflazione Normale); ×2 dopo una commessa; il tempo non è usato per le entrate; valutazione Consegna dalla quota puntuale dell'ultimo mezzo anno (Normale: 30% → 0, 100% → 1).
+scripts: Stesso fattore 3,8 per tutte le merci; distanza in 3D più 8 × la salita; il grado dell'azienda riduce le entrate fino a ×0,75 al grado 15 (Inflazione Normale); ×2 dopo una commessa; il tempo non è usato per le entrate; misurato in gioco: un'unità che cambia linea viene pagata una sola volta, al consumatore, e divisa tra le linee in base alla lunghezza delle tratte; valutazione Consegna dalla quota puntuale dell'ultimo mezzo anno (Normale: 30% → 0, 100% → 1).
 result: refines
 ```

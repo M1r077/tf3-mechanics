@@ -35,7 +35,25 @@ Die Funktion erhält die Fahrzeit, **nutzt sie aber nicht** (`cargotype.script.l
 - Eine kurvige Linie verdient also so viel wie eine gerade, aber du zahlst Unterhalt für jeden gebauten Meter Gleis oder Straße.
 
 ```engine
-Welche zwei Punkte verglichen werden (wo die Fracht in dein Netz kam, wo sie geliefert wurde) und das Vorzeichen des Höhenunterschieds entscheidet die Engine. Das offizielle Wiki sagt: „distances are measured as the crow flies between the source and the final destination".
+Die Engine wählt die zwei Punkte und gibt sie an das Skript. Im Spiel gemessen (siehe unten): Es sind die **Quelle** der Fracht (die Industrie oder das Stadtgebäude, das sie erzeugt hat) und der **Abnehmer**, der sie erhält, wie das offizielle Wiki sagt („between the source and the final destination").
+```
+
+## Fracht, die die Linie wechselt
+
+Wenn eine Einheit über mehrere Linien reist, zum Beispiel Schiff → Lagerhaus → Zug, bezahlt das Spiel sie trotzdem **nur einmal**:
+
+```diagram income_split
+```
+
+1. Das Entladen in einem Lagerhaus oder einem Umsteigebahnhof bringt **nichts**. Von etwa 17.000 gemessenen Zahlungen gingen nur 43 an ein Lager, das kein Abnehmer war.
+2. Wenn das letzte Fahrzeug beim Abnehmer liefert, wird die Einheit mit der Formel oben bezahlt, für die Luftlinie **von der Quelle zum Abnehmer**. Die Abschnitte und die echte Strecke zählen nicht: Ein Umweg über ein Lagerhaus bringt nichts mehr.
+3. Dieses Geld wird zwischen den Linien der Kette geteilt, **im Verhältnis der Luftlinie jedes Abschnitts**: von einem Abholpunkt zum nächsten und vom letzten Abholpunkt zum Abnehmer. Der Steigungsbonus zählt bei dieser Aufteilung nicht.
+4. Das liefernde Fahrzeug hält zuerst den ganzen Betrag, mit einem Anteil pro Abschnitt. Er wird einige Sekunden Spielzeit später gebucht (Median etwa 6 s): Jede Linie und jedes Fahrzeug erhält seinen Anteil. Der Kontostand einer Linie bewegt sich also kurz nach der Lieferung, nicht am Lagerhaus.
+
+Eine kurze Zubringerlinie zu einem Lagerhaus verdient also wenig, obwohl sie das ganze Sammeln erledigt; der lange Abschnitt verdient am meisten. Jede Linie zeigt trotzdem ihren echten Anteil in ihrem eigenen Kontostand.
+
+```engine
+Die Skripte berechnen nur den Gesamtbetrag (economy/cargo_income.script.lua); die Aufteilung macht die Engine, sie ist in den Skripten nicht sichtbar. Die Regeln oben wurden mit einem Test-Mod gemessen, der nur liest: etwa 1.700 Zahlungen von Einheiten mit 2 oder 3 Abschnitten und die Kontobewegungen jeder beteiligten Linie und jedes Fahrzeugs. In 769 sauberen Fällen (eine Einheit, eine Zahlung) passte die Aufteilung jedes Mal auf 1 % genau zu den Abschnittslängen; eine Aufteilung mit Steigungsbonus passte nur in 59 % der Fälle, eine gleiche Aufteilung in keinem.
 ```
 
 ## Was den Betrag noch ändert
@@ -102,6 +120,6 @@ Dieselbe Kohlelieferung, 5 km Luftlinie.
 
 ```check
 official: „The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." „While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Derselbe Faktor 3,8 für alle Frachten; Entfernung in 3D plus 8 × Steigung; der Unternehmensrang senkt die Einnahmen bis ×0,75 bei Rang 15 (Inflation Normal); ×2 nach einer Subvention; die Zeit wird für die Einnahme nicht genutzt; Lieferungs-Bewertung aus dem pünktlichen Anteil des letzten Halbjahrs (Normal: 30 % → 0, 100 % → 1).
+scripts: Derselbe Faktor 3,8 für alle Frachten; Entfernung in 3D plus 8 × Steigung; der Unternehmensrang senkt die Einnahmen bis ×0,75 bei Rang 15 (Inflation Normal); ×2 nach einer Subvention; die Zeit wird für die Einnahme nicht genutzt; im Spiel gemessen: Eine Einheit, die die Linie wechselt, wird einmal beim Abnehmer bezahlt und nach Abschnittslänge zwischen den Linien geteilt; Lieferungs-Bewertung aus dem pünktlichen Anteil des letzten Halbjahrs (Normal: 30 % → 0, 100 % → 1).
 result: refines
 ```

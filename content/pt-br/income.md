@@ -35,7 +35,25 @@ A função recebe o tempo de viagem, mas **não o usa** (`cargotype.script.lua:7
 - Então uma linha cheia de curvas rende o mesmo que uma reta, mas você paga a manutenção de cada metro de trilho ou estrada que construiu.
 
 ```engine
-Quais dois pontos são comparados (onde a carga entrou na sua rede, onde foi entregue) e o sinal da diferença de altura são decididos pelo motor. A wiki oficial diz: "distances are measured as the crow flies between the source and the final destination".
+O motor escolhe os dois pontos e os passa ao script. Medido no jogo (veja abaixo): são a **origem** da carga (a indústria ou o prédio do município que a produziu) e o **consumidor** que a recebe, como diz a wiki oficial ("between the source and the final destination").
+```
+
+## Carga que muda de linha
+
+Quando um item viaja em várias linhas, por exemplo navio → armazém → trem, o jogo ainda o paga **uma única vez**:
+
+```diagram income_split
+```
+
+1. Descarregar em um armazém ou em uma estação de transbordo não paga **nada**. De cerca de 17.000 pagamentos medidos, só 43 foram para um destino que não era um consumidor.
+2. Quando o último veículo entrega ao consumidor, o item é pago com a fórmula acima, pela linha reta **da origem até o consumidor**. Os trechos e a rota real não contam, então um desvio por um armazém não rende nada a mais.
+3. Esse dinheiro é dividido entre as linhas da cadeia **em proporção ao comprimento em linha reta de cada trecho**: de um ponto de coleta ao seguinte, e do último ponto de coleta ao consumidor. O bônus de subida não conta nessa divisão.
+4. O veículo que entrega primeiro retém o valor inteiro, com uma parte por trecho. Ele é lançado alguns segundos de tempo de jogo depois (mediana de cerca de 6 s), e cada linha e cada veículo recebe a sua própria parte. Por isso o saldo de uma linha muda logo depois da entrega, não no armazém.
+
+Então uma linha alimentadora curta até um armazém rende pouco, mesmo fazendo toda a coleta; o trecho longo fica com a maior parte. Cada linha continua mostrando a sua parte real no próprio saldo.
+
+```engine
+Os scripts só calculam o total (economy/cargo_income.script.lua); a divisão é feita pelo motor e não é visível nos scripts. As regras acima foram medidas com um mod de teste somente leitura: cerca de 1.700 pagamentos de itens com 2 ou 3 trechos, e as mudanças de conta de cada linha e veículo envolvidos. Em 769 casos limpos (um item, um pagamento) a divisão bateu com os comprimentos dos trechos com margem de 1% todas as vezes; uma divisão com o bônus de subida bateu em só 59% deles, e uma divisão igual em nenhum.
 ```
 
 ## O que mais muda o valor
@@ -102,6 +120,6 @@ A mesma entrega de carvão, a 5 km em linha reta.
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Mesmo fator 3,8 para todas as cargas; distância em 3D mais 8 × a subida; o ranque da empresa reduz a renda até ×0,75 no ranque 15 (Inflação Normal); ×2 depois de um subsídio; o tempo não é usado na renda; classificação Entrega pela fração no prazo do último meio ano (Normal: 30% → 0, 100% → 1).
+scripts: Mesmo fator 3,8 para todas as cargas; distância em 3D mais 8 × a subida; o ranque da empresa reduz a renda até ×0,75 no ranque 15 (Inflação Normal); ×2 depois de um subsídio; o tempo não é usado na renda; medido no jogo: um item que muda de linha é pago uma única vez, no consumidor, e dividido entre as linhas pelo comprimento dos trechos; classificação Entrega pela fração no prazo do último meio ano (Normal: 30% → 0, 100% → 1).
 result: refines
 ```

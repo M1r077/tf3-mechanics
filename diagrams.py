@@ -414,17 +414,17 @@ def income_formula(lang):
 
 # ---------------------------------------------------------------- income: distance
 T_DIST = {
-    "en": {"cap": "Paid: the straight line from where the cargo was picked up to where it is delivered, plus 8 m per metre of climb. "
+    "en": {"cap": "Paid: the straight line from the source of the cargo to where it is delivered, plus 8 m per metre of climb. "
                   "The real route only costs (maintenance).",
            "a": "origin", "b": "destination", "paid": "paid: straight line (3D)", "real": "real route: not paid, costs maintenance",
            "climb": "climb h", "bonus": "+ 8 × h paid", "ex1": "5 km, 100 m higher", "ex2": "paid as 5.8 km (+16 %)",
            "down": "the other way round: no bonus, no malus"},
-    "fr": {"cap": "Payé : la ligne droite entre l'endroit où le fret a été pris et celui où il est livré, plus 8 m par mètre de montée. "
+    "fr": {"cap": "Payé : la ligne droite entre la source du fret et l'endroit où il est livré, plus 8 m par mètre de montée. "
                   "Le vrai trajet ne fait que coûter (entretien).",
            "a": "départ", "b": "destination", "paid": "payé : ligne droite (3D)", "real": "vrai trajet : pas payé, coûte l'entretien",
            "climb": "montée h", "bonus": "+ 8 × h payés", "ex1": "5 km, 100 m plus haut", "ex2": "payé comme 5,8 km (+16 %)",
            "down": "dans l'autre sens : ni bonus, ni malus"},
-    "de": {"cap": "Bezahlt wird die Luftlinie vom Abholort bis zum Lieferort, plus 8 m pro Meter Steigung. "
+    "de": {"cap": "Bezahlt wird die Luftlinie von der Quelle der Fracht bis zum Lieferort, plus 8 m pro Meter Steigung. "
                   "Die echte Strecke kostet nur (Unterhalt).",
            "a": "Start", "b": "Ziel", "paid": "bezahlt: Luftlinie (3D)", "real": "echte Strecke: nicht bezahlt, kostet Unterhalt",
            "climb": "Steigung h", "bonus": "+ 8 × h bezahlt", "ex1": "5 km, 100 m höher", "ex2": "bezahlt wie 5,8 km (+16 %)",
@@ -459,6 +459,64 @@ def income_distance(lang):
     s.text(44, 50, t["ex1"], 15, TEXT, "start", 700)
     s.text(44, 76, t["ex2"], 15, TEAL, "start", 800)
     s.text(44, 98, t["down"], 12, DIM, "start")
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- income: cargo that changes line (measured in game)
+T_SPLIT = {
+    "en": {"cap": "One payment, at the consumer, for the straight line from the source. Each line gets the share of its leg's "
+                  "straight-line length. Measured in game.",
+           "src": "source", "wh": "warehouse", "dst": "consumer",
+           "leg1": "leg 1: ship, 2 km", "leg2": "leg 2: train, 6 km",
+           "paid": "paid once, at delivery: 3.8 × straight line source → consumer",
+           "whnote": "unloaded here: nothing paid yet",
+           "l1": "ship line 25 %", "l2": "train line 75 %",
+           "hold": "the delivering vehicle holds the money a moment, then every line of the chain is credited"},
+    "fr": {"cap": "Un seul paiement, chez le client, pour la ligne droite depuis la source. Chaque ligne reçoit la part de la "
+                  "longueur en ligne droite de son étape. Mesuré en jeu.",
+           "src": "source", "wh": "entrepôt", "dst": "client",
+           "leg1": "étape 1 : bateau, 2 km", "leg2": "étape 2 : train, 6 km",
+           "paid": "payé une fois, à la livraison : 3,8 × ligne droite source → client",
+           "whnote": "déchargé ici : rien de payé encore",
+           "l1": "ligne bateau 25 %", "l2": "ligne train 75 %",
+           "hold": "le véhicule qui livre garde l'argent un instant, puis chaque ligne de la chaîne est créditée"},
+    "de": {"cap": "Eine Zahlung, beim Abnehmer, für die Luftlinie ab der Quelle. Jede Linie erhält den Anteil der Luftlinie "
+                  "ihres Abschnitts. Im Spiel gemessen.",
+           "src": "Quelle", "wh": "Lagerhaus", "dst": "Abnehmer",
+           "leg1": "Abschnitt 1: Schiff, 2 km", "leg2": "Abschnitt 2: Zug, 6 km",
+           "paid": "einmal bezahlt, bei Lieferung: 3,8 × Luftlinie Quelle → Abnehmer",
+           "whnote": "hier entladen: noch nichts bezahlt",
+           "l1": "Schiffslinie 25 %", "l2": "Zuglinie 75 %",
+           "hold": "das liefernde Fahrzeug hält das Geld kurz, dann wird jede Linie der Kette gutgeschrieben"},
+}
+
+
+def income_split(lang):
+    t = T_SPLIT[lang]
+    s = Svg("sp", 900, 340)
+    sx, sy, wx, wy, dx, dy = 90, 132, 300, 192, 810, 132
+    # what is paid: one arc from the source to the consumer, above their labels
+    s.add(f'<path d="M{sx} 80 Q450 8 {dx} 80" fill="none" stroke="{GOLD}" stroke-width="3" '
+          f'stroke-dasharray="7 6" marker-end="{s.ref("ah")}"/>')
+    s.text(450, 30, t["paid"], 14, GOLD, weight=700)
+    # the two legs
+    s.flow(sx + 24, sy + 7, wx - 26, wy - 7, BLUE, 3)
+    s.flow(wx + 26, wy - 7, dx - 26, dy + 7, TEAL, 3)
+    s.text(150, 192, t["leg1"], 12.5, BLUE, weight=700)
+    s.text((wx + dx) / 2, 146, t["leg2"], 12.5, TEAL, weight=700)
+    for x, y, lab, col, ic in ((sx, sy, t["src"], BLUE, "industries"), (wx, wy, t["wh"], DIM, "warehouses"),
+                               (dx, dy, t["dst"], TEAL, "industries")):
+        s.icon_badge(x, y, ic, col, 22, fill=s.ref("teal") if col == TEAL else None)
+        s.text(x, y - 32, lab, 14, TEXT, weight=700)
+    s.lines(wx, wy + 42, wrap_rows(t["whnote"], 44), 12, DIM)
+    # the split, to scale
+    bx, bw, by = 90, 720, 262
+    w1 = bw * 2 / 8
+    s.rect(bx, by, w1 - 2, 30, BLUE, r=8)
+    s.rect(bx + w1 + 2, by, bw - w1 - 2, 30, TEAL, r=8)
+    s.text(bx + w1 / 2, by + 20, t["l1"], 13 if width(t["l1"]) <= 22 else 11.5, DEEP, weight=800)
+    s.text(bx + w1 + (bw - w1) / 2, by + 20, t["l2"], 13, DEEP, weight=800)
+    s.lines(450, 318, wrap_rows(t["hold"], 110), 12.5, DIM)
     return s.svg(), t["cap"]
 
 
@@ -761,6 +819,110 @@ def town_size(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- subsidies: life of a contract
+T_SUBL = {
+    "en": {"cap": "What happens to an offer and to an accepted contract. Money is scaled by the calendar year (×1 in 1900, ×4 from 2000).",
+           "offer": "Offer", "offer2": "about 6 months to accept",
+           "acc": "Accepted", "acc2": "upfront payment (or reputation)", "acc3": "deadline starts",
+           "ok": "Fulfilled", "ok2": "reward: town experience, cash", "ok3": "or ×2 income for 5 years",
+           "ko": "Deadline missed", "ko2": "upfront paid back", "ko3": "+ fine or reputation loss",
+           "dec": "Declined: no penalty", "dec2": "next offer twice as fast",
+           "miss": "Not accepted in time: no penalty", "max": "at most 5 accepted at once"},
+    "fr": {"cap": "Ce que devient une offre et un contrat accepté. L'argent suit l'année du calendrier (×1 en 1900, ×4 dès 2000).",
+           "offer": "Offre", "offer2": "environ 6 mois pour accepter",
+           "acc": "Accepté", "acc2": "paiement d'avance (ou réputation)", "acc3": "le délai commence",
+           "ok": "Rempli", "ok2": "récompense : expérience, argent", "ok3": "ou revenus ×2 pendant 5 ans",
+           "ko": "Délai dépassé", "ko2": "avance remboursée", "ko3": "+ amende ou perte de réputation",
+           "dec": "Refusé : aucune pénalité", "dec2": "offre suivante deux fois plus vite",
+           "miss": "Pas accepté à temps : aucune pénalité", "max": "au plus 5 acceptés en même temps"},
+    "de": {"cap": "Was aus einem Angebot und einem angenommenen Vertrag wird. Geld folgt dem Kalenderjahr (×1 im Jahr 1900, ×4 ab 2000).",
+           "offer": "Angebot", "offer2": "etwa 6 Monate zum Annehmen",
+           "acc": "Angenommen", "acc2": "Vorauszahlung (oder Ruf)", "acc3": "die Frist beginnt",
+           "ok": "Erfüllt", "ok2": "Belohnung: Erfahrung, Geld", "ok3": "oder ×2 Einnahmen für 5 Jahre",
+           "ko": "Frist verpasst", "ko2": "Vorauszahlung zurück", "ko3": "+ Strafe oder Rufverlust",
+           "dec": "Abgelehnt: keine Strafe", "dec2": "nächstes Angebot doppelt so schnell",
+           "miss": "Nicht rechtzeitig angenommen: keine Strafe", "max": "höchstens 5 gleichzeitig angenommen"},
+}
+
+
+def subsidy_life(lang):
+    t = T_SUBL[lang]
+    s = Svg("sl", 900, 330)
+    # offer
+    s.card(16, 96, 200, 116, stroke=GOLD)
+    s.icon_badge(56, 136, "subsidies", GOLD, 22)
+    s.text(88, 132, t["offer"], 17, GOLD, "start", 800)
+    s.lines(116, 176, wrap_rows(t["offer2"], 24), 12.5, DIM)
+    # accepted
+    s.flow(222, 154, 300, 154, GOLD, 3)
+    s.card(306, 96, 250, 116, stroke=TEAL)
+    s.icon_badge(346, 136, "check", TEAL, 22)
+    s.text(378, 132, t["acc"], 17, TEAL, "start", 800)
+    s.text(431, 170, t["acc2"], 12.5, TEXT)
+    s.text(431, 190, t["acc3"], 12.5, DIM)
+    # fulfilled / missed
+    s.flow(562, 130, 628, 70, TEAL, 3)
+    s.flow(562, 178, 628, 236, RED, 3)
+    s.card(634, 16, 250, 104, stroke=TEAL)
+    s.text(654, 46, t["ok"], 16, TEAL, "start", 800)
+    s.text(654, 72, t["ok2"], 12.5, TEXT, "start")
+    s.text(654, 92, t["ok3"], 12.5, GOLD, "start", 700)
+    s.card(634, 190, 250, 104, stroke=RED)
+    s.text(654, 220, t["ko"], 16, RED, "start", 800)
+    s.text(654, 246, t["ko2"], 12.5, TEXT, "start")
+    s.text(654, 266, t["ko3"], 12.5, RED, "start", 700)
+    # no-penalty exits of an offer
+    s.add(f'<path d="M116 92 L116 40" stroke="{DIM}" stroke-width="2" stroke-dasharray="4 4" marker-end="{s.ref("ah")}"/>')
+    s.text(128, 30, t["dec"], 13, TEXT, "start", 700)
+    s.text(128, 48, t["dec2"], 12, DIM, "start")
+    s.add(f'<path d="M116 216 L116 262" stroke="{DIM}" stroke-width="2" stroke-dasharray="4 4" marker-end="{s.ref("ah")}"/>')
+    s.text(128, 284, t["miss"], 13, TEXT, "start", 700)
+    s.chip(431 - (width(t["max"]) * 12 * .62 + 22) / 2, 226, t["max"], VIOLET, size=12, h=24)
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- subsidies: the four types
+T_SUBT = {
+    "en": {"cap": "The four contract types of a free game, what completes them and what they can give. Amounts at Subsidies Risk Fair.",
+           "types": [("industries", "Supply Industry", "an industry that never produced", "deliver 50–100 of its inputs", "×2 income", GOLD),
+                     ("towns", "Supply Town", "a cargo the town lacks", "deliver 30–100 of it", "experience or cash, ×2", TEAL),
+                     ("person", "Connect Towns", "two towns, one line", "one passenger, no transfer", "experience in both, ×2", BLUE),
+                     ("person", "Transport Workers", "an industry with workers", "reach its workers boost", "cash", VIOLET)],
+           "need": "to complete", "get": "on fulfillment"},
+    "fr": {"cap": "Les quatre types de contrats d'une partie libre, ce qui les remplit et ce qu'ils peuvent donner. Quantités au risque Équitable.",
+           "types": [("industries", "Approvisionner l'industrie", "une industrie qui n'a jamais produit", "livrer 50 à 100 de ses intrants", "revenus ×2", GOLD),
+                     ("towns", "Approvisionner la ville", "un fret qui manque à la ville", "en livrer 30 à 100", "expérience ou argent, ×2", TEAL),
+                     ("person", "Relier des villes", "deux villes, une ligne", "un passager, sans correspondance", "expérience aux deux, ×2", BLUE),
+                     ("person", "Transporter des travailleurs", "une industrie avec emplois", "atteindre son bonus", "argent", VIOLET)],
+           "need": "pour remplir", "get": "à la réalisation"},
+    "de": {"cap": "Die vier Vertragsarten eines freien Spiels, was sie erfüllt und was sie bringen können. Mengen bei Subventionsrisiko Fair.",
+           "types": [("industries", "Industrie beliefern", "eine Industrie, die nie produziert hat", "50–100 ihrer Rohstoffe liefern", "×2 Einnahmen", GOLD),
+                     ("towns", "Stadt versorgen", "eine Fracht, die der Stadt fehlt", "30–100 davon liefern", "Erfahrung oder Geld, ×2", TEAL),
+                     ("person", "Städte verbinden", "zwei Städte, eine Linie", "ein Passagier, ohne Umstieg", "Erfahrung in beiden, ×2", BLUE),
+                     ("person", "Transportiere Arbeiter", "eine Industrie mit Arbeitsplätzen", "ihren Arbeiterbonus erreichen", "Geld", VIOLET)],
+           "need": "zum Erfüllen", "get": "bei Erfüllung"},
+}
+
+
+def subsidy_types(lang):
+    t = T_SUBT[lang]
+    s = Svg("st", 900, 300)
+    w, g = 206, 18  # 4 cards + 3 gaps = 878, inside the 900 viewBox
+    for i, (ic, title, target, need, get, col) in enumerate(t["types"]):
+        x = 11 + i * (w + g)
+        s.card(x, 14, w, 272, stroke=col)
+        s.icon_badge(x + w / 2, 52, ic, col, 24)
+        rows = wrap_rows(title, 22)
+        s.lines(x + w / 2, 100, rows, 15, col, weight=800, gap=1.25)
+        y = 100 + len(rows) * 19
+        s.lines(x + w / 2, y + 4, wrap_rows(target, 28), 12, DIM)
+        s.text(x + w / 2, 182, t["need"], 11, DIM, weight=700, spacing=.5)
+        s.lines(x + w / 2, 202, wrap_rows(need, 26), 13, TEXT, weight=600)
+        s.text(x + w / 2, 244, t["get"], 11, DIM, weight=700, spacing=.5)
+        s.text(x + w / 2, 266, get, 13 if width(get) < 26 else 11.5, GOLD, weight=700)
+    return s.svg(), t["cap"]
+
+
 def _load_translations():
     """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
     for code in langs.translated():
@@ -779,12 +941,15 @@ REGISTRY = {
     "town_size": town_size,
     "income_formula": income_formula,
     "income_distance": income_distance,
+    "income_split": income_split,
     "delivery_times": delivery_times,
     "delivery_rating": delivery_rating,
     "workers_flow": workers_flow,
     "workers_window": workers_window,
     "loading_factors": loading_factors,
     "loading_sections": loading_sections,
+    "subsidy_life": subsidy_life,
+    "subsidy_types": subsidy_types,
 }
 
 

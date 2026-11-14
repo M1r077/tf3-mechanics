@@ -171,7 +171,7 @@
    "not": "fora da fórmula: tempo de viagem, velocidade, comprimento real da rota, atraso ou não"
   },
   "T_DIST": {
-   "cap": "Pago: a linha reta de onde a carga foi coletada até onde é entregue, mais 8 m por metro de subida. A rota real só gera custo (manutenção).",
+   "cap": "Pago: a linha reta da origem da carga até onde é entregue, mais 8 m por metro de subida. A rota real só gera custo (manutenção).",
    "a": "origem",
    "b": "destino",
    "paid": "pago: linha reta (3D)",
@@ -181,6 +181,19 @@
    "ex1": "5 km, 100 m mais alto",
    "ex2": "pago como 5,8 km (+16%)",
    "down": "no sentido contrário: sem bônus, sem perda"
+  },
+  "T_SPLIT": {
+   "cap": "Um único pagamento, no consumidor, pela linha reta a partir da origem. Cada linha recebe a parte do comprimento em linha reta do seu trecho. Medido no jogo.",
+   "src": "origem",
+   "wh": "armazém",
+   "dst": "consumidor",
+   "leg1": "trecho 1: navio, 2 km",
+   "leg2": "trecho 2: trem, 6 km",
+   "paid": "pago uma vez, na entrega: 3,8 × linha reta origem → consumidor",
+   "whnote": "descarregado aqui: nada pago ainda",
+   "l1": "linha de navio 25%",
+   "l2": "linha de trem 75%",
+   "hold": "o veículo que entrega retém o dinheiro por um momento, depois cada linha da cadeia é creditada"
   },
   "T_TIMES": {
    "cap": "Tempo permitido antes de uma entrega contar como atrasada, em relação à carne (o mais curto). O jogo ajusta o tempo real: Finanças › Tempo de Entrega mostra o valor no seu mapa.",
@@ -274,6 +287,63 @@
    "x": "níveis ganhos desde o início",
    "y": "tamanho × início",
    "rows": "níveis ganhos → tamanho"
+  },
+  "T_SUBL": {
+   "cap": "O que acontece com uma oferta e com um contrato aceito. O dinheiro segue o ano do calendário (×1 em 1900, ×4 a partir de 2000).",
+   "offer": "Oferta",
+   "offer2": "cerca de 6 meses para aceitar",
+   "acc": "Aceito",
+   "acc2": "adiantamento (ou reputação)",
+   "acc3": "o prazo começa",
+   "ok": "Cumprido",
+   "ok2": "recompensa: experiência, dinheiro",
+   "ok3": "ou renda ×2 por 5 anos",
+   "ko": "Prazo perdido",
+   "ko2": "adiantamento devolvido",
+   "ko3": "+ multa ou perda de reputação",
+   "dec": "Recusado: sem penalidade",
+   "dec2": "próxima oferta duas vezes mais rápida",
+   "miss": "Não aceito a tempo: sem penalidade",
+   "max": "no máximo 5 aceitos ao mesmo tempo"
+  },
+  "T_SUBT": {
+   "cap": "Os quatro tipos de contrato de um jogo livre, o que os cumpre e o que podem dar. Quantidades com Risco dos Subsídios Justo.",
+   "types": [
+    [
+     "industries",
+     "Abastecer Indústria",
+     "uma indústria que nunca produziu",
+     "entregar 50–100 das entradas",
+     "renda ×2",
+     "#f2b84b"
+    ],
+    [
+     "towns",
+     "Abastecer Município",
+     "uma carga que falta ao município",
+     "entregar 30–100 dela",
+     "XP ou dinheiro, ×2",
+     "#38d1bf"
+    ],
+    [
+     "person",
+     "Conectar Municípios",
+     "dois municípios, uma linha",
+     "um passageiro, sem transferência",
+     "experiência nos dois, ×2",
+     "#5aa9ff"
+    ],
+    [
+     "person",
+     "Transportar Trabalhadores",
+     "uma indústria com empregos",
+     "ativar o seu reforço",
+     "dinheiro",
+     "#b49cf0"
+    ]
+   ],
+   "need": "para cumprir",
+   "get": "ao cumprir"
   }
  },
  "cargo": {

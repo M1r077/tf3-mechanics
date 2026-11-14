@@ -35,7 +35,25 @@ Funkcja otrzymuje czas podróży, ale **go nie używa** (`cargotype.script.lua:7
 - Dlatego kręta linia zarabia tyle samo co prosta, ale płacisz za utrzymanie każdego zbudowanego metra toru lub drogi.
 
 ```engine
-To, które dwa punkty są porównywane (gdzie towar wszedł do twojej sieci, gdzie został dostarczony), oraz znak różnicy wysokości ustala silnik. Oficjalna wiki mówi: "distances are measured as the crow flies between the source and the final destination".
+Silnik wybiera dwa punkty i przekazuje je do skryptu. Zmierzone w grze (patrz niżej): to **źródło** towaru (przemysł lub budynek miejski, który go wyprodukował) i **odbiorca**, który go przyjmuje, tak jak mówi oficjalna wiki ("between the source and the final destination").
+```
+
+## Towar, który zmienia linię
+
+Gdy jednostka towaru jedzie kilkoma liniami, na przykład statek → magazyn → pociąg, gra i tak płaci za nią **tylko raz**:
+
+```diagram income_split
+```
+
+1. Rozładunek w magazynie lub na stacji przesiadkowej nie przynosi **nic**. Z około 17 000 zmierzonych płatności tylko 43 trafiły do zapasu, który nie był odbiorcą.
+2. Gdy ostatni pojazd dostarcza towar do odbiorcy, jednostka jest opłacana według powyższego wzoru, za linię prostą **od źródła do odbiorcy**. Odcinki i rzeczywista trasa się nie liczą, więc objazd przez magazyn nie daje nic więcej.
+3. Te pieniądze są dzielone między linie łańcucha **proporcjonalnie do długości każdego odcinka w linii prostej**: od jednego punktu załadunku do następnego i od ostatniego punktu załadunku do odbiorcy. Premia za wzniesienie nie liczy się w tym podziale.
+4. Dostarczający pojazd najpierw trzyma całą kwotę, z jedną częścią na każdy odcinek. Jest ona księgowana kilka sekund czasu gry później (mediana około 6 s), a każda linia i każdy pojazd dostaje swoją część. Saldo linii zmienia się więc krótko po dostawie, a nie w magazynie.
+
+Dlatego krótka linia dowozowa do magazynu zarabia mało, choć wykonuje całe zbieranie; najwięcej zarabia długi odcinek. Każda linia i tak pokazuje swoją rzeczywistą część we własnym saldzie.
+
+```engine
+Skrypty liczą tylko sumę (economy/cargo_income.script.lua); podział wykonuje silnik i nie jest widoczny w skryptach. Powyższe zasady zmierzono testowym modem tylko do odczytu: około 1700 płatności za jednostki z 2 lub 3 odcinkami oraz zmiany na kontach każdej uczestniczącej linii i każdego pojazdu. W 769 czystych przypadkach (jedna jednostka, jedna płatność) podział za każdym razem zgadzał się z długościami odcinków z dokładnością do 1 %; podział z premią za wzniesienie zgadzał się tylko w 59 % z nich, równy podział w żadnym.
 ```
 
 ## Co jeszcze zmienia kwotę
@@ -102,6 +120,6 @@ Ta sama dostawa węgla, 5 km w linii prostej.
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Ten sam mnożnik 3,8 dla wszystkich towarów; odległość w 3D plus 8 × wzniesienie; ranga firmy obniża przychód do ×0,75 przy randze 15 (inflacja „Normalna”); ×2 po subsydium; czas nie wpływa na przychód; ocena „Dostawa” z udziału dostaw na czas w ostatnim półroczu („Normalna”: 30 % → 0, 100 % → 1).
+scripts: Ten sam mnożnik 3,8 dla wszystkich towarów; odległość w 3D plus 8 × wzniesienie; ranga firmy obniża przychód do ×0,75 przy randze 15 (inflacja „Normalna”); ×2 po subsydium; czas nie wpływa na przychód; zmierzone w grze: jednostka, która zmienia linię, jest opłacana raz, u odbiorcy, i dzielona między linie według długości odcinków; ocena „Dostawa” z udziału dostaw na czas w ostatnim półroczu („Normalna”: 30 % → 0, 100 % → 1).
 result: refines
 ```

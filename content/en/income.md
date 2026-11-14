@@ -35,7 +35,25 @@ The function receives the travel time but **does not use it** (`cargotype.script
 - So a winding line earns the same as a straight one, but you pay maintenance for every metre of track or road you built.
 
 ```engine
-Which two points are compared (where the cargo entered your network, where it was delivered) and the sign of the height difference are decided by the engine. The official wiki says: "distances are measured as the crow flies between the source and the final destination".
+The engine chooses the two points and passes them to the script. Measured in game (see below): they are the **source** of the cargo (the industry or town building that produced it) and the **consumer** that receives it, as the official wiki says ("between the source and the final destination").
+```
+
+## Cargo that changes line
+
+When an item travels on several lines, for example ship → warehouse → train, the game still pays it **only once**:
+
+```diagram income_split
+```
+
+1. Unloading at a warehouse or a transfer station pays **nothing**. Out of about 17,000 measured payments, only 43 went to a stock that was not a consumer.
+2. When the last vehicle delivers to the consumer, the item is paid with the formula above, for the straight line **from the source to the consumer**. The legs and the real route do not count, so a detour through a warehouse earns nothing more.
+3. That money is split between the lines of the chain, **in proportion to the straight-line length of each leg**: from one pickup point to the next, and from the last pickup point to the consumer. The climb bonus does not count in this split.
+4. The delivering vehicle first holds the whole amount, with one share per leg. It is booked a few seconds of game time later (median about 6 s), each line and each vehicle getting its own share. A line's balance therefore moves shortly after the delivery, not at the warehouse.
+
+So a short feeder line to a warehouse earns little, even though it does all the collecting; the long leg earns most. Every line still shows its real share in its own balance.
+
+```engine
+The scripts only compute the total (economy/cargo_income.script.lua); the split is done by the engine and is not visible in the scripts. The rules above were measured with a read-only test mod: about 1,700 payments of items with 2 or 3 legs, and the account changes of every line and vehicle involved. In 769 clean cases (one item, one payment) the split matched the leg lengths to within 1 % every time; a split with the climb bonus matched in only 59 % of them, an equal split in none.
 ```
 
 ## What else changes the amount
@@ -102,6 +120,6 @@ The same coal delivery, 5 km apart as the crow flies.
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Same factor 3.8 for all cargos; distance in 3D plus 8 × climb; company rank lowers income down to ×0.75 at rank 15 (Inflation Normal); ×2 after a subsidy; the time is not used for the income; Delivery rating from the on-time share of the last half year (Normal: 30 % → 0, 100 % → 1).
+scripts: Same factor 3.8 for all cargos; distance in 3D plus 8 × climb; company rank lowers income down to ×0.75 at rank 15 (Inflation Normal); ×2 after a subsidy; the time is not used for the income; measured in game: an item that changes line is paid once, at the consumer, and split between the lines by leg length; Delivery rating from the on-time share of the last half year (Normal: 30 % → 0, 100 % → 1).
 result: refines
 ```

@@ -35,7 +35,25 @@ La fonction reçoit la durée du trajet mais **ne l'utilise pas** (`cargotype.sc
 - Une ligne sinueuse rapporte donc autant qu'une ligne droite, mais tu paies l'entretien de chaque mètre de voie ou de route construit.
 
 ```engine
-Les deux points comparés (là où le fret est entré dans ton réseau, là où il a été livré) et le signe de la différence de hauteur sont décidés par le moteur. Le wiki officiel dit : « distances are measured as the crow flies between the source and the final destination ».
+Le moteur choisit les deux points et les passe au script. Mesuré en jeu (voir plus bas) : ce sont la **source** du fret (l'industrie ou le bâtiment de ville qui l'a produit) et le **client** qui le reçoit, comme le dit le wiki officiel (« between the source and the final destination »).
+```
+
+## Fret qui change de ligne
+
+Quand une unité voyage sur plusieurs lignes, par exemple bateau → entrepôt → train, le jeu ne la paie quand même **qu'une fois** :
+
+```diagram income_split
+```
+
+1. Décharger dans un entrepôt ou une gare de correspondance ne rapporte **rien**. Sur environ 17 000 paiements mesurés, seuls 43 sont allés à un stock qui n'était pas un client.
+2. Quand le dernier véhicule livre au client, l'unité est payée avec la formule ci-dessus, pour la ligne droite **de la source au client**. Les étapes et le vrai trajet ne comptent pas : un détour par un entrepôt ne rapporte rien de plus.
+3. Cet argent est partagé entre les lignes de la chaîne, **au prorata de la longueur en ligne droite de chaque étape** : d'un point de prise en charge au suivant, et du dernier point de prise en charge au client. Le bonus de montée ne compte pas dans ce partage.
+4. Le véhicule qui livre garde d'abord tout le montant, avec une part par étape. Il est versé quelques secondes de jeu plus tard (médiane environ 6 s) : chaque ligne et chaque véhicule reçoit sa part. Le solde d'une ligne bouge donc peu après la livraison, pas à l'entrepôt.
+
+Une courte ligne d'approche vers un entrepôt gagne donc peu, même si elle fait toute la collecte ; c'est la longue étape qui gagne le plus. Chaque ligne affiche quand même sa vraie part dans son propre solde.
+
+```engine
+Les scripts ne calculent que le total (economy/cargo_income.script.lua) ; le partage est fait par le moteur et n'est pas visible dans les scripts. Les règles ci-dessus ont été mesurées avec un mod de test en lecture seule : environ 1 700 paiements d'unités à 2 ou 3 étapes, et les mouvements de compte de chaque ligne et de chaque véhicule concernés. Dans 769 cas nets (une unité, un paiement), le partage correspondait aux longueurs des étapes à 1 % près à chaque fois ; un partage avec le bonus de montée ne correspondait que dans 59 % des cas, un partage égal dans aucun.
 ```
 
 ## Ce qui change encore le montant
@@ -102,6 +120,6 @@ La même livraison de charbon, à 5 km à vol d'oiseau.
 
 ```check
 official: « The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'. » « While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth. » ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Même facteur 3,8 pour tous les frets ; distance en 3D plus 8 × la montée ; le rang d'entreprise baisse le revenu jusqu'à ×0,75 au rang 15 (Inflation Normale) ; ×2 après un contrat ; la durée n'est pas utilisée pour le revenu ; note Livraison selon la part à l'heure du dernier semestre (Normale : 30 % → 0, 100 % → 1).
+scripts: Même facteur 3,8 pour tous les frets ; distance en 3D plus 8 × la montée ; le rang d'entreprise baisse le revenu jusqu'à ×0,75 au rang 15 (Inflation Normale) ; ×2 après un contrat ; la durée n'est pas utilisée pour le revenu ; mesuré en jeu : une unité qui change de ligne est payée une fois, chez le client, et partagée entre les lignes selon la longueur des étapes ; note Livraison selon la part à l'heure du dernier semestre (Normale : 30 % → 0, 100 % → 1).
 result: refines
 ```

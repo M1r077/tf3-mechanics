@@ -171,7 +171,7 @@
    "not": "fuori dalla formula: tempo di viaggio, velocità, lunghezza reale del percorso, ritardo o puntualità"
   },
   "T_DIST": {
-   "cap": "Pagato: la linea retta da dove la merce è stata caricata a dove viene consegnata, più 8 m per ogni metro di salita. Il percorso reale costa soltanto (manutenzione).",
+   "cap": "Pagato: la linea retta dall'origine della merce a dove viene consegnata, più 8 m per ogni metro di salita. Il percorso reale costa soltanto (manutenzione).",
    "a": "origine",
    "b": "destinazione",
    "paid": "pagato: linea retta (3D)",
@@ -181,6 +181,19 @@
    "ex1": "5 km, 100 m più in alto",
    "ex2": "pagato come 5,8 km (+16%)",
    "down": "nel senso opposto: né bonus né malus"
+  },
+  "T_SPLIT": {
+   "cap": "Un solo pagamento, al consumatore, per la linea retta dall'origine. Ogni linea riceve la quota della lunghezza in linea retta della sua tratta. Misurato in gioco.",
+   "src": "origine",
+   "wh": "magazzino",
+   "dst": "consumatore",
+   "leg1": "tratta 1: nave, 2 km",
+   "leg2": "tratta 2: treno, 6 km",
+   "paid": "pagato una volta, alla consegna: 3,8 × linea retta origine → consumatore",
+   "whnote": "scaricato qui: ancora nulla di pagato",
+   "l1": "linea nave 25%",
+   "l2": "linea treno 75%",
+   "hold": "il veicolo che consegna trattiene il denaro un momento, poi ogni linea della catena viene accreditata"
   },
   "T_TIMES": {
    "cap": "Tempo concesso prima che una consegna conti come in ritardo, rispetto alla carne (il più breve). Il gioco adatta il tempo effettivo: Finanze › Tempi di consegna lo mostra per la tua mappa.",
@@ -274,6 +287,63 @@
    "x": "livelli guadagnati dall'inizio",
    "y": "dimensione × iniziale",
    "rows": "livelli → dimensione"
+  },
+  "T_SUBL": {
+   "cap": "Che cosa succede a un'offerta e a un contratto accettato. Il denaro segue l'anno del calendario (×1 nel 1900, ×4 dal 2000).",
+   "offer": "Offerta",
+   "offer2": "circa 6 mesi per accettare",
+   "acc": "Accettato",
+   "acc2": "anticipo (o reputazione)",
+   "acc3": "parte la scadenza",
+   "ok": "Completato",
+   "ok2": "ricompensa: esperienza, denaro",
+   "ok3": "o entrate ×2 per 5 anni",
+   "ko": "Scadenza mancata",
+   "ko2": "anticipo restituito",
+   "ko3": "+ multa o perdita di reputazione",
+   "dec": "Rifiutata: nessuna penalità",
+   "dec2": "offerta successiva due volte più rapida",
+   "miss": "Non accettata in tempo: nessuna penalità",
+   "max": "al massimo 5 accettati insieme"
+  },
+  "T_SUBT": {
+   "cap": "I quattro tipi di contratto di una partita libera, che cosa li completa e che cosa possono dare. Quantità con Rischio commesse Sostenibile.",
+   "types": [
+    [
+     "industries",
+     "Fornitura industriale",
+     "un'industria che non ha mai prodotto",
+     "consegnare 50–100 sue merci",
+     "entrate ×2",
+     "#f2b84b"
+    ],
+    [
+     "towns",
+     "Fornitura urbana",
+     "una merce che manca alla cittadina",
+     "consegnarne 30–100",
+     "esperienza o denaro, ×2",
+     "#38d1bf"
+    ],
+    [
+     "person",
+     "Collegamento urbano",
+     "due cittadine, una linea",
+     "un passeggero, senza trasbordo",
+     "esperienza a entrambe, ×2",
+     "#5aa9ff"
+    ],
+    [
+     "person",
+     "Trasporto di forza lavoro",
+     "un'industria con addetti",
+     "attivare il potenziamento",
+     "denaro",
+     "#b49cf0"
+    ]
+   ],
+   "need": "per completare",
+   "get": "in adempimento"
   }
  },
  "cargo": {

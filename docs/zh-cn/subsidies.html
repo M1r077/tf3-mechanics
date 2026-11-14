@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>补贴：报价、期限与奖励 · TF3 机制</title>
+<meta name="description" content="Transport Fever 3 到底怎样运作，直接读自游戏自己的脚本。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<link rel="alternate" hreflang="en" href="../en/subsidies.html"><link rel="alternate" hreflang="fr" href="../fr/subsidies.html"><link rel="alternate" hreflang="de" href="../de/subsidies.html"><link rel="alternate" hreflang="es" href="../es/subsidies.html"><link rel="alternate" hreflang="it" href="../it/subsidies.html"><link rel="alternate" hreflang="nl" href="../nl/subsidies.html"><link rel="alternate" hreflang="pl" href="../pl/subsidies.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/subsidies.html"><link rel="alternate" hreflang="ru" href="../ru/subsidies.html"><link rel="alternate" hreflang="ja" href="../ja/subsidies.html"><link rel="alternate" hreflang="ko" href="../ko/subsidies.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/subsidies.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/subsidies.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目录</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<details class="langs"><summary aria-label="语言"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>简体中文</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="语言"><a href="../en/subsidies.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/subsidies.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/subsidies.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/subsidies.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/subsidies.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/subsidies.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/subsidies.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/subsidies.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/subsidies.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/subsidies.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/subsidies.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/subsidies.html" class="on" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/subsidies.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目录</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>补贴</span></div><h1 class="rise d1">补贴：报价、期限与奖励</h1><p class="lead rise d2">四种合同类型，真正完成它们需要什么，你能得到什么、要冒什么风险，以及新报价多久出现一次。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>已在脚本中核实</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:subsidies"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新于 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>4</b><span>自由游戏中的合同类型</span></div><div class="fact rise d2"><b>5</b><span>同时最多接受的合同数</span></div><div class="fact rise d3"><b>×2</b><span>交付过的线路 5 年内的收入</span></div><div class="fact rise d4"><b>0</b><span>拒绝报价的惩罚</span></div></div></div></section><div class="wrap layout"><article><p>补贴就是一份合同：一个产业或城镇提出一项任务，你接受时就能得到一些东西，按时完成后得到更多，错过期限则要退还预付款并再付一笔惩罚。拒绝报价，或让它过期，都没有任何代价。</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" width="900" role="img"><defs><linearGradient id="sl-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="sl-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="sl-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="sl-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="sl-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="sl-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="sl-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="16" y="96" width="200" height="116" rx="16" fill="url(#sl-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#sl-sh)"/><circle cx="56" cy="136" r="22" fill="#f2b84b" fill-opacity="0.14" stroke="#f2b84b" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(44.45,124.45) scale(0.9625)" fill="none" stroke="#f2b84b" stroke-width="1.9999999999999998" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></g><text x="88" y="132" font-size="17" fill="#f2b84b" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">报价</text><text x="116" y="176.0" font-size="12.5" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">约 6 个月内可接受</text><line x1="222" y1="154" x2="300" y2="154" stroke="#f2b84b" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/><line x1="222" y1="154" x2="300" y2="154" stroke="#f2b84b" stroke-width="3" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sl-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><rect x="306" y="96" width="250" height="116" rx="16" fill="url(#sl-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#sl-sh)"/><circle cx="346" cy="136" r="22" fill="#38d1bf" fill-opacity="0.14" stroke="#38d1bf" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(334.45,124.45) scale(0.9625)" fill="none" stroke="#38d1bf" stroke-width="1.9999999999999998" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></g><text x="378" y="132" font-size="17" fill="#38d1bf" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">已接受</text><text x="431" y="170" font-size="12.5" fill="#eef1f5" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">预付款（或声誉）</text><text x="431" y="190" font-size="12.5" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">期限开始计算</text><line x1="562" y1="130" x2="628" y2="70" stroke="#38d1bf" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/><line x1="562" y1="130" x2="628" y2="70" stroke="#38d1bf" stroke-width="3" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sl-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="562" y1="178" x2="628" y2="236" stroke="#f0705f" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/><line x1="562" y1="178" x2="628" y2="236" stroke="#f0705f" stroke-width="3" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sl-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><rect x="634" y="16" width="250" height="104" rx="16" fill="url(#sl-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#sl-sh)"/><text x="654" y="46" font-size="16" fill="#38d1bf" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">已完成</text><text x="654" y="72" font-size="12.5" fill="#eef1f5" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">奖励：城镇经验、现金</text><text x="654" y="92" font-size="12.5" fill="#f2b84b" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">或 5 年内两倍收入</text><rect x="634" y="190" width="250" height="104" rx="16" fill="url(#sl-card)" stroke="#f0705f" stroke-width="1.5" filter="url(#sl-sh)"/><text x="654" y="220" font-size="16" fill="#f0705f" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">错过期限</text><text x="654" y="246" font-size="12.5" fill="#eef1f5" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">退还预付款</text><text x="654" y="266" font-size="12.5" fill="#f0705f" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">+ 罚款或声誉损失</text><path d="M116 92 L116 40" stroke="#8f9bab" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#sl-ah)"/><text x="128" y="30" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">拒绝：没有惩罚</text><text x="128" y="48" font-size="12" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">下一个报价快一倍</text><path d="M116 216 L116 262" stroke="#8f9bab" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#sl-ah)"/><text x="128" y="284" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">未及时接受：没有惩罚</text><rect x="356.76" y="226" width="148.48000000000002" height="24" rx="12.0" fill="#b49cf0" stroke="none" stroke-width="1.5" opacity="1"/><text x="431.0" y="242.56" font-size="12" fill="#0f141b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">最多同时接受 5 份</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>报价和已接受的合同会怎样。金额随日历年份缩放（1900 年 ×1，2000 年起 ×4）。</span></figcaption></figure>
+<h2 id="四种合同类型"><span class="n">1</span><span>四种合同类型</span></h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><linearGradient id="st-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="st-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="st-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="st-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="st-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="st-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="st-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="11" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="114.0" cy="52" r="24" fill="#f2b84b" fill-opacity="0.14" stroke="#f2b84b" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(101.4,39.4) scale(1.05)" fill="none" stroke="#f2b84b" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></g><text x="114.0" y="100.0" font-size="15" fill="#f2b84b" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">供应产业</text><text x="114.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">从未生产过的产业</text><text x="114.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成条件</text><text x="114.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">交付 50–100 次原料</text><text x="114.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成时</text><text x="114.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">两倍收入</text><rect x="235" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="338.0" cy="52" r="24" fill="#38d1bf" fill-opacity="0.14" stroke="#38d1bf" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(325.4,39.4) scale(1.05)" fill="none" stroke="#38d1bf" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></g><text x="338.0" y="100.0" font-size="15" fill="#38d1bf" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">供给城镇</text><text x="338.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">城镇缺少的一种货物</text><text x="338.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成条件</text><text x="338.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">交付 30–100 单位</text><text x="338.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成时</text><text x="338.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">经验或现金，×2</text><rect x="459" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="562.0" cy="52" r="24" fill="#5aa9ff" fill-opacity="0.14" stroke="#5aa9ff" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(549.4,39.4) scale(1.05)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g><text x="562.0" y="100.0" font-size="15" fill="#5aa9ff" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">连接城镇</text><text x="562.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">两个城镇，一条线路</text><text x="562.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成条件</text><text x="562.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">一名乘客，无需换乘</text><text x="562.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成时</text><text x="562.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">两城都得经验，×2</text><rect x="683" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#b49cf0" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="786.0" cy="52" r="24" fill="#b49cf0" fill-opacity="0.14" stroke="#b49cf0" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(773.4,39.4) scale(1.05)" fill="none" stroke="#b49cf0" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g><text x="786.0" y="100.0" font-size="15" fill="#b49cf0" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">运输工人</text><text x="786.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">有工人的产业</text><text x="786.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成条件</text><text x="786.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">达成工人加成</text><text x="786.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">完成时</text><text x="786.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">现金</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>自由游戏的四种合同类型、完成条件和可能的奖励。数量按补贴风险“公平”计算。</span></figcaption></figure>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>合同</th>
+<th>目标</th>
+<th>怎样完成</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>供应产业</strong></td>
+<td>一个从未生产过任何东西的产业</td>
+<td>向它交付规定的次数，<strong>它的任何一种原料</strong>都算</td>
+<td><code class="src">deliver_cargo.script.tl:54-61</code>，<code class="src">deliver_cargo.script.tl:230-234</code>，<code class="src">deliver_cargo.script.tl:470-479</code></td>
+</tr>
+<tr>
+<td><strong>供给城镇</strong></td>
+<td>城镇需要、但完全没有得到的一种货物</td>
+<td>向城镇的建筑交付规定数量的<strong>这种货物</strong></td>
+<td><code class="src">deliver_cargo_town.script.tl:566-581</code></td>
+</tr>
+<tr>
+<td><strong>连接城镇</strong></td>
+<td>两个城镇</td>
+<td><strong>一名</strong>乘客在一条同时停靠两个城镇的线路上，开始一次两城之间的行程</td>
+<td><code class="src">deliver_passengers.script.tl:263-280</code>，<code class="src">subvention_util.tl:561-592</code></td>
+</tr>
+<tr>
+<td><strong>运输工人</strong></td>
+<td>一个已经在发货或收货、尚未获得加成的产业</td>
+<td>它的工人加成生效（工作岗位的一半）</td>
+<td><code class="src">deliver_workers.script.tl:121-131</code>，<code class="src">deliver_workers.script.tl:152-156</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>每个新报价从当前能够出现的类型中抽取一种，机会均等（<code class="src">subventions.script.tl:147-169</code>）。</li>
+<li><strong>供应产业</strong>和<strong>供给城镇</strong>统计的是交付，不是行程：每个到达目标并获得报酬的单位加 1。允许换乘（<code class="src">deliver_cargo.script.tl:470-479</code>）。</li>
+<li><strong>连接城镇</strong>不要求乘客人数：第一名在两城之间登上你的线路的乘客就能完成它。“无需换乘”是指这段行程由一条服务两个城镇的线路完成。如果已有线路在两城之间运送乘客，就不会出现这个报价（<code class="src">deliver_passengers.script.tl:72-78</code>）。</li>
+<li>距离近的城镇出现的概率高得多：一对城镇的权重从 1 km 以内的 1 降到 20 km 时的 0.01，再取 7 次方（<code class="src">deliver_passengers.script.tl:175-191</code>）。</li>
+<li><strong>供给城镇</strong>偏好地图上已经有人生产的货物：概率是其他货物的 16 倍（<code class="src">deliver_cargo_town.script.tl:277-280</code>）。</li>
+<li>需要交付的数量取决于<strong>补贴风险</strong>设置：</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>补贴风险</th>
+<th>供应产业</th>
+<th>供给城镇（最多为城镇的需求量）</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>10–50</td>
+<td>10–30</td>
+<td><code class="src">deliver_cargo.script.tl:100-114</code>，<code class="src">deliver_cargo_town.script.tl:165-188</code></td>
+</tr>
+<tr>
+<td>公平</td>
+<td>50–100</td>
+<td>30–100</td>
+<td></td>
+</tr>
+<tr>
+<td>有风险</td>
+<td>75–150</td>
+<td>35–125</td>
+<td></td>
+</tr>
+<tr>
+<td>风险极大</td>
+<td>150–300</td>
+<td>45–150</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="奖励与惩罚"><span class="n">2</span><span>奖励与惩罚</span></h2>
+<p>每份合同保存三张列表，在合同卡片上显示为<strong>接受时</strong>、<strong>完成时</strong>和<strong>失败时</strong>（<code class="src">subvention_util.tl:449-471</code>）。失败时，预付款总是要退还，另外再加一项惩罚（<code class="src">deliver_cargo.script.tl:134-136</code>）。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>合同</th>
+<th>接受时</th>
+<th>完成时</th>
+<th>失败时</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>供应产业</td>
+<td>现金</td>
+<td>只有“可产生两倍收入”效果</td>
+<td>退还预付款 + 罚款</td>
+<td><code class="src">deliver_cargo.script.tl:120-136</code></td>
+</tr>
+<tr>
+<td>供给城镇</td>
+<td>现金<strong>或</strong>城镇中的声誉</td>
+<td>城镇经验<strong>或</strong>现金，外加两倍收入</td>
+<td>退还预付款 + 声誉损失<strong>或</strong>罚款</td>
+<td><code class="src">deliver_cargo_town.script.tl:194-229</code></td>
+</tr>
+<tr>
+<td>连接城镇</td>
+<td>现金，城镇相距越远越多</td>
+<td><strong>两个</strong>城镇的城镇经验，外加两倍收入</td>
+<td>退还预付款 + <strong>两个</strong>城镇的声誉损失</td>
+<td><code class="src">deliver_passengers.script.tl:105-119</code></td>
+</tr>
+<tr>
+<td>运输工人</td>
+<td>现金</td>
+<td>现金</td>
+<td>退还预付款 + 罚款</td>
+<td><code class="src">deliver_workers.script.tl:92-116</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>现金</strong>，未按年份缩放前：预付款 150 万到 375 万 × 风险系数（无 ×2，公平 ×1，有风险 ×0.75，风险极大 ×0.5）；罚款 300 万到 600 万；完成奖励 375 万到 1,125 万（<code class="src">deliver_cargo.script.tl:120-128</code>，<code class="src">deliver_workers.script.tl:102-104</code>）。</li>
+<li>金额随<strong>日历年份</strong>增长，与通货膨胀设置无关：1900 年 ×1，均匀上升到 2000 年及以后的 ×4，向上取整到 1 万（<code class="src">finances_util.tl:87-90</code>）。在资金中记为<strong>补贴</strong>（<code class="src">subvention_util.tl:126-135</code>）。</li>
+<li><strong>供给城镇</strong>只有在你的账户余额低于 1 亿时才会给现金奖励和罚款；高于 1 亿时，只有十分之一的报价仍会这样（<code class="src">deliver_cargo_town.script.tl:206-217</code>）。</li>
+<li><strong>城镇经验</strong>是城镇当前等级的一定比例：当前等级到下一级之间所需经验的 20 % 到 100 %（<code class="src">deliver_cargo_town.script.tl:216</code>，<code class="src">town_growth.script.tl:605-608</code>）。对于<strong>连接城镇</strong>，还要乘以距离系数，从 1 km 时的 0.3 到 20 km 时的 3.0：相距很远的城镇可以连升好几级（<code class="src">deliver_passengers.script.tl:94-96</code>，<code class="src">deliver_passengers.script.tl:116-118</code>）。</li>
+<li>失败后损失的<strong>声誉</strong>会在城镇的声誉评价中显示为<strong>失败的补贴</strong>（<code class="src">towns.script.tl:313-334</code>）。接受时获得的声誉只会抵消已有的惩罚，不能超过满值（<code class="src">town_util.tl:1644-1647</code>）。</li>
+</ul>
+<h2 id="两倍收入效果"><span class="n">3</span><span>两倍收入效果</span></h2>
+<ul>
+<li>合同完成后持续 <strong>60 个月</strong>（5 年）（<code class="src">subvention_util.tl:286</code>，<code class="src">subvention_util.tl:292</code>）。</li>
+<li><strong>供应产业</strong>：在合同期间向该产业交付过的线路上，向该产业的交付（<code class="src">deliver_cargo.script.tl:463-469</code>）。</li>
+<li><strong>供给城镇</strong>：在交付过合同货物的线路上，向该城镇任何建筑的交付，<strong>任何货物</strong>都算（<code class="src">deliver_cargo_town.script.tl:554-565</code>）。</li>
+<li><strong>连接城镇</strong>：完成合同的那条线路上两城之间的乘客（<code class="src">deliver_passengers.script.tl:281-304</code>）。</li>
+<li><strong>运输工人</strong>没有收入效果（<code class="src">deliver_workers.script.tl:90</code>）。</li>
+<li>合同完成后才开始交付的线路什么也得不到：线路列表只在合同期间填写。</li>
+<li>两份合同不会把同一笔收入翻倍两次：多份合同同时符合时，只采用最后一个结果（<code class="src">subventions.script.tl:570-583</code>）。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>补贴的 ×2 与公司等级乘数（通货膨胀设置）如何组合，由引擎决定：两个脚本都只为每笔收入返回一个乘数。一笔收入条目是什么（大概是一个货物单位或一名乘客）也由引擎决定。</p></div></aside>
+<h2 id="期限"><span class="n">4</span><span>期限</span></h2>
+<p>期限从你接受时开始。货物需要运得越远，期限越长；风险越高，期限越短（风险系数：无 ×2，公平 ×1，有风险 ×0.75，风险极大 ×0.5，乘客和工人合同则为 ×0.625）：</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>合同</th>
+<th>期限（月）</th>
+<th>使用的距离</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>供应产业、供给城镇</td>
+<td>(6 + 32 × E) × 风险系数</td>
+<td>到生产该货物的最近产业</td>
+<td><code class="src">deliver_cargo.script.tl:116-117</code></td>
+</tr>
+<tr>
+<td>连接城镇</td>
+<td>(9 + 4 × E) × 风险系数</td>
+<td>两个城镇之间</td>
+<td><code class="src">deliver_passengers.script.tl:98-99</code></td>
+</tr>
+<tr>
+<td>运输工人</td>
+<td>(6 + 15 × E) × 风险系数 × 时代系数（1940 年前 ×1.75，1980 年前 ×1.25）</td>
+<td>到最近的城镇</td>
+<td><code class="src">deliver_workers.script.tl:75-87</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>E 是一列以当时最高速度行驶的列车（1900 年起 120 km/h，到 1981 年起 300 km/h）跑完这段距离所需的时间，向上取整，至少为 1（<code class="src">subvention_util.tl:486-489</code>，<code class="src">vehicle_util.tl:225-230</code>）。</p>
+<ul>
+<li>未被接受的报价大约 <strong>6 个月</strong>（150 到 210 天）后消失，没有任何惩罚（<code class="src">subvention_util.tl:284</code>，<code class="src">subvention_util.tl:290</code>）。</li>
+<li><strong>供应产业</strong>或<strong>运输工人</strong>合同进行期间，目标产业不会关闭：计划中的关闭会被取消（<code class="src">subvention_util.tl:473-484</code>）。</li>
+<li>如果目标在合同期间消失或被重建，游戏会显示<strong>补贴已移除</strong>，但仍会像错过期限一样执行失败惩罚（<code class="src">subventions.script.tl:172-190</code>，<code class="src">subvention_util.tl:406-412</code>）。</li>
+<li>没有取消已接受合同的按钮。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>一个游戏月有多长，也就是期限的实际长度，由引擎设定（getDefaultMonthDuration）。上面的公式都以游戏日历的月为单位。</p></div></aside>
+<h2 id="新报价多久出现一次"><span class="n">5</span><span>新报价多久出现一次</span></h2>
+<ul>
+<li><strong>补贴可用性</strong>：很少、有时（默认）、经常、极频繁分别每 12、6、3、1 个月出现一个新报价；<strong>从不</strong>则关闭补贴（<code class="src">subvention_util.tl:13-38</code>，<code class="src">mod.script.tl:247-248</code>）。</li>
+<li>间隔随<strong>公司等级</strong>变长：等级 1 时 ×1，到等级 15 时 ×2（<code class="src">subvention_util.tl:19-22</code>）。</li>
+<li><strong>拒绝</strong>报价会让下一次间隔减半；接受报价或出现新报价会将其重置（<code class="src">subventions.script.tl:429</code>，<code class="src">subventions.script.tl:395</code>，<code class="src">subventions.script.tl:118</code>）。</li>
+<li>已接受并在进行中的合同达到 <strong>5 份</strong>时，不会再出现新报价（<code class="src">subventions.script.tl:23</code>，<code class="src">subventions.script.tl:256-262</code>）。第一个报价在半个月后出现。</li>
+<li>同一个目标（产业、城镇加货物、一对城镇）<strong>每局游戏只提供一次</strong>，即使合同被错过或失败也一样（<code class="src">subventions.script.tl:107-113</code>，<code class="src">subventions.script.tl:186</code>）。</li>
+<li>难度预设的可用性 / 风险（<code class="src">difficulty_util.tl:104-105</code>，<code class="src">difficulty_util.tl:132-133</code>，<code class="src">difficulty_util.tl:159-160</code>，<code class="src">difficulty_util.tl:186-187</code>）：简单 经常 / 无，正常 有时 / 公平，困难 很少 / 有风险，<strong>极难 从不</strong>：完全没有补贴。</li>
+<li>只允许在评价为非常好的城镇出现补贴的检查确实存在，但已被关闭（<code class="src">town_util.tl:1574-1580</code>，<code class="src">deliver_cargo_town.script.tl:272-275</code>）。</li>
+</ul>
+<h2 id="须知"><span class="n">6</span><span>须知</span></h2>
+<ul>
+<li>目标容易时尽管接受：拒绝或忽略都没有代价，但<strong>失败</strong>要退还预付款，再加一笔可能比预付款还多的罚款。</li>
+<li>对于<strong>供给城镇</strong>和<strong>供应产业</strong>，所有想要受益的线路都要开始交付：只有在合同期间交付过的线路才能在 5 年内获得两倍收入。</li>
+<li>相距很远的城镇之间的<strong>连接城镇</strong>给的城镇经验最多，而且只需要一名乘客。</li>
+<li><strong>供应产业</strong>完成时不再给任何报酬：它的奖励只有两倍收入。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>官方 wiki 与游戏脚本对比</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>补充细节</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki 的说法</div><p>"Accept an offer to begin the contract; declining it has no penalty." "Possible rewards include town experience, an additional payment, or a limited-time 2x income effect on eligible transport lines." "The upfront reward is reversed, and an additional fine or loss of town reputation may apply." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:subsidies">Subsidies</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>游戏脚本显示</div><p>四种类型；一名乘客即可完成连接城镇；×2 在合同期间交付过的线路上持续 60 个月；供应产业只给 ×2；金额按年份缩放（×1 到 ×4）；每 1–12 个月一个新报价，公司等级高时更久；最多同时接受 5 份；每个目标每局只提供一次。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>路径位于游戏的 base/content 文件夹或其 zip 文件内。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>本页内容</h5><ol><li><a href="#四种合同类型">四种合同类型</a></li><li><a href="#奖励与惩罚">奖励与惩罚</a></li><li><a href="#两倍收入效果">两倍收入效果</a></li><li><a href="#期限">期限</a></li><li><a href="#新报价多久出现一次">新报价多久出现一次</a></li><li><a href="#须知">须知</a></li></ol><div class="box"><b>13</b><span>处源码引用</span><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:subsidies"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>其他机制</h2><div class="mgrid"><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>货物收入与运输时间</b><small>货物与收入</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>装载与卸载速度</b><small>车站与装载</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城镇增长：经验、评价与规模</b><small>城镇</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>工人与工人加成</b><small>产业</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro 制作的粉丝项目。与 Urban Games 无关。</span><span>文字与图片：CC BY 4.0 · 游戏代码 © Urban Games：仅展示简短引用。</span><span class="tr">译自英文；欢迎指正 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki</a></div></div></footer>
+<script>(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

@@ -35,7 +35,25 @@ fact: 100 % | 即使迟到也全额支付
 - 所以弯弯曲曲的线路和笔直的线路赚得一样多，但你建的每一米轨道或道路都要付维护费。
 
 ```engine
-比较的是哪两个点（货物进入你的网络的地点、交付的地点），以及高度差的正负，都由引擎决定。官方 wiki 写道："distances are measured as the crow flies between the source and the final destination"（距离按起点与最终目的地之间的直线测量）。
+这两个点由引擎选定并传给脚本。在游戏中实测（见下文）：它们是货物的**产地**（生产它的工业或城镇建筑）和接收它的**消费地**，与官方 wiki 的说法一致（"between the source and the final destination"）。
+```
+
+## 换线的货物
+
+当一件货物经过多条线路运输时，例如船 → 仓库 → 列车，游戏仍然**只付一次钱**：
+
+```diagram income_split
+```
+
+1. 在仓库或换乘站卸货**不付任何钱**。在实测的约 17,000 次付款中，只有 43 次付给了不是消费地的库存。
+2. 当最后一辆载具交付到消费地时，这件货物按上面的公式付钱，距离是**从产地到消费地**的直线。各段和实际路线都不算，所以绕道经过仓库也不会多赚。
+3. 这笔钱在链条中的各条线路之间分配，**与每一段的直线长度成正比**：从一个装货点到下一个，以及从最后一个装货点到消费地。爬升加成不计入这次分配。
+4. 负责交付的载具先持有全部金额，每一段一份。几秒游戏时间后（中位数约 6 秒）才入账，每条线路和每辆载具各得自己那一份。因此线路的收支在交付后不久才变动，而不是在仓库处。
+
+所以通往仓库的短支线即使承担了全部集货，也赚得很少；长的那一段赚得最多。每条线路仍会在自己的收支中显示它真实的份额。
+
+```engine
+脚本只计算总额（economy/cargo_income.script.lua）；分配由引擎完成，在脚本中看不到。上述规则是用一个只读测试模组实测的：约 1,700 次经过 2 段或 3 段的货物付款，以及所有相关线路和载具的账目变化。在 769 个干净的案例中（一件货物、一次付款），分配每次都与各段长度相差不到 1 %；含爬升加成的分配只有 59 % 吻合，平均分配则一个都不吻合。
 ```
 
 ## 还有什么会改变金额
@@ -102,6 +120,6 @@ fact: 100 % | 即使迟到也全额支付
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 所有货物系数都是 3.8；距离为三维直线加 8 × 爬升；公司等级会降低收入，等级 15 时降到 ×0.75（通货膨胀正常）；补贴完成后 ×2；收入不使用时间；运送评价取决于最近半年的准时比例（正常：30 % → 0，100 % → 1）。
+scripts: 所有货物系数都是 3.8；距离为三维直线加 8 × 爬升；公司等级会降低收入，等级 15 时降到 ×0.75（通货膨胀正常）；补贴完成后 ×2；收入不使用时间；游戏内实测：换线的货物只在消费地付一次钱，并按各段长度在线路之间分配；运送评价取决于最近半年的准时比例（正常：30 % → 0，100 % → 1）。
 result: refines
 ```

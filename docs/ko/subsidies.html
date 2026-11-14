@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>보조금: 제안, 기한, 보상 · TF3 메커니즘</title>
+<meta name="description" content="Transport Fever 3가 실제로 어떻게 작동하는지, 게임의 스크립트에서 직접 읽어 낸 정보.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<link rel="alternate" hreflang="en" href="../en/subsidies.html"><link rel="alternate" hreflang="fr" href="../fr/subsidies.html"><link rel="alternate" hreflang="de" href="../de/subsidies.html"><link rel="alternate" hreflang="es" href="../es/subsidies.html"><link rel="alternate" hreflang="it" href="../it/subsidies.html"><link rel="alternate" hreflang="nl" href="../nl/subsidies.html"><link rel="alternate" hreflang="pl" href="../pl/subsidies.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/subsidies.html"><link rel="alternate" hreflang="ru" href="../ru/subsidies.html"><link rel="alternate" hreflang="ja" href="../ja/subsidies.html"><link rel="alternate" hreflang="ko" href="../ko/subsidies.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/subsidies.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/subsidies.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>목차</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<details class="langs"><summary aria-label="언어"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>한국어</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="언어"><a href="../en/subsidies.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/subsidies.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/subsidies.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/subsidies.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/subsidies.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/subsidies.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/subsidies.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/subsidies.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/subsidies.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/subsidies.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/subsidies.html" class="on" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/subsidies.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/subsidies.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>목차</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>보조금</span></div><h1 class="rise d1">보조금: 제안, 기한, 보상</h1><p class="lead rise d2">네 가지 계약 유형, 실제로 무엇이 계약을 완료하는지, 얻는 것과 잃을 수 있는 것, 새 제안이 얼마나 자주 오는지.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>스크립트에서 검증됨</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:subsidies"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>업데이트 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>4</b><span>자유 게임의 계약 유형</span></div><div class="fact rise d2"><b>5</b><span>동시에 수락할 수 있는 최대 계약 수</span></div><div class="fact rise d3"><b>×2</b><span>배송한 노선의 5년간 수입</span></div><div class="fact rise d4"><b>0</b><span>제안 거절 시 페널티</span></div></div></div></section><div class="wrap layout"><article><p>보조금은 계약이다. 산업이나 마을이 과제를 제안하고, 수락하면 무언가를 받고, 기한 안에 완료하면 더 받으며, 기한을 놓치면 선지급금을 돌려주고 페널티까지 낸다. 제안을 거절하거나 만료되게 두는 것은 아무 비용도 없다.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" width="900" role="img"><defs><linearGradient id="sl-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="sl-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="sl-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="sl-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="sl-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="sl-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="sl-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="16" y="96" width="200" height="116" rx="16" fill="url(#sl-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#sl-sh)"/><circle cx="56" cy="136" r="22" fill="#f2b84b" fill-opacity="0.14" stroke="#f2b84b" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(44.45,124.45) scale(0.9625)" fill="none" stroke="#f2b84b" stroke-width="1.9999999999999998" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></g><text x="88" y="132" font-size="17" fill="#f2b84b" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">제안</text><text x="116" y="176.0" font-size="12.5" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">수락까지 약 6개월</text><line x1="222" y1="154" x2="300" y2="154" stroke="#f2b84b" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/><line x1="222" y1="154" x2="300" y2="154" stroke="#f2b84b" stroke-width="3" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sl-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><rect x="306" y="96" width="250" height="116" rx="16" fill="url(#sl-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#sl-sh)"/><circle cx="346" cy="136" r="22" fill="#38d1bf" fill-opacity="0.14" stroke="#38d1bf" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(334.45,124.45) scale(0.9625)" fill="none" stroke="#38d1bf" stroke-width="1.9999999999999998" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></g><text x="378" y="132" font-size="17" fill="#38d1bf" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">수락됨</text><text x="431" y="170" font-size="12.5" fill="#eef1f5" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">선지급금(또는 평판)</text><text x="431" y="190" font-size="12.5" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">기한 시작</text><line x1="562" y1="130" x2="628" y2="70" stroke="#38d1bf" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/><line x1="562" y1="130" x2="628" y2="70" stroke="#38d1bf" stroke-width="3" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sl-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="562" y1="178" x2="628" y2="236" stroke="#f0705f" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/><line x1="562" y1="178" x2="628" y2="236" stroke="#f0705f" stroke-width="3" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sl-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><rect x="634" y="16" width="250" height="104" rx="16" fill="url(#sl-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#sl-sh)"/><text x="654" y="46" font-size="16" fill="#38d1bf" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">이행됨</text><text x="654" y="72" font-size="12.5" fill="#eef1f5" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">보상: 마을 경험치, 현금</text><text x="654" y="92" font-size="12.5" fill="#f2b84b" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">또는 5년간 수입 ×2</text><rect x="634" y="190" width="250" height="104" rx="16" fill="url(#sl-card)" stroke="#f0705f" stroke-width="1.5" filter="url(#sl-sh)"/><text x="654" y="220" font-size="16" fill="#f0705f" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">기한 놓침</text><text x="654" y="246" font-size="12.5" fill="#eef1f5" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">선지급금 반환</text><text x="654" y="266" font-size="12.5" fill="#f0705f" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">+ 벌금 또는 평판 하락</text><path d="M116 92 L116 40" stroke="#8f9bab" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#sl-ah)"/><text x="128" y="30" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">거절: 페널티 없음</text><text x="128" y="48" font-size="12" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">다음 제안이 두 배 빨리 옴</text><path d="M116 216 L116 262" stroke="#8f9bab" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#sl-ah)"/><text x="128" y="284" font-size="13" fill="#eef1f5" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">기한 내 미수락: 페널티 없음</text><rect x="345.6" y="226" width="170.8" height="24" rx="12.0" fill="#b49cf0" stroke="none" stroke-width="1.5" opacity="1"/><text x="431.0" y="242.56" font-size="12" fill="#0f141b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">동시에 최대 5건 수락</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>제안과 수락한 계약이 어떻게 되는지. 금액은 달력 연도에 따라 보정된다(1900년 ×1, 2000년부터 ×4).</span></figcaption></figure>
+<h2 id="네-가지-계약-유형"><span class="n">1</span><span>네 가지 계약 유형</span></h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><linearGradient id="st-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="st-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="st-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="st-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="st-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="st-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="st-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="11" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="114.0" cy="52" r="24" fill="#f2b84b" fill-opacity="0.14" stroke="#f2b84b" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(101.4,39.4) scale(1.05)" fill="none" stroke="#f2b84b" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></g><text x="114.0" y="100.0" font-size="15" fill="#f2b84b" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">산업 공급</text><text x="114.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">생산한 적 없는 산업</text><text x="114.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">완료 조건</text><text x="114.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">투입 화물 50–100 배송</text><text x="114.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">이행 시</text><text x="114.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">수입 ×2</text><rect x="235" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="338.0" cy="52" r="24" fill="#38d1bf" fill-opacity="0.14" stroke="#38d1bf" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(325.4,39.4) scale(1.05)" fill="none" stroke="#38d1bf" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></g><text x="338.0" y="100.0" font-size="15" fill="#38d1bf" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">마을 공급</text><text x="338.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">마을에 부족한 화물</text><text x="338.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">완료 조건</text><text x="338.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">그 화물 30–100 배송</text><text x="338.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">이행 시</text><text x="338.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">경험치 또는 현금, ×2</text><rect x="459" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="562.0" cy="52" r="24" fill="#5aa9ff" fill-opacity="0.14" stroke="#5aa9ff" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(549.4,39.4) scale(1.05)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g><text x="562.0" y="100.0" font-size="15" fill="#5aa9ff" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">마을 연결</text><text x="562.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">두 마을, 노선 하나</text><text x="562.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">완료 조건</text><text x="562.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">승객 한 명, 무환승</text><text x="562.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">이행 시</text><text x="562.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">두 마을 경험치, ×2</text><rect x="683" y="14" width="206" height="272" rx="16" fill="url(#st-card)" stroke="#b49cf0" stroke-width="1.5" filter="url(#st-sh)"/><circle cx="786.0" cy="52" r="24" fill="#b49cf0" fill-opacity="0.14" stroke="#b49cf0" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(773.4,39.4) scale(1.05)" fill="none" stroke="#b49cf0" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g><text x="786.0" y="100.0" font-size="15" fill="#b49cf0" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">근로자 운송</text><text x="786.0" y="123.0" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">근로자가 있는 산업</text><text x="786.0" y="182" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">완료 조건</text><text x="786.0" y="202.0" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">근로자 부스트 달성</text><text x="786.0" y="244" font-size="11" fill="#8f9bab" text-anchor="middle" font-weight="700" letter-spacing="0.5" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">이행 시</text><text x="786.0" y="266" font-size="13" fill="#f2b84b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">현금</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>자유 게임의 네 가지 계약 유형, 완료 조건과 보상. 수량은 보조금 위험 &#x27;타당함&#x27; 기준.</span></figcaption></figure>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>계약</th>
+<th>대상</th>
+<th>완료 조건</th>
+<th>출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>산업 공급</strong></td>
+<td>아직 아무것도 생산한 적 없는 산업</td>
+<td>그 산업으로 정해진 횟수만큼 배송, <strong>투입 화물 중 아무거나</strong></td>
+<td><code class="src">deliver_cargo.script.tl:54-61</code>, <code class="src">deliver_cargo.script.tl:230-234</code>, <code class="src">deliver_cargo.script.tl:470-479</code></td>
+</tr>
+<tr>
+<td><strong>마을 공급</strong></td>
+<td>마을이 요구하지만 전혀 받지 못하는 화물</td>
+<td>마을 건물에 배송된 <strong>그 화물</strong>의 정해진 수량</td>
+<td><code class="src">deliver_cargo_town.script.tl:566-581</code></td>
+</tr>
+<tr>
+<td><strong>마을 연결</strong></td>
+<td>두 마을</td>
+<td>두 마을 모두에 정차하는 노선에서 두 마을 사이 이동을 시작한 승객 <strong>한 명</strong></td>
+<td><code class="src">deliver_passengers.script.tl:263-280</code>, <code class="src">subvention_util.tl:561-592</code></td>
+</tr>
+<tr>
+<td><strong>근로자 운송</strong></td>
+<td>이미 화물을 보내거나 받고 있고, 아직 부스트되지 않은 산업</td>
+<td>그 산업의 근로자 부스트가 활성화됨(일자리의 절반)</td>
+<td><code class="src">deliver_workers.script.tl:121-131</code>, <code class="src">deliver_workers.script.tl:152-156</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>새 제안은 그 시점에 나타날 수 있는 유형 중 하나를 같은 확률로 고른다(<code class="src">subventions.script.tl:147-169</code>).</li>
+<li><strong>산업 공급</strong>과 <strong>마을 공급</strong>은 이동이 아니라 배송을 센다. 대상에 도착한 지급 대상 화물 한 단위마다 1이 더해진다. 환승도 허용된다(<code class="src">deliver_cargo.script.tl:470-479</code>).</li>
+<li><strong>마을 연결</strong>에는 승객 수 조건이 없다. 두 마을 사이에서 플레이어의 노선에 탄 첫 승객이 계약을 완료한다. "무환승"은 이 구간을 두 마을을 모두 지나는 노선 하나로 운행한다는 뜻이다. 두 마을 사이에 이미 승객을 나르는 노선이 있으면 제안이 나오지 않는다(<code class="src">deliver_passengers.script.tl:72-78</code>).</li>
+<li>가까운 마을일수록 훨씬 잘 뽑힌다. 쌍의 가중치는 1 km 이하에서 1, 20 km에서 0.01로 떨어지고, 여기에 7제곱이 적용된다(<code class="src">deliver_passengers.script.tl:175-191</code>).</li>
+<li><strong>마을 공급</strong>은 맵 어딘가에서 이미 생산되는 화물을 우선한다. 다른 화물보다 16배 잘 뽑힌다(<code class="src">deliver_cargo_town.script.tl:277-280</code>).</li>
+<li>배송할 양은 <strong>보조금 위험</strong> 설정에 따라 정해진다.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>보조금 위험</th>
+<th>산업 공급</th>
+<th>마을 공급(최대 마을 수요까지)</th>
+<th>출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>없음</td>
+<td>10–50</td>
+<td>10–30</td>
+<td><code class="src">deliver_cargo.script.tl:100-114</code>, <code class="src">deliver_cargo_town.script.tl:165-188</code></td>
+</tr>
+<tr>
+<td>타당함</td>
+<td>50–100</td>
+<td>30–100</td>
+<td></td>
+</tr>
+<tr>
+<td>위험함</td>
+<td>75–150</td>
+<td>35–125</td>
+<td></td>
+</tr>
+<tr>
+<td>아주 위험함</td>
+<td>150–300</td>
+<td>45–150</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="보상과-페널티"><span class="n">2</span><span>보상과 페널티</span></h2>
+<p>모든 계약은 세 가지 목록을 가지며, 카드에 <strong>수락 시</strong>, <strong>이행 시</strong>, <strong>실패 시</strong>로 표시된다(<code class="src">subvention_util.tl:449-471</code>). 실패하면 선지급금은 항상 반환되고, 페널티가 하나 더 붙는다(<code class="src">deliver_cargo.script.tl:134-136</code>).</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>계약</th>
+<th>수락 시</th>
+<th>이행 시</th>
+<th>실패 시</th>
+<th>출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>산업 공급</td>
+<td>현금</td>
+<td><strong>수입 2배</strong> 효과만</td>
+<td>선지급금 반환 + 벌금</td>
+<td><code class="src">deliver_cargo.script.tl:120-136</code></td>
+</tr>
+<tr>
+<td>마을 공급</td>
+<td>현금 <strong>또는</strong> 마을 평판</td>
+<td>마을 경험치 <strong>또는</strong> 현금, 여기에 수입 2배</td>
+<td>선지급금 반환 + 평판 하락 <strong>또는</strong> 벌금</td>
+<td><code class="src">deliver_cargo_town.script.tl:194-229</code></td>
+</tr>
+<tr>
+<td>마을 연결</td>
+<td>현금, 먼 마을일수록 많음</td>
+<td><strong>두</strong> 마을 모두 마을 경험치, 여기에 수입 2배</td>
+<td>선지급금 반환 + <strong>두</strong> 마을 모두 평판 하락</td>
+<td><code class="src">deliver_passengers.script.tl:105-119</code></td>
+</tr>
+<tr>
+<td>근로자 운송</td>
+<td>현금</td>
+<td>현금</td>
+<td>선지급금 반환 + 벌금</td>
+<td><code class="src">deliver_workers.script.tl:92-116</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>현금</strong>(연도 보정 전): 선지급금 150만–375만 × 위험 계수(없음 ×2, 타당함 ×1, 위험함 ×0.75, 아주 위험함 ×0.5). 벌금 300만–600만. 완료 지급액 375만–1125만(<code class="src">deliver_cargo.script.tl:120-128</code>, <code class="src">deliver_workers.script.tl:102-104</code>).</li>
+<li>금액은 인플레이션 설정이 아니라 <strong>달력 연도</strong>에 따라 커진다. 1900년 ×1에서 2000년 이후 ×4까지 균일하게 오르며, 1만 단위로 올림 처리된다(<code class="src">finances_util.tl:87-90</code>). 재정에는 <strong>보조금</strong>으로 기록된다(<code class="src">subvention_util.tl:126-135</code>).</li>
+<li><strong>마을 공급</strong>은 은행 잔고가 1억 미만일 때만 현금 보상과 벌금을 준다. 그 이상이면 제안 10건 중 1건만 여전히 그렇다(<code class="src">deliver_cargo_town.script.tl:206-217</code>).</li>
+<li><strong>마을 경험치</strong>는 마을의 현재 레벨에 대한 비율로, 현재 레벨에서 다음 레벨까지 XP의 20 %–100 %다(<code class="src">deliver_cargo_town.script.tl:216</code>, <code class="src">town_growth.script.tl:605-608</code>). <strong>마을 연결</strong>에서는 거리 계수(1 km에서 0.3, 20 km에서 최대 3.0)가 곱해지므로 먼 마을은 여러 레벨이 오를 수 있다(<code class="src">deliver_passengers.script.tl:94-96</code>, <code class="src">deliver_passengers.script.tl:116-118</code>).</li>
+<li>실패로 잃은 <strong>평판</strong>은 마을의 평판 평가에 <strong>실패한 보조금</strong>으로 표시된다(<code class="src">towns.script.tl:313-334</code>). 수락 시 얻는 평판은 기존 페널티를 없앨 뿐, 최고치를 넘지 않는다(<code class="src">town_util.tl:1644-1647</code>).</li>
+</ul>
+<h2 id="수입-2배-효과"><span class="n">3</span><span>수입 2배 효과</span></h2>
+<ul>
+<li>계약 이행 후 <strong>60개월</strong>(5년) 동안 지속된다(<code class="src">subvention_util.tl:286</code>, <code class="src">subvention_util.tl:292</code>).</li>
+<li><strong>산업 공급</strong>: 계약 기간 동안 그 산업에 배송한 노선으로 그 산업에 하는 배송(<code class="src">deliver_cargo.script.tl:463-469</code>).</li>
+<li><strong>마을 공급</strong>: 계약 화물을 배송한 노선으로 그 마을의 어느 건물에든 하는 배송, <strong>화물 종류 무관</strong>(<code class="src">deliver_cargo_town.script.tl:554-565</code>).</li>
+<li><strong>마을 연결</strong>: 계약을 완료한 노선의 두 마을 사이 승객(<code class="src">deliver_passengers.script.tl:281-304</code>).</li>
+<li><strong>근로자 운송</strong>은 수입 효과가 없다(<code class="src">deliver_workers.script.tl:90</code>).</li>
+<li>계약 이행 후에야 배송을 시작한 노선은 아무것도 받지 못한다. 노선 목록은 계약 기간 동안에만 채워진다.</li>
+<li>두 계약이 같은 지급을 두 번 두 배로 만들지는 않는다. 여러 계약이 해당하면 마지막 응답만 쓰인다(<code class="src">subventions.script.tl:570-583</code>).</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>보조금의 ×2가 회사 랭크 배수(인플레이션 설정)와 어떻게 결합되는지는 엔진이 정한다. 두 스크립트는 지급마다 배수만 돌려준다. 지급 항목 하나가 무엇인지(아마 화물 한 단위 또는 승객 한 명)도 엔진이 정한다.</p></div></aside>
+<h2 id="기한"><span class="n">4</span><span>기한</span></h2>
+<p>기한은 수락할 때 시작된다. 화물이 멀리 이동해야 할수록 길고, 위험이 높을수록 짧다(위험 계수: 없음 ×2, 타당함 ×1, 위험함 ×0.75, 아주 위험함 ×0.5, 승객 및 근로자 계약은 ×0.625).</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>계약</th>
+<th>기한(개월)</th>
+<th>사용하는 거리</th>
+<th>출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>산업 공급, 마을 공급</td>
+<td>(6 + 32 × E) × 위험 계수</td>
+<td>그 화물을 생산하는 가장 가까운 산업까지</td>
+<td><code class="src">deliver_cargo.script.tl:116-117</code></td>
+</tr>
+<tr>
+<td>마을 연결</td>
+<td>(9 + 4 × E) × 위험 계수</td>
+<td>두 마을 사이</td>
+<td><code class="src">deliver_passengers.script.tl:98-99</code></td>
+</tr>
+<tr>
+<td>근로자 운송</td>
+<td>(6 + 15 × E) × 위험 계수 × 시대 계수(1940년 이전 ×1.75, 1980년 이전 ×1.25)</td>
+<td>가장 가까운 마을까지</td>
+<td><code class="src">deliver_workers.script.tl:75-87</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>E는 그 시대 최고 속도의 열차(1900년 120 km/h부터 1981년 이후 300 km/h까지)가 그 거리를 가는 데 걸리는 시간으로, 올림 처리하며 최소 1이다(<code class="src">subvention_util.tl:486-489</code>, <code class="src">vehicle_util.tl:225-230</code>).</p>
+<ul>
+<li>수락하지 않은 제안은 약 <strong>6개월</strong>(150–210일) 뒤 페널티 없이 사라진다(<code class="src">subvention_util.tl:284</code>, <code class="src">subvention_util.tl:290</code>).</li>
+<li><strong>산업 공급</strong> 또는 <strong>근로자 운송</strong> 계약이 진행되는 동안 대상 산업은 폐쇄되지 않는다. 예정된 폐쇄는 취소된다(<code class="src">subvention_util.tl:473-484</code>).</li>
+<li>계약 중에 대상이 사라지거나 다시 지어지면 게임은 <strong>보조금 없어짐</strong>을 표시하지만, 기한을 놓친 것과 똑같이 실패 페널티가 적용된다(<code class="src">subventions.script.tl:172-190</code>, <code class="src">subvention_util.tl:406-412</code>).</li>
+<li>수락한 계약을 취소하는 버튼은 없다.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>게임 내 한 달의 길이, 즉 기한의 실제 길이는 엔진이 정한다(getDefaultMonthDuration). 위의 공식은 게임 달력의 개월 단위다.</p></div></aside>
+<h2 id="새-제안이-오는-빈도"><span class="n">5</span><span>새 제안이 오는 빈도</span></h2>
+<ul>
+<li><strong>보조금 사용 가능 정도</strong>: 드물게, 가끔(기본값), 자주, 매우 자주는 각각 12, 6, 3, 1개월마다 새 제안을 하나씩 준다. <strong>없음</strong>은 보조금을 끈다(<code class="src">subvention_util.tl:13-38</code>, <code class="src">mod.script.tl:247-248</code>).</li>
+<li>간격은 <strong>회사 랭크</strong>에 따라 길어진다. 랭크 1에서 ×1, 랭크 15에서 최대 ×2(<code class="src">subvention_util.tl:19-22</code>).</li>
+<li>제안을 <strong>거절</strong>하면 다음 간격이 절반이 된다. 수락하거나 새 제안이 오면 초기화된다(<code class="src">subventions.script.tl:429</code>, <code class="src">subventions.script.tl:395</code>, <code class="src">subventions.script.tl:118</code>).</li>
+<li>수락한 계약 <strong>5건</strong>이 진행 중인 동안에는 새 제안이 오지 않는다(<code class="src">subventions.script.tl:23</code>, <code class="src">subventions.script.tl:256-262</code>). 첫 제안은 반달 뒤에 온다.</li>
+<li>같은 대상(산업, 마을과 화물, 마을 쌍)은 기한을 놓치거나 실패한 뒤에도 <strong>게임당 한 번만</strong> 제안된다(<code class="src">subventions.script.tl:107-113</code>, <code class="src">subventions.script.tl:186</code>).</li>
+<li>난이도 프리셋별 사용 가능 정도 / 위험(<code class="src">difficulty_util.tl:104-105</code>, <code class="src">difficulty_util.tl:132-133</code>, <code class="src">difficulty_util.tl:159-160</code>, <code class="src">difficulty_util.tl:186-187</code>): 쉬움 자주 / 없음, 보통 가끔 / 타당함, 어려움 드물게 / 위험함, <strong>매우 어려움 없음</strong>: 보조금이 전혀 없다.</li>
+<li>매우 좋음 평가를 받은 마을에서만 보조금을 허용하는 마을 평가 검사는 존재하지만 꺼져 있다(<code class="src">town_util.tl:1574-1580</code>, <code class="src">deliver_cargo_town.script.tl:272-275</code>).</li>
+</ul>
+<h2 id="알아두면-좋은-점"><span class="n">6</span><span>알아두면 좋은 점</span></h2>
+<ul>
+<li>대상이 쉬우면 부담 없이 수락하자. 거절하거나 무시하는 데는 비용이 없지만, <strong>실패</strong>하면 선지급금 반환에 더해 선지급금보다 클 수 있는 벌금을 낸다.</li>
+<li><strong>마을 공급</strong>과 <strong>산업 공급</strong>은 혜택을 받을 모든 노선으로 배송을 시작하자. 계약 기간 동안 배송한 노선만 5년간 수입 2배를 받는다.</li>
+<li>멀리 떨어진 마을끼리의 <strong>마을 연결</strong>은 마을 경험치를 가장 많이 주며, 승객 한 명이면 된다.</li>
+<li><strong>산업 공급</strong>은 완료 시 추가 지급이 없다. 보상은 수입 2배뿐이다.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>공식 위키와 게임 스크립트 비교</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>세부 보충</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키의 설명</div><p>"Accept an offer to begin the contract; declining it has no penalty." "Possible rewards include town experience, an additional payment, or a limited-time 2x income effect on eligible transport lines." "The upfront reward is reversed, and an additional fine or loss of town reputation may apply." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:subsidies">Subsidies</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>게임 스크립트의 내용</div><p>네 가지 유형. 마을 연결은 승객 한 명으로 완료. ×2는 계약 기간 동안 배송한 노선에 60개월 지속. 산업 공급은 ×2만 준다. 금액은 연도에 따라 보정(×1–×4). 새 제안은 1–12개월마다 하나, 회사 랭크가 높으면 더 길다. 최대 5건 수락. 각 대상은 게임당 한 번만 제안된다.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>경로는 게임의 base/content 폴더 또는 그 zip 파일 안에 있다.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>이 페이지의 내용</h5><ol><li><a href="#네-가지-계약-유형">네 가지 계약 유형</a></li><li><a href="#보상과-페널티">보상과 페널티</a></li><li><a href="#수입-2배-효과">수입 2배 효과</a></li><li><a href="#기한">기한</a></li><li><a href="#새-제안이-오는-빈도">새 제안이 오는 빈도</a></li><li><a href="#알아두면-좋은-점">알아두면 좋은 점</a></li></ol><div class="box"><b>13</b><span>개 소스 참조</span><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:subsidies"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>다른 메커니즘</h2><div class="mgrid"><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>화물 수입과 배송 시간</b><small>화물과 수입</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>상차 및 하차 속도</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>마을 성장: 경험치, 평가, 규모</b><small>마을</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>근로자와 근로자 부스트</b><small>산업</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro의 팬 프로젝트. Urban Games와 관련 없음.</span><span>글과 이미지: CC BY 4.0 · 게임 코드 © Urban Games: 짧은 참조만 표시.</span><span class="tr">영어에서 번역됨. 수정 제안 환영 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키</a></div></div></footer>
+<script>(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

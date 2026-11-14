@@ -171,7 +171,7 @@
    "not": "fuera de la fórmula: tiempo de viaje, velocidad, longitud real de la ruta, retraso o no"
   },
   "T_DIST": {
-   "cap": "Se paga: la línea recta desde donde se recogió el cargamento hasta donde se entrega, más 8 m por cada metro de subida. La ruta real solo cuesta (mantenimiento).",
+   "cap": "Se paga: la línea recta desde el origen del cargamento hasta donde se entrega, más 8 m por cada metro de subida. La ruta real solo cuesta (mantenimiento).",
    "a": "origen",
    "b": "destino",
    "paid": "pagado: línea recta (3D)",
@@ -181,6 +181,19 @@
    "ex1": "5 km, 100 m más alto",
    "ex2": "pagado como 5,8 km (+16 %)",
    "down": "en sentido contrario: ni bonificación ni penalización"
+  },
+  "T_SPLIT": {
+   "cap": "Un solo pago, en el consumidor, por la línea recta desde el origen. Cada línea recibe la parte de la longitud en línea recta de su tramo. Medido en el juego.",
+   "src": "origen",
+   "wh": "almacén",
+   "dst": "consumidor",
+   "leg1": "tramo 1: barco, 2 km",
+   "leg2": "tramo 2: tren, 6 km",
+   "paid": "pagado una vez, en la entrega: 3,8 × línea recta origen → consumidor",
+   "whnote": "descargado aquí: aún no se paga nada",
+   "l1": "línea de barco 25 %",
+   "l2": "línea de tren 75 %",
+   "hold": "el vehículo que entrega retiene el dinero un momento; luego se abona a cada línea de la cadena"
   },
   "T_TIMES": {
    "cap": "Tiempo permitido antes de que una entrega cuente como retrasada, en relación con la carne (el más corto). El juego ajusta el tiempo real: Finanzas › Tiempo de entrega lo muestra para tu mapa.",
@@ -274,6 +287,63 @@
    "x": "niveles ganados desde el inicio",
    "y": "tamaño × inicio",
    "rows": "niveles ganados → tamaño"
+  },
+  "T_SUBL": {
+   "cap": "Qué pasa con una oferta y con un contrato aceptado. El dinero se escala según el año del calendario (×1 en 1900, ×4 desde 2000).",
+   "offer": "Oferta",
+   "offer2": "unos 6 meses para aceptar",
+   "acc": "Aceptado",
+   "acc2": "anticipo (o reputación)",
+   "acc3": "empieza el plazo",
+   "ok": "Cumplido",
+   "ok2": "recompensa: experiencia, dinero",
+   "ok3": "o ingresos ×2 durante 5 años",
+   "ko": "Plazo vencido",
+   "ko2": "se devuelve el anticipo",
+   "ko3": "+ multa o pérdida de reputación",
+   "dec": "Rechazada: sin penalización",
+   "dec2": "siguiente oferta el doble de rápido",
+   "miss": "No aceptada a tiempo: sin penalización",
+   "max": "como máximo 5 aceptados a la vez"
+  },
+  "T_SUBT": {
+   "cap": "Los cuatro tipos de contrato de una partida libre, qué los cumple y qué pueden dar. Cantidades con Riesgo de las subvenciones Considerable.",
+   "types": [
+    [
+     "industries",
+     "Suministrar a industria",
+     "una industria que nunca produjo",
+     "entregar 50–100 de sus entradas",
+     "ingresos ×2",
+     "#f2b84b"
+    ],
+    [
+     "towns",
+     "Suministrar a localidad",
+     "un cargamento que le falta",
+     "entregar 30–100 de él",
+     "experiencia o dinero, ×2",
+     "#38d1bf"
+    ],
+    [
+     "person",
+     "Conectar localidades",
+     "dos localidades, una línea",
+     "un pasajero, sin transbordo",
+     "experiencia en ambas, ×2",
+     "#5aa9ff"
+    ],
+    [
+     "person",
+     "Transportar trabajadores",
+     "una industria con empleos",
+     "lograr su refuerzo",
+     "dinero",
+     "#b49cf0"
+    ]
+   ],
+   "need": "para cumplir",
+   "get": "tras el cumplimiento"
   }
  },
  "cargo": {

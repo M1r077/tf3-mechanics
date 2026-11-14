@@ -35,7 +35,25 @@ De functie krijgt de reistijd mee, maar **gebruikt die niet** (`cargotype.script
 - Een kronkelende lijn verdient dus evenveel als een rechte, maar je betaalt onderhoud voor elke meter spoor of weg die je hebt gebouwd.
 
 ```engine
-Welke twee punten worden vergeleken (waar de vracht je netwerk binnenkwam, waar ze werd bezorgd) en het teken van het hoogteverschil, bepaalt de engine. De officiële wiki zegt: "distances are measured as the crow flies between the source and the final destination".
+De engine kiest de twee punten en geeft ze door aan het script. In het spel gemeten (zie hieronder): het zijn de **bron** van de vracht (de industrie of het stadsgebouw dat haar produceerde) en de **afnemer** die haar ontvangt, zoals de officiële wiki zegt ("between the source and the final destination").
+```
+
+## Vracht die van lijn wisselt
+
+Als een eenheid over meerdere lijnen reist, bijvoorbeeld schip → opslagplaats → trein, betaalt het spel haar toch **maar één keer**:
+
+```diagram income_split
+```
+
+1. Uitladen bij een opslagplaats of een overstapstation betaalt **niets**. Van ongeveer 17.000 gemeten betalingen gingen er maar 43 naar een voorraad die geen afnemer was.
+2. Als het laatste voertuig aan de afnemer levert, wordt de eenheid betaald met de formule hierboven, voor de rechte lijn **van de bron naar de afnemer**. De trajecten en de echte route tellen niet, dus een omweg via een opslagplaats levert niets extra op.
+3. Dat geld wordt verdeeld over de lijnen van de keten, **naar verhouding van de lengte in rechte lijn van elk traject**: van het ene ophaalpunt naar het volgende, en van het laatste ophaalpunt naar de afnemer. De stijgingsbonus telt bij deze verdeling niet mee.
+4. Het leverende voertuig houdt eerst het hele bedrag vast, met één deel per traject. Het wordt een paar seconden speltijd later geboekt (mediaan ongeveer 6 s), waarbij elke lijn en elk voertuig zijn eigen deel krijgt. Het saldo van een lijn verandert dus kort na de bezorging, niet bij de opslagplaats.
+
+Een korte aanvoerlijn naar een opslagplaats verdient dus weinig, ook al doet ze al het verzamelwerk; het lange traject verdient het meeste. Elke lijn toont haar echte deel wel in haar eigen saldo.
+
+```engine
+De scripts berekenen alleen het totaal (economy/cargo_income.script.lua); de verdeling doet de engine en is niet zichtbaar in de scripts. De regels hierboven zijn gemeten met een alleen-lezen testmod: ongeveer 1.700 betalingen van eenheden met 2 of 3 trajecten, en de rekeningwijzigingen van elke betrokken lijn en elk betrokken voertuig. In 769 zuivere gevallen (één eenheid, één betaling) kwam de verdeling elke keer tot op 1 % overeen met de trajectlengtes; een verdeling met de stijgingsbonus klopte in maar 59 % ervan, een gelijke verdeling in geen enkel.
 ```
 
 ## Wat het bedrag verder verandert
@@ -102,6 +120,6 @@ Dezelfde steenkoolbezorging, 5 km in vogelvlucht.
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Dezelfde factor 3,8 voor alle vrachten; afstand in 3D plus 8 × stijging; de bedrijfsrang verlaagt de inkomsten tot ×0,75 bij rang 15 (Inflatie Gemiddeld); ×2 na een subsidie; de tijd wordt niet gebruikt voor de inkomsten; beoordeling Bezorging uit het aandeel op tijd van het afgelopen halfjaar (Gemiddeld: 30 % → 0, 100 % → 1).
+scripts: Dezelfde factor 3,8 voor alle vrachten; afstand in 3D plus 8 × stijging; de bedrijfsrang verlaagt de inkomsten tot ×0,75 bij rang 15 (Inflatie Gemiddeld); ×2 na een subsidie; de tijd wordt niet gebruikt voor de inkomsten; in het spel gemeten: een eenheid die van lijn wisselt, wordt één keer betaald, bij de afnemer, en over de lijnen verdeeld naar trajectlengte; beoordeling Bezorging uit het aandeel op tijd van het afgelopen halfjaar (Gemiddeld: 30 % → 0, 100 % → 1).
 result: refines
 ```

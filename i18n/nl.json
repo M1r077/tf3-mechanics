@@ -171,7 +171,7 @@
    "not": "niet in de formule: reistijd, voertuigsnelheid, echte routelengte, te laat of op tijd"
   },
   "T_DIST": {
-   "cap": "Betaald: de rechte lijn van waar de vracht werd opgehaald tot waar ze wordt bezorgd, plus 8 m per meter stijging. De echte route kost alleen (onderhoud).",
+   "cap": "Betaald: de rechte lijn van de bron van de vracht tot waar ze wordt bezorgd, plus 8 m per meter stijging. De echte route kost alleen (onderhoud).",
    "a": "herkomst",
    "b": "bestemming",
    "paid": "betaald: rechte lijn (3D)",
@@ -181,6 +181,19 @@
    "ex1": "5 km, 100 m hoger",
    "ex2": "betaald als 5,8 km (+16%)",
    "down": "omgekeerd: geen bonus, geen malus"
+  },
+  "T_SPLIT": {
+   "cap": "Eén betaling, bij de afnemer, voor de rechte lijn vanaf de bron. Elke lijn krijgt het aandeel van de lengte in rechte lijn van haar traject. Gemeten in het spel.",
+   "src": "bron",
+   "wh": "opslagplaats",
+   "dst": "afnemer",
+   "leg1": "traject 1: schip, 2 km",
+   "leg2": "traject 2: trein, 6 km",
+   "paid": "één keer betaald, bij bezorging: 3,8 × rechte lijn bron → afnemer",
+   "whnote": "hier gelost: nog niets betaald",
+   "l1": "scheepslijn 25 %",
+   "l2": "treinlijn 75 %",
+   "hold": "het leverende voertuig houdt het geld even vast, daarna krijgt elke lijn van de keten haar deel"
   },
   "T_TIMES": {
    "cap": "Toegestane tijd voordat een bezorging als vertraagd telt, ten opzichte van vlees (de kortste). Het spel past de echte tijd aan: Financiën › Bezorgtijd toont die voor jouw kaart.",
@@ -274,6 +287,63 @@
    "x": "gewonnen niveaus sinds de start",
    "y": "grootte × start",
    "rows": "gewonnen niveaus → grootte"
+  },
+  "T_SUBL": {
+   "cap": "Wat er gebeurt met een aanbieding en met een aanvaard contract. Geld schaalt met het kalenderjaar (×1 in 1900, ×4 vanaf 2000).",
+   "offer": "Aanbieding",
+   "offer2": "ongeveer 6 maanden om te aanvaarden",
+   "acc": "Aanvaard",
+   "acc2": "vooruitbetaling (of reputatie)",
+   "acc3": "de termijn begint",
+   "ok": "Voltooid",
+   "ok2": "beloning: ervaring, geld",
+   "ok3": "of ×2 inkomsten, 5 jaar lang",
+   "ko": "Termijn gemist",
+   "ko2": "vooruitbetaling terug",
+   "ko3": "+ boete of reputatieverlies",
+   "dec": "Afgewezen: geen boete",
+   "dec2": "volgende aanbieding twee keer zo snel",
+   "miss": "Niet op tijd aanvaard: geen boete",
+   "max": "hooguit 5 tegelijk aanvaard"
+  },
+  "T_SUBT": {
+   "cap": "De vier soorten contracten in vrij spelen, wat ze voltooit en wat ze kunnen opleveren. Hoeveelheden bij Risico subsidies Normaal.",
+   "types": [
+    [
+     "industries",
+     "Bevoorraad industriebedrijf",
+     "een bedrijf dat nooit produceerde",
+     "50–100 van zijn invoer leveren",
+     "×2 inkomsten",
+     "#f2b84b"
+    ],
+    [
+     "towns",
+     "Bevoorraad stad",
+     "een vracht die de stad mist",
+     "er 30–100 van leveren",
+     "ervaring of geld, ×2",
+     "#38d1bf"
+    ],
+    [
+     "person",
+     "Steden verbinden",
+     "twee steden, één lijn",
+     "één reiziger, geen overstap",
+     "ervaring in beide, ×2",
+     "#5aa9ff"
+    ],
+    [
+     "person",
+     "Werknemers vervoeren",
+     "een bedrijf met werkplekken",
+     "zijn werknemersboost halen",
+     "geld",
+     "#b49cf0"
+    ]
+   ],
+   "need": "om te voltooien",
+   "get": "na voltooiing"
   }
  },
  "cargo": {

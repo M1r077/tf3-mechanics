@@ -171,7 +171,7 @@
    "not": "nie ma we wzorze: czasu podróży, prędkości, długości trasy, spóźnienia"
   },
   "T_DIST": {
-   "cap": "Płatna jest linia prosta od miejsca odbioru towaru do miejsca dostawy plus 8 m za każdy metr wzniesienia. Rzeczywista trasa tylko kosztuje (utrzymanie).",
+   "cap": "Płatna jest linia prosta od źródła towaru do miejsca dostawy plus 8 m za każdy metr wzniesienia. Rzeczywista trasa tylko kosztuje (utrzymanie).",
    "a": "skąd",
    "b": "dokąd",
    "paid": "płatne: linia prosta (3D)",
@@ -181,6 +181,19 @@
    "ex1": "5 km, 100 m wyżej",
    "ex2": "płatne jak 5,8 km (+16 %)",
    "down": "w drugą stronę: ani premii, ani kary"
+  },
+  "T_SPLIT": {
+   "cap": "Jedna płatność, u odbiorcy, za linię prostą od źródła. Każda linia dostaje część odpowiadającą długości jej odcinka w linii prostej. Zmierzone w grze.",
+   "src": "źródło",
+   "wh": "magazyn",
+   "dst": "odbiorca",
+   "leg1": "odcinek 1: statek, 2 km",
+   "leg2": "odcinek 2: pociąg, 6 km",
+   "paid": "płatne raz, przy dostawie: 3,8 × linia prosta źródło → odbiorca",
+   "whnote": "tu rozładunek: jeszcze nic nie zapłacono",
+   "l1": "linia statków 25 %",
+   "l2": "linia kolejowa 75 %",
+   "hold": "dostarczający pojazd przez chwilę trzyma pieniądze, potem każda linia łańcucha dostaje swoją część"
   },
   "T_TIMES": {
    "cap": "Czas, po którym dostawa liczy się jako opóźniona, względem mięsa (najkrótszy). Gra koryguje rzeczywisty czas: Finanse › Czas dostawy pokazuje go dla twojej mapy.",
@@ -274,6 +287,63 @@
    "x": "poziomy zdobyte od startu",
    "y": "wielkość × startowa",
    "rows": "poziomy → wielkość"
+  },
+  "T_SUBL": {
+   "cap": "Co dzieje się z ofertą i z przyjętym kontraktem. Kwoty rosną z rokiem kalendarzowym (×1 w 1900, ×4 od 2000).",
+   "offer": "Oferta",
+   "offer2": "około 6 miesięcy na przyjęcie",
+   "acc": "Przyjęty",
+   "acc2": "zaliczka (lub reputacja)",
+   "acc3": "termin zaczyna biec",
+   "ok": "Wypełniony",
+   "ok2": "nagroda: doświadczenie, pieniądze",
+   "ok3": "lub ×2 przychodu przez 5 lat",
+   "ko": "Termin przekroczony",
+   "ko2": "zwrot zaliczki",
+   "ko3": "+ kara lub utrata reputacji",
+   "dec": "Odrzucony: bez kary",
+   "dec2": "następna oferta dwa razy szybciej",
+   "miss": "Nieprzyjęty na czas: bez kary",
+   "max": "najwyżej 5 przyjętych naraz"
+  },
+  "T_SUBT": {
+   "cap": "Cztery rodzaje kontraktów w grze swobodnej, co je wypełnia i co mogą dać. Ilości przy ryzyku subsydiów „Rozsądne”.",
+   "types": [
+    [
+     "industries",
+     "Zaopatrz zakład przemysłowy",
+     "zakład, który nic nie wytworzył",
+     "dostarcz 50–100 surowców",
+     "×2 przychodu",
+     "#f2b84b"
+    ],
+    [
+     "towns",
+     "Zaopatrz miasto",
+     "towar, którego brak miastu",
+     "dostarcz go 30–100",
+     "XP lub pieniądze, ×2",
+     "#38d1bf"
+    ],
+    [
+     "person",
+     "Połącz miasta",
+     "dwa miasta, jedna linia",
+     "jeden pasażer, bez przesiadki",
+     "doświadczenie w obu, ×2",
+     "#5aa9ff"
+    ],
+    [
+     "person",
+     "Przewieź pracowników",
+     "zakład z miejscami pracy",
+     "włącz premię za pracowników",
+     "pieniądze",
+     "#b49cf0"
+    ]
+   ],
+   "need": "aby wypełnić",
+   "get": "po wypełnieniu"
   }
  },
  "cargo": {
