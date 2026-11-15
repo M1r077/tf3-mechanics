@@ -42,6 +42,20 @@ Eine Subvention ist ein Vertrag: Eine Industrie oder eine Stadt bietet eine Aufg
 | Riskant | 75–150 | 35–125 | |
 | Sehr riskant | 150–300 | 45–150 | |
 
+## Was ist eine umsteigefreie Verbindung?
+
+Die Karte **Städte verbinden** verlangt: „Richte eine umsteigefreie Verbindung von {fromTownName} nach {toTownName} ein und transportiere Passagiere zwischen den beiden Städten.“ (`deliver_passengers.script.tl:14`).
+
+- **Eine Linie mit einem Halt in jeder Stadt.** Das Spiel geht die Halte der Linie durch und nimmt jeweils die Stadt des Halts; die Linie zählt, wenn mindestens ein Halt in jeder der beiden Städte liegt. Andere Halte, ihre Reihenfolge und der Fahrzeugtyp (Bus, Tram, Zug, Schiff, Flugzeug) spielen keine Rolle (`subvention_util.tl:561-592`).
+- **Ein Passagier erfüllt ihn**: der erste Passagier, der mit dieser Linie von einem Halt in der einen Stadt zu einem Halt in der anderen fährt, in beide Richtungen (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). Die Prüfung betrachtet nur diese Fahrt, ein Umstieg davor oder danach sollte also keine Rolle spielen.
+- **Die Stadt eines Halts** ist die Stadt des ersten Bahnhofs seiner Bahnhofsgruppe (`town_util.tl:1844-1873`). Zu welcher Stadt ein Bahnhof gehört, entscheidet die Engine.
+- **Kein Angebot**, wenn eine Linie schon in jeder Stadt einen Halt hat, der Passagiere lädt, und ein Fahrzeug, das Passagiere befördert (`deliver_passengers.script.tl:72-78`). Eine reine Güterlinie zwischen ihnen blockiert das Angebot nicht.
+- Der Vertrag endet als **Subvention entfernt**, wenn sich eine der beiden Städte oder die Linie, die ihn erfüllt hat, so ändert, dass das Spiel es als neue Version zählt (`deliver_passengers.script.tl:232-240`).
+
+```engine
+Zu welcher Stadt ein Bahnhof gehört (stationSystem.getTown), wann genau ein Passagier eine Linie „zu nutzen beginnt“ (OnStartedLineUsage) und welche Änderungen an einer Linie als neue Version zählen, liegt bei der Engine. Ob eine Änderung der Linie nach der Erfüllung den Effekt 2-faches Einkommen beendet, wurde nicht getestet.
+```
+
 ## Belohnungen und Strafen
 
 Jeder Vertrag hat drei Listen, auf seiner Karte als **Bei Annahme**, **Bei Erfüllung** und **Bei Misserfolg** angezeigt (`subvention_util.tl:449-471`). Bei Misserfolg wird die Vorauszahlung immer zurückgezahlt, plus eine weitere Strafe (`deliver_cargo.script.tl:134-136`).

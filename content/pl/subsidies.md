@@ -42,6 +42,20 @@ Subsydium to kontrakt: zakład przemysłowy lub miasto proponuje zadanie, przy p
 | „Ryzykowne” | 75–150 | 35–125 | |
 | „Bardzo ryzykowne” | 150–300 | 45–150 | |
 
+## Czym jest bezprzesiadkowe połączenie?
+
+Karta **Połącz miasta** prosi: „Stwórz bezprzesiadkowe połączenie między miastami {fromTownName} i {toTownName}, a potem przewoź między nimi pasażerów.” (`deliver_passengers.script.tl:14`).
+
+- **Jedna linia z przystankiem w każdym mieście.** Gra przechodzi przez przystanki linii i bierze miasto każdego z nich; linia się liczy, gdy co najmniej jeden przystanek leży w każdym z dwóch miast. Inne przystanki, ich kolejność i typ pojazdu (autobus, tramwaj, pociąg, statek, samolot) nie mają znaczenia (`subvention_util.tl:561-592`).
+- **Wypełnia go jeden pasażer**: pierwszy pasażer, który jedzie tą linią z przystanku w jednym mieście do przystanku w drugim, w dowolnym kierunku (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). Sprawdzenie patrzy tylko na ten przejazd, więc przesiadka przed nim lub po nim nie powinna mieć znaczenia.
+- **Miasto przystanku** to miasto pierwszej stacji jego grupy stacji (`town_util.tl:1844-1873`). O tym, do którego miasta należy stacja, decyduje silnik.
+- **Brak oferty**, gdy jakaś linia ma już w każdym mieście przystanek, który ładuje pasażerów, oraz pojazd, który zabiera pasażerów (`deliver_passengers.script.tl:72-78`). Linia tylko towarowa między nimi nie blokuje oferty.
+- Kontrakt kończy się jako **Koniec subsydium**, gdy jedno z dwóch miast albo linia, która go wypełniła, zmieni się w sposób, który gra liczy jako nową wersję (`deliver_passengers.script.tl:232-240`).
+
+```engine
+To, do którego miasta należy stacja (stationSystem.getTown), kiedy dokładnie pasażer „zaczyna korzystać” z linii (OnStartedLineUsage) i które zmiany linii liczą się jako nowa wersja, ustala silnik. Nie sprawdzono, czy zmiana linii po wypełnieniu kontraktu kończy efekt „Podwojony dochód”.
+```
+
 ## Nagrody i kary
 
 Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęcia**, **W chwili wypełnienia** i **W chwili niepowodzenia** (`subvention_util.tl:449-471`). Przy niepowodzeniu zaliczka jest zawsze zwracana, a do tego dochodzi jeszcze jedna kara (`deliver_cargo.script.tl:134-136`).

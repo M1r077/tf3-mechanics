@@ -42,6 +42,20 @@ A subsidy is a contract: an industry or a town offers a task, you get something 
 | Risky | 75–150 | 35–125 | |
 | Very Risky | 150–300 | 45–150 | |
 
+## What is a transfer-free connection?
+
+The **Connect Towns** card asks: "Create a transfer-free connection between {fromTownName} and {toTownName} and transport passengers between the two towns." (`deliver_passengers.script.tl:14`).
+
+- **One line with a stop in each town.** The game goes through the stops of the line and takes the town of each one; the line counts when at least one stop is in each of the two towns. Other stops, their order and the vehicle type (bus, tram, train, ship, aircraft) do not matter (`subvention_util.tl:561-592`).
+- **One passenger completes it**: the first passenger who rides that line from a stop in one town to a stop in the other, in either direction (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). The check only looks at this ride, so changing lines before or after it should not matter.
+- **The town of a stop** is the town of the first station of its station group (`town_util.tl:1844-1873`). Which town a station belongs to is decided by the engine.
+- **No offer** when a line already has a stop loading passengers in each town and a vehicle that takes passengers (`deliver_passengers.script.tl:72-78`). A freight-only line between them does not block the offer.
+- The contract ends as **Subsidy Removed** when one of the two towns, or the line that completed it, changes in a way the game counts as a new version (`deliver_passengers.script.tl:232-240`).
+
+```engine
+Which town a station belongs to (stationSystem.getTown), when exactly a passenger "starts using" a line (OnStartedLineUsage), and which edits of a line count as a new version are engine-side. Whether a line edit after completion ends the 2x Income effect was not tested.
+```
+
 ## Rewards and penalties
 
 Every contract keeps three lists, shown on its card as **On Acceptance**, **On Fulfillment** and **On Failure** (`subvention_util.tl:449-471`). On failure, the advance is always paid back, plus one extra penalty (`deliver_cargo.script.tl:134-136`).

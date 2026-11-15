@@ -42,6 +42,20 @@ Een subsidie is een contract: een industriebedrijf of een stad biedt een taak aa
 | Risicovol | 75–150 | 35–125 | |
 | Zeer risicovol | 150–300 | 45–150 | |
 
+## Wat is een directe verbinding?
+
+De kaart **Steden verbinden** vraagt: "Leg een directe verbinding aan tussen {fromTownName} en {toTownName} voor het reizigersvoer tussen beide plaatsen." (`deliver_passengers.script.tl:14`).
+
+- **Eén lijn met een halte in elke stad.** Het spel loopt de haltes van de lijn af en neemt van elke halte de stad; de lijn telt als er in elk van de twee steden minstens één halte ligt. Andere haltes, hun volgorde en het voertuigtype (bus, tram, trein, schip, vliegtuig) maken niet uit (`subvention_util.tl:561-592`).
+- **Eén reiziger voltooit het**: de eerste reiziger die met die lijn van een halte in de ene stad naar een halte in de andere rijdt, in beide richtingen (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). De controle kijkt alleen naar deze rit, dus overstappen ervoor of erna zou niet moeten uitmaken.
+- **De stad van een halte** is de stad van het eerste station van zijn stationsgroep (`town_util.tl:1844-1873`). Bij welke stad een station hoort, beslist de engine.
+- **Geen aanbieding** als een lijn al in elke stad een halte heeft die reizigers laadt en een voertuig dat reizigers meeneemt (`deliver_passengers.script.tl:72-78`). Een lijn met alleen vracht tussen ze blokkeert de aanbieding niet.
+- Het contract eindigt als **Subsidie ingetrokken** als een van de twee steden, of de lijn die het voltooide, zo verandert dat het spel het als een nieuwe versie telt (`deliver_passengers.script.tl:232-240`).
+
+```engine
+Bij welke stad een station hoort (stationSystem.getTown), wanneer precies een reiziger een lijn "begint te gebruiken" (OnStartedLineUsage) en welke wijzigingen van een lijn als een nieuwe versie tellen, hangt van de engine af. Of een wijziging van de lijn na voltooiing het effect 2x inkomsten beëindigt, is niet getest.
+```
+
 ## Beloningen en boetes
 
 Elk contract heeft drie lijsten, op zijn kaart getoond als **Bij aanvaarding**, **Na voltooiing** en **Bij mislukking** (`subvention_util.tl:449-471`). Bij mislukking wordt de vooruitbetaling altijd terugbetaald, plus nog een boete (`deliver_cargo.script.tl:134-136`).

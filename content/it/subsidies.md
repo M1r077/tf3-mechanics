@@ -42,6 +42,20 @@ Una commessa (chiamata subvention nei file del gioco) è un contratto: un'indust
 | Rischioso | 75–150 | 35–125 | |
 | Molto rischioso | 150–300 | 45–150 | |
 
+## Che cos'è un collegamento diretto?
+
+La scheda **Collegamento urbano** chiede: "Crea un collegamento diretto tra {fromTownName} e {toTownName} per trasportare i passeggeri da una cittadina all'altra." (`deliver_passengers.script.tl:14`).
+
+- **Una linea con una fermata in ogni cittadina.** Il gioco scorre le fermate della linea e prende la cittadina di ognuna; la linea conta quando almeno una fermata si trova in ciascuna delle due cittadine. Le altre fermate, il loro ordine e il tipo di veicolo (autobus, tram, treno, nave, aereo) non contano (`subvention_util.tl:561-592`).
+- **Un solo passeggero lo completa**: il primo passeggero che viaggia su quella linea da una fermata di una cittadina a una fermata dell'altra, in entrambe le direzioni (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). Il controllo guarda solo questo viaggio, quindi cambiare linea prima o dopo non dovrebbe contare.
+- **La cittadina di una fermata** è la cittadina della prima stazione del suo gruppo di stazioni (`town_util.tl:1844-1873`). A quale cittadina appartiene una stazione lo decide il motore.
+- **Nessuna offerta** quando una linea ha già in ogni cittadina una fermata che carica passeggeri e un veicolo che trasporta passeggeri (`deliver_passengers.script.tl:72-78`). Una linea solo merci tra di esse non blocca l'offerta.
+- Il contratto finisce come **Commessa revocata** quando una delle due cittadine, o la linea che l'ha completato, cambia in un modo che il gioco conta come una nuova versione (`deliver_passengers.script.tl:232-240`).
+
+```engine
+A quale cittadina appartiene una stazione (stationSystem.getTown), quando esattamente un passeggero "inizia a usare" una linea (OnStartedLineUsage) e quali modifiche di una linea contano come una nuova versione è deciso dal motore. Non è stato testato se una modifica della linea dopo l'adempimento faccia terminare l'effetto Entrate x2.
+```
+
 ## Ricompense e penalità
 
 Ogni contratto tiene tre elenchi, mostrati sulla sua scheda come **In accettazione**, **In adempimento** e **In fallimento** (`subvention_util.tl:449-471`). In caso di fallimento l'anticipo viene sempre restituito, più una penalità aggiuntiva (`deliver_cargo.script.tl:134-136`).

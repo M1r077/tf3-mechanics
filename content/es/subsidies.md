@@ -42,6 +42,20 @@ Una subvención es un contrato: una industria o una localidad propone una tarea,
 | Arriesgado | 75–150 | 35–125 | |
 | Muy arriesgado | 150–300 | 45–150 | |
 
+## ¿Qué es una conexión sin escalas?
+
+La tarjeta **Conectar localidades** pide: "Crea una conexión sin escalas entre {fromTownName} y {toTownName} y transporta pasajeros entre ambas localidades." (`deliver_passengers.script.tl:14`).
+
+- **Una línea con una parada en cada localidad.** El juego recorre las paradas de la línea y toma la localidad de cada una; la línea cuenta cuando al menos una parada está en cada una de las dos localidades. Las demás paradas, su orden y el tipo de vehículo (autobús, tranvía, tren, barco, avión) no importan (`subvention_util.tl:561-592`).
+- **Un solo pasajero lo cumple**: el primer pasajero que viaja en esa línea desde una parada de una localidad hasta una parada de la otra, en cualquier sentido (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). La comprobación solo mira ese viaje, así que cambiar de línea antes o después no debería importar.
+- **La localidad de una parada** es la localidad de la primera estación de su grupo de estaciones (`town_util.tl:1844-1873`). A qué localidad pertenece una estación lo decide el motor.
+- **No hay oferta** cuando una línea ya tiene en cada localidad una parada que carga pasajeros y un vehículo que lleva pasajeros (`deliver_passengers.script.tl:72-78`). Una línea solo de mercancías entre ellas no bloquea la oferta.
+- El contrato termina como **Subvención eliminada** cuando una de las dos localidades, o la línea que lo cumplió, cambia de una forma que el juego cuenta como una nueva versión (`deliver_passengers.script.tl:232-240`).
+
+```engine
+A qué localidad pertenece una estación (stationSystem.getTown), cuándo exactamente un pasajero "empieza a usar" una línea (OnStartedLineUsage) y qué cambios de una línea cuentan como una nueva versión depende del motor. No se ha probado si un cambio de la línea después de cumplir el contrato pone fin al efecto Ingresos x2.
+```
+
 ## Recompensas y penalizaciones
 
 Cada contrato guarda tres listas, que su tarjeta muestra como **Tras la aceptación**, **Tras el cumplimiento** y **Tras fallar** (`subvention_util.tl:449-471`). Si falla, el anticipo siempre se devuelve, más una penalización adicional (`deliver_cargo.script.tl:134-136`).

@@ -42,6 +42,20 @@ Un contrat (appelé subvention dans les fichiers du jeu) : une industrie ou une 
 | Risqué | 75 à 150 | 35 à 125 | |
 | Très risqué | 150 à 300 | 45 à 150 | |
 
+## Qu'est-ce qu'une liaison sans correspondance ?
+
+La carte **Relier des villes** demande : « Créez une liaison sans correspondance entre {fromTownName} et {toTownName} et transportez des passagers entre les deux villes. » (`deliver_passengers.script.tl:14`).
+
+- **Une ligne avec un arrêt dans chaque ville.** Le jeu parcourt les arrêts de la ligne et prend la ville de chacun ; la ligne compte quand au moins un arrêt se trouve dans chacune des deux villes. Les autres arrêts, leur ordre et le type de véhicule (bus, tram, train, bateau, avion) ne comptent pas (`subvention_util.tl:561-592`).
+- **Un seul passager le remplit** : le premier passager qui prend cette ligne d'un arrêt d'une ville jusqu'à un arrêt de l'autre, dans un sens ou dans l'autre (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). Le contrôle ne regarde que ce trajet, donc changer de ligne avant ou après ne devrait pas compter.
+- **La ville d'un arrêt** est la ville de la première gare de son groupe de gares (`town_util.tl:1844-1873`). La ville à laquelle appartient une gare est décidée par le moteur.
+- **Aucune offre** quand une ligne a déjà un arrêt qui charge des passagers dans chaque ville et un véhicule qui prend des passagers (`deliver_passengers.script.tl:72-78`). Une ligne de fret seul entre elles ne bloque pas l'offre.
+- Le contrat se termine en **Contrat retiré** quand l'une des deux villes, ou la ligne qui l'a rempli, change d'une manière que le jeu compte comme une nouvelle version (`deliver_passengers.script.tl:232-240`).
+
+```engine
+La ville à laquelle appartient une gare (stationSystem.getTown), le moment exact où un passager « commence à utiliser » une ligne (OnStartedLineUsage) et les modifications d'une ligne qui comptent comme une nouvelle version relèvent du moteur. On n'a pas testé si une modification de la ligne après la réalisation met fin à l'effet Revenus 2x.
+```
+
 ## Récompenses et pénalités
 
 Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptation**, **À la réalisation** et **En cas d'échec** (`subvention_util.tl:449-471`). En cas d'échec, l'avance est toujours remboursée, plus une pénalité (`deliver_cargo.script.tl:134-136`).

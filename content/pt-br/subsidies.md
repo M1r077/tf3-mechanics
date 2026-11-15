@@ -42,6 +42,20 @@ Um subsídio é um contrato: uma indústria ou um município oferece uma tarefa,
 | Arriscado | 75–150 | 35–125 | |
 | Muito Arriscado | 150–300 | 45–150 | |
 
+## O que é uma conexão sem transferência?
+
+O cartão **Conectar Municípios** pede: "Crie uma conexão sem transferência entre {fromTownName} e {toTownName} e transporte passageiros entre os dois municípios." (`deliver_passengers.script.tl:14`).
+
+- **Uma linha com uma parada em cada município.** O jogo percorre as paradas da linha e pega o município de cada uma; a linha conta quando pelo menos uma parada fica em cada um dos dois municípios. As outras paradas, a ordem delas e o tipo de veículo (ônibus, bonde, trem, navio, aeronave) não importam (`subvention_util.tl:561-592`).
+- **Um passageiro o cumpre**: o primeiro passageiro que viaja nessa linha de uma parada em um município até uma parada no outro, em qualquer sentido (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). A verificação só olha para essa viagem, então trocar de linha antes ou depois dela não deve importar.
+- **O município de uma parada** é o município da primeira estação do seu grupo de estações (`town_util.tl:1844-1873`). A qual município uma estação pertence é decidido pelo motor.
+- **Nenhuma oferta** aparece quando uma linha já tem uma parada que embarca passageiros em cada município e um veículo que leva passageiros (`deliver_passengers.script.tl:72-78`). Uma linha só de carga entre eles não bloqueia a oferta.
+- O contrato termina como **Subsídio Removido** quando um dos dois municípios, ou a linha que o cumpriu, muda de um jeito que o jogo conta como uma nova versão (`deliver_passengers.script.tl:232-240`).
+
+```engine
+A qual município uma estação pertence (stationSystem.getTown), quando exatamente um passageiro "começa a usar" uma linha (OnStartedLineUsage) e quais edições de uma linha contam como uma nova versão ficam do lado do motor. Não foi testado se uma edição da linha depois do cumprimento encerra o efeito Renda x2.
+```
+
 ## Recompensas e penalidades
 
 Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**, **Ao cumprir** e **Ao fracassar** (`subvention_util.tl:449-471`). Em caso de fracasso, o adiantamento é sempre devolvido, mais uma penalidade extra (`deliver_cargo.script.tl:134-136`).
