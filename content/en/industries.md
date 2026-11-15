@@ -157,7 +157,7 @@ What the scripts give the engine (`mod.script.tl:128-133`, `mod.script.tl:166-16
 - It is in the advanced settings, economy part (`advanced_settings.tl:287-291`), and is not part of the Easy … Very Hard presets (`difficulty_util.tl:90-199`).
 - In the new game menu, **Industry Density** (the industries at the start, same 5 factors) sets **Industry Target Density** to the same step (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Change the target afterwards in the advanced settings if you want them to differ.
 - **No setting turns it off**: the lowest step is ×2/3. Only the map editor has no new industries. Mods can.
-- Speed: the target time is in standard days, like all game-time rules, so the calendar speed and a paused calendar should not slow it. Players report new industries with a paused calendar (Steam).
+- Speed: the target time is in standard days, like all game-time rules, so the calendar speed and a paused calendar should not slow it. Players report new industries with a paused calendar (Steam). Measured with the [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) over 3 games (about 500 industry births): new industries came about **730 s** of game time apart at every calendar speed (×4, ×1, ×0.5, ×0.25). That is about 45 calendar days at ×0.25 and 2 years at ×4.
 - Prospect for Resources (below) uses the same engine call with a town, so a spawn "near a town" exists in the engine (`company.script.tl:202`). The tutorial uses it too (`tutorial_init.tl:23-24`).
 
 ```engine

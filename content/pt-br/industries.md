@@ -157,7 +157,7 @@ O que os scripts dão ao motor (`mod.script.tl:128-133`, `mod.script.tl:166-168`
 - Fica nas configurações avançadas, parte de economia (`advanced_settings.tl:287-291`), e não faz parte das predefinições Fácil … Muito Difícil (`difficulty_util.tl:90-199`).
 - No menu de novo jogo, **Densidade de Indústrias** (as indústrias no início, mesmos 5 fatores) põe **Densidade-Alvo da Indústria** no mesmo nível (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Mude o alvo depois nas configurações avançadas se quiser valores diferentes.
 - **Nenhuma configuração desliga isso**: o nível mais baixo é ×2/3. Só o editor de mapas não tem indústrias novas. Mods podem.
-- Velocidade: o tempo-alvo está em dias padrão, como todas as regras de tempo de jogo, então a velocidade do calendário e um calendário pausado não deveriam atrasá-lo. Jogadores relatam indústrias novas com o calendário pausado (Steam).
+- Velocidade: o tempo-alvo está em dias padrão, como todas as regras de tempo de jogo, então a velocidade do calendário e um calendário pausado não deveriam atrasá-lo. Jogadores relatam indústrias novas com o calendário pausado (Steam). Medido com o [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) em 3 jogos (cerca de 500 indústrias novas): as indústrias novas surgiram a cerca de **730 s** de tempo de jogo uma da outra em todas as velocidades do calendário (×4, ×1, ×0,5, ×0,25). São cerca de 45 dias do calendário em ×0,25 e 2 anos em ×4.
 - A Prospecção por recursos (abaixo) usa a mesma chamada do motor com um município, então um surgimento “perto de um município” existe no motor (`company.script.tl:202`). O tutorial também a usa (`tutorial_init.tl:23-24`).
 
 ```engine

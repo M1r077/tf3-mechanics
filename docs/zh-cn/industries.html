@@ -333,7 +333,7 @@
 <li>它在高级设置的经济部分<span class="sr">（<code class="src">advanced_settings.tl:287-291</code>）</span>，不属于简单 … 极难预设<span class="sr">（<code class="src">difficulty_util.tl:90-199</code>）</span>。</li>
 <li>在新游戏菜单中，<strong>产业密度</strong>（开局时的产业，同样 5 个系数）会把<strong>产业目标密度</strong>设为同一档<span class="sr">（<code class="src">new_game_or_map_settings_page.tl:159-166</code>、<code class="src">new_game_react_util.tl:288-296</code>）</span>。想让两者不同，之后在高级设置中修改目标。</li>
 <li><strong>没有设置能关闭它</strong>：最低一档是 ×2/3。只有地图编辑器没有新产业。模组可以做到。</li>
-<li>速度：目标时间以标准天计，和所有游戏时间规则一样，所以日历速度和暂停日历应该不会减慢它。玩家报告在日历暂停时也出现了新产业（Steam）。</li>
+<li>速度：目标时间以标准天计，和所有游戏时间规则一样，所以日历速度和暂停日历应该不会减慢它。玩家报告在日历暂停时也出现了新产业（Steam）。用 <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> 在 3 局游戏中实测（约 500 个新产业）：在所有日历速度（×4、×1、×0.5、×0.25）下，新产业约每 <strong>730 秒</strong>游戏时间出现一个。×0.25 时约为 45 天，×4 时约为 2 年。</li>
 <li>资源勘探（见下）使用同一个引擎调用并带上城镇，所以引擎中存在“城镇附近”的生成<span class="sr">（<code class="src">company.script.tl:202</code>）</span>。教程也用它<span class="sr">（<code class="src">tutorial_init.tl:23-24</code>）</span>。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>50 年和指数 3 背后的公式、目标密度如何计算（按地图面积？按城镇？）、选择哪种类型、放在哪里（makeIndustrySpawnProposal）都在引擎一侧。没有脚本解释为什么同类产业会有好几个挨在一起出现（“九座煤矿挨在一起”），或为什么有的出现在地图另一端。</p></div></aside>

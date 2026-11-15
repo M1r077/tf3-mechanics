@@ -157,7 +157,7 @@ Co skrypty dają silnikowi (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `m
 - Jest w ustawieniach zaawansowanych, w części ekonomii (`advanced_settings.tl:287-291`), i nie należy do ustawień wstępnych od Niski do Bardzo wysoki (`difficulty_util.tl:90-199`).
 - W menu nowej gry **Zagęszczenie przemysłu** (zakłady na starcie, te same 5 mnożników) ustawia **Docelowe zagęszczenie przemysłu** na ten sam stopień (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Jeśli chcesz, by się różniły, zmień potem cel w ustawieniach zaawansowanych.
 - **Żadne ustawienie tego nie wyłącza**: najniższy stopień to ×2/3. Tylko edytor map nie ma nowych zakładów. Mody to potrafią.
-- Szybkość: czas docelowy jest w standardowych dniach, jak wszystkie reguły czasu gry, więc szybkość kalendarza ani wstrzymany kalendarz nie powinny go spowalniać. Gracze zgłaszają nowe zakłady przy wstrzymanym kalendarzu (Steam).
+- Szybkość: czas docelowy jest w standardowych dniach, jak wszystkie reguły czasu gry, więc szybkość kalendarza ani wstrzymany kalendarz nie powinny go spowalniać. Gracze zgłaszają nowe zakłady przy wstrzymanym kalendarzu (Steam). Zmierzone za pomocą [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) w 3 grach (około 500 nowych zakładów): nowe zakłady pojawiały się co około **730 s** czasu gry przy każdej szybkości kalendarza (×4, ×1, ×0,5, ×0,25). To około 45 dni kalendarza przy ×0,25 i 2 lata przy ×4.
 - Poszukiwania zasobu (niżej) używają tego samego wywołania silnika z miastem, więc w silniku istnieje pojawienie się „koło miasta” (`company.script.tl:202`). Używa go też samouczek (`tutorial_init.tl:23-24`).
 
 ```engine
