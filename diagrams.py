@@ -1134,6 +1134,153 @@ def ind_closure(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- industries: growth by one plot
+T_IGROW = {
+    "en": {"cap": "Every half year of game time a raw industry may get one plot. With a production rating of 100 %, the share of the "
+                  "output you ship decides the chance: 25 % or less never, 50 % one half, 75 % or more always.",
+           "hy": "every half year", "x": "share of the output you ship", "y": "chance of +1 plot",
+           "note": "production rating 100 %", "plot": "+1 plot", "never": "never", "always": "always",
+           "blk": "No plot when", "b1": "cargo not shipped (25 % or less)", "b2": "at its maximum (half to all plots, drawn at construction)",
+           "b3": "blocked by buildings, tracks or roads", "b4": "owned by you, manual development or closing countdown",
+           "b5": "factory (no plots) or no output in the year"},
+    "fr": {"cap": "Tous les six mois de temps de jeu, une industrie primaire peut gagner une parcelle. Avec une note de production de 100 %, "
+                  "la part de la production que tu expédies décide de la chance : 25 % ou moins jamais, 50 % une sur deux, 75 % ou plus toujours.",
+           "hy": "tous les six mois", "x": "part de la production expédiée", "y": "chance de +1 parcelle",
+           "note": "note de production 100 %", "plot": "+1 parcelle", "never": "jamais", "always": "toujours",
+           "blk": "Pas de parcelle si", "b1": "cargaison non expédiée (25 % ou moins)", "b2": "au maximum (de la moitié à toutes les parcelles, tiré à la construction)",
+           "b3": "bloquée par des bâtiments, des voies ou des routes", "b4": "à toi, développement manuel ou compte à rebours de fermeture",
+           "b5": "usine (pas de parcelles) ou aucune production dans l'année"},
+    "de": {"cap": "Jedes halbe Jahr Spielzeit kann eine Rohstoffindustrie eine Parzelle bekommen. Bei einer Produktionswertung von 100 % "
+                  "entscheidet der Anteil der Produktion, den du abtransportierst: 25 % oder weniger nie, 50 % zur Hälfte, 75 % oder mehr immer.",
+           "hy": "jedes halbe Jahr", "x": "abtransportierter Anteil der Produktion", "y": "Chance auf +1 Parzelle",
+           "note": "Produktionswertung 100 %", "plot": "+1 Parzelle", "never": "nie", "always": "immer",
+           "blk": "Keine Parzelle, wenn", "b1": "Fracht nicht abtransportiert (25 % oder weniger)", "b2": "am Maximum (halbe bis alle Parzellen, beim Bau gezogen)",
+           "b3": "blockiert durch Gebäude, Gleise oder Straßen", "b4": "dir gehörend, manuelle Entwicklung oder Schließungs-Countdown",
+           "b5": "Fabrik (keine Parzellen) oder keine Produktion im Jahr"},
+}
+
+
+def ind_growth(lang):
+    t = T_IGROW[lang]
+    s = Svg("ig", 900, 360)
+    X0, Y0, W, H = 80, 270, 400, 190
+    px = lambda v: X0 + v * W
+    py = lambda v: Y0 - v * H
+    s.rect(X0, Y0 - H, W, H, "#121921", r=10, stroke=LINE)
+    s.rect(px(0), Y0 - H + 1, px(.25) - px(0), H - 2, RED, r=0, opacity=.12)
+    s.rect(px(.75), Y0 - H + 1, px(1) - px(.75), H - 2, TEAL, r=0, opacity=.12)
+    for v in (0, .25, .5, .75, 1):
+        s.add(f'<line x1="{px(v)}" y1="{Y0 - H}" x2="{px(v)}" y2="{Y0}" stroke="{LINE}" stroke-dasharray="2 5"/>')
+        s.text(px(v), Y0 + 20, f"{int(v * 100)} %", 12, DIM)
+    for v in (0, .5, 1):
+        s.text(X0 - 10, py(v) + 4, f"{int(v * 100)} %", 12, DIM, "end")
+    s.text(X0 + W / 2, Y0 + 44, t["x"], 13, TEXT, weight=600)
+    s.add(f'<text x="22" y="{Y0 - H / 2}" font-size="13" fill="{TEXT}" text-anchor="middle" font-weight="600" '
+          f'font-family="{FONT}" transform="rotate(-90 22 {Y0 - H / 2})">{html.escape(t["y"])}</text>')
+    s.add(f'<path d="M{px(0)} {py(0)} L{px(.25)} {py(0)} L{px(.75)} {py(1)} L{px(1)} {py(1)}" fill="none" stroke="{GOLD}" '
+          f'stroke-width="3.5" stroke-linejoin="round"/>')
+    for v, c in ((.25, 0), (.5, .5), (.75, 1)):
+        s.add(f'<circle cx="{px(v)}" cy="{py(c)}" r="5" fill="{GOLD}" stroke="{DEEP}" stroke-width="2"/>')
+    s.text(px(.53), py(.5) + 4, "50 %", 12.5, GOLD, "start", 700)
+    s.text(px(.125), py(0) - 12, t["never"], 12.5, RED, weight=700)
+    s.text(px(.875), py(1) + 22, t["always"], 12.5, TEAL, weight=700)
+    s.text(X0 + 12, Y0 - H + 22, t["note"], 12, DIM, "start")
+    # top: half-year check -> +1 plot
+    s.add(icons.place("clock", X0, 30, 22, GOLD))
+    s.text(X0 + 30, 47, t["hy"], 15, GOLD, "start", 700)
+    s.chip(X0 + W - (width(t["plot"]) * 14 * .62 + 22), 30, t["plot"], TEAL, size=14)
+    # blockers
+    BX = 530
+    items = [wrap_rows(t[k], 40) for k in ("b1", "b2", "b3", "b4", "b5")]
+    ch = max(300, 62 + sum(20 + len(r) * 13 * 1.35 for r in items))
+    s.h = int(max(360, 30 + ch + 20))
+    s.card(BX, 30, 350, ch, stroke=RED, dash="6 5")
+    s.text(BX + 22, 60, t["blk"], 16, RED, "start", 700)
+    y = 92
+    for rows in items:
+        s.add(icons.place("cross", BX + 20, y - 12, 16, RED))
+        s.lines(BX + 46, y, rows, 13, TEXT, "start", 1.35)
+        y += 16 + len(rows) * 13 * 1.35 + 4
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- workers: a trip that counts
+T_WTRIP = {
+    "en": {"cap": "A worker counts when the trip to the job is made by your lines (mode Lines) and ends at the industry itself. "
+                  "Transfers are fine; walking between stops and buildings is part of a Lines trip.",
+           "home": "Home", "town": "in a town", "foot": "on foot", "stop": "Stop", "l1": "line 1", "l2": "line 2",
+           "xfer": "Transfer", "stop2": "Stop at the industry", "ind": "Industry", "mode": "one trip, mode Lines, target: the industry",
+           "yes": "Counts", "no": "Does not count",
+           "y1": "move mode Lines, arrives at the industry", "y2": "transfers: any number of lines",
+           "y3": "a cargo line whose vehicles and stops load passengers", "y4": "from any town, near or far",
+           "n1": "whole trip on foot: Walk is not allowed", "n2": "whole trip by car: Car is not allowed",
+           "n3": "assigned but never arrives (On the Way)", "n4": "gets off at a stop that does not reach the industry"},
+    "fr": {"cap": "Un travailleur compte quand le trajet vers l'emploi se fait par tes lignes (mode Lignes) et se termine à l'industrie elle-même. "
+                  "Les correspondances sont permises ; marcher entre arrêts et bâtiments fait partie d'un trajet Lignes.",
+           "home": "Logement", "town": "dans une ville", "foot": "à pied", "stop": "Arrêt", "l1": "ligne 1", "l2": "ligne 2",
+           "xfer": "Correspondance", "stop2": "Arrêt à l'industrie", "ind": "Industrie", "mode": "un trajet, mode Lignes, but : l'industrie",
+           "yes": "Compte", "no": "Ne compte pas",
+           "y1": "mode Lignes, arrive à l'industrie", "y2": "correspondances : autant de lignes que tu veux",
+           "y3": "une ligne de fret dont véhicules et arrêts chargent des passagers", "y4": "depuis n'importe quelle ville, proche ou lointaine",
+           "n1": "tout le trajet à pied : À pied est interdit", "n2": "tout le trajet en voiture : Voiture est interdit",
+           "n3": "attribué mais n'arrive jamais (En route)", "n4": "descend à un arrêt qui n'atteint pas l'industrie"},
+    "de": {"cap": "Ein Arbeiter zählt, wenn die Fahrt zur Arbeit mit deinen Linien erfolgt (Modus Linien) und an der Industrie selbst endet. "
+                  "Umstiege sind erlaubt; der Fußweg zwischen Haltestellen und Gebäuden gehört zu einer Linien-Fahrt.",
+           "home": "Wohnung", "town": "in einer Stadt", "foot": "zu Fuß", "stop": "Haltestelle", "l1": "Linie 1", "l2": "Linie 2",
+           "xfer": "Umstieg", "stop2": "Haltestelle an der Industrie", "ind": "Industrie", "mode": "eine Fahrt, Modus Linien, Ziel: die Industrie",
+           "yes": "Zählt", "no": "Zählt nicht",
+           "y1": "Modus Linien, kommt an der Industrie an", "y2": "Umstiege: beliebig viele Linien",
+           "y3": "eine Frachtlinie, deren Fahrzeuge und Halte Passagiere laden", "y4": "aus jeder Stadt, nah oder fern",
+           "n1": "ganze Fahrt zu Fuß: Zu Fuss ist nicht erlaubt", "n2": "ganze Fahrt mit dem Auto: Auto ist nicht erlaubt",
+           "n3": "zugeteilt, kommt aber nie an (Unterwegs)", "n4": "steigt an einer Haltestelle aus, die die Industrie nicht erreicht"},
+}
+
+
+def workers_trip(lang):
+    t = T_WTRIP[lang]
+    s = Svg("wt", 900, 440)
+    Y = 80
+    nodes = ((70, "home", BLUE, t["home"], t["town"], 34), (250, "stations", TEXT, t["stop"], "", 24),
+             (450, "stations", GOLD, t["xfer"], "", 24), (650, "stations", TEXT, t["stop2"], "", 24),
+             (830, "industries", TEXT, t["ind"], "", 34))
+    # segments: walk, line 1, line 2, walk
+    for (x1, r1), (x2, r2), kind, lab in (((70, 34), (250, 24), "walk", t["foot"]), ((250, 24), (450, 24), "bus", t["l1"]),
+                                          ((450, 24), (650, 24), "train", t["l2"]), ((650, 24), (830, 34), "walk", t["foot"])):
+        a, b = x1 + r1 + 6, x2 - r2 - 6
+        if kind == "walk":
+            s.add(f'<line x1="{a}" y1="{Y}" x2="{b}" y2="{Y}" stroke="{DIM}" stroke-width="2" stroke-dasharray="3 5" marker-end="{s.ref("ah")}"/>')
+            s.text((a + b) / 2, Y - 10, lab, 12, DIM, weight=600)
+        else:
+            s.flow(a, Y, b, Y, GOLD)
+            s.icon_badge((a + b) / 2, Y - 30, kind, GOLD, 15, fill=s.ref("gold"))
+            s.text((a + b) / 2, Y + 24, lab, 12.5, GOLD, weight=700)
+    for cx, ic, col, name, sub, r in nodes:
+        s.icon_badge(cx, Y, ic, col, r)
+        rows = wrap_rows(name, 16)
+        s.lines(cx, Y + r + 22, rows, 14, col if col == GOLD else TEXT, weight=700, gap=1.25)
+        if sub:
+            s.text(cx, Y + r + 22 + len(rows) * 17.5, sub, 12, DIM)
+    # bracket: one Lines trip from home to the industry
+    by = 178
+    s.add(f'<path d="M70 {by} L70 {by + 10} L830 {by + 10} L830 {by}" fill="none" stroke="{TEAL}" stroke-width="2"/>')
+    s.rect(450 - (width(t["mode"]) * 13 * .6 + 28) / 2, by + 0, width(t["mode"]) * 13 * .6 + 28, 22, DEEP, r=11, stroke=TEAL)
+    s.text(450, by + 15.5, t["mode"], 13, TEAL, weight=700)
+    # counts / does not count
+    cols = [(30, TEAL, t["yes"], [wrap_rows(t[k], 46) for k in ("y1", "y2", "y3", "y4")], "check"),
+            (465, RED, t["no"], [wrap_rows(t[k], 46) for k in ("n1", "n2", "n3", "n4")], "cross")]
+    ch = max(60 + sum(len(r) * 13 * 1.3 + 15 for r in c[3]) for c in cols)
+    for x, col, title, items, ic in cols:
+        s.card(x, 222, 405, ch, stroke=col, dash=None if col == TEAL else "6 5")
+        s.text(x + 22, 252, title, 16, col, "start", 700)
+        y = 282
+        for rows in items:
+            s.add(icons.place(ic, x + 20, y - 12, 16, col))
+            s.lines(x + 46, y, rows, 13, TEXT, "start", 1.3)
+            y += len(rows) * 13 * 1.3 + 15
+    s.h = int(222 + ch + 18)
+    return s.svg(), t["cap"]
+
+
 def _load_translations():
     """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
     for code in langs.translated():
@@ -1165,6 +1312,8 @@ REGISTRY = {
     "loan_interest": loan_interest,
     "rep_recovery": rep_recovery,
     "ind_closure": ind_closure,
+    "ind_growth": ind_growth,
+    "workers_trip": workers_trip,
 }
 
 

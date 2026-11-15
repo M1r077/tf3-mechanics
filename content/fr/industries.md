@@ -1,6 +1,6 @@
 ---
 title: Industries
-summary: Règles de production, stocks, parcelles et extension, fret booster, pourquoi une industrie n'est pas boostée, et quand une industrie inutilisée ferme vraiment.
+summary: Règles de production, stocks, parcelles et extension, pourquoi une industrie ne grandit pas ou n'est pas boostée, quand une industrie inutilisée ferme, et comment de nouvelles industries apparaissent.
 domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
@@ -9,6 +9,7 @@ fact: 5 ans | sans chargement ni consommation font d'une industrie une candidate
 fact: 1,1 % | de chance par an à Rarement (le défaut), puis 730 jours de compte à rebours
 fact: +50–150 % | de bonus du fret booster, fixe pour chaque industrie
 fact: 3 mois | de bonus par lot de fret booster
+fact: ×2/3 – ×1,5 | Densité cible des industries : les nouvelles industries ne peuvent pas être désactivées
 ---
 
 Chaque industrie fonctionne par **règles** : « prendre ceci dans les stocks entrants, mettre cela dans les stocks sortants », un nombre fixe de fois par an. Les industries primaires (mines, fermes, puits) n'ont besoin d'aucune entrée ; leur taille vient de leurs **parcelles**. Deux bonus peuvent multiplier la production : le **fret booster** (industries primaires seulement) et les **travailleurs**.
@@ -37,9 +38,39 @@ Le moteur exécute les règles. Il peut rallonger un cycle : l'infobulle du cycl
 - Les industries primaires et la Ferme d'élevage ont des **parcelles** (champs, puits de mine, derricks). Leur niveau est leur nombre de parcelles (`industryutil.lua:602-617`).
 - La règle grandit avec les parcelles : production par cycle × parcelles ÷ **toutes les parcelles de ce type d'industrie**, arrondi, au moins 1. Les entrées baissent dans la même proportion (`industryutil.lua:225-259`). Une Mine de charbon (8 types de parcelles) avec 4 parcelles fait 8 charbon par cycle au lieu de 16.
 - Chaque industrie reçoit un maximum : au hasard entre la moitié des parcelles et toutes, ou Petite / Moyenne / Grande (50 / 75 / 100 %) avec le paramètre **Taille de l'industrie** (`industryutil.lua:519-537`). Une mine dont le maximum est 5 sur 8 n'atteint jamais la règle complète.
-- Tous les six mois, le jeu peut ajouter **une parcelle** (`industries_config.res.lua:5`, `industries.script.tl:158-183`). La chance vaut (note − 25 %) ÷ 50 %, où note = note de production × la part de la production que tu expédies (au plus 1) : 25 % ou moins jamais, 75 % ou plus toujours (`industries.script.tl:172-176`).
+- Avec Moyenne, si 75 % arrondi donne toutes les parcelles, le maximum vaut toutes les parcelles moins une (`industryutil.lua:523-526`). Une nouvelle industrie démarre avec les parcelles que le moteur construit à la pose ; son niveau est fixé d'après elles (`industryutil.lua:602-617`).
+- Tous les six mois de **temps de jeu**, le jeu peut ajouter **une parcelle** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). C'est une demi-année standard : la vitesse du calendrier ne change pas la fréquence (voir [Temps de jeu et calendrier](time.html)).
+- La chance vaut (note − 25 %) ÷ 50 %, où note = note de production × la part de la production que tu expédies (au plus 1) : 25 % ou moins jamais, 75 % ou plus toujours (`industries.script.tl:168-179`).
 - Donc une industrie dont tu n'expédies pas le fret **ne grandit jamais**. Les usines n'ont pas de parcelles et ne grandissent jamais.
 - Au maximum la fenêtre affiche **L'industrie a atteint son plein potentiel de développement.** ; quand des bâtiments, voies ou routes gênent, **L'industrie ne peut plus se développer davantage.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). Aucun script ne retire de parcelles ; le wiki officiel dit que des parcelles rasées baissent la production.
+- Le script du jeu ignore les industries qui t'appartiennent, celles en développement manuel et celles en compte à rebours de fermeture : elles n'en reçoivent jamais de parcelle (`industries.script.tl:94-99`, `industries.script.tl:147-157`).
+
+Exemple, **Camp de bûcherons** : 20 parcelles, 8 bois par cycle, 30,4 cycles par an (`forest.con.lua:54-66`, `forest.con.lua:75-98`). Par cycle il fait 8 × parcelles ÷ 20, arrondi, au moins 1 (`industryutil.lua:231-241`) :
+
+| Parcelles (niveau) | Bois par cycle | Bois par an (Max., sans bonus, Productivité 100 %) |
+|---|---|---|
+| 1–3 | 1 | 30 |
+| 4–6 | 2 | 61 |
+| 7–8 | 3 | 91 |
+| 9–11 | 4 | 122 |
+| 12–13 | 5 | 152 |
+| 14–16 | 6 | 183 |
+| 17–18 | 7 | 213 |
+| 19–20 | 8 | 243 |
+
+La production monte par paliers : une nouvelle parcelle n'augmente pas toujours la production.
+
+## Pourquoi mon industrie ne grandit pas ?
+
+```diagram ind_growth
+```
+
+1. **Fret non expédié** : la note compte la part de la production chargée dans tes véhicules. Avec une note de production de 100 %, expédier 25 % ou moins ne donne aucune chance, 50 % une chance sur deux, 75 % ou plus une parcelle tous les six mois.
+2. **Au maximum** : **L'industrie a atteint son plein potentiel de développement.** Le maximum est tiré à la construction (de la moitié à toutes les parcelles) et ne change jamais.
+3. **Bloquée** : **L'industrie ne peut plus se développer davantage.** Retire les routes, voies ou bâtiments à l'emplacement de la prochaine parcelle (montré dans la fenêtre).
+4. **Pas une industrie primaire** : les usines n'ont pas de parcelles.
+5. **Compte à rebours de fermeture**, industrie à toi, ou développement manuel : pas de croissance par le script (ci-dessus).
+6. **Aucune production** : une industrie qui ne produit rien dans l'année est ignorée (`industries.script.tl:168-171`).
 
 ```engine
 La note de production (getProductionRating), la production annuelle et la quantité expédiée (getCargoOutputPerYear, getCargoShippedPerYear), et l'endroit où va une nouvelle parcelle (makeIndustryExtendProposal) sont des valeurs du moteur.
@@ -109,12 +140,33 @@ Ce qui compte comme « chargé » et « consommé » (les journaux itemsLoaded e
 
 ## Nouvelles industries
 
-- Le moteur ajoute des industries avec le temps ; les scripts lui donnent seulement un temps cible de 50 ans, un exposant de 3, et aucune nouvelle industrie dans l'éditeur de cartes (`mod.script.tl:166-168`). Le réglage **Densité cible des industries** le fait varier (`mod.script.tl:194-195`). La notification est **Industrie fondée** (`industry_spawn.res.lua:6`).
-- L'atout d'entreprise **Prospection de ressources** cherche une nouvelle industrie de cette ressource près d'une ville : un essai par mois avec une chance de 20 % à 60 %, pendant 6 mois ; en cas d'échec, le permis revient (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+Le moteur ajoute de nouvelles industries pendant la partie. La notification est **Nouvelle industrie fondée** : « Un entrepreneur visionnaire a flairé une opportunité de profit et a fondé {industry}. » (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Aucun script du jeu ne choisit l'endroit, le type ou le moment, et aucun ne filtre ce que le moteur propose.
+
+Ce que les scripts donnent au moteur (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`) :
+
+| Valeur de config | Valeur | Sens |
+|---|---|---|
+| spawnTargetTimeSpan | 50 × 365,25 jours standard | appelé « temps cible » : 50 années standard de temps de jeu |
+| spawnProbabilityExponent | 3,0 | exposant de la chance d'apparition (formule dans le moteur) |
+| spawnIndustries | désactivé dans l'éditeur de cartes, activé en partie | pas de nouvelles industries dans l'éditeur de cartes |
+| industryDensity | 1 × **Densité cible des industries** | le nombre cible d'industries |
+| maxNumberPerArea, absoluteMinimum | 0,8 par km² (0,64 sur consoles), 24 | aussi utilisé par le générateur de cartes |
+
+**Densité cible des industries** (« Définissez la densité cible des industries sur la carte. ») : 5 crans, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
+
+- Il se trouve dans les réglages avancés, partie économie (`advanced_settings.tl:287-291`), et ne fait pas partie des préréglages Facile … Très difficile (`difficulty_util.tl:90-199`).
+- Dans le menu de nouvelle partie, **Densité des industries** (les industries au départ, mêmes 5 facteurs) met **Densité cible des industries** au même cran (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Change la cible ensuite dans les réglages avancés si tu veux deux valeurs différentes.
+- **Aucun réglage ne le désactive** : le cran le plus bas est ×2/3. Seul l'éditeur de cartes n'a pas de nouvelles industries. Des mods le peuvent.
+- Vitesse : le temps cible est en jours standard, comme toutes les règles de temps de jeu, donc la vitesse du calendrier et un calendrier en pause ne devraient pas le ralentir. Des joueurs signalent de nouvelles industries avec un calendrier en pause (Steam).
+- Prospection de ressources (ci-dessous) utilise le même appel du moteur avec une ville, donc une apparition « près d'une ville » existe dans le moteur (`company.script.tl:202`). Le tutoriel l'utilise aussi (`tutorial_init.tl:23-24`).
 
 ```engine
-Où et quand une nouvelle industrie apparaît, et de quel type, est décidé par le moteur (makeIndustrySpawnProposal).
+La formule derrière les 50 ans et l'exposant 3, la façon dont la densité cible est comptée (par surface de carte, par ville ?), le type choisi et l'endroit où l'industrie va (makeIndustrySpawnProposal) relèvent du moteur. Aucun script n'explique pourquoi plusieurs industries d'un même type peuvent apparaître côte à côte (« neuf mines de charbon les unes à côté des autres »), ni pourquoi certaines apparaissent à l'autre bout de la carte.
 ```
+
+### Prospection de ressources
+
+L'atout d'entreprise **Prospection de ressources** cherche une nouvelle industrie de cette ressource près d'une ville que tu choisis : un essai par mois, avec une chance qui monte de 20 % à 60 %, pendant 6 mois (`company_util.tl:14-17`, `company.script.tl:299-307`, `company.script.tl:130-142`). Si la ressource a plusieurs types d'industrie, ils sont essayés dans un ordre aléatoire (`company.script.tl:185-206`). Si tous les essais échouent, le permis revient (`company.script.tl:106-110`).
 
 ## Bon à savoir
 
@@ -122,10 +174,11 @@ Où et quand une nouvelle industrie apparaît, et de quel type, est décidé par
 - Mets le fret booster sur les plus grandes mines et fermes : le lot coûte pareil, le bonus suit les parcelles.
 - Les stocks ne se dégradent pas : tu peux livrer le fret booster d'avance, jusqu'à la limite du stock (100).
 - Les bonus augmentent le bruit et la pollution : une Mine de charbon passe de 10 de pollution à 20 avec un bonus et 30 avec deux (`coal_mine.con.lua:99-117`).
+- Moins de nouvelles industries : mets **Densité cible des industries** au cran le plus bas dans les réglages avancés ; on ne peut pas la mettre à zéro.
 - Au réglage par défaut une industrie inutilisée ferme rarement ; à Très souvent, charge quelque chose de temps en temps.
 
 ```check
 official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
-scripts: 5 ans, pas 10, et la production ne compte pas : seulement le fret chargé dans un véhicule ou consommé. Après ces 5 ans l'industrie n'est qu'une candidate : chaque année elle est marquée avec une chance de 1,1 % (Rarement) à 8,8 % (Très souvent). Le compte à rebours dure bien 730 jours. Le fret booster donne +50 % à +150 % par industrie, par lots qui durent 3 mois.
+scripts: 5 ans, pas 10, et la production ne compte pas : seulement le fret chargé dans un véhicule ou consommé. Après ces 5 ans l'industrie n'est qu'une candidate : chaque année elle est marquée avec une chance de 1,1 % (Rarement) à 8,8 % (Très souvent). Le compte à rebours dure bien 730 jours. Le fret booster donne +50 % à +150 % par industrie, par lots qui durent 3 mois. Nouvelles industries : aucun réglage marche/arrêt, seulement Densité cible des industries de ×2/3 à ×1,5 ; aucune dans l'éditeur de cartes.
 result: differs
 ```

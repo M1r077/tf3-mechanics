@@ -4,7 +4,7 @@ summary: Cómo los residentes consiguen empleo en una industria, cuáles cuentan
 domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 10 / 20 | trabajadores necesarios para el refuerzo
 fact: 2 años | tiempo durante el que cuenta una llegada
 fact: ×1,5–2,5 | factor de refuerzo, fijo para cada industria
@@ -63,15 +63,53 @@ Una mina de carbón con 20 puestos de trabajo y "+84 %".
 | 12 residentes distintos han llegado en autobús este año | 12 | sí (≥ 10) | ×1,84 |
 | Línea de autobús eliminada; nadie llega durante 2 años | baja a 0 | termina | ×1 |
 
+## Llevar trabajadores a una industria
+
+```diagram workers_trip
+```
+
+- Un trabajador se cuenta cuando **llega a la propia industria**, el destino de su viaje (`targetOrAtEntity`) es la industria y su último modo de desplazamiento es **Líneas** (`industry_workers.script.tl:86-94`). Bajarse en una parada no basta: la persona tiene que llegar a la industria.
+- Cada residente tiene un modo de desplazamiento por destino (vivienda, tienda, empleo). La ventana de la industria lista los trabajadores asignados con un icono para ese modo: **Caminar**, **Coche** o **Líneas** (`entity_window_util.tl:1400-1435`). Para una industria siempre debería ser Líneas, porque Caminar y Coche no están permitidos allí (`industryutil.lua:451-457`).
+- Así que "sin ir a pie" significa que el viaje entero no puede ser a pie ni en coche. No significa "sin caminar nada": un viaje en Líneas empieza y termina a pie entre las paradas y los edificios (ver la nota del motor abajo).
+- **Los transbordos cuentan.** El script solo mira el modo del viaje, no cuántas líneas se usaron (`industry_workers.script.tl:91`). Un trabajador de una localidad a cuatro líneas de distancia cuenta igual que uno de al lado, pero puede tardar mucho más en llegar.
+- **Cualquiera de tus líneas puede llevarlos**, incluso una línea de carga, siempre que sus vehículos lleven pasajeros y la parada cargue pasajeros. El script no comprueba el tipo de vehículo (`industry_workers.script.tl:86-118`). Los jugadores dicen tener menos problemas con líneas de pasajeros separadas.
+- Algunas industrias (por ejemplo las plataformas petrolíferas) tienen su propia parada integrada, que acepta pasajeros y carga (`industryutil.lua:156-165`).
+- La ventana de la industria indica, para cada trabajador asignado, si está en **Ubicación actual** o **De camino** (`entity_window_util.tl:1371-1384`). La sección Refuerzos lista los trabajadores contados con su **Tiempo restante** de los 2 años (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- Una industria todavía sin trabajadores muestra: "Conecta esta ubicación con el transporte público para permitir que los residentes trabajen aquí." (`entity_window_util.tl:1650-1652`).
+
+```engine
+Qué parada sirve a una industria, cuánto camina un trabajador desde una parada hasta la entrada de la industria y los residentes de qué localidades toman el empleo lo decide el motor (áreas de influencia, búsqueda de ruta, elección de empleo). Los scripts no fijan ningún límite de distancia para los trabajadores. Algunos jugadores cuentan que una estación cuya área de influencia cubría la industria para la carga no llevó trabajadores hasta que un autobús fue a la entrada de la industria (hilo de Steam "Problem getting workers to site").
+```
+
+## Subsidio Transportar trabajadores
+
+- Solo se ofrece para una industria que envía o recibe carga y que aún no tiene refuerzo (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Se cumple cuando se activa el refuerzo de trabajadores: las mismas 10 de 20 llegadas distintas con tus líneas (`deliver_workers.script.tl:152-156`). No se cuenta nada más; no hay ninguna regla oculta.
+- La barra de progreso de la tarjeta del contrato es "trabajadores contados ÷ la mitad de los puestos" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
+- Las flechas del mapa del contrato salen de las **5 localidades más cercanas**. Son solo una pista: el script las dibuja por distancia, no según quién tiene el empleo (`deliver_workers.script.tl:297-317`).
+- Ver [Subvenciones: ofertas, plazos y recompensas](subsidies.html) para el dinero y el plazo.
+
+## ¿Por qué no llegan mis trabajadores?
+
+| Comprobación | Dónde mirar | Por qué |
+|---|---|---|
+| ¿Alguien tiene el empleo? | Barra de puestos ("12/20") | Sin trabajadores asignados nadie viaja. La elección de empleo depende del motor. |
+| Icono de modo de los trabajadores | Lista de trabajadores: Caminar / Coche / Líneas | Solo cuentan los viajes en Líneas (`industry_workers.script.tl:91`). |
+| ¿Se están moviendo? | **De camino** / **Ubicación actual** | "De camino" durante mucho tiempo: transbordos lentos o saturados, o sin ruta desde la última parada. |
+| ¿La última parada llega a la entrada de la industria? | Área de influencia de la parada, carretera de entrada | Lo cuentan los jugadores; depende del motor. Un autobús corto hasta la entrada ayudó. |
+| ¿La parada carga pasajeros? | Parada de la línea, Filtro de cargamento | Los pasajeros deben cargarse y descargarse en los dos extremos del viaje. |
+| ¿10 personas **distintas** en 2 años? | Sección Refuerzos, **Tiempo restante** | La misma persona cuenta una vez; las llegadas más antiguas salen (`industry_workers.script.tl:56-70`). |
+| ¿Más de 40 puestos (mods)? | Barra de puestos | Nunca puede llegar a la mitad con 20 llegadas conservadas. |
+
 ## Conviene saber
 
 - El límite de 20 llegadas conservadas y la regla del 50 % hacen que una industria con **más de 40 puestos de trabajo** (posible con mods) nunca pueda recibir el refuerzo de trabajadores.
-- La subvención "Transportar trabajadores" se cumple cuando se activa este refuerzo (wiki oficial, Subsidies).
+- La subvención **Transportar trabajadores** se cumple cuando se activa este refuerzo (`deliver_workers.script.tl:152-156`).
 - El cargamento de refuerzo (fertilizante, máquinas, herramientas) es un refuerzo **distinto** de las industrias de materias primas, que no se trata aquí.
 - El mod [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) muestra, en la ventana de la industria, de qué localidades vienen los trabajadores asignados y los del refuerzo, con flechas en el mapa.
 
 ```check
 official: "If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))
-scripts: "Suficiente" = la mitad de los puestos de trabajo (10 de 20); "recientemente" = los últimos 2 años de juego, las 20 llegadas más recientes, una por persona, solo con tus líneas; factor de refuerzo de ×1,5 a ×2,5 según la industria.
+scripts: "Suficiente" = la mitad de los puestos de trabajo (10 de 20); "recientemente" = los últimos 2 años de juego, las 20 llegadas más recientes, una por persona, solo con tus líneas; factor de refuerzo de ×1,5 a ×2,5 según la industria. Los transbordos cuentan; el modo del viaje debe ser Líneas, caminar desde una parada forma parte de ese viaje.
 result: refines
 ```

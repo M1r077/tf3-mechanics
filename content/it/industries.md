@@ -1,6 +1,6 @@
 ---
 title: Industrie
-summary: Regole di produzione, scorte, lotti ed espansione, carico booster, perché un'industria non è potenziata, e quando un'industria inutilizzata chiude davvero.
+summary: Regole di produzione, scorte, lotti ed espansione, perché un'industria non cresce o non è potenziata, quando chiude un'industria inutilizzata, e come compaiono nuove industrie.
 domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
@@ -9,6 +9,7 @@ fact: 5 anni | senza carico né consumo rendono un'industria candidata alla chiu
 fact: 1,1 % | di probabilità all'anno con Raramente (predefinito), poi 730 giorni di conto alla rovescia
 fact: +50–150 % | di bonus dal carico booster, fisso per ogni industria
 fact: 3 mesi | di bonus per lotto di carico booster
+fact: ×2/3 – ×1,5 | Densità industrie obiettivo: le nuove industrie non si possono disattivare
 ---
 
 Ogni industria funziona con **regole**: «prendi questo dalle scorte in entrata, metti quello nelle scorte in uscita», un numero fisso di volte all'anno. Le industrie primarie (miniere, fattorie, pozzi) non hanno bisogno di entrate; la loro dimensione viene dai **lotti**. Due bonus possono moltiplicare la produzione: il **carico booster** (solo industrie primarie) e i **lavoratori**.
@@ -37,9 +38,39 @@ Il motore esegue le regole. Può allungare un ciclo: il tooltip del ciclo mostra
 - Le industrie primarie e l'Allevamento di bestiame hanno **lotti** (campi, pozzi di miniera, torri). Il loro livello è il numero di lotti (`industryutil.lua:602-617`).
 - La regola cresce con i lotti: produzione per ciclo × lotti ÷ **tutti i lotti di quel tipo di industria**, arrotondato, almeno 1. Le entrate calano nella stessa proporzione (`industryutil.lua:225-259`). Una Miniera di carbone (8 tipi di lotto) con 4 lotti fa 8 carbone per ciclo invece di 16.
 - Ogni industria riceve un massimo: a caso tra metà dei lotti e tutti, oppure Piccola / Media / Grande (50 / 75 / 100 %) con il parametro **Dimensioni industria** (`industryutil.lua:519-537`). Una miniera con massimo 5 su 8 non raggiunge mai la regola completa.
-- Ogni sei mesi il gioco può aggiungere **un lotto** (`industries_config.res.lua:5`, `industries.script.tl:158-183`). La probabilità è (valutazione − 25 %) ÷ 50 %, con valutazione = valutazione di produzione × la quota della produzione che spedisci (al massimo 1): 25 % o meno mai, 75 % o più sempre (`industries.script.tl:172-176`).
+- Con Media, se il 75 % arrotondato dà tutti i lotti, il massimo è tutti i lotti meno uno (`industryutil.lua:523-526`). Una nuova industria parte con i lotti che il motore costruisce al piazzamento; il suo livello viene da questi (`industryutil.lua:602-617`).
+- Ogni sei mesi di **tempo di gioco** il gioco può aggiungere **un lotto** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Si usa mezzo anno standard, quindi la velocità del calendario non cambia la frequenza (vedi [Tempo di gioco e calendario](time.html)).
+- La probabilità è (valutazione − 25 %) ÷ 50 %, con valutazione = valutazione di produzione × la quota della produzione che spedisci (al massimo 1): 25 % o meno mai, 75 % o più sempre (`industries.script.tl:168-179`).
 - Quindi un'industria di cui non spedisci il carico **non cresce mai**. Le fabbriche non hanno lotti e non crescono mai.
 - Al massimo la finestra dice **L'industria ha raggiunto il suo massimo potenziale.**; se edifici, binari o strade sono d'intralcio, **L'industria non può espandersi ulteriormente.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). Nessuno script toglie lotti; secondo la wiki ufficiale i lotti demoliti abbassano la produzione.
+- Lo script di gioco salta le industrie di tua proprietà, quelle a sviluppo manuale e quelle in conto alla rovescia di chiusura: da lui non ricevono mai un lotto (`industries.script.tl:94-99`, `industries.script.tl:147-157`).
+
+Esempio, **Campo di disboscamento**: 20 lotti, 8 tronchi per ciclo, 30,4 cicli all'anno (`forest.con.lua:54-66`, `forest.con.lua:75-98`). Per ciclo fa 8 × lotti ÷ 20, arrotondato, almeno 1 (`industryutil.lua:231-241`):
+
+| Lotti (livello) | Tronchi per ciclo | Tronchi all'anno (Massimo, senza bonus, Produttività 100 %) |
+|---|---|---|
+| 1–3 | 1 | 30 |
+| 4–6 | 2 | 61 |
+| 7–8 | 3 | 91 |
+| 9–11 | 4 | 122 |
+| 12–13 | 5 | 152 |
+| 14–16 | 6 | 183 |
+| 17–18 | 7 | 213 |
+| 19–20 | 8 | 243 |
+
+La produzione cresce a gradini: un nuovo lotto non aumenta sempre la produzione.
+
+## Perché la mia industria non cresce?
+
+```diagram ind_growth
+```
+
+1. **Carico non spedito**: la valutazione conta la quota della produzione caricata sui tuoi veicoli. Con una valutazione di produzione del 100 %, spedire il 25 % o meno non dà alcuna probabilità, il 50 % una probabilità di metà, il 75 % o più un lotto ogni sei mesi.
+2. **Al massimo**: **L'industria ha raggiunto il suo massimo potenziale.** Il massimo viene estratto alla costruzione (da metà a tutti i lotti) e non cambia mai.
+3. **Bloccata**: **L'industria non può espandersi ulteriormente.** Togli strade, binari o edifici dal posto del prossimo lotto (mostrato nella finestra).
+4. **Non è un'industria primaria**: le fabbriche non hanno lotti.
+5. **Conto alla rovescia di chiusura**, di tua proprietà o a sviluppo manuale: nessuna crescita dallo script (sopra).
+6. **Nessuna produzione**: un'industria che non produce nulla nell'anno viene saltata (`industries.script.tl:168-171`).
 
 ```engine
 La valutazione di produzione (getProductionRating), la produzione annua e la quantità spedita (getCargoOutputPerYear, getCargoShippedPerYear), e dove va un nuovo lotto (makeIndustryExtendProposal) sono valori del motore.
@@ -109,12 +140,33 @@ Cosa conta come «caricato» e «consumato» (i registri itemsLoaded e itemsCons
 
 ## Nuove industrie
 
-- Il motore aggiunge industrie col tempo; gli script gli danno solo un tempo obiettivo di 50 anni, un esponente di 3 e nessuna nuova industria nell'editor di mappe (`mod.script.tl:166-168`). L'impostazione **Densità industrie obiettivo** la scala (`mod.script.tl:194-195`). La notifica è **Industria fondata** (`industry_spawn.res.lua:6`).
-- Il vantaggio aziendale **Prospezione risorse** cerca una nuova industria di quella risorsa vicino a una città: un tentativo al mese con probabilità dal 20 % al 60 %, per 6 mesi; se fallisce, il permesso torna (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+Il motore aggiunge nuove industrie durante la partita. La notifica è **Nuova industria fondata**: «Una stella dell'imprenditoria ha intravisto un'opportunità di profitto e ha fondato {industry}.» (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Nessuno script di gioco sceglie il posto, il tipo o il momento, e nessuno filtra ciò che il motore propone.
+
+Cosa danno gli script al motore (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+
+| Valore di configurazione | Valore | Significato |
+|---|---|---|
+| spawnTargetTimeSpan | 50 × 365,25 giorni standard | chiamato «tempo obiettivo»: 50 anni standard di tempo di gioco |
+| spawnProbabilityExponent | 3,0 | esponente della probabilità di comparsa (formula nel motore) |
+| spawnIndustries | spento nell'editor di mappe, acceso in partita | nessuna nuova industria nell'editor di mappe |
+| industryDensity | 1 × **Densità industrie obiettivo** | il numero obiettivo di industrie |
+| maxNumberPerArea, absoluteMinimum | 0,8 per km² (0,64 su console), 24 | usati anche dal generatore di mappe |
+
+**Densità industrie obiettivo** («Imposta l'obiettivo di densità delle industrie presenti sulla mappa.»): 5 gradini, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
+
+- Si trova nelle impostazioni avanzate, parte economia (`advanced_settings.tl:287-291`), e non fa parte delle preimpostazioni da Facile a Molto difficile (`difficulty_util.tl:90-199`).
+- Nel menu nuova partita, **Densità industrie** (le industrie all'inizio, stessi 5 fattori) imposta **Densità industrie obiettivo** allo stesso gradino (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Se le vuoi diverse, cambia poi l'obiettivo nelle impostazioni avanzate.
+- **Nessuna impostazione la disattiva**: il gradino più basso è ×2/3. Solo l'editor di mappe non ha nuove industrie. Le mod possono farlo.
+- Velocità: il tempo obiettivo è in giorni standard, come tutte le regole del tempo di gioco, quindi la velocità del calendario e un calendario in pausa non dovrebbero rallentarlo. I giocatori segnalano nuove industrie con il calendario in pausa (Steam).
+- Prospezione risorse (sotto) usa la stessa chiamata del motore con una città, quindi nel motore esiste una comparsa «vicino a una città» (`company.script.tl:202`). Anche il tutorial la usa (`tutorial_init.tl:23-24`).
 
 ```engine
-Dove e quando compare una nuova industria, e di che tipo, lo decide il motore (makeIndustrySpawnProposal).
+La formula dietro i 50 anni e l'esponente 3, come si conta la densità obiettivo (per area della mappa, per città?), quale tipo viene scelto e dove va (makeIndustrySpawnProposal) dipendono dal motore. Nessuno script spiega perché più industrie dello stesso tipo possono comparire vicine («nove miniere di carbone una accanto all'altra»), o perché alcune compaiono all'altro capo della mappa.
 ```
+
+### Prospezione risorse
+
+Il vantaggio aziendale **Prospezione risorse** cerca una nuova industria di quella risorsa vicino a una città che scegli: un tentativo al mese, con probabilità che sale dal 20 % al 60 %, per 6 mesi (`company_util.tl:14-17`, `company.script.tl:299-307`, `company.script.tl:130-142`). Se la risorsa ha più tipi di industria, vengono provati in ordine casuale (`company.script.tl:185-206`). Se tutti i tentativi falliscono, il permesso torna (`company.script.tl:106-110`).
 
 ## Buono a sapersi
 
@@ -122,10 +174,11 @@ Dove e quando compare una nuova industria, e di che tipo, lo decide il motore (m
 - Porta il carico booster alle miniere e fattorie più grandi: il lotto costa uguale, il bonus segue i lotti di terreno.
 - Le scorte non si deteriorano: puoi consegnare carico booster in anticipo, fino al limite della scorta (100).
 - I bonus aumentano rumore e inquinamento: una Miniera di carbone passa da 10 di inquinamento a 20 con un bonus e 30 con due (`coal_mine.con.lua:99-117`).
+- Meno nuove industrie: metti **Densità industrie obiettivo** al gradino più basso nelle impostazioni avanzate; non si può mettere a zero.
 - Con l'impostazione predefinita un'industria inutilizzata chiude di rado; con Regolarmente, carica qualcosa ogni tanto.
 
 ```check
 official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
-scripts: 5 anni, non 10, e la produzione non conta: solo il carico caricato su un veicolo o consumato. Dopo i 5 anni l'industria è solo candidata: ogni anno viene segnata con probabilità dall'1,1 % (Raramente) all'8,8 % (Regolarmente). Il conto alla rovescia dura 730 giorni, come detto. Il carico booster dà da +50 % a +150 % per industria, in lotti che durano 3 mesi.
+scripts: 5 anni, non 10, e la produzione non conta: solo il carico caricato su un veicolo o consumato. Dopo i 5 anni l'industria è solo candidata: ogni anno viene segnata con probabilità dall'1,1 % (Raramente) all'8,8 % (Regolarmente). Il conto alla rovescia dura 730 giorni, come detto. Il carico booster dà da +50 % a +150 % per industria, in lotti che durano 3 mesi. Nuove industrie: nessuna impostazione on/off, solo Densità industrie obiettivo da ×2/3 a ×1,5; nessuna nell'editor di mappe.
 result: differs
 ```

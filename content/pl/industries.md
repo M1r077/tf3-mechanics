@@ -1,6 +1,6 @@
 ---
 title: Przemysł
-summary: Reguły produkcji, zapasy, parcele i rozbudowa, towar premiujący, dlaczego zakład nie ma premii i kiedy nieużywany zakład naprawdę się zamyka.
+summary: Reguły produkcji, zapasy, parcele i rozbudowa, dlaczego zakład nie rośnie lub nie ma premii, kiedy nieużywany zakład się zamyka i jak pojawiają się nowe zakłady.
 domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
@@ -9,6 +9,7 @@ fact: 5 lat | bez załadunku i zużycia czyni zakład kandydatem do zamknięcia
 fact: 1,1 % | szansy na rok przy Rzadko (domyślne), potem 730 dni odliczania
 fact: +50–150 % | premii z towaru premiującego, stałej dla zakładu
 fact: 3 miesiące | premii z jednej partii towaru premiującego
+fact: ×2/3 – ×1,5 | Docelowe zagęszczenie przemysłu: nowych zakładów nie da się wyłączyć
 ---
 
 Każdy zakład działa według **reguł**: „weź to z zapasów wejściowych, połóż tamto w zapasach wyjściowych”, stałą liczbę razy w roku. Zakłady surowcowe (kopalnie, gospodarstwa, odwierty) nie potrzebują wejścia; ich wielkość zależy od **parcel**. Dwie premie mogą mnożyć produkcję: **towar premiujący** (tylko zakłady surowcowe) i **pracownicy**.
@@ -37,9 +38,39 @@ Silnik wykonuje reguły. Może wydłużyć cykl: podpowiedź cyklu pokazuje wted
 - Zakłady surowcowe i Hodowla bydła mają **parcele** (pola, szyby, wieże wiertnicze). Ich poziom to liczba parcel (`industryutil.lua:602-617`).
 - Reguła rośnie z parcelami: produkcja na cykl × parcele ÷ **wszystkie parcele tego typu zakładu**, zaokrąglone, co najmniej 1. Wejścia maleją w tej samej proporcji (`industryutil.lua:225-259`). Kopalnia węgla (8 typów parcel) z 4 parcelami robi 8 węgla na cykl zamiast 16.
 - Każdy zakład dostaje maksimum: losowo między połową parcel a wszystkimi, albo Mały / Średni / Duży (50 / 75 / 100 %) z parametrem **Wielkość zakładu** (`industryutil.lua:519-537`). Kopalnia z maksimum 5 z 8 nigdy nie osiąga pełnej reguły.
-- Co pół roku gra może dodać **jedną parcelę** (`industries_config.res.lua:5`, `industries.script.tl:158-183`). Szansa to (ocena − 25 %) ÷ 50 %, gdzie ocena = ocena produkcji × część produkcji, którą wywozisz (najwyżej 1): 25 % lub mniej nigdy, 75 % lub więcej zawsze (`industries.script.tl:172-176`).
+- Przy Średni, jeśli 75 % po zaokrągleniu daje wszystkie parcele, maksimum to wszystkie parcele minus jedna (`industryutil.lua:523-526`). Nowy zakład zaczyna z parcelami, które silnik buduje przy postawieniu; jego poziom wynika z nich (`industryutil.lua:602-617`).
+- Co pół roku **czasu gry** gra może dodać **jedną parcelę** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Używane jest pół standardowego roku, więc szybkość kalendarza nie zmienia częstotliwości (zobacz [Czas gry i kalendarz](time.html)).
+- Szansa to (ocena − 25 %) ÷ 50 %, gdzie ocena = ocena produkcji × część produkcji, którą wywozisz (najwyżej 1): 25 % lub mniej nigdy, 75 % lub więcej zawsze (`industries.script.tl:168-179`).
 - Zakład, którego towaru nie wywozisz, **nigdy więc nie rośnie**. Fabryki nie mają parcel i nigdy nie rosną.
 - Przy maksimum okno pisze **Zakład przemysłowy jest rozwinięty maksymalnie.**; gdy budynki, tory lub drogi przeszkadzają, **Dalszy rozwój zakładu przemysłowego jest zablokowany.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). Żaden skrypt nie usuwa parcel; według oficjalnej wiki zburzone parcele obniżają produkcję.
+- Skrypt gry pomija zakłady należące do ciebie, zakłady z ręcznym rozwojem i zakłady w odliczaniu do zamknięcia: nigdy nie dostają od niego parceli (`industries.script.tl:94-99`, `industries.script.tl:147-157`).
+
+Przykład, **Poręba**: 20 parcel, 8 drewna na cykl, 30,4 cyklu w roku (`forest.con.lua:54-66`, `forest.con.lua:75-98`). Na cykl robi 8 × parcele ÷ 20, zaokrąglone, co najmniej 1 (`industryutil.lua:231-241`):
+
+| Parcele (poziom) | Drewno na cykl | Drewno na rok (Maks., bez premii, Wydajność 100 %) |
+|---|---|---|
+| 1–3 | 1 | 30 |
+| 4–6 | 2 | 61 |
+| 7–8 | 3 | 91 |
+| 9–11 | 4 | 122 |
+| 12–13 | 5 | 152 |
+| 14–16 | 6 | 183 |
+| 17–18 | 7 | 213 |
+| 19–20 | 8 | 243 |
+
+Produkcja rośnie skokami: nowa parcela nie zawsze podnosi produkcję.
+
+## Dlaczego mój zakład nie rośnie?
+
+```diagram ind_growth
+```
+
+1. **Towar nie jest wywożony**: ocena liczy część produkcji załadowaną do twoich pojazdów. Przy ocenie produkcji 100 % wywóz 25 % lub mniej nie daje szansy, 50 % daje szansę połowy, 75 % lub więcej parcelę co pół roku.
+2. **Przy maksimum**: **Zakład przemysłowy jest rozwinięty maksymalnie.** Maksimum jest losowane przy budowie (od połowy do wszystkich parcel) i nigdy się nie zmienia.
+3. **Zablokowany**: **Dalszy rozwój zakładu przemysłowego jest zablokowany.** Usuń drogi, tory lub budynki z miejsca następnej parceli (pokazanego w oknie).
+4. **To nie zakład surowcowy**: fabryki nie mają parcel.
+5. **Odliczanie do zamknięcia**, zakład należy do ciebie lub ma ręczny rozwój: brak wzrostu ze skryptu (wyżej).
+6. **Brak produkcji**: zakład, który w roku nic nie wyprodukował, jest pomijany (`industries.script.tl:168-171`).
 
 ```engine
 Ocena produkcji (getProductionRating), roczna produkcja i wywieziona ilość (getCargoOutputPerYear, getCargoShippedPerYear) oraz miejsce nowej parceli (makeIndustryExtendProposal) to wartości silnika.
@@ -109,12 +140,33 @@ Co liczy się jako „załadowane” i „zużyte” (logi itemsLoaded i itemsCo
 
 ## Nowe zakłady
 
-- Silnik z czasem dodaje zakłady; skrypty dają mu tylko czas docelowy 50 lat, wykładnik 3 i brak nowych zakładów w edytorze map (`mod.script.tl:166-168`). Ustawienie **Docelowe zagęszczenie przemysłu** to skaluje (`mod.script.tl:194-195`). Powiadomienie to **Założono zakład przemysłowy** (`industry_spawn.res.lua:6`).
-- Atut firmy **Poszukiwania zasobu** szuka nowego zakładu tego zasobu koło miasta: jedna próba na miesiąc z szansą od 20 % do 60 %, przez 6 miesięcy; jeśli się nie uda, zezwolenie wraca (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+Silnik dodaje nowe zakłady w trakcie gry. Powiadomienie to **Założono nowy zakład przemysłowy**: „Śmiały przedsiębiorca wyczuł okazję do zarobku i założył zakład przemysłowy {industry}.” (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Żaden skrypt gry nie wybiera miejsca, typu ani czasu i żaden nie filtruje tego, co proponuje silnik.
+
+Co skrypty dają silnikowi (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+
+| Wartość konfiguracji | Wartość | Znaczenie |
+|---|---|---|
+| spawnTargetTimeSpan | 50 × 365,25 standardowych dni | nazwany „czasem docelowym”: 50 standardowych lat czasu gry |
+| spawnProbabilityExponent | 3,0 | wykładnik szansy pojawienia się (wzór w silniku) |
+| spawnIndustries | wył. w edytorze map, wł. w grze | brak nowych zakładów w edytorze map |
+| industryDensity | 1 × **Docelowe zagęszczenie przemysłu** | docelowa liczba zakładów |
+| maxNumberPerArea, absoluteMinimum | 0,8 na km² (0,64 na konsolach), 24 | używane też przez generator map |
+
+**Docelowe zagęszczenie przemysłu** („Ustaw docelowe zagęszczenie zakładów przemysłowych na mapie.”): 5 stopni, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
+
+- Jest w ustawieniach zaawansowanych, w części ekonomii (`advanced_settings.tl:287-291`), i nie należy do ustawień wstępnych od Niski do Bardzo wysoki (`difficulty_util.tl:90-199`).
+- W menu nowej gry **Zagęszczenie przemysłu** (zakłady na starcie, te same 5 mnożników) ustawia **Docelowe zagęszczenie przemysłu** na ten sam stopień (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Jeśli chcesz, by się różniły, zmień potem cel w ustawieniach zaawansowanych.
+- **Żadne ustawienie tego nie wyłącza**: najniższy stopień to ×2/3. Tylko edytor map nie ma nowych zakładów. Mody to potrafią.
+- Szybkość: czas docelowy jest w standardowych dniach, jak wszystkie reguły czasu gry, więc szybkość kalendarza ani wstrzymany kalendarz nie powinny go spowalniać. Gracze zgłaszają nowe zakłady przy wstrzymanym kalendarzu (Steam).
+- Poszukiwania zasobu (niżej) używają tego samego wywołania silnika z miastem, więc w silniku istnieje pojawienie się „koło miasta” (`company.script.tl:202`). Używa go też samouczek (`tutorial_init.tl:23-24`).
 
 ```engine
-Gdzie i kiedy pojawia się nowy zakład, i jakiego typu, decyduje silnik (makeIndustrySpawnProposal).
+Wzór stojący za 50 latami i wykładnikiem 3, sposób liczenia docelowego zagęszczenia (na obszar mapy, na miasto?), wybór typu i miejsca (makeIndustrySpawnProposal) zależą od silnika. Żaden skrypt nie wyjaśnia, dlaczego kilka zakładów jednego typu może pojawić się blisko siebie („dziewięć kopalni węgla obok siebie”) ani dlaczego niektóre pojawiają się na drugim końcu mapy.
 ```
+
+### Poszukiwania zasobu
+
+Atut firmy **Poszukiwania zasobu** szuka nowego zakładu tego zasobu koło wybranego przez ciebie miasta: jedna próba na miesiąc, z szansą rosnącą od 20 % do 60 %, przez 6 miesięcy (`company_util.tl:14-17`, `company.script.tl:299-307`, `company.script.tl:130-142`). Jeśli zasób ma kilka typów zakładów, są próbowane w losowej kolejności (`company.script.tl:185-206`). Jeśli wszystkie próby się nie udadzą, zezwolenie wraca (`company.script.tl:106-110`).
 
 ## Warto wiedzieć
 
@@ -122,10 +174,11 @@ Gdzie i kiedy pojawia się nowy zakład, i jakiego typu, decyduje silnik (makeIn
 - Dawaj towar premiujący największym kopalniom i gospodarstwom: partia kosztuje tyle samo, bonus rośnie z parcelami.
 - Zapasy się nie psują: możesz dostarczyć towar premiujący z góry, do limitu zapasu (100).
 - Premie zwiększają hałas i zanieczyszczenie: Kopalnia węgla przechodzi z 10 zanieczyszczenia na 20 z jedną premią i 30 z dwiema (`coal_mine.con.lua:99-117`).
+- Mniej nowych zakładów: ustaw **Docelowe zagęszczenie przemysłu** na najniższy stopień w ustawieniach zaawansowanych; nie da się ustawić zera.
 - Przy ustawieniu domyślnym nieużywany zakład zamyka się rzadko; przy Bardzo często ładuj coś od czasu do czasu.
 
 ```check
 official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
-scripts: 5 lat, nie 10, a produkcja się nie liczy: tylko towar załadowany do pojazdu lub zużyty. Po 5 latach zakład jest tylko kandydatem: co roku jest oznaczany z szansą od 1,1 % (Rzadko) do 8,8 % (Bardzo często). Odliczanie trwa 730 dni, jak podano. Towar premiujący daje od +50 % do +150 % na zakład, w partiach działających 3 miesiące.
+scripts: 5 lat, nie 10, a produkcja się nie liczy: tylko towar załadowany do pojazdu lub zużyty. Po 5 latach zakład jest tylko kandydatem: co roku jest oznaczany z szansą od 1,1 % (Rzadko) do 8,8 % (Bardzo często). Odliczanie trwa 730 dni, jak podano. Towar premiujący daje od +50 % do +150 % na zakład, w partiach działających 3 miesiące. Nowe zakłady: brak ustawienia wł./wył., tylko Docelowe zagęszczenie przemysłu od ×2/3 do ×1,5; żadnych w edytorze map.
 result: differs
 ```

@@ -4,7 +4,7 @@ summary: Hoe inwoners een baan bij een industriebedrijf krijgen, welke meetellen
 domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 10 / 20 | werknemers nodig voor de boost
 fact: 2 jaar | zo lang telt een aankomst mee
 fact: ×1,5–2,5 | boostfactor, vast per industriebedrijf
@@ -63,15 +63,53 @@ Een steenkolenmijn met 20 werkplekken en "+84 %".
 | 12 verschillende inwoners kwamen dit jaar met de bus | 12 | ja (≥ 10) | ×1,84 |
 | Buslijn verwijderd; 2 jaar lang komt niemand | zakt naar 0 | stopt | ×1 |
 
+## Werknemers naar een industriebedrijf brengen
+
+```diagram workers_trip
+```
+
+- Een werknemer telt mee als hij **bij het bedrijf zelf aankomt**, het doel van zijn reis (`targetOrAtEntity`) het bedrijf is en zijn laatste vervoerswijze **Lijnen** is (`industry_workers.script.tl:86-94`). Uitstappen bij een halte is niet genoeg: de persoon moet het bedrijf bereiken.
+- Elke inwoner heeft één vervoerswijze per bestemming (woning, winkel, baan). Het industrievenster toont de toegewezen werknemers met een icoon voor deze wijze: **Stap**, **Auto** of **Lijnen** (`entity_window_util.tl:1400-1435`). Voor een bedrijf zou het altijd Lijnen moeten zijn, omdat lopen en auto daar niet zijn toegestaan (`industryutil.lua:451-457`).
+- „Niet lopen” betekent dus dat de hele reis geen wandeling of autorit mag zijn. Het betekent niet „helemaal niet lopen”: een reis met Lijnen begint en eindigt nog steeds te voet tussen de haltes en de gebouwen (zie de engine-notitie hieronder).
+- **Overstappen telt.** Het script kijkt alleen naar de wijze van de reis, niet naar hoeveel lijnen gebruikt zijn (`industry_workers.script.tl:91`). Een werknemer uit een stad vier lijnen verderop telt net zo als een van naast de deur, maar kan veel langer over de reis doen.
+- **Elk van jouw lijnen kan ze brengen**, ook een lijn die vracht vervoert, zolang de voertuigen passagiers meenemen en de halte passagiers laadt. Het script controleert het voertuigtype niet (`industry_workers.script.tl:86-118`). Spelers melden minder problemen met aparte passagierslijnen.
+- Sommige bedrijven (bijvoorbeeld olieplatforms) hebben een eigen ingebouwde halte, die passagiers en vracht neemt (`industryutil.lua:156-165`).
+- Het industrievenster toont voor elke toegewezen werknemer of hij **Momenteel hier** of **Onderweg** is (`entity_window_util.tl:1371-1384`). Het onderdeel Booster toont de getelde werknemers met hun **Resterende tijd** van de 2 jaar (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- Een bedrijf zonder werknemers toont: "Sluit deze locatie aan op het openbaar vervoer, zodat de inwoners er kunnen gaan werken." (`entity_window_util.tl:1650-1652`).
+
+```engine
+Welke halte een bedrijf bedient, hoe ver een werknemer van een halte naar de ingang van het bedrijf loopt, en de inwoners van welke steden de baan nemen, beslist de engine (verzorgingsgebieden, routebepaling, baankeuze). De scripts stellen geen afstandsgrens voor werknemers. Spelers melden dat een station waarvan het verzorgingsgebied het bedrijf voor vracht dekte, geen werknemers bracht tot er een bus naar de ingang van het bedrijf reed (Steam-topic "Problem getting workers to site").
+```
+
+## Subsidie Werknemers vervoeren
+
+- Hij wordt alleen aangeboden voor een bedrijf dat vracht verstuurt of ontvangt en nog geen boost heeft (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Hij is voltooid zodra de werknemersboost actief wordt: dezelfde 10 van 20 verschillende aankomsten met jouw lijnen (`deliver_workers.script.tl:152-156`). Er telt niets anders; er is geen verborgen regel.
+- De voortgangsbalk op de contractkaart is "getelde werknemers ÷ de helft van de werkplekken" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
+- De pijlen op de contractkaart komen van de **5 dichtstbijzijnde steden**. Ze zijn alleen een hint: het script tekent ze op afstand, niet op wie de baan heeft (`deliver_workers.script.tl:297-317`).
+- Zie [Subsidies: aanbiedingen, termijnen en beloningen](subsidies.html) voor geld en termijn.
+
+## Waarom komen mijn werknemers niet aan?
+
+| Controle | Waar kijken | Waarom |
+|---|---|---|
+| Heeft iemand de baan? | Werkplekkenbalk ("12/20") | Zonder toegewezen werknemers reist niemand. De baankeuze ligt bij de engine. |
+| Wijze-icoon van de werknemers | Werknemerslijst: Stap / Auto / Lijnen | Alleen reizen met Lijnen kunnen meetellen (`industry_workers.script.tl:91`). |
+| Zijn ze onderweg? | **Onderweg** / **Momenteel hier** | Lang "Onderweg": trage of overvolle overstappen, of geen route vanaf de laatste halte. |
+| Bereikt de laatste halte de ingang van het bedrijf? | Verzorgingsgebied van de halte, toegangsweg | Gemeld door spelers; ligt bij de engine. Een korte bus naar de ingang hielp. |
+| Laadt de halte passagiers? | Lijnhalte, Vrachtfilter | Passagiers moeten aan beide kanten van de reis geladen en gelost worden. |
+| 10 **verschillende** personen in 2 jaar? | Onderdeel Booster, **Resterende tijd** | Dezelfde persoon telt één keer; oudere aankomsten vallen af (`industry_workers.script.tl:56-70`). |
+| Meer dan 40 werkplekken (mods)? | Werkplekkenbalk | Kan met 20 bewaarde aankomsten nooit de helft halen. |
+
 ## Goed om te weten
 
 - De grens van 20 bewaarde aankomsten en de 50%-regel betekenen dat een industriebedrijf met **meer dan 40 werkplekken** (mogelijk met mods) nooit een werknemersboost zou kunnen krijgen.
-- De subsidie "Werknemers vervoeren" is voltooid zodra deze boost actief wordt (officiële wiki, Subsidies).
+- De subsidie **Werknemers vervoeren** is voltooid zodra deze boost actief wordt (`deliver_workers.script.tl:152-156`).
 - Boostervracht (kunstmest, machines, gereedschap) is een **aparte** boost van grondstofbedrijven en valt buiten deze pagina.
 - De mod [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) toont in het industrievenster uit welke steden de toegewezen en de boostwerknemers komen, met pijlen op de kaart.
 
 ```check
 official: "If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))
-scripts: "Voldoende" = de helft van de werkplekken (10 van 20); "recent" = de laatste 2 speljaren, de laatste 20 aankomsten, één per persoon, alleen met jouw lijnen; boostfactor ×1,5 tot ×2,5 per industriebedrijf.
+scripts: "Voldoende" = de helft van de werkplekken (10 van 20); "recent" = de laatste 2 speljaren, de laatste 20 aankomsten, één per persoon, alleen met jouw lijnen; boostfactor ×1,5 tot ×2,5 per industriebedrijf. Overstappen telt; de reiswijze moet Lijnen zijn, en lopen vanaf een halte hoort bij zo'n reis.
 result: refines
 ```

@@ -4,7 +4,7 @@ summary: Come i residenti trovano lavoro in un'industria, quali contano per il b
 domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 10 / 20 | lavoratori necessari per il booster
 fact: 2 anni | per quanto tempo conta un arrivo
 fact: ×1,5–2,5 | fattore del booster, fisso per ogni industria
@@ -63,15 +63,53 @@ Una miniera di carbone con 20 luoghi di lavoro e "+84%".
 | 12 residenti diversi sono arrivati in autobus quest'anno | 12 | sì (≥ 10) | ×1,84 |
 | Linea di autobus rimossa; nessuno arriva per 2 anni | scende a 0 | si disattiva | ×1 |
 
+## Portare i lavoratori a un'industria
+
+```diagram workers_trip
+```
+
+- Un lavoratore viene contato quando **arriva all'industria** stessa, la meta del suo viaggio (`targetOrAtEntity`) è l'industria e il suo ultimo modo di spostamento è **Linee** (`industry_workers.script.tl:86-94`). Scendere a una fermata non basta: la persona deve raggiungere l'industria.
+- Ogni residente ha un modo di spostamento per destinazione (casa, negozio, lavoro). La finestra dell'industria elenca i lavoratori assegnati con un'icona per questo modo: **Cammina**, **Auto** o **Linee** (`entity_window_util.tl:1400-1435`). Per un'industria dovrebbe essere sempre Linee, perché a piedi e in auto lì non è permesso (`industryutil.lua:451-457`).
+- Quindi "niente a piedi" vuol dire che l'intero viaggio non può essere a piedi o in auto. Non vuol dire "mai a piedi": un viaggio con Linee inizia e finisce comunque a piedi tra le fermate e gli edifici (vedi la nota sul motore sotto).
+- **I cambi contano.** Lo script guarda solo il modo del viaggio, non quante linee sono state usate (`industry_workers.script.tl:91`). Un lavoratore da una città a quattro linee di distanza conta come uno della porta accanto, ma può metterci molto di più ad arrivare.
+- **Qualsiasi tua linea può portarli**, anche una linea che trasporta merci, purché i suoi veicoli prendano passeggeri e la fermata carichi passeggeri. Lo script non controlla il tipo di veicolo (`industry_workers.script.tl:86-118`). I giocatori segnalano meno problemi con linee passeggeri separate.
+- Alcune industrie (per esempio le piattaforme petrolifere) hanno una fermata integrata, che prende passeggeri e merci (`industryutil.lua:156-165`).
+- La finestra dell'industria mostra, per ogni lavoratore assegnato, se è **In posizione** o **In viaggio** (`entity_window_util.tl:1371-1384`). La sezione Booster elenca i lavoratori contati con il loro **Tempo rimanente** sui 2 anni (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- Un'industria senza ancora nessun lavoratore mostra: "Collega questo luogo al trasporto pubblico per consentire ai residenti di lavorare qui." (`entity_window_util.tl:1650-1652`).
+
+```engine
+Quale fermata serve un'industria, quanto cammina un lavoratore da una fermata all'ingresso dell'industria, e i residenti di quali città prendono il lavoro sono decisi dal motore (bacini di utenza, ricerca del percorso, scelta del lavoro). Gli script non fissano alcun limite di distanza per i lavoratori. I giocatori segnalano che una stazione il cui bacino copriva l'industria per le merci non portava lavoratori finché un autobus non è andato fino all'ingresso dell'industria (discussione Steam "Problem getting workers to site").
+```
+
+## Commessa Trasporto di forza lavoro
+
+- Viene offerta solo per un'industria che spedisce o riceve merci e non ha ancora il booster (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Viene completata quando il booster dei lavoratori si attiva: gli stessi 10 arrivi diversi su 20 con le tue linee (`deliver_workers.script.tl:152-156`). Non si conta nient'altro; non c'è una regola nascosta.
+- La barra di avanzamento sulla scheda del contratto è "lavoratori contati ÷ metà dei luoghi di lavoro" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
+- Le frecce sulla mappa del contratto partono dalle **5 città più vicine**. Sono solo un indizio: lo script le disegna per distanza, non in base a chi ha il lavoro (`deliver_workers.script.tl:297-317`).
+- Vedi [Commesse: offerte, scadenze e ricompense](subsidies.html) per soldi e scadenza.
+
+## Perché i miei lavoratori non arrivano?
+
+| Controllo | Dove guardare | Perché |
+|---|---|---|
+| Qualcuno ha il lavoro? | Barra dei luoghi di lavoro ("12/20") | Senza lavoratori assegnati nessuno viaggia. La scelta del lavoro dipende dal motore. |
+| Icona del modo dei lavoratori | Elenco lavoratori: Cammina / Auto / Linee | Contano solo i viaggi con Linee (`industry_workers.script.tl:91`). |
+| Si stanno muovendo? | **In viaggio** / **In posizione** | "In viaggio" a lungo: cambi lenti o sovraccarichi, o nessun percorso dall'ultima fermata. |
+| L'ultima fermata raggiunge l'ingresso dell'industria? | Bacino della fermata, strada d'ingresso | Segnalato dai giocatori; dipende dal motore. Un breve autobus fino all'ingresso ha aiutato. |
+| La fermata carica passeggeri? | Fermata della linea, Filtro carico | I passeggeri devono essere caricati e scaricati a entrambi i capi del viaggio. |
+| 10 persone **diverse** in 2 anni? | Sezione Booster, **Tempo rimanente** | La stessa persona conta una volta; gli arrivi più vecchi escono (`industry_workers.script.tl:56-70`). |
+| Più di 40 luoghi di lavoro (mod)? | Barra dei luoghi di lavoro | Con 20 arrivi conservati non può mai arrivare a metà. |
+
 ## Da sapere
 
 - Il limite di 20 arrivi conservati e la regola del 50% fanno sì che un'industria con **più di 40 luoghi di lavoro** (possibile con le mod) non possa mai ricevere il booster dei lavoratori.
-- La commessa "Trasporto di forza lavoro" viene completata quando questo booster si attiva (wiki ufficiale, Subsidies).
+- La commessa **Trasporto di forza lavoro** viene completata quando questo booster si attiva (`deliver_workers.script.tl:152-156`).
 - Le merci booster (fertilizzanti, macchinari, strumenti) sono un booster **separato** delle industrie di materie prime, non trattato qui.
 - La mod [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) mostra, nella finestra dell'industria, da quali cittadine provengono i lavoratori assegnati e quelli del booster, con frecce sulla mappa.
 
 ```check
 official: "If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))
-scripts: "Sufficient" = metà dei luoghi di lavoro (10 su 20); "recently" = gli ultimi 2 anni di gioco, i 20 arrivi più recenti, uno per persona, solo con le tue linee; fattore del booster da ×1,5 a ×2,5 a seconda dell'industria.
+scripts: "Sufficient" = metà dei luoghi di lavoro (10 su 20); "recently" = gli ultimi 2 anni di gioco, i 20 arrivi più recenti, uno per persona, solo con le tue linee; fattore del booster da ×1,5 a ×2,5 a seconda dell'industria. I cambi contano; il modo del viaggio deve essere Linee, e camminare da una fermata fa parte di un tale viaggio.
 result: refines
 ```

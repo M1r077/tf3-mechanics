@@ -1,6 +1,6 @@
 ---
 title: Indústrias
-summary: Regras de produção, estoques, lotes e expansão, carga de reforço, por que uma indústria não tem reforço e quando uma indústria sem uso fecha de verdade.
+summary: Regras de produção, estoques, lotes e expansão, por que uma indústria não cresce ou não tem reforço, quando uma indústria sem uso fecha e como surgem novas indústrias.
 domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
@@ -9,6 +9,7 @@ fact: 5 anos | sem carregamento nem consumo tornam uma indústria candidata ao f
 fact: 1,1 % | de chance por ano em Raramente (padrão), depois 730 dias de contagem regressiva
 fact: +50–150 % | de reforço pela carga de reforço, fixo por indústria
 fact: 3 meses | de reforço por lote de carga de reforço
+fact: ×2/3 – ×1,5 | Densidade-Alvo da Indústria: não é possível desligar as novas indústrias
 ---
 
 Cada indústria funciona por **regras**: “pegue isto da entrada dos estoques, coloque aquilo na saída dos estoques”, um número fixo de vezes por ano. As indústrias primárias (minas, fazendas, poços) não precisam de entrada; o tamanho delas vem dos **lotes**. Dois reforços podem multiplicar a produção: a **carga de reforço** (só indústrias primárias) e os **trabalhadores**.
@@ -37,9 +38,39 @@ O motor executa as regras. Ele pode alongar um ciclo: a dica do ciclo mostra ent
 - As indústrias primárias e a Fazenda Pecuária têm **lotes** (campos, poços de mina, torres). O nível delas é o número de lotes (`industryutil.lua:602-617`).
 - A regra cresce com os lotes: produção por ciclo × lotes ÷ **todos os lotes desse tipo de indústria**, arredondado, no mínimo 1. As entradas caem na mesma proporção (`industryutil.lua:225-259`). Uma Mina de Carvão (8 tipos de lote) com 4 lotes faz 8 carvão por ciclo em vez de 16.
 - Cada indústria recebe um máximo: ao acaso entre metade dos lotes e todos, ou Pequena / Média / Grande (50 / 75 / 100 %) com o parâmetro **Tamanho da Indústria** (`industryutil.lua:519-537`). Uma mina com máximo de 5 de 8 nunca chega à regra completa.
-- A cada meio ano o jogo pode adicionar **um lote** (`industries_config.res.lua:5`, `industries.script.tl:158-183`). A chance é (nota − 25 %) ÷ 50 %, com nota = nota de produção × a parte da produção que você transporta (no máximo 1): 25 % ou menos nunca, 75 % ou mais sempre (`industries.script.tl:172-176`).
+- Com Média, se 75 % arredonda para todos os lotes, o máximo é todos os lotes menos um (`industryutil.lua:523-526`). Uma indústria nova começa com os lotes que o motor constrói na colocação; o nível dela vem deles (`industryutil.lua:602-617`).
+- A cada meio ano de **tempo de jogo** o jogo pode adicionar **um lote** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Usa-se meio ano padrão, então a velocidade do calendário não muda a frequência (veja [Tempo de jogo e calendário](time.html)).
+- A chance é (nota − 25 %) ÷ 50 %, com nota = nota de produção × a parte da produção que você transporta (no máximo 1): 25 % ou menos nunca, 75 % ou mais sempre (`industries.script.tl:168-179`).
 - Então uma indústria cuja carga você não transporta **nunca cresce**. Fábricas não têm lotes e nunca crescem.
 - No máximo a janela diz **A indústria está expandida ao seu potencial máximo.**; quando prédios, trilhos ou estradas atrapalham, **A indústria está bloqueada de expansão adicional.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). Nenhum script remove lotes; segundo a wiki oficial, lotes demolidos reduzem a produção.
+- O script do jogo pula as indústrias que pertencem a você, as de desenvolvimento manual e as que estão em contagem regressiva de fechamento: elas nunca recebem lote dele (`industries.script.tl:94-99`, `industries.script.tl:147-157`).
+
+Exemplo, **Acampamento de Madeireira**: 20 lotes, 8 troncos por ciclo, 30,4 ciclos por ano (`forest.con.lua:54-66`, `forest.con.lua:75-98`). Por ciclo ele faz 8 × lotes ÷ 20, arredondado, no mínimo 1 (`industryutil.lua:231-241`):
+
+| Lotes (nível) | Troncos por ciclo | Troncos por ano (Máx., sem reforço, Produtividade 100 %) |
+|---|---|---|
+| 1–3 | 1 | 30 |
+| 4–6 | 2 | 61 |
+| 7–8 | 3 | 91 |
+| 9–11 | 4 | 122 |
+| 12–13 | 5 | 152 |
+| 14–16 | 6 | 183 |
+| 17–18 | 7 | 213 |
+| 19–20 | 8 | 243 |
+
+A produção cresce em degraus: um lote novo nem sempre aumenta a produção.
+
+## Por que minha indústria não cresce?
+
+```diagram ind_growth
+```
+
+1. **Carga não transportada**: a nota conta a parte da produção carregada nos seus veículos. Com nota de produção de 100 %, transportar 25 % ou menos não dá chance, 50 % dá chance de metade, 75 % ou mais dá um lote a cada meio ano.
+2. **No máximo**: **A indústria está expandida ao seu potencial máximo.** O máximo é sorteado na construção (de metade a todos os lotes) e nunca muda.
+3. **Bloqueada**: **A indústria está bloqueada de expansão adicional.** Remova as estradas, trilhos ou prédios no lugar do próximo lote (mostrado na janela).
+4. **Não é uma indústria primária**: fábricas não têm lotes.
+5. **Contagem regressiva de fechamento**, indústria sua ou desenvolvimento manual: o script não faz crescer (acima).
+6. **Sem produção**: uma indústria que não produz nada no ano é pulada (`industries.script.tl:168-171`).
 
 ```engine
 A nota de produção (getProductionRating), a produção anual e a quantidade transportada (getCargoOutputPerYear, getCargoShippedPerYear), e onde vai um novo lote (makeIndustryExtendProposal) são valores do motor.
@@ -109,12 +140,33 @@ O que conta como “carregado” e “consumido” (os registros itemsLoaded e i
 
 ## Novas indústrias
 
-- O motor adiciona indústrias com o tempo; os scripts só lhe dão um tempo-alvo de 50 anos, um expoente de 3 e nenhuma indústria nova no editor de mapas (`mod.script.tl:166-168`). A configuração **Densidade-Alvo da Indústria** ajusta isso (`mod.script.tl:194-195`). A notificação é **Indústria Fundada** (`industry_spawn.res.lua:6`).
-- A vantagem de empresa **Prospecção por recursos** procura uma nova indústria desse recurso perto de um município: uma tentativa por mês com chance de 20 % a 60 %, por 6 meses; se falhar, a licença volta (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+O motor adiciona novas indústrias durante o jogo. A notificação é **Nova Indústria Fundada**: “Um empreendedor visionário identificou uma possibilidade de lucro e fundou: {industry}.” (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Nenhum script do jogo escolhe o lugar, o tipo ou o momento, e nenhum filtra o que o motor propõe.
+
+O que os scripts dão ao motor (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+
+| Valor de configuração | Valor | Significado |
+|---|---|---|
+| spawnTargetTimeSpan | 50 × 365,25 dias padrão | chamado de “tempo-alvo”: 50 anos padrão de tempo de jogo |
+| spawnProbabilityExponent | 3,0 | expoente da chance de surgimento (fórmula no motor) |
+| spawnIndustries | desligado no editor de mapas, ligado num jogo | nenhuma indústria nova no editor de mapas |
+| industryDensity | 1 × **Densidade-Alvo da Indústria** | o número-alvo de indústrias |
+| maxNumberPerArea, absoluteMinimum | 0,8 por km² (0,64 em consoles), 24 | também usados pelo gerador de mapas |
+
+**Densidade-Alvo da Indústria** (“Ajusta a densidade-alvo das indústrias no mapa.”): 5 níveis, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
+
+- Fica nas configurações avançadas, parte de economia (`advanced_settings.tl:287-291`), e não faz parte das predefinições Fácil … Muito Difícil (`difficulty_util.tl:90-199`).
+- No menu de novo jogo, **Densidade de Indústrias** (as indústrias no início, mesmos 5 fatores) põe **Densidade-Alvo da Indústria** no mesmo nível (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Mude o alvo depois nas configurações avançadas se quiser valores diferentes.
+- **Nenhuma configuração desliga isso**: o nível mais baixo é ×2/3. Só o editor de mapas não tem indústrias novas. Mods podem.
+- Velocidade: o tempo-alvo está em dias padrão, como todas as regras de tempo de jogo, então a velocidade do calendário e um calendário pausado não deveriam atrasá-lo. Jogadores relatam indústrias novas com o calendário pausado (Steam).
+- A Prospecção por recursos (abaixo) usa a mesma chamada do motor com um município, então um surgimento “perto de um município” existe no motor (`company.script.tl:202`). O tutorial também a usa (`tutorial_init.tl:23-24`).
 
 ```engine
-Onde e quando aparece uma indústria nova, e de que tipo, é decidido pelo motor (makeIndustrySpawnProposal).
+A fórmula por trás dos 50 anos e do expoente 3, como a densidade-alvo é contada (por área do mapa, por município?), qual tipo é escolhido e onde ele vai (makeIndustrySpawnProposal) dependem do motor. Nenhum script explica por que várias indústrias de um tipo podem aparecer juntas (“nove minas de carvão lado a lado”), nem por que algumas aparecem do outro lado do mapa.
 ```
+
+### Prospecção por recursos
+
+A vantagem de empresa **Prospecção por recursos** procura uma nova indústria desse recurso perto de um município que você escolhe: uma tentativa por mês, com chance subindo de 20 % a 60 %, por 6 meses (`company_util.tl:14-17`, `company.script.tl:299-307`, `company.script.tl:130-142`). Se o recurso tem vários tipos de indústria, eles são tentados em ordem aleatória (`company.script.tl:185-206`). Se todas as tentativas falharem, a licença volta (`company.script.tl:106-110`).
 
 ## Bom saber
 
@@ -122,10 +174,11 @@ Onde e quando aparece uma indústria nova, e de que tipo, é decidido pelo motor
 - Leve carga de reforço às maiores minas e fazendas: o lote custa o mesmo, o bônus acompanha os lotes de terreno.
 - Os estoques não se estragam: você pode entregar carga de reforço adiantada, até o limite do estoque (100).
 - Os reforços aumentam ruído e poluição: uma Mina de Carvão vai de 10 de poluição para 20 com um reforço e 30 com dois (`coal_mine.con.lua:99-117`).
+- Menos indústrias novas: ponha **Densidade-Alvo da Indústria** no nível mais baixo nas configurações avançadas; não dá para zerar.
 - Na configuração padrão uma indústria sem uso fecha raramente; em Muito Frequentemente, carregue algo de vez em quando.
 
 ```check
 official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
-scripts: 5 anos, não 10, e a produção não conta: só a carga carregada num veículo ou consumida. Depois dos 5 anos a indústria é só candidata: a cada ano é marcada com chance de 1,1 % (Raramente) a 8,8 % (Muito Frequentemente). A contagem dura 730 dias, como dito. A carga de reforço dá +50 % a +150 % por indústria, em lotes que duram 3 meses.
+scripts: 5 anos, não 10, e a produção não conta: só a carga carregada num veículo ou consumida. Depois dos 5 anos a indústria é só candidata: a cada ano é marcada com chance de 1,1 % (Raramente) a 8,8 % (Muito Frequentemente). A contagem dura 730 dias, como dito. A carga de reforço dá +50 % a +150 % por indústria, em lotes que duram 3 meses. Novas indústrias: nenhuma configuração liga/desliga, só Densidade-Alvo da Indústria de ×2/3 a ×1,5; nenhuma no editor de mapas.
 result: differs
 ```

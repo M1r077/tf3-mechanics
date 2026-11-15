@@ -4,7 +4,7 @@ summary: How residents get a job at an industry, which ones count for the boost,
 domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 10 / 20 | workers needed for the boost
 fact: 2 years | how long an arrival counts
 fact: ×1.5–2.5 | boost factor, fixed per industry
@@ -63,15 +63,53 @@ A coal mine with 20 workplaces and "+84 %".
 | 12 different residents arrived by bus this year | 12 | yes (≥ 10) | ×1.84 |
 | Bus line removed; nobody arrives for 2 years | drops to 0 | stops | ×1 |
 
+## Getting workers to an industry
+
+```diagram workers_trip
+```
+
+- A worker is counted when it **arrives at the industry** itself, its trip target (`targetOrAtEntity`) is the industry and its last move mode is **Lines** (`industry_workers.script.tl:86-94`). Getting off at a stop is not enough: the person must reach the industry.
+- Each resident has one move mode per destination (home, shop, job). The industry window lists the assigned workers with an icon for this mode: **Walk**, **Car** or **Lines** (`entity_window_util.tl:1400-1435`). For an industry it should always be Lines, because Walk and Car are not allowed there (`industryutil.lua:451-457`).
+- So "no walking" means the whole trip cannot be a walk or a car trip. It does not mean "no walking at all": a Lines trip still starts and ends on foot between the stops and the buildings (see the engine note below).
+- **Transfers count.** The script only looks at the mode of the trip, not at how many lines were used (`industry_workers.script.tl:91`). A worker from a town four lines away counts the same as one from next door, but may take much longer to arrive.
+- **Any of your lines can bring them**, also a line that carries cargo, as long as its vehicles take passengers and the stop loads passengers. The script does not check the vehicle type (`industry_workers.script.tl:86-118`). Players report fewer problems with separate passenger lines.
+- Some industries (for example oil rigs) have their own built-in stop, which takes passengers and cargo (`industryutil.lua:156-165`).
+- The industry window shows, for each assigned worker, whether it is **Currently Here** or **On the Way** (`entity_window_util.tl:1371-1384`). The Booster section lists the counted workers with their **Time Left** of the 2 years (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- An industry with no worker yet shows: "Connect this location with public transport to allow residents to work here." (`entity_window_util.tl:1650-1652`).
+
+```engine
+Which stop serves an industry, how far a worker walks from a stop to the industry entrance, and which towns' residents take the job are decided by the engine (catchment areas, path finding, job choice). The scripts set no distance limit for workers. Players report that a station whose catchment area covers the industry for cargo did not bring workers until a bus ran to the industry entrance (Steam thread "Problem getting workers to site").
+```
+
+## Transport Workers subsidy
+
+- It is offered only for an industry that ships or receives cargo and is not boosted yet (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- It is completed when the workers boost becomes active: the same 10 of 20 different arrivals by your lines (`deliver_workers.script.tl:152-156`). Nothing else is counted; there is no hidden rule.
+- The progress bar on the contract card is "counted workers ÷ half the workplaces" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
+- The arrows on the contract map come from the **5 nearest towns**. They are only a hint: the script draws them by distance, not by who has the job (`deliver_workers.script.tl:297-317`).
+- See [Subsidies](subsidies.html) for money and deadline.
+
+## Why don't my workers arrive?
+
+| Check | Where to look | Why |
+|---|---|---|
+| Does anyone have the job? | Workplaces bar ("12/20") | Without assigned workers nobody travels. Job choice is engine-side. |
+| Mode icon of the workers | Workers list: Walk / Car / Lines | Only trips by Lines can count (`industry_workers.script.tl:91`). |
+| Are they moving? | **On the Way** / **Currently Here** | "On the Way" for a long time: slow or overloaded transfers, or no path from the last stop. |
+| Does the last stop reach the industry entrance? | Stop catchment, entrance road | Reported by players; engine-side. A short bus to the entrance helped. |
+| Does the stop load passengers? | Line stop, Cargo Filter | Passengers must be loaded and unloaded at both ends of the trip. |
+| 10 **different** people in 2 years? | Booster section, **Time Left** | The same person counts once; older arrivals drop out (`industry_workers.script.tl:56-70`). |
+| More than 40 workplaces (mods)? | Workplaces bar | Can never reach half with 20 kept arrivals. |
+
 ## Good to know
 
 - The cap of 20 kept arrivals and the 50 % rule mean that an industry with **more than 40 workplaces** (possible with mods) could never be boosted by workers.
-- The subsidy "Transport workers" is completed when this boost activates (official wiki, Subsidies).
+- The **Transport Workers** subsidy is completed when this boost activates (`deliver_workers.script.tl:152-156`).
 - Booster cargo (fertilizer, machines, tools) is a **separate** boost of raw industries, not covered here.
 - The [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) mod shows, in the industry window, which towns the assigned and boost workers come from, with arrows on the map.
 
 ```check
 official: "If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))
-scripts: "Sufficient" = half of the workplaces (10 of 20); "recently" = the last 2 game years, latest 20 arrivals, one per person, by your lines only; boost factor ×1.5 to ×2.5 per industry.
+scripts: "Sufficient" = half of the workplaces (10 of 20); "recently" = the last 2 game years, latest 20 arrivals, one per person, by your lines only; boost factor ×1.5 to ×2.5 per industry. Transfers count; the trip mode must be Lines, walking from a stop is part of such a trip.
 result: refines
 ```

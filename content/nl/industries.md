@@ -1,6 +1,6 @@
 ---
 title: Industrie
-summary: Productieregels, voorraden, percelen en uitbreiding, boostervracht, waarom een industriebedrijf geen boost heeft, en wanneer een ongebruikt bedrijf echt sluit.
+summary: Productieregels, voorraden, percelen en uitbreiding, waarom een industriebedrijf niet groeit of geen boost heeft, wanneer een ongebruikt bedrijf sluit, en hoe nieuwe bedrijven verschijnen.
 domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
@@ -9,6 +9,7 @@ fact: 5 jaar | zonder laden of verbruik maken een bedrijf kandidaat voor sluitin
 fact: 1,1 % | kans per jaar bij Zelden (standaard), daarna 730 dagen aftellen
 fact: +50–150 % | bonus van boostervracht, vast per bedrijf
 fact: 3 maanden | bonus per partij boostervracht
+fact: ×2/3 – ×1,5 | Doeldichtheid industriebedrijven: nieuwe bedrijven kun je niet uitzetten
 ---
 
 Elk industriebedrijf werkt met **regels**: „neem dit uit de invoervoorraad, leg dat in de uitvoervoorraad”, een vast aantal keer per jaar. Grondstofbedrijven (mijnen, boerderijen, bronnen) hebben geen invoer nodig; hun grootte komt van hun **percelen**. Twee boosts kunnen de productie vermenigvuldigen: **boostervracht** (alleen grondstofbedrijven) en **arbeiders**.
@@ -37,9 +38,39 @@ De engine voert de regels uit. Hij kan een ronde langer maken: de tooltip toont 
 - Grondstofbedrijven en het Veeteeltbedrijf hebben **percelen** (velden, mijnschachten, boortorens). Hun niveau is hun aantal percelen (`industryutil.lua:602-617`).
 - De regel groeit met de percelen: productie per ronde × percelen ÷ **alle percelen van dat bedrijfstype**, afgerond, minstens 1. De invoer daalt in dezelfde verhouding (`industryutil.lua:225-259`). Een Steenkolenmijn (8 perceeltypes) met 4 percelen maakt 8 steenkool per ronde in plaats van 16.
 - Elk bedrijf krijgt een maximum: willekeurig tussen de helft van de percelen en allemaal, of Klein / Middel / Groot (50 / 75 / 100 %) met de parameter **Grootte industriebedrijf** (`industryutil.lua:519-537`). Een mijn met maximum 5 van 8 haalt nooit de volle regel.
-- Elk half jaar kan het spel **één perceel** toevoegen (`industries_config.res.lua:5`, `industries.script.tl:158-183`). De kans is (score − 25 %) ÷ 50 %, met score = productiescore × het deel van de productie dat je vervoert (hoogstens 1): 25 % of minder nooit, 75 % of meer altijd (`industries.script.tl:172-176`).
+- Bij Middel: als 75 % afgerond alle percelen geeft, is het maximum alle percelen min één (`industryutil.lua:523-526`). Een nieuw bedrijf begint met de percelen die de engine bij het plaatsen bouwt; zijn niveau komt daarvan (`industryutil.lua:602-617`).
+- Elk half jaar **speltijd** kan het spel **één perceel** toevoegen (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Er wordt een half standaardjaar gebruikt, dus de kalendersnelheid verandert niet hoe vaak (zie [Speltijd en kalender](time.html)).
+- De kans is (score − 25 %) ÷ 50 %, met score = productiescore × het deel van de productie dat je vervoert (hoogstens 1): 25 % of minder nooit, 75 % of meer altijd (`industries.script.tl:168-179`).
 - Een bedrijf waarvan je de vracht niet vervoert, **groeit dus nooit**. Fabrieken hebben geen percelen en groeien nooit.
 - Op het maximum zegt het venster **Industriebedrijf is uitgebreid naar zijn maximale potentieel.**; staan gebouwen, sporen of wegen in de weg, dan **Industriebedrijf kan niet verder worden uitgebreid.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). Geen script haalt percelen weg; volgens de officiële wiki verlagen gesloopte percelen de productie.
+- Het spelscript slaat bedrijven over die van jou zijn, bedrijven met handmatige ontwikkeling en bedrijven die aftellen naar sluiting: die krijgen er nooit een perceel van (`industries.script.tl:94-99`, `industries.script.tl:147-157`).
+
+Voorbeeld, **Houthakkerskamp**: 20 percelen, 8 boomstammen per ronde, 30,4 rondes per jaar (`forest.con.lua:54-66`, `forest.con.lua:75-98`). Per ronde maakt het 8 × percelen ÷ 20, afgerond, minstens 1 (`industryutil.lua:231-241`):
+
+| Percelen (niveau) | Boomstammen per ronde | Boomstammen per jaar (Max., zonder boost, Productiviteit 100 %) |
+|---|---|---|
+| 1–3 | 1 | 30 |
+| 4–6 | 2 | 61 |
+| 7–8 | 3 | 91 |
+| 9–11 | 4 | 122 |
+| 12–13 | 5 | 152 |
+| 14–16 | 6 | 183 |
+| 17–18 | 7 | 213 |
+| 19–20 | 8 | 243 |
+
+De productie groeit in stappen: een nieuw perceel verhoogt de productie niet altijd.
+
+## Waarom groeit mijn industrie niet?
+
+```diagram ind_growth
+```
+
+1. **Vracht niet vervoerd**: de score telt het deel van de productie dat in jouw voertuigen geladen wordt. Bij een productiescore van 100 % geeft 25 % of minder vervoeren geen kans, 50 % een kans van de helft, 75 % of meer een perceel elk half jaar.
+2. **Op het maximum**: **Industriebedrijf is uitgebreid naar zijn maximale potentieel.** Het maximum wordt bij de bouw geloot (de helft tot alle percelen) en verandert nooit.
+3. **Geblokkeerd**: **Industriebedrijf kan niet verder worden uitgebreid.** Haal de wegen, sporen of gebouwen weg op de plek van het volgende perceel (getoond in het venster).
+4. **Geen grondstofbedrijf**: fabrieken hebben geen percelen.
+5. **Aftellen naar sluiting**, van jou of handmatige ontwikkeling: geen groei door het script (hierboven).
+6. **Geen productie**: een bedrijf dat in het jaar niets produceert, wordt overgeslagen (`industries.script.tl:168-171`).
 
 ```engine
 De productiescore (getProductionRating), de jaarproductie en de vervoerde hoeveelheid (getCargoOutputPerYear, getCargoShippedPerYear), en waar een nieuw perceel komt (makeIndustryExtendProposal) zijn waarden van de engine.
@@ -109,12 +140,33 @@ Wat telt als „geladen” en „verbruikt” (de logs itemsLoaded en itemsConsu
 
 ## Nieuwe industriebedrijven
 
-- De engine voegt na verloop van tijd bedrijven toe; de scripts geven hem alleen een doeltijd van 50 jaar, een exponent van 3, en geen nieuwe bedrijven in de kaarteditor (`mod.script.tl:166-168`). De instelling **Doeldichtheid industriebedrijven** schaalt dit (`mod.script.tl:194-195`). De melding is **Industriebedrijf opgericht** (`industry_spawn.res.lua:6`).
-- Het bedrijfsvoordeel **Prospectie voor grondstoffen** zoekt een nieuw bedrijf voor die grondstof bij een stad: één poging per maand met een kans van 20 % tot 60 %, 6 maanden lang; mislukt het, dan komt de vergunning terug (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+De engine voegt tijdens het spel nieuwe bedrijven toe. De melding is **Nieuw industriebedrijf opgericht**: „Een ondernemer met een neusje voor winstgevende bedrijven heeft {industry} opgericht.” (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Geen spelscript kiest de plek, het type of het moment, en geen enkel script filtert wat de engine voorstelt.
+
+Wat de scripts de engine geven (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+
+| Configuratiewaarde | Waarde | Betekenis |
+|---|---|---|
+| spawnTargetTimeSpan | 50 × 365,25 standaarddagen | „doeltijd” genoemd: 50 standaardjaren speltijd |
+| spawnProbabilityExponent | 3,0 | exponent van de verschijningskans (formule in de engine) |
+| spawnIndustries | uit in de kaarteditor, aan in een spel | geen nieuwe bedrijven in de kaarteditor |
+| industryDensity | 1 × **Doeldichtheid industriebedrijven** | het doelaantal bedrijven |
+| maxNumberPerArea, absoluteMinimum | 0,8 per km² (0,64 op consoles), 24 | ook gebruikt door de kaartgenerator |
+
+**Doeldichtheid industriebedrijven** („Bepaal de doeldichtheid voor het aantal industriebedrijven op de kaart.”): 5 stappen, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
+
+- Hij staat in de geavanceerde instellingen, deel economie (`advanced_settings.tl:287-291`), en hoort niet bij de voorinstellingen Makkelijk … Heel moeilijk (`difficulty_util.tl:90-199`).
+- In het menu voor een nieuw spel zet **Dichtheid industriebedrijven** (de bedrijven bij de start, dezelfde 5 factoren) **Doeldichtheid industriebedrijven** op dezelfde stap (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Wil je ze verschillend, verander het doel daarna in de geavanceerde instellingen.
+- **Geen instelling zet het uit**: de laagste stap is ×2/3. Alleen de kaarteditor heeft geen nieuwe bedrijven. Mods kunnen het wel.
+- Snelheid: de doeltijd is in standaarddagen, zoals alle speltijdregels, dus de kalendersnelheid en een gepauzeerde kalender zouden het niet moeten vertragen. Spelers melden nieuwe bedrijven met een gepauzeerde kalender (Steam).
+- Prospectie voor grondstoffen (hieronder) gebruikt dezelfde engine-aanroep met een stad, dus de engine kent een verschijning „bij een stad” (`company.script.tl:202`). De tutorial gebruikt die ook (`tutorial_init.tl:23-24`).
 
 ```engine
-Waar en wanneer een nieuw bedrijf verschijnt, en welk type, beslist de engine (makeIndustrySpawnProposal).
+De formule achter de 50 jaar en de exponent 3, hoe de doeldichtheid geteld wordt (per kaartoppervlak, per stad?), welk type gekozen wordt en waar het komt (makeIndustrySpawnProposal) liggen bij de engine. Geen script verklaart waarom meerdere bedrijven van één type dicht bij elkaar kunnen verschijnen („negen kolenmijnen naast elkaar”), of waarom sommige aan de andere kant van de kaart verschijnen.
 ```
+
+### Prospectie voor grondstoffen
+
+Het bedrijfsvoordeel **Prospectie voor grondstoffen** zoekt een nieuw bedrijf voor die grondstof bij een stad die jij kiest: één poging per maand, met een kans die stijgt van 20 % tot 60 %, 6 maanden lang (`company_util.tl:14-17`, `company.script.tl:299-307`, `company.script.tl:130-142`). Heeft de grondstof meerdere bedrijfstypes, dan worden die in willekeurige volgorde geprobeerd (`company.script.tl:185-206`). Mislukken alle pogingen, dan komt de vergunning terug (`company.script.tl:106-110`).
 
 ## Goed om te weten
 
@@ -122,10 +174,11 @@ Waar en wanneer een nieuw bedrijf verschijnt, en welk type, beslist de engine (m
 - Breng boostervracht naar de grootste mijnen en boerderijen: de partij kost hetzelfde, de bonus groeit met de percelen.
 - Voorraden bederven niet: je kunt boostervracht vooruit leveren, tot de voorraadgrens (100).
 - Boosts verhogen geluid en vervuiling: een Steenkolenmijn gaat van 10 vervuiling naar 20 met één boost en 30 met twee (`coal_mine.con.lua:99-117`).
+- Minder nieuwe bedrijven: zet **Doeldichtheid industriebedrijven** op de laagste stap in de geavanceerde instellingen; op nul zetten kan niet.
 - Bij de standaardinstelling sluit een ongebruikt bedrijf zelden; bij Zeer vaak laad je af en toe iets.
 
 ```check
 official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
-scripts: 5 jaar, niet 10, en productie telt niet: alleen vracht die in een voertuig geladen of verbruikt is. Na de 5 jaar is het bedrijf alleen kandidaat: elk jaar wordt het gemarkeerd met een kans van 1,1 % (Zelden) tot 8,8 % (Zeer vaak). Het aftellen duurt 730 dagen, zoals gezegd. Boostervracht geeft +50 % tot +150 % per bedrijf, in partijen die 3 maanden duren.
+scripts: 5 jaar, niet 10, en productie telt niet: alleen vracht die in een voertuig geladen of verbruikt is. Na de 5 jaar is het bedrijf alleen kandidaat: elk jaar wordt het gemarkeerd met een kans van 1,1 % (Zelden) tot 8,8 % (Zeer vaak). Het aftellen duurt 730 dagen, zoals gezegd. Boostervracht geeft +50 % tot +150 % per bedrijf, in partijen die 3 maanden duren. Nieuwe bedrijven: geen aan/uit-instelling, alleen Doeldichtheid industriebedrijven ×2/3 tot ×1,5; geen in de kaarteditor.
 result: differs
 ```

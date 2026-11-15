@@ -4,7 +4,7 @@ summary: Wie Einwohner einen Arbeitsplatz in einer Industrie bekommen, welche f�
 domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 10 / 20 | Arbeiter für den Bonus nötig
 fact: 2 Jahre | so lange zählt eine Ankunft
 fact: ×1,5–2,5 | Bonusfaktor, pro Industrie fest
@@ -61,17 +61,55 @@ Ein Kohlebergwerk mit 20 Arbeitsplätzen und „+84 %“.
 |---|---|---|---|
 | Neue Buslinie: 14 Einwohner zugeteilt, noch keiner angekommen | 0 | nein | ×1 |
 | 12 verschiedene Einwohner kamen dieses Jahr mit dem Bus | 12 | ja (≥ 10) | ×1,84 |
-| Linie entfernt; 2 Jahre kommt niemand | fällt auf 0 | endet | ×1 |
+| Buslinie entfernt; 2 Jahre kommt niemand | fällt auf 0 | endet | ×1 |
+
+## Arbeiter zu einer Industrie bringen
+
+```diagram workers_trip
+```
+
+- Ein Arbeiter wird gezählt, wenn er **an der Industrie selbst ankommt**, sein Fahrtziel (`targetOrAtEntity`) die Industrie ist und sein letzter Fortbewegungsmodus **Linien** ist (`industry_workers.script.tl:86-94`). An einer Haltestelle auszusteigen reicht nicht: die Person muss die Industrie erreichen.
+- Jeder Einwohner hat einen Fortbewegungsmodus pro Ziel (Wohnung, Geschäft, Arbeitsplatz). Das Industriefenster listet die zugeteilten Arbeiter mit einem Symbol für diesen Modus: **Zu Fuss**, **Auto** oder **Linien** (`entity_window_util.tl:1400-1435`). Bei einer Industrie sollte es immer Linien sein, weil Zu Fuss und Auto dort nicht erlaubt sind (`industryutil.lua:451-457`).
+- „Nicht zu Fuß“ heißt also: die ganze Fahrt darf kein Fußweg und keine Autofahrt sein. Es heißt nicht „gar nicht laufen“: eine Fahrt mit Linien beginnt und endet trotzdem zu Fuß zwischen Haltestellen und Gebäuden (siehe Engine-Hinweis unten).
+- **Umstiege zählen.** Das Skript schaut nur auf den Modus der Fahrt, nicht auf die Zahl der benutzten Linien (`industry_workers.script.tl:91`). Ein Arbeiter aus einer Stadt vier Linien weiter zählt genauso wie einer von nebenan, braucht aber vielleicht viel länger.
+- **Jede deiner Linien kann sie bringen**, auch eine Frachtlinie, solange ihre Fahrzeuge Passagiere mitnehmen und die Haltestelle Passagiere lädt. Das Skript prüft den Fahrzeugtyp nicht (`industry_workers.script.tl:86-118`). Spieler berichten von weniger Problemen mit getrennten Personenlinien.
+- Manche Industrien (zum Beispiel Ölplattformen) haben eine eigene eingebaute Haltestelle für Passagiere und Fracht (`industryutil.lua:156-165`).
+- Das Industriefenster zeigt für jeden zugeteilten Arbeiter, ob er **Derzeit hier** oder **Unterwegs** ist (`entity_window_util.tl:1371-1384`). Der Bereich Booster listet die gezählten Arbeiter mit ihrer **Zeit übrig** von den 2 Jahren (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- Eine Industrie noch ohne Arbeiter zeigt: „Erschliesse diesen Standort mit dem öffentlichen Verkehr, um den Einwohnern zu ermöglichen, dort zu arbeiten.“ (`entity_window_util.tl:1650-1652`).
+
+```engine
+Welche Haltestelle eine Industrie bedient, wie weit ein Arbeiter von einer Haltestelle zum Eingang der Industrie läuft und die Einwohner welcher Städte den Arbeitsplatz nehmen, entscheidet die Engine (Einzugsgebiete, Wegfindung, Arbeitsplatzwahl). Die Skripte setzen keine Distanzgrenze für Arbeiter. Spieler berichten, dass ein Bahnhof, dessen Einzugsgebiet die Industrie für Fracht abdeckt, keine Arbeiter brachte, bis ein Bus zum Eingang der Industrie fuhr (Steam-Thread „Problem getting workers to site“).
+```
+
+## Subvention Transportiere Arbeiter
+
+- Sie wird nur für eine Industrie angeboten, die Fracht versendet oder empfängt und noch nicht geboostet ist (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Sie ist erfüllt, wenn der Arbeiterbonus aktiv wird: dieselben 10 von 20 verschiedenen Ankünften mit deinen Linien (`deliver_workers.script.tl:152-156`). Sonst wird nichts gezählt; es gibt keine versteckte Regel.
+- Der Fortschrittsbalken auf der Vertragskarte ist „gezählte Arbeiter ÷ Hälfte der Arbeitsplätze“ (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
+- Die Pfeile auf der Vertragskarte kommen von den **5 nächsten Städten**. Sie sind nur ein Hinweis: das Skript zeichnet sie nach Entfernung, nicht danach, wer den Arbeitsplatz hat (`deliver_workers.script.tl:297-317`).
+- Siehe [Subventionen: Angebote, Fristen und Belohnungen](subsidies.html) für Geld und Frist.
+
+## Warum kommen meine Arbeiter nicht an?
+
+| Prüfung | Wo schauen | Warum |
+|---|---|---|
+| Hat jemand den Arbeitsplatz? | Arbeitsplatzanzeige („12/20“) | Ohne zugeteilte Arbeiter fährt niemand. Die Arbeitsplatzwahl liegt in der Engine. |
+| Modus-Symbol der Arbeiter | Arbeiterliste: Zu Fuss / Auto / Linien | Nur Fahrten mit Linien können zählen (`industry_workers.script.tl:91`). |
+| Bewegen sie sich? | **Unterwegs** / **Derzeit hier** | Lange „Unterwegs“: langsame oder überlastete Umstiege, oder kein Weg von der letzten Haltestelle. |
+| Erreicht die letzte Haltestelle den Eingang der Industrie? | Einzugsgebiet der Haltestelle, Zufahrtsstraße | Von Spielern berichtet; Engine-Sache. Ein kurzer Bus zum Eingang half. |
+| Lädt die Haltestelle Passagiere? | Linienhalt, Güterfilter | Passagiere müssen an beiden Enden der Fahrt ein- und ausgeladen werden. |
+| 10 **verschiedene** Personen in 2 Jahren? | Bereich Booster, **Zeit übrig** | Dieselbe Person zählt einmal; ältere Ankünfte fallen heraus (`industry_workers.script.tl:56-70`). |
+| Mehr als 40 Arbeitsplätze (Mods)? | Arbeitsplatzanzeige | Mit 20 gemerkten Ankünften nie die Hälfte erreichbar. |
 
 ## Gut zu wissen
 
 - Die Grenze von 20 gemerkten Ankünften und die 50-%-Regel bedeuten, dass eine Industrie mit **mehr als 40 Arbeitsplätzen** (mit Mods möglich) nie durch Arbeiter geboostet werden könnte.
-- Die Subvention „Transportiere Arbeiter“ ist erfüllt, wenn dieser Bonus aktiv wird (offizielles Wiki, Subventionen).
+- Die Subvention **Transportiere Arbeiter** ist erfüllt, wenn dieser Bonus aktiv wird (`deliver_workers.script.tl:152-156`).
 - Booster-Fracht (Dünger, Maschinen, Werkzeuge) ist ein **eigener** Bonus der Rohstoffindustrien und wird hier nicht behandelt.
 - Der Mod [Herkunft der Arbeiter (Worker Origins)](https://mod.io/g/transportfever3/m/worker-origins) zeigt im Industriefenster, aus welchen Städten die zugeteilten und die Bonus-Arbeiter kommen, mit Pfeilen auf der Karte.
 
 ```check
 official: „If a sufficient amount of workers show up frequently, the overall throughput of the production increases. When too few workers have recently been at the industry, the worker booster stops again.“ ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos#booster))
-scripts: „Genug“ = die Hälfte der Arbeitsplätze (10 von 20); „kürzlich“ = die letzten 2 Spieljahre, die letzten 20 Ankünfte, eine pro Person, nur mit deinen Linien; Bonusfaktor ×1,5 bis ×2,5 je Industrie.
+scripts: „Genug“ = die Hälfte der Arbeitsplätze (10 von 20); „kürzlich“ = die letzten 2 Spieljahre, die letzten 20 Ankünfte, eine pro Person, nur mit deinen Linien; Bonusfaktor ×1,5 bis ×2,5 je Industrie. Umstiege zählen; der Fahrtmodus muss Linien sein, der Fußweg von einer Haltestelle gehört zu so einer Fahrt.
 result: refines
 ```

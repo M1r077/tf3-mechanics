@@ -1,6 +1,6 @@
 ---
 title: Industrien
-summary: Produktionsregeln, Lager, Parzellen und Erweiterung, Booster-Fracht, warum eine Industrie nicht geboostet ist, und wann eine ungenutzte Industrie wirklich schließt.
+summary: Produktionsregeln, Lager, Parzellen und Erweiterung, warum eine Industrie nicht wächst oder nicht geboostet ist, wann eine ungenutzte Industrie schließt und wie neue Industrien entstehen.
 domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
@@ -9,6 +9,7 @@ fact: 5 Jahre | ohne Verladen oder Verbrauch machen eine Industrie zum Schließu
 fact: 1,1 % | Chance pro Jahr bei Selten (Standard), dann 730 Tage Countdown
 fact: +50–150 % | Bonus der Booster-Fracht, pro Industrie fest
 fact: 3 Monate | Bonus pro Charge Booster-Fracht
+fact: ×2/3 – ×1,5 | Industrie-Zieldichte: neue Industrien lassen sich nicht abschalten
 ---
 
 Jede Industrie arbeitet nach **Regeln**: „nimm dies aus den Eingangsbeständen, lege das in die Ausgangsbestände“, eine feste Anzahl Mal pro Jahr. Rohstoffindustrien (Bergwerke, Höfe, Quellen) brauchen keinen Eingang; ihre Größe kommt von ihren **Parzellen**. Zwei Boni können die Produktion vervielfachen: **Booster-Fracht** (nur Rohstoffindustrien) und **Arbeiter**.
@@ -37,9 +38,39 @@ Die Engine führt die Regeln aus. Sie kann einen Durchlauf verlängern: der Tool
 - Rohstoffindustrien und der Viehzuchtbetrieb haben **Parzellen** (Felder, Schächte, Bohrtürme). Ihre Stufe ist ihre Zahl an Parzellen (`industryutil.lua:602-617`).
 - Die Regel wächst mit den Parzellen: Produktion pro Durchlauf × Parzellen ÷ **alle Parzellen dieses Industrietyps**, gerundet, mindestens 1. Die Eingänge sinken im gleichen Verhältnis (`industryutil.lua:225-259`). Ein Kohlebergwerk (8 Parzellentypen) mit 4 Parzellen macht 8 statt 16 Kohle pro Durchlauf.
 - Jede Industrie erhält ein Maximum: zufällig zwischen der Hälfte und allen Parzellen, oder Klein / Mittel / Groß (50 / 75 / 100 %) mit dem Parameter **Industriegrösse** (`industryutil.lua:519-537`). Ein Bergwerk mit Maximum 5 von 8 erreicht nie die volle Regel.
-- Jedes halbe Jahr kann das Spiel **eine Parzelle** hinzufügen (`industries_config.res.lua:5`, `industries.script.tl:158-183`). Die Chance ist (Wertung − 25 %) ÷ 50 %, mit Wertung = Produktionswertung × dem Anteil der Produktion, den du abtransportierst (höchstens 1): 25 % oder weniger nie, 75 % oder mehr immer (`industries.script.tl:172-176`).
+- Bei Mittel gilt: ergeben 75 % gerundet alle Parzellen, ist das Maximum alle Parzellen minus eine (`industryutil.lua:523-526`). Eine neue Industrie startet mit den Parzellen, die die Engine beim Platzieren baut; ihre Stufe wird daraus gesetzt (`industryutil.lua:602-617`).
+- Jedes halbe Jahr **Spielzeit** kann das Spiel **eine Parzelle** hinzufügen (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Es ist ein halbes Standardjahr, die Kalendergeschwindigkeit ändert die Häufigkeit also nicht (siehe [Spielzeit und Kalender](time.html)).
+- Die Chance ist (Wertung − 25 %) ÷ 50 %, mit Wertung = Produktionswertung × dem Anteil der Produktion, den du abtransportierst (höchstens 1): 25 % oder weniger nie, 75 % oder mehr immer (`industries.script.tl:168-179`).
 - Eine Industrie, deren Fracht du nicht abtransportierst, **wächst also nie**. Fabriken haben keine Parzellen und wachsen nie.
 - Am Maximum zeigt das Fenster **Maximale Industrieerweiterung erreicht.**; stehen Gebäude, Gleise oder Straßen im Weg, **Industrieerweiterung ist blockiert.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). Kein Skript entfernt Parzellen; laut offiziellem Wiki senken abgerissene Parzellen die Produktion.
+- Das Spielskript überspringt Industrien in deinem Besitz, Industrien mit manueller Entwicklung und Industrien im Schließungs-Countdown: sie bekommen von ihm nie eine Parzelle (`industries.script.tl:94-99`, `industries.script.tl:147-157`).
+
+Beispiel **Holzfällerlager**: 20 Parzellen, 8 Holz pro Durchlauf, 30,4 Durchläufe pro Jahr (`forest.con.lua:54-66`, `forest.con.lua:75-98`). Pro Durchlauf macht es 8 × Parzellen ÷ 20, gerundet, mindestens 1 (`industryutil.lua:231-241`):
+
+| Parzellen (Stufe) | Holz pro Durchlauf | Holz pro Jahr (Max., ohne Boni, Produktivität 100 %) |
+|---|---|---|
+| 1–3 | 1 | 30 |
+| 4–6 | 2 | 61 |
+| 7–8 | 3 | 91 |
+| 9–11 | 4 | 122 |
+| 12–13 | 5 | 152 |
+| 14–16 | 6 | 183 |
+| 17–18 | 7 | 213 |
+| 19–20 | 8 | 243 |
+
+Die Produktion wächst in Stufen: eine neue Parzelle erhöht die Produktion nicht immer.
+
+## Warum wächst meine Industrie nicht?
+
+```diagram ind_growth
+```
+
+1. **Fracht nicht abtransportiert**: die Wertung zählt den Anteil der Produktion, der in deine Fahrzeuge verladen wird. Bei einer Produktionswertung von 100 % gibt ein Abtransport von 25 % oder weniger keine Chance, 50 % eine Chance von der Hälfte, 75 % oder mehr jedes halbe Jahr eine Parzelle.
+2. **Am Maximum**: **Maximale Industrieerweiterung erreicht.** Das Maximum wird beim Bau gezogen (Hälfte bis alle Parzellen) und ändert sich nie.
+3. **Blockiert**: **Industrieerweiterung ist blockiert.** Entferne Straßen, Gleise oder Gebäude am Platz der nächsten Parzelle (im Fenster angezeigt).
+4. **Keine Rohstoffindustrie**: Fabriken haben keine Parzellen.
+5. **Schließungs-Countdown**, in deinem Besitz oder manuelle Entwicklung: kein Wachstum durch das Skript (oben).
+6. **Keine Produktion**: eine Industrie, die im Jahr nichts produziert, wird übersprungen (`industries.script.tl:168-171`).
 
 ```engine
 Die Produktionswertung (getProductionRating), die jährliche Produktion und die abtransportierte Menge (getCargoOutputPerYear, getCargoShippedPerYear) und wohin eine neue Parzelle kommt (makeIndustryExtendProposal) sind Werte der Engine.
@@ -109,12 +140,33 @@ Was als „verladen“ und „verbraucht“ zählt (die Logs itemsLoaded und ite
 
 ## Neue Industrien
 
-- Die Engine fügt mit der Zeit Industrien hinzu; die Skripte geben ihr nur eine Zielzeit von 50 Jahren, einen Exponenten von 3 und keine neuen Industrien im Karteneditor (`mod.script.tl:166-168`). Die Einstellung **Industrie-Zieldichte** skaliert das (`mod.script.tl:194-195`). Die Meldung heißt **Neue Industrie gegründet** (`industry_spawn.res.lua:6`).
-- Der Firmen-Perk **Prospektion nach Ressourcen** sucht eine neue Industrie dieser Ressource nahe einer Stadt: ein Versuch pro Monat mit einer Chance von 20 % bis 60 %, 6 Monate lang; scheitert er, kommt die Genehmigung zurück (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+Die Engine fügt während des Spiels neue Industrien hinzu. Die Meldung heißt **Neue Industrie gegründet**: „Ein visionärer Unternehmer wittert eine Gewinnchance und hat {industry} gegründet.“ (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Kein Spielskript wählt Ort, Typ oder Zeitpunkt, und keines filtert, was die Engine vorschlägt.
+
+Was die Skripte der Engine geben (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+
+| Config-Wert | Wert | Bedeutung |
+|---|---|---|
+| spawnTargetTimeSpan | 50 × 365,25 Standardtage | „Zielzeit“ genannt: 50 Standardjahre Spielzeit |
+| spawnProbabilityExponent | 3,0 | Exponent der Entstehungschance (Formel in der Engine) |
+| spawnIndustries | aus im Karteneditor, an im Spiel | keine neuen Industrien im Karteneditor |
+| industryDensity | 1 × **Industrie-Zieldichte** | die Zielzahl an Industrien |
+| maxNumberPerArea, absoluteMinimum | 0,8 pro km² (0,64 auf Konsolen), 24 | auch vom Kartengenerator genutzt |
+
+**Industrie-Zieldichte** („Passe die langfristige Anzahl und Dichte der Industrien auf der Karte an.“): 5 Stufen, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
+
+- Sie steht in den erweiterten Einstellungen, Teil Wirtschaft (`advanced_settings.tl:287-291`), und gehört nicht zu den Voreinstellungen Einfach … Sehr schwierig (`difficulty_util.tl:90-199`).
+- Im Menü für ein neues Spiel setzt **Industriedichte** (die Industrien zu Beginn, dieselben 5 Faktoren) die **Industrie-Zieldichte** auf dieselbe Stufe (`new_game_or_map_settings_page.tl:159-166`, `new_game_react_util.tl:288-296`). Ändere die Zieldichte danach in den erweiterten Einstellungen, wenn beide verschieden sein sollen.
+- **Keine Einstellung schaltet sie ab**: die niedrigste Stufe ist ×2/3. Nur der Karteneditor hat keine neuen Industrien. Mods können es.
+- Tempo: die Zielzeit ist in Standardtagen, wie alle Spielzeit-Regeln, daher sollten Kalendergeschwindigkeit und ein pausierter Kalender sie nicht bremsen. Spieler berichten von neuen Industrien bei pausiertem Kalender (Steam).
+- Prospektion nach Ressourcen (unten) nutzt denselben Engine-Aufruf mit einer Stadt, eine Entstehung „nahe einer Stadt“ gibt es also in der Engine (`company.script.tl:202`). Das Tutorial nutzt sie auch (`tutorial_init.tl:23-24`).
 
 ```engine
-Wo und wann eine neue Industrie entsteht, und welcher Typ, entscheidet die Engine (makeIndustrySpawnProposal).
+Die Formel hinter den 50 Jahren und dem Exponenten 3, wie die Zieldichte gezählt wird (pro Kartenfläche, pro Stadt?), welcher Typ gewählt wird und wohin er kommt (makeIndustrySpawnProposal), liegen in der Engine. Kein Skript erklärt, warum mehrere Industrien eines Typs dicht beieinander entstehen können („neun Kohlebergwerke nebeneinander“) oder warum manche am anderen Ende der Karte entstehen.
 ```
+
+### Prospektion nach Ressourcen
+
+Der Firmen-Perk **Prospektion nach Ressourcen** sucht eine neue Industrie dieser Ressource nahe einer Stadt, die du wählst: ein Versuch pro Monat, mit einer Chance von 20 % steigend bis 60 %, 6 Monate lang (`company_util.tl:14-17`, `company.script.tl:299-307`, `company.script.tl:130-142`). Hat die Ressource mehrere Industrietypen, werden sie in zufälliger Reihenfolge versucht (`company.script.tl:185-206`). Scheitern alle Versuche, kommt die Genehmigung zurück (`company.script.tl:106-110`).
 
 ## Gut zu wissen
 
@@ -122,10 +174,11 @@ Wo und wann eine neue Industrie entsteht, und welcher Typ, entscheidet die Engin
 - Gib Booster-Fracht den größten Bergwerken und Höfen: die Charge kostet gleich viel, der Bonus wächst mit den Parzellen.
 - Lager verfallen nicht: du kannst Booster-Fracht im Voraus liefern, bis zur Lagergrenze (100).
 - Boni erhöhen Lärm und Verschmutzung: ein Kohlebergwerk geht von 10 Verschmutzung auf 20 mit einem Bonus und 30 mit zwei (`coal_mine.con.lua:99-117`).
+- Weniger neue Industrien: stelle die **Industrie-Zieldichte** in den erweiterten Einstellungen auf die niedrigste Stufe; auf null lässt sie sich nicht setzen.
 - Bei der Standardeinstellung schließt eine ungenutzte Industrie selten; bei Sehr oft lade ab und zu etwas.
 
 ```check
 official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
-scripts: 5 Jahre, nicht 10, und Produktion zählt nicht: nur in ein Fahrzeug verladene oder verbrauchte Fracht. Nach den 5 Jahren ist die Industrie nur Kandidat: jedes Jahr wird sie mit einer Chance von 1,1 % (Selten) bis 8,8 % (Sehr oft) markiert. Der Countdown dauert wie angegeben 730 Tage. Booster-Fracht gibt +50 % bis +150 % pro Industrie, in Chargen, die 3 Monate halten.
+scripts: 5 Jahre, nicht 10, und Produktion zählt nicht: nur in ein Fahrzeug verladene oder verbrauchte Fracht. Nach den 5 Jahren ist die Industrie nur Kandidat: jedes Jahr wird sie mit einer Chance von 1,1 % (Selten) bis 8,8 % (Sehr oft) markiert. Der Countdown dauert wie angegeben 730 Tage. Booster-Fracht gibt +50 % bis +150 % pro Industrie, in Chargen, die 3 Monate halten. Neue Industrien: keine An/Aus-Einstellung, nur Industrie-Zieldichte ×2/3 bis ×1,5; keine im Karteneditor.
 result: differs
 ```
