@@ -367,6 +367,15 @@
    "rep": "Spłata po 3 latach: zostaje 30 M",
    "drop": "pozostałe odsetki (2,4 M): przepadają",
    "same": "te same odsetki łącznie"
+  },
+  "T_REP": {
+   "cap": "Przykład: prace ziemne kosztują 40 %. Reputacja wraca sama o 33 % na rok; kampania reklamowa podnosi to do 100 % na rok, dopóki trwa. Sześć poziomów, jak przy każdej ocenie.",
+   "x": "lata",
+   "hit": "prace ziemne −40 %",
+   "camp": "Kampania reklamowa",
+   "slow": "33 % na rok",
+   "fast": "100 % na rok",
+   "noc": "bez kampanii"
   }
  },
  "cargo": {

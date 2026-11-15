@@ -367,6 +367,15 @@
    "rep": "Ripaga dopo 3 anni: restano 30 M da pagare",
    "drop": "interessi rimanenti (2,4 M): cancellati",
    "same": "stessi interessi totali"
+  },
+  "T_REP": {
+   "cap": "Esempio: dei lavori sul terreno costano il 40 %. La reputazione torna da sola al 33 % all'anno; una campagna marketing la fa tornare al 100 % all'anno finché dura. Sei livelli, come per ogni valutazione.",
+   "x": "anni",
+   "hit": "lavori sul terreno −40 %",
+   "camp": "Campagna marketing",
+   "slow": "33 % all'anno",
+   "fast": "100 % all'anno",
+   "noc": "senza campagna"
   }
  },
  "cargo": {

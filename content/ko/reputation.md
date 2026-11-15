@@ -1,0 +1,87 @@
+---
+title: 마을 평판
+summary: 마을의 평판 평가를 낮추는 것, 다시 오르는 속도, 기념 행사와 마케팅 캠페인이 실제로 하는 일, 그리고 두 마을 사이의 도로를 끊으면 왜 손해가 큰지.
+domain: towns
+official: gamemanual:simulation:towns
+status: verified
+updated: 2026-11-15
+fact: −33 % | 다른 마을로 가는 주 연결부가 하나 끊길 때마다
+fact: 33 % | 연간 복구(마케팅 캠페인 중에는 100 %)
+fact: 0.25 % | 마을 근처에서 다 자란 나무를 하나 제거할 때마다
+fact: 200만 m³ | 의 지형 공사로 평판이 모두 사라진다
+---
+
+**평판**은 마을 창의 여섯 가지 평가 중 하나이고, 마을 권한은 그중 **가장 낮은** 값을 쓴다([마을 성장](towns.html) 참고). 평판은 100 %에서 시작하며 **플레이어**가 짓거나 실패한 것 때문에만 내려간다. 지형 공사, 나무와 바위 제거, 마을 건물 철거, 실패한 보조금, 끊긴 주 연결부다. 시간, 기념 행사, 마케팅 캠페인이 평판을 되돌린다.
+
+```diagram rep_recovery
+```
+
+## 평판을 낮추는 것
+
+확정한 건설은 모두 적용되기 전에 검사된다. 손실은 해당 마을에 기록된다(`towns.script.tl:271-291`, `town_util.tl:1062-1080`). 플레이어 자신의 건설만 세며, 맵 에디터에서는 아무것도 세지 않는다(`town_util.tl:1078-1080`, `towns.script.tl:58`).
+
+| 마을 창의 사유 | 평판을 잃는 것 | 출처 |
+|---|---|---|
+| **나무 제거됨** | 나무 하나당 0.25 %, × 가장 가까운 마을까지의 거리 계수, × 나무 크기(작은 나무는 적게 센다) | `town_util.tl:1144-1150`, `town_util.tl:865`, `model_metadata_util.lua:655-680` |
+| **바위 제거됨** | 바위 하나당 0.25 %, × 거리 계수 | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
+| **조경** | 지형을 올리든 **내리든** m³당 0.00005 %: 200만 m³ = 100 %. 선로, 도로, 건물이 만드는 지형도 센다(50,000 m²가 넘는 건설은 최대 절반까지 줄어든다). 새 터널의 부피도 마찬가지다 | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
+| **무너뜨린 건물** | 한 지구 수용량(그 마을의 주택, 상점, 일자리)의 40.5 %를 없애면 100 % | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
+| **실패한 보조금** | 마을 공급: 10 %에서 위험도에 따라 60–90 %까지, 마을 연결: 10–100 % × 거리 계수, **두** 마을 모두에서([보조금](subsidies.html) 참고) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **주 연결부 차단됨** | 주 연결이 끊겼거나 너무 긴 다른 마을 하나당 **1/3** | `town_util.tl:376-394`, `town_util.tl:1608` |
+
+- 사유마다 상한은 100 %다(`town_util.tl:1611-1620`).
+- 건설 중 툴팁에 **평판: -x %**가 나오고, 여러 마을이 영향을 받으면 그 수도 나온다(`construction_react_util.tl:3818-3864`). 만점 평가에서 계산한 값이다.
+- 나무를 심거나 바위를 놓으면 **나무 제거됨**이나 **바위 제거됨**만 하나당 같은 0.25 %씩 취소된다. 다른 사유에는 효과가 없고, 평판이 만점일 때도 아무 일이 없다(`town_util.tl:1228-1238`, `town_util.tl:1630-1641`).
+- 새 게임의 평판 설정은 **끄기** 또는 **켜기**다(모든 프리셋에서 켜기). 끄기면 평가는 항상 만점이다(`difficulty_util.tl:44`, `difficulty_util.tl:110`, `town_util.tl:396-399`).
+
+```engine
+마을과 제거한 나무 사이에서 거리 계수가 얼마나 빨리 줄어드는지, 각 마을에 배정되는 지형 부피, 선로나 도로가 자동으로 제거하는 나무, 어떤 도로가 마을의 주 연결이 되는지(언제 이동이 "너무 긴지")는 엔진 값이다(getImpactFromDistance, getTerrainBrushVolumeImpact, getTerrainAlignmentImpact, getAutoRemovalEntityImpact, getTownProblems).
+```
+
+## 끊긴 주 연결부
+
+게임이 **도시 간 도로 연결이 끊겼습니다** 또는 **도시 간 이동 시간이 너무 깁니다**를 띄우면 주 연결은 끊긴 것으로 본다(`town_util.tl:378-380`, `town_warning.script.tl:7-22`). 관련된 다른 마을 하나당 1/3이고, 평가에 **바로** 나타난다(`town_util.tl:401-403`):
+
+| 끊긴 연결 | 평판 최대 | 평가 | 출처 |
+|---|---|---|---|
+| 1 | 67 % | 매우 좋음 | `town_util.tl:983-985` |
+| 2 | 33 % | 그저 그럼 | `town_util.tl:983-985` |
+| 3 | 0 % | 매우 형편없음: 마을 성장이 멈춘다 | `town_util.tl:607-633` |
+
+- 끊긴 동안에는 페널티가 저장된 점수에도 반년에 걸쳐 조금씩 기록된다(`towns.script.tl:137-145`). 도로를 고친 뒤에도 이 저장된 부분은 보통 복구 속도로만 돌아온다. 오래 끊기면 한동안 평판을 계속 잃는다.
+- 67 %는 딱 매우 좋음의 경계다. 다른 작은 손실이 하나만 있어도 좋음으로 내려간다.
+
+## 평판이 돌아오는 방식
+
+- **저절로**: 마을 창에 **연간 복구** 33 %, 마케팅 캠페인 중에는 100 %가 표시된다(`town_react_util.tl:1061-1067`). 반년마다 한 단계(1/6), 캠페인 중에는 2개월마다 한 단계다(`towns.script.tl:121-135`).
+- 복구는 늘어난 양을 모든 사유에 나눈다. 아직 끊긴 연결의 몫을 넘어서 돌아오지는 않는다(`town_util.tl:1649-1687`).
+- **기념 행사**는 마을에서 플레이어 노선에 첫 승객이 타면 **+50 %**, 마을에 첫 화물이 배송되면 +50 %, 마을이 레벨업할 때마다 +50 %, 각 산업에 첫 화물이 배송되면 가장 가까운 마을에 +20 %를 준다(`celebrations.script.tl:181-273`). 이때 메시지 끝에 **정착지 평판이 향상되었습니다.** 또는 **… 마을의 평판이 향상되었습니다.**가 붙는다(`celebration_react_util.tl:63-75`). 평판이 만점이 아닐 때만 세고, 캠페인 미션에서는 세지 않는다(`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
+- **마을 공급**은 수락할 때 +5 %에서 +20 % × 위험 계수를 줄 수 있다(`deliver_cargo_town.script.tl:195-199`). 다른 증가와 마찬가지로 이미 있는 손실만 지운다(`towns.script.tl:324-330`).
+
+## 마케팅 캠페인
+
+| 항목 | 값 | 출처 |
+|---|---|---|
+| 가격 | 10 M × 연도 계수: 1900년 4 M부터 2020년 25 M까지, 1 M 단위로 반올림 | `marketing_campaign_tool.script.tl:9-14` |
+| 필요 | 회사 특전의 허가 1개 | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
+| 기간 | 1년 | `marketing_campaign_tool.script.tl:136` |
+| 평판 | 복구 ×3(1년에 100 %), 즉시 오르는 양은 **없다** | `towns.script.tl:126`, `town_util.tl:915-925` |
+| 주민 | 주민이 이동 방법을 고를 때 그 마을의 플레이어 노선은 비용이 절반으로 계산된다 | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
+
+```engine
+스크립트는 한 단계에 게임 시간 360초(캠페인 중 120초)를 센다. 그 뒤의 달력은 엔진의 1년 길이(getDefaultYearDuration)이며, 마을 창의 33 %와 100 %는 1년 = 720초(하루 = 2초, cargotype.script.lua:3과 같음)에 맞는다. 노선 비용이 절반이 될 때 주민이 플레이어 노선으로 얼마나 옮기는지는 엔진의 경로 선택이 정한다.
+```
+
+## 알아두면 좋은 점
+
+- 건설 툴팁을 보자. **평판: -x %**가 보이면 터널이나 완만한 경로가 평판보다 싸게 먹히는 경우가 많다.
+- 두 마을 사이의 주 도로를 끊긴 채로 두지 말자. 하나당 바로 −33 %, 셋이면 마을이 멈춘다.
+- 평판이 만점일 때의 마케팅 캠페인은 노선만 돕고 평가는 올리지 않는다. 큰 공사 직후, 복구로 되찾을 것이 있을 때 시작하자.
+- 본부 대형 모듈의 **평판 복구** 보너스(+1 %)는 보너스 탭에 보이지만, 스크립트에서는 어떤 평가도 읽지 않는 값만 바꾼다(`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
+- 업적 **내가 안 그랬어**는 자유 게임에서 평판 0 %인 마을이 필요하다(`achievements.script.tl:261-267`).
+
+```check
+official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
+scripts: 원인은 같고, 바위 제거, 터널, 선로와 도로의 지형, 실패한 보조금이 더해진다. 끊겼거나 너무 긴 주 연결은 하나당 바로 1/3, 셋이면 마을이 멈춘다. 복구는 저절로 1년 33 %, 마케팅 캠페인은 1년 100 %로 만들지만 즉시 주는 것은 없다. 나무를 심으면 나무 손실만 지워진다. 본부의 평판 복구 보너스는 스크립트에서 효과가 없다.
+result: refines
+```

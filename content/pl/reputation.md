@@ -1,0 +1,87 @@
+---
+title: Reputacja miast
+summary: Co obniża ocenę Reputacja miasta, jak szybko wraca, co naprawdę dają uroczystości i kampanie reklamowe oraz dlaczego przerwana droga między dwoma miastami tak dużo kosztuje.
+domain: towns
+official: gamemanual:simulation:towns
+status: verified
+updated: 2026-11-15
+fact: −33 % | za każde przerwane połączenie główne z innym miastem
+fact: 33 % | odzysku na rok (100 % w czasie kampanii reklamowej)
+fact: 0,25 % | za każde usunięte dorosłe drzewo przy mieście
+fact: 2 mln m³ | prac ziemnych kosztuje całą reputację
+---
+
+**Reputacja** to jedna z sześciu ocen w oknie miasta, a Władze miejskie biorą **najniższą** z nich (zobacz [Rozwój miast](towns.html)). Zaczyna się od 100 % i spada tylko przez to, co **ty** budujesz lub zawalasz: prace ziemne, usunięte drzewa i skały, wyburzone budynki miasta, nieuzyskane subsydia i przerwane połączenia główne. Czas, uroczystości i kampanie reklamowe ją przywracają.
+
+```diagram rep_recovery
+```
+
+## Co ją obniża
+
+Każda budowa, którą zatwierdzasz, jest sprawdzana przed wykonaniem; koszt trafia do danego miasta (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Liczą się tylko twoje budowy, a w edytorze map nic się nie liczy (`town_util.tl:1078-1080`, `towns.script.tl:58`).
+
+| Powód w oknie miasta | Co kosztuje reputację | Źródło |
+|---|---|---|
+| **Usunięte drzewa** | 0,25 % za drzewo, × współczynnik odległości od najbliższego miasta, × wielkość drzewa (małe drzewa liczą się mniej) | `town_util.tl:1144-1150`, `town_util.tl:865`, `model_metadata_util.lua:655-680` |
+| **Usunięte skały** | 0,25 % za skałę, × współczynnik odległości | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
+| **Kształtowanie terenu** | 0,00005 % za m³ terenu podniesionego **lub** obniżonego: 2 miliony m³ = 100 %. Liczy się też teren kształtowany przez tory, drogi i budynki (do połowy mniej przy budowach powyżej 50 000 m²) oraz objętość nowych tuneli | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
+| **Wyburzone budynki** | 100 % za 40,5 % usuniętej pojemności dzielnicy (mieszkania, sklepy lub miejsca pracy tego miasta) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
+| **Nieuzyskane subsydia** | Zaopatrz miasto: od 10 % do 60–90 % (wg ryzyka); Połącz miasta: 10–100 % × współczynnik odległości, w **obu** miastach (zobacz [Subsydia](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Przerwane połączenia główne** | **1/3** za każde inne miasto, którego połączenie główne jest przerwane lub za długie | `town_util.tl:376-394`, `town_util.tl:1608` |
+
+- Każdy powód ma limit 100 % (`town_util.tl:1611-1620`).
+- Podczas budowy podpowiedź pokazuje **Reputacja: –x %**, z liczbą dotkniętych miast, jeśli jest ich kilka (`construction_react_util.tl:3818-3864`). Liczy koszt od pełnej oceny.
+- Sadzenie drzew lub stawianie skał znosi tylko **Usunięte drzewa** lub **Usunięte skały**, po tych samych 0,25 % za sztukę. Nie pomaga przy innych powodach ani przy pełnej reputacji (`town_util.tl:1228-1238`, `town_util.tl:1630-1641`).
+- Ustawienie Reputacja nowej gry to **Wył.** lub **Wł.** (Wł. w każdym ustawieniu wstępnym). Wył. oznacza zawsze pełną ocenę (`difficulty_util.tl:44`, `difficulty_util.tl:110`, `town_util.tl:396-399`).
+
+```engine
+Jak szybko spada współczynnik odległości między miastem a usuniętym drzewem, jaką objętość terenu dostaje każde miasto, które drzewa tor lub droga usuwa automatycznie i które drogi liczą się jako połączenie główne miasta (oraz kiedy podróż jest „za długa”) to wartości silnika (getImpactFromDistance, getTerrainBrushVolumeImpact, getTerrainAlignmentImpact, getAutoRemovalEntityImpact, getTownProblems).
+```
+
+## Przerwane połączenia główne
+
+Połączenie główne liczy się jako przerwane, gdy gra zgłasza **Połączenie drogowe między miastami zostało przerwane** lub **Czas podróży między miastami jest zbyt długi** (`town_util.tl:378-380`, `town_warning.script.tl:7-22`). Każde inne takie miasto kosztuje 1/3, a ocena pokazuje to **od razu** (`town_util.tl:401-403`):
+
+| Przerwane połączenia | Reputacja najwyżej | Ocena | Źródło |
+|---|---|---|---|
+| 1 | 67 % | Bardzo dobre | `town_util.tl:983-985` |
+| 2 | 33 % | Kiepskie | `town_util.tl:983-985` |
+| 3 | 0 % | Bardzo złe: miasto przestaje rosnąć | `town_util.tl:607-633` |
+
+- Dopóki przerwa trwa, kara jest też zapisywana w zapisanym wyniku, krok po kroku, przez pół roku (`towns.script.tl:137-145`). Po naprawie drogi ta zapisana część wraca tylko w normalnym tempie odzysku: długa przerwa jeszcze przez jakiś czas kosztuje reputację.
+- 67 % leży dokładnie na granicy Bardzo dobre: każda inna drobna strata obniża miasto do Dobre.
+
+## Jak wraca
+
+- **Sama**: okno miasta pokazuje **Roczny odzysk** 33 %, 100 % z kampanią reklamową (`town_react_util.tl:1061-1067`). To jeden poziom (1/6) na pół roku albo co 2 miesiące w czasie kampanii (`towns.script.tl:121-135`).
+- Odzysk rozkłada zysk na wszystkie powody; nigdy nie przekracza wciąż otwartych przerwanych połączeń (`town_util.tl:1649-1687`).
+- **Uroczystości** dodają **+50 %** za pierwszego pasażera, który w mieście wsiada do jednej z twoich linii, +50 % za pierwszy ładunek dostarczony do miasta, +50 % przy każdym awansie miasta na wyższy poziom i +20 % dla najbliższego miasta za pierwszy ładunek dostarczony do każdego przemysłu (`celebrations.script.tl:181-273`). Komunikat kończy się wtedy na **Reputacja w osiedlu wzrosła.** lub **Wzrost reputacji (…).** (`celebration_react_util.tl:63-75`). Liczą się tylko, gdy reputacja nie jest pełna, i nie w misjach kampanii (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
+- **Zaopatrz miasto** może dać od +5 % do +20 % × współczynnik ryzyka przy przyjęciu (`deliver_cargo_town.script.tl:195-199`). Jak każdy zysk usuwa tylko istniejące straty (`towns.script.tl:324-330`).
+
+## Kampania reklamowa
+
+| Co | Wartość | Źródło |
+|---|---|---|
+| Cena | 10 M × współczynnik roku: 4 M w 1900 do 25 M w 2020, zaokrąglone do 1 M | `marketing_campaign_tool.script.tl:9-14` |
+| Wymaga | jednego pozwolenia z zalet firmy | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
+| Czas trwania | jeden rok | `marketing_campaign_tool.script.tl:136` |
+| Reputacja | odzysk ×3 (100 % na rok); **żadnego** natychmiastowego zysku | `towns.script.tl:126`, `town_util.tl:915-925` |
+| Mieszkańcy | twoje linie w tym mieście liczą się jako o połowę tańsze, gdy mieszkańcy wybierają, jak podróżować | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
+
+```engine
+Skrypt liczy 360 sekund czasu gry na poziom (120 z kampanią). Kalendarz za tym to długość roku w silniku (getDefaultYearDuration); 33 % i 100 % w oknie miasta odpowiadają rokowi 720 sekund (dzień 2 sekund, jak w cargotype.script.lua:3). Jak mocno o połowę niższy koszt linii przyciąga mieszkańców do twoich linii, decyduje wybór trasy w silniku.
+```
+
+## Warto wiedzieć
+
+- Patrz na podpowiedź przy budowie: jeśli pokazuje **Reputacja: –x %**, tunel lub łagodniejsza trasa często kosztuje mniej niż reputacja.
+- Nigdy nie zostawiaj przerwanej głównej drogi między dwoma miastami: każda to od razu −33 %, a trzy przerwy zatrzymują miasto.
+- Kampania reklamowa przy pełnej reputacji pomaga tylko twoim liniom, nie ocenie. Uruchom ją zaraz po dużych pracach, gdy odzysk ma co odrabiać.
+- Premia **Odzyskiwanie reputacji** dużego modułu centrali (+1 %) widnieje w zakładce Premie, ale w skryptach zmienia tylko wartość, której żadna ocena nie czyta (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
+- Osiągnięcie **To nie ja** wymaga miasta z reputacją 0 % w grze swobodnej (`achievements.script.tl:261-267`).
+
+```check
+official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
+scripts: Te same przyczyny oraz usunięte skały, tunele, teren torów i dróg i nieuzyskane subsydia. Każde przerwane lub za długie połączenie główne kosztuje od razu 1/3; trzy zatrzymują miasto. Odzysk wynosi sam z siebie 33 % na rok; kampania reklamowa podnosi go do 100 % na rok, ale od razu nic nie daje. Sadzenie drzew znosi tylko stratę za drzewa. Premia Odzyskiwanie reputacji centrali nie działa w skryptach.
+result: refines
+```

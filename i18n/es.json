@@ -367,6 +367,15 @@
    "rep": "Reembolsar a los 3 años: quedan 30 M por pagar",
    "drop": "intereses restantes (2,4 M): anulados",
    "same": "mismo interés total"
+  },
+  "T_REP": {
+   "cap": "Ejemplo: unas obras de terreno cuestan un 40 %. La reputación vuelve sola a un 33 % al año; una campaña de marketing la hace volver a un 100 % al año mientras dura. Seis niveles, como en cada calificación.",
+   "x": "años",
+   "hit": "obras de terreno −40 %",
+   "camp": "Campaña de marketing",
+   "slow": "33 % al año",
+   "fast": "100 % al año",
+   "noc": "sin campaña"
   }
  },
  "cargo": {

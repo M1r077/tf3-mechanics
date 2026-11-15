@@ -367,6 +367,15 @@
    "rep": "Pagar após 3 anos: faltam 30 M a pagar",
    "drop": "juros restantes (2,4 M): cancelados",
    "same": "mesmo total de juros"
+  },
+  "T_REP": {
+   "cap": "Exemplo: obras no terreno custam 40 %. A reputação volta sozinha a 33 % por ano; uma campanha de marketing a faz voltar a 100 % por ano enquanto dura. Seis níveis, como em toda avaliação.",
+   "x": "anos",
+   "hit": "obras no terreno −40 %",
+   "camp": "Campanha de Marketing",
+   "slow": "33 % por ano",
+   "fast": "100 % por ano",
+   "noc": "sem campanha"
   }
  },
  "cargo": {

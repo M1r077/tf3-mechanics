@@ -367,6 +367,15 @@
    "rep": "Afbetalen na 3 jaar: nog 30 M te betalen",
    "drop": "resterende rente (2,4 M): vervalt",
    "same": "zelfde totale rente"
+  },
+  "T_REP": {
+   "cap": "Voorbeeld: terreinwerk kost 40 %. Reputatie komt vanzelf terug met 33 % per jaar; een marketingcampagne maakt er 100 % per jaar van zolang ze loopt. Zes niveaus, zoals bij elke beoordeling.",
+   "x": "jaren",
+   "hit": "terreinwerk −40 %",
+   "camp": "Marketingcampagne",
+   "slow": "33 % per jaar",
+   "fast": "100 % per jaar",
+   "noc": "zonder campagne"
   }
  },
  "cargo": {

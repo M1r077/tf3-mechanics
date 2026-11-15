@@ -1031,6 +1031,59 @@ def loan_interest(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- reputation: a penalty and its recovery
+T_REP = {
+    "en": {"cap": "Example: terrain work costs 40 %. Reputation comes back by itself at 33 % a year; a Marketing Campaign makes it "
+                  "100 % a year while it runs. Six levels, as for every rating.",
+           "x": "years", "hit": "terrain work −40 %", "camp": "Marketing Campaign", "slow": "33 % a year",
+           "fast": "100 % a year", "noc": "without campaign"},
+    "fr": {"cap": "Exemple : des travaux de terrain coûtent 40 %. La réputation revient seule à 33 % par an ; une campagne marketing "
+                  "la fait revenir à 100 % par an tant qu'elle dure. Six niveaux, comme pour chaque note.",
+           "x": "années", "hit": "travaux de terrain −40 %", "camp": "Campagne marketing", "slow": "33 % par an",
+           "fast": "100 % par an", "noc": "sans campagne"},
+    "de": {"cap": "Beispiel: Geländearbeiten kosten 40 %. Der Ruf kommt von selbst mit 33 % pro Jahr zurück; eine Marketingkampagne "
+                  "macht daraus 100 % pro Jahr, solange sie läuft. Sechs Stufen wie bei jeder Wertung.",
+           "x": "Jahre", "hit": "Geländearbeiten −40 %", "camp": "Marketingkampagne", "slow": "33 % pro Jahr",
+           "fast": "100 % pro Jahr", "noc": "ohne Kampagne"},
+}
+
+
+def rep_recovery(lang):
+    t = T_REP[lang]
+    lv = T_GM[lang]["lv"]
+    s = Svg("rr", 900, 330)
+    X0, Y0, W, H = 70, 270, 600, 240
+    px = lambda yr: X0 + yr / 2 * W
+    py = lambda v: Y0 - v * H
+    s.rect(X0, Y0 - H, W, H, "#121921", r=10, stroke=LINE)
+    for i in range(6):  # six levels: floor(value * 6), town_util.tl:983-985
+        y0, y1 = py((i + 1) / 6), py(i / 6)
+        s.rect(X0 + 1, y0, W - 2, y1 - y0, GM_COL[i], r=0, opacity=.22)
+        s.text(X0 + W + 12, (y0 + y1) / 2 + 4, lv[i], 12, TEXT if i >= 3 else DIM, "start", 600)
+    for yr in (0, .5, 1, 1.5, 2):
+        s.add(f'<line x1="{px(yr)}" y1="{Y0 - H}" x2="{px(yr)}" y2="{Y0}" stroke="{LINE}" stroke-dasharray="2 5"/>')
+        s.text(px(yr), Y0 + 20, langs.num(yr, lang) if yr != int(yr) else str(int(yr)), 12, DIM)
+    for v in (0, .5, 1):
+        s.text(X0 - 10, py(v) + 4, f"{int(v * 100)} %", 12, DIM, "end")
+    s.text(X0 + W / 2, Y0 + 44, t["x"], 13, TEXT, weight=600)
+    # campaign window: 0.8 to 1.8 years (one year)
+    s.rect(px(.8), Y0 - H + 1, px(1.8) - px(.8), H - 2, VIOLET, r=0, opacity=.10)
+    s.chip(px(.8) + 8, Y0 - H + 8, t["camp"], VIOLET, size=12, h=22)
+    # without campaign (dashed): 0.6 at 0.2, +1/3 per year -> full at 1.4
+    s.add(f'<path d="M{px(.8):.1f} {py(.8):.1f} L{px(1.4):.1f} {py(1):.1f} L{px(2):.1f} {py(1):.1f}" fill="none" stroke="{DIM}" '
+          f'stroke-width="2" stroke-dasharray="6 5"/>')
+    s.text(px(1.4) + 6, py(1) + 16, t["noc"], 11.5, DIM, "start", 600)
+    # with campaign: 0.8 at 0.8, +1 per year -> full at 1.0
+    d = (f"M{px(0):.1f} {py(1):.1f} L{px(.2):.1f} {py(1):.1f} L{px(.2):.1f} {py(.6):.1f} L{px(.8):.1f} {py(.8):.1f} "
+         f"L{px(1):.1f} {py(1):.1f} L{px(2):.1f} {py(1):.1f}")
+    s.add(f'<path d="{d}" fill="none" stroke="{GOLD}" stroke-width="3.5" stroke-linejoin="round"/>')
+    s.add(f'<circle cx="{px(.2):.1f}" cy="{py(.6):.1f}" r="5" fill="{RED}" stroke="{DEEP}" stroke-width="2"/>')
+    s.text(px(.2) + 10, py(.6) + 22, t["hit"], 12.5, RED, "start", 700)
+    s.text(px(.5) - 4, py(.7) - 12, t["slow"], 12, GOLD, "middle", 700)
+    s.text(px(.9) + 6, py(.9) + 2, t["fast"], 12, VIOLET, "start", 700)
+    return s.svg(), t["cap"]
+
+
 def _load_translations():
     """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
     for code in langs.translated():
@@ -1060,6 +1113,7 @@ REGISTRY = {
     "subsidy_types": subsidy_types,
     "cost_years": cost_years,
     "loan_interest": loan_interest,
+    "rep_recovery": rep_recovery,
 }
 
 
