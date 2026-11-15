@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | pro unterbrochener Hauptverbindung zu einer anderen Stadt
-fact: 33 % | Erholung pro Jahr (100 % während einer Marketingkampagne)
+fact: ≈ 67 % | Erholung pro Jahr bei Kalendertempo ×1 (≈ 200 % während einer Marketingkampagne); das Stadtfenster zeigt 33 % und 100 %
 fact: 0,25 % | pro entferntem ausgewachsenem Baum bei der Stadt
 fact: 2 Mio. m³ | Geländearbeiten kosten den ganzen Ruf
 ---
@@ -53,7 +53,7 @@ Eine Hauptverbindung gilt als unterbrochen, wenn das Spiel **Strassenverbindung 
 
 ## Wie er zurückkommt
 
-- **Von selbst**: das Stadtfenster zeigt **Jährliche Aufwertung** 33 %, 100 % mit Marketingkampagne (`town_react_util.tl:1061-1067`). Das ist eine Stufe (1/6) pro halbes Jahr, oder alle 2 Monate während einer Kampagne (`towns.script.tl:121-135`).
+- **Von selbst**: eine Stufe (1/6) alle 3 Monate Spielzeit (360 s), jeden Monat (120 s) während einer Marketingkampagne (`towns.script.tl:121-135`). Bei Kalendertempo ×1 sind das etwa **67 %** pro Jahr, **200 %** mit Kampagne: von 0 % wieder voll in etwa 1,5 Jahren. Das Stadtfenster zeigt **Jährliche Aufwertung** 33 % und 100 %: feste Texte, die Hälfte des echten Tempos (`town_react_util.tl:1066`). Gemessen an einer Teststadt: eine Stufe alle 358 s, alle 120 s mit Kampagne.
 - Die Erholung verteilt den Gewinn auf alle Gründe; sie geht nie über die noch offenen Unterbrechungen hinaus (`town_util.tl:1649-1687`).
 - **Feierlichkeiten** geben **+50 %** für den ersten Passagier, der in einer Stadt in eine deiner Linien steigt, +50 % für die erste Fracht an eine Stadt, +50 % bei jedem Stufenaufstieg der Stadt und +20 % für die nächste Stadt bei der ersten Fracht an jede Industrie (`celebrations.script.tl:181-273`). Die Meldung endet dann mit **Ruf in Stadt verbessert.** oder **Ruf in … verbessert.** (`celebration_react_util.tl:63-75`). Sie zählen nur, wenn der Ruf nicht voll ist, und nicht in Kampagnenmissionen (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
 - **Stadt versorgen** kann bei Annahme +5 % bis +20 % × Risikofaktor geben (`deliver_cargo_town.script.tl:195-199`). Wie jeder Gewinn entfernt das nur bestehende Verluste (`towns.script.tl:324-330`).
@@ -65,11 +65,11 @@ Eine Hauptverbindung gilt als unterbrochen, wenn das Spiel **Strassenverbindung 
 | Preis | 10 M × Jahresfaktor: 4 M im Jahr 1900 bis 25 M im Jahr 2020, auf 1 M gerundet | `marketing_campaign_tool.script.tl:9-14` |
 | Braucht | eine Genehmigung aus den Firmenboni | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Dauer | ein Jahr | `marketing_campaign_tool.script.tl:136` |
-| Ruf | Erholung ×3 (100 % pro Jahr); **kein** sofortiger Gewinn | `towns.script.tl:126`, `town_util.tl:915-925` |
+| Ruf | Erholung ×3 (≈ 200 % pro Jahr, das Fenster zeigt 100 %); **kein** sofortiger Gewinn | `towns.script.tl:126`, `town_util.tl:915-925` |
 | Einwohner | deine Linien in dieser Stadt zählen als halb so teuer, wenn Einwohner wählen, wie sie reisen | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Das Skript rechnet 360 Sekunden Spielzeit pro Stufe (120 mit Kampagne). Der Kalender dahinter ist die Jahresdauer der Engine (getDefaultYearDuration); die 33 % und 100 % im Stadtfenster passen zu einem Jahr von 720 Sekunden (ein Tag von 2 Sekunden, `cargotype.script.lua:3`). Wie stark die halbierten Linienkosten Einwohner zu deinen Linien bringen, entscheidet die Routenwahl der Engine.
+Das Skript rechnet 360 Sekunden Spielzeit pro Stufe (120 mit Kampagne), mit einem Monat aus 30 Tagen zu 4 Sekunden. Die Erholung folgt der Spielzeit: bei langsamerem Kalender dauert ein Kalenderjahr länger, also kommt pro angezeigtem Jahr mehr zurück. Wie stark die halbierten Linienkosten Einwohner zu deinen Linien bringen, entscheidet die Routenwahl der Engine.
 ```
 
 ## Gut zu wissen
@@ -82,6 +82,6 @@ Das Skript rechnet 360 Sekunden Spielzeit pro Stufe (120 mit Kampagne). Der Kale
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Dieselben Ursachen, dazu entfernte Felsen, Tunnel, das Gelände von Gleisen und Straßen und gescheiterte Subventionen. Jede unterbrochene oder zu lange Hauptverbindung kostet sofort 1/3; drei stoppen die Stadt. Die Erholung beträgt von selbst 33 % pro Jahr; eine Marketingkampagne macht 100 % pro Jahr daraus, gibt aber sofort nichts. Bäume pflanzen hebt nur den Verlust durch Bäume auf. Der Bonus Rufwiederherstellung des Hauptquartiers hat in den Skripten keine Wirkung.
-result: refines
+scripts: Dieselben Ursachen, dazu entfernte Felsen, Tunnel, das Gelände von Gleisen und Straßen und gescheiterte Subventionen. Jede unterbrochene oder zu lange Hauptverbindung kostet sofort 1/3; drei stoppen die Stadt. Die Erholung beträgt von selbst etwa 67 % pro Jahr und etwa 200 % mit einer Marketingkampagne, doppelt so viel wie das Stadtfenster zeigt (33 % und 100 %); die Kampagne gibt sofort nichts. Bäume pflanzen hebt nur den Verlust durch Bäume auf. Der Bonus Rufwiederherstellung des Hauptquartiers hat in den Skripten keine Wirkung.
+result: differs
 ```

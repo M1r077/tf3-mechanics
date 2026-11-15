@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | 每切断一条通往其他城镇的主要连接
-fact: 33 % | 每年恢复（营销活动期间 100 %）
+fact: ≈ 67 % | 日历速度 ×1 时每年恢复（营销活动期间 ≈ 200 %）；城镇窗口显示 33 % 和 100 %
 fact: 0.25 % | 在城镇旁每移除一棵成年树
 fact: 200 万 m³ | 地形工程会耗尽全部声誉
 ---
@@ -53,7 +53,7 @@ fact: 200 万 m³ | 地形工程会耗尽全部声誉
 
 ## 声誉如何恢复
 
-- **自动恢复**：城镇窗口显示**年度声誉恢复** 33 %，营销活动期间 100 %（`town_react_util.tl:1061-1067`）。也就是每半年一级（1/6），活动期间每 2 个月一级（`towns.script.tl:121-135`）。
+- **自动恢复**：每 3 个月游戏时间（360 秒）恢复一级（1/6），营销活动期间每个月（120 秒）一级（`towns.script.tl:121-135`）。日历速度 ×1 时约为每年 **67 %**，活动期间 **200 %**：从 0 % 回满约需 1.5 年。城镇窗口中的**年度声誉恢复** 33 % 和 100 % 是固定文字，只有实际速度的一半（`town_react_util.tl:1066`）。在测试城镇实测：每 358 秒一级，活动期间每 120 秒一级。
 - 恢复会把增加量分到所有原因上；不会超过仍未修复的切断连接（`town_util.tl:1649-1687`）。
 - **庆典**：城镇里第一位乘客登上你的线路 **+50 %**，第一批货物送到城镇 +50 %，城镇每次升级 +50 %，每个工业第一次收到货物时最近的城镇 +20 %（`celebrations.script.tl:181-273`）。这时消息末尾会加上**定居点声誉已提升。**或**你在…的声誉有所提升。**（`celebration_react_util.tl:63-75`）。只有声誉未满时才算，战役任务中不算（`celebrations.script.tl:79-93`，`celebrations.script.tl:140-142`）。
 - **供给城镇**接受时可给 +5 % 到 +20 % × 风险系数（`deliver_cargo_town.script.tl:195-199`）。和所有增加一样，它只抵消已有的损失（`towns.script.tl:324-330`）。
@@ -65,11 +65,11 @@ fact: 200 万 m³ | 地形工程会耗尽全部声誉
 | 价格 | 10 M × 年份系数：1900 年 4 M，到 2020 年 25 M，取整到 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | 需要 | 公司津贴中的一张许可 | `marketing_campaign_tool.script.tl:83-95`，`company.script.tl:416-423` |
 | 持续时间 | 一年 | `marketing_campaign_tool.script.tl:136` |
-| 声誉 | 恢复 ×3（每年 100 %）；**没有**立即增加 | `towns.script.tl:126`，`town_util.tl:915-925` |
+| 声誉 | 恢复 ×3（每年 ≈ 200 %，窗口显示 100 %）；**没有**立即增加 | `towns.script.tl:126`，`town_util.tl:915-925` |
 | 居民 | 居民选择出行方式时，你在该城镇的线路按一半成本计算 | `marketing_campaign_tool.script.tl:137`，`towns.script.tl:376-398` |
 
 ```engine
-脚本按每级 360 秒游戏时间计算（活动期间 120 秒）。背后的日历是引擎的年长度（getDefaultYearDuration）；城镇窗口中的 33 % 和 100 % 对应一年 720 秒（一天 2 秒，`cargotype.script.lua:3`）。线路成本减半能把多少居民吸引到你的线路上，由引擎的路线选择决定。
+脚本按每级 360 秒游戏时间计算（活动期间 120 秒），一个月为 30 天、每天 4 秒。恢复按游戏时间进行：日历越慢，日历上的一年越长，每个显示年份恢复得越多。线路成本减半能把多少居民吸引到你的线路上，由引擎的路线选择决定。
 ```
 
 ## 须知
@@ -82,6 +82,6 @@ fact: 200 万 m³ | 地形工程会耗尽全部声誉
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 原因相同，另外还有移除石头、隧道、轨道和道路的地形以及失败的补贴。每条被切断或过长的主要连接立刻扣 1/3；三条会让城镇停下。自动恢复每年 33 %；营销活动把它提到每年 100 %，但不会立即增加。种树只抵消树木造成的损失。总部的声誉恢复奖励在脚本中没有效果。
-result: refines
+scripts: 原因相同，另外还有移除石头、隧道、轨道和道路的地形以及失败的补贴。每条被切断或过长的主要连接立刻扣 1/3；三条会让城镇停下。自动恢复约为每年 67 %，营销活动期间约 200 %，是城镇窗口显示值（33 % 和 100 %）的两倍；活动不会立即增加。种树只抵消树木造成的损失。总部的声誉恢复奖励在脚本中没有效果。
+result: differs
 ```

@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | 每中斷一條通往其他城鎮的主要連接
-fact: 33 % | 每年恢復（行銷活動期間 100 %）
+fact: ≈ 67 % | 日曆速度 ×1 時每年恢復（行銷活動期間 ≈ 200 %）；城鎮視窗顯示 33 % 與 100 %
 fact: 0.25 % | 在城鎮旁每移除一棵成樹
 fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 ---
@@ -53,7 +53,7 @@ fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 
 ## 聲望如何恢復
 
-- **自動恢復**：城鎮視窗顯示**年度恢復量** 33 %，行銷活動期間 100 %（`town_react_util.tl:1061-1067`）。也就是每半年一級（1/6），活動期間每 2 個月一級（`towns.script.tl:121-135`）。
+- **自動恢復**：每 3 個月遊戲時間（360 秒）恢復一級（1/6），行銷活動期間每個月（120 秒）一級（`towns.script.tl:121-135`）。日曆速度 ×1 時約為每年 **67 %**，活動期間 **200 %**：從 0 % 回滿約需 1.5 年。城鎮視窗中的**年度恢復量** 33 % 與 100 % 是固定文字，只有實際速度的一半（`town_react_util.tl:1066`）。在測試城鎮實測：每 358 秒一級，活動期間每 120 秒一級。
 - 恢復會把增加量分到所有原因上；不會超過仍未修復的中斷連接（`town_util.tl:1649-1687`）。
 - **慶祝活動**：城鎮裡第一位乘客搭上你的路線 **+50 %**，第一批貨物送到城鎮 +50 %，城鎮每次升級 +50 %，每個產業第一次收到貨物時最近的城鎮 +20 %（`celebrations.script.tl:181-273`）。這時訊息末尾會加上**聚落聲望已提升。**或 **…的聲望提升了。**（`celebration_react_util.tl:63-75`）。只有聲望未滿時才算，戰役任務中不算（`celebrations.script.tl:79-93`，`celebrations.script.tl:140-142`）。
 - **供應城鎮**接受時可給 +5 % 到 +20 % × 風險係數（`deliver_cargo_town.script.tl:195-199`）。和所有增加一樣，它只抵銷已有的損失（`towns.script.tl:324-330`）。
@@ -65,11 +65,11 @@ fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 | 價格 | 10 M × 年份係數：1900 年 4 M，到 2020 年 25 M，取整到 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | 需要 | 公司增益效果中的一張許可 | `marketing_campaign_tool.script.tl:83-95`，`company.script.tl:416-423` |
 | 持續時間 | 一年 | `marketing_campaign_tool.script.tl:136` |
-| 聲望 | 恢復 ×3（每年 100 %）；**沒有**立即增加 | `towns.script.tl:126`，`town_util.tl:915-925` |
+| 聲望 | 恢復 ×3（每年 ≈ 200 %，視窗顯示 100 %）；**沒有**立即增加 | `towns.script.tl:126`，`town_util.tl:915-925` |
 | 居民 | 居民選擇出行方式時，你在該城鎮的路線以一半成本計算 | `marketing_campaign_tool.script.tl:137`，`towns.script.tl:376-398` |
 
 ```engine
-腳本以每級 360 秒遊戲時間計算（活動期間 120 秒）。背後的日曆是引擎的年長度（getDefaultYearDuration）；城鎮視窗中的 33 % 與 100 % 對應一年 720 秒（一天 2 秒，`cargotype.script.lua:3`）。路線成本減半能把多少居民吸引到你的路線上，由引擎的路線選擇決定。
+腳本以每級 360 秒遊戲時間計算（活動期間 120 秒），一個月為 30 天、每天 4 秒。恢復依遊戲時間進行：日曆越慢，日曆上的一年越長，每個顯示年份恢復得越多。路線成本減半能把多少居民吸引到你的路線上，由引擎的路線選擇決定。
 ```
 
 ## 小知識
@@ -82,6 +82,6 @@ fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 原因相同，另外還有移除岩石、隧道、軌道與道路的地形以及申請失敗的補助。每條中斷或過長的主要連接立刻扣 1/3；三條會讓城鎮停下。自動恢復每年 33 %；行銷活動把它提到每年 100 %，但不會立即增加。種樹只抵銷樹木造成的損失。總部的聲望恢復紅利在腳本中沒有效果。
-result: refines
+scripts: 原因相同，另外還有移除岩石、隧道、軌道與道路的地形以及申請失敗的補助。每條中斷或過長的主要連接立刻扣 1/3；三條會讓城鎮停下。自動恢復約為每年 67 %，行銷活動期間約 200 %，是城鎮視窗顯示值（33 % 與 100 %）的兩倍；活動不會立即增加。種樹只抵銷樹木造成的損失。總部的聲望恢復紅利在腳本中沒有效果。
+result: differs
 ```

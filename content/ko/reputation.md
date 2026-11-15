@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | 다른 마을로 가는 주 연결부가 하나 끊길 때마다
-fact: 33 % | 연간 복구(마케팅 캠페인 중에는 100 %)
+fact: ≈ 67 % | 달력 속도 ×1에서 연간 복구(마케팅 캠페인 중에는 ≈ 200 %), 마을 창에는 33 %와 100 %로 표시
 fact: 0.25 % | 마을 근처에서 다 자란 나무를 하나 제거할 때마다
 fact: 200만 m³ | 의 지형 공사로 평판이 모두 사라진다
 ---
@@ -53,7 +53,7 @@ fact: 200만 m³ | 의 지형 공사로 평판이 모두 사라진다
 
 ## 평판이 돌아오는 방식
 
-- **저절로**: 마을 창에 **연간 복구** 33 %, 마케팅 캠페인 중에는 100 %가 표시된다(`town_react_util.tl:1061-1067`). 반년마다 한 단계(1/6), 캠페인 중에는 2개월마다 한 단계다(`towns.script.tl:121-135`).
+- **저절로**: 게임 시간 3개월(360초)마다 한 단계(1/6), 마케팅 캠페인 중에는 1개월(120초)마다(`towns.script.tl:121-135`). 달력 속도 ×1에서 1년에 약 **67 %**, 캠페인 중에는 **200 %**로, 0 %에서 가득 차기까지 약 1.5년이다. 마을 창의 **연간 복구** 33 %와 100 %는 고정된 문구이며 실제 속도의 절반이다(`town_react_util.tl:1066`). 테스트 마을에서 측정: 358초마다 한 단계, 캠페인 중에는 120초마다.
 - 복구는 늘어난 양을 모든 사유에 나눈다. 아직 끊긴 연결의 몫을 넘어서 돌아오지는 않는다(`town_util.tl:1649-1687`).
 - **기념 행사**는 마을에서 플레이어 노선에 첫 승객이 타면 **+50 %**, 마을에 첫 화물이 배송되면 +50 %, 마을이 레벨업할 때마다 +50 %, 각 산업에 첫 화물이 배송되면 가장 가까운 마을에 +20 %를 준다(`celebrations.script.tl:181-273`). 이때 메시지 끝에 **정착지 평판이 향상되었습니다.** 또는 **… 마을의 평판이 향상되었습니다.**가 붙는다(`celebration_react_util.tl:63-75`). 평판이 만점이 아닐 때만 세고, 캠페인 미션에서는 세지 않는다(`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
 - **마을 공급**은 수락할 때 +5 %에서 +20 % × 위험 계수를 줄 수 있다(`deliver_cargo_town.script.tl:195-199`). 다른 증가와 마찬가지로 이미 있는 손실만 지운다(`towns.script.tl:324-330`).
@@ -65,11 +65,11 @@ fact: 200만 m³ | 의 지형 공사로 평판이 모두 사라진다
 | 가격 | 10 M × 연도 계수: 1900년 4 M부터 2020년 25 M까지, 1 M 단위로 반올림 | `marketing_campaign_tool.script.tl:9-14` |
 | 필요 | 회사 특전의 허가 1개 | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | 기간 | 1년 | `marketing_campaign_tool.script.tl:136` |
-| 평판 | 복구 ×3(1년에 100 %), 즉시 오르는 양은 **없다** | `towns.script.tl:126`, `town_util.tl:915-925` |
+| 평판 | 복구 ×3(1년에 ≈ 200 %, 창에는 100 %로 표시), 즉시 오르는 양은 **없다** | `towns.script.tl:126`, `town_util.tl:915-925` |
 | 주민 | 주민이 이동 방법을 고를 때 그 마을의 플레이어 노선은 비용이 절반으로 계산된다 | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-스크립트는 한 단계에 게임 시간 360초(캠페인 중 120초)를 센다. 그 뒤의 달력은 엔진의 1년 길이(getDefaultYearDuration)이며, 마을 창의 33 %와 100 %는 1년 = 720초(하루 = 2초, `cargotype.script.lua:3`)에 맞는다. 노선 비용이 절반이 될 때 주민이 플레이어 노선으로 얼마나 옮기는지는 엔진의 경로 선택이 정한다.
+스크립트는 한 단계에 게임 시간 360초(캠페인 중 120초)를 세며, 한 달은 4초짜리 날 30일이다. 복구는 게임 시간으로 진행되므로 달력을 느리게 하면 달력의 1년이 길어져 표시된 1년당 더 많이 돌아온다. 노선 비용이 절반이 될 때 주민이 플레이어 노선으로 얼마나 옮기는지는 엔진의 경로 선택이 정한다.
 ```
 
 ## 알아두면 좋은 점
@@ -82,6 +82,6 @@ fact: 200만 m³ | 의 지형 공사로 평판이 모두 사라진다
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 원인은 같고, 바위 제거, 터널, 선로와 도로의 지형, 실패한 보조금이 더해진다. 끊겼거나 너무 긴 주 연결은 하나당 바로 1/3, 셋이면 마을이 멈춘다. 복구는 저절로 1년 33 %, 마케팅 캠페인은 1년 100 %로 만들지만 즉시 주는 것은 없다. 나무를 심으면 나무 손실만 지워진다. 본부의 평판 복구 보너스는 스크립트에서 효과가 없다.
-result: refines
+scripts: 원인은 같고, 바위 제거, 터널, 선로와 도로의 지형, 실패한 보조금이 더해진다. 끊겼거나 너무 긴 주 연결은 하나당 바로 1/3, 셋이면 마을이 멈춘다. 복구는 저절로 1년 약 67 %, 마케팅 캠페인 중에는 약 200 %로, 마을 창의 표시(33 %와 100 %)의 두 배다. 캠페인은 즉시 주는 것이 없다. 나무를 심으면 나무 손실만 지워진다. 본부의 평판 복구 보너스는 스크립트에서 효과가 없다.
+result: differs
 ```

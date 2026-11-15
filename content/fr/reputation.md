@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | par connexion principale interrompue vers une autre ville
-fact: 33 % | récupérés par an (100 % pendant une campagne marketing)
+fact: ≈ 67 % | récupérés par an au calendrier ×1 (≈ 200 % pendant une campagne marketing) ; la fenêtre de la ville affiche 33 % et 100 %
 fact: 0,25 % | par arbre adulte supprimé près de la ville
 fact: 2 M m³ | de travaux de terrain coûtent toute la réputation
 ---
@@ -53,7 +53,7 @@ Une connexion principale compte comme coupée quand le jeu affiche **La liaison 
 
 ## Comment elle revient
 
-- **Toute seule** : la fenêtre de la ville affiche **Récupération annuelle** 33 %, 100 % avec une campagne marketing (`town_react_util.tl:1061-1067`). Cela fait un niveau (1/6) par semestre, ou tous les 2 mois pendant une campagne (`towns.script.tl:121-135`).
+- **Toute seule** : un niveau (1/6) tous les 3 mois de temps de jeu (360 s), tous les mois (120 s) pendant une campagne marketing (`towns.script.tl:121-135`). Au calendrier ×1, cela fait environ **67 %** par an, **200 %** avec une campagne : de 0 % à plein en 1,5 an environ. La fenêtre de la ville affiche **Récupération annuelle** 33 % et 100 % : des textes fixes, la moitié de la vitesse réelle (`town_react_util.tl:1066`). Mesuré sur une ville de test : un niveau toutes les 358 s, toutes les 120 s avec une campagne.
 - La récupération répartit le gain sur toutes les raisons ; elle ne dépasse jamais les connexions coupées encore ouvertes (`town_util.tl:1649-1687`).
 - Les **célébrations** ajoutent **+50 %** pour le premier passager qui monte dans une de tes lignes dans une ville, +50 % pour le premier fret livré à une ville, +50 % à chaque niveau gagné par la ville, et +20 % à la ville la plus proche pour le premier fret livré à chaque industrie (`celebrations.script.tl:181-273`). Le message se termine alors par **Réputation de la ville améliorée.** ou **Réputation améliorée à …** (`celebration_react_util.tl:63-75`). Elles ne comptent que si la réputation n'est pas pleine, et pas dans les missions de campagne (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
 - **Approvisionner la ville** peut donner +5 % à +20 % × le facteur de risque à l'acceptation (`deliver_cargo_town.script.tl:195-199`). Comme tout gain, cela retire seulement des pertes existantes (`towns.script.tl:324-330`).
@@ -65,11 +65,11 @@ Une connexion principale compte comme coupée quand le jeu affiche **La liaison 
 | Prix | 10 M × facteur d'année : 4 M en 1900 jusqu'à 25 M en 2020, arrondi à 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | Demande | un permis des atouts de l'entreprise | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Durée | un an | `marketing_campaign_tool.script.tl:136` |
-| Réputation | récupération ×3 (100 % par an) ; **aucun** gain immédiat | `towns.script.tl:126`, `town_util.tl:915-925` |
+| Réputation | récupération ×3 (≈ 200 % par an, la fenêtre affiche 100 %) ; **aucun** gain immédiat | `towns.script.tl:126`, `town_util.tl:915-925` |
 | Habitants | tes lignes dans cette ville comptent comme deux fois moins coûteuses quand les habitants choisissent comment se déplacer | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Le script compte 360 secondes de temps de jeu par niveau (120 avec une campagne). Le calendrier derrière est la durée d'année du moteur (getDefaultYearDuration) ; les 33 % et 100 % affichés dans la fenêtre de la ville correspondent à une année de 720 secondes (un jour de 2 secondes, `cargotype.script.lua:3`). À quel point le coût de ligne divisé par deux pousse les habitants vers tes lignes dépend du choix d'itinéraire du moteur.
+Le script compte 360 secondes de temps de jeu par niveau (120 avec une campagne), avec un mois de 30 jours de 4 secondes. La récupération suit le temps de jeu : avec un calendrier plus lent, une année du calendrier dure plus longtemps, donc il revient davantage par année affichée. À quel point le coût de ligne divisé par deux pousse les habitants vers tes lignes dépend du choix d'itinéraire du moteur.
 ```
 
 ## Bon à savoir
@@ -82,6 +82,6 @@ Le script compte 360 secondes de temps de jeu par niveau (120 avec une campagne)
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Mêmes causes, plus les roches supprimées, les tunnels, le terrain des voies et routes, et les contrats échoués. Chaque connexion principale coupée ou trop longue coûte 1/3 tout de suite ; trois arrêtent la ville. La récupération est de 33 % par an toute seule ; une campagne marketing la porte à 100 % par an mais ne donne rien tout de suite. Planter des arbres annule seulement la perte due aux arbres. Le bonus Récupération de réputation du siège social n'a aucun effet dans les scripts.
-result: refines
+scripts: Mêmes causes, plus les roches supprimées, les tunnels, le terrain des voies et routes, et les contrats échoués. Chaque connexion principale coupée ou trop longue coûte 1/3 tout de suite ; trois arrêtent la ville. La récupération est d'environ 67 % par an toute seule et d'environ 200 % avec une campagne marketing, le double de ce qu'affiche la fenêtre de la ville (33 % et 100 %) ; la campagne ne donne rien tout de suite. Planter des arbres annule seulement la perte due aux arbres. Le bonus Récupération de réputation du siège social n'a aucun effet dans les scripts.
+result: differs
 ```

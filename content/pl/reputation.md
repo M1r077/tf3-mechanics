@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | za każde przerwane połączenie główne z innym miastem
-fact: 33 % | odzysku na rok (100 % w czasie kampanii reklamowej)
+fact: ≈ 67 % | odzysku na rok przy tempie kalendarza ×1 (≈ 200 % w czasie kampanii reklamowej); okno miasta pokazuje 33 % i 100 %
 fact: 0,25 % | za każde usunięte dorosłe drzewo przy mieście
 fact: 2 mln m³ | prac ziemnych kosztuje całą reputację
 ---
@@ -53,7 +53,7 @@ Połączenie główne liczy się jako przerwane, gdy gra zgłasza **Połączenie
 
 ## Jak wraca
 
-- **Sama**: okno miasta pokazuje **Roczny odzysk** 33 %, 100 % z kampanią reklamową (`town_react_util.tl:1061-1067`). To jeden poziom (1/6) na pół roku albo co 2 miesiące w czasie kampanii (`towns.script.tl:121-135`).
+- **Sama**: jeden poziom (1/6) co 3 miesiące czasu gry (360 s), co miesiąc (120 s) w czasie kampanii reklamowej (`towns.script.tl:121-135`). Przy tempie kalendarza ×1 to około **67 %** na rok, **200 %** z kampanią: od 0 % do pełna w około 1,5 roku. Okno miasta pokazuje **Roczny odzysk** 33 % i 100 %: stałe teksty, połowa rzeczywistego tempa (`town_react_util.tl:1066`). Zmierzone w mieście testowym: jeden poziom co 358 s, co 120 s z kampanią.
 - Odzysk rozkłada zysk na wszystkie powody; nigdy nie przekracza wciąż otwartych przerwanych połączeń (`town_util.tl:1649-1687`).
 - **Uroczystości** dodają **+50 %** za pierwszego pasażera, który w mieście wsiada do jednej z twoich linii, +50 % za pierwszy ładunek dostarczony do miasta, +50 % przy każdym awansie miasta na wyższy poziom i +20 % dla najbliższego miasta za pierwszy ładunek dostarczony do każdego przemysłu (`celebrations.script.tl:181-273`). Komunikat kończy się wtedy na **Reputacja w osiedlu wzrosła.** lub **Wzrost reputacji (…).** (`celebration_react_util.tl:63-75`). Liczą się tylko, gdy reputacja nie jest pełna, i nie w misjach kampanii (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
 - **Zaopatrz miasto** może dać od +5 % do +20 % × współczynnik ryzyka przy przyjęciu (`deliver_cargo_town.script.tl:195-199`). Jak każdy zysk usuwa tylko istniejące straty (`towns.script.tl:324-330`).
@@ -65,11 +65,11 @@ Połączenie główne liczy się jako przerwane, gdy gra zgłasza **Połączenie
 | Cena | 10 M × współczynnik roku: 4 M w 1900 do 25 M w 2020, zaokrąglone do 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | Wymaga | jednego pozwolenia z zalet firmy | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Czas trwania | jeden rok | `marketing_campaign_tool.script.tl:136` |
-| Reputacja | odzysk ×3 (100 % na rok); **żadnego** natychmiastowego zysku | `towns.script.tl:126`, `town_util.tl:915-925` |
+| Reputacja | odzysk ×3 (≈ 200 % na rok, okno pokazuje 100 %); **żadnego** natychmiastowego zysku | `towns.script.tl:126`, `town_util.tl:915-925` |
 | Mieszkańcy | twoje linie w tym mieście liczą się jako o połowę tańsze, gdy mieszkańcy wybierają, jak podróżować | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Skrypt liczy 360 sekund czasu gry na poziom (120 z kampanią). Kalendarz za tym to długość roku w silniku (getDefaultYearDuration); 33 % i 100 % w oknie miasta odpowiadają rokowi 720 sekund (dzień 2 sekund, `cargotype.script.lua:3`). Jak mocno o połowę niższy koszt linii przyciąga mieszkańców do twoich linii, decyduje wybór trasy w silniku.
+Skrypt liczy 360 sekund czasu gry na poziom (120 z kampanią), z miesiącem z 30 dni po 4 sekundy. Odzysk biegnie w czasie gry: przy wolniejszym kalendarzu rok kalendarza trwa dłużej, więc na pokazany rok wraca więcej. Jak mocno o połowę niższy koszt linii przyciąga mieszkańców do twoich linii, decyduje wybór trasy w silniku.
 ```
 
 ## Warto wiedzieć
@@ -82,6 +82,6 @@ Skrypt liczy 360 sekund czasu gry na poziom (120 z kampanią). Kalendarz za tym 
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Te same przyczyny oraz usunięte skały, tunele, teren torów i dróg i nieuzyskane subsydia. Każde przerwane lub za długie połączenie główne kosztuje od razu 1/3; trzy zatrzymują miasto. Odzysk wynosi sam z siebie 33 % na rok; kampania reklamowa podnosi go do 100 % na rok, ale od razu nic nie daje. Sadzenie drzew znosi tylko stratę za drzewa. Premia Odzyskiwanie reputacji centrali nie działa w skryptach.
-result: refines
+scripts: Te same przyczyny oraz usunięte skały, tunele, teren torów i dróg i nieuzyskane subsydia. Każde przerwane lub za długie połączenie główne kosztuje od razu 1/3; trzy zatrzymują miasto. Odzysk wynosi sam z siebie około 67 % na rok i około 200 % z kampanią reklamową, dwa razy tyle, ile pokazuje okno miasta (33 % i 100 %); kampania od razu nic nie daje. Sadzenie drzew znosi tylko stratę za drzewa. Premia Odzyskiwanie reputacji centrali nie działa w skryptach.
+result: differs
 ```

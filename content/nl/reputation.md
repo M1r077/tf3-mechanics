@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | per onderbroken hoofdaansluiting naar een andere stad
-fact: 33 % | herstel per jaar (100 % tijdens een marketingcampagne)
+fact: ≈ 67 % | herstel per jaar bij kalendersnelheid ×1 (≈ 200 % tijdens een marketingcampagne); het stadsvenster toont 33 % en 100 %
 fact: 0,25 % | per verwijderde volgroeide boom bij de stad
 fact: 2 mln. m³ | terreinwerk kost de hele reputatie
 ---
@@ -53,7 +53,7 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 
 ## Hoe ze terugkomt
 
-- **Vanzelf**: het stadsvenster toont **Jaarlijks herstel** 33 %, 100 % met een marketingcampagne (`town_react_util.tl:1061-1067`). Dat is één niveau (1/6) per half jaar, of elke 2 maanden tijdens een campagne (`towns.script.tl:121-135`).
+- **Vanzelf**: één niveau (1/6) per 3 maanden speltijd (360 s), elke maand (120 s) tijdens een marketingcampagne (`towns.script.tl:121-135`). Bij kalendersnelheid ×1 is dat ongeveer **67 %** per jaar, **200 %** met een campagne: van 0 % weer vol in ongeveer 1,5 jaar. Het stadsvenster toont **Jaarlijks herstel** 33 % en 100 %: vaste teksten, de helft van de echte snelheid (`town_react_util.tl:1066`). Gemeten bij een teststad: één niveau per 358 s, per 120 s met een campagne.
 - Het herstel verdeelt de winst over alle redenen; het gaat nooit voorbij de onderbroken aansluitingen die nog open zijn (`town_util.tl:1649-1687`).
 - **Feesten** geven **+50 %** voor de eerste passagier die in een stad op een van je lijnen stapt, +50 % voor de eerste vracht aan een stad, +50 % bij elke niveaustijging van de stad, en +20 % voor de dichtstbijzijnde stad bij de eerste vracht aan elke industrie (`celebrations.script.tl:181-273`). Het bericht eindigt dan met **Reputatie in stad verbeterd.** of **Reputatie verbeterd in …** (`celebration_react_util.tl:63-75`). Ze tellen alleen als de reputatie niet vol is, en niet in campagnemissies (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
 - **Bevoorraad stad** kan bij aanvaarding +5 % tot +20 % × de risicofactor geven (`deliver_cargo_town.script.tl:195-199`). Zoals elke winst haalt dat alleen bestaande verliezen weg (`towns.script.tl:324-330`).
@@ -65,11 +65,11 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 | Prijs | 10 M × jaarfactor: 4 M in 1900 tot 25 M in 2020, afgerond op 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | Vereist | één vergunning uit de bedrijfsvoordelen | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Duur | één jaar | `marketing_campaign_tool.script.tl:136` |
-| Reputatie | herstel ×3 (100 % per jaar); **geen** directe winst | `towns.script.tl:126`, `town_util.tl:915-925` |
+| Reputatie | herstel ×3 (≈ 200 % per jaar, het venster toont 100 %); **geen** directe winst | `towns.script.tl:126`, `town_util.tl:915-925` |
 | Bewoners | je lijnen in die stad tellen als half zo duur wanneer bewoners kiezen hoe ze reizen | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Het script rekent 360 seconden speltijd per niveau (120 met een campagne). De kalender daarachter is de jaarduur van de engine (getDefaultYearDuration); de 33 % en 100 % in het stadsvenster passen bij een jaar van 720 seconden (een dag van 2 seconden, `cargotype.script.lua:3`). Hoe sterk de gehalveerde lijnkosten bewoners naar je lijnen trekken, beslist de routekeuze van de engine.
+Het script rekent 360 seconden speltijd per niveau (120 met een campagne), met een maand van 30 dagen van 4 seconden. Het herstel volgt de speltijd: met een tragere kalender duurt een kalenderjaar langer, dus komt er per getoond jaar meer terug. Hoe sterk de gehalveerde lijnkosten bewoners naar je lijnen trekken, beslist de routekeuze van de engine.
 ```
 
 ## Goed om te weten
@@ -82,6 +82,6 @@ Het script rekent 360 seconden speltijd per niveau (120 met een campagne). De ka
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Dezelfde oorzaken, plus verwijderde rotsen, tunnels, het terrein van sporen en wegen en mislukte subsidies. Elke onderbroken of te lange hoofdaansluiting kost meteen 1/3; drie stoppen de stad. Het herstel is vanzelf 33 % per jaar; een marketingcampagne maakt er 100 % per jaar van, maar geeft niets meteen. Bomen planten heft alleen het verlies door bomen op. De bonus Reputatieherstel van het hoofdkwartier heeft in de scripts geen effect.
-result: refines
+scripts: Dezelfde oorzaken, plus verwijderde rotsen, tunnels, het terrein van sporen en wegen en mislukte subsidies. Elke onderbroken of te lange hoofdaansluiting kost meteen 1/3; drie stoppen de stad. Het herstel is vanzelf ongeveer 67 % per jaar en ongeveer 200 % met een marketingcampagne, het dubbele van wat het stadsvenster toont (33 % en 100 %); de campagne geeft niets meteen. Bomen planten heft alleen het verlies door bomen op. De bonus Reputatieherstel van het hoofdkwartier heeft in de scripts geen effect.
+result: differs
 ```

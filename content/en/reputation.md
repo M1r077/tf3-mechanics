@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | per interrupted main connection to another town
-fact: 33 % | recovered per year (100 % during a Marketing Campaign)
+fact: ≈ 67 % | recovered per year at calendar speed ×1 (≈ 200 % during a Marketing Campaign); the town window shows 33 % and 100 %
 fact: 0.25 % | per removed full-size tree next to the town
 fact: 2 M m³ | of terrain work cost the whole reputation
 ---
@@ -53,7 +53,7 @@ A main connection counts as cut when the game raises **Road Connection Between T
 
 ## How it comes back
 
-- **By itself**: the town window shows **Annual Recovery** 33 %, 100 % with a Marketing Campaign (`town_react_util.tl:1061-1067`). That is one level (1/6) every half year, or every 2 months during a campaign (`towns.script.tl:121-135`).
+- **By itself**: one level (1/6) every 3 months of game time (360 s), every month (120 s) during a Marketing Campaign (`towns.script.tl:121-135`). At calendar speed ×1 that is about **67 %** a year, **200 %** with a campaign: from 0 % back to full in about 1.5 years. The town window shows **Annual Recovery** 33 % and 100 %: fixed texts, half the real speed (`town_react_util.tl:1066`). Measured on a test town: one level every 358 s, every 120 s with a campaign.
 - Recovery shares the gain over all reasons; it never goes past the cut connections still open (`town_util.tl:1649-1687`).
 - **Celebrations** add **+50 %** for the first passenger who boards one of your lines in a town, +50 % for the first cargo delivered to a town, +50 % at every level-up of the town, and +20 % to the closest town for the first cargo delivered to each industry (`celebrations.script.tl:181-273`). The message then ends with **Settlement reputation improved.** or **Reputation improved in …** (`celebration_react_util.tl:63-75`). They only count while the reputation is not full, not in campaign missions (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
 - **Supply Town** can give +5 % to +20 % × the risk factor on acceptance (`deliver_cargo_town.script.tl:195-199`). Like every gain, it only removes existing losses (`towns.script.tl:324-330`).
@@ -65,11 +65,11 @@ A main connection counts as cut when the game raises **Road Connection Between T
 | Price | 10 M × year factor: 4 M in 1900 up to 25 M in 2020, rounded to 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | Needs | one permit of the company perks | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Duration | one year | `marketing_campaign_tool.script.tl:136` |
-| Reputation | recovery ×3 (100 % a year); **no** instant gain | `towns.script.tl:126`, `town_util.tl:915-925` |
+| Reputation | recovery ×3 (≈ 200 % a year, the window shows 100 %); **no** instant gain | `towns.script.tl:126`, `town_util.tl:915-925` |
 | Residents | your lines in that town count as half as costly when residents choose how to travel | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-The script counts 360 seconds of game time per level (120 with a campaign). The calendar behind it is the engine's year duration (getDefaultYearDuration); the 33 % and 100 % shown in the town window match a year of 720 seconds (a day of 2 seconds, `cargotype.script.lua:3`). How strongly the halved line cost moves residents to your lines is decided by the engine's route choice.
+The script counts 360 seconds of game time per level (120 with a campaign), with a month of 30 days of 4 seconds. Recovery runs on game time: with a slower calendar a calendar year lasts longer, so more comes back per year shown. How strongly the halved line cost moves residents to your lines is decided by the engine's route choice.
 ```
 
 ## Good to know
@@ -82,6 +82,6 @@ The script counts 360 seconds of game time per level (120 with a campaign). The 
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Same causes, plus removed rocks, tunnels, track and road embankments and failed subsidies. Each cut or too long main connection costs 1/3 at once; three stop the town. Recovery is 33 % a year by itself; a Marketing Campaign makes it 100 % a year but gives nothing at once. Planting trees only cancels the tree loss. The headquarters' Reputation Recovery bonus has no effect in the scripts.
-result: refines
+scripts: Same causes, plus removed rocks, tunnels, track and road embankments and failed subsidies. Each cut or too long main connection costs 1/3 at once; three stop the town. Recovery is about 67 % a year by itself and about 200 % with a Marketing Campaign, twice what the town window shows (33 % and 100 %); the campaign gives nothing at once. Planting trees only cancels the tree loss. The headquarters' Reputation Recovery bonus has no effect in the scripts.
+result: differs
 ```

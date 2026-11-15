@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
 fact: −33 % | por conexão principal interrompida com outro município
-fact: 33 % | recuperados por ano (100 % durante uma campanha de marketing)
+fact: ≈ 67 % | recuperados por ano na velocidade de calendário ×1 (≈ 200 % durante uma campanha de marketing); a janela do município mostra 33 % e 100 %
 fact: 0,25 % | por árvore adulta removida perto do município
 fact: 2 mi m³ | de obras no terreno custam toda a reputação
 ---
@@ -53,7 +53,7 @@ Uma conexão principal conta como cortada quando o jogo avisa **A conexão rodov
 
 ## Como ela volta
 
-- **Sozinha**: a janela do município mostra **Recuperação Anual** 33 %, 100 % com uma campanha de marketing (`town_react_util.tl:1061-1067`). É um nível (1/6) a cada meio ano, ou a cada 2 meses durante uma campanha (`towns.script.tl:121-135`).
+- **Sozinha**: um nível (1/6) a cada 3 meses de tempo de jogo (360 s), a cada mês (120 s) durante uma campanha de marketing (`towns.script.tl:121-135`). Na velocidade de calendário ×1 são cerca de **67 %** por ano, **200 %** com campanha: de 0 % ao máximo em cerca de 1,5 ano. A janela do município mostra **Recuperação Anual** 33 % e 100 %: textos fixos, metade da velocidade real (`town_react_util.tl:1066`). Medido num município de teste: um nível a cada 358 s, a cada 120 s com campanha.
 - A recuperação divide o ganho entre todos os motivos; ela nunca passa das conexões cortadas ainda abertas (`town_util.tl:1649-1687`).
 - As **celebrações** somam **+50 %** pelo primeiro passageiro que embarca numa das suas linhas num município, +50 % pela primeira carga entregue a um município, +50 % a cada subida de nível do município, e +20 % ao município mais próximo pela primeira carga entregue a cada indústria (`celebrations.script.tl:181-273`). A mensagem termina então com **Reputação da aldeia melhorada.** ou **Reputação melhorada em …** (`celebration_react_util.tl:63-75`). Elas só contam se a reputação não estiver cheia, e não nas missões de campanha (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
 - **Abastecer Município** pode dar de +5 % a +20 % × o fator de risco ao aceitar (`deliver_cargo_town.script.tl:195-199`). Como todo ganho, só remove perdas existentes (`towns.script.tl:324-330`).
@@ -65,11 +65,11 @@ Uma conexão principal conta como cortada quando o jogo avisa **A conexão rodov
 | Preço | 10 M × fator do ano: 4 M em 1900 até 25 M em 2020, arredondado a 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | Exige | uma licença das vantagens da empresa | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Duração | um ano | `marketing_campaign_tool.script.tl:136` |
-| Reputação | recuperação ×3 (100 % por ano); **nenhum** ganho imediato | `towns.script.tl:126`, `town_util.tl:915-925` |
+| Reputação | recuperação ×3 (≈ 200 % por ano, a janela mostra 100 %); **nenhum** ganho imediato | `towns.script.tl:126`, `town_util.tl:915-925` |
 | Habitantes | suas linhas naquele município contam como metade do custo quando os habitantes escolhem como viajar | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-O script conta 360 segundos de tempo de jogo por nível (120 com campanha). O calendário por trás é a duração do ano do motor (getDefaultYearDuration); os 33 % e 100 % mostrados na janela do município correspondem a um ano de 720 segundos (um dia de 2 segundos, `cargotype.script.lua:3`). O quanto o custo de linha pela metade leva os habitantes às suas linhas é decidido pela escolha de rota do motor.
+O script conta 360 segundos de tempo de jogo por nível (120 com campanha), com um mês de 30 dias de 4 segundos. A recuperação segue o tempo de jogo: com um calendário mais lento, um ano do calendário dura mais, então volta mais por ano mostrado. O quanto o custo de linha pela metade leva os habitantes às suas linhas é decidido pela escolha de rota do motor.
 ```
 
 ## Bom saber
@@ -82,6 +82,6 @@ O script conta 360 segundos de tempo de jogo por nível (120 com campanha). O ca
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: As mesmas causas, mais rochas removidas, túneis, o terreno de trilhos e estradas e subsídios fracassados. Cada conexão principal cortada ou longa demais custa 1/3 na hora; três param o município. A recuperação é de 33 % por ano sozinha; uma campanha de marketing a leva a 100 % por ano, mas não dá nada na hora. Plantar árvores só anula a perda por árvores. O bônus Recuperação da Reputação da sede não tem efeito nos scripts.
-result: refines
+scripts: As mesmas causas, mais rochas removidas, túneis, o terreno de trilhos e estradas e subsídios fracassados. Cada conexão principal cortada ou longa demais custa 1/3 na hora; três param o município. A recuperação é de cerca de 67 % por ano sozinha e de cerca de 200 % com uma campanha de marketing, o dobro do que mostra a janela (33 % e 100 %); a campanha não dá nada na hora. Plantar árvores só anula a perda por árvores. O bônus Recuperação da Reputação da sede não tem efeito nos scripts.
+result: differs
 ```
