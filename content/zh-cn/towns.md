@@ -4,7 +4,7 @@ summary: 城镇的经验从哪里来，六项评价如何决定增长率，以�
 domain: towns
 official: gamemanual:simulation:towns
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 0 % | 有一项评价为非常贫穷时的增长
 fact: ×1.5 | 每升一级所需经验（2 级需 1,000）
 fact: ×40 | 升 17 级后的规模
@@ -80,6 +80,26 @@ fact: ×40 | 升 17 级后的规模
 ```engine
 线路使用率、交通速度、噪音和污染分布图、迟到交付的列表都由引擎计算，新的房屋和街道也由引擎建造。一个区始终能得到的最小份额（townGrowthMinDistrictFraction）是引擎中的数值。
 ```
+
+## 货物需求与建筑库存
+
+- 城镇的需求是它所有**建筑**的总和。每座商业或工业建筑对城镇需要的每种货物都有一个小的输入库存：容量 ÷ 4，向上取整（`townbuildingutil.lua:226-251`）。游戏代码注明这个库存大小“is currently nowhere shown in the UI”（`townbuildingutil.lua:249`）。
+- 城镇窗口中的需求是这些库存上限的总和；评价中计入的供应以需求为上限（`town_util.tl:95-99`，`town_util.tl:194-198`）。城镇越大建筑越多，需要的也越多。
+- 建筑窗口显示**消费评级**：建筑使用货物的速度与其最大值相比（`town_building.tl:103-132`）。
+- 一个单位进入建筑库存时，才获得经验和货款（`town_growth.script.tl:620-642`）。
+- 站点只能覆盖其服务范围内的建筑。即使整个城镇仍有缺口，这些建筑的库存也可能已满：这时放不下的货物**留在载具上**，除非勾选了**到达时强制卸下所有货品**（“在库存已满的情况下仍然卸货。”）（`cargofilter_window.tl:757-763`），这会销毁放不下的部分（见[装载与卸载速度](loading.html)）。
+- 留在车上的货物会触发通知**货物未卸下**：“{vehicle}的{cargoCount}单位货物没有在该线路上卸货”（`cargo_rtc_warning.res.lua:6`，`cargo_rtc_warning.script.tl:28-41`）。
+- **城镇货物需求**（“选择每个城镇的最大商品需求量”）：2、4 或 6，默认 2（`difficulty_util.tl:54`，`difficulty_util.tl:83`，`mod.script.tl:173`，`mod.script.tl:205`）。脚本按等级添加需求（见上文），并把这个值传给引擎。
+
+```engine
+建筑消耗库存的速度（consumeFrequency）、服务范围内哪座建筑得到每个单位、被来回运送的货物会怎样，以及引擎如何使用城镇货物需求，都在引擎端。
+```
+
+## 能阻止城镇增长吗？
+
+- 在普通游戏中，**没有设置**可以限制城镇最大规模（`difficulty_util.tl:90-199`）。
+- 在**沙盒模式**和地图编辑器中，城镇窗口有一张**目标区域容量**卡片，其中有**启用城镇发展**（`town_eow.script.tl:1041-1052`，`town_eow.script.tl:1170-1171`，`town_eow_editor_initial_capacity.res.lua:6`）。取消勾选后，城镇不获得经验，也不改变规模；窗口显示**城镇发展未激活**（`town_growth.script.tl:28`，`town_growth.script.tl:345`，`town_eow.script.tl:107`）。
+- 没有沙盒时，只有间接的办法：城镇只靠你的乘客和货物增长，只要有一项评价为非常贫穷就会停止（见上文）。
 
 ## 须知
 

@@ -4,7 +4,7 @@ summary: De onde vem o XP de um município, como as seis classificações define
 domain: towns
 official: gamemanual:simulation:towns
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 0% | de crescimento quando uma classificação está Muito Ruim
 fact: ×1,5 | de XP para cada nível seguinte (1.000 para o nível 2)
 fact: ×40 | de tamanho após 17 níveis ganhos
@@ -80,6 +80,26 @@ Novas demandas de carga chegam com os níveis (`placementparamsutil.lua:618-660`
 ```engine
 O motor calcula o uso das linhas, a velocidade do tráfego, os mapas de barulho e poluição e a lista de entregas atrasadas, e constrói as novas casas e ruas. A menor parte que um distrito sempre recebe (townGrowthMinDistrictFraction) é um valor do motor.
 ```
+
+## Demanda de carga e estoques dos prédios
+
+- A demanda de um município é a soma dos seus **prédios**. Cada prédio comercial ou industrial tem um pequeno estoque de entrada para cada carga que o município pede: capacidade ÷ 4, arredondado para cima (`townbuildingutil.lua:226-251`). O jogo anota que esse tamanho de estoque "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
+- A demanda na janela do município é o limite total desses estoques; a oferta contada para a classificação é limitada à demanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Municípios maiores pedem mais porque têm mais prédios.
+- A janela do prédio mostra uma **Taxa de Consumo**: a velocidade com que o prédio usa a sua carga em relação ao máximo (`town_building.tl:103-132`).
+- XP e pagamento vêm quando uma unidade entra no estoque de um prédio (`town_growth.script.tl:620-642`).
+- Uma parada só alcança os prédios da sua área de cobertura. Os estoques deles podem estar cheios enquanto o município como um todo ainda está em falta: então a carga que não cabe **fica no veículo**, a menos que **Forçar descarregamento de todas as cargas na chegada** esteja marcado ("Descarregar carga mesmo se os estoques estiverem cheios.") (`cargofilter_window.tl:757-763`), o que destrói o que não cabe (veja [Velocidade de carga e descarga](loading.html)).
+- A carga que fica a bordo gera a notificação **Carga Não Descarregada**: "O descarregamento de {cargoCount} carga(s) de {vehicle} não foi realizado na linha." (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- **Demandas de Carga do Município** ("Escolha o número máximo de demandas de carga por município."): 2, 4 ou 6, padrão 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Os scripts adicionam demandas por nível (acima) e passam esse valor ao motor.
+
+```engine
+A velocidade com que um prédio consome o seu estoque (consumeFrequency), qual prédio de uma área de cobertura recebe cada unidade, o que acontece com a carga que fica rodando e como o motor usa Demandas de Carga do Município ficam no lado do motor.
+```
+
+## Dá para impedir um município de crescer?
+
+- Em um jogo normal **não há configuração** para um tamanho máximo de município (`difficulty_util.tl:90-199`).
+- No **modo sandbox** e no editor de mapas, a janela do município tem um cartão **Capacidades do Distrito Alvo** com **Ativar Desenvolvimento de Município** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Desmarcado, o município não recebe XP e não é redimensionado; a janela mostra **Desenvolvimento do Município Inativo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- Sem sandbox, os únicos meios são indiretos: um município só cresce com os seus passageiros e cargas, e uma única classificação Muito Ruim o para (acima).
 
 ## Bom saber
 

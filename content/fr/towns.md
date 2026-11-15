@@ -4,7 +4,7 @@ summary: D'où vient l'XP d'une ville, comment les six notes fixent son taux de 
 domain: towns
 official: gamemanual:simulation:towns
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 0 % | de croissance quand une note est Très insuffisant
 fact: ×1,5 | d'XP pour chaque niveau suivant (1 000 pour le niveau 2)
 fact: ×40 | de taille après 17 niveaux gagnés
@@ -80,6 +80,26 @@ Les nouvelles demandes de fret viennent avec les niveaux (`placementparamsutil.l
 ```engine
 Le moteur calcule l'utilisation des lignes, la vitesse du trafic, les cartes de bruit et de pollution et la liste des livraisons en retard, et construit les nouvelles maisons et rues. La part minimale qu'un quartier reçoit toujours (townGrowthMinDistrictFraction) est une valeur du moteur.
 ```
+
+## Demande de fret et stocks des bâtiments
+
+- La demande d'une ville est la somme de ses **bâtiments**. Chaque bâtiment commercial ou industriel a un petit stock d'entrée par fret que la ville demande : capacité ÷ 4, arrondie au supérieur (`townbuildingutil.lua:226-251`). Le jeu note que cette taille de stock « is currently nowhere shown in the UI » (n'est affichée nulle part dans l'interface pour l'instant) (`townbuildingutil.lua:249`).
+- La demande de la fenêtre de la ville est la limite totale de ces stocks ; l'apport compté pour la note est plafonné à la demande (`town_util.tl:95-99`, `town_util.tl:194-198`). Les grandes villes demandent plus parce qu'elles ont plus de bâtiments.
+- La fenêtre du bâtiment affiche un **Taux de consommation** : la vitesse à laquelle le bâtiment utilise son fret par rapport à son maximum (`town_building.tl:103-132`).
+- L'XP et le paiement arrivent quand une unité entre dans le stock d'un bâtiment (`town_growth.script.tl:620-642`).
+- Un arrêt n'atteint que les bâtiments de sa zone de desserte. Leurs stocks peuvent être pleins alors que la ville dans son ensemble manque encore de fret : le fret qui ne rentre pas **reste alors dans le véhicule**, sauf si **Forcer le déchargement de tout le fret à l’arrivée** est coché (« Décharger le fret même si les stocks sont pleins. ») (`cargofilter_window.tl:757-763`), ce qui détruit ce qui ne rentre pas (voir [Vitesse de chargement et de déchargement](loading.html)).
+- Le fret resté à bord déclenche la notification **Fret non déchargé** : « {cargoCount} unités de fret de {vehicle} n’ont pas été déchargées sur la ligne. » (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- **Demandes de fret urbain** (« Choisissez le nombre maximal de demandes de fret par ville. ») : 2, 4 ou 6, 2 par défaut (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Les scripts ajoutent les demandes selon le niveau (plus haut) et transmettent cette valeur au moteur.
+
+```engine
+La vitesse à laquelle un bâtiment consomme son stock (consumeFrequency), le bâtiment d'une zone de desserte qui reçoit chaque unité, ce qui arrive au fret transporté en boucle et la façon dont le moteur utilise Demandes de fret urbain sont gérés côté moteur.
+```
+
+## Peut-on empêcher une ville de grandir ?
+
+- Dans une partie normale, il n'y a **aucun réglage** de taille maximale des villes (`difficulty_util.tl:90-199`).
+- En **mode bac à sable** et dans l'éditeur de carte, la fenêtre de la ville a une carte **Capacités cibles du district** avec **Activer le développement des villes** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Décochée, la ville ne reçoit pas d'XP et n'est pas redimensionnée ; la fenêtre affiche **Développement urbain inactif** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- Sans bac à sable, les seuls moyens sont indirects : une ville ne grandit qu'avec tes passagers et ton fret, et une seule note Très insuffisant l'arrête (plus haut).
 
 ## Bon à savoir
 

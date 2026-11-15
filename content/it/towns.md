@@ -4,7 +4,7 @@ summary: Da dove arriva l'XP di una cittadina, come le sei valutazioni determina
 domain: towns
 official: gamemanual:simulation:towns
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: 0% | di crescita quando una valutazione è Pessima
 fact: ×1,5 | di XP per ogni livello successivo (1.000 per il livello 2)
 fact: ×40 | di dimensioni dopo 17 livelli guadagnati
@@ -80,6 +80,26 @@ Le nuove richieste di merci arrivano con i livelli (`placementparamsutil.lua:618
 ```engine
 Il motore calcola l'utilizzo delle linee, la velocità del traffico, le mappe del rumore e dell'inquinamento e l'elenco delle consegne in ritardo, e costruisce le nuove case e strade. La quota minima che un quartiere riceve sempre (townGrowthMinDistrictFraction) è un valore del motore.
 ```
+
+## Domanda di merci e scorte degli edifici
+
+- La domanda di una cittadina è la somma dei suoi **edifici**. Ogni edificio commerciale o industriale ha una piccola scorta in entrata per ogni merce richiesta dalla cittadina: capacità ÷ 4, arrotondata per eccesso (`townbuildingutil.lua:226-251`). Il gioco annota che questa dimensione della scorta "is currently nowhere shown in the UI" (per ora non è mostrata da nessuna parte nell'interfaccia) (`townbuildingutil.lua:249`).
+- La domanda nella finestra della cittadina è il limite totale di queste scorte; l'offerta contata per la valutazione è limitata alla domanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Le cittadine più grandi chiedono di più perché hanno più edifici.
+- La finestra dell'edificio mostra una **Valutazione consumo**: quanto velocemente l'edificio usa le sue merci rispetto al suo massimo (`town_building.tl:103-132`).
+- XP e pagamento arrivano quando un'unità entra nella scorta di un edificio (`town_growth.script.tl:620-642`).
+- Una fermata raggiunge solo gli edifici nella sua area di influenza. Le loro scorte possono essere piene mentre alla cittadina nel complesso mancano ancora merci: allora le merci che non entrano **restano sul veicolo**, a meno che non sia spuntato **Forza scarico di tutte le merci all'arrivo** ("Scarica anche con scorte al completo.") (`cargofilter_window.tl:757-763`), che distrugge ciò che non entra (vedi [Velocità di carico e scarico](loading.html)).
+- Le merci rimaste a bordo generano la notifica **Merci non scaricate**: "Unità del carico di {vehicle} non scaricate sulla linea: {cargoCount}" (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- **Richiesta di carico delle cittadine** ("Seleziona il numero massimo di carichi richiesti dalle cittadine."): 2, 4 o 6, predefinito 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Gli script aggiungono le richieste in base al livello (vedi sopra) e passano questo valore al motore.
+
+```engine
+La velocità con cui un edificio consuma la sua scorta (consumeFrequency), quale edificio di un'area di influenza riceve ogni unità, che cosa succede alle merci portate in giro e come il motore usa Richiesta di carico delle cittadine sono gestiti dal motore.
+```
+
+## Posso impedire a una cittadina di crescere?
+
+- In una partita normale **non c'è nessuna impostazione** per una dimensione massima delle cittadine (`difficulty_util.tl:90-199`).
+- In **modalità sandbox** e nell'editor di mappe, la finestra della cittadina ha una scheda **Capacità quartiere obiettivo** con **Attiva sviluppo cittadina** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Se non è spuntata, la cittadina non riceve XP e non viene ridimensionata; la finestra mostra **Sviluppo cittadina non attivo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- Senza sandbox, gli unici modi sono indiretti: una cittadina cresce solo con i tuoi passeggeri e le tue merci, e una sola valutazione Pessima la ferma (vedi sopra).
 
 ## Da sapere
 
