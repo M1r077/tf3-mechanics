@@ -487,6 +487,60 @@
      "infrastructure"
     ]
    ]
+  },
+  "T_SHIPACC": {
+   "cap": "Um porto pequeno recebe só navios pequenos. Um porto grande recebe navios pequenos e grandes. Todo porto atende passageiros e carga.",
+   "g": [
+    [
+     "Navios pequenos",
+     "16 modelos, 1884 →"
+    ],
+    [
+     "Navios grandes",
+     "11 modelos, 1875 →"
+    ]
+   ],
+   "h": [
+    [
+     "Porto de Passageiros/Carga Pequeno",
+     "1, 2 ou 4 terminais"
+    ],
+    [
+     "Porto de Passageiros/Carga Grande",
+     "1, 2 ou 4 terminais"
+    ]
+   ]
+  },
+  "T_AIRACC": {
+   "cap": "Um aeródromo recebe só aviões pequenos. Um aeroporto recebe aviões pequenos e grandes, e helicópteros no prédio principal. Helicópteros também têm heliporto e heliponto próprios.",
+   "g": [
+    [
+     "Aviões pequenos",
+     "15 modelos, 1920 →"
+    ],
+    [
+     "Aviões grandes",
+     "15 modelos, 1952 →"
+    ],
+    [
+     "Helicópteros",
+     "11 modelos, 1950 →"
+    ]
+   ],
+   "h": [
+    [
+     "Aeródromo",
+     "1920 →, 1–3 terminais"
+    ],
+    [
+     "Aeroporto",
+     "1950 →, 2–4 terminais"
+    ],
+    [
+     "Heliporto, Heliponto",
+     "1950 →"
+    ]
+   ]
   }
  },
  "cargo": {

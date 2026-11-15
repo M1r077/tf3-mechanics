@@ -487,6 +487,60 @@
      "infrastructure"
     ]
    ]
+  },
+  "T_SHIPACC": {
+   "cap": "Een kleine haven neemt alleen kleine schepen aan. Een grote haven neemt kleine en grote schepen aan. Elke haven verwerkt passagiers en vracht.",
+   "g": [
+    [
+     "Kleine schepen",
+     "16 modellen, 1884 →"
+    ],
+    [
+     "Grote schepen",
+     "11 modellen, 1875 →"
+    ]
+   ],
+   "h": [
+    [
+     "Kleine passagiers- en vrachthaven",
+     "1, 2 of 4 terminals"
+    ],
+    [
+     "Grote passagiers- en vrachthaven",
+     "1, 2 of 4 terminals"
+    ]
+   ]
+  },
+  "T_AIRACC": {
+   "cap": "Een vliegveld neemt alleen kleine vliegtuigen aan. Een luchthaven neemt kleine en grote vliegtuigen aan, en helikopters bij het hoofdgebouw. Helikopters hebben ook een eigen heliport en helipad.",
+   "g": [
+    [
+     "Kleine vliegtuigen",
+     "15 modellen, 1920 →"
+    ],
+    [
+     "Grote vliegtuigen",
+     "15 modellen, 1952 →"
+    ],
+    [
+     "Helikopters",
+     "11 modellen, 1950 →"
+    ]
+   ],
+   "h": [
+    [
+     "Vliegveld",
+     "1920 →, 1–3 terminals"
+    ],
+    [
+     "Luchthaven",
+     "1950 →, 2–4 terminals"
+    ],
+    [
+     "Heliport, Helipad",
+     "1950 →"
+    ]
+   ]
   }
  },
  "cargo": {

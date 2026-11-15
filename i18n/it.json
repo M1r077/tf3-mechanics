@@ -487,6 +487,60 @@
      "infrastructure"
     ]
    ]
+  },
+  "T_SHIPACC": {
+   "cap": "Un porto piccolo accoglie solo navi piccole. Un porto grande accoglie navi piccole e grandi. Ogni porto gestisce passeggeri e merci.",
+   "g": [
+    [
+     "Navi piccole",
+     "16 modelli, 1884 →"
+    ],
+    [
+     "Navi grandi",
+     "11 modelli, 1875 →"
+    ]
+   ],
+   "h": [
+    [
+     "Porto passeggeri/merci piccolo",
+     "1, 2 o 4 terminal"
+    ],
+    [
+     "Porto passeggeri/merci grande",
+     "1, 2 o 4 terminal"
+    ]
+   ]
+  },
+  "T_AIRACC": {
+   "cap": "Un aerodromo accoglie solo aerei piccoli. Un aeroporto accoglie aerei piccoli e grandi, e gli elicotteri all'edificio principale. Gli elicotteri hanno anche eliporto ed elisuperficie.",
+   "g": [
+    [
+     "Aerei piccoli",
+     "15 modelli, 1920 →"
+    ],
+    [
+     "Aerei grandi",
+     "15 modelli, 1952 →"
+    ],
+    [
+     "Elicotteri",
+     "11 modelli, 1950 →"
+    ]
+   ],
+   "h": [
+    [
+     "Aerodromo",
+     "1920 →, 1–3 terminal"
+    ],
+    [
+     "Aeroporto",
+     "1950 →, 2–4 terminal"
+    ],
+    [
+     "Eliporto, Elisuperficie",
+     "1950 →"
+    ]
+   ]
   }
  },
  "cargo": {

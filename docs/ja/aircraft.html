@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>飛行機、空港、ヘリコプター · TF3 メカニクス</title>
+<meta name="description" content="Transport Fever 3 の本当の仕組みを、ゲーム自身のスクリプトから読み解く。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/aircraft.html"><link rel="alternate" hreflang="fr" href="../fr/aircraft.html"><link rel="alternate" hreflang="de" href="../de/aircraft.html"><link rel="alternate" hreflang="es" href="../es/aircraft.html"><link rel="alternate" hreflang="it" href="../it/aircraft.html"><link rel="alternate" hreflang="nl" href="../nl/aircraft.html"><link rel="alternate" hreflang="pl" href="../pl/aircraft.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/aircraft.html"><link rel="alternate" hreflang="ru" href="../ru/aircraft.html"><link rel="alternate" hreflang="ja" href="../ja/aircraft.html"><link rel="alternate" hreflang="ko" href="../ko/aircraft.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/aircraft.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/aircraft.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目次</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="スクリプト参照の表示・非表示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>ソース</span></button>
+<details class="langs"><summary aria-label="言語"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>日本語</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="言語"><a href="../en/aircraft.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/aircraft.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/aircraft.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/aircraft.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/aircraft.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/aircraft.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/aircraft.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/aircraft.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/aircraft.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/aircraft.html" class="on" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/aircraft.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/aircraft.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/aircraft.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目次</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg>駅と積み込み</span></div><h1 class="rise d1">飛行機、空港、ヘリコプター</h1><p class="lead rise d2">飛行場か空港か、どの飛行機がどこに着陸するか、ターミナル、2 本目の滑走路、ヘリポート、そして全航空機の貨物・容量・速度の一覧。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>スクリプトで検証済み</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新日 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>2</b><span>飛行機のサイズ：小型と大型</span></div><div class="fact rise d2"><b>1950</b><span>最初の空港と最初のヘリコプター</span></div><div class="fact rise d3"><b>1980</b><span>2 本目の滑走路</span></div><div class="fact rise d4"><b>5</b><span>格納庫 1 つあたりの航空機数</span></div></div></div></section><div class="wrap layout"><article><p>どの飛行機も<strong>小型</strong>か<strong>大型</strong>である。<strong>飛行場</strong>は小型機しか受け入れない。<strong>空港</strong>は両方を受け入れ、メインビルではヘリコプターも受け入れる。ヘリコプターには専用の駅もある。</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 368" width="900" role="img"><defs><linearGradient id="aa-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="aa-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="aa-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="aa-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="aa-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="aa-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="aa-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="20.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,52.0) scale(1.1666666666666667)" fill="none" stroke="#38d1bf" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">小型機</text><text x="80" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">15 種、1920 →</text><rect x="20" y="138.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,170.0) scale(1.1666666666666667)" fill="none" stroke="#f2b84b" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">大型機</text><text x="80" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">15 種、1952 →</text><rect x="20" y="256.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#b49cf0" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,288.0) scale(1.1666666666666667)" fill="none" stroke="#b49cf0" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="299.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">ヘリコプター</text><text x="80" y="322.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">11 種、1950 →</text><rect x="580" y="20.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,52.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">飛行場</text><text x="640" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1920 →、ターミナル 1–3</text><rect x="580" y="138.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,170.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">空港</text><text x="640" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1950 →、ターミナル 2–4</text><rect x="580" y="256.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,288.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="299.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">ヘリポート、ヘリパッド</text><text x="640" y="322.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1950 →</text><line x1="322" y1="54.0" x2="576" y2="54.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="54.0" x2="576" y2="54.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="66.0" x2="576" y2="172.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="66.0" x2="576" y2="172.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="184.0" x2="576" y2="184.0" stroke="#f2b84b" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="184.0" x2="576" y2="184.0" stroke="#f2b84b" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="302.0" x2="576" y2="196.0" stroke="#b49cf0" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="302.0" x2="576" y2="196.0" stroke="#b49cf0" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="314.0" x2="576" y2="314.0" stroke="#b49cf0" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="314.0" x2="576" y2="314.0" stroke="#b49cf0" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>飛行場は小型機のみを受け入れる。空港は小型機と大型機、メインビルではヘリコプターも受け入れる。ヘリコプターにはヘリポートとヘリパッドもある。</span></figcaption></figure>
+<h2 id="飛行場と空港"><span class="n">1</span><span>飛行場と空港</span></h2>
+<ul>
+<li><strong>飛行場</strong>：「小型航空機用で、モジュールで拡張可能です。」1920 年、1950 年、1980 年の版。ターミナル 1、2 または 3、格納庫は任意<span class="sr">（<code class="src">airfield.tl:49</code>、<code class="src">airfield.tl:76</code>、<code class="src">airfield_era_a.metacon.tl:3</code>）</span>。</li>
+<li><strong>空港</strong>：「小型／大型航空機用で、モジュールで拡張可能です。」1950 年と 1980 年の版。ターミナル 2、3 または 4 と着陸方向<span class="sr">（<code class="src">airport.tl:24</code>、<code class="src">airport.tl:80</code>、<code class="src">airport1950.metacon.tl:3-4</code>）</span>。</li>
+<li>飛行場のターミナルは小型機のみ、空港のターミナルは両方のサイズを受け入れる<span class="sr">（<code class="src">af_terminal.module.lua:715</code>、<code class="src">ap_terminal.module.lua:897</code>）</span>。</li>
+<li>空港のメインビルにはヘリパッドがあり<span class="sr">（<code class="src">ap_main.module.lua:532</code>）</span>、1950 年からは空港にヘリコプターターミナルを付けられる<span class="sr">（<code class="src">ap_terminal_heli.module.lua:897</code>、<code class="src">ap_terminal_heli.module.lua:971</code>）</span>。</li>
+<li><strong>2 本目の滑走路</strong>：1980 年からの空港モジュール<span class="sr">（<code class="src">airport_2nd_runway.module.lua:5</code>）</span>。一部の空港モジュールはこれを必要とし、ないと「2本目の滑走路が必要」と表示する<span class="sr">（<code class="src">airport.script.lua:261</code>）</span>。</li>
+<li>すべての航空駅は旅客とすべての貨物を扱う<span class="sr">（<code class="src">airfield.tl:59</code>、<code class="src">airport.tl:34</code>）</span>。</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>建物</th>
+<th>待ち旅客</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>飛行場ターミナル</td>
+<td>最大 250</td>
+<td class="sc"><code class="src">af_terminal.module.lua:773</code></td>
+</tr>
+<tr>
+<td>空港メインビル</td>
+<td>最大 400</td>
+<td class="sc"><code class="src">ap_main.module.lua:667</code></td>
+</tr>
+<tr>
+<td>空港ターミナル</td>
+<td>最大 850</td>
+<td class="sc"><code class="src">ap_terminal.module.lua:951</code></td>
+</tr>
+<tr>
+<td>空港ヘリコプターターミナル</td>
+<td>最大 450</td>
+<td class="sc"><code class="src">ap_terminal_heli.module.lua:990</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="格納庫とヘリコプターの駅"><span class="n">2</span><span>格納庫とヘリコプターの駅</span></h2>
+<ul>
+<li>飛行場または空港の<strong>格納庫</strong>は航空機 5 機を収容し、半径 550 m 内の航空機を整備する<span class="sr">（<code class="src">af_hangar.module.lua:273-278</code>、<code class="src">ap_hangar.module.lua:456-461</code>）</span>。</li>
+<li><strong>ヘリポート</strong>（1950 年から）：ヘリコプターを購入・整備する。格納庫 5 機、整備半径 800 m<span class="sr">（<code class="src">heliport.script.lua:301-306</code>）</span>。</li>
+<li><strong>ヘリパッド</strong>（1950 年から）：旅客と貨物用の小さな着陸場で、格納庫はない<span class="sr">（<code class="src">helipad.con.lua:29-33</code>）</span>。</li>
+</ul>
+<h2 id="コスト"><span class="n">3</span><span>コスト</span></h2>
+<p>最初の版の価格と維持費。後の版は ×3 または ×9（<a href="costs.html">コスト、維持費、融資</a>）。最初の飛行場はすでに ×3 を使う<span class="sr">（<code class="src">airfield.tl:8</code>）</span>。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>建物</th>
+<th>価格</th>
+<th>年間維持費</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>飛行場</td>
+<td>1,200,000 – 3,000,000</td>
+<td>50,000 – 200,000</td>
+<td class="sc"><code class="src">airfield.tl:55-56</code></td>
+</tr>
+<tr>
+<td>空港</td>
+<td>1,800,000 – 4,500,000</td>
+<td>300,000 – 750,000</td>
+<td class="sc"><code class="src">airport.tl:30-31</code></td>
+</tr>
+<tr>
+<td>飛行場モジュール（メインビル、ターミナル、格納庫）</td>
+<td>600,000</td>
+<td>100,000</td>
+<td class="sc"><code class="src">af_main.module.lua:316-317</code>、<code class="src">af_hangar.module.lua:326-327</code></td>
+</tr>
+<tr>
+<td>空港モジュール（ターミナル、格納庫、2 本目の滑走路…）</td>
+<td>900,000</td>
+<td>150,000</td>
+<td class="sc"><code class="src">ap_main.module.lua:672-673</code>、<code class="src">ap_hangar.module.lua:508-509</code>、<code class="src">airport_2nd_runway.module.lua:27-28</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>空港と飛行場の維持費も暦年に従い、1900 年の ×1 から 2020 年の ×6 になる（<a href="costs.html">コスト、維持費、融資</a>）。</li>
+<li>航空機の価格と運行費は、船や道路車両と同じく速度と容量から計算される（<a href="costs.html">コスト、維持費、融資</a>）。</li>
+</ul>
+<h2 id="全飛行機"><span class="n">4</span><span>全飛行機</span></h2>
+<p>速度は km/h、四捨五入。「すべての貨物」はすべての貨物の種類を意味する。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>飛行機</th>
+<th>年</th>
+<th>サイズ</th>
+<th>貨物</th>
+<th>容量</th>
+<th>速度</th>
+<th>積載速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユンカース F.13 ヘルタ</td>
+<td>1920–1950</td>
+<td>小型</td>
+<td>旅客</td>
+<td>16</td>
+<td>135</td>
+<td>–</td>
+</tr>
+<tr>
+<td>ヴィッカーズ J6860 ヴィクトリア</td>
+<td>1922–1960</td>
+<td>小型</td>
+<td>すべての貨物</td>
+<td>32</td>
+<td>150</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>フォッカー F VII A</td>
+<td>1925–1960</td>
+<td>小型</td>
+<td>旅客</td>
+<td>32</td>
+<td>175</td>
+<td>2</td>
+</tr>
+<tr>
+<td>ユンカース Ju 52 アイアン・アニー</td>
+<td>1933–1982</td>
+<td>小型</td>
+<td>旅客、すべての貨物</td>
+<td>24</td>
+<td>200</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ダグラス DC-3</td>
+<td>1935–1995</td>
+<td>小型</td>
+<td>旅客</td>
+<td>56</td>
+<td>300</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>カーチス C-46 コマンドー</td>
+<td>1942–1980</td>
+<td>小型</td>
+<td>すべての貨物</td>
+<td>80</td>
+<td>280</td>
+<td>–</td>
+</tr>
+<tr>
+<td>ダグラス DC-4</td>
+<td>1944–1998</td>
+<td>小型</td>
+<td>旅客</td>
+<td>100</td>
+<td>365</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ブリストル タイプ 170 フレイター</td>
+<td>1949–2005</td>
+<td>小型</td>
+<td>旅客、すべての貨物</td>
+<td>40</td>
+<td>350</td>
+<td>1.5</td>
+</tr>
+<tr>
+<td>ロッキード L-1049 スーパー・コニー</td>
+<td>1952–1986</td>
+<td>大型</td>
+<td>旅客</td>
+<td>120</td>
+<td>486</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ロッキード L-1049D/H スーパー・コニー</td>
+<td>1959–2000</td>
+<td>大型</td>
+<td>すべての貨物</td>
+<td>60</td>
+<td>486</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>デ・ハビランド DH.106 コメット</td>
+<td>1960–2000</td>
+<td>大型</td>
+<td>旅客</td>
+<td>160</td>
+<td>724</td>
+<td>3</td>
+</tr>
+<tr>
+<td>カナダエア CL-44 フレイター</td>
+<td>1962–2005</td>
+<td>大型</td>
+<td>すべての貨物</td>
+<td>48</td>
+<td>645</td>
+<td>2</td>
+</tr>
+<tr>
+<td>コンベア CV-990 コロナド</td>
+<td>1962–2020</td>
+<td>大型</td>
+<td>旅客</td>
+<td>200</td>
+<td>917</td>
+<td>2</td>
+</tr>
+<tr>
+<td>ロッキード L-100 ハーキュリーズ</td>
+<td>1976–2000</td>
+<td>小型</td>
+<td>すべての貨物</td>
+<td>44</td>
+<td>400</td>
+<td>3</td>
+</tr>
+<tr>
+<td>マクドネル・ダグラス DC-10-30</td>
+<td>1978–</td>
+<td>大型</td>
+<td>旅客</td>
+<td>400</td>
+<td>960</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>McDonnell Douglas DC-10-30CF</td>
+<td>1978–</td>
+<td>大型</td>
+<td>すべての貨物</td>
+<td>132</td>
+<td>960</td>
+<td>4</td>
+</tr>
+<tr>
+<td>エアバス A310-300F フレイター</td>
+<td>1982–</td>
+<td>大型</td>
+<td>すべての貨物</td>
+<td>160</td>
+<td>850</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ショート 330 シェルパ</td>
+<td>1984–</td>
+<td>小型</td>
+<td>旅客、すべての貨物</td>
+<td>40</td>
+<td>455</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>エアバス A320</td>
+<td>1985–</td>
+<td>大型</td>
+<td>旅客</td>
+<td>180</td>
+<td>753</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Br. エアロスペース 146</td>
+<td>1985–</td>
+<td>小型</td>
+<td>旅客</td>
+<td>112</td>
+<td>753</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ブリティッシュ・エアロスペース 146 フレイター</td>
+<td>1985–</td>
+<td>小型</td>
+<td>すべての貨物</td>
+<td>48</td>
+<td>753</td>
+<td>2</td>
+</tr>
+<tr>
+<td>フォッカー 100</td>
+<td>1988–</td>
+<td>大型</td>
+<td>旅客</td>
+<td>160</td>
+<td>845</td>
+<td>3.5</td>
+</tr>
+<tr>
+<td>ツポレフ Tu-204</td>
+<td>1995–</td>
+<td>大型</td>
+<td>旅客</td>
+<td>280</td>
+<td>850</td>
+<td>4</td>
+</tr>
+<tr>
+<td>ツポレフ Tu-204C フレイター</td>
+<td>1995–</td>
+<td>大型</td>
+<td>すべての貨物</td>
+<td>68</td>
+<td>850</td>
+<td>2</td>
+</tr>
+<tr>
+<td>ボーイング 737-700</td>
+<td>1998–</td>
+<td>大型</td>
+<td>旅客</td>
+<td>200</td>
+<td>974</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>ボーイング 737-700C フレイター</td>
+<td>1998–</td>
+<td>大型</td>
+<td>すべての貨物</td>
+<td>80</td>
+<td>974</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ボンバルディア DHC-8</td>
+<td>2000–</td>
+<td>小型</td>
+<td>旅客</td>
+<td>120</td>
+<td>648</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ボンバルディア DHC-8 フレイター</td>
+<td>2008–</td>
+<td>小型</td>
+<td>すべての貨物</td>
+<td>120</td>
+<td>648</td>
+<td>2</td>
+</tr>
+<tr>
+<td>スホーイ・スーパージェット 100</td>
+<td>2011–</td>
+<td>小型</td>
+<td>旅客</td>
+<td>160</td>
+<td>870</td>
+<td>3</td>
+</tr>
+<tr>
+<td>エアバス・カナダ A220</td>
+<td>2013–</td>
+<td>大型</td>
+<td>旅客</td>
+<td>180</td>
+<td>830</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="全ヘリコプター"><span class="n">5</span><span>全ヘリコプター</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>ヘリコプター</th>
+<th>年</th>
+<th>貨物</th>
+<th>容量</th>
+<th>速度</th>
+<th>積載速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ベル 47</td>
+<td>1950–1990</td>
+<td>旅客、すべての貨物</td>
+<td>8</td>
+<td>150</td>
+<td>2</td>
+</tr>
+<tr>
+<td>ピアセッキ H-21 ワークホース</td>
+<td>1952–1985</td>
+<td>旅客、すべての貨物</td>
+<td>80</td>
+<td>210</td>
+<td>3</td>
+</tr>
+<tr>
+<td>シコルスキーS-64スカイクレーン</td>
+<td>1962–2017</td>
+<td>すべての貨物</td>
+<td>40</td>
+<td>213</td>
+<td>4</td>
+</tr>
+<tr>
+<td>ベル 206 ロングレンジャー</td>
+<td>1965–2025</td>
+<td>旅客</td>
+<td>32</td>
+<td>241</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>ボーイング バートル 234 チヌーク</td>
+<td>1980–</td>
+<td>旅客、すべての貨物</td>
+<td>80</td>
+<td>269</td>
+<td>2</td>
+</tr>
+<tr>
+<td>アグスタウェストランド AW101 マーリン</td>
+<td>1990–</td>
+<td>旅客</td>
+<td>60</td>
+<td>278</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ミル Mi-26TC</td>
+<td>1993–</td>
+<td>すべての貨物</td>
+<td>120</td>
+<td>295</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Eurocopter 120B Colibri</td>
+<td>1998–</td>
+<td>旅客</td>
+<td>48</td>
+<td>210</td>
+<td>3</td>
+</tr>
+<tr>
+<td>カマン K-MAX</td>
+<td>2005–</td>
+<td>すべての貨物</td>
+<td>60</td>
+<td>190</td>
+<td>3</td>
+</tr>
+<tr>
+<td>エアバス H225 スーパーピューマ</td>
+<td>2013–</td>
+<td>旅客</td>
+<td>48</td>
+<td>288</td>
+<td>3</td>
+</tr>
+<tr>
+<td>次世代 VTOL</td>
+<td>2030–</td>
+<td>旅客</td>
+<td>56</td>
+<td>610</td>
+<td>4</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="知っておくと良いこと"><span class="n">6</span><span>知っておくと良いこと</span></h2>
+<ul>
+<li><strong>小型機は最後まで役に立つ。</strong> DHC-8、その貨物機、スホーイ・スーパージェット 100 は小型なので、飛行場で十分である。</li>
+<li><strong>1952 年より前には大型機がない</strong>ので、早い時期の空港ではまだ大きな航空機を使えない。</li>
+<li>飛行機は直線で飛び、支払いは直線距離だけを数えるので、迂回しても余計なコストはかからない（<a href="income.html">貨物収入と配送時間</a>）。</li>
+<li>滑走路の最小長、飛行経路、着陸はゲームエンジンが決め、スクリプトには現れない。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>公式wiki とゲームスクリプトの比較</h4><span class="res agrees"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>一致</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wikiの記述</div><p>"It can be used by small airplanes." (Airfield) "It can be used by small and large airplanes." (Airport), build menu descriptions.</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>ゲームスクリプトの内容</div><p>同じ：飛行場のターミナルは SMALL_AIRCRAFT のみ、空港のターミナルは AIRCRAFT と SMALL_AIRCRAFT を受け入れる。ヘリコプターは空港メインビル、ヘリポートとヘリパッドは 1950 年から、2 本目の滑走路は 1980 年から、格納庫は 5 機。基本ゲームに小型機 15 機、大型機 15 機、ヘリコプター 11 機。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>パスはゲームの base/content フォルダー内、またはその zip ファイル内のもの。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>このページの内容</h5><ol><li><a href="#飛行場と空港">飛行場と空港</a></li><li><a href="#格納庫とヘリコプターの駅">格納庫とヘリコプターの駅</a></li><li><a href="#コスト">コスト</a></li><li><a href="#全飛行機">全飛行機</a></li><li><a href="#全ヘリコプター">全ヘリコプター</a></li><li><a href="#知っておくと良いこと">知っておくと良いこと</a></li></ol><div class="box"><b>15</b><span>ソース参照</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">ソースを表示</span><span class="h">ソースを隠す</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>その他のメカニクス</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>コスト、維持費、融資</b><small>財務とローン</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>出発設定：満載、積載量、停留時間</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>汚染と騒音</b><small>公害と騒音</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨物収入と配送時間</b><small>貨物と収入</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>産業</b><small>産業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>積み込みと積み下ろしの速度</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>なぜお金が減るのか？</b><small>財務とローン</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>町の評判</b><small>町</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>船舶と港</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>助成金：提案、期限、報酬</b><small>助成金</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>ゲーム時間とカレンダー</b><small>ゲーム内時間とカレンダー</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>町の成長：経験値、評価、規模</b><small>町</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>車両：状態、年数、積載速度</b><small>路線と車両</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>倉庫</b><small>倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>労働者と労働者ブースト</b><small>産業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro によるファンプロジェクト。Urban Games とは無関係です。</span><span>文章と画像：CC BY 4.0 · ゲームコード © Urban Games：短い参照のみ掲載。</span><span class="tr">英語からの翻訳です。訂正を歓迎します (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

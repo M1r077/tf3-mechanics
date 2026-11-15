@@ -487,6 +487,60 @@
      "infrastructure"
     ]
    ]
+  },
+  "T_SHIPACC": {
+   "cap": "Mały port przyjmuje tylko małe statki. Duży port przyjmuje małe i duże statki. Każdy port obsługuje pasażerów i ładunek.",
+   "g": [
+    [
+     "Małe statki",
+     "16 modeli, 1884 →"
+    ],
+    [
+     "Duże statki",
+     "11 modeli, 1875 →"
+    ]
+   ],
+   "h": [
+    [
+     "Mały port pasażersko-towarowy",
+     "1, 2 lub 4 terminale"
+    ],
+    [
+     "Duży port pasażersko-towarowy",
+     "1, 2 lub 4 terminale"
+    ]
+   ]
+  },
+  "T_AIRACC": {
+   "cap": "Lotnisko polowe przyjmuje tylko małe samoloty. Lotnisko przyjmuje małe i duże samoloty oraz helikoptery przy budynku głównym. Helikoptery mają też własny heliport i platformę helikopterową.",
+   "g": [
+    [
+     "Małe samoloty",
+     "15 modeli, 1920 →"
+    ],
+    [
+     "Duże samoloty",
+     "15 modeli, 1952 →"
+    ],
+    [
+     "Helikoptery",
+     "11 modeli, 1950 →"
+    ]
+   ],
+   "h": [
+    [
+     "Lotnisko polowe",
+     "1920 →, 1–3 terminale"
+    ],
+    [
+     "Lotnisko",
+     "1950 →, 2–4 terminale"
+    ],
+    [
+     "Heliport, Platforma helikopterowa",
+     "1950 →"
+    ]
+   ]
   }
  },
  "cargo": {

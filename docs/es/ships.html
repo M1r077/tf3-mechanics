@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Barcos y puertos · Mecánicas de TF3</title>
+<meta name="description" content="Cómo funciona realmente Transport Fever 3, leído en los propios scripts del juego.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/ships.html"><link rel="alternate" hreflang="fr" href="../fr/ships.html"><link rel="alternate" hreflang="de" href="../de/ships.html"><link rel="alternate" hreflang="es" href="../es/ships.html"><link rel="alternate" hreflang="it" href="../it/ships.html"><link rel="alternate" hreflang="nl" href="../nl/ships.html"><link rel="alternate" hreflang="pl" href="../pl/ships.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/ships.html"><link rel="alternate" hreflang="ru" href="../ru/ships.html"><link rel="alternate" hreflang="ja" href="../ja/ships.html"><link rel="alternate" hreflang="ko" href="../ko/ships.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/ships.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/ships.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Índice</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Mostrar u ocultar las referencias a los scripts"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Fuentes</span></button>
+<details class="langs"><summary aria-label="Idioma"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Español</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Idioma"><a href="../en/ships.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/ships.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/ships.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/ships.html" class="on" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/ships.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/ships.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/ships.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/ships.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/ships.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/ships.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/ships.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/ships.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/ships.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Índice</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg>Estaciones y carga</span></div><h1 class="rise d1">Barcos y puertos</h1><p class="lead rise d2">Barcos pequeños y grandes, qué puerto admite cuál, terminales y costes de los puertos, y la lista de todos los barcos con su cargamento, capacidad y velocidad.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verificado en los scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Actualizado 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>2</b><span>tamaños de barco: pequeño y grande</span></div><div class="fact rise d2"><b>1, 2, 4</b><span>terminales por puerto</span></div><div class="fact rise d3"><b>27</b><span>barcos en el juego base</span></div><div class="fact rise d4"><b>×9</b><span>precio y conservación de la variante de puerto de 1990</span></div></div></div></section><div class="wrap layout"><article><p>Cada barco es <strong>pequeño</strong> o <strong>grande</strong>. Un barco grande solo puede atracar en un <strong>puerto grande</strong>; un barco pequeño atraca en ambos. La guía del juego también lo dice: «Cabe destacar que los barcos grandes solo pueden atracar en puertos grandes.»</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 288" width="900" role="img"><defs><linearGradient id="sa-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="sa-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="sa-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="sa-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="sa-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="sa-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="sa-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="20.0" width="300" height="111" rx="16" fill="url(#sa-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(38,61.5) scale(1.1666666666666667)" fill="none" stroke="#38d1bf" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="73.0" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Barcos pequeños</text><text x="80" y="96.0" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">16 modelos, 1884 →</text><rect x="20" y="157.0" width="300" height="111" rx="16" fill="url(#sa-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(38,198.5) scale(1.1666666666666667)" fill="none" stroke="#f2b84b" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="210.0" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Barcos grandes</text><text x="80" y="233.0" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">11 modelos, 1875 →</text><rect x="580" y="20.0" width="300" height="111" rx="16" fill="url(#sa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(598,61.5) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="54.0" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Puerto de</text><text x="640" y="73.2" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">carga/pasajeros</text><text x="640" y="92.4" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">pequeño</text><text x="640" y="115.0" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1, 2 o 4 terminales</text><rect x="580" y="157.0" width="300" height="111" rx="16" fill="url(#sa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(598,198.5) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="200.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Puerto de</text><text x="640" y="219.7" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">carga/pasajeros grande</text><text x="640" y="242.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1, 2 o 4 terminales</text><line x1="322" y1="69.5" x2="576" y2="69.5" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="69.5" x2="576" y2="69.5" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="81.5" x2="576" y2="206.5" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="81.5" x2="576" y2="206.5" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="218.5" x2="576" y2="218.5" stroke="#f2b84b" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="218.5" x2="576" y2="218.5" stroke="#f2b84b" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Un puerto pequeño solo acepta barcos pequeños. Un puerto grande acepta barcos pequeños y grandes. Todos los puertos admiten pasajeros y carga.</span></figcaption></figure>
+<h2 id="puertos-pequeños-y-grandes"><span class="n">1</span><span>Puertos pequeños y grandes</span></h2>
+<ul>
+<li>Dos puertos en el menú de construcción: <strong>Puerto de carga/pasajeros pequeño</strong> y <strong>Puerto de carga/pasajeros grande</strong>. Ambos admiten pasajeros y todo el cargamento<span class="sr"> (<code class="src">harbor_modular.tl:92</code>, <code class="src">harbor_modular.tl:122</code>)</span>.</li>
+<li>El puerto pequeño se construye con muelles pequeños, que solo admiten barcos pequeños<span class="sr"> (<code class="src">small_pier.module.lua:7</code>)</span>. El puerto grande usa muelles medianos, que admiten ambos tamaños<span class="sr"> (<code class="src">medium_pier.module.lua:6</code>, <code class="src">harbor_modular.script.lua:35-39</code>)</span>.</li>
+<li><strong>Terminales</strong>: 1, 2 o 4, a elegir al construir<span class="sr"> (<code class="src">harbor_modular.tl:16</code>, <code class="src">harbor_modular.script.lua:33</code>)</span>.</li>
+<li>Una terminal de muelle admite 100 pasajeros en espera en un muelle pequeño y 50 en un muelle mediano<span class="sr"> (<code class="src">modules.script.lua:872</code>, <code class="src">modules.script.lua:1004</code>)</span>.</li>
+<li>Los puertos deben colocarse a lo largo de una costa, en agua navegable<span class="sr"> (<code class="src">harbor_modular.tl:29</code>)</span>.</li>
+<li>Cada barco fija su propio tamaño en su archivo de vehículo; el juego lo convierte en el modo de barco pequeño o grande<span class="sr"> (<code class="src">model_metadata_util.lua:1411-1412</code>)</span>.</li>
+</ul>
+<h2 id="costes"><span class="n">2</span><span>Costes</span></h2>
+<p>Hay una variante de puerto por época: 1900, 1950 y 1990<span class="sr"> (<code class="src">harbor_modular.tl:71-73</code>)</span>. El precio y la conservación se multiplican por 3 para una variante desde 1940 y por 9 para una desde 1980<span class="sr"> (<code class="src">harbor_modular.tl:76</code>)</span>:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Puerto</th>
+<th>Precio (primera variante)</th>
+<th>Conservación por año (primera variante)</th>
+<th class="sc">Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Puerto pequeño</td>
+<td>144.000 - 444.000</td>
+<td>24.000 - 74.000</td>
+<td class="sc"><code class="src">harbor_modular.tl:88-89</code></td>
+</tr>
+<tr>
+<td>Puerto grande</td>
+<td>228.000 - 678.000</td>
+<td>38.000 - 113.000</td>
+<td class="sc"><code class="src">harbor_modular.tl:118-119</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Los dos valores son la disposición más pequeña y la más grande.</li>
+<li>La conservación de los puertos también sigue el año del calendario, ×1 en 1900 hasta ×6 en 2020, como almacenes y aeropuertos (<a href="costs.html">Costes, conservación y préstamos</a>).</li>
+<li>Los puertos son ruidosos y contaminantes: de 180 a 280 para ambos (<a href="emission.html">Contaminación y ruido</a>).</li>
+<li>El precio y los costes de funcionamiento de un barco se calculan a partir de su velocidad y su capacidad, como los vehículos de carretera y los aviones (<a href="costs.html">Costes, conservación y préstamos</a>).</li>
+</ul>
+<h2 id="todos-los-barcos"><span class="n">3</span><span>Todos los barcos</span></h2>
+<p>Velocidad en km/h, redondeada. «Cargamento» enumera las clases de cargamento del archivo de vehículo; «cualquier cargamento» significa todos los tipos de cargamento.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Barco</th>
+<th>Años</th>
+<th>Tamaño</th>
+<th>Cargamento</th>
+<th>Capacidad</th>
+<th>Velocidad</th>
+<th>Velocidad de carga</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dunara Castle</td>
+<td>1875-1930</td>
+<td>grande</td>
+<td>pasajeros, cualquier cargamento</td>
+<td>80</td>
+<td>20</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Arrastrero canadiense</td>
+<td>1884-1948</td>
+<td>pequeño</td>
+<td>cualquier cargamento</td>
+<td>40</td>
+<td>35</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Waimarie</td>
+<td>1889-1940</td>
+<td>pequeño</td>
+<td>pasajeros</td>
+<td>80</td>
+<td>30</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Sydfart</td>
+<td>1900-1930</td>
+<td>pequeño</td>
+<td>líquidos, de plataforma, mercancías, a granel</td>
+<td>80</td>
+<td>30</td>
+<td>20</td>
+</tr>
+<tr>
+<td>PS Trillium</td>
+<td>1910-1955</td>
+<td>grande</td>
+<td>pasajeros</td>
+<td>200</td>
+<td>35</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Barco de vapor de ruedas</td>
+<td>1915-1960</td>
+<td>pequeño</td>
+<td>pasajeros, cualquier cargamento</td>
+<td>60</td>
+<td>40</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Terra Nova</td>
+<td>1925-1975</td>
+<td>grande</td>
+<td>a granel, de plataforma, mercancías</td>
+<td>100</td>
+<td>45</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Remolcador petrolero Votrans</td>
+<td>1935-1990</td>
+<td>pequeño</td>
+<td>líquidos</td>
+<td>120</td>
+<td>33</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Remolcador de cargamento Votrans</td>
+<td>1935-1990</td>
+<td>pequeño</td>
+<td>a granel, de plataforma, mercancías</td>
+<td>120</td>
+<td>33</td>
+<td>20</td>
+</tr>
+<tr>
+<td>MS Stadt Kiel</td>
+<td>1943-1990</td>
+<td>pequeño</td>
+<td>pasajeros</td>
+<td>80</td>
+<td>30</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Borealis</td>
+<td>1948-1994</td>
+<td>pequeño</td>
+<td>cualquier cargamento</td>
+<td>60</td>
+<td>38</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Wopper</td>
+<td>1950-2005</td>
+<td>pequeño</td>
+<td>líquidos, de plataforma, mercancías, a granel</td>
+<td>160</td>
+<td>30</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Ferri Meridian</td>
+<td>1956-2011</td>
+<td>pequeño</td>
+<td>pasajeros</td>
+<td>240</td>
+<td>30</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Cap Arkona</td>
+<td>1965-2010</td>
+<td>grande</td>
+<td>pasajeros</td>
+<td>200</td>
+<td>40</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Barco costero Tora</td>
+<td>1970-2020</td>
+<td>grande</td>
+<td>líquidos, de plataforma, mercancías, a granel</td>
+<td>320</td>
+<td>40</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Aerodeslizador AP1-88</td>
+<td>1980-</td>
+<td>pequeño</td>
+<td>pasajeros</td>
+<td>240</td>
+<td>90</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Remolcador Hercules XI</td>
+<td>1990-</td>
+<td>grande</td>
+<td>de plataforma, mercancías, a granel</td>
+<td>120</td>
+<td>32</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Baltica</td>
+<td>1994-</td>
+<td>pequeño</td>
+<td>cualquier cargamento</td>
+<td>80</td>
+<td>40</td>
+<td>20</td>
+</tr>
+<tr>
+<td>HADAG tipo 2000</td>
+<td>1995-</td>
+<td>pequeño</td>
+<td>pasajeros</td>
+<td>100</td>
+<td>35</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Damen Tanker 800</td>
+<td>1996-</td>
+<td>pequeño</td>
+<td>líquidos</td>
+<td>160</td>
+<td>28</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Damen Fast Ferry</td>
+<td>2003-</td>
+<td>grande</td>
+<td>pasajeros</td>
+<td>220</td>
+<td>75</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Luise Deymann</td>
+<td>2013-</td>
+<td>grande</td>
+<td>líquidos</td>
+<td>240</td>
+<td>30</td>
+<td>35</td>
+</tr>
+<tr>
+<td>MS Diamant</td>
+<td>2013-</td>
+<td>grande</td>
+<td>pasajeros</td>
+<td>280</td>
+<td>45</td>
+<td>35</td>
+</tr>
+<tr>
+<td>Remolcador Virgo</td>
+<td>2015-</td>
+<td>grande</td>
+<td>de plataforma, mercancías, a granel</td>
+<td>160</td>
+<td>40</td>
+<td>15</td>
+</tr>
+<tr>
+<td>GHL Oita Hovercraft</td>
+<td>2023-</td>
+<td>pequeño</td>
+<td>pasajeros</td>
+<td>320</td>
+<td>100</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Yara Birkeland</td>
+<td>2030-</td>
+<td>grande</td>
+<td>de plataforma, mercancías, a granel</td>
+<td>480</td>
+<td>42</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Transbordador solar</td>
+<td>2035-</td>
+<td>pequeño</td>
+<td>pasajeros</td>
+<td>80</td>
+<td>30</td>
+<td>30</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="conviene-saber"><span class="n">4</span><span>Conviene saber</span></h2>
+<ul>
+<li><strong>Comprueba el tamaño antes de construir un puerto pequeño.</strong> Varios de los mayores buques de carga (Tora, Virgo, Yara Birkeland) son grandes y no atracarán allí.</li>
+<li><strong>«No hay ruta para barcos grandes»</strong> es un aviso aparte para barcos grandes: el juego no encontró ninguna ruta por agua que pueda usar un barco grande. Qué agua está abierta a qué tamaño lo decide el motor del juego, no los scripts, que solo muestran el aviso<span class="sr"> (<code class="src">vehicle_warning.script.tl:28-36</code>)</span>.</li>
+<li><strong>Los puntos de ruta de los barcos</strong> deben colocarse en el agua («Los puntos de ruta de navegación deben estar en el agua.»).</li>
+<li>El depósito de barcos y la estación de mantenimiento de barcos son edificios distintos; el mantenimiento actúa en un radio a su alrededor (<a href="vehicles.html">Vehículos: condición, edad y velocidad de carga</a>).</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Wiki oficial frente a scripts del juego</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Añade detalle</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>La wiki oficial dice</div><p>"Passenger and cargo ships are available in two sizes: small and large. Large ships can only dock at large harbors, so make sure the harbor matches the size of the ships assigned to the line." (in-game guide "Water Infrastructure")</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Los scripts del juego muestran</div><p>Igual: los muelles pequeños solo admiten SMALL_SHIP, los medianos SHIP y SMALL_SHIP; ambos puertos admiten pasajeros y todo el cargamento; 1, 2 o 4 terminales; tres variantes de época a ×1 / ×3 / ×9; 16 barcos pequeños y 11 grandes en el juego base.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Las rutas están dentro de la carpeta base/content del juego o de sus archivos zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>En esta página</h5><ol><li><a href="#puertos-pequeños-y-grandes">Puertos pequeños y grandes</a></li><li><a href="#costes">Costes</a></li><li><a href="#todos-los-barcos">Todos los barcos</a></li><li><a href="#conviene-saber">Conviene saber</a></li></ol><div class="box"><b>7</b><span>referencias a las fuentes</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Mostrar las fuentes</span><span class="h">Ocultar las fuentes</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Otras mecánicas</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Aviones, aeropuertos y helicópteros</b><small>Estaciones y carga</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Costes, conservación y préstamos</b><small>Finanzas y préstamos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Ajustes de salida: capacidad máxima, nivel de llenado y tiempos de parada</b><small>Estaciones y carga</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Contaminación y ruido</b><small>Polución y ruido</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Ingresos por cargamento y tiempo de entrega</b><small>Cargamento e ingresos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Industrias</b><small>Industrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Velocidad de carga y descarga</b><small>Estaciones y carga</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>¿Por qué pierdo dinero?</b><small>Finanzas y préstamos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputación de las localidades</b><small>Localidades</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subvenciones: ofertas, plazos y recompensas</b><small>Subvenciones</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Tiempo de juego y calendario</b><small>Tiempo de juego y calendario</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Crecimiento de las localidades: XP, calificaciones y tamaño</b><small>Localidades</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Vehículos: condición, edad y velocidad de carga</b><small>Líneas y vehículos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Almacenes</b><small>Almacenes</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Trabajadores y el refuerzo de trabajadores</b><small>Industrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Proyecto de fans de Miro. Sin relación con Urban Games.</span><span>Textos e imágenes: CC BY 4.0 · Código del juego © Urban Games: solo se muestran referencias breves.</span><span class="tr">Traducido del inglés; se agradecen las correcciones (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

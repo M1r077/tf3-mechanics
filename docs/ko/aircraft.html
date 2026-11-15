@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>비행기, 공항, 헬리콥터 · TF3 메커니즘</title>
+<meta name="description" content="Transport Fever 3가 실제로 어떻게 작동하는지, 게임의 스크립트에서 직접 읽어 낸 정보.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/aircraft.html"><link rel="alternate" hreflang="fr" href="../fr/aircraft.html"><link rel="alternate" hreflang="de" href="../de/aircraft.html"><link rel="alternate" hreflang="es" href="../es/aircraft.html"><link rel="alternate" hreflang="it" href="../it/aircraft.html"><link rel="alternate" hreflang="nl" href="../nl/aircraft.html"><link rel="alternate" hreflang="pl" href="../pl/aircraft.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/aircraft.html"><link rel="alternate" hreflang="ru" href="../ru/aircraft.html"><link rel="alternate" hreflang="ja" href="../ja/aircraft.html"><link rel="alternate" hreflang="ko" href="../ko/aircraft.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/aircraft.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/aircraft.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>목차</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="스크립트 참조 표시 또는 숨기기"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>소스</span></button>
+<details class="langs"><summary aria-label="언어"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>한국어</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="언어"><a href="../en/aircraft.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/aircraft.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/aircraft.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/aircraft.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/aircraft.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/aircraft.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/aircraft.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/aircraft.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/aircraft.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/aircraft.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/aircraft.html" class="on" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/aircraft.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/aircraft.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>목차</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg>정류장과 상차</span></div><h1 class="rise d1">비행기, 공항, 헬리콥터</h1><p class="lead rise d2">비행장인가 공항인가, 어떤 비행기가 어디에 착륙하는지, 터미널, 두 번째 활주로, 헬리포트, 그리고 모든 항공기의 화물, 용량, 속도 목록.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>스크립트에서 검증됨</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>업데이트 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>2</b><span>비행기 크기: 소형과 대형</span></div><div class="fact rise d2"><b>1950</b><span>첫 공항과 첫 헬리콥터</span></div><div class="fact rise d3"><b>1980</b><span>두 번째 활주로</span></div><div class="fact rise d4"><b>5</b><span>격납고당 항공기 수</span></div></div></div></section><div class="wrap layout"><article><p>모든 비행기는 <strong>소형</strong> 또는 <strong>대형</strong>이다. <strong>비행장</strong>은 소형 비행기만 받는다. <strong>공항</strong>은 둘 다 받으며, 본관에서는 헬리콥터도 받는다. 헬리콥터에는 전용 정거장도 있다.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 368" width="900" role="img"><defs><linearGradient id="aa-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="aa-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="aa-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="aa-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="aa-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="aa-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="aa-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="20.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,52.0) scale(1.1666666666666667)" fill="none" stroke="#38d1bf" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">소형 비행기</text><text x="80" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">15종, 1920 →</text><rect x="20" y="138.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,170.0) scale(1.1666666666666667)" fill="none" stroke="#f2b84b" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">대형 비행기</text><text x="80" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">15종, 1952 →</text><rect x="20" y="256.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#b49cf0" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,288.0) scale(1.1666666666666667)" fill="none" stroke="#b49cf0" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="299.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">헬리콥터</text><text x="80" y="322.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">11종, 1950 →</text><rect x="580" y="20.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,52.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">비행장</text><text x="640" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1920 →, 터미널 1–3개</text><rect x="580" y="138.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,170.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">공항</text><text x="640" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1950 →, 터미널 2–4개</text><rect x="580" y="256.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,288.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="299.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">헬리포트, 헬리패드</text><text x="640" y="322.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1950 →</text><line x1="322" y1="54.0" x2="576" y2="54.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="54.0" x2="576" y2="54.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="66.0" x2="576" y2="172.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="66.0" x2="576" y2="172.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="184.0" x2="576" y2="184.0" stroke="#f2b84b" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="184.0" x2="576" y2="184.0" stroke="#f2b84b" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="302.0" x2="576" y2="196.0" stroke="#b49cf0" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="302.0" x2="576" y2="196.0" stroke="#b49cf0" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="314.0" x2="576" y2="314.0" stroke="#b49cf0" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="314.0" x2="576" y2="314.0" stroke="#b49cf0" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>비행장은 소형 비행기만 받는다. 공항은 소형과 대형 비행기를, 본관에서는 헬리콥터도 받는다. 헬리콥터에는 헬리포트와 헬리패드도 있다.</span></figcaption></figure>
+<h2 id="비행장과-공항"><span class="n">1</span><span>비행장과 공항</span></h2>
+<ul>
+<li><strong>비행장</strong>: "소형 항공기를 위한 한 개의 활주로를 갖춘 비행장입니다." 1920년, 1950년, 1980년 버전. 터미널 1, 2 또는 3개와 선택 사항인 차고지<span class="sr">(<code class="src">airfield.tl:49</code>, <code class="src">airfield.tl:76</code>, <code class="src">airfield_era_a.metacon.tl:3</code>)</span>.</li>
+<li><strong>공항</strong>: "소형 및 대형 항공기를 위한 최대 두 개의 활주로를 갖춘 공항입니다." 1950년과 1980년 버전. 터미널 2, 3 또는 4개와 착륙 방향<span class="sr">(<code class="src">airport.tl:24</code>, <code class="src">airport.tl:80</code>, <code class="src">airport1950.metacon.tl:3-4</code>)</span>.</li>
+<li>비행장 터미널은 소형 비행기만, 공항 터미널은 두 크기 모두 받는다<span class="sr">(<code class="src">af_terminal.module.lua:715</code>, <code class="src">ap_terminal.module.lua:897</code>)</span>.</li>
+<li>공항 본관에는 헬리콥터 패드가 있으며<span class="sr">(<code class="src">ap_main.module.lua:532</code>)</span>, 1950년부터 공항에 헬리콥터 터미널을 붙일 수 있다<span class="sr">(<code class="src">ap_terminal_heli.module.lua:897</code>, <code class="src">ap_terminal_heli.module.lua:971</code>)</span>.</li>
+<li><strong>두 번째 활주로</strong>: 1980년부터의 공항 모듈<span class="sr">(<code class="src">airport_2nd_runway.module.lua:5</code>)</span>. 일부 공항 모듈은 이것이 필요하며, 없으면 "두 번째 활주로가 필요합니다"를 표시한다<span class="sr">(<code class="src">airport.script.lua:261</code>)</span>.</li>
+<li>모든 항공 정거장은 승객과 모든 화물을 받는다<span class="sr">(<code class="src">airfield.tl:59</code>, <code class="src">airport.tl:34</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>건물</th>
+<th>대기 승객</th>
+<th class="sc">출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>비행장 터미널</td>
+<td>최대 250</td>
+<td class="sc"><code class="src">af_terminal.module.lua:773</code></td>
+</tr>
+<tr>
+<td>공항 본관</td>
+<td>최대 400</td>
+<td class="sc"><code class="src">ap_main.module.lua:667</code></td>
+</tr>
+<tr>
+<td>공항 터미널</td>
+<td>최대 850</td>
+<td class="sc"><code class="src">ap_terminal.module.lua:951</code></td>
+</tr>
+<tr>
+<td>공항 헬리콥터 터미널</td>
+<td>최대 450</td>
+<td class="sc"><code class="src">ap_terminal_heli.module.lua:990</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="격납고와-헬리콥터-정거장"><span class="n">2</span><span>격납고와 헬리콥터 정거장</span></h2>
+<ul>
+<li>비행장이나 공항의 <strong>격납고</strong>는 항공기 5대를 수용하고, 반경 550 m 안의 항공기를 정비한다<span class="sr">(<code class="src">af_hangar.module.lua:273-278</code>, <code class="src">ap_hangar.module.lua:456-461</code>)</span>.</li>
+<li><strong>헬리포트</strong>(1950년부터): 헬리콥터를 구매하고 정비한다. 차고지 5대, 정비 반경 800 m<span class="sr">(<code class="src">heliport.script.lua:301-306</code>)</span>.</li>
+<li><strong>헬리패드</strong>(1950년부터): 승객과 화물을 위한 작은 착륙장으로, 차고지가 없다<span class="sr">(<code class="src">helipad.con.lua:29-33</code>)</span>.</li>
+</ul>
+<h2 id="비용"><span class="n">3</span><span>비용</span></h2>
+<p>첫 버전의 가격과 관리비. 이후 버전은 ×3 또는 ×9(<a href="costs.html">비용, 관리비, 대출</a>). 첫 비행장은 이미 ×3을 쓴다<span class="sr">(<code class="src">airfield.tl:8</code>)</span>.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>건물</th>
+<th>가격</th>
+<th>연간 관리비</th>
+<th class="sc">출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>비행장</td>
+<td>1,200,000 – 3,000,000</td>
+<td>50,000 – 200,000</td>
+<td class="sc"><code class="src">airfield.tl:55-56</code></td>
+</tr>
+<tr>
+<td>공항</td>
+<td>1,800,000 – 4,500,000</td>
+<td>300,000 – 750,000</td>
+<td class="sc"><code class="src">airport.tl:30-31</code></td>
+</tr>
+<tr>
+<td>비행장 모듈(본관, 터미널, 격납고)</td>
+<td>600,000</td>
+<td>100,000</td>
+<td class="sc"><code class="src">af_main.module.lua:316-317</code>, <code class="src">af_hangar.module.lua:326-327</code></td>
+</tr>
+<tr>
+<td>공항 모듈(터미널, 격납고, 두 번째 활주로…)</td>
+<td>900,000</td>
+<td>150,000</td>
+<td class="sc"><code class="src">ap_main.module.lua:672-673</code>, <code class="src">ap_hangar.module.lua:508-509</code>, <code class="src">airport_2nd_runway.module.lua:27-28</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>공항과 비행장의 관리비도 달력 연도를 따라 1900년 ×1에서 2020년 ×6이 된다(<a href="costs.html">비용, 관리비, 대출</a>).</li>
+<li>항공기의 가격과 운영비는 선박이나 도로 차량처럼 속도와 용량으로 계산된다(<a href="costs.html">비용, 관리비, 대출</a>).</li>
+</ul>
+<h2 id="모든-비행기"><span class="n">4</span><span>모든 비행기</span></h2>
+<p>속도는 km/h, 반올림. "모든 화물"은 모든 화물 종류를 뜻한다.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>비행기</th>
+<th>연도</th>
+<th>크기</th>
+<th>화물</th>
+<th>용량</th>
+<th>속도</th>
+<th>상차 속도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>융커스 F 13 헤르타</td>
+<td>1920–1950</td>
+<td>소형</td>
+<td>승객</td>
+<td>16</td>
+<td>135</td>
+<td>–</td>
+</tr>
+<tr>
+<td>빅커스 J6860 빅토리아</td>
+<td>1922–1960</td>
+<td>소형</td>
+<td>모든 화물</td>
+<td>32</td>
+<td>150</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>포커 F VII A</td>
+<td>1925–1960</td>
+<td>소형</td>
+<td>승객</td>
+<td>32</td>
+<td>175</td>
+<td>2</td>
+</tr>
+<tr>
+<td>융커스 JU-52 아이언 애니</td>
+<td>1933–1982</td>
+<td>소형</td>
+<td>승객, 모든 화물</td>
+<td>24</td>
+<td>200</td>
+<td>3</td>
+</tr>
+<tr>
+<td>더글라스 DC-3</td>
+<td>1935–1995</td>
+<td>소형</td>
+<td>승객</td>
+<td>56</td>
+<td>300</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>커티스 C-46 코만도</td>
+<td>1942–1980</td>
+<td>소형</td>
+<td>모든 화물</td>
+<td>80</td>
+<td>280</td>
+<td>–</td>
+</tr>
+<tr>
+<td>더글라스 DC-4</td>
+<td>1944–1998</td>
+<td>소형</td>
+<td>승객</td>
+<td>100</td>
+<td>365</td>
+<td>3</td>
+</tr>
+<tr>
+<td>브리스톨 타입 170 화물기</td>
+<td>1949–2005</td>
+<td>소형</td>
+<td>승객, 모든 화물</td>
+<td>40</td>
+<td>350</td>
+<td>1.5</td>
+</tr>
+<tr>
+<td>록히드 L-1049 슈퍼 코니</td>
+<td>1952–1986</td>
+<td>대형</td>
+<td>승객</td>
+<td>120</td>
+<td>486</td>
+<td>3</td>
+</tr>
+<tr>
+<td>록히드 L-1049D/H 슈퍼 코니</td>
+<td>1959–2000</td>
+<td>대형</td>
+<td>모든 화물</td>
+<td>60</td>
+<td>486</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>드 하빌랜드 DH.106 코멧</td>
+<td>1960–2000</td>
+<td>대형</td>
+<td>승객</td>
+<td>160</td>
+<td>724</td>
+<td>3</td>
+</tr>
+<tr>
+<td>캐나디어 CL-44 화물기</td>
+<td>1962–2005</td>
+<td>대형</td>
+<td>모든 화물</td>
+<td>48</td>
+<td>645</td>
+<td>2</td>
+</tr>
+<tr>
+<td>컨베어 CV 990 코로나도</td>
+<td>1962–2020</td>
+<td>대형</td>
+<td>승객</td>
+<td>200</td>
+<td>917</td>
+<td>2</td>
+</tr>
+<tr>
+<td>록히드 L-100 허큘리스</td>
+<td>1976–2000</td>
+<td>소형</td>
+<td>모든 화물</td>
+<td>44</td>
+<td>400</td>
+<td>3</td>
+</tr>
+<tr>
+<td>맥도넬 더글라스 DC-10-30</td>
+<td>1978–</td>
+<td>대형</td>
+<td>승객</td>
+<td>400</td>
+<td>960</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>맥도넬 더글라스 DC-10-30CF</td>
+<td>1978–</td>
+<td>대형</td>
+<td>모든 화물</td>
+<td>132</td>
+<td>960</td>
+<td>4</td>
+</tr>
+<tr>
+<td>에어버스 A310 300F 화물기</td>
+<td>1982–</td>
+<td>대형</td>
+<td>모든 화물</td>
+<td>160</td>
+<td>850</td>
+<td>3</td>
+</tr>
+<tr>
+<td>쇼트 330 셰르파</td>
+<td>1984–</td>
+<td>소형</td>
+<td>승객, 모든 화물</td>
+<td>40</td>
+<td>455</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>에어버스 A320</td>
+<td>1985–</td>
+<td>대형</td>
+<td>승객</td>
+<td>180</td>
+<td>753</td>
+<td>3</td>
+</tr>
+<tr>
+<td>BAe 146</td>
+<td>1985–</td>
+<td>소형</td>
+<td>승객</td>
+<td>112</td>
+<td>753</td>
+<td>3</td>
+</tr>
+<tr>
+<td>BAe 146 화물기</td>
+<td>1985–</td>
+<td>소형</td>
+<td>모든 화물</td>
+<td>48</td>
+<td>753</td>
+<td>2</td>
+</tr>
+<tr>
+<td>포커 100</td>
+<td>1988–</td>
+<td>대형</td>
+<td>승객</td>
+<td>160</td>
+<td>845</td>
+<td>3.5</td>
+</tr>
+<tr>
+<td>투폴레프 Tu-204</td>
+<td>1995–</td>
+<td>대형</td>
+<td>승객</td>
+<td>280</td>
+<td>850</td>
+<td>4</td>
+</tr>
+<tr>
+<td>투폴레프 Tu-204C 화물기</td>
+<td>1995–</td>
+<td>대형</td>
+<td>모든 화물</td>
+<td>68</td>
+<td>850</td>
+<td>2</td>
+</tr>
+<tr>
+<td>보잉 737-700</td>
+<td>1998–</td>
+<td>대형</td>
+<td>승객</td>
+<td>200</td>
+<td>974</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>보잉 737-700-C 화물기</td>
+<td>1998–</td>
+<td>대형</td>
+<td>모든 화물</td>
+<td>80</td>
+<td>974</td>
+<td>3</td>
+</tr>
+<tr>
+<td>봄바디어 DHC-8</td>
+<td>2000–</td>
+<td>소형</td>
+<td>승객</td>
+<td>120</td>
+<td>648</td>
+<td>3</td>
+</tr>
+<tr>
+<td>봄바디어 DHC-8 화물기</td>
+<td>2008–</td>
+<td>소형</td>
+<td>모든 화물</td>
+<td>120</td>
+<td>648</td>
+<td>2</td>
+</tr>
+<tr>
+<td>수호이 슈퍼젯 100</td>
+<td>2011–</td>
+<td>소형</td>
+<td>승객</td>
+<td>160</td>
+<td>870</td>
+<td>3</td>
+</tr>
+<tr>
+<td>에어버스 캐나다 A220</td>
+<td>2013–</td>
+<td>대형</td>
+<td>승객</td>
+<td>180</td>
+<td>830</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="모든-헬리콥터"><span class="n">5</span><span>모든 헬리콥터</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>헬리콥터</th>
+<th>연도</th>
+<th>화물</th>
+<th>용량</th>
+<th>속도</th>
+<th>상차 속도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>벨 47</td>
+<td>1950–1990</td>
+<td>승객, 모든 화물</td>
+<td>8</td>
+<td>150</td>
+<td>2</td>
+</tr>
+<tr>
+<td>피아세키 H-21 워크호스</td>
+<td>1952–1985</td>
+<td>승객, 모든 화물</td>
+<td>80</td>
+<td>210</td>
+<td>3</td>
+</tr>
+<tr>
+<td>시르코스키 S-64 스카이크레인</td>
+<td>1962–2017</td>
+<td>모든 화물</td>
+<td>40</td>
+<td>213</td>
+<td>4</td>
+</tr>
+<tr>
+<td>벨 206 롱레인저</td>
+<td>1965–2025</td>
+<td>승객</td>
+<td>32</td>
+<td>241</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>보잉 베르톨 234 치누크</td>
+<td>1980–</td>
+<td>승객, 모든 화물</td>
+<td>80</td>
+<td>269</td>
+<td>2</td>
+</tr>
+<tr>
+<td>아구스타웨스트랜드 AW101 멀린</td>
+<td>1990–</td>
+<td>승객</td>
+<td>60</td>
+<td>278</td>
+<td>3</td>
+</tr>
+<tr>
+<td>밀 Mi-26TC</td>
+<td>1993–</td>
+<td>모든 화물</td>
+<td>120</td>
+<td>295</td>
+<td>4</td>
+</tr>
+<tr>
+<td>유로콥터 120B 콜리브리</td>
+<td>1998–</td>
+<td>승객</td>
+<td>48</td>
+<td>210</td>
+<td>3</td>
+</tr>
+<tr>
+<td>카만 K-MAX</td>
+<td>2005–</td>
+<td>모든 화물</td>
+<td>60</td>
+<td>190</td>
+<td>3</td>
+</tr>
+<tr>
+<td>에어버스 H225 슈퍼 푸마</td>
+<td>2013–</td>
+<td>승객</td>
+<td>48</td>
+<td>288</td>
+<td>3</td>
+</tr>
+<tr>
+<td>넥스트젠 VTOL</td>
+<td>2030–</td>
+<td>승객</td>
+<td>56</td>
+<td>610</td>
+<td>4</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="알아두면-좋은-점"><span class="n">6</span><span>알아두면 좋은 점</span></h2>
+<ul>
+<li><strong>소형 비행기는 끝까지 쓸모 있다.</strong> DHC-8, 그 화물기, 수호이 슈퍼젯 100은 소형이라 비행장으로 충분하다.</li>
+<li><strong>1952년 이전에는 대형 비행기가 없으므로</strong>, 이른 시기의 공항으로는 아직 더 큰 항공기를 쓸 수 없다.</li>
+<li>비행기는 직선으로 날고, 운임은 직선 거리만 세므로 우회해도 추가 비용이 없다(<a href="income.html">화물 수입과 배송 시간</a>).</li>
+<li>최소 활주로 길이, 비행 경로, 착륙은 게임 엔진이 정하며, 스크립트에는 나타나지 않는다.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>공식 위키와 게임 스크립트 비교</h4><span class="res agrees"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>일치</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키의 설명</div><p>"It can be used by small airplanes." (Airfield) "It can be used by small and large airplanes." (Airport), build menu descriptions.</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>게임 스크립트의 내용</div><p>같음: 비행장 터미널은 SMALL_AIRCRAFT만, 공항 터미널은 AIRCRAFT와 SMALL_AIRCRAFT를 받는다. 헬리콥터는 공항 본관에서, 헬리포트와 헬리패드는 1950년부터, 두 번째 활주로는 1980년부터, 격납고는 5대. 기본 게임에 소형 비행기 15대, 대형 비행기 15대, 헬리콥터 11대.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>경로는 게임의 base/content 폴더 또는 그 zip 파일 안에 있다.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>이 페이지의 내용</h5><ol><li><a href="#비행장과-공항">비행장과 공항</a></li><li><a href="#격납고와-헬리콥터-정거장">격납고와 헬리콥터 정거장</a></li><li><a href="#비용">비용</a></li><li><a href="#모든-비행기">모든 비행기</a></li><li><a href="#모든-헬리콥터">모든 헬리콥터</a></li><li><a href="#알아두면-좋은-점">알아두면 좋은 점</a></li></ol><div class="box"><b>15</b><span>개 소스 참조</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">소스 보기</span><span class="h">소스 숨기기</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>다른 메커니즘</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>비용, 관리비, 대출</b><small>재정과 대출</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>출발 설정: 가득 실음, 충전 수위, 정지 시간</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>오염과 소음</b><small>공해와 소음</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>화물 수입과 배송 시간</b><small>화물과 수입</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>산업</b><small>산업</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>상차 및 하차 속도</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>왜 돈을 잃고 있을까?</b><small>재정과 대출</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>마을 평판</b><small>마을</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>선박과 항구</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>보조금: 제안, 기한, 보상</b><small>보조금</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>게임 시간과 달력</b><small>게임 시간과 달력</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>마을 성장: 경험치, 평가, 규모</b><small>마을</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>운송 수단: 상태, 연식, 상차 속도</b><small>노선과 운송 수단</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>창고</b><small>창고</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>근로자와 근로자 부스트</b><small>산업</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro의 팬 프로젝트. Urban Games와 관련 없음.</span><span>글과 이미지: CC BY 4.0 · 게임 코드 © Urban Games: 짧은 참조만 표시.</span><span class="tr">영어에서 번역됨. 수정 제안 환영 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

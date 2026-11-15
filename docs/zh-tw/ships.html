@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>船舶與港口 · TF3 機制</title>
+<meta name="description" content="Transport Fever 3 到底如何運作，直接取自遊戲本身的腳本。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/ships.html"><link rel="alternate" hreflang="fr" href="../fr/ships.html"><link rel="alternate" hreflang="de" href="../de/ships.html"><link rel="alternate" hreflang="es" href="../es/ships.html"><link rel="alternate" hreflang="it" href="../it/ships.html"><link rel="alternate" hreflang="nl" href="../nl/ships.html"><link rel="alternate" hreflang="pl" href="../pl/ships.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/ships.html"><link rel="alternate" hreflang="ru" href="../ru/ships.html"><link rel="alternate" hreflang="ja" href="../ja/ships.html"><link rel="alternate" hreflang="ko" href="../ko/ships.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/ships.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/ships.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目錄</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="顯示或隱藏腳本引用"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>來源</span></button>
+<details class="langs"><summary aria-label="語言"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>繁體中文</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="語言"><a href="../en/ships.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/ships.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/ships.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/ships.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/ships.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/ships.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/ships.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/ships.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/ships.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/ships.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/ships.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/ships.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/ships.html" class="on" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目錄</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg>車站與裝載</span></div><h1 class="rise d1">船舶與港口</h1><p class="lead rise d2">小型與大型船舶，哪種港口接收哪種船，港口的總站與成本，以及所有船舶的貨物、容量與速度列表。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>已在腳本中核實</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新於 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>2</b><span>船舶尺寸：小型與大型</span></div><div class="fact rise d2"><b>1, 2, 4</b><span>每個港口的總站數</span></div><div class="fact rise d3"><b>27</b><span>基本遊戲中的船舶數</span></div><div class="fact rise d4"><b>×9</b><span>1990 年港口版本的價格與維護費</span></div></div></div></section><div class="wrap layout"><article><p>每艘船都是<strong>小型</strong>或<strong>大型</strong>。大型船舶只能停靠<strong>大型港口</strong>；小型船舶兩種都能停靠。遊戲內指南也這麼說：「請注意，大型船舶只能停靠大型港口。」</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 250" width="900" role="img"><defs><linearGradient id="sa-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="sa-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="sa-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="sa-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="sa-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="sa-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="sa-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="20.0" width="300" height="92" rx="16" fill="url(#sa-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(38,52.0) scale(1.1666666666666667)" fill="none" stroke="#38d1bf" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">小型船舶</text><text x="80" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">16 種，1884 →</text><rect x="20" y="138.0" width="300" height="92" rx="16" fill="url(#sa-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(38,170.0) scale(1.1666666666666667)" fill="none" stroke="#f2b84b" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">大型船舶</text><text x="80" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">11 種，1875 →</text><rect x="580" y="20.0" width="300" height="92" rx="16" fill="url(#sa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(598,52.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">小型客運／貨運港口</text><text x="640" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1、2 或 4 個總站</text><rect x="580" y="138.0" width="300" height="92" rx="16" fill="url(#sa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#sa-sh)"/><g transform="translate(598,170.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">大型客運／貨運港口</text><text x="640" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1、2 或 4 個總站</text><line x1="322" y1="60.0" x2="576" y2="60.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="60.0" x2="576" y2="60.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="72.0" x2="576" y2="178.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="72.0" x2="576" y2="178.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="190.0" x2="576" y2="190.0" stroke="#f2b84b" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="190.0" x2="576" y2="190.0" stroke="#f2b84b" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#sa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>小型港口只接收小型船舶。大型港口接收小型和大型船舶。所有港口都處理乘客和貨物。</span></figcaption></figure>
+<h2 id="小型港口與大型港口"><span class="n">1</span><span>小型港口與大型港口</span></h2>
+<ul>
+<li>建造選單中有兩種港口：<strong>小型客運／貨運港口</strong>和<strong>大型客運／貨運港口</strong>。兩者都接收乘客和所有貨物<span class="sr">（<code class="src">harbor_modular.tl:92</code>，<code class="src">harbor_modular.tl:122</code>）</span>。</li>
+<li>小型港口由小型碼頭組成，只接收小型船舶<span class="sr">（<code class="src">small_pier.module.lua:7</code>）</span>。大型港口使用中型碼頭，接收兩種尺寸<span class="sr">（<code class="src">medium_pier.module.lua:6</code>，<code class="src">harbor_modular.script.lua:35-39</code>）</span>。</li>
+<li><strong>總站</strong>：1、2 或 4 個，建造時選擇<span class="sr">（<code class="src">harbor_modular.tl:16</code>，<code class="src">harbor_modular.script.lua:33</code>）</span>。</li>
+<li>一個碼頭總站在小型碼頭上可容納 100 名候船乘客，在中型碼頭上 50 名<span class="sr">（<code class="src">modules.script.lua:872</code>，<code class="src">modules.script.lua:1004</code>）</span>。</li>
+<li>港口必須沿海岸建在可通航的水面上<span class="sr">（<code class="src">harbor_modular.tl:29</code>）</span>。</li>
+<li>每艘船在自己的車輛檔案中設定尺寸；遊戲把它轉換為小型或大型船舶模式<span class="sr">（<code class="src">model_metadata_util.lua:1411-1412</code>）</span>。</li>
+</ul>
+<h2 id="成本"><span class="n">2</span><span>成本</span></h2>
+<p>每個時代有一個港口版本：1900、1950 和 1990 年<span class="sr">（<code class="src">harbor_modular.tl:71-73</code>）</span>。1940 年起的版本價格與維護費 ×3，1980 年起的版本 ×9<span class="sr">（<code class="src">harbor_modular.tl:76</code>）</span>：</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>港口</th>
+<th>價格（第一個版本）</th>
+<th>每年維護費（第一個版本）</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小型港口</td>
+<td>144,000 – 444,000</td>
+<td>24,000 – 74,000</td>
+<td class="sc"><code class="src">harbor_modular.tl:88-89</code></td>
+</tr>
+<tr>
+<td>大型港口</td>
+<td>228,000 – 678,000</td>
+<td>38,000 – 113,000</td>
+<td class="sc"><code class="src">harbor_modular.tl:118-119</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>兩個數值分別是最小和最大的配置。</li>
+<li>港口維護費也隨日曆年份變化，與貨物倉庫和機場一樣，從 1900 年的 ×1 到 2020 年的 ×6（<a href="costs.html">成本、維護費與貸款</a>）。</li>
+<li>港口又吵又髒：兩者都是 180 到 280（<a href="emission.html">汙染與噪音</a>）。</li>
+<li>船舶的價格和營運成本由速度與容量計算，與道路車輛和飛機一樣（<a href="costs.html">成本、維護費與貸款</a>）。</li>
+</ul>
+<h2 id="所有船舶"><span class="n">3</span><span>所有船舶</span></h2>
+<p>速度單位 km/h，四捨五入。「貨物」列出車輛檔案中的貨物類別；「任何貨物」表示所有貨物類型。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>船舶</th>
+<th>年份</th>
+<th>尺寸</th>
+<th>貨物</th>
+<th>容量</th>
+<th>速度</th>
+<th>裝載速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>杜娜拉堡號</td>
+<td>1875–1930</td>
+<td>大型</td>
+<td>乘客、任何貨物</td>
+<td>80</td>
+<td>20</td>
+<td>20</td>
+</tr>
+<tr>
+<td>加拿大式拖網船</td>
+<td>1884–1948</td>
+<td>小型</td>
+<td>任何貨物</td>
+<td>40</td>
+<td>35</td>
+<td>10</td>
+</tr>
+<tr>
+<td>懷瑪麗號</td>
+<td>1889–1940</td>
+<td>小型</td>
+<td>乘客</td>
+<td>80</td>
+<td>30</td>
+<td>15</td>
+</tr>
+<tr>
+<td>南航號</td>
+<td>1900–1930</td>
+<td>小型</td>
+<td>液體、平板、一般貨物、散裝</td>
+<td>80</td>
+<td>30</td>
+<td>20</td>
+</tr>
+<tr>
+<td>PS延齡草號</td>
+<td>1910–1955</td>
+<td>大型</td>
+<td>乘客</td>
+<td>200</td>
+<td>35</td>
+<td>15</td>
+</tr>
+<tr>
+<td>尾輪船</td>
+<td>1915–1960</td>
+<td>小型</td>
+<td>乘客、任何貨物</td>
+<td>60</td>
+<td>40</td>
+<td>10</td>
+</tr>
+<tr>
+<td>新大地號</td>
+<td>1925–1975</td>
+<td>大型</td>
+<td>散裝、平板、一般貨物</td>
+<td>100</td>
+<td>45</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Votrans儲槽拖船</td>
+<td>1935–1990</td>
+<td>小型</td>
+<td>液體</td>
+<td>120</td>
+<td>33</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Votrans貨運拖船</td>
+<td>1935–1990</td>
+<td>小型</td>
+<td>散裝、平板、一般貨物</td>
+<td>120</td>
+<td>33</td>
+<td>20</td>
+</tr>
+<tr>
+<td>MS基爾市號</td>
+<td>1943–1990</td>
+<td>小型</td>
+<td>乘客</td>
+<td>80</td>
+<td>30</td>
+<td>20</td>
+</tr>
+<tr>
+<td>北極光號</td>
+<td>1948–1994</td>
+<td>小型</td>
+<td>任何貨物</td>
+<td>60</td>
+<td>38</td>
+<td>20</td>
+</tr>
+<tr>
+<td>沃珀</td>
+<td>1950–2005</td>
+<td>小型</td>
+<td>液體、平板、一般貨物、散裝</td>
+<td>160</td>
+<td>30</td>
+<td>25</td>
+</tr>
+<tr>
+<td>子午線渡輪</td>
+<td>1956–2011</td>
+<td>小型</td>
+<td>乘客</td>
+<td>240</td>
+<td>30</td>
+<td>15</td>
+</tr>
+<tr>
+<td>阿科納角號</td>
+<td>1965–2010</td>
+<td>大型</td>
+<td>乘客</td>
+<td>200</td>
+<td>40</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Tora近海貨船</td>
+<td>1970–2020</td>
+<td>大型</td>
+<td>液體、平板、一般貨物、散裝</td>
+<td>320</td>
+<td>40</td>
+<td>25</td>
+</tr>
+<tr>
+<td>AP1-88氣墊船</td>
+<td>1980–</td>
+<td>小型</td>
+<td>乘客</td>
+<td>240</td>
+<td>90</td>
+<td>15</td>
+</tr>
+<tr>
+<td>赫拉克勒斯XI拖船</td>
+<td>1990–</td>
+<td>大型</td>
+<td>平板、一般貨物、散裝</td>
+<td>120</td>
+<td>32</td>
+<td>20</td>
+</tr>
+<tr>
+<td>波羅的號</td>
+<td>1994–</td>
+<td>小型</td>
+<td>任何貨物</td>
+<td>80</td>
+<td>40</td>
+<td>20</td>
+</tr>
+<tr>
+<td>HADAG 2000型</td>
+<td>1995–</td>
+<td>小型</td>
+<td>乘客</td>
+<td>100</td>
+<td>35</td>
+<td>25</td>
+</tr>
+<tr>
+<td>達門800型油輪</td>
+<td>1996–</td>
+<td>小型</td>
+<td>液體</td>
+<td>160</td>
+<td>28</td>
+<td>30</td>
+</tr>
+<tr>
+<td>達門高速渡輪</td>
+<td>2003–</td>
+<td>大型</td>
+<td>乘客</td>
+<td>220</td>
+<td>75</td>
+<td>20</td>
+</tr>
+<tr>
+<td>路易絲戴曼號</td>
+<td>2013–</td>
+<td>大型</td>
+<td>液體</td>
+<td>240</td>
+<td>30</td>
+<td>35</td>
+</tr>
+<tr>
+<td>MS鑽石號</td>
+<td>2013–</td>
+<td>大型</td>
+<td>乘客</td>
+<td>280</td>
+<td>45</td>
+<td>35</td>
+</tr>
+<tr>
+<td>處女座拖船</td>
+<td>2015–</td>
+<td>大型</td>
+<td>平板、一般貨物、散裝</td>
+<td>160</td>
+<td>40</td>
+<td>15</td>
+</tr>
+<tr>
+<td>GHL大分氣墊船</td>
+<td>2023–</td>
+<td>小型</td>
+<td>乘客</td>
+<td>320</td>
+<td>100</td>
+<td>20</td>
+</tr>
+<tr>
+<td>亞拉伯克蘭號</td>
+<td>2030–</td>
+<td>大型</td>
+<td>平板、一般貨物、散裝</td>
+<td>480</td>
+<td>42</td>
+<td>10</td>
+</tr>
+<tr>
+<td>太陽能接駁船</td>
+<td>2035–</td>
+<td>小型</td>
+<td>乘客</td>
+<td>80</td>
+<td>30</td>
+<td>30</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="須知"><span class="n">4</span><span>須知</span></h2>
+<ul>
+<li><strong>建造小型港口前先檢查尺寸。</strong> 幾艘最大的貨船（Tora、處女座、亞拉伯克蘭號）是大型的，不會停靠那裡。</li>
+<li><strong>「沒有大型船舶的航線」</strong>是大型船舶專用的警告：遊戲找不到大型船舶可用的水路。哪片水域對哪種尺寸開放由遊戲引擎決定，而不是腳本；腳本只顯示警告<span class="sr">（<code class="src">vehicle_warning.script.tl:28-36</code>）</span>。</li>
+<li><strong>船舶定位點</strong>必須放在水上（「船舶定位點需位於水域。」）。</li>
+<li>船舶倉庫和船舶維修站是不同的建築；維修在其周圍的半徑內進行（<a href="vehicles.html">車輛：狀態、年份與裝載速度</a>）。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>官方 wiki 與遊戲腳本對照</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>補充細節</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki 的說法</div><p>"Passenger and cargo ships are available in two sizes: small and large. Large ships can only dock at large harbors, so make sure the harbor matches the size of the ships assigned to the line." (in-game guide "Water Infrastructure")</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>遊戲腳本顯示</div><p>相同：小型碼頭只接收 SMALL_SHIP，中型碼頭接收 SHIP 和 SMALL_SHIP；兩種港口都接收乘客和所有貨物；1、2 或 4 個總站；三個時代版本 ×1 / ×3 / ×9；基本遊戲中有 16 艘小型和 11 艘大型船舶。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>路徑位於遊戲的 base/content 資料夾或其 zip 檔案內。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>本頁內容</h5><ol><li><a href="#小型港口與大型港口">小型港口與大型港口</a></li><li><a href="#成本">成本</a></li><li><a href="#所有船舶">所有船舶</a></li><li><a href="#須知">須知</a></li></ol><div class="box"><b>7</b><span>處原始碼引用</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">顯示來源</span><span class="h">隱藏來源</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>其他機制</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>飛機、機場與直升機</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>成本、維護費與貸款</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>發車設定：滿載、裝填量與停留時間</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>汙染與噪音</b><small>汙染與噪音</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨運收益與配送時間</b><small>貨物與收益</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>產業</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>裝載與卸貨速度</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>為什麼我在虧錢？</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮聲望</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>補助：提案、期限與獎勵</b><small>補助</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>遊戲時間與月曆</b><small>遊戲時間與月曆</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮成長：經驗值、評價與規模</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>車輛：狀態、年份與裝載速度</b><small>路線與車輛</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>貨物倉庫</b><small>貨物倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>工人與工人加速效果</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro 製作的玩家專案。與 Urban Games 無關。</span><span>文字與圖片：CC BY 4.0 · 遊戲程式碼 © Urban Games：僅展示簡短引用。</span><span class="tr">譯自英文；歡迎指正 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

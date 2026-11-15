@@ -1429,6 +1429,73 @@ def money_check(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- ships and aircraft: which vehicle uses which station
+T_SHIPACC = {
+    "en": {"cap": "A small port takes only small ships. A large port takes small and large ships. Every port handles passengers and cargo.",
+           "g": [("Small ships", "16 models, 1884 →"), ("Large ships", "11 models, 1875 →")],
+           "h": [("Small Passenger/Cargo Port", "1, 2 or 4 terminals"), ("Large Passenger/Cargo Port", "1, 2 or 4 terminals")]},
+    "fr": {"cap": "Un petit port n'accueille que les petits navires. Un grand port accueille les petits et les grands. Tous les ports prennent passagers et fret.",
+           "g": [("Petits navires", "16 modèles, 1884 →"), ("Grands navires", "11 modèles, 1875 →")],
+           "h": [("Petit port de passagers/fret", "1, 2 ou 4 terminaux"), ("Grand port de passagers/fret", "1, 2 ou 4 terminaux")]},
+    "de": {"cap": "Ein kleiner Hafen nimmt nur kleine Schiffe. Ein großer Hafen nimmt kleine und große Schiffe. Alle Häfen nehmen Passagiere und Fracht.",
+           "g": [("Kleine Schiffe", "16 Modelle, 1884 →"), ("Große Schiffe", "11 Modelle, 1875 →")],
+           "h": [("Kleiner Passagier-/Güterhafen", "1, 2 oder 4 Terminals"), ("Grosser Passagier-/Güterhafen", "1, 2 oder 4 Terminals")]},
+}
+T_AIRACC = {
+    "en": {"cap": "An airfield takes only small airplanes. An airport takes small and large airplanes, and helicopters at its main building. "
+                  "Helicopters also have their own heliport and helipad.",
+           "g": [("Small airplanes", "15 models, 1920 →"), ("Large airplanes", "15 models, 1952 →"), ("Helicopters", "11 models, 1950 →")],
+           "h": [("Airfield", "1920 →, 1–3 terminals"), ("Airport", "1950 →, 2–4 terminals"), ("Heliport, Helipad", "1950 →")]},
+    "fr": {"cap": "Un aérodrome n'accueille que les petits avions. Un aéroport accueille les petits et les grands avions, et les hélicoptères à son bâtiment principal. "
+                  "Les hélicoptères ont aussi leur héliport et leur hélisurface.",
+           "g": [("Petits avions", "15 modèles, 1920 →"), ("Grands avions", "15 modèles, 1952 →"), ("Hélicoptères", "11 modèles, 1950 →")],
+           "h": [("Aérodrome", "1920 →, 1 à 3 terminaux"), ("Aéroport", "1950 →, 2 à 4 terminaux"), ("Héliport, Hélisurface", "1950 →")]},
+    "de": {"cap": "Ein Flugfeld nimmt nur kleine Flugzeuge. Ein Flughafen nimmt kleine und große Flugzeuge und am Hauptgebäude Hubschrauber. "
+                  "Hubschrauber haben außerdem Heliport und Helipad.",
+           "g": [("Kleine Flugzeuge", "15 Modelle, 1920 →"), ("Große Flugzeuge", "15 Modelle, 1952 →"), ("Hubschrauber", "11 Modelle, 1950 →")],
+           "h": [("Flugfeld", "1920 →, 1–3 Terminals"), ("Flughafen", "1950 →, 2–4 Terminals"), ("Heliport, Helipad", "1950 →")]},
+}
+
+
+def _access(t, name, edges, gicon, hicon):
+    """Vehicle classes on the left, stations on the right, an arrow for each class a station accepts."""
+    n = max(len(t["g"]), len(t["h"]))
+    most = max(len(wrap_rows(a, 22)) for a, _b in t["g"] + t["h"])
+    rh, gap, w, top = 92 + max(0, most - 2) * 19, 26, 300, 20
+    s = Svg(name, 900, top * 2 + n * rh + (n - 1) * gap)
+
+    def ypos(i, k):
+        off = (n - k) * (rh + gap) / 2
+        return top + off + i * (rh + gap)
+
+    def box(x, y, title, sub, col, icon):
+        s.card(x, y, w, rh, stroke=col)
+        s.add(icons.place(icon, x + 18, y + rh / 2 - 14, 28, col))
+        rows = wrap_rows(title, 22)
+        y0 = y + rh / 2 - (len(rows) * 19 + 16) / 2 + 15
+        s.lines(x + 60, y0, rows, 16, TEXT, "start", 1.2, 800)
+        s.text(x + 60, y0 + len(rows) * 19 + 4, sub, 13, DIM, "start")
+
+    cols = [TEAL, GOLD, VIOLET]
+    for i, (a, b) in enumerate(t["g"]):
+        box(20, ypos(i, len(t["g"])), a, b, cols[i], gicon)
+    for j, (a, b) in enumerate(t["h"]):
+        box(580, ypos(j, len(t["h"])), a, b, BLUE, hicon)
+    for i, j in edges:
+        y1 = ypos(i, len(t["g"])) + rh / 2 + (j - (len(t["h"]) - 1) / 2) * 12
+        y2 = ypos(j, len(t["h"])) + rh / 2 + (i - (len(t["g"]) - 1) / 2) * 12
+        s.flow(322, y1, 576, y2, cols[i], 2.5)
+    return s.svg(), t["cap"]
+
+
+def ship_access(lang):
+    return _access(T_SHIPACC[lang], "sa", [(0, 0), (0, 1), (1, 1)], "vehicles", "stations")
+
+
+def air_access(lang):
+    return _access(T_AIRACC[lang], "aa", [(0, 0), (0, 1), (1, 1), (2, 1), (2, 2)], "vehicles", "stations")
+
+
 def _load_translations():
     """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
     for code in langs.translated():
@@ -1464,6 +1531,8 @@ REGISTRY = {
     "workers_trip": workers_trip,
     "money_flow": money_flow,
     "money_check": money_check,
+    "ship_access": ship_access,
+    "air_access": air_access,
 }
 
 

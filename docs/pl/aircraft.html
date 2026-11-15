@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Samoloty, lotniska i helikoptery · Mechanika TF3</title>
+<meta name="description" content="Jak naprawdę działa Transport Fever 3: odczytane ze skryptów samej gry.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/aircraft.html"><link rel="alternate" hreflang="fr" href="../fr/aircraft.html"><link rel="alternate" hreflang="de" href="../de/aircraft.html"><link rel="alternate" hreflang="es" href="../es/aircraft.html"><link rel="alternate" hreflang="it" href="../it/aircraft.html"><link rel="alternate" hreflang="nl" href="../nl/aircraft.html"><link rel="alternate" hreflang="pl" href="../pl/aircraft.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/aircraft.html"><link rel="alternate" hreflang="ru" href="../ru/aircraft.html"><link rel="alternate" hreflang="ja" href="../ja/aircraft.html"><link rel="alternate" hreflang="ko" href="../ko/aircraft.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/aircraft.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/aircraft.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Strona główna</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Pokaż lub ukryj odwołania do skryptów"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Źródła</span></button>
+<details class="langs"><summary aria-label="Język"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Polski</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Język"><a href="../en/aircraft.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/aircraft.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/aircraft.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/aircraft.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/aircraft.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/aircraft.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/aircraft.html" class="on" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/aircraft.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/aircraft.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/aircraft.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/aircraft.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/aircraft.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/aircraft.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Strona główna</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg>Stacje i załadunek</span></div><h1 class="rise d1">Samoloty, lotniska i helikoptery</h1><p class="lead rise d2">Lotnisko polowe czy lotnisko, który samolot gdzie ląduje, terminale, drugi pas, heliporty oraz lista wszystkich statków powietrznych z ich ładunkiem, pojemnością i prędkością.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Sprawdzone w skryptach</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Aktualizacja 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>2</b><span>rozmiary samolotów: małe i duże</span></div><div class="fact rise d2"><b>1950</b><span>pierwsze lotnisko i pierwsze helikoptery</span></div><div class="fact rise d3"><b>1980</b><span>drugi pas</span></div><div class="fact rise d4"><b>5</b><span>statków powietrznych na hangar</span></div></div></div></section><div class="wrap layout"><article><p>Każdy samolot jest <strong>mały</strong> albo <strong>duży</strong>. <strong>Lotnisko polowe</strong> przyjmuje tylko małe samoloty; <strong>lotnisko</strong> przyjmuje oba, a helikoptery przy budynku głównym. Helikoptery mają też własne stacje.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 368" width="900" role="img"><defs><linearGradient id="aa-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="aa-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="aa-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="aa-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="aa-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="aa-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="aa-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="20" y="20.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#38d1bf" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,52.0) scale(1.1666666666666667)" fill="none" stroke="#38d1bf" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Małe samoloty</text><text x="80" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">15 modeli, 1920 →</text><rect x="20" y="138.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#f2b84b" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,170.0) scale(1.1666666666666667)" fill="none" stroke="#f2b84b" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Duże samoloty</text><text x="80" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">15 modeli, 1952 →</text><rect x="20" y="256.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#b49cf0" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(38,288.0) scale(1.1666666666666667)" fill="none" stroke="#b49cf0" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></g><text x="80" y="299.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Helikoptery</text><text x="80" y="322.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">11 modeli, 1950 →</text><rect x="580" y="20.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,52.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="63.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Lotnisko polowe</text><text x="640" y="86.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1920 →, 1–3 terminale</text><rect x="580" y="138.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,170.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="181.5" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Lotnisko</text><text x="640" y="204.5" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1950 →, 2–4 terminale</text><rect x="580" y="256.0" width="300" height="92" rx="16" fill="url(#aa-card)" stroke="#5aa9ff" stroke-width="1.5" filter="url(#aa-sh)"/><g transform="translate(598,288.0) scale(1.1666666666666667)" fill="none" stroke="#5aa9ff" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></g><text x="640" y="290.0" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Heliport, Platforma</text><text x="640" y="309.2" font-size="16" fill="#eef1f5" text-anchor="start" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">helikopterowa</text><text x="640" y="332.0" font-size="13" fill="#8f9bab" text-anchor="start" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1950 →</text><line x1="322" y1="54.0" x2="576" y2="54.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="54.0" x2="576" y2="54.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="66.0" x2="576" y2="172.0" stroke="#38d1bf" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="66.0" x2="576" y2="172.0" stroke="#38d1bf" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="184.0" x2="576" y2="184.0" stroke="#f2b84b" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="184.0" x2="576" y2="184.0" stroke="#f2b84b" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="302.0" x2="576" y2="196.0" stroke="#b49cf0" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="302.0" x2="576" y2="196.0" stroke="#b49cf0" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line><line x1="322" y1="314.0" x2="576" y2="314.0" stroke="#b49cf0" stroke-opacity=".25" stroke-width="7.5" stroke-linecap="round"/><line x1="322" y1="314.0" x2="576" y2="314.0" stroke="#b49cf0" stroke-width="2.5" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#aa-ah)"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.2s" repeatCount="indefinite"/></line></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Lotnisko polowe przyjmuje tylko małe samoloty. Lotnisko przyjmuje małe i duże samoloty oraz helikoptery przy budynku głównym. Helikoptery mają też własny heliport i platformę helikopterową.</span></figcaption></figure>
+<h2 id="lotnisko-polowe-i-lotnisko"><span class="n">1</span><span>Lotnisko polowe i lotnisko</span></h2>
+<ul>
+<li><strong>Lotnisko polowe</strong>: "Lotnisko z jednym pasem startowym dla małych samolotów." Warianty od 1920, 1950 i 1980; 1, 2 lub 3 terminale i opcjonalna zajezdnia<span class="sr"> (<code class="src">airfield.tl:49</code>, <code class="src">airfield.tl:76</code>, <code class="src">airfield_era_a.metacon.tl:3</code>)</span>.</li>
+<li><strong>Lotnisko</strong>: "Lotnisko z maksymalnie dwoma pasami startowymi dla małych i wielkich samolotów." Warianty od 1950 i 1980; 2, 3 lub 4 terminale i kierunek lądowania<span class="sr"> (<code class="src">airport.tl:24</code>, <code class="src">airport.tl:80</code>, <code class="src">airport1950.metacon.tl:3-4</code>)</span>.</li>
+<li>Terminale lotniska polowego przyjmują tylko małe samoloty; terminale lotniska przyjmują oba rozmiary<span class="sr"> (<code class="src">af_terminal.module.lua:715</code>, <code class="src">ap_terminal.module.lua:897</code>)</span>.</li>
+<li>Budynek główny lotniska ma lądowiska dla helikopterów<span class="sr"> (<code class="src">ap_main.module.lua:532</code>)</span>, a od 1950 lotnisko może dostać terminal helikopterowy<span class="sr"> (<code class="src">ap_terminal_heli.module.lua:897</code>, <code class="src">ap_terminal_heli.module.lua:971</code>)</span>.</li>
+<li><strong>Drugi pas</strong>: moduł lotniska od 1980<span class="sr"> (<code class="src">airport_2nd_runway.module.lua:5</code>)</span>. Niektóre moduły lotniska go wymagają i bez niego pokazują "Potrzebujesz drugiego pasa"<span class="sr"> (<code class="src">airport.script.lua:261</code>)</span>.</li>
+<li>Wszystkie stacje lotnicze przyjmują pasażerów i każdy ładunek<span class="sr"> (<code class="src">airfield.tl:59</code>, <code class="src">airport.tl:34</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Budynek</th>
+<th>Czekający pasażerowie</th>
+<th class="sc">Źródło</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terminal lotniska polowego</td>
+<td>do 250</td>
+<td class="sc"><code class="src">af_terminal.module.lua:773</code></td>
+</tr>
+<tr>
+<td>Budynek główny lotniska</td>
+<td>do 400</td>
+<td class="sc"><code class="src">ap_main.module.lua:667</code></td>
+</tr>
+<tr>
+<td>Terminal lotniska</td>
+<td>do 850</td>
+<td class="sc"><code class="src">ap_terminal.module.lua:951</code></td>
+</tr>
+<tr>
+<td>Terminal helikopterowy lotniska</td>
+<td>do 450</td>
+<td class="sc"><code class="src">ap_terminal_heli.module.lua:990</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="hangary-i-stacje-helikopterów"><span class="n">2</span><span>Hangary i stacje helikopterów</span></h2>
+<ul>
+<li><strong>Hangar</strong> lotniska polowego lub lotniska mieści 5 statków powietrznych i konserwuje je w promieniu 550 m<span class="sr"> (<code class="src">af_hangar.module.lua:273-278</code>, <code class="src">ap_hangar.module.lua:456-461</code>)</span>.</li>
+<li><strong>Heliport</strong> (od 1950): kupuje i konserwuje helikoptery, zajezdnia na 5, promień konserwacji 800 m<span class="sr"> (<code class="src">heliport.script.lua:301-306</code>)</span>.</li>
+<li><strong>Platforma helikopterowa</strong> (od 1950): małe lądowisko dla pasażerów i ładunku, bez zajezdni<span class="sr"> (<code class="src">helipad.con.lua:29-33</code>)</span>.</li>
+</ul>
+<h2 id="koszty"><span class="n">3</span><span>Koszty</span></h2>
+<p>Cena i utrzymanie pierwszego wariantu. Późniejsze warianty kosztują ×3 lub ×9 (<a href="costs.html">Koszty, utrzymanie i kredyty</a>); pierwsze lotnisko polowe używa już ×3<span class="sr"> (<code class="src">airfield.tl:8</code>)</span>.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Budynek</th>
+<th>Cena</th>
+<th>Utrzymanie rocznie</th>
+<th class="sc">Źródło</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lotnisko polowe</td>
+<td>1 200 000 - 3 000 000</td>
+<td>50 000 - 200 000</td>
+<td class="sc"><code class="src">airfield.tl:55-56</code></td>
+</tr>
+<tr>
+<td>Lotnisko</td>
+<td>1 800 000 - 4 500 000</td>
+<td>300 000 - 750 000</td>
+<td class="sc"><code class="src">airport.tl:30-31</code></td>
+</tr>
+<tr>
+<td>Moduł lotniska polowego (budynek główny, terminal, hangar)</td>
+<td>600 000</td>
+<td>100 000</td>
+<td class="sc"><code class="src">af_main.module.lua:316-317</code>, <code class="src">af_hangar.module.lua:326-327</code></td>
+</tr>
+<tr>
+<td>Moduł lotniska (terminal, hangar, drugi pas)</td>
+<td>900 000</td>
+<td>150 000</td>
+<td class="sc"><code class="src">ap_main.module.lua:672-673</code>, <code class="src">ap_hangar.module.lua:508-509</code>, <code class="src">airport_2nd_runway.module.lua:27-28</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Utrzymanie lotnisk i lotnisk polowych zależy też od roku kalendarzowego, od ×1 w 1900 do ×6 w 2020 (<a href="costs.html">Koszty, utrzymanie i kredyty</a>).</li>
+<li>Cena i koszty bieżące statku powietrznego są liczone z jego prędkości i pojemności, jak w statkach i pojazdach drogowych (<a href="costs.html">Koszty, utrzymanie i kredyty</a>).</li>
+</ul>
+<h2 id="wszystkie-samoloty"><span class="n">4</span><span>Wszystkie samoloty</span></h2>
+<p>Prędkość w km/h, zaokrąglona. "Każdy ładunek" oznacza każdy typ ładunku.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Samolot</th>
+<th>Lata</th>
+<th>Rozmiar</th>
+<th>Ładunek</th>
+<th>Pojemność</th>
+<th>Prędkość</th>
+<th>Szybkość załadunku</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Junkers F 13 Herta</td>
+<td>1920-1950</td>
+<td>mały</td>
+<td>pasażerowie</td>
+<td>16</td>
+<td>135</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Vickers J6860 Victoria</td>
+<td>1922-1960</td>
+<td>mały</td>
+<td>każdy ładunek</td>
+<td>32</td>
+<td>150</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>Fokker F VII A</td>
+<td>1925-1960</td>
+<td>mały</td>
+<td>pasażerowie</td>
+<td>32</td>
+<td>175</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Junkers JU-52 „Żelazna Anka”</td>
+<td>1933-1982</td>
+<td>mały</td>
+<td>pasażerowie, każdy ładunek</td>
+<td>24</td>
+<td>200</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Douglas DC-3</td>
+<td>1935-1995</td>
+<td>mały</td>
+<td>pasażerowie</td>
+<td>56</td>
+<td>300</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>Curtiss C-46 Commando</td>
+<td>1942-1980</td>
+<td>mały</td>
+<td>każdy ładunek</td>
+<td>80</td>
+<td>280</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Douglas DC-4</td>
+<td>1944-1998</td>
+<td>mały</td>
+<td>pasażerowie</td>
+<td>100</td>
+<td>365</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Bristol Type 170 towarowy</td>
+<td>1949-2005</td>
+<td>mały</td>
+<td>pasażerowie, każdy ładunek</td>
+<td>40</td>
+<td>350</td>
+<td>1,5</td>
+</tr>
+<tr>
+<td>Lockheed L-1049 „Super Connie”</td>
+<td>1952-1986</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>120</td>
+<td>486</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Lockheed L-1049D/H „Super Connie”</td>
+<td>1959-2000</td>
+<td>duży</td>
+<td>każdy ładunek</td>
+<td>60</td>
+<td>486</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>De Havilland DH.106 Comet</td>
+<td>1960-2000</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>160</td>
+<td>724</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Canadair CL-44 towarowy</td>
+<td>1962-2005</td>
+<td>duży</td>
+<td>każdy ładunek</td>
+<td>48</td>
+<td>645</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Convair CV 990 Coronado</td>
+<td>1962-2020</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>200</td>
+<td>917</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Lockheed L-100 Hercules</td>
+<td>1976-2000</td>
+<td>mały</td>
+<td>każdy ładunek</td>
+<td>44</td>
+<td>400</td>
+<td>3</td>
+</tr>
+<tr>
+<td>McDonnell Douglas DC-10-30</td>
+<td>1978-</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>400</td>
+<td>960</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>McDonnell Douglas DC-10-30CF</td>
+<td>1978-</td>
+<td>duży</td>
+<td>każdy ładunek</td>
+<td>132</td>
+<td>960</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Airbus A310 300F towarowy</td>
+<td>1982-</td>
+<td>duży</td>
+<td>każdy ładunek</td>
+<td>160</td>
+<td>850</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Short 330 Sherpa</td>
+<td>1984-</td>
+<td>mały</td>
+<td>pasażerowie, każdy ładunek</td>
+<td>40</td>
+<td>455</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>Airbus A320</td>
+<td>1985-</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>180</td>
+<td>753</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Br. Aerospace 146</td>
+<td>1985-</td>
+<td>mały</td>
+<td>pasażerowie</td>
+<td>112</td>
+<td>753</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Br. Aerospace 146 towarowy</td>
+<td>1985-</td>
+<td>mały</td>
+<td>każdy ładunek</td>
+<td>48</td>
+<td>753</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Fokker 100</td>
+<td>1988-</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>160</td>
+<td>845</td>
+<td>3,5</td>
+</tr>
+<tr>
+<td>Tupolew Tu-204</td>
+<td>1995-</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>280</td>
+<td>850</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Tupolew Tu-204C towarowy</td>
+<td>1995-</td>
+<td>duży</td>
+<td>każdy ładunek</td>
+<td>68</td>
+<td>850</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Boeing 737-700</td>
+<td>1998-</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>200</td>
+<td>974</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>Boeing 737-700-C towarowy</td>
+<td>1998-</td>
+<td>duży</td>
+<td>każdy ładunek</td>
+<td>80</td>
+<td>974</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Bombardier DHC-8</td>
+<td>2000-</td>
+<td>mały</td>
+<td>pasażerowie</td>
+<td>120</td>
+<td>648</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Bombardier DHC-8 towarowy</td>
+<td>2008-</td>
+<td>mały</td>
+<td>każdy ładunek</td>
+<td>120</td>
+<td>648</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Suchoj Superjet 100</td>
+<td>2011-</td>
+<td>mały</td>
+<td>pasażerowie</td>
+<td>160</td>
+<td>870</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Airbus Canada A220</td>
+<td>2013-</td>
+<td>duży</td>
+<td>pasażerowie</td>
+<td>180</td>
+<td>830</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="wszystkie-helikoptery"><span class="n">5</span><span>Wszystkie helikoptery</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Helikopter</th>
+<th>Lata</th>
+<th>Ładunek</th>
+<th>Pojemność</th>
+<th>Prędkość</th>
+<th>Szybkość załadunku</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bell 47</td>
+<td>1950-1990</td>
+<td>pasażerowie, każdy ładunek</td>
+<td>8</td>
+<td>150</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Piasecki H-21 Workhorse</td>
+<td>1952-1985</td>
+<td>pasażerowie, każdy ładunek</td>
+<td>80</td>
+<td>210</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Sikorsky S-64 Skycrane</td>
+<td>1962-2017</td>
+<td>każdy ładunek</td>
+<td>40</td>
+<td>213</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Bell 206 Long Ranger</td>
+<td>1965-2025</td>
+<td>pasażerowie</td>
+<td>32</td>
+<td>241</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>Boeing Vertol 234 Chinook</td>
+<td>1980-</td>
+<td>pasażerowie, każdy ładunek</td>
+<td>80</td>
+<td>269</td>
+<td>2</td>
+</tr>
+<tr>
+<td>AgustaWestland AW101 Merlin</td>
+<td>1990-</td>
+<td>pasażerowie</td>
+<td>60</td>
+<td>278</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Mil Mi-26TC</td>
+<td>1993-</td>
+<td>każdy ładunek</td>
+<td>120</td>
+<td>295</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Eurocopter 120B Colibri</td>
+<td>1998-</td>
+<td>pasażerowie</td>
+<td>48</td>
+<td>210</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Kaman K-MAX</td>
+<td>2005-</td>
+<td>każdy ładunek</td>
+<td>60</td>
+<td>190</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Airbus H225 Super Puma</td>
+<td>2013-</td>
+<td>pasażerowie</td>
+<td>48</td>
+<td>288</td>
+<td>3</td>
+</tr>
+<tr>
+<td>NextGen VTOL</td>
+<td>2030-</td>
+<td>pasażerowie</td>
+<td>56</td>
+<td>610</td>
+<td>4</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="dobrze-wiedzieć"><span class="n">6</span><span>Dobrze wiedzieć</span></h2>
+<ul>
+<li><strong>Małe samoloty są przydatne do końca.</strong> DHC-8, jego wersja towarowa i Suchoj Superjet 100 są małe, więc wystarczy im lotnisko polowe.</li>
+<li><strong>Przed 1952 nie ma dużego samolotu</strong>, więc wczesne lotnisko nie daje jeszcze dostępu do większych maszyn.</li>
+<li>Samoloty lecą w linii prostej, a zapłata liczy tylko odległość w linii prostej, więc objazd nic ich dodatkowo nie kosztuje (<a href="income.html">Przychód z towarów i czas dostawy</a>).</li>
+<li>Minimalną długość pasa, trasy lotu i lądowanie określa silnik gry; skrypty ich nie pokazują.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Oficjalna wiki a skrypty gry</h4><span class="res agrees"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Zgodne</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki</div><p>"It can be used by small airplanes." (Airfield) "It can be used by small and large airplanes." (Airport), build menu descriptions.</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Skrypty gry</div><p>To samo: terminale lotnisk polowych przyjmują tylko SMALL_AIRCRAFT, terminale lotnisk AIRCRAFT i SMALL_AIRCRAFT, helikoptery przy budynku głównym lotniska, heliport i platforma helikopterowa od 1950, drugi pas od 1980, hangary na 5; 15 małych i 15 dużych samolotów oraz 11 helikopterów w podstawowej grze.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Ścieżki są podane wewnątrz folderu gry base/content lub jego plików zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Na tej stronie</h5><ol><li><a href="#lotnisko-polowe-i-lotnisko">Lotnisko polowe i lotnisko</a></li><li><a href="#hangary-i-stacje-helikopterów">Hangary i stacje helikopterów</a></li><li><a href="#koszty">Koszty</a></li><li><a href="#wszystkie-samoloty">Wszystkie samoloty</a></li><li><a href="#wszystkie-helikoptery">Wszystkie helikoptery</a></li><li><a href="#dobrze-wiedzieć">Dobrze wiedzieć</a></li></ol><div class="box"><b>15</b><span>odwołań do źródeł</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Pokaż źródła</span><span class="h">Ukryj źródła</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:stationsdepots"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Inne mechaniki</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Koszty, utrzymanie i kredyty</b><small>Finanse i kredyty</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Ustawienia odjazdu: ładowanie do pełna, Poziom napełnienia i czasy postoju</b><small>Stacje i załadunek</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Zanieczyszczenie i hałas</b><small>Zanieczyszczenie i hałas</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Przychód z towarów i czas dostawy</b><small>Towary i przychód</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Przemysł</b><small>Zakłady przemysłowe</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Szybkość załadunku i rozładunku</b><small>Stacje i załadunek</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Dlaczego tracę pieniądze?</b><small>Finanse i kredyty</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputacja miast</b><small>Miasta</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Statki i porty</b><small>Stacje i załadunek</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsydia: oferty, terminy i nagrody</b><small>Subsydia</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Czas gry i kalendarz</b><small>Czas gry i kalendarz</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Rozwój miast: doświadczenie, oceny i wielkość</b><small>Miasta</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Pojazdy: stan, wiek i szybkość załadunku</b><small>Linie i pojazdy</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Magazyny</b><small>Magazyny</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Pracownicy i premia za pracowników</b><small>Zakłady przemysłowe</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Projekt fanowski autorstwa Miro. Niezwiązany z Urban Games.</span><span>Teksty i obrazy: CC BY 4.0 · Kod gry © Urban Games: pokazano tylko krótkie odwołania.</span><span class="tr">Przetłumaczone z angielskiego; poprawki mile widziane (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

@@ -487,6 +487,60 @@
      "infrastructure"
     ]
    ]
+  },
+  "T_SHIPACC": {
+   "cap": "Un puerto pequeño solo acepta barcos pequeños. Un puerto grande acepta barcos pequeños y grandes. Todos los puertos admiten pasajeros y carga.",
+   "g": [
+    [
+     "Barcos pequeños",
+     "16 modelos, 1884 →"
+    ],
+    [
+     "Barcos grandes",
+     "11 modelos, 1875 →"
+    ]
+   ],
+   "h": [
+    [
+     "Puerto de carga/pasajeros pequeño",
+     "1, 2 o 4 terminales"
+    ],
+    [
+     "Puerto de carga/pasajeros grande",
+     "1, 2 o 4 terminales"
+    ]
+   ]
+  },
+  "T_AIRACC": {
+   "cap": "Un aeródromo solo acepta aviones pequeños. Un aeropuerto acepta aviones pequeños y grandes, y helicópteros en su edificio principal. Los helicópteros también tienen su helipuerto y su helisuperficie.",
+   "g": [
+    [
+     "Aviones pequeños",
+     "15 modelos, 1920 →"
+    ],
+    [
+     "Aviones grandes",
+     "15 modelos, 1952 →"
+    ],
+    [
+     "Helicópteros",
+     "11 modelos, 1950 →"
+    ]
+   ],
+   "h": [
+    [
+     "Aeródromo",
+     "1920 →, 1–3 terminales"
+    ],
+    [
+     "Aeropuerto",
+     "1950 →, 2–4 terminales"
+    ],
+    [
+     "Helipuerto, Helisuperficie",
+     "1950 →"
+    ]
+   ]
   }
  },
  "cargo": {
