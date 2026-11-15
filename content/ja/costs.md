@@ -22,7 +22,7 @@ fact: 4 | 同時に組める融資の数
 |---|---|---|---|
 | **車両コスト**、**車両整備** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`、`difficulty_util.tl:98-99`、`difficulty_util.tl:125-126` |
 | **インフラコスト**、**インフラ維持費** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`、`difficulty_util.tl:153-156`、`difficulty_util.tl:180-183` |
-| **車両整備エフェクト** | なし ×0 · 低い ×0.5 · 普通 ×1 · 高い ×1.5 · とても高い ×2 | 低い · 普通 · 高い · とても高い | `difficulty_util.tl:42`、`difficulty_util.tl:103`、`difficulty_util.tl:185` |
+| **車両整備エフェクト** | なし ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 極高 ×2 | 低 · 中 · 高 · 極高 | `difficulty_util.tl:42`、`difficulty_util.tl:103`、`difficulty_util.tl:185` |
 | **インフレ** | 収入のみ。[貨物収入と配送時間](income.html) を参照 | 低い · 普通 · 高い · とても高い | `difficulty_util.tl:50`、`mod.script.tl:694-697` |
 
 - **インフラコスト** は道路、線路、橋、トンネル、踏切、建物、モジュールの価格と、地形の造成にかかる費用を変える（`post_run_util.tl:23-52`、`post_run_util.tl:83-120`、`construction.script.tl:31-35`、`mod.script.tl:223-226`）。**インフラ維持費** はそれらの維持費を変える（`post_run_util.tl:43-45`、`post_run_util.tl:105-112`、`entity_window_util.tl:186`）。

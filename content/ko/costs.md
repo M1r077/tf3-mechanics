@@ -22,7 +22,7 @@ fact: 4 | 동시에 받을 수 있는 대출 수
 |---|---|---|---|
 | **운송 수단 비용**, **운송 수단 유지보수** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-99`, `difficulty_util.tl:125-126` |
 | **기반 시설 비용**, **기반 시설 관리** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
-| **운송 수단 유지보수 효과** | 없음 ×0 · 낮음 ×0.5 · 보통 ×1 · 높음 ×1.5 · 매우 높음 ×2 | 낮음 · 보통 · 높음 · 매우 높음 | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
+| **운송 수단 유지보수 효과** | 없음 ×0 · 낮음 ×0.5 · 중간 ×1 · 높음 ×1.5 · 아주 높음 ×2 | 낮음 · 중간 · 높음 · 아주 높음 | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **인플레이션** | 수입에만 적용, [화물 수입과 배송 시간](income.html) 참조 | 낮음 · 보통 · 높음 · 매우 높음 | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
 - **기반 시설 비용**은 도로, 선로, 다리, 터널, 건널목, 건물, 모듈의 가격과 지형 작업 비용을 바꾼다(`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **기반 시설 관리**는 그것들의 관리비를 바꾼다(`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).

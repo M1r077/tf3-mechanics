@@ -50,7 +50,7 @@ Wie Ladegeschwindigkeit des Fahrzeugs, Ladefaktor der Fracht sowie Bahnsteig- un
 
 - Der Zustand eines Zuges ist der **Durchschnitt** aller seiner Wagen und Lokomotiven (`vehicle_util.tl:285-295`).
 - Unter 80 % verliert ein Fahrzeug Höchstgeschwindigkeit, Leistung und Komfort und gewinnt Lärm, Verschmutzung und Betriebskosten (`vehicle_store_util.tl:230-259`). Das Fahrzeugfenster listet diese Abzüge unter **Zustand**.
-- Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keiner, Niedrig, Mittel, Hoch, Sehr hoch); bei Keiner hat der Zustand keine Wirkung (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
+- Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keine, Niedrig, Mittel, Hoch, Sehr hoch); bei Keine hat der Zustand keine Wirkung (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
 - Bei **20 %** oder weniger erhältst du die Warnung **Fahrzeugzustand**. Sie bleibt, bis das Fahrzeug wieder über **30 %** liegt (`notifications.script.tl:310-318`).
 - Ein geklontes Fahrzeug ist ein Neukauf: Zustand 100 %, neues Kaufdatum (`manager_window.tl:8502-8506`).
 
@@ -107,7 +107,7 @@ Was das Erreichen der Lebensdauer ändert (zum Beispiel schnellerer Zustandsverl
 ## Gut zu wissen
 
 - Baue genug Wartungskapazität: Ein Zugdepot bedient nur 6 Züge.
-- Mit **Fahrzeugwartungseffekt** auf Keiner spielt der Zustand keine Rolle.
+- Mit **Fahrzeugwartungseffekt** auf Keine spielt der Zustand keine Rolle.
 - **Ins Depot schicken** schickt ein Fahrzeug zum nächsten erreichbaren Depot, nicht zu dem, in dem es gekauft wurde (offizielles Wiki).
 - [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) hilft, Modelle vor dem Ersetzen zu vergleichen.
 

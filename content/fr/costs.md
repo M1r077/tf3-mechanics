@@ -22,7 +22,7 @@ Le réglage **Inflation** n'augmente aucun coût : il baisse seulement tes reven
 |---|---|---|---|
 | **Coût des véhicules**, **Entretien des véhicules** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-99`, `difficulty_util.tl:125-126` |
 | **Coût des infrastructures**, **Entretien des infrastructures** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
-| **Effet de la maintenance des véhicules** | Aucun ×0 · Faible ×0,5 · Moyen ×1 · Élevé ×1,5 · Très élevé ×2 | Faible · Moyen · Élevé · Très élevé | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
+| **Effet de la maintenance des véhicules** | Aucun(e) ×0 · Bas ×0,5 · Moyen ×1 · Élevée ×1,5 · Très élevée ×2 | Bas · Moyen · Élevée · Très élevée | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflation** | revenus seulement, voir [Revenus du fret](income.html) | Faible · Normale · Élevée · Très élevée | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
 - **Coût des infrastructures** règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Entretien des infrastructures** règle leur entretien (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).

@@ -22,7 +22,7 @@ Die Einstellung **Inflation** erhöht keine Kosten: Sie senkt nur deine Einnahme
 |---|---|---|---|
 | **Fahrzeugkosten**, **Fahrzeugwartung** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-99`, `difficulty_util.tl:125-126` |
 | **Infrastrukturkosten**, **Unterhalt der Infrastruktur** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
-| **Fahrzeugwartungseffekt** | Keiner ×0 · Niedrig ×0,5 · Mittel ×1 · Hoch ×1,5 · Sehr hoch ×2 | Niedrig · Mittel · Hoch · Sehr hoch | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
+| **Fahrzeugwartungseffekt** | Keine ×0 · Niedrig ×0,5 · Mittel ×1 · Hoch ×1,5 · Sehr hoch ×2 | Niedrig · Mittel · Hoch · Sehr hoch | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflation** | nur Einnahmen, siehe [Fracht-Einnahmen](income.html) | Niedrig · Normal · Hoch · Sehr hoch | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
 - **Infrastrukturkosten** skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Unterhalt der Infrastruktur** skaliert deren Unterhalt (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).

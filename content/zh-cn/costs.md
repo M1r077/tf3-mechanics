@@ -22,7 +22,7 @@ fact: 4 | 笔贷款可同时存在
 |---|---|---|---|
 | **载具成本**、**载具养护** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`，`difficulty_util.tl:98-99`，`difficulty_util.tl:125-126` |
 | **基础设施成本**、**基础设施维护** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
-| **载具老化影响** | 无 ×0 · 低 ×0.5 · 中等 ×1 · 高 ×1.5 · 非常高 ×2 | 低 · 中等 · 高 · 非常高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
+| **载具老化影响** | 无 ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 非常高 ×2 | 低 · 中 · 高 · 非常高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
 | **通货膨胀** | 只影响收入，见 [货物收入与运输时间](income.html) | 低 · 正常 · 高 · 非常高 | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
 
 - **基础设施成本** 决定道路、轨道、桥梁、隧道、道口、建筑和模块的价格，也包括地形改造（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。**基础设施维护** 决定它们的维护费（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。

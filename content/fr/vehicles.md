@@ -50,7 +50,7 @@ La façon dont la vitesse de chargement du véhicule, le facteur de chargement d
 
 - L'état d'un train est la **moyenne** de tous ses wagons et locomotives (`vehicle_util.tl:285-295`).
 - Sous 80 %, un véhicule commence à perdre vitesse maximale, puissance et confort, et à gagner bruit, pollution et coûts d'exploitation (`vehicle_store_util.tl:230-259`). La fenêtre du véhicule liste ces pénalités sous **État**.
-- La force de ces pénalités est réglée par **Effet de la maintenance des véhicules** (Aucun, Faible, Moyen, Élevé, Très élevé) ; avec Aucun, l'état n'a aucun effet (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Détails : [Coûts, entretien et emprunts](costs.html).
+- La force de ces pénalités est réglée par **Effet de la maintenance des véhicules** (Aucun(e), Bas, Moyen, Élevée, Très élevée) ; avec Aucun(e), l'état n'a aucun effet (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Détails : [Coûts, entretien et emprunts](costs.html).
 - À **20 %** ou moins, tu reçois l'avertissement **État du véhicule**. Il reste jusqu'à ce que le véhicule repasse au-dessus de **30 %** (`notifications.script.tl:310-318`).
 - Un véhicule cloné est un nouvel achat : état 100 %, nouvelle date d'achat (`manager_window.tl:8502-8506`).
 
@@ -107,7 +107,7 @@ Ce que change le fait d'atteindre la durée de vie (par exemple une perte d'éta
 ## Bon à savoir
 
 - Construis assez de capacité de maintenance : un dépôt ferroviaire ne sert que 6 trains.
-- Avec **Effet de la maintenance des véhicules** sur Aucun, l'état ne compte pas.
+- Avec **Effet de la maintenance des véhicules** sur Aucun(e), l'état ne compte pas.
 - **Envoyer au dépôt** envoie un véhicule au dépôt accessible le plus proche, pas à celui où il a été acheté (wiki officiel).
 - [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) aide à comparer les modèles avant de les remplacer.
 

@@ -22,7 +22,7 @@ fact: 4 | 筆貸款可以同時存在
 |---|---|---|---|
 | **車輛成本**、**車輛維修** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`，`difficulty_util.tl:98-99`，`difficulty_util.tl:125-126` |
 | **基礎設施成本**、**基礎設施維護** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
-| **車輛維修效果** | 無 ×0 · 低 ×0.5 · 中等 ×1 · 高 ×1.5 · 極高 ×2 | 低 · 中等 · 高 · 極高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
+| **車輛維修效果** | 無 ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 極高 ×2 | 低 · 中 · 高 · 極高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
 | **通貨膨脹** | 只影響收益，見 [貨運收益與配送時間](income.html) | 低 · 普通 · 高 · 極高 | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
 
 - **基礎設施成本** 決定道路、軌道、橋梁、隧道、平交道、建築與模組的價格，也包括地形工程（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。**基礎設施維護** 決定它們的維護費（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。
