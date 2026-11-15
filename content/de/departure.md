@@ -20,7 +20,7 @@ Jeder Halt einer Linie hat eigene Abfahrtseinstellungen, im Fenster „Güterfil
 | „Min. Haltezeit“ | 0–600 s, Schritt 10 | 0 s (gemessen) | `cargofilter_window.tl:841-845` |
 | „Max. Haltezeit“ | 0–600 s oder „---“ (keine Grenze, Schieberegler am Ende) | **600 s** (gemessen) | `cargofilter_window.tl:855-863` |
 | „Max. zusätzlicher Aufenthalt“ | 0–600 s, Schritt 10 | 60 s; 30 s an einem Straßen- oder Straßenbahnbahnhof ohne Schiene | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| „Füllstand“, pro geladener Fracht | 0–100 %, Schritt 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| „Füllstand“, pro geladener Fracht | 0–100 %, Schritt 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Ein Klick auf eine Zeit öffnet ein Zahlenfeld: Dort lassen sich Werte über 600 s eingeben (`cargofilter_window.tl:204-208`).
 - Die drei Zeiten halten ihre Reihenfolge: Wird das Minimum oder der zusätzliche Aufenthalt über das Maximum gehoben, steigt das Maximum mit (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

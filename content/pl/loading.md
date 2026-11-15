@@ -4,7 +4,7 @@ summary: Od czego zależy, czy pojazd ładuje się na przystanku szybko, czy wol
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | specjalistyczna sekcja peronu
 fact: ×0,25 | niewłaściwa sekcja lub za długi pociąg
 fact: ×4 | najlepszy przypadek: specjalistyczny peron i magazyn
@@ -78,7 +78,7 @@ Pociąg z 8 wagonów do towarów sypkich, o długości 160 m, rozładowuje węgi
 Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” przystanku. Na przystanku pojazd zatrzymuje na pokładzie towar z tej listy; reszta jest rozładowywana do każdego zapasu w obszarze obsługi, który ją przyjmuje, także do magazynu (zmierzone w grze).
 
 - Tak pociąg opróżnia się do magazynu w połowie swojej linii. W grze: na przystanku obok magazynu, z samym plastikiem na liście, narzędzia z pokładu trafiły do magazynu, choć był prawie pełny.
-- Peron pasażerski nie przeładowuje towarów: towar zostaje tam na pokładzie (`line_util.tl:554-559`, zmierzone w grze).
+- Peron pasażerski nie przeładowuje towarów: towar zostaje tam na pokładzie (zmierzone w grze).
 - Aby zatrzymać towar na pokładzie, dodaj go do listy Ładunek tego przystanku.
 
 | Opcja w „Filtr towarów” | Co robi | Źródło |
@@ -88,6 +88,19 @@ Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” prz
 | „Zastąp nowym ładunkiem, jeśli jest dostępny” | niszczy towar, który wrócił na przystanek, gdzie go załadowano, gdy czeka nowszy towar tego samego rodzaju | `cargofilter_window.tl:778` |
 
 - Gdy pierwsza opcja jest wyłączona, ikona towaru pokazuje „≤”, a podpowiedź „Rozładuj tylko, jeśli jest miejsce” (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Kilka towarów na jednej linii
+
+- Lista **Ładunek** przystanku to tak/nie dla każdego rodzaju towaru, **bez kolejności**: gracz nie może ustawić, który towar jest ładowany jako pierwszy. Ikony są po prostu rysowane w kolejności towarów w grze (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Wagon lub ciężarówka przyjmujące kilka towarów mają w każdym przedziale kilka **konfiguracji załadunku**; pojemność przedziału to największa z nich, a nie ich suma (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Przewożą więc naraz tylko jedną z nich.
+- Nowe pojazdy mają włączony automatyczny wybór konfiguracji dla każdego przedziału (`vehicle_react_util.tl:339`), a gra nie ma żadnego okna do ręcznego wyboru towaru pojazdu.
+- Pasażerowie i towary mogą dzielić linię: skrypty nigdy nie odrzucają towaru na przystanku dlatego, że przyjmuje on też pasażerów (`line_util.tl:1381-1386`). Towar jest usuwany tylko z przystanku, którego terminal nie może ładować ani rozładowywać towarów (`line_util.tl:554-559`).
+- Przy kilku towarach **Do pełna (dowolny)** i **Do pełna (wszystkie)** działają inaczej: zobacz [Ustawienia odjazdu: ładowanie do pełna, Poziom napełnienia i czasy postoju](departure.html).
+- Gdy konfiguracja nie pasuje, linia pokazuje **Niektóre konfiguracje rodzajów ładunków tej linii są sprzeczne**, na przykład "Brak na linii pojazdu mogącego załadować towar pomimo skonfigurowania jego załadunku." (`line_warning.script.tl:10-36`).
+
+```engine
+O tym, w jakiej kolejności ładowanych jest kilka towarów, jak wspólny zapas jest dzielony między czekające pojazdy i jak pojazd wybiera konfigurację załadunku, decyduje silnik.
+```
 
 ## Konfiguracja automatyczna
 

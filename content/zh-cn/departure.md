@@ -20,7 +20,7 @@ fact: 0–100 % | 填充水平，按货物计，占载具容量的比例
 | “最小停靠时间” | 0–600 s，步长 10 | 0 s（实测） | `cargofilter_window.tl:841-845` |
 | “最大停靠时间” | 0–600 s，或“---”（无限制，滑块在最右端） | **600 s**（实测） | `cargofilter_window.tl:855-863` |
 | “最大额外等待时间” | 0–600 s，步长 10 | 60 s；没有铁路的公路或有轨电车站为 30 s | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| “填充水平”，按每种装载的货物 | 0–100 %，步长 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| “填充水平”，按每种装载的货物 | 0–100 %，步长 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - 点击时间会打开一个数字输入框：大于 600 s 的值可以在那里输入（`cargofilter_window.tl:204-208`）。
 - 三个时间会保持彼此的顺序：把最小时间或额外等待时间调到高于最大时间，最大时间也会随之提高（`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`）。

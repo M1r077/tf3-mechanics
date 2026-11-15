@@ -20,7 +20,7 @@ fact: 0–100 % | 裝填量，依貨物計，占車輛容量的比例
 | 「最短停留時間」 | 0–600 s，間隔 10 | 0 s（實測） | `cargofilter_window.tl:841-845` |
 | 「最長停留時間」 | 0–600 s，或「---」（無限制，滑桿在最右端） | **600 s**（實測） | `cargofilter_window.tl:855-863` |
 | 「額外等待時間上限」 | 0–600 s，間隔 10 | 60 s；沒有鐵路的道路或電車站為 30 s | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| 「裝填量」，依每種裝載的貨物 | 0–100 %，間隔 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| 「裝填量」，依每種裝載的貨物 | 0–100 %，間隔 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - 點擊時間會開啟一個數字輸入框：大於 600 s 的值可以在那裡輸入（`cargofilter_window.tl:204-208`）。
 - 三個時間會維持彼此的順序：把最短時間或額外等待時間調到高於最長時間，最長時間也會跟著提高（`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`）。

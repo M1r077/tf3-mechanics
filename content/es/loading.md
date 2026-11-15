@@ -4,7 +4,7 @@ summary: Qué hace que un vehículo cargue rápido o despacio en una parada: el 
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | sección de andén especializada
 fact: ×0,25 | sección incorrecta o tren demasiado largo
 fact: ×4 | mejor caso: andén y almacén especializados
@@ -78,7 +78,7 @@ Un tren de 8 vagones a granel, de 160 m, descargando carbón.
 Cada parada de una línea tiene una lista **Carga**, en la ventana "Filtro de cargamento" de la parada. En la parada, el vehículo conserva a bordo el cargamento de esa lista; el resto se descarga en cualquier existencia de la zona de influencia que lo acepte, almacenes incluidos (medido en el juego).
 
 - Así es como un tren acaba vaciándose en un almacén a mitad de su línea. En el juego: en una parada junto a un almacén, con solo plástico en su lista, las herramientas a bordo fueron al almacén, aunque estaba casi lleno.
-- Un andén de pasajeros no transfiere mercancías: allí el cargamento se queda a bordo (`line_util.tl:554-559`, medido en el juego).
+- Un andén de pasajeros no transfiere mercancías: allí el cargamento se queda a bordo (medido en el juego).
 - Para conservar el cargamento a bordo, añádelo a la lista Carga de esa parada.
 
 | Opción de "Filtro de cargamento" | Qué hace | Fuente |
@@ -88,6 +88,19 @@ Cada parada de una línea tiene una lista **Carga**, en la ventana "Filtro de ca
 | "Sustituir por cargamento nuevo si hay disponibilidad" | destruye el cargamento que volvió a la parada donde se cargó, cuando espera cargamento más nuevo del mismo tipo | `cargofilter_window.tl:778` |
 
 - Con la primera opción desactivada, el icono del cargamento muestra "≤" y la descripción emergente "Descargar si no se ha alcanzado el límite de existencias" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Varios cargamentos en una línea
+
+- La lista **Carga** de una parada es un sí/no por tipo de cargamento, **sin orden**: el jugador no puede decidir qué cargamento se carga primero. Los iconos solo se dibujan en el orden de cargamentos del juego (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Un vagón o camión que admite varios cargamentos tiene, por compartimento, varias **configuraciones de carga**; la capacidad del compartimento es la mayor de ellas, no su suma (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Por eso lleva solo una de ellas a la vez.
+- Los vehículos nuevos tienen activada la elección automática de configuración en cada compartimento (`vehicle_react_util.tl:339`), y el juego no tiene ninguna ventana para elegir a mano el cargamento de un vehículo.
+- Pasajeros y cargamento pueden compartir una línea: los scripts nunca rechazan cargamento en una parada porque también admita pasajeros (`line_util.tl:1381-1386`). El cargamento solo se quita de una parada cuya terminal no puede cargar ni descargar cargamento (`line_util.tl:554-559`).
+- Con varios cargamentos, **Capacidad máxima (cualquiera)** y **Capacidad máxima (todo)** se comportan de forma distinta: ver [Ajustes de salida: capacidad máxima, nivel de llenado y tiempos de parada](departure.html).
+- Cuando la configuración no encaja, la línea muestra **Algunas configuraciones de tipos de carga de esta línea entran en conflicto**, por ejemplo "Ningún vehículo de la línea puede transportar parte del cargamento configurado para su carga." (`line_warning.script.tl:10-36`).
+
+```engine
+El orden en que se cargan varios cargamentos, cómo se reparten unas existencias compartidas entre los vehículos que esperan y cómo elige un vehículo su configuración de carga lo decide el motor.
+```
 
 ## La configuración automática
 

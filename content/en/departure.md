@@ -20,7 +20,7 @@ Each stop of a line has its own departure settings, in the stop's "Cargo Filter"
 | "Min. Stop Time" | 0–600 s, step 10 | 0 s (measured) | `cargofilter_window.tl:841-845` |
 | "Max. Stop Time" | 0–600 s, or "---" (no limit, slider at the end) | **600 s** (measured) | `cargofilter_window.tl:855-863` |
 | "Max. Additional Wait" | 0–600 s, step 10 | 60 s; 30 s at a road or tram station without rail | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| "Fill Level", per loaded cargo | 0–100 %, step 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| "Fill Level", per loaded cargo | 0–100 %, step 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Clicking a time opens a number box: values above 600 s can be typed there (`cargofilter_window.tl:204-208`).
 - The three times keep each other in order: raising the minimum or the additional wait above the maximum raises the maximum too (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

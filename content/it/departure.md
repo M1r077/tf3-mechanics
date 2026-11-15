@@ -20,7 +20,7 @@ Ogni fermata di una linea ha le sue impostazioni di partenza, nella finestra "Fi
 | "Tempo arresto minimo" | 0–600 s, passo 10 | 0 s (misurato) | `cargofilter_window.tl:841-845` |
 | "Tempo arresto massimo" | 0–600 s, oppure "---" (nessun limite, cursore in fondo) | **600 s** (misurato) | `cargofilter_window.tl:855-863` |
 | "Attesa aggiuntiva massima" | 0–600 s, passo 10 | 60 s; 30 s a una stazione stradale o del tram senza ferrovia | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| "Riempi livello", per ogni carico caricato | 0–100 %, passo 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| "Riempi livello", per ogni carico caricato | 0–100 %, passo 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Cliccando un tempo si apre un campo numerico: lì si possono digitare valori oltre 600 s (`cargofilter_window.tl:204-208`).
 - I tre tempi restano in ordine tra loro: alzare il minimo o l'attesa aggiuntiva sopra il massimo alza anche il massimo (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

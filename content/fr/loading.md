@@ -4,7 +4,7 @@ summary: Ce qui fait qu'un véhicule charge vite ou lentement à un arrêt : le 
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | section de quai spécialisée
 fact: ×0,25 | mauvaise section ou train trop long
 fact: ×4 | au mieux : quai et entrepôt spécialisés
@@ -78,7 +78,7 @@ Un train de 8 wagons vrac, long de 160 m, qui décharge du charbon.
 Chaque arrêt d'une ligne a une liste **Charge**, dans la fenêtre « Filtre de fret » de l'arrêt. À l'arrêt, le véhicule garde à bord le fret de cette liste ; le reste est déchargé dans tout stock de la zone de desserte qui le prend, entrepôt compris (mesuré en jeu).
 
 - C'est ainsi qu'un train se vide dans un entrepôt au milieu de sa ligne. En jeu : à un arrêt à côté d'un entrepôt, avec seulement du plastique dans sa liste, les outils à bord sont partis dans l'entrepôt, alors qu'il était presque plein.
-- Un quai voyageurs ne fait pas de transfert de fret : le fret y reste à bord (`line_util.tl:554-559`, mesuré en jeu).
+- Un quai voyageurs ne fait pas de transfert de fret : le fret y reste à bord (mesuré en jeu).
 - Pour garder le fret à bord, ajoute-le à la liste Charge de cet arrêt.
 
 | Option de « Filtre de fret » | Effet | Source |
@@ -88,6 +88,19 @@ Chaque arrêt d'une ligne a une liste **Charge**, dans la fenêtre « Filtre de 
 | « Remplacer par un fret plus récent si disponible » | détruit le fret revenu à l'arrêt où il a été chargé, quand du fret plus récent du même type attend | `cargofilter_window.tl:778` |
 
 - Quand la première option est désactivée, l'icône du fret affiche « ≤ » et l'info-bulle « Décharger uniquement si les stocks ont de la capacité » (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Plusieurs frets sur une ligne
+
+- La liste **Charge** d'un arrêt est un oui/non par type de fret, **sans ordre** : le joueur ne peut pas choisir quel fret est chargé en premier. Les icônes sont simplement dessinées dans l'ordre des frets du jeu (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Un wagon ou un camion qui prend plusieurs frets a, par compartiment, plusieurs **configurations de chargement** ; la capacité du compartiment est la plus grande d'entre elles, pas leur somme (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Il en transporte donc une seule à la fois.
+- Les nouveaux véhicules ont le choix automatique de la configuration activé pour chaque compartiment (`vehicle_react_util.tl:339`), et le jeu n'a aucune fenêtre pour choisir à la main le fret d'un véhicule.
+- Passagers et fret peuvent partager une ligne : les scripts ne refusent jamais du fret à un arrêt parce qu'il prend aussi des passagers (`line_util.tl:1381-1386`). Le fret n'est retiré que d'un arrêt dont le terminal ne peut ni charger ni décharger de fret (`line_util.tl:554-559`).
+- Avec plusieurs frets, **Chargement complet (n’importe lequel)** et **Chargement complet (tout)** se comportent différemment : voir [Réglages de départ : chargement complet, niveau de remplissage et temps d'arrêt](departure.html).
+- Quand la configuration ne convient pas, la ligne affiche **Certaines configurations de types de fret de cette ligne sont en conflit**, par exemple « Aucun véhicule de la ligne ne peut transporter certains des types de fret configurés pour le chargement. » (`line_warning.script.tl:10-36`).
+
+```engine
+L'ordre dans lequel plusieurs frets sont chargés, la façon dont un stock partagé est réparti entre les véhicules qui attendent, et la façon dont un véhicule choisit sa configuration de chargement sont décidés par le moteur.
+```
 
 ## La configuration automatique
 

@@ -4,7 +4,7 @@ summary: Was ein Fahrzeug an einem Halt schnell oder langsam laden lässt: das F
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | spezialisierter Bahnsteigabschnitt
 fact: ×0,25 | falscher Abschnitt oder Zug zu lang
 fact: ×4 | bestenfalls: Bahnsteig und Lager spezialisiert
@@ -78,7 +78,7 @@ Ein Zug mit 8 Schüttgutwagen, 160 m lang, entlädt Kohle.
 Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ des Halts. Am Halt behält das Fahrzeug die Fracht dieser Liste an Bord; der Rest wird in jeden Bestand im Einzugsbereich entladen, der sie annimmt, auch in ein Lager (im Spiel gemessen).
 
 - So leert sich ein Zug mitten auf seiner Linie in ein Lager. Im Spiel: An einem Halt neben einem Lager, mit nur Kunststoff in der Liste, gingen die Werkzeuge an Bord ins Lager, obwohl es fast voll war.
-- Ein Personenbahnsteig hat keinen Güterumschlag: Die Fracht bleibt dort an Bord (`line_util.tl:554-559`, im Spiel gemessen).
+- Ein Personenbahnsteig hat keinen Güterumschlag: Die Fracht bleibt dort an Bord (im Spiel gemessen).
 - Um die Fracht an Bord zu behalten, füge sie der Liste Ladung dieses Halts hinzu.
 
 | Option im „Güterfilter“ | Wirkung | Quelle |
@@ -88,6 +88,19 @@ Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ 
 | „Durch neuere Güter ersetzen, falls verfügbar“ | zerstört Fracht, die zu dem Halt zurückgekommen ist, an dem sie geladen wurde, wenn neuere Fracht derselben Art wartet | `cargofilter_window.tl:778` |
 
 - Ist die erste Option aus, zeigt das Frachtsymbol „≤“ und der Tooltip „Entladen nur, wenn Lagerkapazität vorhanden“ (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Mehrere Frachten auf einer Linie
+
+- Die Liste **Ladung** eines Halts ist ein Ja/Nein pro Güterart, **ohne Reihenfolge**: Der Spieler kann nicht festlegen, welche Fracht zuerst geladen wird. Die Symbole werden einfach in der Güterreihenfolge des Spiels gezeichnet (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Ein Wagen oder Lkw, der mehrere Frachten aufnimmt, hat pro Abteil mehrere **Ladekonfigurationen**; die Kapazität des Abteils ist die größte davon, nicht ihre Summe (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Er transportiert also jeweils nur eine davon.
+- Bei neuen Fahrzeugen ist die automatische Wahl der Konfiguration für jedes Abteil eingeschaltet (`vehicle_react_util.tl:339`), und das Spiel hat kein Fenster, um die Fracht eines Fahrzeugs von Hand zu wählen.
+- Passagiere und Fracht können sich eine Linie teilen: Die Skripte lehnen Fracht an einem Halt nie ab, weil er auch Passagiere aufnimmt (`line_util.tl:1381-1386`). Fracht wird nur an einem Halt gestrichen, dessen Terminal keine Fracht laden oder entladen kann (`line_util.tl:554-559`).
+- Bei mehreren Frachten verhalten sich **Vollladen einer Güterart** und **Vollladen jeder Güterart** unterschiedlich: siehe [Abfahrtseinstellungen: Vollladen, Füllstand und Haltezeiten](departure.html).
+- Passt die Konfiguration nicht, zeigt die Linie **Einige Gütertyp-Konfigurationen dieser Linie stehen in Konflikt**, zum Beispiel "Ein konfigurierter Gütertyp der Linie kann von keinem Fahrzeug transportiert werden." (`line_warning.script.tl:10-36`).
+
+```engine
+In welcher Reihenfolge mehrere Frachten geladen werden, wie ein gemeinsamer Bestand auf wartende Fahrzeuge aufgeteilt wird und wie ein Fahrzeug seine Ladekonfiguration wählt, entscheidet die Engine.
+```
 
 ## Die automatische Konfiguration
 

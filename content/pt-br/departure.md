@@ -20,7 +20,7 @@ Cada parada de uma linha tem as suas próprias configurações de partida, na ja
 | "Tempo de Parada Mín." | 0–600 s, passo 10 | 0 s (medido) | `cargofilter_window.tl:841-845` |
 | "Tempo de Parada Máx." | 0–600 s, ou "---" (sem limite, controle deslizante no fim) | **600 s** (medido) | `cargofilter_window.tl:855-863` |
 | "Tempo Máximo de Espera Adicional" | 0–600 s, passo 10 | 60 s; 30 s em uma estação rodoviária ou de bonde sem ferrovia | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| "Nível de Preenchimento", por carga carregada | 0–100 %, passo 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| "Nível de Preenchimento", por carga carregada | 0–100 %, passo 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Clicar em um tempo abre uma caixa numérica: valores acima de 600 s podem ser digitados ali (`cargofilter_window.tl:204-208`).
 - Os três tempos se mantêm em ordem: subir o mínimo ou a espera adicional acima do máximo também sobe o máximo (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

@@ -20,7 +20,7 @@ Elke halte van een lijn heeft eigen vertrekinstellingen, in het venster "Vrachtf
 | "Min. stoptijd" | 0–600 s, stap 10 | 0 s (gemeten) | `cargofilter_window.tl:841-845` |
 | "Max. stoptijd" | 0–600 s, of "---" (geen limiet, schuif aan het eind) | **600 s** (gemeten) | `cargofilter_window.tl:855-863` |
 | "Maximale extra wachttijd" | 0–600 s, stap 10 | 60 s; 30 s bij een weg- of tramstation zonder spoor | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| "Vulniveau", per geladen vracht | 0–100 %, stap 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| "Vulniveau", per geladen vracht | 0–100 %, stap 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Klikken op een tijd opent een invoervak: daar kun je waarden boven 600 s typen (`cargofilter_window.tl:204-208`).
 - De drie tijden blijven op volgorde: als je het minimum of de extra wachttijd boven het maximum zet, gaat het maximum ook omhoog (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

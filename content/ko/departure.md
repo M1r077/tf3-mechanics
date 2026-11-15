@@ -20,7 +20,7 @@ fact: 0–100 % | 충전 수위, 화물별, 운송 수단 수용량 대비
 | "최소 정지 시간" | 0–600 s, 10 단위 | 0 s(측정) | `cargofilter_window.tl:841-845` |
 | "최대 정지 시간" | 0–600 s, 또는 "---"(제한 없음, 슬라이더 끝) | **600 s**(측정) | `cargofilter_window.tl:855-863` |
 | "최대 추가 대기 시간" | 0–600 s, 10 단위 | 60 s, 철도가 없는 도로 또는 트램 역에서는 30 s | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| "충전 수위", 상차하는 화물별 | 0–100 %, 1 단위 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| "충전 수위", 상차하는 화물별 | 0–100 %, 1 단위 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - 시간을 클릭하면 숫자 입력란이 열린다. 600 s보다 큰 값은 거기에 입력할 수 있다(`cargofilter_window.tl:204-208`).
 - 세 시간은 서로의 순서를 유지한다. 최소 시간이나 추가 대기 시간을 최대 시간보다 높이면 최대 시간도 올라간다(`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

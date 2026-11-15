@@ -20,7 +20,7 @@ Chaque arrêt d'une ligne a ses propres réglages de départ, dans la fenêtre �
 | « Temps d’arrêt min. » | 0–600 s, par pas de 10 | 0 s (mesuré) | `cargofilter_window.tl:841-845` |
 | « Temps d’arrêt max. » | 0–600 s, ou « --- » (sans limite, curseur au bout) | **600 s** (mesuré) | `cargofilter_window.tl:855-863` |
 | « Attente supplémentaire max. » | 0–600 s, par pas de 10 | 60 s ; 30 s dans une gare routière ou de tram sans rail | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| « Niveau de remplissage », par fret chargé | 0–100 %, par pas de 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| « Niveau de remplissage », par fret chargé | 0–100 %, par pas de 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Cliquer sur un temps ouvre une case de saisie : on peut y taper des valeurs au-dessus de 600 s (`cargofilter_window.tl:204-208`).
 - Les trois temps restent dans l'ordre : monter le minimum ou l'attente supplémentaire au-dessus du maximum monte aussi le maximum (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

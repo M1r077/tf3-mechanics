@@ -4,7 +4,7 @@ summary: Che cosa fa caricare un veicolo velocemente o lentamente a una fermata:
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | sezione di piattaforma specializzata
 fact: ×0,25 | sezione sbagliata o treno troppo lungo
 fact: ×4 | caso migliore: piattaforma e magazzino specializzati
@@ -78,7 +78,7 @@ Un treno di 8 vagoni per merci sfuse, lungo 160 m, che scarica carbone.
 Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico" della fermata. Alla fermata il veicolo tiene a bordo le merci di quella lista; il resto viene scaricato in qualsiasi scorta del bacino d'utenza che lo accetti, magazzini compresi (misurato in gioco).
 
 - È così che un treno finisce per svuotarsi in un magazzino a metà della sua linea. In gioco: a una fermata accanto a un magazzino, con solo plastica nella lista, gli attrezzi a bordo sono finiti nel magazzino, anche se era quasi pieno.
-- Una piattaforma passeggeri non trasferisce merci: lì le merci restano a bordo (`line_util.tl:554-559`, misurato in gioco).
+- Una piattaforma passeggeri non trasferisce merci: lì le merci restano a bordo (misurato in gioco).
 - Per tenere le merci a bordo, aggiungile alla lista Carico di quella fermata.
 
 | Opzione di "Filtro carico" | Che cosa fa | Fonte |
@@ -88,6 +88,19 @@ Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico
 | "Sostituisci con nuovo carico se disponibile" | distrugge il carico tornato alla fermata dove era stato caricato, quando aspetta un carico più recente dello stesso tipo | `cargofilter_window.tl:778` |
 
 - Con la prima opzione disattivata, l'icona della merce mostra "≤" e il tooltip "Scarica solo se scorte hanno capacità" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Più merci su una linea
+
+- La lista **Carico** di una fermata è un sì/no per tipo di merce, **senza ordine**: il giocatore non può decidere quale merce viene caricata per prima. Le icone sono solo disegnate nell'ordine delle merci del gioco (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Un vagone o un camion che accetta più merci ha, per scomparto, più **configurazioni di carico**; la capacità dello scomparto è la più grande di esse, non la loro somma (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Quindi ne trasporta una sola alla volta.
+- I nuovi veicoli hanno la scelta automatica della configurazione attivata per ogni scomparto (`vehicle_react_util.tl:339`), e il gioco non ha alcuna finestra per scegliere a mano la merce di un veicolo.
+- Passeggeri e merci possono condividere una linea: gli script non rifiutano mai merci a una fermata perché accetta anche passeggeri (`line_util.tl:1381-1386`). Le merci vengono tolte solo da una fermata il cui terminal non può caricare né scaricare merci (`line_util.tl:554-559`).
+- Con più merci, **Carico completo (qualsiasi)** e **Carico completo (tutto)** si comportano in modo diverso: vedi [Impostazioni di partenza: carico completo, Riempi livello e tempi di sosta](departure.html).
+- Quando la configurazione non va bene, la linea mostra **Alcune configurazioni dei tipi di merce di questa linea sono in conflitto**, per esempio "Nessun veicolo sulla linea può trasportare parte delle merci configurate per il carico." (`line_warning.script.tl:10-36`).
+
+```engine
+L'ordine in cui vengono caricate più merci, come una scorta condivisa viene ripartita tra i veicoli in attesa e come un veicolo sceglie la sua configurazione di carico sono decisi dal motore.
+```
 
 ## La configurazione automatica
 

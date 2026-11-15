@@ -20,7 +20,7 @@ Każdy przystanek linii ma własne ustawienia odjazdu, w oknie „Filtr towarów
 | „Min. czas postoju” | 0–600 s, krok 10 | 0 s (zmierzone) | `cargofilter_window.tl:841-845` |
 | „Max. czas postoju” | 0–600 s lub „---” (bez limitu, suwak na końcu) | **600 s** (zmierzone) | `cargofilter_window.tl:855-863` |
 | „Maks. dodatkowe oczekiwanie” | 0–600 s, krok 10 | 60 s; 30 s na stacji drogowej lub tramwajowej bez kolei | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| „Poziom napełnienia”, dla każdego ładowanego towaru | 0–100 %, krok 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| „Poziom napełnienia”, dla każdego ładowanego towaru | 0–100 %, krok 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Kliknięcie czasu otwiera pole liczbowe: można w nim wpisać wartości powyżej 600 s (`cargofilter_window.tl:204-208`).
 - Trzy czasy zachowują kolejność: podniesienie minimum lub dodatkowego oczekiwania powyżej maksimum podnosi też maksimum (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).

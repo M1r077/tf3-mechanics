@@ -20,7 +20,7 @@ fact: 0–100 % | 積載量、貨物ごと、車両の容量に対する割合
 | 「最小停留時間」 | 0–600 秒、10 刻み | 0 秒（計測） | `cargofilter_window.tl:841-845` |
 | 「最大停留時間」 | 0–600 秒、または「---」（制限なし、スライダーの端） | **600 秒**（計測） | `cargofilter_window.tl:855-863` |
 | 「最大追加待機時間」 | 0–600 秒、10 刻み | 60 秒。鉄道のない道路駅または路面電車駅では 30 秒 | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| 「積載量」、積み込む貨物ごと | 0–100 %、1 刻み | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:511` |
+| 「積載量」、積み込む貨物ごと | 0–100 %、1 刻み | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - 時間をクリックすると数値入力欄が開き、600 秒を超える値を入力できる（`cargofilter_window.tl:204-208`）。
 - 3 つの時間は互いの順序を保つ。最小時間や追加待機時間を最大時間より上げると、最大時間も上がる（`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`）。

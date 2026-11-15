@@ -4,7 +4,7 @@ summary: Wat een voertuig snel of langzaam laat laden bij een halte: het voertui
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | gespecialiseerde perronsectie
 fact: ×0,25 | verkeerde sectie of trein te lang
 fact: ×4 | in het beste geval: gespecialiseerd perron en opslagplaats
@@ -78,7 +78,7 @@ Een trein van 8 bulkwagons, 160 m lang, lost steenkool.
 Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter" van de halte. Bij de halte houdt het voertuig de vracht uit die lijst aan boord; de rest wordt gelost in elke voorraad in het verzorgingsgebied die hem aanneemt, ook in een opslagplaats (gemeten in het spel).
 
 - Zo leegt een trein zich halverwege zijn lijn in een opslagplaats. In het spel: bij een halte naast een opslagplaats, met alleen plastic in de lijst, gingen de gereedschappen aan boord naar de opslagplaats, ook al was die bijna vol.
-- Een passagiersperron heeft geen vrachtoverslag: daar blijft de vracht aan boord (`line_util.tl:554-559`, gemeten in het spel).
+- Een passagiersperron heeft geen vrachtoverslag: daar blijft de vracht aan boord (gemeten in het spel).
 - Wil je de vracht aan boord houden, voeg hem dan toe aan de lijst Lading van die halte.
 
 | Optie in "Vrachtfilter" | Wat het doet | Bron |
@@ -88,6 +88,19 @@ Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter
 | "Vervangen door nieuwere vracht indien beschikbaar" | vernietigt vracht die terug is bij de halte waar hij geladen werd, als er nieuwere vracht van hetzelfde type wacht | `cargofilter_window.tl:778` |
 
 - Staat de eerste optie uit, dan toont het vrachtpictogram "≤" en de tooltip "Alleen lossen als er ruimte is" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Meerdere soorten vracht op één lijn
+
+- De lijst **Lading** van een halte is een ja/nee per vrachttype, **zonder volgorde**: de speler kan niet instellen welke vracht als eerste geladen wordt. De pictogrammen worden gewoon in de vrachtvolgorde van het spel getekend (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Een wagon of vrachtwagen die meerdere soorten vracht aanneemt, heeft per compartiment meerdere **laadconfiguraties**; de capaciteit van het compartiment is de grootste daarvan, niet hun som (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Hij vervoert er dus één tegelijk.
+- Bij nieuwe voertuigen staat de automatische keuze van de configuratie aan voor elk compartiment (`vehicle_react_util.tl:339`), en het spel heeft geen venster om de vracht van een voertuig met de hand te kiezen.
+- Passagiers en vracht kunnen een lijn delen: de scripts weigeren nooit vracht bij een halte omdat die ook passagiers aanneemt (`line_util.tl:1381-1386`). Vracht wordt alleen geschrapt bij een halte waarvan de terminal geen vracht kan laden of lossen (`line_util.tl:554-559`).
+- Met meerdere soorten vracht gedragen **Volledige belading (willekeurig)** en **Volledige belading (alle)** zich verschillend: zie [Vertrekinstellingen: volledige belading, Vulniveau en stoptijden](departure.html).
+- Als de configuratie niet past, toont de lijn **Sommige ladingstypeconfiguraties van deze lijn conflicteren**, bijvoorbeeld "Een deel van de vracht die zal worden geladen, is niet geschikt voor de voertuigen op de lijn." (`line_warning.script.tl:10-36`).
+
+```engine
+In welke volgorde meerdere soorten vracht geladen worden, hoe een gedeelde voorraad over wachtende voertuigen verdeeld wordt en hoe een voertuig zijn laadconfiguratie kiest, wordt door de engine bepaald.
+```
 
 ## De automatische configuratie
 

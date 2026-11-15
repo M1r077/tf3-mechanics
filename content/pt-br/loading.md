@@ -4,7 +4,7 @@ summary: O que faz um veículo carregar rápido ou devagar em uma parada: o veí
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | seção de plataforma especializada
 fact: ×0,25 | seção errada ou trem longo demais
 fact: ×4 | melhor caso: plataforma e armazém especializados
@@ -78,7 +78,7 @@ Um trem de 8 vagões a granel, com 160 m, descarregando carvão.
 Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" da parada. Na parada, o veículo mantém a bordo a carga dessa lista; o resto é descarregado em qualquer estoque da área de cobertura que o aceite, armazéns incluídos (medido no jogo).
 
 - É assim que um trem acaba se esvaziando num armazém no meio da linha. No jogo: numa parada ao lado de um armazém, com só plástico na lista, as ferramentas a bordo foram para o armazém, embora ele estivesse quase cheio.
-- Uma plataforma de passageiros não transfere carga: ali a carga fica a bordo (`line_util.tl:554-559`, medido no jogo).
+- Uma plataforma de passageiros não transfere carga: ali a carga fica a bordo (medido no jogo).
 - Para manter a carga a bordo, adicione-a à lista Volume dessa parada.
 
 | Opção de "Filtro de Cargas" | O que faz | Fonte |
@@ -88,6 +88,19 @@ Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" 
 | "Substituir com carga mais nova, se disponível" | destrói a carga que voltou à parada onde foi carregada, quando há carga mais nova do mesmo tipo esperando | `cargofilter_window.tl:778` |
 
 - Com a primeira opção desligada, o ícone da carga mostra "≤" e a dica "Descarregar somente se os estoques tiverem capacidade" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Várias cargas na mesma linha
+
+- A lista Volume de uma parada é um sim/não por tipo de carga, **sem ordem**: o jogador não pode definir qual carga é carregada primeiro. Os ícones são apenas desenhados na ordem de cargas do jogo (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Um vagão ou caminhão que leva várias cargas tem, por compartimento, várias **configurações de carga**; a capacidade do compartimento é a maior delas, não a soma (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Por isso ele leva uma delas de cada vez.
+- Veículos novos têm a escolha automática de configuração ligada em todos os compartimentos (`vehicle_react_util.tl:339`), e o jogo não tem janela para escolher à mão a carga de um veículo.
+- Passageiros e carga podem dividir uma linha: os scripts nunca recusam carga numa parada por ela também receber passageiros (`line_util.tl:1381-1386`). A carga só é retirada de uma parada cujo terminal não pode carregar nem descarregar carga (`line_util.tl:554-559`).
+- Com várias cargas, **Carga Completa (Qualquer)** e **Carga Completa (Tudo)** se comportam de forma diferente: veja [Configurações de partida: carga completa, Nível de Preenchimento e tempos de parada](departure.html).
+- Quando a configuração não serve, a linha mostra **Algumas configurações de tipos de carga desta linha estão em conflito**, por exemplo "Nenhum veículo na linha pode transportar parte da carga configurada para transporte." (`line_warning.script.tl:10-36`).
+
+```engine
+A ordem em que várias cargas são carregadas, como um estoque compartilhado é dividido entre os veículos que esperam e como um veículo escolhe a sua configuração de carga são decididos pelo motor.
+```
 
 ## A configuração automática
 

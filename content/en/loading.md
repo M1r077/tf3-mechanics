@@ -4,7 +4,7 @@ summary: What makes a vehicle load fast or slow at a stop: the vehicle, the plat
 domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
-updated: 2026-11-14
+updated: 2026-11-15
 fact: ×2 | specialised platform section
 fact: ×0.25 | wrong section or train too long
 fact: ×4 | best case: specialised platform and warehouse
@@ -78,7 +78,7 @@ A train of 8 bulk wagons, 160 m long, unloading coal.
 Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At the stop the vehicle keeps on board the cargo in that list; the rest is unloaded into any stock in the catchment area that takes it, a warehouse included (measured in game).
 
 - That is how a train ends up emptying itself into a warehouse halfway along its line. In game: at a stop next to a warehouse, with only plastic in its list, the tools on board went into the warehouse, although it was nearly full.
-- A passenger platform has no freight transfer: freight stays on board there (`line_util.tl:554-559`, measured in game).
+- A passenger platform has no freight transfer: freight stays on board there (measured in game).
 - To keep the cargo on board, add it to the Load list of that stop.
 
 | Option in "Cargo Filter" | What it does | Source |
@@ -88,6 +88,19 @@ Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At
 | "Replace with Newer Cargo if Available" | destroys cargo that came back to the stop where it was loaded, when newer cargo of the same type is waiting | `cargofilter_window.tl:778` |
 
 - With the first option off, the cargo icon shows "≤" and the tooltip "Unload Only if Stocks Have Capacity" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).
+
+## Several cargos on one line
+
+- A stop's Load list is a yes/no per cargo type, with **no order**: the player cannot set which cargo loads first. The icons are just drawn in the game's cargo order (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- A wagon or truck that takes several cargos has, per compartment, several **load configurations**; the compartment's capacity is the largest of them, not their sum (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). So it carries one of them at a time.
+- New vehicles have the automatic choice of configuration switched on for every compartment (`vehicle_react_util.tl:339`), and the game has no window to choose the cargo of a vehicle by hand.
+- Passengers and freight can share a line: the scripts never refuse freight at a stop because it also takes passengers (`line_util.tl:1381-1386`). Freight is only dropped from a stop whose terminal cannot load or unload cargo (`line_util.tl:554-559`).
+- With several cargos, **Full Load (Any)** and **Full Load (All)** behave differently: see [Departure settings: full load, Fill Level and stop times](departure.html).
+- When the configuration does not fit, the line shows **Some Cargo Type Configurations of This Line Are Clashing**, for example "No vehicle on the line can transport some of the cargo configured to be loaded." (`line_warning.script.tl:10-36`).
+
+```engine
+In which order several cargos are loaded, how a shared stock is split between waiting vehicles, and how a vehicle picks its load configuration are decided by the engine.
+```
 
 ## The automatic configuration
 
