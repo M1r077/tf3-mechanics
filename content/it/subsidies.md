@@ -30,7 +30,7 @@ Una commessa (chiamata subvention nei file del gioco) è un contratto: un'indust
 
 - Ogni nuova offerta sceglie uno dei tipi che possono comparire in quel momento, con la stessa probabilità (`subventions.script.tl:147-169`).
 - **Fornitura industriale** e **Fornitura urbana** contano le consegne, non i viaggi: ogni unità pagata che arriva all'obiettivo aggiunge 1. I trasbordi sono ammessi (`deliver_cargo.script.tl:470-479`).
-- **Collegamento urbano** non richiede un numero di passeggeri: il primo passeggero che sale sulla tua linea tra le due cittadine lo completa. "Senza trasbordo" significa che quel tratto si fa su un'unica linea che serve entrambe le cittadine. Nessuna offerta compare se una linea trasporta già passeggeri tra di esse (`deliver_passengers.script.tl:72-78`).
+- **Collegamento urbano** non richiede un numero di passeggeri: il primo passeggero che sale sulla tua linea tra le due cittadine lo completa. "Diretto" significa che quel tratto si fa su un'unica linea che serve entrambe le cittadine. Nessuna offerta compare se una linea trasporta già passeggeri tra di esse (`deliver_passengers.script.tl:72-78`).
 - Le cittadine vicine sono molto più probabili: il peso di una coppia scende da 1 a 1 km o meno fino a 0,01 a 20 km, elevato alla settima potenza (`deliver_passengers.script.tl:175-191`).
 - **Fornitura urbana** preferisce merci già prodotte da qualche parte sulla mappa: 16 volte più probabili delle altre (`deliver_cargo_town.script.tl:277-280`).
 - La quantità da consegnare dipende dall'impostazione **Rischio commesse**:

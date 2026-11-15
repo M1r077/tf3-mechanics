@@ -30,7 +30,7 @@ Een subsidie is een contract: een industriebedrijf of een stad biedt een taak aa
 
 - Elke nieuwe aanbieding kiest met gelijke kansen een van de soorten die op dat moment kunnen verschijnen (`subventions.script.tl:147-169`).
 - **Bevoorraad industriebedrijf** en **Bevoorraad stad** tellen bezorgingen, geen ritten: elke betaalde eenheid die bij het doel aankomt, telt als 1. Overslaan is toegestaan (`deliver_cargo.script.tl:470-479`).
-- **Steden verbinden** vraagt geen aantal reizigers: de eerste reiziger die tussen de twee steden in je lijn stapt, voltooit het. "Zonder overstap" betekent dat dit deel van de reis op één lijn gaat die beide steden bedient. Er komt geen aanbieding als er al een lijn reizigers tussen ze vervoert (`deliver_passengers.script.tl:72-78`).
+- **Steden verbinden** vraagt geen aantal reizigers: de eerste reiziger die tussen de twee steden in je lijn stapt, voltooit het. "Directe verbinding" betekent dat dit deel van de reis op één lijn gaat die beide steden bedient. Er komt geen aanbieding als er al een lijn reizigers tussen ze vervoert (`deliver_passengers.script.tl:72-78`).
 - Steden dicht bij elkaar zijn veel waarschijnlijker: het gewicht van een paar daalt van 1 bij 1 km of minder tot 0,01 bij 20 km, tot de macht 7 (`deliver_passengers.script.tl:175-191`).
 - **Bevoorraad stad** geeft de voorkeur aan vrachten die al ergens op de kaart worden geproduceerd: 16 keer waarschijnlijker dan de andere (`deliver_cargo_town.script.tl:277-280`).
 - De te leveren hoeveelheid hangt af van de instelling **Risico subsidies**:

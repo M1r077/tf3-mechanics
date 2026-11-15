@@ -30,7 +30,7 @@ Una subvención es un contrato: una industria o una localidad propone una tarea,
 
 - Cada nueva oferta elige uno de los tipos que pueden aparecer en ese momento, con la misma probabilidad (`subventions.script.tl:147-169`).
 - **Suministrar a industria** y **Suministrar a localidad** cuentan entregas, no viajes: cada unidad pagada que llega al objetivo suma 1. Se permiten transbordos (`deliver_cargo.script.tl:470-479`).
-- **Conectar localidades** no exige ningún número de pasajeros: el primer pasajero que sube a tu línea entre las dos localidades lo cumple. "Sin transbordo" significa que ese tramo se hace en una sola línea que da servicio a ambas localidades. No aparece ninguna oferta si una línea ya transporta pasajeros entre ellas (`deliver_passengers.script.tl:72-78`).
+- **Conectar localidades** no exige ningún número de pasajeros: el primer pasajero que sube a tu línea entre las dos localidades lo cumple. "Sin escalas" significa que ese tramo se hace en una sola línea que da servicio a ambas localidades. No aparece ninguna oferta si una línea ya transporta pasajeros entre ellas (`deliver_passengers.script.tl:72-78`).
 - Las localidades cercanas son mucho más probables: el peso de una pareja baja de 1 a 1 km o menos a 0,01 a 20 km, elevado a la potencia 7 (`deliver_passengers.script.tl:175-191`).
 - **Suministrar a localidad** prefiere cargamentos que ya se producen en algún lugar del mapa: 16 veces más probables que los demás (`deliver_cargo_town.script.tl:277-280`).
 - La cantidad que hay que entregar depende del ajuste **Riesgo de las subvenciones**:
