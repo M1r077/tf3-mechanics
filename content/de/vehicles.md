@@ -62,20 +62,21 @@ Wie schnell der Zustand sinkt, wie viel ein Besuch in einer Wartungsstation wied
 
 Fahrzeuge werden von einem nahen Depot oder einer nahen Wartungsstation gewartet. Jedes davon bedient eine begrenzte Zahl von Fahrzeugen: seinen **Wartungspool**.
 
-| Gebäude | Wartungspool | Source |
-|---|---|---|
-| Zugdepot | 6 | `rail_depot.script.lua:349` |
-| Zug-Wartungsstation | 12 | `rail_maint_station.script.lua:157` |
-| Straßendepot, Straßenbahndepot | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Straßen-Wartungsstation | 16 | `road_maint_station.script.lua:240` |
-| Schiffsdepot | 8 | `water_depot.script.lua:379` |
-| Schiffs-Wartungsstation | 12 | `water_maint_station.script.lua:262` |
-| Hangar eines Flugfelds oder Flughafens | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Heliport | 4 | `heliport.script.lua:309` |
+| Gebäude | Wartungspool | Radius | Abgestellte Fahrzeuge | Source |
+|---|---|---|---|---|
+| Zugdepot | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Zug-Wartungsstation | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Straßendepot, Straßenbahndepot | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Straßen-Wartungsstation | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Schiffsdepot | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Schiffs-Wartungsstation | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Hangar eines Flugfelds oder Flughafens | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Heliport | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - Das Gebäudefenster zeigt „belegt / Pool“ (zum Beispiel 14 / 12) und die Liste der bedienten Fahrzeuge mit ihrem Zustand (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Ein vollerer Pool macht das Gebäude lauter und schmutziger: Die Emissionen steigen mit dem belegten Anteil des Pools (`emissions.script.tl:223-234`).
 - Eine Zug-Wartungsstation bedient doppelt so viele Züge wie ein Zugdepot: 12 gegen 6.
+- Wartungsstationen können keine Fahrzeuge kaufen oder abstellen, haben aber oft einen größeren Radius als das Depot: 600 m gegen 400 m auf der Straße, 1400 m gegen 1000 m bei Schiffen. Nur die Straßen-Wartungsstation wartet auch Straßenbahnen.
 - Das offizielle Wiki empfiehlt Wegpunkte, um Fahrzeuge an einem Wartungsgebäude vorbeizuschicken.
 
 ```engine

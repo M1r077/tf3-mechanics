@@ -62,20 +62,21 @@ fact: 4 to 16 | 대: 차고지 또는 정비소 하나의 유지보수 풀에 �
 
 운송 수단은 근처의 차고지나 정비소에서 정비된다. 각 건물이 정비하는 운송 수단의 수에는 한도가 있다. 바로 **유지보수 풀**이다.
 
-| 건물 | 유지보수 풀 | 출처 |
-|---|---|---|
-| 철도 차고지 | 6 | `rail_depot.script.lua:349` |
-| 철도 정비소 | 12 | `rail_maint_station.script.lua:157` |
-| 도로 차고지, 트램 차고지 | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| 도로 정비소 | 16 | `road_maint_station.script.lua:240` |
-| 선박 차고지 | 8 | `water_depot.script.lua:379` |
-| 선박 정비소 | 12 | `water_maint_station.script.lua:262` |
-| 비행장 또는 공항 격납고 | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| 헬리포트 | 4 | `heliport.script.lua:309` |
+| 건물 | 유지보수 풀 | 반경 | 보관 대수 | 출처 |
+|---|---|---|---|---|
+| 철도 차고지 | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| 철도 정비소 | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| 도로 차고지, 트램 차고지 | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| 도로 정비소 | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| 선박 차고지 | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| 선박 정비소 | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| 비행장 또는 공항 격납고 | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| 헬리포트 | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - 건물 창은 "사용 / 풀"(예: 14 / 12)과 정비하는 운송 수단 목록을 상태와 함께 보여 준다(`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - 풀이 찰수록 건물은 더 시끄럽고 더러워진다. 배출은 풀 사용 비율에 따라 늘어난다(`emissions.script.tl:223-234`).
 - 철도 정비소는 철도 차고지보다 두 배 많은 열차를 정비한다. 12 대 6.
+- 정비소는 운송 수단을 구매하거나 보관할 수 없지만, 반경은 차고지보다 넓은 경우가 많다. 도로는 600 m 대 400 m, 선박은 1400 m 대 1000 m. 트램도 정비하는 것은 도로 정비소뿐이다.
 - 공식 위키는 운송 수단이 정비 건물 앞을 지나가도록 경유지를 쓰라고 권한다.
 
 ```engine

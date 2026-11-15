@@ -62,20 +62,21 @@ How fast condition falls, how much a visit to a maintenance station restores, an
 
 Vehicles are maintained by a depot or maintenance station nearby. Each one serves a limited number of vehicles: its **Maintenance Pool**.
 
-| Building | Maintenance pool | Source |
-|---|---|---|
-| Train depot | 6 | `rail_depot.script.lua:349` |
-| Train maintenance station | 12 | `rail_maint_station.script.lua:157` |
-| Road depot, tram depot | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Road maintenance station | 16 | `road_maint_station.script.lua:240` |
-| Ship depot | 8 | `water_depot.script.lua:379` |
-| Ship maintenance station | 12 | `water_maint_station.script.lua:262` |
-| Airfield or airport hangar | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Heliport | 4 | `heliport.script.lua:309` |
+| Building | Maintenance pool | Radius | Vehicles stored | Source |
+|---|---|---|---|---|
+| Train depot | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Train maintenance station | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Road depot, tram depot | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Road maintenance station | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Ship depot | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Ship maintenance station | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Airfield or airport hangar | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Heliport | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - The building window shows "used / pool" (for example 14 / 12) and the list of vehicles it serves, with their condition (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - A fuller pool makes the building noisier and dirtier: emissions go up with the share of the pool in use (`emissions.script.tl:223-234`).
 - A train maintenance station serves twice as many trains as a train depot: 12 against 6.
+- Maintenance stations cannot buy or store vehicles, but their radius is often larger than the depot's: 600 m against 400 m on roads, 1400 m against 1000 m for ships. Only the road maintenance station also maintains trams.
 - The official wiki suggests waypoints to send vehicles past a maintenance building.
 
 ```engine

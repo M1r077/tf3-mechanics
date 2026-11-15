@@ -114,6 +114,8 @@
 <tr>
 <th>Gebäude</th>
 <th>Wartungspool</th>
+<th>Radius</th>
+<th>Abgestellte Fahrzeuge</th>
 <th class="sc">Source</th>
 </tr>
 </thead>
@@ -121,42 +123,58 @@
 <tr>
 <td>Zugdepot</td>
 <td>6</td>
-<td class="sc"><code class="src">rail_depot.script.lua:349</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">rail_depot.script.lua:341-349</code></td>
 </tr>
 <tr>
 <td>Zug-Wartungsstation</td>
 <td>12</td>
-<td class="sc"><code class="src">rail_maint_station.script.lua:157</code></td>
+<td>800 m</td>
+<td>–</td>
+<td class="sc"><code class="src">rail_maint_station.script.lua:151-157</code></td>
 </tr>
 <tr>
 <td>Straßendepot, Straßenbahndepot</td>
 <td>12</td>
-<td class="sc"><code class="src">road_depot.script.lua:198</code>, <code class="src">tram_depot.script.lua:226</code></td>
+<td>400 m</td>
+<td>10 / 8</td>
+<td class="sc"><code class="src">road_depot.script.lua:189-198</code>, <code class="src">tram_depot.script.lua:217-226</code></td>
 </tr>
 <tr>
 <td>Straßen-Wartungsstation</td>
 <td>16</td>
-<td class="sc"><code class="src">road_maint_station.script.lua:240</code></td>
+<td>600 m</td>
+<td>–</td>
+<td class="sc"><code class="src">road_maint_station.script.lua:234-240</code></td>
 </tr>
 <tr>
 <td>Schiffsdepot</td>
 <td>8</td>
-<td class="sc"><code class="src">water_depot.script.lua:379</code></td>
+<td>1000 m</td>
+<td>5</td>
+<td class="sc"><code class="src">water_depot.script.lua:370-379</code></td>
 </tr>
 <tr>
 <td>Schiffs-Wartungsstation</td>
 <td>12</td>
-<td class="sc"><code class="src">water_maint_station.script.lua:262</code></td>
+<td>1400 m</td>
+<td>–</td>
+<td class="sc"><code class="src">water_maint_station.script.lua:256-262</code></td>
 </tr>
 <tr>
 <td>Hangar eines Flugfelds oder Flughafens</td>
 <td>16</td>
-<td class="sc"><code class="src">af_hangar.module.lua:280</code>, <code class="src">ap_hangar.module.lua:463</code></td>
+<td>550 m</td>
+<td>5</td>
+<td class="sc"><code class="src">af_hangar.module.lua:272-280</code>, <code class="src">ap_hangar.module.lua:455-463</code></td>
 </tr>
 <tr>
 <td>Heliport</td>
 <td>4</td>
-<td class="sc"><code class="src">heliport.script.lua:309</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">heliport.script.lua:300-309</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -164,6 +182,7 @@
 <li>Das Gebäudefenster zeigt „belegt / Pool“ (zum Beispiel 14 / 12) und die Liste der bedienten Fahrzeuge mit ihrem Zustand<span class="sr"> (<code class="src">entity_window_util.tl:2010-2039</code>, <code class="src">maintenance_station_eow.script.tl:188-215</code>)</span>.</li>
 <li>Ein vollerer Pool macht das Gebäude lauter und schmutziger: Die Emissionen steigen mit dem belegten Anteil des Pools<span class="sr"> (<code class="src">emissions.script.tl:223-234</code>)</span>.</li>
 <li>Eine Zug-Wartungsstation bedient doppelt so viele Züge wie ein Zugdepot: 12 gegen 6.</li>
+<li>Wartungsstationen können keine Fahrzeuge kaufen oder abstellen, haben aber oft einen größeren Radius als das Depot: 600 m gegen 400 m auf der Straße, 1400 m gegen 1000 m bei Schiffen. Nur die Straßen-Wartungsstation wartet auch Straßenbahnen.</li>
 <li>Das offizielle Wiki empfiehlt Wegpunkte, um Fahrzeuge an einem Wartungsgebäude vorbeizuschicken.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Welcher Station ein Fahrzeug zugeordnet wird, was passiert, wenn mehr Fahrzeuge eine Station nutzen als ihr Pool, und welcher Einzugsradius gilt, entscheidet die Engine.</p></div></aside>

@@ -62,20 +62,21 @@ fact: 4 to 16 | 辆载具：一个车库或维护站的维护池容量
 
 载具由附近的车库或维护站维护。每座建筑能服务的载具数量有限：即其**维护池**。
 
-| 建筑 | 维护池 | 来源 |
-|---|---|---|
-| 火车车库 | 6 | `rail_depot.script.lua:349` |
-| 火车维护站 | 12 | `rail_maint_station.script.lua:157` |
-| 道路车库、有轨电车车库 | 12 | `road_depot.script.lua:198`，`tram_depot.script.lua:226` |
-| 道路维护站 | 16 | `road_maint_station.script.lua:240` |
-| 船坞 | 8 | `water_depot.script.lua:379` |
-| 船舶维护站 | 12 | `water_maint_station.script.lua:262` |
-| 机场或空港机库 | 16 | `af_hangar.module.lua:280`，`ap_hangar.module.lua:463` |
-| 直升机场 | 4 | `heliport.script.lua:309` |
+| 建筑 | 维护池 | 半径 | 可停放载具 | 来源 |
+|---|---|---|---|---|
+| 火车车库 | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| 火车维护站 | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| 道路车库、有轨电车车库 | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`，`tram_depot.script.lua:217-226` |
+| 道路维护站 | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| 船坞 | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| 船舶维护站 | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| 机场或空港机库 | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`，`ap_hangar.module.lua:455-463` |
+| 直升机场 | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - 建筑窗口显示“已用 / 池”（例如 14 / 12）以及它所服务的载具列表和各自状况（`entity_window_util.tl:2010-2039`，`maintenance_station_eow.script.tl:188-215`）。
 - 维护池越满，建筑越吵越脏：排放随池的使用比例增加（`emissions.script.tl:223-234`）。
 - 火车维护站服务的列车是火车车库的两倍：12 对 6。
+- 维护站不能购买或停放载具，但其半径常比车库大：道路上 600 m 对 400 m，船舶 1400 m 对 1000 m。只有道路维护站也维护有轨电车。
 - 官方 wiki 建议用路径点让载具经过维护建筑。
 
 ```engine

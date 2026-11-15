@@ -114,6 +114,8 @@
 <tr>
 <th>建築</th>
 <th>維修容量</th>
+<th>半徑</th>
+<th>可停放車輛</th>
 <th class="sc">來源</th>
 </tr>
 </thead>
@@ -121,42 +123,58 @@
 <tr>
 <td>火車倉庫</td>
 <td>6</td>
-<td class="sc"><code class="src">rail_depot.script.lua:349</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">rail_depot.script.lua:341-349</code></td>
 </tr>
 <tr>
 <td>火車維修站</td>
 <td>12</td>
-<td class="sc"><code class="src">rail_maint_station.script.lua:157</code></td>
+<td>800 m</td>
+<td>–</td>
+<td class="sc"><code class="src">rail_maint_station.script.lua:151-157</code></td>
 </tr>
 <tr>
 <td>道路倉庫、路面電車倉庫</td>
 <td>12</td>
-<td class="sc"><code class="src">road_depot.script.lua:198</code>，<code class="src">tram_depot.script.lua:226</code></td>
+<td>400 m</td>
+<td>10 / 8</td>
+<td class="sc"><code class="src">road_depot.script.lua:189-198</code>，<code class="src">tram_depot.script.lua:217-226</code></td>
 </tr>
 <tr>
 <td>道路維修站</td>
 <td>16</td>
-<td class="sc"><code class="src">road_maint_station.script.lua:240</code></td>
+<td>600 m</td>
+<td>–</td>
+<td class="sc"><code class="src">road_maint_station.script.lua:234-240</code></td>
 </tr>
 <tr>
 <td>船舶倉庫</td>
 <td>8</td>
-<td class="sc"><code class="src">water_depot.script.lua:379</code></td>
+<td>1000 m</td>
+<td>5</td>
+<td class="sc"><code class="src">water_depot.script.lua:370-379</code></td>
 </tr>
 <tr>
 <td>船舶維修站</td>
 <td>12</td>
-<td class="sc"><code class="src">water_maint_station.script.lua:262</code></td>
+<td>1400 m</td>
+<td>–</td>
+<td class="sc"><code class="src">water_maint_station.script.lua:256-262</code></td>
 </tr>
 <tr>
 <td>機場或航空站機庫</td>
 <td>16</td>
-<td class="sc"><code class="src">af_hangar.module.lua:280</code>，<code class="src">ap_hangar.module.lua:463</code></td>
+<td>550 m</td>
+<td>5</td>
+<td class="sc"><code class="src">af_hangar.module.lua:272-280</code>，<code class="src">ap_hangar.module.lua:455-463</code></td>
 </tr>
 <tr>
 <td>直升機場</td>
 <td>4</td>
-<td class="sc"><code class="src">heliport.script.lua:309</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">heliport.script.lua:300-309</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -164,6 +182,7 @@
 <li>建築視窗顯示「已用 / 容量」（例如 14 / 12）以及它所服務的車輛清單和各自狀態<span class="sr">（<code class="src">entity_window_util.tl:2010-2039</code>，<code class="src">maintenance_station_eow.script.tl:188-215</code>）</span>。</li>
 <li>維修容量越滿，建築越吵越髒：排放隨容量的使用比例增加<span class="sr">（<code class="src">emissions.script.tl:223-234</code>）</span>。</li>
 <li>火車維修站服務的列車是火車倉庫的兩倍：12 對 6。</li>
+<li>維修站不能購買或停放車輛，但其半徑常比倉庫大：道路上 600 m 對 400 m，船舶 1400 m 對 1000 m。只有道路維修站也維修路面電車。</li>
 <li>官方 wiki 建議用路徑點讓車輛經過維修建築。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>車輛被分配到哪個維修站、使用維修站的車輛超過其容量時會怎樣，以及使用的服務半徑，由引擎決定。</p></div></aside>

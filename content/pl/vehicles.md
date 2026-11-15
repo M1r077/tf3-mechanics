@@ -62,20 +62,21 @@ Jak szybko spada stan, ile przywraca wizyta w stacji konserwacji i wielkość ka
 
 Pojazdy są konserwowane przez pobliską bazę lub stację konserwacji. Każda obsługuje ograniczoną liczbę pojazdów: swoją **Pulę konserwacji**.
 
-| Budynek | Pula konserwacji | Źródło |
-|---|---|---|
-| Baza kolejowa | 6 | `rail_depot.script.lua:349` |
-| Kolejowa stacja konserwacji | 12 | `rail_maint_station.script.lua:157` |
-| Baza drogowa, baza tramwajowa | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Drogowa stacja konserwacji | 16 | `road_maint_station.script.lua:240` |
-| Stocznia | 8 | `water_depot.script.lua:379` |
-| Wodna stacja konserwacji | 12 | `water_maint_station.script.lua:262` |
-| Hangar lotniska lub portu lotniczego | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Lądowisko dla helikopterów | 4 | `heliport.script.lua:309` |
+| Budynek | Pula konserwacji | Promień | Pojazdy w bazie | Źródło |
+|---|---|---|---|---|
+| Baza kolejowa | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Kolejowa stacja konserwacji | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Baza drogowa, baza tramwajowa | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Drogowa stacja konserwacji | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Stocznia | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Wodna stacja konserwacji | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Hangar lotniska lub portu lotniczego | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Lądowisko dla helikopterów | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - Okno budynku pokazuje „zajęte / pula” (na przykład 14 / 12) i listę obsługiwanych pojazdów wraz z ich stanem (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Pełniejsza pula sprawia, że budynek jest głośniejszy i brudniejszy: emisje rosną wraz z zajętą częścią puli (`emissions.script.tl:223-234`).
 - Kolejowa stacja konserwacji obsługuje dwa razy więcej pociągów niż baza kolejowa: 12 wobec 6.
+- Stacje konserwacji nie kupują ani nie przechowują pojazdów, ale ich promień jest często większy niż bazy: 600 m wobec 400 m na drogach, 1400 m wobec 1000 m dla statków. Tylko drogowa stacja konserwacji obsługuje też tramwaje.
 - Oficjalna wiki radzi używać punktów trasy, by kierować pojazdy obok budynku konserwacji.
 
 ```engine

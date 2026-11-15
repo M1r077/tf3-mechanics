@@ -62,20 +62,21 @@ fact: 4 to 16 | 台：車庫または整備ステーション 1 つの整備プ�
 
 車両は近くの車庫または整備ステーションで整備される。どちらも整備できる車両の数に限りがある。それが**整備プール**である。
 
-| 建物 | 整備プール | ソース |
-|---|---|---|
-| 鉄道車庫 | 6 | `rail_depot.script.lua:349` |
-| 鉄道整備ステーション | 12 | `rail_maint_station.script.lua:157` |
-| 道路車庫、路面電車車庫 | 12 | `road_depot.script.lua:198`、`tram_depot.script.lua:226` |
-| 道路整備ステーション | 16 | `road_maint_station.script.lua:240` |
-| 船舶車庫 | 8 | `water_depot.script.lua:379` |
-| 船舶整備ステーション | 12 | `water_maint_station.script.lua:262` |
-| 飛行場または空港の格納庫 | 16 | `af_hangar.module.lua:280`、`ap_hangar.module.lua:463` |
-| ヘリポート | 4 | `heliport.script.lua:309` |
+| 建物 | 整備プール | 半径 | 収容台数 | ソース |
+|---|---|---|---|---|
+| 鉄道車庫 | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| 鉄道整備ステーション | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| 道路車庫、路面電車車庫 | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`、`tram_depot.script.lua:217-226` |
+| 道路整備ステーション | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| 船舶車庫 | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| 船舶整備ステーション | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| 飛行場または空港の格納庫 | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`、`ap_hangar.module.lua:455-463` |
+| ヘリポート | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - 建物ウィンドウには「使用中 / プール」（例：14 / 12）と、整備する車両の一覧がその状況とともに表示される（`entity_window_util.tl:2010-2039`、`maintenance_station_eow.script.tl:188-215`）。
 - プールが埋まるほど建物は騒がしく汚くなる。排出はプールの使用率とともに増える（`emissions.script.tl:223-234`）。
 - 鉄道整備ステーションは鉄道車庫の 2 倍の列車を整備する。12 対 6。
+- 整備ステーションは車両を購入も収容もできないが、半径は車庫より大きいことが多い。道路では 600 m 対 400 m、船舶では 1400 m 対 1000 m。路面電車も整備するのは道路整備ステーションだけである。
 - 公式wikiは、車両に整備用の建物の前を通らせるためにウェイポイントを使うことを勧めている。
 
 ```engine

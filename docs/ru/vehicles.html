@@ -114,6 +114,8 @@
 <tr>
 <th>Здание</th>
 <th>Возможности для техобслуживания</th>
+<th>Радиус</th>
+<th>Мест для транспорта</th>
 <th class="sc">Источник</th>
 </tr>
 </thead>
@@ -121,42 +123,58 @@
 <tr>
 <td>Железнодорожное депо</td>
 <td>6</td>
-<td class="sc"><code class="src">rail_depot.script.lua:349</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">rail_depot.script.lua:341-349</code></td>
 </tr>
 <tr>
 <td>Железнодорожная станция техобслуживания</td>
 <td>12</td>
-<td class="sc"><code class="src">rail_maint_station.script.lua:157</code></td>
+<td>800 m</td>
+<td>–</td>
+<td class="sc"><code class="src">rail_maint_station.script.lua:151-157</code></td>
 </tr>
 <tr>
 <td>Автодепо, трамвайное депо</td>
 <td>12</td>
-<td class="sc"><code class="src">road_depot.script.lua:198</code>, <code class="src">tram_depot.script.lua:226</code></td>
+<td>400 m</td>
+<td>10 / 8</td>
+<td class="sc"><code class="src">road_depot.script.lua:189-198</code>, <code class="src">tram_depot.script.lua:217-226</code></td>
 </tr>
 <tr>
 <td>Автомобильная станция техобслуживания</td>
 <td>16</td>
-<td class="sc"><code class="src">road_maint_station.script.lua:240</code></td>
+<td>600 m</td>
+<td>–</td>
+<td class="sc"><code class="src">road_maint_station.script.lua:234-240</code></td>
 </tr>
 <tr>
 <td>Верфь</td>
 <td>8</td>
-<td class="sc"><code class="src">water_depot.script.lua:379</code></td>
+<td>1000 m</td>
+<td>5</td>
+<td class="sc"><code class="src">water_depot.script.lua:370-379</code></td>
 </tr>
 <tr>
 <td>Станция техобслуживания судов</td>
 <td>12</td>
-<td class="sc"><code class="src">water_maint_station.script.lua:262</code></td>
+<td>1400 m</td>
+<td>–</td>
+<td class="sc"><code class="src">water_maint_station.script.lua:256-262</code></td>
 </tr>
 <tr>
 <td>Ангар аэродрома или аэропорта</td>
 <td>16</td>
-<td class="sc"><code class="src">af_hangar.module.lua:280</code>, <code class="src">ap_hangar.module.lua:463</code></td>
+<td>550 m</td>
+<td>5</td>
+<td class="sc"><code class="src">af_hangar.module.lua:272-280</code>, <code class="src">ap_hangar.module.lua:455-463</code></td>
 </tr>
 <tr>
 <td>Вертодром</td>
 <td>4</td>
-<td class="sc"><code class="src">heliport.script.lua:309</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">heliport.script.lua:300-309</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -164,6 +182,7 @@
 <li>Окно здания показывает «занято / всего» (например, 14 / 12) и список обслуживаемого транспорта с его состоянием<span class="sr"> (<code class="src">entity_window_util.tl:2010-2039</code>, <code class="src">maintenance_station_eow.script.tl:188-215</code>)</span>.</li>
 <li>Чем больше заняты возможности, тем шумнее и грязнее здание: выбросы растут с занятой долей<span class="sr"> (<code class="src">emissions.script.tl:223-234</code>)</span>.</li>
 <li>Железнодорожная станция техобслуживания обслуживает вдвое больше поездов, чем железнодорожное депо: 12 против 6.</li>
+<li>Станции техобслуживания не покупают и не хранят транспорт, но их радиус часто больше, чем у депо: 600 м против 400 м на дорогах, 1400 м против 1000 м для судов. Только автомобильная станция техобслуживания обслуживает и трамваи.</li>
 <li>Официальная вики советует использовать путевые точки, чтобы направлять транспорт мимо здания техобслуживания.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Решает движок игры<small>C++, в скриптах не видно</small></h4><p>К какой станции приписывается транспорт, что происходит, когда станцию использует больше транспорта, чем её возможности, и какой радиус охвата используется, решает движок.</p></div></aside>

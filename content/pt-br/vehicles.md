@@ -62,20 +62,21 @@ A rapidez com que a condição cai, quanto uma visita a uma estação de manuten
 
 Os veículos recebem manutenção de um pátio ou estação de manutenção próxima. Cada um atende um número limitado de veículos: seus **Recursos de Manutenção**.
 
-| Edifício | Recursos de manutenção | Fonte |
-|---|---|---|
-| Pátio ferroviário | 6 | `rail_depot.script.lua:349` |
-| Estação de manutenção ferroviária | 12 | `rail_maint_station.script.lua:157` |
-| Pátio rodoviário, pátio de bondes | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Estação de manutenção rodoviária | 16 | `road_maint_station.script.lua:240` |
-| Estaleiro | 8 | `water_depot.script.lua:379` |
-| Estação de manutenção de navios | 12 | `water_maint_station.script.lua:262` |
-| Hangar de aeródromo ou aeroporto | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Heliporto | 4 | `heliport.script.lua:309` |
+| Edifício | Recursos de manutenção | Raio | Veículos guardados | Fonte |
+|---|---|---|---|---|
+| Pátio ferroviário | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Estação de manutenção ferroviária | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Pátio rodoviário, pátio de bondes | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Estação de manutenção rodoviária | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Estaleiro | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Estação de manutenção de navios | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Hangar de aeródromo ou aeroporto | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Heliporto | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - A janela do edifício mostra "usados / recursos" (por exemplo 14 / 12) e a lista de veículos atendidos, com sua condição (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Recursos mais ocupados deixam o edifício mais barulhento e mais poluente: as emissões sobem com a parcela em uso (`emissions.script.tl:223-234`).
 - Uma estação de manutenção ferroviária atende o dobro de trens de um pátio ferroviário: 12 contra 6.
+- As estações de manutenção não compram nem guardam veículos, mas seu raio costuma ser maior que o do pátio: 600 m contra 400 m nas estradas, 1400 m contra 1000 m para navios. Só a estação de manutenção rodoviária também faz a manutenção dos bondes.
 - A wiki oficial sugere pontos de passagem para fazer os veículos passarem por um edifício de manutenção.
 
 ```engine

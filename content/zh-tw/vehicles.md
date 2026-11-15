@@ -62,20 +62,21 @@ fact: 4 to 16 | 輛車輛：一座倉庫或維修站的維修容量
 
 車輛由附近的倉庫或維修站維修。每座建築能服務的車輛數量有限：即其**維修容量**。
 
-| 建築 | 維修容量 | 來源 |
-|---|---|---|
-| 火車倉庫 | 6 | `rail_depot.script.lua:349` |
-| 火車維修站 | 12 | `rail_maint_station.script.lua:157` |
-| 道路倉庫、路面電車倉庫 | 12 | `road_depot.script.lua:198`，`tram_depot.script.lua:226` |
-| 道路維修站 | 16 | `road_maint_station.script.lua:240` |
-| 船舶倉庫 | 8 | `water_depot.script.lua:379` |
-| 船舶維修站 | 12 | `water_maint_station.script.lua:262` |
-| 機場或航空站機庫 | 16 | `af_hangar.module.lua:280`，`ap_hangar.module.lua:463` |
-| 直升機場 | 4 | `heliport.script.lua:309` |
+| 建築 | 維修容量 | 半徑 | 可停放車輛 | 來源 |
+|---|---|---|---|---|
+| 火車倉庫 | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| 火車維修站 | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| 道路倉庫、路面電車倉庫 | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`，`tram_depot.script.lua:217-226` |
+| 道路維修站 | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| 船舶倉庫 | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| 船舶維修站 | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| 機場或航空站機庫 | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`，`ap_hangar.module.lua:455-463` |
+| 直升機場 | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - 建築視窗顯示「已用 / 容量」（例如 14 / 12）以及它所服務的車輛清單和各自狀態（`entity_window_util.tl:2010-2039`，`maintenance_station_eow.script.tl:188-215`）。
 - 維修容量越滿，建築越吵越髒：排放隨容量的使用比例增加（`emissions.script.tl:223-234`）。
 - 火車維修站服務的列車是火車倉庫的兩倍：12 對 6。
+- 維修站不能購買或停放車輛，但其半徑常比倉庫大：道路上 600 m 對 400 m，船舶 1400 m 對 1000 m。只有道路維修站也維修路面電車。
 - 官方 wiki 建議用路徑點讓車輛經過維修建築。
 
 ```engine

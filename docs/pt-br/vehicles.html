@@ -114,6 +114,8 @@
 <tr>
 <th>Edifício</th>
 <th>Recursos de manutenção</th>
+<th>Raio</th>
+<th>Veículos guardados</th>
 <th class="sc">Fonte</th>
 </tr>
 </thead>
@@ -121,42 +123,58 @@
 <tr>
 <td>Pátio ferroviário</td>
 <td>6</td>
-<td class="sc"><code class="src">rail_depot.script.lua:349</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">rail_depot.script.lua:341-349</code></td>
 </tr>
 <tr>
 <td>Estação de manutenção ferroviária</td>
 <td>12</td>
-<td class="sc"><code class="src">rail_maint_station.script.lua:157</code></td>
+<td>800 m</td>
+<td>–</td>
+<td class="sc"><code class="src">rail_maint_station.script.lua:151-157</code></td>
 </tr>
 <tr>
 <td>Pátio rodoviário, pátio de bondes</td>
 <td>12</td>
-<td class="sc"><code class="src">road_depot.script.lua:198</code>, <code class="src">tram_depot.script.lua:226</code></td>
+<td>400 m</td>
+<td>10 / 8</td>
+<td class="sc"><code class="src">road_depot.script.lua:189-198</code>, <code class="src">tram_depot.script.lua:217-226</code></td>
 </tr>
 <tr>
 <td>Estação de manutenção rodoviária</td>
 <td>16</td>
-<td class="sc"><code class="src">road_maint_station.script.lua:240</code></td>
+<td>600 m</td>
+<td>–</td>
+<td class="sc"><code class="src">road_maint_station.script.lua:234-240</code></td>
 </tr>
 <tr>
 <td>Estaleiro</td>
 <td>8</td>
-<td class="sc"><code class="src">water_depot.script.lua:379</code></td>
+<td>1000 m</td>
+<td>5</td>
+<td class="sc"><code class="src">water_depot.script.lua:370-379</code></td>
 </tr>
 <tr>
 <td>Estação de manutenção de navios</td>
 <td>12</td>
-<td class="sc"><code class="src">water_maint_station.script.lua:262</code></td>
+<td>1400 m</td>
+<td>–</td>
+<td class="sc"><code class="src">water_maint_station.script.lua:256-262</code></td>
 </tr>
 <tr>
 <td>Hangar de aeródromo ou aeroporto</td>
 <td>16</td>
-<td class="sc"><code class="src">af_hangar.module.lua:280</code>, <code class="src">ap_hangar.module.lua:463</code></td>
+<td>550 m</td>
+<td>5</td>
+<td class="sc"><code class="src">af_hangar.module.lua:272-280</code>, <code class="src">ap_hangar.module.lua:455-463</code></td>
 </tr>
 <tr>
 <td>Heliporto</td>
 <td>4</td>
-<td class="sc"><code class="src">heliport.script.lua:309</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">heliport.script.lua:300-309</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -164,6 +182,7 @@
 <li>A janela do edifício mostra "usados / recursos" (por exemplo 14 / 12) e a lista de veículos atendidos, com sua condição<span class="sr"> (<code class="src">entity_window_util.tl:2010-2039</code>, <code class="src">maintenance_station_eow.script.tl:188-215</code>)</span>.</li>
 <li>Recursos mais ocupados deixam o edifício mais barulhento e mais poluente: as emissões sobem com a parcela em uso<span class="sr"> (<code class="src">emissions.script.tl:223-234</code>)</span>.</li>
 <li>Uma estação de manutenção ferroviária atende o dobro de trens de um pátio ferroviário: 12 contra 6.</li>
+<li>As estações de manutenção não compram nem guardam veículos, mas seu raio costuma ser maior que o do pátio: 600 m contra 400 m nas estradas, 1400 m contra 1000 m para navios. Só a estação de manutenção rodoviária também faz a manutenção dos bondes.</li>
 <li>A wiki oficial sugere pontos de passagem para fazer os veículos passarem por um edifício de manutenção.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>A qual estação um veículo é atribuído, o que acontece quando mais veículos usam uma estação do que seus recursos e o raio de cobertura usado são decididos pelo motor.</p></div></aside>

@@ -62,20 +62,21 @@ Quanto velocemente cala la condizione, quanto ripristina una visita a una stazio
 
 I veicoli ricevono manutenzione da un deposito o da una stazione di manutenzione vicini. Ognuno serve un numero limitato di veicoli: il suo **Fondo manutenzione**.
 
-| Edificio | Fondo manutenzione | Source |
-|---|---|---|
-| Deposito treni | 6 | `rail_depot.script.lua:349` |
-| Stazione di manutenzione treni | 12 | `rail_maint_station.script.lua:157` |
-| Deposito stradale, deposito tram | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Stazione di manutenzione stradale | 16 | `road_maint_station.script.lua:240` |
-| Deposito navale | 8 | `water_depot.script.lua:379` |
-| Stazione di manutenzione navale | 12 | `water_maint_station.script.lua:262` |
-| Hangar di aerodromo o aeroporto | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Eliporto | 4 | `heliport.script.lua:309` |
+| Edificio | Fondo manutenzione | Raggio | Veicoli ospitati | Source |
+|---|---|---|---|---|
+| Deposito treni | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Stazione di manutenzione treni | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Deposito stradale, deposito tram | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Stazione di manutenzione stradale | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Deposito navale | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Stazione di manutenzione navale | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Hangar di aerodromo o aeroporto | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Eliporto | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - La finestra dell'edificio mostra "usati / fondo" (per esempio 14 / 12) e l'elenco dei veicoli che serve, con la loro condizione (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Un fondo più pieno rende l'edificio più rumoroso e più inquinante: le emissioni salgono con la quota del fondo in uso (`emissions.script.tl:223-234`).
 - Una stazione di manutenzione treni serve il doppio dei treni di un deposito treni: 12 contro 6.
+- Le stazioni di manutenzione non comprano né ospitano veicoli, ma il loro raggio è spesso più grande di quello del deposito: 600 m contro 400 m su strada, 1400 m contro 1000 m per le navi. Solo la stazione di manutenzione stradale fa manutenzione anche ai tram.
 - Il wiki ufficiale suggerisce dei waypoint per far passare i veicoli da un edificio di manutenzione.
 
 ```engine

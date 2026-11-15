@@ -62,20 +62,21 @@ La vitesse à laquelle l'état baisse, ce que rétablit un passage à une statio
 
 Les véhicules sont entretenus par un dépôt ou une station de maintenance proche. Chacun sert un nombre limité de véhicules : sa **Réserve de maintenance**.
 
-| Bâtiment | Réserve de maintenance | Source |
-|---|---|---|
-| Dépôt ferroviaire | 6 | `rail_depot.script.lua:349` |
-| Station de maintenance ferroviaire | 12 | `rail_maint_station.script.lua:157` |
-| Dépôt routier, dépôt de trams | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Station de maintenance routière | 16 | `road_maint_station.script.lua:240` |
-| Dépôt naval | 8 | `water_depot.script.lua:379` |
-| Station de maintenance navale | 12 | `water_maint_station.script.lua:262` |
-| Hangar d'aérodrome ou d'aéroport | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Héliport | 4 | `heliport.script.lua:309` |
+| Bâtiment | Réserve de maintenance | Rayon | Véhicules stockés | Source |
+|---|---|---|---|---|
+| Dépôt ferroviaire | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Station de maintenance ferroviaire | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Dépôt routier, dépôt de trams | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Station de maintenance routière | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Dépôt naval | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Station de maintenance navale | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Hangar d'aérodrome ou d'aéroport | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Héliport | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - La fenêtre du bâtiment affiche « utilisé / réserve » (par exemple 14 / 12) et la liste des véhicules qu'il sert, avec leur état (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Une réserve plus remplie rend le bâtiment plus bruyant et plus polluant : les émissions augmentent avec la part de la réserve utilisée (`emissions.script.tl:223-234`).
 - Une station de maintenance ferroviaire sert deux fois plus de trains qu'un dépôt ferroviaire : 12 contre 6.
+- Les stations de maintenance n'achètent ni ne stockent de véhicules, mais leur rayon est souvent plus grand que celui du dépôt : 600 m contre 400 m sur route, 1400 m contre 1000 m pour les navires. Seule la station de maintenance routière entretient aussi les trams.
 - Le wiki officiel conseille des points de passage pour faire passer les véhicules par un bâtiment de maintenance.
 
 ```engine

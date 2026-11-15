@@ -62,20 +62,21 @@ Hoe snel de staat daalt, hoeveel een bezoek aan een onderhoudsstation herstelt, 
 
 Voertuigen worden onderhouden door een depot of onderhoudsstation in de buurt. Elk bedient een beperkt aantal voertuigen: zijn **Onderhoudsgroep**.
 
-| Gebouw | Onderhoudsgroep | Bron |
-|---|---|---|
-| Treindepot | 6 | `rail_depot.script.lua:349` |
-| Treinonderhoudsstation | 12 | `rail_maint_station.script.lua:157` |
-| Wegdepot, tramdepot | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Wegonderhoudsstation | 16 | `road_maint_station.script.lua:240` |
-| Scheepsdepot | 8 | `water_depot.script.lua:379` |
-| Scheepsonderhoudsstation | 12 | `water_maint_station.script.lua:262` |
-| Hangar van vliegveld of luchthaven | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Helihaven | 4 | `heliport.script.lua:309` |
+| Gebouw | Onderhoudsgroep | Straal | Gestalde voertuigen | Bron |
+|---|---|---|---|---|
+| Treindepot | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Treinonderhoudsstation | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Wegdepot, tramdepot | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Wegonderhoudsstation | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Scheepsdepot | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Scheepsonderhoudsstation | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Hangar van vliegveld of luchthaven | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Helihaven | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - Het gebouwvenster toont "gebruikt / groep" (bijvoorbeeld 14 / 12) en de lijst van voertuigen die het bedient, met hun staat (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Een vollere groep maakt het gebouw luidruchtiger en vuiler: de emissies stijgen met het gebruikte deel van de groep (`emissions.script.tl:223-234`).
 - Een treinonderhoudsstation bedient twee keer zoveel treinen als een treindepot: 12 tegen 6.
+- Onderhoudsstations kunnen geen voertuigen kopen of stallen, maar hun straal is vaak groter dan die van het depot: 600 m tegen 400 m op de weg, 1400 m tegen 1000 m voor schepen. Alleen het wegonderhoudsstation onderhoudt ook trams.
 - De officiële wiki raadt waypoints aan om voertuigen langs een onderhoudsgebouw te sturen.
 
 ```engine

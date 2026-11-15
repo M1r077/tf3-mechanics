@@ -62,20 +62,21 @@ La rapidez con que baja la condición, cuánto restablece una visita a una estac
 
 Los vehículos reciben mantenimiento de un depósito o una estación de mantenimiento cercanos. Cada uno atiende a un número limitado de vehículos: sus **Recursos de mantenimiento**.
 
-| Edificio | Recursos de mantenimiento | Source |
-|---|---|---|
-| Depósito de trenes | 6 | `rail_depot.script.lua:349` |
-| Estación de mantenimiento de trenes | 12 | `rail_maint_station.script.lua:157` |
-| Depósito de carretera, depósito de tranvías | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
-| Estación de mantenimiento de carretera | 16 | `road_maint_station.script.lua:240` |
-| Depósito de barcos | 8 | `water_depot.script.lua:379` |
-| Estación de mantenimiento de barcos | 12 | `water_maint_station.script.lua:262` |
-| Hangar de aeródromo o aeropuerto | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
-| Helipuerto | 4 | `heliport.script.lua:309` |
+| Edificio | Recursos de mantenimiento | Radio | Vehículos guardados | Source |
+|---|---|---|---|---|
+| Depósito de trenes | 6 | 800 m | 5 | `rail_depot.script.lua:341-349` |
+| Estación de mantenimiento de trenes | 12 | 800 m | – | `rail_maint_station.script.lua:151-157` |
+| Depósito de carretera, depósito de tranvías | 12 | 400 m | 10 / 8 | `road_depot.script.lua:189-198`, `tram_depot.script.lua:217-226` |
+| Estación de mantenimiento de carretera | 16 | 600 m | – | `road_maint_station.script.lua:234-240` |
+| Depósito de barcos | 8 | 1000 m | 5 | `water_depot.script.lua:370-379` |
+| Estación de mantenimiento de barcos | 12 | 1400 m | – | `water_maint_station.script.lua:256-262` |
+| Hangar de aeródromo o aeropuerto | 16 | 550 m | 5 | `af_hangar.module.lua:272-280`, `ap_hangar.module.lua:455-463` |
+| Helipuerto | 4 | 800 m | 5 | `heliport.script.lua:300-309` |
 
 - La ventana del edificio muestra "usados / recursos" (por ejemplo 14 / 12) y la lista de vehículos que atiende, con su condición (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Cuanto más lleno está, más ruidoso y contaminante es el edificio: las emisiones suben con la parte de los recursos en uso (`emissions.script.tl:223-234`).
 - Una estación de mantenimiento de trenes atiende el doble de trenes que un depósito de trenes: 12 frente a 6.
+- Las estaciones de mantenimiento no compran ni guardan vehículos, pero su radio suele ser mayor que el del depósito: 600 m frente a 400 m en carretera, 1400 m frente a 1000 m para barcos. Solo la estación de mantenimiento de carretera mantiene también los tranvías.
 - La wiki oficial sugiere puntos de paso para hacer pasar los vehículos por un edificio de mantenimiento.
 
 ```engine

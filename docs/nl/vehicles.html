@@ -114,6 +114,8 @@
 <tr>
 <th>Gebouw</th>
 <th>Onderhoudsgroep</th>
+<th>Straal</th>
+<th>Gestalde voertuigen</th>
 <th class="sc">Bron</th>
 </tr>
 </thead>
@@ -121,42 +123,58 @@
 <tr>
 <td>Treindepot</td>
 <td>6</td>
-<td class="sc"><code class="src">rail_depot.script.lua:349</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">rail_depot.script.lua:341-349</code></td>
 </tr>
 <tr>
 <td>Treinonderhoudsstation</td>
 <td>12</td>
-<td class="sc"><code class="src">rail_maint_station.script.lua:157</code></td>
+<td>800 m</td>
+<td>–</td>
+<td class="sc"><code class="src">rail_maint_station.script.lua:151-157</code></td>
 </tr>
 <tr>
 <td>Wegdepot, tramdepot</td>
 <td>12</td>
-<td class="sc"><code class="src">road_depot.script.lua:198</code>, <code class="src">tram_depot.script.lua:226</code></td>
+<td>400 m</td>
+<td>10 / 8</td>
+<td class="sc"><code class="src">road_depot.script.lua:189-198</code>, <code class="src">tram_depot.script.lua:217-226</code></td>
 </tr>
 <tr>
 <td>Wegonderhoudsstation</td>
 <td>16</td>
-<td class="sc"><code class="src">road_maint_station.script.lua:240</code></td>
+<td>600 m</td>
+<td>–</td>
+<td class="sc"><code class="src">road_maint_station.script.lua:234-240</code></td>
 </tr>
 <tr>
 <td>Scheepsdepot</td>
 <td>8</td>
-<td class="sc"><code class="src">water_depot.script.lua:379</code></td>
+<td>1000 m</td>
+<td>5</td>
+<td class="sc"><code class="src">water_depot.script.lua:370-379</code></td>
 </tr>
 <tr>
 <td>Scheepsonderhoudsstation</td>
 <td>12</td>
-<td class="sc"><code class="src">water_maint_station.script.lua:262</code></td>
+<td>1400 m</td>
+<td>–</td>
+<td class="sc"><code class="src">water_maint_station.script.lua:256-262</code></td>
 </tr>
 <tr>
 <td>Hangar van vliegveld of luchthaven</td>
 <td>16</td>
-<td class="sc"><code class="src">af_hangar.module.lua:280</code>, <code class="src">ap_hangar.module.lua:463</code></td>
+<td>550 m</td>
+<td>5</td>
+<td class="sc"><code class="src">af_hangar.module.lua:272-280</code>, <code class="src">ap_hangar.module.lua:455-463</code></td>
 </tr>
 <tr>
 <td>Helihaven</td>
 <td>4</td>
-<td class="sc"><code class="src">heliport.script.lua:309</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">heliport.script.lua:300-309</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -164,6 +182,7 @@
 <li>Het gebouwvenster toont "gebruikt / groep" (bijvoorbeeld 14 / 12) en de lijst van voertuigen die het bedient, met hun staat<span class="sr"> (<code class="src">entity_window_util.tl:2010-2039</code>, <code class="src">maintenance_station_eow.script.tl:188-215</code>)</span>.</li>
 <li>Een vollere groep maakt het gebouw luidruchtiger en vuiler: de emissies stijgen met het gebruikte deel van de groep<span class="sr"> (<code class="src">emissions.script.tl:223-234</code>)</span>.</li>
 <li>Een treinonderhoudsstation bedient twee keer zoveel treinen als een treindepot: 12 tegen 6.</li>
+<li>Onderhoudsstations kunnen geen voertuigen kopen of stallen, maar hun straal is vaak groter dan die van het depot: 600 m tegen 400 m op de weg, 1400 m tegen 1000 m voor schepen. Alleen het wegonderhoudsstation onderhoudt ook trams.</li>
 <li>De officiële wiki raadt waypoints aan om voertuigen langs een onderhoudsgebouw te sturen.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Bepaald door de game-engine<small>C++, niet zichtbaar in de scripts</small></h4><p>Aan welk station een voertuig wordt toegewezen, wat er gebeurt als meer voertuigen een station gebruiken dan zijn groep, en de gebruikte straal van het verzorgingsgebied, beslist de engine.</p></div></aside>

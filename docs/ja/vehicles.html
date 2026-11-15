@@ -114,6 +114,8 @@
 <tr>
 <th>建物</th>
 <th>整備プール</th>
+<th>半径</th>
+<th>収容台数</th>
 <th class="sc">ソース</th>
 </tr>
 </thead>
@@ -121,42 +123,58 @@
 <tr>
 <td>鉄道車庫</td>
 <td>6</td>
-<td class="sc"><code class="src">rail_depot.script.lua:349</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">rail_depot.script.lua:341-349</code></td>
 </tr>
 <tr>
 <td>鉄道整備ステーション</td>
 <td>12</td>
-<td class="sc"><code class="src">rail_maint_station.script.lua:157</code></td>
+<td>800 m</td>
+<td>–</td>
+<td class="sc"><code class="src">rail_maint_station.script.lua:151-157</code></td>
 </tr>
 <tr>
 <td>道路車庫、路面電車車庫</td>
 <td>12</td>
-<td class="sc"><code class="src">road_depot.script.lua:198</code>、<code class="src">tram_depot.script.lua:226</code></td>
+<td>400 m</td>
+<td>10 / 8</td>
+<td class="sc"><code class="src">road_depot.script.lua:189-198</code>、<code class="src">tram_depot.script.lua:217-226</code></td>
 </tr>
 <tr>
 <td>道路整備ステーション</td>
 <td>16</td>
-<td class="sc"><code class="src">road_maint_station.script.lua:240</code></td>
+<td>600 m</td>
+<td>–</td>
+<td class="sc"><code class="src">road_maint_station.script.lua:234-240</code></td>
 </tr>
 <tr>
 <td>船舶車庫</td>
 <td>8</td>
-<td class="sc"><code class="src">water_depot.script.lua:379</code></td>
+<td>1000 m</td>
+<td>5</td>
+<td class="sc"><code class="src">water_depot.script.lua:370-379</code></td>
 </tr>
 <tr>
 <td>船舶整備ステーション</td>
 <td>12</td>
-<td class="sc"><code class="src">water_maint_station.script.lua:262</code></td>
+<td>1400 m</td>
+<td>–</td>
+<td class="sc"><code class="src">water_maint_station.script.lua:256-262</code></td>
 </tr>
 <tr>
 <td>飛行場または空港の格納庫</td>
 <td>16</td>
-<td class="sc"><code class="src">af_hangar.module.lua:280</code>、<code class="src">ap_hangar.module.lua:463</code></td>
+<td>550 m</td>
+<td>5</td>
+<td class="sc"><code class="src">af_hangar.module.lua:272-280</code>、<code class="src">ap_hangar.module.lua:455-463</code></td>
 </tr>
 <tr>
 <td>ヘリポート</td>
 <td>4</td>
-<td class="sc"><code class="src">heliport.script.lua:309</code></td>
+<td>800 m</td>
+<td>5</td>
+<td class="sc"><code class="src">heliport.script.lua:300-309</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -164,6 +182,7 @@
 <li>建物ウィンドウには「使用中 / プール」（例：14 / 12）と、整備する車両の一覧がその状況とともに表示される<span class="sr">（<code class="src">entity_window_util.tl:2010-2039</code>、<code class="src">maintenance_station_eow.script.tl:188-215</code>）</span>。</li>
 <li>プールが埋まるほど建物は騒がしく汚くなる。排出はプールの使用率とともに増える<span class="sr">（<code class="src">emissions.script.tl:223-234</code>）</span>。</li>
 <li>鉄道整備ステーションは鉄道車庫の 2 倍の列車を整備する。12 対 6。</li>
+<li>整備ステーションは車両を購入も収容もできないが、半径は車庫より大きいことが多い。道路では 600 m 対 400 m、船舶では 1400 m 対 1000 m。路面電車も整備するのは道路整備ステーションだけである。</li>
 <li>公式wikiは、車両に整備用の建物の前を通らせるためにウェイポイントを使うことを勧めている。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>車両がどのステーションに割り当てられるか、プールを超える車両がステーションを使うとどうなるか、使われる集客半径は、エンジンが決める。</p></div></aside>
