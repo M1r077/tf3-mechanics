@@ -17,7 +17,7 @@ Chaque industrie offre des emplois. Quand assez de travailleurs **arrivent par t
 
 ## Qui peut travailler dans une industrie
 
-- Chaque industrie du jeu de base a **20 emplois** (`industrialCapacity = 20` dans le .con.lua de chaque industrie).
+- Chaque industrie du jeu de base a **20 emplois** (`industrialCapacity = 20`).
 - Les emplois sont réglés pour que les habitants **ne puissent pas y aller à pied ni en voiture** : seules tes lignes peuvent les amener (`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - Chaque habitant a un logement, un commerce et un emploi. Le jeu choisit l'emploi parmi les lieux que l'habitant peut atteindre ; une industrie a un poids de destination de 2,0 (`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ Les habitants dont l'emploi est cette industrie. C'est la jauge des emplois de l
 
 ## Travailleurs comptés pour le bonus
 
-Un petit script du jeu, `industry_workers.script.tl`, surveille chaque arrivée :
+Un petit script du jeu surveille chaque arrivée (`industry_workers.script.tl`) :
 
 1. Quand un habitant arrive à une industrie et que son **dernier trajet s'est fait par tes lignes**, l'arrivée est notée avec l'heure du jeu (`industry_workers.script.tl:86-118`).
 2. Seules les arrivées des **2 dernières années de jeu** sont gardées (`industry_productivity_util.tl:3` : `2 * getDefaultYearDuration()`).

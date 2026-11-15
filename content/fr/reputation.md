@@ -69,7 +69,7 @@ Une connexion principale compte comme coupée quand le jeu affiche **La liaison 
 | Habitants | tes lignes dans cette ville comptent comme deux fois moins coûteuses quand les habitants choisissent comment se déplacer | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Le script compte 360 secondes de temps de jeu par niveau (120 avec une campagne). Le calendrier derrière est la durée d'année du moteur (getDefaultYearDuration) ; les 33 % et 100 % affichés dans la fenêtre de la ville correspondent à une année de 720 secondes (un jour de 2 secondes, comme dans `cargotype.script.lua:3`). À quel point le coût de ligne divisé par deux pousse les habitants vers tes lignes dépend du choix d'itinéraire du moteur.
+Le script compte 360 secondes de temps de jeu par niveau (120 avec une campagne). Le calendrier derrière est la durée d'année du moteur (getDefaultYearDuration) ; les 33 % et 100 % affichés dans la fenêtre de la ville correspondent à une année de 720 secondes (un jour de 2 secondes, `cargotype.script.lua:3`). À quel point le coût de ligne divisé par deux pousse les habitants vers tes lignes dépend du choix d'itinéraire du moteur.
 ```
 
 ## Bon à savoir

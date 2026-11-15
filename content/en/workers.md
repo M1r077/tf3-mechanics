@@ -17,7 +17,7 @@ Every industry offers workplaces. When enough workers **arrive by your passenger
 
 ## Who can work at an industry
 
-- Every base-game industry has **20 workplaces** (`industrialCapacity = 20` in each industry's .con.lua).
+- Every base-game industry has **20 workplaces** (`industrialCapacity = 20`).
 - The workplaces are set up so that residents **cannot walk or drive** there: only your lines can bring them (`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - Each resident has a home, a shop and a job. The game picks the job among the places that resident can reach; an industry has a destination weight of 2.0 (`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ The residents whose job is this industry. This is the workplaces bar of the indu
 
 ## Workers counted for the boost
 
-A small game script, `industry_workers.script.tl`, watches every arrival:
+A small game script watches every arrival (`industry_workers.script.tl`):
 
 1. When a resident arrives at an industry and its **last move was by your lines**, the arrival is noted with the game time (`industry_workers.script.tl:86-118`).
 2. Only arrivals of the **last 2 game years** are kept (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).

@@ -17,7 +17,7 @@ fact: ×1.5–2.5 | 加速係數，每個產業固定
 
 ## 誰能在產業工作
 
-- 每個基本遊戲的產業都有 **20 個工作場所**（各產業 .con.lua 中的 `industrialCapacity = 20`）。
+- 每個基本遊戲的產業都有 **20 個工作場所**（`industrialCapacity = 20`）。
 - 這些工作場所的設定讓居民**無法步行或開車**前往：只有你的路線能把他們送到（`industryutil.lua:451-457`，`disallowedMoveModes = {"WALK", "DRIVE"}`）。
 - 每位居民都有住處、購物地點與工作地點。遊戲會從該居民能抵達的地點中挑選工作地點；產業的目的地權重為 2.0（`industryutil.lua:455`）。
 
@@ -31,7 +31,7 @@ fact: ×1.5–2.5 | 加速係數，每個產業固定
 
 ## 計入加速效果的工人
 
-一個小型遊戲腳本 `industry_workers.script.tl` 會記錄每一次抵達：
+一個小型遊戲腳本會記錄每一次抵達（`industry_workers.script.tl`）：
 
 1. 當一位居民抵達產業，且他的**最後一段行程是搭乘你的路線**時，這次抵達會連同遊戲時間一起被記錄下來（`industry_workers.script.tl:86-118`）。
 2. 只保留**最近 2 個遊戲年**內的抵達紀錄（`industry_productivity_util.tl:3`：`2 * getDefaultYearDuration()`）。

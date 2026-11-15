@@ -53,7 +53,7 @@ Quando um item viaja em várias linhas, por exemplo navio → armazém → trem,
 Então uma linha alimentadora curta até um armazém rende pouco, mesmo fazendo toda a coleta; o trecho longo fica com a maior parte. Cada linha continua mostrando a sua parte real no próprio saldo.
 
 ```engine
-Os scripts só calculam o total (economy/cargo_income.script.lua); a divisão é feita pelo motor e não é visível nos scripts. As regras acima foram medidas com um mod de teste somente leitura: cerca de 1.700 pagamentos de itens com 2 ou 3 trechos, e as mudanças de conta de cada linha e veículo envolvidos. Em 769 casos limpos (um item, um pagamento) a divisão bateu com os comprimentos dos trechos com margem de 1% todas as vezes; uma divisão com o bônus de subida bateu em só 59% deles, e uma divisão igual em nenhum.
+Os scripts só calculam o total (`economy/cargo_income.script.lua`); a divisão é feita pelo motor e não é visível nos scripts. As regras acima foram medidas com um mod de teste somente leitura: cerca de 1.700 pagamentos de itens com 2 ou 3 trechos, e as mudanças de conta de cada linha e veículo envolvidos. Em 769 casos limpos (um item, um pagamento) a divisão bateu com os comprimentos dos trechos com margem de 1% todas as vezes; uma divisão com o bônus de subida bateu em só 59% deles, e uma divisão igual em nenhum.
 ```
 
 ## O que mais muda o valor
@@ -73,7 +73,7 @@ Os passageiros usam a mesma distância e um fator de renda fixo de cerca de 3,61
 
 ## Prazos de entrega
 
-Cada carga tem o seu próprio prazo (`timeToDeliverInSeconds` em cada .cargo.lua, por exemplo `meat.cargo.lua:30`, `coal.cargo.lua:30`). Os alimentos frescos têm o mais curto, e as matérias-primas pesadas, um cinco vezes mais longo:
+Cada carga tem o seu próprio prazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Os alimentos frescos têm o mais curto, e as matérias-primas pesadas, um cinco vezes mais longo:
 
 ```diagram delivery_times
 ```

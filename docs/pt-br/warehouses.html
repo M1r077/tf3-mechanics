@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Armazéns · Mecânicas do TF3</title>
+<meta name="description" content="Como Transport Fever 3 funciona de verdade, lido nos próprios scripts do jogo.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/warehouses.html"><link rel="alternate" hreflang="fr" href="../fr/warehouses.html"><link rel="alternate" hreflang="de" href="../de/warehouses.html"><link rel="alternate" hreflang="es" href="../es/warehouses.html"><link rel="alternate" hreflang="it" href="../it/warehouses.html"><link rel="alternate" hreflang="nl" href="../nl/warehouses.html"><link rel="alternate" hreflang="pl" href="../pl/warehouses.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/warehouses.html"><link rel="alternate" hreflang="ru" href="../ru/warehouses.html"><link rel="alternate" hreflang="ja" href="../ja/warehouses.html"><link rel="alternate" hreflang="ko" href="../ko/warehouses.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/warehouses.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/warehouses.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Índice</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Mostrar ou ocultar as referências aos scripts"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Fontes</span></button>
+<details class="langs"><summary aria-label="Idioma"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Português (Brasil)</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Idioma"><a href="../en/warehouses.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/warehouses.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/warehouses.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/warehouses.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/warehouses.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/warehouses.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/warehouses.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/warehouses.html" class="on" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/warehouses.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/warehouses.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/warehouses.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/warehouses.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/warehouses.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Índice</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg>Armazéns</span></div><h1 class="rise d1">Armazéns</h1><p class="lead rise d2">Módulos universais ou especializados, o que cada estoque guarda, fixar um tipo de carga, velocidade de carregamento, custos e poluição, e o que um armazém não faz.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verificado nos scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Atualizado 2026-11-16</span></div><div class=facts><div class="fact rise d1"><b>500</b><span>unidades de carga por módulo, qualquer que seja o tipo</span></div><div class="fact rise d2"><b>×2</b><span>velocidade de carregamento num módulo especializado, ×1 num universal</span></div><div class="fact rise d3"><b>150.000 / 300.000</b><span>preço de um módulo universal / especializado</span></div><div class="fact rise d4"><b>0</b><span>de renda pela carga descarregada num armazém</span></div></div></div></section><div class="wrap layout"><article><p>Um armazém é uma entrada e um conjunto de <strong>módulos</strong>. Ele guarda carga entre duas linhas: uma linha a descarrega, outra a carrega de novo. As estações chegam até ele pela sua área de cobertura; municípios e indústrias nunca tiram nada dele (wiki oficial).</p>
+<h2 id="módulos-universais-ou-especializados"><span class="n">1</span><span>Módulos universais ou especializados</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Estoque</th>
+<th>Guarda</th>
+<th>Fator de carregamento</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Armazém Universal</strong></td>
+<td>todos os módulos universais dividem <strong>um</strong> estoque</td>
+<td>qualquer carga, misturada</td>
+<td>×1</td>
+<td class="sc"><code class="src">warehouse.script.lua:272-295</code>, <code class="src">modules.script.lua:49</code></td>
+</tr>
+<tr>
+<td><strong>Armazém de Líquidos</strong>, <strong>Armazém de Mercadorias a Granel</strong>, <strong>Armazém de Plataforma</strong>, <strong>Armazém de Mercadorias</strong></td>
+<td><strong>um estoque por módulo</strong></td>
+<td>um tipo de carga por vez, da sua classe</td>
+<td>×2</td>
+<td class="sc"><code class="src">warehouse.script.lua:296-314</code>, <code class="src">modules.script.lua:120</code>, <code class="src">modules.script.lua:165</code>, <code class="src">modules.script.lua:247</code>, <code class="src">modules.script.lua:296</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Cada módulo soma <strong>500</strong> unidades<span class="sr"> (<code class="src">modules.script.lua:49</code>, <code class="src">modules.script.lua:120</code>)</span>. Cinco módulos universais formam um estoque de 2.500; cinco módulos de líquidos formam cinco estoques de 500.</li>
+<li>Passageiros nunca são armazenados<span class="sr"> (<code class="src">warehouse.script.lua:279</code>, <code class="src">warehouse.script.lua:304</code>)</span>.</li>
+<li>Um módulo especializado aceita um tipo de carga por vez: para guardar petróleo bruto e combustível você precisa de dois módulos de líquidos (wiki oficial).</li>
+<li>O ×2 de um módulo especializado se multiplica pelo fator da plataforma: uma plataforma a granel e um módulo a granel dão ×4. Detalhes: <a href="loading.html">Velocidade de carga e descarga</a>.</li>
+</ul>
+<h2 id="universal-ou-especializado"><span class="n">2</span><span>Universal ou especializado?</span></h2>
+<ol>
+<li><strong>Muitos tipos de carga, pequenas quantidades</strong>: universal. Um estoque compartilhado, metade do preço e metade da poluição.</li>
+<li><strong>Uma carga em grandes quantidades</strong> (carvão, petróleo bruto, toras): especializado. Os veículos descarregam e carregam ali duas vezes mais rápido, mas você precisa de um módulo por tipo de carga.</li>
+<li><strong>Alimentos e outras cargas com prazo de entrega curto</strong>: especializado; a wiki oficial diz que esses módulos congelam o prazo de entrega (veja abaixo).</li>
+<li>Os dois tipos podem ser misturados num armazém: os módulos universais continuam formando um estoque, cada módulo especializado o seu próprio.</li>
+</ol>
+<h2 id="um-armazém-acelera-a-descarga"><span class="n">3</span><span>Um armazém acelera a descarga?</span></h2>
+<ul>
+<li><strong>Módulo especializado</strong>: sim, ×2 para a carga que ele aceita. A dica de carregamento do veículo mostra "Armazém especializado: +100%"<span class="sr"> (<code class="src">cargo_react_util.tl:51-54</code>)</span>.</li>
+<li><strong>Módulo universal</strong>: não. O estoque dele é criado com ×1; o ×2 pedido pelo módulo é ignorado<span class="sr"> (<code class="src">warehouse.script.lua:284</code>, <code class="src">warehouse.script.lua:288-289</code>)</span>.</li>
+<li>Quando parte da carga vai para um armazém e parte para uma indústria, o veículo os atende em rodízio, então a velocidade muda durante uma mesma parada (medido no jogo, veja <a href="loading.html">Velocidade de carga e descarga</a>).</li>
+</ul>
+<h2 id="a-seção-estoques"><span class="n">4</span><span>A seção Estoques</span></h2>
+<ul>
+<li>Uma linha por estoque: a carga que ele aceita, a quantidade e, ao passar o mouse, o <strong>Tempo médio restante de entrega</strong><span class="sr"> (<code class="src">entity_window_util.tl:408-410</code>)</span>.</li>
+<li><strong>Fixar um tipo de carga</strong>: num módulo especializado, clique num ícone de carga. O jogo reconstrói o armazém com esse módulo reservado a essa carga<span class="sr"> (<code class="src">entity_window_util.tl:339-367</code>, <code class="src">warehouse.script.lua:308</code>)</span>. Remover ou substituir o módulo apaga a fixação<span class="sr"> (<code class="src">warehouse.script.lua:403-405</code>)</span>.</li>
+<li><strong>Descartar Toda a Carga</strong>: esvazia essa linha de uma vez<span class="sr"> (<code class="src">entity_window_util.tl:423-434</code>)</span>. A carga é perdida.</li>
+<li>Os dois botões só existem nos seus próprios armazéns<span class="sr"> (<code class="src">warehouse_eow.script.tl:127-137</code>, <code class="src">gui/entity_window/warehouse/warehouse.tl:38</code>)</span>.</li>
+<li>O gráfico <strong>Estatísticas</strong> mostra <strong>Entrada</strong> (descarregado) e <strong>Saída</strong> (carregado) por ano<span class="sr"> (<code class="src">warehouse_eow.script.tl:159-160</code>)</span>.</li>
+</ul>
+<h2 id="custos-e-poluição"><span class="n">5</span><span>Custos e poluição</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th></th>
+<th>Módulo universal</th>
+<th>Módulo especializado</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preço</td>
+<td>150.000</td>
+<td>300.000</td>
+<td class="sc"><code class="src">wh_universal.module.lua:18</code>, <code class="src">wh_liquid.module.lua:22</code></td>
+</tr>
+<tr>
+<td>Manutenção por ano</td>
+<td>25.000</td>
+<td>50.000</td>
+<td class="sc"><code class="src">wh_universal.module.lua:19</code>, <code class="src">wh_liquid.module.lua:23</code></td>
+</tr>
+<tr>
+<td>Ruído</td>
+<td>20</td>
+<td>20</td>
+<td class="sc"><code class="src">wh_universal.module.lua:33</code>, <code class="src">wh_liquid.module.lua:37</code></td>
+</tr>
+<tr>
+<td>Poluição</td>
+<td>25</td>
+<td>50</td>
+<td class="sc"><code class="src">wh_universal.module.lua:34</code>, <code class="src">wh_liquid.module.lua:38</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>O armazém soma a sua própria poluição: <strong>25</strong>, ou <strong>50</strong> assim que um módulo especializado é construído<span class="sr"> (<code class="src">warehouse.script.lua:327</code>, <code class="src">warehouse.script.lua:338-345</code>)</span>.</li>
+<li>O menu de construção tem uma entrada por classe e era (a partir de 1900, 1940 e 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; as eras seguintes mostram ×3 e ×9, e a manutenção dos armazéns também cresce com o ano. Detalhes: <a href="costs.html">Custos, manutenção e empréstimos</a>.</li>
+<li>Módulos a granel, de plataforma e de mercadorias custam o mesmo que os de líquidos<span class="sr"> (<code class="src">wh_bulk.module.lua:22-23</code>, <code class="src">wh_flatbed.module.lua:22-23</code>, <code class="src">wh_goods.module.lua:18-19</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>Os scripts dão dois níveis de emissão, o segundo o dobro do primeiro<span class="sr"> (<code class="src">warehouse.script.lua:342-343</code>)</span>; quando o motor usa o segundo não está nos scripts. O preço realmente cobrado pelos módulos é calculado pelo motor.</p></div></aside>
+<h2 id="o-que-um-armazém-não-faz"><span class="n">6</span><span>O que um armazém não faz</span></h2>
+<ul>
+<li><strong>Ele não paga nada.</strong> Descarregar num armazém não dá renda; a carga é paga uma vez, quando chega ao consumidor, pela distância em linha reta desde a origem (medido no jogo, veja <a href="income.html">Renda por carga e tempo de entrega</a>).</li>
+<li><strong>Ele não abastece municípios nem indústrias</strong> próximos: eles só recebem carga de veículos (wiki oficial).</li>
+<li><strong>Ele não é destino para a configuração automática da linha</strong>, que só procura produtores e consumidores; mas uma parada ao lado de um armazém que guarda uma carga deixa essa carga fora da lista Volume, então os trens a descarregam ali (veja <a href="loading.html">Velocidade de carga e descarga</a>).</li>
+<li><strong>Ele não precisa de estrada.</strong> A entrada se encaixa numa rua, mas a carga só se move pelas áreas de cobertura das estações (<span class="sr"><code class="src">warehouse.script.lua:386-389</code>, </span>wiki oficial). A janela do armazém mostra a área de cobertura dele<span class="sr"> (<code class="src">gui/entity_window/warehouse/warehouse.tl:88-96</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>Para onde vai a carga descarregada, e se o prazo de entrega de uma carga armazenada para, é decidido pelo motor. Nenhum script congela o prazo: a wiki oficial diz que os módulos especializados congelam, e um universal não.</p></div></aside>
+<h2 id="bom-saber"><span class="n">7</span><span>Bom saber</span></h2>
+<ul>
+<li>Confira a lista Volume de cada parada perto de um armazém: o que não está nela é descarregado no armazém, mesmo no meio da linha.</li>
+<li>Um estoque cheio recusa mais carga, a menos que a parada use "Forçar descarregamento de todas as cargas na chegada", que destrói o que não cabe (veja <a href="loading.html">Velocidade de carga e descarga</a>).</li>
+<li>Para manter um módulo especializado para uma carga, fixe o tipo de carga dele na seção Estoques.</li>
+<li>O <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> lista, por estação, os armazéns ao alcance com os seus estoques; o <a href="https://mod.io/g/transportfever3/m/platform-details">Detalhes das plataformas (Platform Details)</a> mostra para onde foi a carga descarregada.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Wiki oficial e scripts do jogo</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Detalha</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>A wiki oficial diz</div><p>"Universal warehouses are a cost-efficient generic solution, because it allows you to store a mix of all cargo types." Armazéns especializados "freeze the cargo item's delivery timer" e "enable faster loading / unloading speeds". "In specialized warehouses, only one cargo type can be stored at a time for a given module." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses">Warehouses</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os scripts do jogo mostram</div><p>Módulos universais formam um estoque compartilhado com fator de carregamento ×1, cada módulo especializado um estoque próprio de 500 com ×2 e um tipo de carga. Um módulo especializado custa o dobro (300.000, manutenção 50.000) e polui o dobro (50). O congelamento do prazo não está nos scripts.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os caminhos ficam dentro da pasta base/content do jogo ou dos seus arquivos zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Nesta página</h5><ol><li><a href="#módulos-universais-ou-especializados">Módulos universais ou especializados</a></li><li><a href="#universal-ou-especializado">Universal ou especializado?</a></li><li><a href="#um-armazém-acelera-a-descarga">Um armazém acelera a descarga?</a></li><li><a href="#a-seção-estoques">A seção Estoques</a></li><li><a href="#custos-e-poluição">Custos e poluição</a></li><li><a href="#o-que-um-armazém-não-faz">O que um armazém não faz</a></li><li><a href="#bom-saber">Bom saber</a></li></ol><div class="box"><b>12</b><span>referências às fontes</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Mostrar as fontes</span><span class="h">Ocultar as fontes</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:warehouses"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Outras mecânicas</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Custos, manutenção e empréstimos</b><small>Finanças e empréstimos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Renda por carga e tempo de entrega</b><small>Carga e renda</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Indústrias</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Velocidade de carga e descarga</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputação dos municípios</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsídios: ofertas, prazos e recompensas</b><small>Subsídios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Crescimento dos municípios: XP, classificações e tamanho</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Trabalhadores e o reforço de trabalhadores</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Projeto de fã por Miro. Sem vínculo com a Urban Games.</span><span>Textos e imagens: CC BY 4.0 · Código do jogo © Urban Games: só são mostradas referências curtas.</span><span class="tr">Traduzido do inglês; correções são bem-vindas (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

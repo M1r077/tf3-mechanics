@@ -53,7 +53,7 @@ Quando un'unità viaggia su più linee, per esempio nave → magazzino → treno
 Così una breve linea di adduzione verso un magazzino rende poco, anche se fa tutta la raccolta; la tratta lunga guadagna la maggior parte. Ogni linea mostra comunque la sua quota reale nel proprio saldo.
 
 ```engine
-Gli script calcolano solo il totale (economy/cargo_income.script.lua); la ripartizione è fatta dal motore e non è visibile negli script. Le regole qui sopra sono state misurate con una mod di prova in sola lettura: circa 1.700 pagamenti di unità con 2 o 3 tratte, e le variazioni di conto di ogni linea e veicolo coinvolti. In 769 casi puliti (un'unità, un pagamento) la ripartizione corrispondeva alle lunghezze delle tratte entro l'1% ogni volta; una ripartizione con il bonus di salita corrispondeva solo nel 59% dei casi, una ripartizione in parti uguali in nessuno.
+Gli script calcolano solo il totale (`economy/cargo_income.script.lua`); la ripartizione è fatta dal motore e non è visibile negli script. Le regole qui sopra sono state misurate con una mod di prova in sola lettura: circa 1.700 pagamenti di unità con 2 o 3 tratte, e le variazioni di conto di ogni linea e veicolo coinvolti. In 769 casi puliti (un'unità, un pagamento) la ripartizione corrispondeva alle lunghezze delle tratte entro l'1% ogni volta; una ripartizione con il bonus di salita corrispondeva solo nel 59% dei casi, una ripartizione in parti uguali in nessuno.
 ```
 
 ## Che cos'altro cambia l'importo
@@ -73,7 +73,7 @@ I passeggeri usano la stessa distanza e un fattore di entrata fisso di circa 3,6
 
 ## Tempi limite di consegna
 
-Ogni merce ha il proprio tempo limite (`timeToDeliverInSeconds` in ogni .cargo.lua, per esempio `meat.cargo.lua:30`, `coal.cargo.lua:30`). Gli alimenti freschi hanno il più breve, le materie prime pesanti uno cinque volte più lungo:
+Ogni merce ha il proprio tempo limite (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Gli alimenti freschi hanno il più breve, le materie prime pesanti uno cinque volte più lungo:
 
 ```diagram delivery_times
 ```

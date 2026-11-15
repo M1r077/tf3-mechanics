@@ -17,7 +17,7 @@ Elk industriebedrijf biedt werkplekken. Als er genoeg werknemers **met jouw reiz
 
 ## Wie bij een industriebedrijf kan werken
 
-- Elk industriebedrijf uit het basisspel heeft **20 werkplekken** (`industrialCapacity = 20` in de .con.lua van elk bedrijf).
+- Elk industriebedrijf uit het basisspel heeft **20 werkplekken** (`industrialCapacity = 20`).
 - De werkplekken zijn zo ingesteld dat inwoners er **niet te voet of met de auto** kunnen komen: alleen jouw lijnen kunnen ze brengen (`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - Elke inwoner heeft een woning, een winkel en een baan. Het spel kiest de baan uit de plekken die de inwoner kan bereiken; een industriebedrijf heeft een bestemmingsgewicht van 2,0 (`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ De inwoners van wie dit industriebedrijf de baan is. Dit is de werkplekkenbalk i
 
 ## Werknemers die meetellen voor de boost
 
-Een klein spelscript, `industry_workers.script.tl`, houdt elke aankomst bij:
+Een klein spelscript houdt elke aankomst bij (`industry_workers.script.tl`):
 
 1. Als een inwoner bij een industriebedrijf aankomt en zijn **laatste verplaatsing met jouw lijnen** was, wordt de aankomst met de speltijd genoteerd (`industry_workers.script.tl:86-118`).
 2. Alleen aankomsten van de **laatste 2 speljaren** worden bewaard (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).

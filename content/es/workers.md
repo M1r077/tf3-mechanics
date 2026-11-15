@@ -17,7 +17,7 @@ Toda industria ofrece puestos de trabajo. Cuando llegan suficientes trabajadores
 
 ## Quién puede trabajar en una industria
 
-- Toda industria del juego base tiene **20 puestos de trabajo** (`industrialCapacity = 20` en el .con.lua de cada industria).
+- Toda industria del juego base tiene **20 puestos de trabajo** (`industrialCapacity = 20`).
 - Los puestos de trabajo están configurados para que los residentes **no puedan ir a pie ni en coche**: solo tus líneas pueden llevarlos (`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - Cada residente tiene una vivienda, una tienda y un empleo. El juego elige el empleo entre los lugares que el residente puede alcanzar; una industria tiene un peso de destino de 2,0 (`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ Son los residentes cuyo empleo es esta industria. Es la barra de puestos de trab
 
 ## Trabajadores contados para el refuerzo
 
-Un pequeño script del juego, `industry_workers.script.tl`, vigila cada llegada:
+Un pequeño script del juego vigila cada llegada (`industry_workers.script.tl`):
 
 1. Cuando un residente llega a una industria y su **último desplazamiento fue con tus líneas**, la llegada se anota con la hora del juego (`industry_workers.script.tl:86-118`).
 2. Solo se conservan las llegadas de los **últimos 2 años de juego** (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).

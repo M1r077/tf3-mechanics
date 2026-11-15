@@ -53,7 +53,7 @@ Cuando un artículo viaja en varias líneas, por ejemplo barco → almacén → 
 Así, una línea corta de alimentación hacia un almacén rinde poco, aunque haga toda la recogida; el tramo largo se lleva la mayor parte. Cada línea sigue mostrando su parte real en su propio saldo.
 
 ```engine
-Los scripts solo calculan el total (economy/cargo_income.script.lua); el reparto lo hace el motor y no es visible en los scripts. Las reglas de arriba se midieron con un mod de prueba de solo lectura: unos 1.700 pagos de artículos con 2 o 3 tramos, y los cambios de cuenta de cada línea y vehículo implicados. En 769 casos limpios (un artículo, un pago) el reparto coincidió con las longitudes de los tramos con un margen del 1 % todas las veces; un reparto con la bonificación por desnivel coincidió solo en el 59 % de ellos, y un reparto a partes iguales en ninguno.
+Los scripts solo calculan el total (`economy/cargo_income.script.lua`); el reparto lo hace el motor y no es visible en los scripts. Las reglas de arriba se midieron con un mod de prueba de solo lectura: unos 1.700 pagos de artículos con 2 o 3 tramos, y los cambios de cuenta de cada línea y vehículo implicados. En 769 casos limpios (un artículo, un pago) el reparto coincidió con las longitudes de los tramos con un margen del 1 % todas las veces; un reparto con la bonificación por desnivel coincidió solo en el 59 % de ellos, y un reparto a partes iguales en ninguno.
 ```
 
 ## Qué más cambia el importe
@@ -73,7 +73,7 @@ Los pasajeros usan la misma distancia y un factor de ingresos fijo de unos 3,61 
 
 ## Plazos de entrega
 
-Cada cargamento tiene su propio plazo (`timeToDeliverInSeconds` en cada .cargo.lua, por ejemplo `meat.cargo.lua:30`, `coal.cargo.lua:30`). Los alimentos frescos tienen el más corto; las materias primas pesadas, uno cinco veces más largo:
+Cada cargamento tiene su propio plazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Los alimentos frescos tienen el más corto; las materias primas pesadas, uno cinco veces más largo:
 
 ```diagram delivery_times
 ```

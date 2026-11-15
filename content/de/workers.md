@@ -17,7 +17,7 @@ Jede Industrie bietet Arbeitsplätze. Wenn genug Arbeiter **mit deinen Personenl
 
 ## Wer in einer Industrie arbeiten kann
 
-- Jede Industrie des Grundspiels hat **20 Arbeitsplätze** (`industrialCapacity = 20` in der .con.lua jeder Industrie).
+- Jede Industrie des Grundspiels hat **20 Arbeitsplätze** (`industrialCapacity = 20`).
 - Die Arbeitsplätze sind so eingestellt, dass Einwohner **nicht zu Fuß oder mit dem Auto** hinkommen: nur deine Linien bringen sie hin (`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - Jeder Einwohner hat eine Wohnung, ein Geschäft und einen Arbeitsplatz. Das Spiel wählt den Arbeitsplatz unter den Orten, die der Einwohner erreichen kann; eine Industrie hat ein Zielgewicht von 2,0 (`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ Die Einwohner, deren Arbeitsplatz diese Industrie ist. Das ist die Arbeitsplatza
 
 ## Für den Bonus gezählte Arbeiter
 
-Ein kleines Spielskript, `industry_workers.script.tl`, beobachtet jede Ankunft:
+Ein kleines Spielskript beobachtet jede Ankunft (`industry_workers.script.tl`):
 
 1. Kommt ein Einwohner an einer Industrie an und war seine **letzte Fahrt mit deinen Linien**, wird die Ankunft mit der Spielzeit notiert (`industry_workers.script.tl:86-118`).
 2. Nur Ankünfte der **letzten 2 Spieljahre** bleiben (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).

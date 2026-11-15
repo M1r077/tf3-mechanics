@@ -69,7 +69,7 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 | Bewoners | je lijnen in die stad tellen als half zo duur wanneer bewoners kiezen hoe ze reizen | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Het script rekent 360 seconden speltijd per niveau (120 met een campagne). De kalender daarachter is de jaarduur van de engine (getDefaultYearDuration); de 33 % en 100 % in het stadsvenster passen bij een jaar van 720 seconden (een dag van 2 seconden, zoals in `cargotype.script.lua:3`). Hoe sterk de gehalveerde lijnkosten bewoners naar je lijnen trekken, beslist de routekeuze van de engine.
+Het script rekent 360 seconden speltijd per niveau (120 met een campagne). De kalender daarachter is de jaarduur van de engine (getDefaultYearDuration); de 33 % en 100 % in het stadsvenster passen bij een jaar van 720 seconden (een dag van 2 seconden, `cargotype.script.lua:3`). Hoe sterk de gehalveerde lijnkosten bewoners naar je lijnen trekken, beslist de routekeuze van de engine.
 ```
 
 ## Goed om te weten

@@ -17,7 +17,7 @@ fact: ×1.5–2.5 | 부스트 계수, 산업마다 고정
 
 ## 누가 산업에서 일할 수 있는가
 
-- 기본 게임의 모든 산업은 **일자리 20개**를 가진다(각 산업의 .con.lua에서 `industrialCapacity = 20`).
+- 기본 게임의 모든 산업은 **일자리 20개**를 가진다(`industrialCapacity = 20`).
 - 이 일자리는 주민이 **걸어서나 자동차로 갈 수 없도록** 설정되어 있다. 플레이어의 노선만이 주민을 데려갈 수 있다(`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - 주민마다 집, 쇼핑 장소, 직장이 하나씩 있다. 게임은 그 주민이 도달할 수 있는 장소 중에서 직장을 고르며, 산업의 목적지 가중치는 2.0이다(`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ fact: ×1.5–2.5 | 부스트 계수, 산업마다 고정
 
 ## 부스트에 집계되는 근로자
 
-작은 게임 스크립트 `industry_workers.script.tl`이 모든 도착을 기록한다.
+작은 게임 스크립트가 모든 도착을 기록한다(`industry_workers.script.tl`).
 
 1. 주민이 산업에 도착했고 **마지막 이동이 플레이어의 노선**이었다면, 그 도착이 게임 시간과 함께 기록된다(`industry_workers.script.tl:86-118`).
 2. **최근 2 게임년** 동안의 도착만 유지된다(`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).

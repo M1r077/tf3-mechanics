@@ -69,7 +69,7 @@ Połączenie główne liczy się jako przerwane, gdy gra zgłasza **Połączenie
 | Mieszkańcy | twoje linie w tym mieście liczą się jako o połowę tańsze, gdy mieszkańcy wybierają, jak podróżować | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Skrypt liczy 360 sekund czasu gry na poziom (120 z kampanią). Kalendarz za tym to długość roku w silniku (getDefaultYearDuration); 33 % i 100 % w oknie miasta odpowiadają rokowi 720 sekund (dzień 2 sekund, jak w `cargotype.script.lua:3`). Jak mocno o połowę niższy koszt linii przyciąga mieszkańców do twoich linii, decyduje wybór trasy w silniku.
+Skrypt liczy 360 sekund czasu gry na poziom (120 z kampanią). Kalendarz za tym to długość roku w silniku (getDefaultYearDuration); 33 % i 100 % w oknie miasta odpowiadają rokowi 720 sekund (dzień 2 sekund, `cargotype.script.lua:3`). Jak mocno o połowę niższy koszt linii przyciąga mieszkańców do twoich linii, decyduje wybór trasy w silniku.
 ```
 
 ## Warto wiedzieć

@@ -53,7 +53,7 @@ Gdy jednostka towaru jedzie kilkoma liniami, na przykład statek → magazyn →
 Dlatego krótka linia dowozowa do magazynu zarabia mało, choć wykonuje całe zbieranie; najwięcej zarabia długi odcinek. Każda linia i tak pokazuje swoją rzeczywistą część we własnym saldzie.
 
 ```engine
-Skrypty liczą tylko sumę (economy/cargo_income.script.lua); podział wykonuje silnik i nie jest widoczny w skryptach. Powyższe zasady zmierzono testowym modem tylko do odczytu: około 1700 płatności za jednostki z 2 lub 3 odcinkami oraz zmiany na kontach każdej uczestniczącej linii i każdego pojazdu. W 769 czystych przypadkach (jedna jednostka, jedna płatność) podział za każdym razem zgadzał się z długościami odcinków z dokładnością do 1 %; podział z premią za wzniesienie zgadzał się tylko w 59 % z nich, równy podział w żadnym.
+Skrypty liczą tylko sumę (`economy/cargo_income.script.lua`); podział wykonuje silnik i nie jest widoczny w skryptach. Powyższe zasady zmierzono testowym modem tylko do odczytu: około 1700 płatności za jednostki z 2 lub 3 odcinkami oraz zmiany na kontach każdej uczestniczącej linii i każdego pojazdu. W 769 czystych przypadkach (jedna jednostka, jedna płatność) podział za każdym razem zgadzał się z długościami odcinków z dokładnością do 1 %; podział z premią za wzniesienie zgadzał się tylko w 59 % z nich, równy podział w żadnym.
 ```
 
 ## Co jeszcze zmienia kwotę
@@ -73,7 +73,7 @@ Pasażerowie używają tej samej odległości i stałego mnożnika przychodu oko
 
 ## Limity czasu dostawy
 
-Każdy towar ma własny limit czasu (`timeToDeliverInSeconds` w każdym pliku .cargo.lua, na przykład `meat.cargo.lua:30`, `coal.cargo.lua:30`). Najkrótszy ma świeża żywność, ciężkie surowce pięć razy dłuższy:
+Każdy towar ma własny limit czasu (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Najkrótszy ma świeża żywność, ciężkie surowce pięć razy dłuższy:
 
 ```diagram delivery_times
 ```

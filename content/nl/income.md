@@ -53,7 +53,7 @@ Als een eenheid over meerdere lijnen reist, bijvoorbeeld schip → opslagplaats 
 Een korte aanvoerlijn naar een opslagplaats verdient dus weinig, ook al doet ze al het verzamelwerk; het lange traject verdient het meeste. Elke lijn toont haar echte deel wel in haar eigen saldo.
 
 ```engine
-De scripts berekenen alleen het totaal (economy/cargo_income.script.lua); de verdeling doet de engine en is niet zichtbaar in de scripts. De regels hierboven zijn gemeten met een alleen-lezen testmod: ongeveer 1.700 betalingen van eenheden met 2 of 3 trajecten, en de rekeningwijzigingen van elke betrokken lijn en elk betrokken voertuig. In 769 zuivere gevallen (één eenheid, één betaling) kwam de verdeling elke keer tot op 1 % overeen met de trajectlengtes; een verdeling met de stijgingsbonus klopte in maar 59 % ervan, een gelijke verdeling in geen enkel.
+De scripts berekenen alleen het totaal (`economy/cargo_income.script.lua`); de verdeling doet de engine en is niet zichtbaar in de scripts. De regels hierboven zijn gemeten met een alleen-lezen testmod: ongeveer 1.700 betalingen van eenheden met 2 of 3 trajecten, en de rekeningwijzigingen van elke betrokken lijn en elk betrokken voertuig. In 769 zuivere gevallen (één eenheid, één betaling) kwam de verdeling elke keer tot op 1 % overeen met de trajectlengtes; een verdeling met de stijgingsbonus klopte in maar 59 % ervan, een gelijke verdeling in geen enkel.
 ```
 
 ## Wat het bedrag verder verandert
@@ -73,7 +73,7 @@ Reizigers gebruiken dezelfde afstand en een vaste inkomstenfactor van ongeveer 3
 
 ## Tijdslimieten voor bezorging
 
-Elke vracht heeft haar eigen tijdslimiet (`timeToDeliverInSeconds` in elke .cargo.lua, bijvoorbeeld `meat.cargo.lua:30`, `coal.cargo.lua:30`). Vers voedsel heeft de kortste, zware grondstoffen een vijf keer langere:
+Elke vracht heeft haar eigen tijdslimiet (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Vers voedsel heeft de kortste, zware grondstoffen een vijf keer langere:
 
 ```diagram delivery_times
 ```

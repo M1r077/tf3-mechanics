@@ -53,7 +53,7 @@ Quand une unité voyage sur plusieurs lignes, par exemple bateau → entrepôt �
 Une courte ligne d'approche vers un entrepôt gagne donc peu, même si elle fait toute la collecte ; c'est la longue étape qui gagne le plus. Chaque ligne affiche quand même sa vraie part dans son propre solde.
 
 ```engine
-Les scripts ne calculent que le total (economy/cargo_income.script.lua) ; le partage est fait par le moteur et n'est pas visible dans les scripts. Les règles ci-dessus ont été mesurées avec un mod de test en lecture seule : environ 1 700 paiements d'unités à 2 ou 3 étapes, et les mouvements de compte de chaque ligne et de chaque véhicule concernés. Dans 769 cas nets (une unité, un paiement), le partage correspondait aux longueurs des étapes à 1 % près à chaque fois ; un partage avec le bonus de montée ne correspondait que dans 59 % des cas, un partage égal dans aucun.
+Les scripts ne calculent que le total (`economy/cargo_income.script.lua`) ; le partage est fait par le moteur et n'est pas visible dans les scripts. Les règles ci-dessus ont été mesurées avec un mod de test en lecture seule : environ 1 700 paiements d'unités à 2 ou 3 étapes, et les mouvements de compte de chaque ligne et de chaque véhicule concernés. Dans 769 cas nets (une unité, un paiement), le partage correspondait aux longueurs des étapes à 1 % près à chaque fois ; un partage avec le bonus de montée ne correspondait que dans 59 % des cas, un partage égal dans aucun.
 ```
 
 ## Ce qui change encore le montant
@@ -73,7 +73,7 @@ Les passagers utilisent la même distance et un facteur de revenu fixe d'environ
 
 ## Délais de livraison
 
-Chaque fret a son propre délai (`timeToDeliverInSeconds` dans chaque .cargo.lua, par exemple `meat.cargo.lua:30`, `coal.cargo.lua:30`). Les produits frais ont le plus court, les matières premières lourdes cinq fois plus long :
+Chaque fret a son propre délai (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Les produits frais ont le plus court, les matières premières lourdes cinq fois plus long :
 
 ```diagram delivery_times
 ```

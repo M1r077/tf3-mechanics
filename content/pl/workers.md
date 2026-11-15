@@ -17,7 +17,7 @@ Każdy zakład przemysłowy oferuje miejsca pracy. Gdy wystarczająco wielu prac
 
 ## Kto może pracować w zakładzie
 
-- Każdy zakład przemysłowy z podstawowej gry ma **20 miejsc pracy** (`industrialCapacity = 20` w pliku .con.lua każdego zakładu).
+- Każdy zakład przemysłowy z podstawowej gry ma **20 miejsc pracy** (`industrialCapacity = 20`).
 - Miejsca pracy są ustawione tak, że mieszkańcy **nie mogą tam dojść pieszo ani dojechać samochodem**: dowieźć ich mogą tylko twoje linie (`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - Każdy mieszkaniec ma dom, sklep i pracę. Gra wybiera pracę spośród miejsc, do których dany mieszkaniec może dotrzeć; zakład przemysłowy ma wagę celu podróży 2,0 (`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ To mieszkańcy, których miejscem pracy jest ten zakład. Pokazuje ich pasek mie
 
 ## Pracownicy liczeni do premii
 
-Niewielki skrypt gry, `industry_workers.script.tl`, śledzi każdy przyjazd:
+Niewielki skrypt gry śledzi każdy przyjazd (`industry_workers.script.tl`):
 
 1. Gdy mieszkaniec przybywa do zakładu, a jego **ostatni odcinek podróży odbył się twoimi liniami**, przyjazd jest zapisywany wraz z czasem gry (`industry_workers.script.tl:86-118`).
 2. Przechowywane są tylko przyjazdy z **ostatnich 2 lat gry** (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).

@@ -69,7 +69,7 @@ Eine Hauptverbindung gilt als unterbrochen, wenn das Spiel **Strassenverbindung 
 | Einwohner | deine Linien in dieser Stadt zählen als halb so teuer, wenn Einwohner wählen, wie sie reisen | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Das Skript rechnet 360 Sekunden Spielzeit pro Stufe (120 mit Kampagne). Der Kalender dahinter ist die Jahresdauer der Engine (getDefaultYearDuration); die 33 % und 100 % im Stadtfenster passen zu einem Jahr von 720 Sekunden (ein Tag von 2 Sekunden, wie in `cargotype.script.lua:3`). Wie stark die halbierten Linienkosten Einwohner zu deinen Linien bringen, entscheidet die Routenwahl der Engine.
+Das Skript rechnet 360 Sekunden Spielzeit pro Stufe (120 mit Kampagne). Der Kalender dahinter ist die Jahresdauer der Engine (getDefaultYearDuration); die 33 % und 100 % im Stadtfenster passen zu einem Jahr von 720 Sekunden (ein Tag von 2 Sekunden, `cargotype.script.lua:3`). Wie stark die halbierten Linienkosten Einwohner zu deinen Linien bringen, entscheidet die Routenwahl der Engine.
 ```
 
 ## Gut zu wissen

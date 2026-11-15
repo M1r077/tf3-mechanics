@@ -69,7 +69,7 @@ A main connection counts as cut when the game raises **Road Connection Between T
 | Residents | your lines in that town count as half as costly when residents choose how to travel | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-The script counts 360 seconds of game time per level (120 with a campaign). The calendar behind it is the engine's year duration (getDefaultYearDuration); the 33 % and 100 % shown in the town window match a year of 720 seconds (a day of 2 seconds, as in `cargotype.script.lua:3`). How strongly the halved line cost moves residents to your lines is decided by the engine's route choice.
+The script counts 360 seconds of game time per level (120 with a campaign). The calendar behind it is the engine's year duration (getDefaultYearDuration); the 33 % and 100 % shown in the town window match a year of 720 seconds (a day of 2 seconds, `cargotype.script.lua:3`). How strongly the halved line cost moves residents to your lines is decided by the engine's route choice.
 ```
 
 ## Good to know

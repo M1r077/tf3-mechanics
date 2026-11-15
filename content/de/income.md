@@ -53,7 +53,7 @@ Wenn eine Einheit über mehrere Linien reist, zum Beispiel Schiff → Lagerhaus 
 Eine kurze Zubringerlinie zu einem Lagerhaus verdient also wenig, obwohl sie das ganze Sammeln erledigt; der lange Abschnitt verdient am meisten. Jede Linie zeigt trotzdem ihren echten Anteil in ihrem eigenen Kontostand.
 
 ```engine
-Die Skripte berechnen nur den Gesamtbetrag (economy/cargo_income.script.lua); die Aufteilung macht die Engine, sie ist in den Skripten nicht sichtbar. Die Regeln oben wurden mit einem Test-Mod gemessen, der nur liest: etwa 1.700 Zahlungen von Einheiten mit 2 oder 3 Abschnitten und die Kontobewegungen jeder beteiligten Linie und jedes Fahrzeugs. In 769 sauberen Fällen (eine Einheit, eine Zahlung) passte die Aufteilung jedes Mal auf 1 % genau zu den Abschnittslängen; eine Aufteilung mit Steigungsbonus passte nur in 59 % der Fälle, eine gleiche Aufteilung in keinem.
+Die Skripte berechnen nur den Gesamtbetrag (`economy/cargo_income.script.lua`); die Aufteilung macht die Engine, sie ist in den Skripten nicht sichtbar. Die Regeln oben wurden mit einem Test-Mod gemessen, der nur liest: etwa 1.700 Zahlungen von Einheiten mit 2 oder 3 Abschnitten und die Kontobewegungen jeder beteiligten Linie und jedes Fahrzeugs. In 769 sauberen Fällen (eine Einheit, eine Zahlung) passte die Aufteilung jedes Mal auf 1 % genau zu den Abschnittslängen; eine Aufteilung mit Steigungsbonus passte nur in 59 % der Fälle, eine gleiche Aufteilung in keinem.
 ```
 
 ## Was den Betrag noch ändert
@@ -73,7 +73,7 @@ Passagiere nutzen dieselbe Entfernung und einen festen Einnahmefaktor von etwa 3
 
 ## Lieferzeiten
 
-Jede Fracht hat ihre eigene Lieferzeit (`timeToDeliverInSeconds` in jeder .cargo.lua, zum Beispiel `meat.cargo.lua:30`, `coal.cargo.lua:30`). Frischware hat die kürzeste, schwere Rohstoffe fünfmal mehr:
+Jede Fracht hat ihre eigene Lieferzeit (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Frischware hat die kürzeste, schwere Rohstoffe fünfmal mehr:
 
 ```diagram delivery_times
 ```

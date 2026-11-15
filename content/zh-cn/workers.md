@@ -17,7 +17,7 @@ fact: ×1.5–2.5 | 加成系数，每个产业固定
 
 ## 谁能在产业工作
 
-- 每个基础游戏产业都有 **20 个工作岗位**（每个产业的 .con.lua 中 `industrialCapacity = 20`）。
+- 每个基础游戏产业都有 **20 个工作岗位**（`industrialCapacity = 20`）。
 - 这些工作岗位的设置让居民**无法步行或开车**前往：只有你的线路能把他们送到（`industryutil.lua:451-457`，`disallowedMoveModes = {"WALK", "DRIVE"}`）。
 - 每个居民都有住所、购物地点和工作地点。游戏从该居民能到达的地点中挑选工作地点；产业的目的地权重为 2.0（`industryutil.lua:455`）。
 
@@ -31,7 +31,7 @@ fact: ×1.5–2.5 | 加成系数，每个产业固定
 
 ## 计入加成的工人
 
-一个小型游戏脚本 `industry_workers.script.tl` 会记录每一次到达：
+一个小型游戏脚本会记录每一次到达（`industry_workers.script.tl`）：
 
 1. 当一个居民到达产业，且他的**最后一段行程乘坐的是你的线路**时，这次到达会连同游戏时间一起被记录（`industry_workers.script.tl:86-118`）。
 2. 只保留**最近 2 个游戏年**内的到达（`industry_productivity_util.tl:3`：`2 * getDefaultYearDuration()`）。

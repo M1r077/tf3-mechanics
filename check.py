@@ -6,7 +6,7 @@
 3. no long copy of game code (fenced code blocks of more than 3 lines are refused);
 4. every relative link of the built site points to an existing file;
 5. every mod named in a page (data/mods.json) is a link to its own mod.io page;
-6. every source reference is in backticks, so the Sources switch hides it.
+6. every source reference is in backticks, and in the built site sits in an element the Sources switch hides.
 
     python check.py      (exit code 1 on any problem)
 """
@@ -98,6 +98,8 @@ def main():
                     if not os.path.exists(target):
                         problems.append(f"broken link in {os.path.relpath(os.path.join(root, f), DOCS)}: {href}")
 
+    problems += check_hidden_refs()
+
     for p in problems:
         print("  !", p)
     print(f"{len(problems)} problem(s); pages: {', '.join(pages['en'])}")
@@ -118,6 +120,44 @@ def bare_refs(text):
         line = re.sub(r"\]\([^)]*\)", "]", line)
         for m in RX_BARE.finditer(line):
             yield n, m.group(1)
+
+
+def check_hidden_refs():
+    """In the built site, every file reference must sit inside an element hidden when Sources is off
+    (class sr / sc / srcnote). build.mark_sources keeps a reference visible when the sentence introduces it
+    ("a script, `x.tl`, does..."), so the Markdown rule alone does not catch it."""
+    from html.parser import HTMLParser
+    rx = re.compile(r"(?<![\w./-])[\w./-]+\.(?:lua|tl)(?::\d+(?:-\d+)?)?(?!\w)")
+    void = {"br", "img", "hr", "meta", "link", "input", "source", "wbr", "col", "area", "base", "embed", "param", "track"}
+    found = []
+
+    class P(HTMLParser):
+        def __init__(self, name):
+            super().__init__(convert_charrefs=True)
+            self.name, self.stack = name, []
+
+        def handle_starttag(self, tag, attrs):
+            if tag not in void:
+                cls = (dict(attrs).get("class") or "").split()
+                self.stack.append((tag, bool({"sr", "sc", "srcnote"} & set(cls)) or tag in ("script", "style", "svg")))
+
+        def handle_endtag(self, tag):
+            for i in range(len(self.stack) - 1, -1, -1):
+                if self.stack[i][0] == tag:
+                    del self.stack[i:]
+                    break
+
+        def handle_data(self, data):
+            if not any(h for _t, h in self.stack):
+                for m in rx.finditer(data):
+                    found.append(f"{self.name}:{self.getpos()[0]}: source reference {m.group(0)} stays visible with Sources off")
+
+    for root, _d, fs in os.walk(DOCS):
+        for f in fs:
+            if f.endswith(".html"):
+                with open(os.path.join(root, f), encoding="utf-8") as fh:
+                    P(os.path.relpath(os.path.join(root, f), DOCS)).feed(fh.read())
+    return found
 
 
 def check_texts():

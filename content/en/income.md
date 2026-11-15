@@ -53,7 +53,7 @@ When an item travels on several lines, for example ship → warehouse → train,
 So a short feeder line to a warehouse earns little, even though it does all the collecting; the long leg earns most. Every line still shows its real share in its own balance.
 
 ```engine
-The scripts only compute the total (economy/cargo_income.script.lua); the split is done by the engine and is not visible in the scripts. The rules above were measured with a read-only test mod: about 1,700 payments of items with 2 or 3 legs, and the account changes of every line and vehicle involved. In 769 clean cases (one item, one payment) the split matched the leg lengths to within 1 % every time; a split with the climb bonus matched in only 59 % of them, an equal split in none.
+The scripts only compute the total (`economy/cargo_income.script.lua`); the split is done by the engine and is not visible in the scripts. The rules above were measured with a read-only test mod: about 1,700 payments of items with 2 or 3 legs, and the account changes of every line and vehicle involved. In 769 clean cases (one item, one payment) the split matched the leg lengths to within 1 % every time; a split with the climb bonus matched in only 59 % of them, an equal split in none.
 ```
 
 ## What else changes the amount
@@ -73,7 +73,7 @@ Passengers use the same distance and a fixed income factor of about 3.61 (`cargo
 
 ## Delivery time limits
 
-Every cargo has its own time limit (`timeToDeliverInSeconds` in each .cargo.lua, for example `meat.cargo.lua:30`, `coal.cargo.lua:30`). Fresh food has the shortest one, heavy raw materials five times longer:
+Every cargo has its own time limit (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Fresh food has the shortest one, heavy raw materials five times longer:
 
 ```diagram delivery_times
 ```

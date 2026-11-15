@@ -69,7 +69,7 @@ Un collegamento principale conta come interrotto quando il gioco segnala **Il co
 | Residenti | le tue linee in quella cittadina contano come costose la metà quando i residenti scelgono come spostarsi | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-Lo script conta 360 secondi di tempo di gioco per livello (120 con una campagna). Il calendario dietro è la durata dell'anno del motore (getDefaultYearDuration); il 33 % e il 100 % mostrati nella finestra corrispondono a un anno di 720 secondi (un giorno di 2 secondi, come in `cargotype.script.lua:3`). Quanto il costo di linea dimezzato porti i residenti verso le tue linee lo decide la scelta del percorso del motore.
+Lo script conta 360 secondi di tempo di gioco per livello (120 con una campagna). Il calendario dietro è la durata dell'anno del motore (getDefaultYearDuration); il 33 % e il 100 % mostrati nella finestra corrispondono a un anno di 720 secondi (un giorno di 2 secondi, `cargotype.script.lua:3`). Quanto il costo di linea dimezzato porti i residenti verso le tue linee lo decide la scelta del percorso del motore.
 ```
 
 ## Buono a sapersi

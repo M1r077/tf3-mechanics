@@ -17,7 +17,7 @@ Toda indústria oferece locais de trabalho. Quando trabalhadores suficientes **c
 
 ## Quem pode trabalhar em uma indústria
 
-- Toda indústria do jogo base tem **20 locais de trabalho** (`industrialCapacity = 20` no .con.lua de cada indústria).
+- Toda indústria do jogo base tem **20 locais de trabalho** (`industrialCapacity = 20`).
 - Os locais de trabalho são configurados para que os moradores **não possam ir a pé nem de carro**: só as suas linhas podem levá-los (`industryutil.lua:451-457`, `disallowedMoveModes = {"WALK", "DRIVE"}`).
 - Cada morador tem uma casa, uma loja e um emprego. O jogo escolhe o emprego entre os lugares que o morador consegue alcançar; uma indústria tem peso de destino 2,0 (`industryutil.lua:455`).
 
@@ -31,7 +31,7 @@ São os moradores cujo emprego é esta indústria. É a barra de locais de traba
 
 ## Trabalhadores contados para o reforço
 
-Um pequeno script do jogo, `industry_workers.script.tl`, acompanha cada chegada:
+Um pequeno script do jogo acompanha cada chegada (`industry_workers.script.tl`):
 
 1. Quando um morador chega a uma indústria e o seu **último trajeto foi pelas suas linhas**, a chegada é registrada com o horário do jogo (`industry_workers.script.tl:86-118`).
 2. Só ficam guardadas as chegadas dos **últimos 2 anos de jogo** (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).

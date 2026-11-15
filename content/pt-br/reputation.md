@@ -69,7 +69,7 @@ Uma conexão principal conta como cortada quando o jogo avisa **A conexão rodov
 | Habitantes | suas linhas naquele município contam como metade do custo quando os habitantes escolhem como viajar | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-O script conta 360 segundos de tempo de jogo por nível (120 com campanha). O calendário por trás é a duração do ano do motor (getDefaultYearDuration); os 33 % e 100 % mostrados na janela do município correspondem a um ano de 720 segundos (um dia de 2 segundos, como em `cargotype.script.lua:3`). O quanto o custo de linha pela metade leva os habitantes às suas linhas é decidido pela escolha de rota do motor.
+O script conta 360 segundos de tempo de jogo por nível (120 com campanha). O calendário por trás é a duração do ano do motor (getDefaultYearDuration); os 33 % e 100 % mostrados na janela do município correspondem a um ano de 720 segundos (um dia de 2 segundos, `cargotype.script.lua:3`). O quanto o custo de linha pela metade leva os habitantes às suas linhas é decidido pela escolha de rota do motor.
 ```
 
 ## Bom saber
