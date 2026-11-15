@@ -81,6 +81,10 @@ Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico
 - Una piattaforma passeggeri non trasferisce merci: lì le merci restano a bordo (misurato in gioco).
 - Per tenere le merci a bordo, aggiungile alla lista Carico di quella fermata.
 
+```tip
+**Le merci spariscono a una fermata vicino a un magazzino? Aggiungile alla lista Carico di quella fermata.** Tutto ciò che non è nella lista viene scaricato in una scorta a portata, e il magazzino non paga nulla.
+```
+
 | Opzione di "Filtro carico" | Che cosa fa | Fonte |
 |---|---|---|
 | "Forza scarico di tutte le merci all'arrivo" | scarica nelle scorte compatibili anche se sono piene; ciò che non entra viene distrutto. Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |

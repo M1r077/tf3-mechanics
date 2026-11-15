@@ -72,6 +72,10 @@ La production monte par paliers : une nouvelle parcelle n'augmente pas toujours 
 5. **Compte à rebours de fermeture**, industrie à toi, ou développement manuel : pas de croissance par le script (ci-dessus).
 6. **Aucune production** : une industrie qui ne produit rien dans l'année est ignorée (`industries.script.tl:168-171`).
 
+```tip scripts
+**Pour faire grandir une mine ou une ferme, expédie au moins 75 % de sa production.** À 25 % ou moins, elle n'a jamais de nouvelle parcelle ; à 75 % ou plus, elle en a une tous les six mois, jusqu'à son maximum.
+```
+
 ```engine
 La note de production (getProductionRating), la production annuelle et la quantité expédiée (getCargoOutputPerYear, getCargoShippedPerYear), et l'endroit où va une nouvelle parcelle (makeIndustryExtendProposal) sont des valeurs du moteur.
 ```
@@ -112,6 +116,10 @@ La moitié des emplois (10 sur 20) doit être occupée par des habitants **arriv
 3. **Mauvais fret** : outils, machines ou engrais selon l'industrie (tableau ci-dessus).
 4. **Travailleurs** : attribués ne suffit pas ; la section Booster compte les arrivées (« 12/10 ») (`industry_react_util.tl:617-654`). Voir [Travailleurs et bonus des travailleurs](workers.html).
 
+```tip scripts
+**Pour un booster qui ne s'arrête jamais, livre au moins 4 lots complets par an** (52 outils pour une mine de charbon). Le stock ne se perd pas : tu peux livrer d'avance.
+```
+
 ## Quand une industrie inutilisée ferme-t-elle ?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ La vérification passe toutes les 100 mises à jour pour chaque industrie (`indu
 2. **Hasard** : chaque année, une candidate est marquée avec la chance du réglage **Fréquence de fermeture des industries** (tableau ci-dessous) (`industries.script.tl:120-131`).
 3. **Compte à rebours** : la notification **Fermeture de l'industrie** apparaît, avec 2 ans (730 jours) à attendre (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Ensuite l'industrie est supprimée avec ses propres morceaux de route (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Sauvée** : un seul chargement ou une consommation pendant le compte à rebours l'annule (`industries.script.tl:134-137`). Accepter un contrat **Approvisionner l'industrie** ou **Transporter des travailleurs** pour elle l'annule aussi (`subvention_util.tl:473-484`).
+
+```tip scripts
+**Une notification Fermeture de l'industrie ? Un seul chargement ou une seule livraison pendant les 730 jours l'annule.** Accepter un contrat Approvisionner l'industrie ou Transporter des travailleurs pour elle l'annule aussi.
+```
 
 | Fréquence de fermeture des industries | Chance par an en tant que candidate | La moitié des candidates marquées après | Préréglage | Source |
 |---|---|---|---|---|

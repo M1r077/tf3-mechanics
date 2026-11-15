@@ -83,6 +83,10 @@ Jeder Vertrag hat drei Listen, auf seiner Karte als **Bei Annahme**, **Bei Erfü
 - Eine Linie, die erst nach der Erfüllung zu liefern beginnt, bekommt nichts: Die Liste der Linien wird nur während des Vertrags gefüllt.
 - Zwei Verträge verdoppeln dieselbe Zahlung nie zweimal: Passen mehrere, zählt nur die letzte Antwort (`subventions.script.tl:570-583`).
 
+```tip scripts
+**Doppeltes Einkommen auf mehreren Linien? Lass alle liefern, bevor der Vertrag erfüllt ist.** Eine danach hinzugefügte Linie bekommt nichts.
+```
+
 ```engine
 Wie sich das ×2 einer Subvention mit dem Multiplikator des Unternehmensrangs (Einstellung Inflation) verbindet, entscheidet die Engine: Beide Skripte geben nur einen Multiplikator pro Zahlung zurück. Was ein Zahlungseintrag ist (vermutlich eine Frachteinheit oder ein Passagier), entscheidet ebenfalls die Engine.
 ```

@@ -109,6 +109,10 @@ Hoe snel de staat van een voertuig daalt, hoeveel de gebruikskosten daardoor sti
 - Hooguit **4 leningen** tegelijk (`loan_util.tl:4`, `loan.script.tl:134`). Een aanbieding wordt na een half jaar vervangen; de plek van een lening die je nam, blijft 4 tot 8 maanden leeg (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - Bij de start van een spel krijgt elk van de vier plekken de waarden van een willekeurige soort, dus de eerste "kleine" aanbieding kan een grote lening zijn; zodra een aanbieding vernieuwd wordt, biedt elke plek zijn eigen soort (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Neem de langste lening en los vroeg af.** De totale rente is bij elke looptijd gelijk, de maandbedragen zijn kleiner, en Afbetalen schrapt de resterende rente.
+```
+
 ## Goed om te weten
 
 - Neem de **langste** lening die je kunt krijgen: de rente is in totaal hetzelfde, verdeeld over meer maanden, en je kunt vroeg afbetalen zonder de rest te betalen.

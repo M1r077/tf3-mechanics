@@ -83,6 +83,10 @@ Ogni contratto tiene tre elenchi, mostrati sulla sua scheda come **In accettazio
 - Una linea che ha iniziato a consegnare solo dopo l'adempimento del contratto non ottiene nulla: l'elenco delle linee viene riempito solo durante il contratto.
 - Due contratti non raddoppiano mai due volte lo stesso pagamento: quando ne corrispondono diversi, viene usata solo l'ultima risposta (`subventions.script.tl:570-583`).
 
+```tip scripts
+**Vuoi il reddito doppio su più linee? Falle consegnare tutte prima che il contratto sia adempiuto.** Una linea aggiunta dopo non ottiene nulla.
+```
+
 ```engine
 Come il ×2 di una commessa si combina con il moltiplicatore del grado dell'azienda (impostazione Inflazione) è deciso dal motore: entrambi gli script restituiscono solo un moltiplicatore per ogni pagamento. Che cosa sia una voce di pagamento (presumibilmente un'unità di merce o un passeggero) è anch'esso deciso dal motore.
 ```

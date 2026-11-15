@@ -45,6 +45,10 @@ A taxa de crescimento vem de duas classificações da janela do município (`tow
 - 100% exige autoridade Excelente com suprimentos Muito Boa ou melhor, ou autoridade Muito Boa com suprimentos Excelente.
 - A sua **Sede** soma +5% ao município mais próximo dela, e a maioria das suas extensões soma mais +5% cada (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Esse bônus multiplica a taxa, então não faz nada em 0%.
 
+```tip scripts
+**Um município parou de crescer? Corrija primeiro a pior classificação.** A Autoridade do Município é a mais baixa das seis: uma única classificação em Muito Ruim deixa o município em 0 %, e melhorar as outras não muda nada.
+```
+
 ## As seis classificações da autoridade
 
 | Classificação | O que a reduz | Fonte |
@@ -63,6 +67,10 @@ As configurações de **sensibilidade** de cada classificação (sete níveis, o
 - **Passageiros**: uso das linhas do município × 2, então **50% de uso das linhas dá a classificação cheia** (`town_util.tl:546-553`).
 - **Carga**: oferta ÷ demanda de cada distrito (comercial, industrial); conta o **melhor** distrito, não a média (`town_util.tl:521-529`).
 - Um município sem nada a ser abastecido conta como suprimentos cheios. Um município que não recebe de você nem passageiros nem carga conta como "sem entregas": taxa de crescimento 0% (`town_util.tl:565-588`).
+
+```tip scripts
+**Você não precisa de todos os moradores nas suas linhas: 50 % de uso já dá a classificação máxima de passageiros.**
+```
 
 Novas demandas de carga chegam com os níveis (`placementparamsutil.lua:618-660`): uma comercial e uma industrial no início, uma segunda comercial no nível 5, uma segunda industrial no nível 7, uma terceira comercial no nível 9 e uma terceira industrial no nível 11. Elas só são adicionadas depois que o município recebe pelo menos uma entrega de carga (`town_growth.script.tl:286-288`). O jogo prefere cargas que poucos outros municípios já pedem (`town_growth.script.tl:258-266`).
 

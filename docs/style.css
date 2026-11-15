@@ -136,7 +136,10 @@ html:not(.srcon) .sr,html:not(.srcon) .sc,html:not(.srcon) .srcnote{display:none
   color:var(--dim);font:700 13.5px var(--font);cursor:pointer}
 .srcbtn:hover{border-color:var(--teal);color:var(--text)}
 .srcon .srcbtn{color:var(--teal);border-color:rgba(56,209,191,.45);background:rgba(56,209,191,.08)}
-.srcbtn{margin-left:auto}.srcbtn+.langs{margin-left:0}
+.srcbtn{margin-left:auto}.srcbtn+.langs,.srcbtn+.srcbtn{margin-left:0}
+.tipbtn:hover{border-color:var(--gold)}
+html:not(.tipsoff) .tipbtn{color:var(--gold);border-color:rgba(242,184,75,.45);background:rgba(242,184,75,.08)}
+html.tipsoff .callout.tip{display:none}
 .srcbox{display:flex;align-items:center;gap:7px;margin-top:12px;padding:0;background:none;border:0;color:var(--teal);font:600 14px var(--font);cursor:pointer}
 .srcbox:hover{color:var(--text)}
 .srcbox .h,.srcon .srcbox .s{display:none}.srcon .srcbox .h{display:inline}

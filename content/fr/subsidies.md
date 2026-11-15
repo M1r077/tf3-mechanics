@@ -83,6 +83,10 @@ Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptat
 - Une ligne qui ne commence à livrer qu'après la réalisation n'a rien : la liste des lignes n'est remplie que pendant le contrat.
 - Deux contrats ne doublent jamais deux fois le même paiement : quand plusieurs correspondent, seule la dernière réponse est utilisée (`subventions.script.tl:570-583`).
 
+```tip scripts
+**Tu veux le revenu doublé sur plusieurs lignes ? Fais-les toutes livrer avant que le contrat soit réalisé.** Une ligne ajoutée après n'a rien.
+```
+
 ```engine
 La façon dont le ×2 d'un contrat se combine avec le multiplicateur du rang de l'entreprise (réglage Inflation) est décidée par le moteur : les deux scripts ne renvoient qu'un multiplicateur pour chaque paiement. Ce qu'est une entrée de paiement (sans doute une unité de fret ou un passager) est aussi décidé par le moteur.
 ```

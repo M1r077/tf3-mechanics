@@ -49,7 +49,7 @@ Python 3.12 with `markdown`. The game folder is read in place, zips included, no
 - `` `file.tl:12-20` `` is a source reference (checked by `check.py`);
 - ` ```diagram NAME ``` ` inserts a diagram of `diagrams.py`;
 - ` ```engine ``` ` marks what the engine decides (not visible in the scripts);
-- ` ```tip ``` ` is a gold box with a practical tip measured in game;
+- ` ```tip ``` ` is a gold box with a practical tip measured in game; ` ```tip scripts ``` ` is a tip that follows from the scripts (no "measured in game" subtitle). Pages with tips get a "Tips" button next to "Sources": tips are shown by default, the reader can hide them (kept in `localStorage` `tf3tips`);
 - ` ```check ``` ` is the box comparing the official wiki and the scripts (`official:`, `scripts:`,
   `result: agrees | refines | differs`).
 

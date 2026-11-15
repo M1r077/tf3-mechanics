@@ -81,6 +81,10 @@ Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At
 - A passenger platform has no freight transfer: freight stays on board there (measured in game).
 - To keep the cargo on board, add it to the Load list of that stop.
 
+```tip
+**Cargo disappears at a stop next to a warehouse? Add it to that stop's Load list.** Everything not in the list is unloaded into any stock in reach, and a warehouse pays nothing for it.
+```
+
 | Option in "Cargo Filter" | What it does | Source |
 |---|---|---|
 | "Force Unload All Cargo On Arrival" | unloads into compatible stocks even when they are full; what does not fit is destroyed. Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |

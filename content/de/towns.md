@@ -45,6 +45,10 @@ Die Wachstumsrate kommt aus zwei Wertungen des Stadtfensters (`town_util.tl:607-
 - 100 % braucht Verwaltung Ausgezeichnet mit Versorgung Sehr gut oder besser, oder Verwaltung Sehr gut mit Versorgung Ausgezeichnet.
 - Dein **Hauptquartier** gibt der nächstgelegenen Stadt +5 %, und die meisten Erweiterungen je weitere +5 % (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Der Bonus multipliziert die Rate, bei 0 % bringt er nichts.
 
+```tip scripts
+**Eine Stadt wächst nicht mehr? Verbessere zuerst ihre schlechteste Wertung.** Die Stadtverwaltung ist die niedrigste der sechs Wertungen: eine einzige Wertung auf Sehr schlecht hält die Stadt bei 0 %, die anderen zu verbessern ändert nichts.
+```
+
 ## Die sechs Wertungen der Verwaltung
 
 | Wertung | Was sie senkt | Quelle |
@@ -63,6 +67,10 @@ Die **Empfindlichkeits**-Einstellungen jeder Wertung (sieben Stufen, die erste i
 - **Passagiere**: Linienauslastung der Stadt × 2, also **gibt 50 % Auslastung die volle Wertung** (`town_util.tl:546-553`).
 - **Fracht**: Angebot ÷ Bedarf jedes Viertels (Gewerbe, Industrie); es zählt das **beste** Viertel, nicht der Durchschnitt (`town_util.tl:521-529`).
 - Eine Stadt ohne etwas zu versorgen zählt als voll versorgt. Eine Stadt, die von dir weder Passagiere noch Fracht bekommt, zählt als „keine Lieferungen": Wachstumsrate 0 % (`town_util.tl:565-588`).
+
+```tip scripts
+**Du brauchst nicht alle Einwohner auf deinen Linien: 50 % Linienauslastung gibt schon die volle Passagierwertung.**
+```
 
 Neue Frachtbedarfe kommen mit den Stufen (`placementparamsutil.lua:618-660`): je einer für Gewerbe und Industrie am Anfang, ein zweiter Gewerbebedarf ab Stufe 5, ein zweiter Industriebedarf ab Stufe 7, ein dritter Gewerbebedarf ab Stufe 9, ein dritter Industriebedarf ab Stufe 11. Sie kommen erst, nachdem die Stadt mindestens eine Frachtlieferung erhalten hat (`town_growth.script.tl:286-288`). Das Spiel bevorzugt Frachten, die wenige andere Städte schon verlangen (`town_growth.script.tl:258-266`).
 

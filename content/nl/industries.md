@@ -72,6 +72,10 @@ De productie groeit in stappen: een nieuw perceel verhoogt de productie niet alt
 5. **Aftellen naar sluiting**, van jou of handmatige ontwikkeling: geen groei door het script (hierboven).
 6. **Geen productie**: een bedrijf dat in het jaar niets produceert, wordt overgeslagen (`industries.script.tl:168-171`).
 
+```tip scripts
+**Laat een mijn of boerderij groeien door minstens 75 % van de productie te vervoeren.** Bij 25 % of minder komt er nooit een nieuw perceel; bij 75 % of meer elk half jaar één, tot het maximum.
+```
+
 ```engine
 De productiescore (getProductionRating), de jaarproductie en de vervoerde hoeveelheid (getCargoOutputPerYear, getCargoShippedPerYear), en waar een nieuw perceel komt (makeIndustryExtendProposal) zijn waarden van de engine.
 ```
@@ -112,6 +116,10 @@ De helft van de arbeidsplaatsen (10 van 20) moet bezet zijn door inwoners die in
 3. **Verkeerde vracht**: gereedschap, machines of kunstmest naargelang het bedrijf (tabel hierboven).
 4. **Werknemers**: toegewezen is niet genoeg; het onderdeel Booster telt aankomsten („12/10”) (`industry_react_util.tl:617-654`). Zie [Werknemers en de werknemersboost](workers.html).
 
+```tip scripts
+**Voor een booster die nooit stopt: lever minstens 4 volle partijen per jaar** (52 gereedschappen voor een kolenmijn). De voorraad vervalt niet, dus je kunt vooruit leveren.
+```
+
 ## Wanneer sluit een ongebruikt industriebedrijf?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ De controle loopt elke 100 updates voor elk bedrijf (`industries.script.tl:84-85
 2. **Toeval**: elk jaar wordt een kandidaat gemarkeerd met de kans van de instelling **Frequentie van industriesluitingen** (tabel hieronder) (`industries.script.tl:120-131`).
 3. **Aftellen**: de melding **Sluiting van industrie** verschijnt, met 2 jaar (730 dagen) te gaan (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Daarna wordt het bedrijf verwijderd met zijn eigen wegstukken (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Gered**: één keer laden of verbruik tijdens het aftellen breekt het af (`industries.script.tl:134-137`). Een aangenomen subsidie **Bevoorraad industriebedrijf** of **Werknemers vervoeren** ervoor breekt het ook af (`subvention_util.tl:473-484`).
+
+```tip scripts
+**Melding Sluiting van industrie? Eén keer laden of één levering in de 730 dagen breekt het af.** Een aangenomen subsidie Bevoorraad industriebedrijf of Werknemers vervoeren voor dat bedrijf breekt het ook af.
+```
 
 | Frequentie van industriesluitingen | Kans per jaar als kandidaat | Helft van de kandidaten gemarkeerd na | Voorinstelling | Bron |
 |---|---|---|---|---|

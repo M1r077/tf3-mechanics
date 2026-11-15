@@ -105,6 +105,10 @@ What reaching the lifespan changes (for example faster loss of condition or lowe
 3. **A better model exists**: faster or bigger vehicles cost more to run, but they carry more (price follows speed × capacity).
 4. Use **Replace Vehicles** in the line manager. It opens the store with a comparison against the current vehicle (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
+```tip scripts
+**Vehicles stay in bad condition next to a depot? Open its window and check that the pool is not full.** A train depot serves 6 trains, a train maintenance station 12.
+```
+
 ## Good to know
 
 - Build enough maintenance capacity: one train depot serves only 6 trains.

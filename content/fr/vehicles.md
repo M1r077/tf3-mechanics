@@ -105,6 +105,10 @@ Ce que change le fait d'atteindre la durée de vie (par exemple une perte d'éta
 3. **Un meilleur modèle existe** : les véhicules plus rapides ou plus grands coûtent plus cher à exploiter, mais transportent plus (le prix suit vitesse × capacité).
 4. Utilise **Remplacer les véhicules** dans le gestionnaire de lignes. Il ouvre le magasin avec une comparaison avec le véhicule actuel (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
+```tip scripts
+**Des véhicules restent en mauvais état près d'un dépôt ? Ouvre sa fenêtre et vérifie que le pool n'est pas plein.** Un dépôt ferroviaire sert 6 trains, une station de maintenance ferroviaire 12.
+```
+
 ## Bon à savoir
 
 - Construis assez de capacité de maintenance : un dépôt ferroviaire ne sert que 6 trains.

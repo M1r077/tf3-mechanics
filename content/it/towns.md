@@ -45,6 +45,10 @@ L'indice di crescita deriva da due valutazioni della finestra della cittadina (`
 - Il 100% richiede un'autorità Eccellente con forniture Ottima o migliori, oppure un'autorità Ottima con forniture Eccellente.
 - La tua **Sede centrale** aggiunge +5% alla cittadina più vicina, e la maggior parte delle sue estensioni aggiunge un altro +5% ciascuna (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Questo bonus moltiplica l'indice, quindi a 0% non fa nulla.
 
+```tip scripts
+**Una cittadina non cresce più? Correggi prima la sua valutazione peggiore.** L'Autorità cittadina è la più bassa delle sei valutazioni: una sola valutazione Pessima blocca la cittadina allo 0 %, e migliorare le altre non cambia nulla.
+```
+
 ## Le sei valutazioni dell'autorità
 
 | Valutazione | Che cosa la abbassa | Fonte |
@@ -63,6 +67,10 @@ Le impostazioni di **sensibilità** di ogni valutazione (sette livelli, il primo
 - **Passeggeri**: utilizzo linea della cittadina × 2, quindi **un utilizzo linea del 50% dà la valutazione piena** (`town_util.tl:546-553`).
 - **Merci**: offerta ÷ domanda di ogni quartiere (commerciale, industriale); conta il quartiere **migliore**, non la media (`town_util.tl:521-529`).
 - Una cittadina senza nulla da rifornire conta come forniture piene. Una cittadina che non riceve da te né passeggeri né merci conta come "nessuna consegna": indice di crescita 0% (`town_util.tl:565-588`).
+
+```tip scripts
+**Non servono tutti gli abitanti sulle tue linee: il 50 % di utilizzo dà già la valutazione passeggeri massima.**
+```
 
 Le nuove richieste di merci arrivano con i livelli (`placementparamsutil.lua:618-660`): una commerciale e una industriale all'inizio, una seconda commerciale al livello 5, una seconda industriale al livello 7, una terza commerciale al livello 9, una terza industriale al livello 11. Vengono aggiunte solo dopo che la cittadina ha ricevuto almeno una consegna di merci (`town_growth.script.tl:286-288`). Il gioco preferisce merci che poche altre cittadine richiedono già (`town_growth.script.tl:258-266`).
 

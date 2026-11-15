@@ -109,6 +109,10 @@ Quanto velocemente calano le condizioni di un veicolo, quanto salgono di consegu
 - Al massimo **4 prestiti** contemporaneamente (`loan_util.tl:4`, `loan.script.tl:134`). Un'offerta viene sostituita dopo mezzo anno; lo spazio di un prestito che hai preso resta vuoto da 4 a 8 mesi (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - All'inizio di una partita, ciascuno dei quattro spazi riceve i valori di un tipo casuale, quindi la prima offerta «piccola» può essere un prestito grande; una volta rinnovata l'offerta, ogni spazio propone il proprio tipo (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Prendi il prestito più lungo e ripaga presto.** Gli interessi totali sono gli stessi per ogni durata, le rate mensili sono più basse, e Ripaga cancella gli interessi rimanenti.
+```
+
 ## Buono a sapersi
 
 - Prendi il prestito **più lungo** possibile: gli interessi totali sono gli stessi, distribuiti su più mesi, e puoi ripagare prima senza pagare il resto.

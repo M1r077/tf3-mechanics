@@ -105,6 +105,10 @@ Wat het bereiken van de levensduur verandert (bijvoorbeeld sneller verlies van s
 3. **Er bestaat een beter model**: snellere of grotere voertuigen kosten meer in bedrijf, maar ze vervoeren meer (de prijs volgt snelheid × capaciteit).
 4. Gebruik **Voertuigen vervangen** in de lijnbeheerder. Het opent de winkel met een vergelijking met het huidige voertuig (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
+```tip scripts
+**Blijven voertuigen in slechte staat naast een depot? Open het venster en kijk of de pool vol is.** Een treindepot bedient 6 treinen, een treinonderhoudsstation 12.
+```
+
 ## Goed om te weten
 
 - Bouw genoeg onderhoudscapaciteit: één treindepot bedient maar 6 treinen.

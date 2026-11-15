@@ -81,6 +81,10 @@ Cada parada de una línea tiene una lista **Carga**, en la ventana "Filtro de ca
 - Un andén de pasajeros no transfiere mercancías: allí el cargamento se queda a bordo (medido en el juego).
 - Para conservar el cargamento a bordo, añádelo a la lista Carga de esa parada.
 
+```tip
+**¿Desaparece cargamento en una parada junto a un almacén? Añádelo a la lista Carga de esa parada.** Todo lo que no está en la lista se descarga en cualquier existencia al alcance, y el almacén no paga nada.
+```
+
 | Opción de "Filtro de cargamento" | Qué hace | Fuente |
 |---|---|---|
 | "Forzar la descarga de todo el cargamento al llegar" | descarga en las existencias compatibles aunque estén llenas; lo que no cabe se destruye. Desactivada en una parada nueva. | `cargofilter_window.tl:757`, `line_util.tl:476` |

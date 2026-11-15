@@ -109,6 +109,10 @@ Wie schnell der Zustand eines Fahrzeugs sinkt, wie stark die Betriebskosten dadu
 - Höchstens **4 Darlehen** gleichzeitig (`loan_util.tl:4`, `loan.script.tl:134`). Ein Angebot wird nach einem halben Jahr ersetzt; der Platz eines genommenen Darlehens bleibt 4 bis 8 Monate leer (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - Zu Spielbeginn bekommt jeder der vier Plätze die Werte einer zufälligen Art, das erste „kleine" Angebot kann also ein großes Darlehen sein; sobald ein Angebot erneuert wird, bietet jeder Platz seine eigene Art (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Nimm den längsten Kredit und zahle früh zurück.** Die Zinsen insgesamt sind bei jeder Laufzeit gleich, die Monatsraten kleiner, und Zurückzahlen streicht die restlichen Zinsen.
+```
+
 ## Gut zu wissen
 
 - Nimm das **längste** Darlehen, das du bekommst: Die Zinsen sind insgesamt gleich, auf mehr Monate verteilt, und du kannst vorzeitig zurückzahlen, ohne den Rest zu zahlen.

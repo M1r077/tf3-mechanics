@@ -46,6 +46,8 @@
   "src_toggle": "スクリプト参照の表示・非表示",
   "src_show": "ソースを表示",
   "src_hide": "ソースを隠す",
+  "tips_btn": "ヒント",
+  "tips_toggle": "ヒントの表示・非表示",
   "tip_note": "ヒント",
   "tip_sub": "ゲーム内で測定"
  },

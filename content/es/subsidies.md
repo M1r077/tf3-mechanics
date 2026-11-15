@@ -83,6 +83,10 @@ Cada contrato guarda tres listas, que su tarjeta muestra como **Tras la aceptaci
 - Una línea que solo empezó a entregar después de cumplirse el contrato no recibe nada: la lista de líneas solo se llena durante el contrato.
 - Dos contratos nunca duplican dos veces el mismo pago: cuando coinciden varios, solo se usa la última respuesta (`subventions.script.tl:570-583`).
 
+```tip scripts
+**¿Quieres los ingresos dobles en varias líneas? Haz que todas entreguen antes de que se cumpla el contrato.** Una línea añadida después no recibe nada.
+```
+
 ```engine
 Cómo se combina el ×2 de una subvención con el multiplicador de rango de la empresa (ajuste Inflación) lo decide el motor: ambos scripts solo devuelven un multiplicador para cada pago. Qué es una entrada de pago (probablemente una unidad de cargamento o un pasajero) también lo decide el motor.
 ```

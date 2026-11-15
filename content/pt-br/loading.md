@@ -81,6 +81,10 @@ Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" 
 - Uma plataforma de passageiros não transfere carga: ali a carga fica a bordo (medido no jogo).
 - Para manter a carga a bordo, adicione-a à lista Volume dessa parada.
 
+```tip
+**A carga some numa parada ao lado de um armazém? Adicione-a à lista Volume dessa parada.** Tudo o que não está na lista é descarregado em um estoque ao alcance, e o armazém não paga nada.
+```
+
 | Opção de "Filtro de Cargas" | O que faz | Fonte |
 |---|---|---|
 | "Forçar descarregamento de todas as cargas na chegada" | descarrega nos estoques compatíveis mesmo cheios; o que não cabe é destruído. Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |

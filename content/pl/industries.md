@@ -72,6 +72,10 @@ Produkcja rośnie skokami: nowa parcela nie zawsze podnosi produkcję.
 5. **Odliczanie do zamknięcia**, zakład należy do ciebie lub ma ręczny rozwój: brak wzrostu ze skryptu (wyżej).
 6. **Brak produkcji**: zakład, który w roku nic nie wyprodukował, jest pomijany (`industries.script.tl:168-171`).
 
+```tip scripts
+**Żeby kopalnia lub farma rosła, wywoź co najmniej 75 % jej produkcji.** Przy 25 % lub mniej nigdy nie dostaje nowej parceli; przy 75 % lub więcej dostaje jedną co pół roku, aż do maksimum.
+```
+
 ```engine
 Ocena produkcji (getProductionRating), roczna produkcja i wywieziona ilość (getCargoOutputPerYear, getCargoShippedPerYear) oraz miejsce nowej parceli (makeIndustryExtendProposal) to wartości silnika.
 ```
@@ -112,6 +116,10 @@ Połowa miejsc pracy (10 z 20) musi być zajęta przez mieszkańców, którzy w 
 3. **Zły towar**: narzędzia, maszyny lub nawozy zależnie od zakładu (tabela wyżej).
 4. **Pracownicy**: przydzieleni to za mało; sekcja Premia liczy przyjazdy („12/10”) (`industry_react_util.tl:617-654`). Zobacz [Pracownicy i premia za pracowników](workers.html).
 
+```tip scripts
+**Żeby wzmocnienie nigdy nie stawało, dostarczaj co najmniej 4 pełne partie rocznie** (52 narzędzia dla kopalni węgla). Zapas nie przepada, więc możesz dostarczać z wyprzedzeniem.
+```
+
 ## Kiedy nieużywany zakład się zamyka?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ Sprawdzenie odbywa się co 100 aktualizacji dla każdego zakładu (`industries.s
 2. **Los**: co roku kandydat jest oznaczany z szansą z ustawienia **Częstotliwość zamykania przemysłu** (tabela niżej) (`industries.script.tl:120-131`).
 3. **Odliczanie**: pojawia się powiadomienie **Zamknięcie przemysłu**, z 2 latami (730 dni) czasu (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Potem zakład jest usuwany razem z własnymi odcinkami drogi (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Uratowany**: jeden załadunek lub zużycie w trakcie odliczania je przerywa (`industries.script.tl:134-137`). Przyjęcie dotacji **Zaopatrz zakład przemysłowy** lub **Przewieź pracowników** dla niego też je przerywa (`subvention_util.tl:473-484`).
+
+```tip scripts
+**Powiadomienie Zamknięcie przemysłu? Jeden załadunek lub jedna dostawa w ciągu 730 dni je przerywa.** Przyjęcie dotacji Zaopatrz zakład przemysłowy lub Przewieź pracowników dla tego zakładu też je przerywa.
+```
 
 | Częstotliwość zamykania przemysłu | Szansa na rok jako kandydat | Połowa kandydatów oznaczona po | Ustawienie wstępne | Źródło |
 |---|---|---|---|---|

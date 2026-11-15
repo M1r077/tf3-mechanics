@@ -105,6 +105,10 @@ Co zmienia osiągnięcie okresu trwałości (na przykład szybszą utratę stanu
 3. **Istnieje lepszy model**: szybsze lub większe pojazdy kosztują więcej w eksploatacji, ale przewożą więcej (cena wynika z prędkości × pojemności).
 4. Użyj **Wymień pojazdy** w menedżerze linii. Otwiera sklep z porównaniem z obecnym pojazdem (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
+```tip scripts
+**Pojazdy przy bazie wciąż są w złym stanie? Otwórz jej okno i sprawdź, czy pula nie jest pełna.** Baza kolejowa obsługuje 6 pociągów, kolejowa stacja konserwacji 12.
+```
+
 ## Dobrze wiedzieć
 
 - Zbuduj wystarczającą zdolność konserwacji: jedna baza kolejowa obsługuje tylko 6 pociągów.

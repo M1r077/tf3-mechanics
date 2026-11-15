@@ -51,6 +51,10 @@ Połączenie główne liczy się jako przerwane, gdy gra zgłasza **Połączenie
 - Dopóki przerwa trwa, kara jest też zapisywana w zapisanym wyniku, krok po kroku, przez pół roku (`towns.script.tl:137-145`). Po naprawie drogi ta zapisana część wraca tylko w normalnym tempie odzysku: długa przerwa jeszcze przez jakiś czas kosztuje reputację.
 - 67 % leży dokładnie na granicy Bardzo dobre: każda inna drobna strata obniża miasto do Dobre.
 
+```tip scripts
+**Zbuduj nową drogę, zanim usuniesz starą.** Każde przerwane połączenie główne od razu kosztuje jedną trzecią reputacji, a im dłużej trwa, tym dłużej trwa powrót.
+```
+
 ## Jak wraca
 
 - **Sama**: jeden poziom (1/6) co 3 miesiące czasu gry (360 s), co miesiąc (120 s) w czasie kampanii reklamowej (`towns.script.tl:121-135`). Przy tempie kalendarza ×1 to około **67 %** na rok, **200 %** z kampanią: od 0 % do pełna w około 1,5 roku. Okno miasta pokazuje **Roczny odzysk** 33 % i 100 %: stałe teksty, połowa rzeczywistego tempa (`town_react_util.tl:1066`). Zmierzone w mieście testowym: jeden poziom co 358 s, co 120 s z kampanią.

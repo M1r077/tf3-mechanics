@@ -83,6 +83,10 @@ Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęci
 - Linia, która zaczęła dostarczać dopiero po wypełnieniu kontraktu, nic nie dostaje: lista linii jest wypełniana tylko w czasie kontraktu.
 - Dwa kontrakty nigdy nie podwajają tej samej płatności dwukrotnie: gdy pasuje kilka, liczy się tylko ostatnia odpowiedź (`subventions.script.tl:570-583`).
 
+```tip scripts
+**Chcesz podwójny dochód na kilku liniach? Niech wszystkie dostarczają przed wypełnieniem kontraktu.** Linia dodana później nic nie dostaje.
+```
+
 ```engine
 To, jak ×2 z subsydium łączy się z mnożnikiem rangi firmy (ustawienie „Inflacja”), ustala silnik: oba skrypty zwracają tylko mnożnik dla każdej płatności. Czym jest jedna pozycja płatności (zapewne jedna jednostka towaru lub jeden pasażer), również ustala silnik.
 ```

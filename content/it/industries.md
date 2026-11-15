@@ -72,6 +72,10 @@ La produzione cresce a gradini: un nuovo lotto non aumenta sempre la produzione.
 5. **Conto alla rovescia di chiusura**, di tua proprietà o a sviluppo manuale: nessuna crescita dallo script (sopra).
 6. **Nessuna produzione**: un'industria che non produce nulla nell'anno viene saltata (`industries.script.tl:168-171`).
 
+```tip scripts
+**Per far crescere una miniera o una fattoria, spedisci almeno il 75 % della produzione.** Con il 25 % o meno non riceve mai un nuovo lotto; con il 75 % o più ne riceve uno ogni sei mesi, fino al massimo.
+```
+
 ```engine
 La valutazione di produzione (getProductionRating), la produzione annua e la quantità spedita (getCargoOutputPerYear, getCargoShippedPerYear), e dove va un nuovo lotto (makeIndustryExtendProposal) sono valori del motore.
 ```
@@ -112,6 +116,10 @@ Metà dei posti (10 su 20) deve essere occupata da abitanti **arrivati con le tu
 3. **Carico sbagliato**: strumenti, macchinari o fertilizzanti a seconda dell'industria (tabella sopra).
 4. **Lavoratori**: assegnati non basta; la sezione Booster conta gli arrivi («12/10») (`industry_react_util.tl:617-654`). Vedi [I lavoratori e il booster dei lavoratori](workers.html).
 
+```tip scripts
+**Per un potenziamento che non si ferma mai, consegna almeno 4 lotti completi l'anno** (52 attrezzi per una miniera di carbone). La scorta non si perde, quindi puoi consegnare in anticipo.
+```
+
 ## Quando chiude un'industria inutilizzata?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ Il controllo passa ogni 100 aggiornamenti per ogni industria (`industries.script
 2. **Caso**: ogni anno una candidata viene segnata con la probabilità dell'impostazione **Frequenza di chiusura delle industrie** (tabella sotto) (`industries.script.tl:120-131`).
 3. **Conto alla rovescia**: compare la notifica **Chiusura dell'industria**, con 2 anni (730 giorni) di tempo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Poi l'industria viene rimossa con i suoi tratti di strada (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Salvata**: un solo carico o un consumo durante il conto alla rovescia lo annulla (`industries.script.tl:134-137`). Accettare un sussidio **Fornitura industriale** o **Trasporto di forza lavoro** per lei lo annulla pure (`subvention_util.tl:473-484`).
+
+```tip scripts
+**Notifica Chiusura dell'industria? Un solo carico o una sola consegna durante i 730 giorni la annulla.** Accettare un sussidio Fornitura industriale o Trasporto di forza lavoro per quell'industria la annulla pure.
+```
 
 | Frequenza di chiusura delle industrie | Probabilità all'anno da candidata | Metà delle candidate segnate dopo | Preimpostazione | Fonte |
 |---|---|---|---|---|

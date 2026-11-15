@@ -51,6 +51,10 @@ Un collegamento principale conta come interrotto quando il gioco segnala **Il co
 - Finché l'interruzione dura, la penalità viene scritta anche nel punteggio salvato, passo dopo passo, nell'arco di mezzo anno (`towns.script.tl:137-145`). Dopo aver riparato la strada, quella parte salvata torna solo alla velocità normale di recupero: un'interruzione lunga continua a costare reputazione per un po'.
 - 67 % è proprio al limite di Ottima: qualsiasi altra piccola perdita porta la cittadina a Buona.
 
+```tip scripts
+**Costruisci la nuova strada prima di togliere la vecchia.** Ogni collegamento principale interrotto costa subito un terzo della reputazione, e più dura l'interruzione, più lungo è il recupero.
+```
+
 ## Come torna
 
 - **Da sola**: un livello (1/6) ogni 3 mesi di tempo di gioco (360 s), ogni mese (120 s) durante una campagna marketing (`towns.script.tl:121-135`). A velocità calendario ×1 sono circa **67 %** all'anno, **200 %** con una campagna: da 0 % al massimo in circa 1,5 anni. La finestra della cittadina mostra **Recupero annuale** 33 % e 100 %: testi fissi, metà della velocità reale (`town_react_util.tl:1066`). Misurato su una cittadina di prova: un livello ogni 358 s, ogni 120 s con una campagna.

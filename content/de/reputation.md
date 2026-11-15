@@ -51,6 +51,10 @@ Eine Hauptverbindung gilt als unterbrochen, wenn das Spiel **Strassenverbindung 
 - Solange die Unterbrechung dauert, wird die Strafe auch Schritt für Schritt über ein halbes Jahr in den gespeicherten Wert geschrieben (`towns.script.tl:137-145`). Nach der Reparatur kommt dieser gespeicherte Teil nur mit der normalen Erholung zurück: eine lange Unterbrechung kostet noch eine Weile Ruf.
 - 67 % liegt genau an der Grenze zu Sehr gut: jeder kleine weitere Verlust senkt die Stadt auf Gut.
 
+```tip scripts
+**Baue die neue Straße, bevor du die alte abreißt.** Jede unterbrochene Hauptverbindung kostet sofort ein Drittel des Ansehens, und je länger sie dauert, desto länger dauert die Erholung.
+```
+
 ## Wie er zurückkommt
 
 - **Von selbst**: eine Stufe (1/6) alle 3 Monate Spielzeit (360 s), jeden Monat (120 s) während einer Marketingkampagne (`towns.script.tl:121-135`). Bei Kalendertempo ×1 sind das etwa **67 %** pro Jahr, **200 %** mit Kampagne: von 0 % wieder voll in etwa 1,5 Jahren. Das Stadtfenster zeigt **Jährliche Aufwertung** 33 % und 100 %: feste Texte, die Hälfte des echten Tempos (`town_react_util.tl:1066`). Gemessen an einer Teststadt: eine Stufe alle 358 s, alle 120 s mit Kampagne.

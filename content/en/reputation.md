@@ -51,6 +51,10 @@ A main connection counts as cut when the game raises **Road Connection Between T
 - While the cut lasts, the penalty is also written into the stored score, step by step, over half a year (`towns.script.tl:137-145`). After you repair the road, that stored part comes back only at the normal recovery speed: a long cut keeps costing reputation for a while.
 - 67 % is right on the Very Good limit: any other small loss drops the town to Good.
 
+```tip scripts
+**Build the new road before you remove the old one.** Each cut main connection costs a third of the reputation at once, and the longer it lasts, the longer it takes to come back.
+```
+
 ## How it comes back
 
 - **By itself**: one level (1/6) every 3 months of game time (360 s), every month (120 s) during a Marketing Campaign (`towns.script.tl:121-135`). At calendar speed ×1 that is about **67 %** a year, **200 %** with a campaign: from 0 % back to full in about 1.5 years. The town window shows **Annual Recovery** 33 % and 100 %: fixed texts, half the real speed (`town_react_util.tl:1066`). Measured on a test town: one level every 358 s, every 120 s with a campaign.

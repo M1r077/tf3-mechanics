@@ -109,6 +109,10 @@ A velocidade com que o estado de um veículo cai, o quanto os custos operacionai
 - No máximo **4 empréstimos** ao mesmo tempo (`loan_util.tl:4`, `loan.script.tl:134`). Uma oferta é trocada depois de meio ano; o espaço de um empréstimo que você pegou fica vazio de 4 a 8 meses (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - No começo de uma partida, cada um dos quatro espaços recebe os valores de um tipo sorteado, então a primeira oferta "pequena" pode ser um empréstimo grande; quando uma oferta é renovada, cada espaço oferece o seu próprio tipo (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Pegue o empréstimo mais longo e pague cedo.** Os juros totais são os mesmos em qualquer prazo, as parcelas mensais são menores, e Pagar cancela os juros restantes.
+```
+
 ## Bom saber
 
 - Pegue o empréstimo **mais longo** que puder: o total de juros é o mesmo, dividido em mais meses, e você pode quitar antes sem pagar o resto.

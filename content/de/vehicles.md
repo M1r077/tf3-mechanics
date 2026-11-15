@@ -105,6 +105,10 @@ Was das Erreichen der Lebensdauer ändert (zum Beispiel schnellerer Zustandsverl
 3. **Es gibt ein besseres Modell**: Schnellere oder größere Fahrzeuge kosten mehr im Betrieb, transportieren aber mehr (der Preis folgt Geschwindigkeit × Kapazität).
 4. Nutze **Fahrzeuge ersetzen** im Linienmanager. Es öffnet den Katalog mit einem Vergleich zum aktuellen Fahrzeug (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
+```tip scripts
+**Fahrzeuge bleiben neben einem Depot in schlechtem Zustand? Öffne sein Fenster und prüfe, ob der Pool voll ist.** Ein Zugdepot bedient 6 Züge, eine Zug-Wartungsstation 12.
+```
+
 ## Gut zu wissen
 
 - Baue genug Wartungskapazität: Ein Zugdepot bedient nur 6 Züge.

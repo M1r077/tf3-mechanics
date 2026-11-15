@@ -72,6 +72,10 @@ Die Produktion wächst in Stufen: eine neue Parzelle erhöht die Produktion nich
 5. **Schließungs-Countdown**, in deinem Besitz oder manuelle Entwicklung: kein Wachstum durch das Skript (oben).
 6. **Keine Produktion**: eine Industrie, die im Jahr nichts produziert, wird übersprungen (`industries.script.tl:168-171`).
 
+```tip scripts
+**Damit eine Mine oder ein Hof wächst, transportiere mindestens 75 % der Produktion ab.** Bei 25 % oder weniger gibt es nie ein neues Grundstück; ab 75 % eines pro Halbjahr, bis zum Maximum.
+```
+
 ```engine
 Die Produktionswertung (getProductionRating), die jährliche Produktion und die abtransportierte Menge (getCargoOutputPerYear, getCargoShippedPerYear) und wohin eine neue Parzelle kommt (makeIndustryExtendProposal) sind Werte der Engine.
 ```
@@ -112,6 +116,10 @@ Die Hälfte der Arbeitsplätze (10 von 20) muss mit Einwohnern besetzt sein, die
 3. **Falsche Fracht**: Werkzeuge, Maschinen oder Dünger je nach Industrie (Tabelle oben).
 4. **Arbeiter**: zugeteilt reicht nicht; der Abschnitt Booster zählt Ankünfte („12/10“) (`industry_react_util.tl:617-654`). Siehe [Arbeiter und Arbeiterbonus](workers.html).
 
+```tip scripts
+**Für einen Booster ohne Pause liefere mindestens 4 volle Ladungen im Jahr** (52 Werkzeuge für eine Kohlemine). Der Bestand verfällt nicht, du kannst also vorausliefern.
+```
+
 ## Wann schließt eine ungenutzte Industrie?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ Die Prüfung läuft alle 100 Updates für jede Industrie (`industries.script.tl:
 2. **Zufall**: jedes Jahr wird ein Kandidat mit der Chance der Einstellung **Häufigkeit von Industrieschliessungen** markiert (Tabelle unten) (`industries.script.tl:120-131`).
 3. **Countdown**: die Meldung **Industrieschliessung** erscheint, mit 2 Jahren (730 Tagen) Frist (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Danach wird die Industrie mit ihren eigenen Straßenstücken entfernt (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Gerettet**: ein einziges Verladen oder ein Verbrauch während des Countdowns bricht ihn ab (`industries.script.tl:134-137`). Eine angenommene Subvention **Industrie beliefern** oder **Transportiere Arbeiter** für sie bricht ihn ebenfalls ab (`subvention_util.tl:473-484`).
+
+```tip scripts
+**Meldung Industrieschliessung? Ein einziges Verladen oder eine Lieferung in den 730 Tagen bricht sie ab.** Eine angenommene Subvention Industrie beliefern oder Transportiere Arbeiter für diese Industrie bricht sie ebenfalls ab.
+```
 
 | Häufigkeit von Industrieschliessungen | Chance pro Jahr als Kandidat | Hälfte der Kandidaten markiert nach | Voreinstellung | Quelle |
 |---|---|---|---|---|

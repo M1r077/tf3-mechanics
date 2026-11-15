@@ -51,6 +51,10 @@ Uma conexão principal conta como cortada quando o jogo avisa **A conexão rodov
 - Enquanto o corte dura, a penalidade também é gravada na pontuação salva, passo a passo, ao longo de meio ano (`towns.script.tl:137-145`). Depois que você conserta a estrada, essa parte gravada só volta na velocidade normal de recuperação: um corte longo continua custando reputação por um tempo.
 - 67 % fica exatamente no limite de Muito Boa: qualquer outra pequena perda leva o município a Boa.
 
+```tip scripts
+**Construa a estrada nova antes de remover a antiga.** Cada conexão principal cortada custa um terço da reputação de uma vez, e quanto mais dura, mais demora para voltar.
+```
+
 ## Como ela volta
 
 - **Sozinha**: um nível (1/6) a cada 3 meses de tempo de jogo (360 s), a cada mês (120 s) durante uma campanha de marketing (`towns.script.tl:121-135`). Na velocidade de calendário ×1 são cerca de **67 %** por ano, **200 %** com campanha: de 0 % ao máximo em cerca de 1,5 ano. A janela do município mostra **Recuperação Anual** 33 % e 100 %: textos fixos, metade da velocidade real (`town_react_util.tl:1066`). Medido num município de teste: um nível a cada 358 s, a cada 120 s com campanha.

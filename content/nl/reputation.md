@@ -51,6 +51,10 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 - Zolang de onderbreking duurt, wordt de straf ook stap voor stap over een half jaar in de opgeslagen score geschreven (`towns.script.tl:137-145`). Na het herstel van de weg komt dat opgeslagen deel alleen met het normale herstel terug: een lange onderbreking blijft nog een tijd reputatie kosten.
 - 67 % ligt precies op de grens van Zeer goed: elk ander klein verlies zet de stad op Goed.
 
+```tip scripts
+**Bouw de nieuwe weg voordat je de oude weghaalt.** Elke onderbroken hoofdaansluiting kost meteen een derde van de reputatie, en hoe langer het duurt, hoe langer het herstel.
+```
+
 ## Hoe ze terugkomt
 
 - **Vanzelf**: één niveau (1/6) per 3 maanden speltijd (360 s), elke maand (120 s) tijdens een marketingcampagne (`towns.script.tl:121-135`). Bij kalendersnelheid ×1 is dat ongeveer **67 %** per jaar, **200 %** met een campagne: van 0 % weer vol in ongeveer 1,5 jaar. Het stadsvenster toont **Jaarlijks herstel** 33 % en 100 %: vaste teksten, de helft van de echte snelheid (`town_react_util.tl:1066`). Gemeten bij een teststad: één niveau per 358 s, per 120 s met een campagne.

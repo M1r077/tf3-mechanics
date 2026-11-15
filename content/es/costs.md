@@ -109,6 +109,10 @@ La rapidez con que baja el estado de un vehículo, cuánto suben con ello los ga
 - Como máximo **4 préstamos** a la vez (`loan_util.tl:4`, `loan.script.tl:134`). Una oferta se sustituye al cabo de medio año; la casilla de un préstamo que has pedido se queda vacía de 4 a 8 meses (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - Al empezar una partida, cada una de las cuatro casillas recibe los valores de un tipo al azar, así que la primera oferta «pequeña» puede ser un préstamo grande; cuando se renueva una oferta, cada casilla ofrece su propio tipo (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Pide el préstamo más largo y reembolsa pronto.** Los intereses totales son los mismos con cualquier plazo, las cuotas mensuales son menores, y Reembolsar anula los intereses restantes.
+```
+
 ## Conviene saber
 
 - Pide el préstamo **más largo** que puedas: el interés total es el mismo, repartido en más meses, y puedes reembolsarlo antes sin pagar el resto.

@@ -45,6 +45,10 @@ Tempo rozwoju zależy od dwóch ocen w oknie miasta (`town_util.tl:607-633`, `to
 - 100 % wymaga władz „Znakomite” przy zaopatrzeniu „Bardzo dobre” lub lepszym albo władz „Bardzo dobre” przy zaopatrzeniu „Znakomite”.
 - Twoja **centrala** dodaje +5 % najbliższemu miastu, a większość jej rozbudów dodaje po kolejne +5 % (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Ta premia mnoży tempo, więc przy 0 % nic nie daje.
 
+```tip scripts
+**Miasto przestało rosnąć? Najpierw popraw jego najgorszą ocenę.** Władze miejskie to najniższa z sześciu ocen: jedna ocena „Bardzo złe” trzyma miasto na 0 %, a poprawa pozostałych nic nie zmienia.
+```
+
 ## Sześć ocen władz miejskich
 
 | Ocena | Co ją obniża | Źródło |
@@ -63,6 +67,10 @@ Ustawienia **wrażliwości** każdej oceny (siedem stopni, pierwszy to „Wył.�
 - **Pasażerowie**: obciążenie linii w mieście × 2, więc **50 % obciążenia linii daje pełną ocenę** (`town_util.tl:546-553`).
 - **Towary**: zaopatrzenie ÷ popyt każdej dzielnicy (handlowej, przemysłowej); liczy się **najlepsza** dzielnica, a nie średnia (`town_util.tl:521-529`).
 - Miasto, któremu nie ma czego dostarczać, liczy się jako w pełni zaopatrzone. Miasto, które nie dostaje od ciebie ani pasażerów, ani towarów, liczy się jako „bez dostaw”: tempo rozwoju 0 % (`town_util.tl:565-588`).
+
+```tip scripts
+**Nie potrzebujesz wszystkich mieszkańców na swoich liniach: 50 % wykorzystania daje już pełną ocenę pasażerów.**
+```
 
 Nowe zapotrzebowania na towary pojawiają się wraz z poziomami (`placementparamsutil.lua:618-660`): jedno handlowe i jedno przemysłowe na starcie, drugie handlowe na poziomie 5, drugie przemysłowe na poziomie 7, trzecie handlowe na poziomie 9, trzecie przemysłowe na poziomie 11. Są dodawane dopiero wtedy, gdy miasto otrzymało co najmniej jedną dostawę towaru (`town_growth.script.tl:286-288`). Gra woli towary, o które prosi niewiele innych miast (`town_growth.script.tl:258-266`).
 

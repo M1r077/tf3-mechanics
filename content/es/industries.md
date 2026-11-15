@@ -72,6 +72,10 @@ La producción sube por escalones: un terreno nuevo no siempre aumenta la produc
 5. **Cuenta atrás de cierre**, industria tuya o desarrollo manual: el script no la hace crecer (arriba).
 6. **Sin producción**: una industria que no produce nada en el año se salta (`industries.script.tl:168-171`).
 
+```tip scripts
+**Para que una mina o una granja crezca, transporta al menos el 75 % de su producción.** Con el 25 % o menos nunca recibe un terreno nuevo; con el 75 % o más recibe uno cada medio año, hasta su máximo.
+```
+
 ```engine
 La nota de producción (getProductionRating), la producción anual y la cantidad transportada (getCargoOutputPerYear, getCargoShippedPerYear), y dónde va un terreno nuevo (makeIndustryExtendProposal) son valores del motor.
 ```
@@ -112,6 +116,10 @@ La mitad de los puestos (10 de 20) debe estar ocupada por residentes que **llega
 3. **Carga equivocada**: herramientas, máquinas o fertilizante según la industria (tabla de arriba).
 4. **Trabajadores**: asignados no basta; la sección Refuerzo cuenta llegadas («12/10») (`industry_react_util.tl:617-654`). Ver [Trabajadores y el refuerzo de trabajadores](workers.html).
 
+```tip scripts
+**Para un potenciador que nunca se detenga, entrega al menos 4 lotes completos al año** (52 herramientas para una mina de carbón). Las existencias no se pierden, así que puedes entregar por adelantado.
+```
+
 ## ¿Cuándo cierra una industria sin uso?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ La comprobación se hace cada 100 actualizaciones para cada industria (`industri
 2. **Azar**: cada año una candidata se marca con la probabilidad del ajuste **Frecuencia de cierre de industrias** (tabla abajo) (`industries.script.tl:120-131`).
 3. **Cuenta atrás**: aparece la notificación **Cierre de industria**, con 2 años (730 días) de plazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Después la industria se elimina con sus propios tramos de carretera (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Salvada**: una sola carga o un consumo durante la cuenta atrás la cancela (`industries.script.tl:134-137`). Aceptar un subsidio **Suministrar a industria** o **Transportar trabajadores** para ella también la cancela (`subvention_util.tl:473-484`).
+
+```tip scripts
+**¿Aviso de Cierre de industria? Una sola carga o una sola entrega durante los 730 días lo cancela.** Aceptar un subsidio Suministrar a industria o Transportar trabajadores para esa industria también lo cancela.
+```
 
 | Frecuencia de cierre de industrias | Probabilidad al año como candidata | Mitad de las candidatas marcadas tras | Preajuste | Fuente |
 |---|---|---|---|---|

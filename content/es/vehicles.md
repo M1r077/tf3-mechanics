@@ -105,6 +105,10 @@ Qué cambia al alcanzar la vida útil (por ejemplo, una pérdida de condición m
 3. **Existe un modelo mejor**: los vehículos más rápidos o más grandes cuestan más de mantener en servicio, pero transportan más (el precio sigue a velocidad × capacidad).
 4. Usa **Sustituir vehículos** en el gestor de líneas. Abre la tienda con una comparación con el vehículo actual (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
+```tip scripts
+**¿Los vehículos siguen en mal estado junto a un depósito? Abre su ventana y comprueba que el cupo no está lleno.** Un depósito de trenes atiende 6 trenes; una estación de mantenimiento de trenes, 12.
+```
+
 ## Conviene saber
 
 - Construye suficiente capacidad de mantenimiento: un depósito de trenes solo atiende 6 trenes.

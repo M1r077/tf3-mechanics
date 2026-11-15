@@ -51,6 +51,10 @@ Une connexion principale compte comme coupée quand le jeu affiche **La liaison 
 - Tant que la coupure dure, la pénalité est aussi inscrite dans le score enregistré, pas à pas, sur un semestre (`towns.script.tl:137-145`). Une fois la route réparée, cette partie enregistrée ne revient qu'à la vitesse normale : une longue coupure continue de coûter de la réputation pendant un moment.
 - 67 % est pile à la limite de Très bon : la moindre autre perte fait passer la ville à Bon.
 
+```tip scripts
+**Construis la nouvelle route avant de supprimer l'ancienne.** Chaque connexion principale coupée coûte un tiers de la réputation d'un coup, et plus la coupure dure, plus le retour est long.
+```
+
 ## Comment elle revient
 
 - **Toute seule** : un niveau (1/6) tous les 3 mois de temps de jeu (360 s), tous les mois (120 s) pendant une campagne marketing (`towns.script.tl:121-135`). Au calendrier ×1, cela fait environ **67 %** par an, **200 %** avec une campagne : de 0 % à plein en 1,5 an environ. La fenêtre de la ville affiche **Récupération annuelle** 33 % et 100 % : des textes fixes, la moitié de la vitesse réelle (`town_react_util.tl:1066`). Mesuré sur une ville de test : un niveau toutes les 358 s, toutes les 120 s avec une campagne.

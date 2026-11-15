@@ -109,6 +109,10 @@ La vitesse à laquelle l'état d'un véhicule baisse, la hausse des coûts d'exp
 - Au plus **4 emprunts** en même temps (`loan_util.tl:4`, `loan.script.tl:134`). Une offre est remplacée au bout d'un semestre ; l'emplacement d'un emprunt que tu as pris reste vide 4 à 8 mois (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - Au début d'une partie, chacun des quatre emplacements reçoit les valeurs d'un type tiré au hasard, donc la première offre « petite » peut être un gros emprunt ; une fois l'offre renouvelée, chaque emplacement propose son propre type (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Prends le prêt le plus long, puis rembourse tôt.** Les intérêts totaux sont les mêmes quelle que soit la durée, les mensualités sont plus faibles, et Rembourser supprime les intérêts restants.
+```
+
 ## Bon à savoir
 
 - Prends l'emprunt le **plus long** possible : le total des intérêts est le même, réparti sur plus de mois, et tu peux rembourser plus tôt sans payer le reste.

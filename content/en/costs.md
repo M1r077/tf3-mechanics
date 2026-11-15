@@ -109,6 +109,10 @@ How fast a vehicle's condition falls, how much running costs rise with it, and w
 - At most **4 loans** at once (`loan_util.tl:4`, `loan.script.tl:134`). An offer is replaced after half a year; the slot of a loan you took stays empty for 4 to 8 months (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - At the start of a game each of the four slots gets the values of a random kind, so the first "small" offer can be a large loan; once an offer is renewed, each slot offers its own kind (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Take the longest loan, then repay early.** The total interest is the same for every term, the monthly payments are smaller, and Repay drops the interest that is left.
+```
+
 ## Good to know
 
 - Take the **longest** loan you can: the interest is the same total, spread over more months, and you can repay early without paying the rest.

@@ -45,6 +45,10 @@ Le taux de croissance vient de deux notes de la fenêtre de la ville (`town_util
 - 100 % demande une autorité Excellent avec des apports Très bon ou mieux, ou une autorité Très bon avec des apports Excellent.
 - Ton **siège social** ajoute +5 % à la ville la plus proche, et la plupart de ses extensions +5 % chacune (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Ce bonus multiplie le taux : il ne fait rien à 0 %.
 
+```tip scripts
+**Une ville ne grandit plus ? Corrige d'abord sa pire note.** L'Autorité municipale est la plus basse des six notes : une seule note à Très insuffisant bloque la ville à 0 %, et améliorer les autres n'y change rien.
+```
+
 ## Les six notes de l'autorité
 
 | Note | Ce qui la fait baisser | Source |
@@ -63,6 +67,10 @@ Les réglages de **sensibilité** de chaque note (sept crans, le premier est Dé
 - **Passagers** : utilisation des lignes de la ville × 2, donc **50 % d'utilisation donnent la note pleine** (`town_util.tl:546-553`).
 - **Fret** : apport ÷ demande de chaque quartier (commercial, industriel) ; c'est le **meilleur** quartier qui compte, pas la moyenne (`town_util.tl:521-529`).
 - Une ville sans rien à approvisionner compte comme apports pleins. Une ville qui ne reçoit de toi ni passagers ni fret compte comme « aucune livraison » : taux de croissance 0 % (`town_util.tl:565-588`).
+
+```tip scripts
+**Pas besoin de tous les habitants sur tes lignes : 50 % d'usage donne déjà la note passagers maximale.**
+```
 
 Les nouvelles demandes de fret viennent avec les niveaux (`placementparamsutil.lua:618-660`) : une commerciale et une industrielle au départ, une deuxième commerciale au niveau 5, une deuxième industrielle au niveau 7, une troisième commerciale au niveau 9, une troisième industrielle au niveau 11. Elles ne s'ajoutent qu'après au moins une livraison de fret à la ville (`town_growth.script.tl:286-288`). Le jeu préfère les frets que peu d'autres villes demandent déjà (`town_growth.script.tl:258-266`).
 

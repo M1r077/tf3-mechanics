@@ -45,6 +45,10 @@ La tasa de crecimiento sale de dos calificaciones de la ventana de la localidad 
 - El 100 % exige autoridad Excelente con suministros Muy buena o mejor, o autoridad Muy buena con suministros Excelente.
 - Tu **sede central** añade +5 % a la localidad más cercana, y la mayoría de sus ampliaciones añaden otro +5 % cada una (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Esta bonificación multiplica la tasa, así que no hace nada con 0 %.
 
+```tip scripts
+**¿Una localidad ya no crece? Arregla primero su peor calificación.** La Autoridad municipal es la más baja de las seis: una sola calificación en Muy baja deja la localidad en 0 %, y mejorar las demás no cambia nada.
+```
+
 ## Las seis calificaciones de la autoridad
 
 | Calificación | Qué la baja | Fuente |
@@ -63,6 +67,10 @@ Los ajustes de **susceptibilidad** de cada calificación (siete niveles, el prim
 - **Pasajeros**: uso de línea de la localidad × 2, así que **un 50 % de uso de línea da la calificación máxima** (`town_util.tl:546-553`).
 - **Cargamento**: suministro ÷ demanda de cada distrito (comercial, industrial); cuenta el **mejor** distrito, no la media (`town_util.tl:521-529`).
 - Una localidad sin nada que suministrar cuenta como suministros completos. Una localidad que no recibe de ti ni pasajeros ni cargamento cuenta como "sin entregas": tasa de crecimiento 0 % (`town_util.tl:565-588`).
+
+```tip scripts
+**No necesitas a todos los habitantes en tus líneas: un 50 % de uso ya da la calificación máxima de pasajeros.**
+```
 
 Las nuevas demandas de cargamento llegan con los niveles (`placementparamsutil.lua:618-660`): una comercial y una industrial al principio, una segunda comercial en el nivel 5, una segunda industrial en el nivel 7, una tercera comercial en el nivel 9 y una tercera industrial en el nivel 11. Solo se añaden cuando la localidad ha recibido al menos una entrega de cargamento (`town_growth.script.tl:286-288`). El juego prefiere cargamentos que pocas otras localidades piden ya (`town_growth.script.tl:258-266`).
 

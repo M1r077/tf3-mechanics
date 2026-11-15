@@ -72,6 +72,10 @@ The output grows in steps: a new plot does not always raise the production.
 5. **Closing countdown**, owned by you, or manual development: no growth from the script (above).
 6. **No output**: an industry producing nothing in the year is skipped (`industries.script.tl:168-171`).
 
+```tip scripts
+**To make a mine or a farm grow, ship at least 75 % of its output.** At 25 % or less it never gets a new plot; at 75 % or more it gets one every half year, until its maximum.
+```
+
 ```engine
 The production rating (getProductionRating), the yearly output and the shipped amount (getCargoOutputPerYear, getCargoShippedPerYear), and where a new plot goes (makeIndustryExtendProposal) are engine values.
 ```
@@ -112,6 +116,10 @@ Half of the workplaces (10 of 20) must be filled by residents who **arrived by y
 3. **Wrong cargo**: tools, machines or fertilizer depending on the industry (table above).
 4. **Workers**: assigned is not enough; the Booster section counts arrivals ("12/10") (`industry_react_util.tl:617-654`). See [Workers and the workers boost](workers.html).
 
+```tip scripts
+**For a booster that never stops, deliver at least 4 full batches a year** (52 tools for a Coal Mine). The stock does not decay, so you can deliver ahead.
+```
+
 ## When does an unused industry close?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ The check runs every 100 updates for each industry (`industries.script.tl:84-85`
 2. **Chance**: each year a candidate is marked with the chance of the **Industry Closing Frequency** setting (table below) (`industries.script.tl:120-131`).
 3. **Countdown**: the notification **Industry Closing** appears, with 2 years (730 days) to go (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Then the industry is removed with its own road pieces (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Saved**: one load or consumption during the countdown cancels it (`industries.script.tl:134-137`). Accepting a **Supply Industry** or **Transport Workers** subsidy for it cancels it too (`subvention_util.tl:473-484`).
+
+```tip scripts
+**Got an Industry Closing notice? One pickup or one delivery during the 730 days cancels it.** Accepting a Supply Industry or Transport Workers subsidy for that industry cancels it too.
+```
 
 | Industry Closing Frequency | Chance per year as a candidate | Half of the candidates marked after | Preset | Source |
 |---|---|---|---|---|

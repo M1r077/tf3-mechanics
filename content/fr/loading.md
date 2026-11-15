@@ -81,6 +81,10 @@ Chaque arrêt d'une ligne a une liste **Charge**, dans la fenêtre « Filtre de 
 - Un quai voyageurs ne fait pas de transfert de fret : le fret y reste à bord (mesuré en jeu).
 - Pour garder le fret à bord, ajoute-le à la liste Charge de cet arrêt.
 
+```tip
+**Du fret disparaît à un arrêt près d'un entrepôt ? Ajoute-le à la liste Charge de cet arrêt.** Tout ce qui n'est pas dans la liste est déchargé dans un stock à portée, et l'entrepôt ne paie rien.
+```
+
 | Option de « Filtre de fret » | Effet | Source |
 |---|---|---|
 | « Forcer le déchargement de tout le fret à l’arrivée » | décharge dans les stocks compatibles même pleins ; ce qui ne rentre pas est détruit. Désactivée pour un nouvel arrêt. | `cargofilter_window.tl:757`, `line_util.tl:476` |

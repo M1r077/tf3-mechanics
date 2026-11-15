@@ -18,7 +18,7 @@ Inside a page:
   - `file.tl:12` or `file.tl:12-20` (a path ending in .lua / .tl, optional lines) becomes a source reference;
   - a fenced block ```diagram NAME``` inserts the SVG diagram NAME from diagrams.py (localised);
   - a fenced block ```engine``` marks what the engine decides;
-  - a fenced block ```tip``` is a gold practical tip box (measured in game);
+  - a fenced block ```tip``` is a gold practical tip box (measured in game; ```tip scripts``` = from the scripts);
   - a fenced block ```check``` holds the verification box: lines "official: ...", "scripts: ...", "result: agrees|refines|differs".
 """
 import html
@@ -58,7 +58,7 @@ UI = {
         "footer": "Fan project by Miro. Not affiliated with Urban Games.",
         "lic": "Texts and images: CC BY 4.0 · Game code © Urban Games: only short references are shown.",
         "engine_note": "Decided by the game engine",
-        "engine_sub": "C++, not visible in the scripts", "tip_note": "Tip", "tip_sub": "measured in game",
+        "engine_sub": "C++, not visible in the scripts", "tip_note": "Tip", "tip_sub": "measured in game", "tips_btn": "Tips", "tips_toggle": "Show or hide the tips",
         "read_more": "Read", "no_page": "No page yet", "updated": "Updated",
         "src_note": "Paths are inside the game's base/content folder or its zip files.",
         "toc": "On this page", "more": "Other mechanics", "filter": "Filter the game systems…",
@@ -80,7 +80,7 @@ UI = {
         "footer": "Projet de fan par Miro. Non affilié à Urban Games.",
         "lic": "Textes et images : CC BY 4.0 · Code du jeu © Urban Games : seules de courtes références sont montrées.",
         "engine_note": "Décidé par le moteur du jeu",
-        "engine_sub": "C++, non visible dans les scripts", "tip_note": "Astuce", "tip_sub": "mesuré en jeu",
+        "engine_sub": "C++, non visible dans les scripts", "tip_note": "Astuce", "tip_sub": "mesuré en jeu", "tips_btn": "Astuces", "tips_toggle": "Afficher ou cacher les astuces",
         "read_more": "Lire", "no_page": "Pas encore de page", "updated": "Mis à jour",
         "src_note": "Les chemins sont dans le dossier base/content du jeu ou dans ses fichiers zip.",
         "toc": "Sur cette page", "more": "Autres mécaniques", "filter": "Filtrer les systèmes du jeu…",
@@ -102,7 +102,7 @@ UI = {
         "footer": "Fanprojekt von Miro. Nicht mit Urban Games verbunden.",
         "lic": "Texte und Bilder: CC BY 4.0 · Spielcode © Urban Games: es werden nur kurze Verweise gezeigt.",
         "engine_note": "Von der Spiel-Engine entschieden",
-        "engine_sub": "C++, in den Skripten nicht sichtbar", "tip_note": "Tipp", "tip_sub": "im Spiel gemessen",
+        "engine_sub": "C++, in den Skripten nicht sichtbar", "tip_note": "Tipp", "tip_sub": "im Spiel gemessen", "tips_btn": "Tipps", "tips_toggle": "Tipps ein- oder ausblenden",
         "read_more": "Lesen", "no_page": "Noch keine Seite", "updated": "Aktualisiert",
         "src_note": "Die Pfade liegen im Ordner base/content des Spiels oder in seinen Zip-Dateien.",
         "toc": "Auf dieser Seite", "more": "Weitere Mechaniken", "filter": "Spielsysteme filtern…",
@@ -274,7 +274,10 @@ html:not(.srcon) .sr,html:not(.srcon) .sc,html:not(.srcon) .srcnote{display:none
   color:var(--dim);font:700 13.5px var(--font);cursor:pointer}
 .srcbtn:hover{border-color:var(--teal);color:var(--text)}
 .srcon .srcbtn{color:var(--teal);border-color:rgba(56,209,191,.45);background:rgba(56,209,191,.08)}
-.srcbtn{margin-left:auto}.srcbtn+.langs{margin-left:0}
+.srcbtn{margin-left:auto}.srcbtn+.langs,.srcbtn+.srcbtn{margin-left:0}
+.tipbtn:hover{border-color:var(--gold)}
+html:not(.tipsoff) .tipbtn{color:var(--gold);border-color:rgba(242,184,75,.45);background:rgba(242,184,75,.08)}
+html.tipsoff .callout.tip{display:none}
 .srcbox{display:flex;align-items:center;gap:7px;margin-top:12px;padding:0;background:none;border:0;color:var(--teal);font:600 14px var(--font);cursor:pointer}
 .srcbox:hover{color:var(--text)}
 .srcbox .h,.srcon .srcbox .s{display:none}.srcon .srcbox .h{display:inline}
@@ -376,6 +379,11 @@ JS = r"""
   [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
     b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
     b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
   var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
   if(links.length&&'IntersectionObserver' in window){
     var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
@@ -466,9 +474,11 @@ def render_body(text, lang, ui):
             return stash(f'<aside class="callout"><div class="badge">{icon("cpu", 22)}</div><div>'
                          f'<h4>{ui["engine_note"]}<small>{ui["engine_sub"]}</small></h4>{inner}</div></aside>')
         if kind == "tip":
+            # ```tip = measured in game (subtitle); ```tip scripts = follows from the scripts (no subtitle)
             inner = markdown.markdown(body.strip(), extensions=["tables"])
+            sub = "" if arg == "scripts" else f'<small>{ui["tip_sub"]}</small>'
             return stash(f'<aside class="callout tip"><div class="badge">{icon("lightbulb", 22)}</div><div>'
-                         f'<h4>{ui["tip_note"]}<small>{ui["tip_sub"]}</small></h4>{inner}</div></aside>')
+                         f'<h4>{ui["tip_note"]}{sub}</h4>{inner}</div></aside>')
         return m.group(0)
 
     text = re.sub(r"```(diagram|check|engine|tip)[ \t]*([^\n]*)\n(.*?)```", fence, text, flags=re.S)
@@ -560,7 +570,7 @@ def mark_sources(out):
     return re.sub(r"<table>.*?</table>", table, out, flags=re.S)
 
 
-def page_shell(lang, title, body, alt_links, nav_on="", page_title=None, has_src=False):
+def page_shell(lang, title, body, alt_links, nav_on="", page_title=None, has_src=False, has_tips=False):
     ui = UI[lang]
     hl = {l: L.BY_CODE[l]["html"] for l in LANGS}
     langs = "".join(
@@ -579,7 +589,7 @@ def page_shell(lang, title, body, alt_links, nav_on="", page_title=None, has_src
 <meta name="description" content="{html.escape(ui['tagline'])}">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../style.css">
-<script>try{{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}}catch(e){{}}</script>
+<script>try{{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}}catch(e){{}}</script>
 {alternates}
 </head><body>
 <header class="bar"><div class="wrap top">
@@ -587,6 +597,7 @@ def page_shell(lang, title, body, alt_links, nav_on="", page_title=None, has_src
 <nav class="nav"><a href="index.html" class="{"on" if nav_on == "home" else ""}">{icon("list", 17)}{ui["home"]}</a>
 <a href="https://wiki.transportfever3.com">{icon("book", 17)}{ui["official"]}{icon("external", 13)}</a></nav>
 {f'<button class="srcbtn" type="button" data-src title="{ui["src_toggle"]}">{icon("code", 16)}<span>{ui["src_btn"]}</span></button>' if has_src else ""}
+{f'<button class="srcbtn tipbtn" type="button" data-tips title="{ui["tips_toggle"]}">{icon("lightbulb", 16)}<span>{ui["tips_btn"]}</span></button>' if has_tips else ""}
 <details class="langs"><summary aria-label="{ui["lang_label"]}">{icon("globe", 16)}<span>{L.BY_CODE[lang]["name"]}</span>{icon("chev", 14, "chev")}</summary><nav class="menu" aria-label="{ui["lang_label"]}">{langs}</nav></details></div></header>
 {body}
 <footer><div class="wrap"><a class="brand" href="index.html">{LOGO}<span>TF3 <b>MECHANICS</b></span></a>
@@ -699,7 +710,8 @@ def build():
             alt = {l: (f"../{l}/{slug}.html" if slug in pages[l] else f"../{l}/index.html") for l in LANGS}
             with open(os.path.join(OUT, lang, f"{slug}.html"), "w", encoding="utf-8", newline="\n") as f:
                 f.write(page_shell(lang, meta.get("title", slug), body, alt, page_title=meta.get("title", slug),
-                                   has_src='class="sr"' in article or 'class="sc"' in article))
+                                   has_src='class="sr"' in article or 'class="sc"' in article,
+                                   has_tips='class="callout tip"' in article))
 
         # ---------------------------------------------------------------- index
         feat = []

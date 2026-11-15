@@ -105,6 +105,10 @@ Cosa cambia al raggiungimento della durata (per esempio una perdita di condizion
 3. **Esiste un modello migliore**: i veicoli più veloci o più grandi costano di più in esercizio, ma trasportano di più (il prezzo segue velocità × capacità).
 4. Usa **Sostituisci veicoli** nel gestore delle linee. Apre il negozio con un confronto con il veicolo attuale (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
+```tip scripts
+**I veicoli restano in cattive condizioni vicino a un deposito? Apri la sua finestra e controlla che la capacità non sia piena.** Un deposito treni serve 6 treni, una stazione di manutenzione treni 12.
+```
+
 ## Buono a sapersi
 
 - Costruisci abbastanza capacità di manutenzione: un deposito treni serve solo 6 treni.

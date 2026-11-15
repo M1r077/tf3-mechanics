@@ -45,6 +45,10 @@ The growth rate comes from two ratings of the town window (`town_util.tl:607-633
 - 100 % needs Excellent authority with Very Good supplies or better, or Very Good authority with Excellent supplies.
 - Your **headquarters** adds +5 % to the town closest to it, and most of its extensions add another +5 % each (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). This bonus multiplies the rate, so it does nothing at 0 %.
 
+```tip scripts
+**A town has stopped growing? Fix its worst rating first.** The Town Authority is the lowest of the six ratings, so one Very Poor rating holds the town at 0 % and improving the others changes nothing.
+```
+
 ## The six authority ratings
 
 | Rating | What lowers it | Source |
@@ -63,6 +67,10 @@ The **sensitivity** settings of each rating (seven steps, the first is Off) move
 - **Passengers**: line usage of the town × 2, so **50 % line usage gives the full rating** (`town_util.tl:546-553`).
 - **Cargo**: supply ÷ demand of each district (commercial, industrial); the **best** district counts, not the average (`town_util.tl:521-529`).
 - A town with nothing to supply counts as full supplies. A town that gets neither passengers nor cargo from you counts as "no deliveries": growth rate 0 % (`town_util.tl:565-588`).
+
+```tip scripts
+**You don't need every resident on your lines: 50 % line usage already gives the full passenger rating.**
+```
 
 New cargo demands come with levels (`placementparamsutil.lua:618-660`): one commercial and one industrial at the start, a second commercial at level 5, a second industrial at level 7, a third commercial at level 9, a third industrial at level 11. They are only added once the town has received at least one cargo delivery (`town_growth.script.tl:286-288`). The game prefers cargos that few other towns already ask for (`town_growth.script.tl:258-266`).
 

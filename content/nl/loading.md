@@ -81,6 +81,10 @@ Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter
 - Een passagiersperron heeft geen vrachtoverslag: daar blijft de vracht aan boord (gemeten in het spel).
 - Wil je de vracht aan boord houden, voeg hem dan toe aan de lijst Lading van die halte.
 
+```tip
+**Verdwijnt vracht bij een halte naast een opslag? Zet die in de lijst Lading van die halte.** Alles wat niet in de lijst staat, wordt gelost in een voorraad binnen bereik, en de opslag betaalt er niets voor.
+```
+
 | Optie in "Vrachtfilter" | Wat het doet | Bron |
 |---|---|---|
 | "Alle vracht bij aankomst verplicht lossen" | lost in passende voorraden, ook als ze vol zijn; wat niet past, wordt vernietigd. Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |

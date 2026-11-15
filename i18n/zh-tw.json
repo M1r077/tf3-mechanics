@@ -46,6 +46,8 @@
   "src_toggle": "顯示或隱藏腳本引用",
   "src_show": "顯示來源",
   "src_hide": "隱藏來源",
+  "tips_btn": "提示",
+  "tips_toggle": "顯示或隱藏提示",
   "tip_note": "提示",
   "tip_sub": "遊戲內實測"
  },

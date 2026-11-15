@@ -109,6 +109,10 @@ Jak szybko spada stan pojazdu, jak bardzo rosną przez to koszty bieżące i czy
 - Najwyżej **4 kredyty** naraz (`loan_util.tl:4`, `loan.script.tl:134`). Oferta jest zastępowana po pół roku; miejsce po wziętym kredycie zostaje puste na 4 do 8 miesięcy (`loan.script.tl:61-76`, `loan.script.tl:150`).
 - Na początku gry każde z czterech miejsc dostaje wartości losowego rodzaju, więc pierwsza „mała” oferta może być dużym kredytem; gdy oferta się odnowi, każde miejsce oferuje własny rodzaj (`loan_util.tl:60-74`, `loan.script.tl:63-75`).
 
+```tip scripts
+**Bierz najdłuższą pożyczkę i spłacaj wcześnie.** Łączne odsetki są takie same przy każdym okresie, raty miesięczne są mniejsze, a Spłać kasuje pozostałe odsetki.
+```
+
 ## Warto wiedzieć
 
 - Bierz **najdłuższy** kredyt, jaki możesz: odsetki są w sumie takie same, rozłożone na więcej miesięcy, a możesz spłacić wcześniej bez płacenia reszty.

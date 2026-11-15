@@ -72,6 +72,10 @@ A produção cresce em degraus: um lote novo nem sempre aumenta a produção.
 5. **Contagem regressiva de fechamento**, indústria sua ou desenvolvimento manual: o script não faz crescer (acima).
 6. **Sem produção**: uma indústria que não produz nada no ano é pulada (`industries.script.tl:168-171`).
 
+```tip scripts
+**Para uma mina ou fazenda crescer, transporte pelo menos 75 % da produção.** Com 25 % ou menos ela nunca ganha um lote novo; com 75 % ou mais ganha um a cada meio ano, até o máximo.
+```
+
 ```engine
 A nota de produção (getProductionRating), a produção anual e a quantidade transportada (getCargoOutputPerYear, getCargoShippedPerYear), e onde vai um novo lote (makeIndustryExtendProposal) são valores do motor.
 ```
@@ -112,6 +116,10 @@ Metade dos postos (10 de 20) precisa ser ocupada por moradores que **chegaram pe
 3. **Carga errada**: ferramentas, máquinas ou fertilizante conforme a indústria (tabela acima).
 4. **Trabalhadores**: designados não basta; a seção Reforço conta chegadas (“12/10”) (`industry_react_util.tl:617-654`). Veja [Trabalhadores e o reforço de trabalhadores](workers.html).
 
+```tip scripts
+**Para um bônus que nunca para, entregue pelo menos 4 lotes completos por ano** (52 ferramentas para uma mina de carvão). O estoque não se perde, então dá para entregar adiantado.
+```
+
 ## Quando fecha uma indústria sem uso?
 
 ```diagram ind_closure
@@ -123,6 +131,10 @@ A verificação roda a cada 100 atualizações para cada indústria (`industries
 2. **Sorte**: a cada ano uma candidata é marcada com a chance da configuração **Frequência de fechamento de indústrias** (tabela abaixo) (`industries.script.tl:120-131`).
 3. **Contagem regressiva**: aparece a notificação **Fechamento da indústria**, com 2 anos (730 dias) de prazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Depois a indústria é removida com seus próprios trechos de estrada (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Salva**: um único carregamento ou consumo durante a contagem a cancela (`industries.script.tl:134-137`). Aceitar um subsídio **Abastecer Indústria** ou **Transportar Trabalhadores** para ela também cancela (`subvention_util.tl:473-484`).
+
+```tip scripts
+**Notificação Fechamento da indústria? Um único carregamento ou entrega durante os 730 dias a cancela.** Aceitar um subsídio Abastecer Indústria ou Transportar Trabalhadores para essa indústria também cancela.
+```
 
 | Frequência de fechamento de indústrias | Chance por ano como candidata | Metade das candidatas marcadas após | Predefinição | Fonte |
 |---|---|---|---|---|

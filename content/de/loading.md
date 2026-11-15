@@ -81,6 +81,10 @@ Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ 
 - Ein Personenbahnsteig hat keinen Güterumschlag: Die Fracht bleibt dort an Bord (im Spiel gemessen).
 - Um die Fracht an Bord zu behalten, füge sie der Liste Ladung dieses Halts hinzu.
 
+```tip
+**Fracht verschwindet an einem Halt neben einem Lager? Nimm sie in die Liste Ladung dieses Halts auf.** Alles, was nicht in der Liste steht, wird in einen Bestand in Reichweite entladen, und das Lager zahlt nichts dafür.
+```
+
 | Option im „Güterfilter“ | Wirkung | Quelle |
 |---|---|---|
 | „Entladen aller Güter nach Ankunft erzwingen“ | entlädt in passende Bestände, auch wenn sie voll sind; was nicht hineinpasst, wird zerstört. Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |

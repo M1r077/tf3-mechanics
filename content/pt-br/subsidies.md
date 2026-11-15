@@ -83,6 +83,10 @@ Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**,
 - Uma linha que só começou a entregar depois que o contrato foi cumprido não ganha nada: a lista de linhas só é preenchida durante o contrato.
 - Dois contratos nunca dobram o mesmo pagamento duas vezes: quando vários se aplicam, só a última resposta é usada (`subventions.script.tl:570-583`).
 
+```tip scripts
+**Quer a renda dobrada em várias linhas? Faça todas entregarem antes de o contrato ser cumprido.** Uma linha adicionada depois não ganha nada.
+```
+
 ```engine
 Como o ×2 de um subsídio se combina com o multiplicador do ranque da empresa (configuração Inflação) é decidido pelo motor: os dois scripts só devolvem um multiplicador para cada pagamento. O que é uma entrada de pagamento (provavelmente uma unidade de carga ou um passageiro) também é decidido pelo motor.
 ```

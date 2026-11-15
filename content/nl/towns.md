@@ -45,6 +45,10 @@ Het groeitempo komt uit twee beoordelingen in het stadsvenster (`town_util.tl:60
 - 100 % vraagt autoriteit Uitstekend met bevoorrading Zeer goed of beter, of autoriteit Zeer goed met bevoorrading Uitstekend.
 - Je **hoofdkwartier** geeft +5 % aan de stad die er het dichtst bij ligt, en de meeste uitbreidingen geven elk nog eens +5 % (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Deze bonus vermenigvuldigt het tempo, dus bij 0 % doet hij niets.
 
+```tip scripts
+**Groeit een stad niet meer? Verbeter eerst haar slechtste beoordeling.** De Plaatselijke autoriteit is de laagste van de zes beoordelingen: één beoordeling op Zeer slecht houdt de stad op 0 %, en de andere verbeteren verandert niets.
+```
+
 ## De zes beoordelingen van de autoriteit
 
 | Beoordeling | Wat haar verlaagt | Bron |
@@ -63,6 +67,10 @@ De **gevoeligheids**instellingen van elke beoordeling (zeven stappen, de eerste 
 - **Reizigers**: lijngebruik van de stad × 2, dus **50 % lijngebruik geeft de volle beoordeling** (`town_util.tl:546-553`).
 - **Vracht**: aanbod ÷ vraag van elk district (commercieel, industrie); het **beste** district telt, niet het gemiddelde (`town_util.tl:521-529`).
 - Een stad die niets te bevoorraden heeft, telt als volledig bevoorraad. Een stad die van jou geen reizigers en geen vracht krijgt, telt als "geen bezorgingen": groeitempo 0 % (`town_util.tl:565-588`).
+
+```tip scripts
+**Je hebt niet alle inwoners op je lijnen nodig: 50 % lijngebruik geeft al de volle reizigersbeoordeling.**
+```
 
 Nieuwe vrachtbehoeften komen met de niveaus (`placementparamsutil.lua:618-660`): één commerciële en één industriële aan het begin, een tweede commerciële op niveau 5, een tweede industriële op niveau 7, een derde commerciële op niveau 9, een derde industriële op niveau 11. Ze worden pas toegevoegd zodra de stad minstens één vrachtbezorging heeft ontvangen (`town_growth.script.tl:286-288`). Het spel geeft de voorkeur aan vrachten waar nog weinig andere steden om vragen (`town_growth.script.tl:258-266`).
 

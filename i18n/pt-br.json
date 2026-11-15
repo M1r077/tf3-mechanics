@@ -46,6 +46,8 @@
   "src_toggle": "Mostrar ou ocultar as referências aos scripts",
   "src_show": "Mostrar as fontes",
   "src_hide": "Ocultar as fontes",
+  "tips_btn": "Dicas",
+  "tips_toggle": "Mostrar ou ocultar as dicas",
   "tip_note": "Dica",
   "tip_sub": "medido no jogo"
  },

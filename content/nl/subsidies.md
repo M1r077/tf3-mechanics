@@ -83,6 +83,10 @@ Elk contract heeft drie lijsten, op zijn kaart getoond als **Bij aanvaarding**, 
 - Een lijn die pas na de voltooiing begint te leveren, krijgt niets: de lijst met lijnen wordt alleen tijdens het contract gevuld.
 - Twee contracten verdubbelen dezelfde betaling nooit twee keer: als er meerdere passen, telt alleen het laatste antwoord (`subventions.script.tl:570-583`).
 
+```tip scripts
+**Dubbel inkomen op meerdere lijnen? Laat ze allemaal leveren voordat het contract voltooid is.** Een lijn die daarna komt, krijgt niets.
+```
+
 ```engine
 Hoe de ×2 van een subsidie samengaat met de vermenigvuldiger van de bedrijfsrang (instelling Inflatie), bepaalt de engine: beide scripts geven alleen een vermenigvuldiger per betaling terug. Wat één betalingsregel is (vermoedelijk één vrachteenheid of één reiziger), bepaalt ook de engine.
 ```

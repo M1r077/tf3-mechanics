@@ -83,6 +83,10 @@ Every contract keeps three lists, shown on its card as **On Acceptance**, **On F
 - A line that only started delivering after the contract was fulfilled gets nothing: the list of lines is filled during the contract only.
 - Two contracts never double the same payment twice: when several match, only the last answer is used (`subventions.script.tl:570-583`).
 
+```tip scripts
+**Want the doubled income on several lines? Have all of them deliver before the contract is fulfilled.** A line added afterwards gets nothing.
+```
+
 ```engine
 How the ×2 of a subsidy combines with the company rank multiplier (Inflation setting) is decided by the engine: both scripts only return a multiplier for each payment. What one payment entry is (presumably one cargo unit or one passenger) is also decided by the engine.
 ```

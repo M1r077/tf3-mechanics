@@ -81,6 +81,10 @@ Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” prz
 - Peron pasażerski nie przeładowuje towarów: towar zostaje tam na pokładzie (zmierzone w grze).
 - Aby zatrzymać towar na pokładzie, dodaj go do listy Ładunek tego przystanku.
 
+```tip
+**Towar znika na przystanku obok magazynu? Dodaj go do listy Ładunek tego przystanku.** Wszystko, czego nie ma na liście, jest rozładowywane do zapasu w zasięgu, a magazyn nic za to nie płaci.
+```
+
 | Opcja w „Filtr towarów” | Co robi | Źródło |
 |---|---|---|
 | „Wymuś rozładowanie wszystkich towarów po przybyciu” | rozładowuje do pasujących zapasów, nawet gdy są pełne; to, co się nie mieści, jest niszczone. Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
