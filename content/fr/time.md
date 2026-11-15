@@ -34,6 +34,7 @@ Ces choses sont comptées en temps de jeu, donc un calendrier ralenti ou en paus
 - **Délais des subventions** et le bonus de revenu ×2 (`subvention_util.tl:290-292`).
 - **Retour de la réputation des villes** (`towns.script.tl:121-130`), **bonus des ouvriers** (`industry_productivity_util.tl:3`) et **fermeture des industries** après des années sans desserte (`industries.script.tl:119-128`).
 - **Notes de livraison** des villes, sur le dernier semestre (`town_util.tl:840`).
+- **Nouvelles industries** : avec le calendrier en pause, 3 sont apparues en 1809 s de temps de jeu, à 760 s et 728 s d'écart, le même rythme qu'avec le calendrier qui tourne (environ 730 s). Mesuré avec [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) ; voir [Industries](industries.html).
 
 Quand le calendrier tourne, le jeu affiche ces durées en années, mois et jours de la vitesse du calendrier actuelle (`util.tl:40-49`).
 

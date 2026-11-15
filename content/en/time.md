@@ -34,6 +34,7 @@ These are counted in game time, so a slower or paused calendar does not slow the
 - **Subsidy deadlines** and the ×2 income bonus (`subvention_util.tl:290-292`).
 - **Town reputation recovery** (`towns.script.tl:121-130`), **worker boosts** (`industry_productivity_util.tl:3`) and **industry closure** after years without service (`industries.script.tl:119-128`).
 - **Delivery ratings** of towns, over the last half year (`town_util.tl:840`).
+- **New industries**: with the calendar paused, 3 appeared in 1,809 s of game time, 760 s and 728 s apart, the same rhythm as with a running calendar (about 730 s). Measured with the [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); see [Industries](industries.html).
 
 With the calendar running, the game shows these durations in years, months and days of the current calendar speed (`util.tl:40-49`).
 

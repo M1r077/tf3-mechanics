@@ -34,6 +34,7 @@ fact: 0 1x 2x 4x | ゲーム速度の段階
 - **補助金の期限**と ×2 の収入ボーナス（`subvention_util.tl:290-292`）。
 - **町の評判の回復**（`towns.script.tl:121-130`）、**労働者ブースト**（`industry_productivity_util.tl:3`）、何年も輸送がないときの**産業の閉鎖**（`industries.script.tl:119-128`）。
 - 直近半年の町の**配送評価**（`town_util.tl:840`）。
+- **新しい産業**：カレンダー停止中もゲーム時間 1809 秒で 3 つ、760 秒と 728 秒の間隔で現れた。カレンダーが動いているとき（約 730 秒）と同じリズム。[Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) で計測。[産業](industries.html) を参照。
 
 カレンダーが動いているとき、ゲームはこれらの期間を現在のカレンダー速度での年、月、日で表示する（`util.tl:40-49`）。
 

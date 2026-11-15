@@ -34,6 +34,7 @@ fact: 0 1x 2x 4x | 遊戲速度檔位
 - **補助期限**和 ×2 收益獎勵（`subvention_util.tl:290-292`）。
 - **城鎮聲望恢復**（`towns.script.tl:121-130`）、**工人加成**（`industry_productivity_util.tl:3`），以及多年無人服務後的**產業關閉**（`industries.script.tl:119-128`）。
 - 城鎮最近半年的**送貨評價**（`town_util.tl:840`）。
+- **新產業**：月曆暫停時，1809 秒遊戲時間內出現了 3 個，間隔 760 秒與 728 秒，與月曆運行時的節奏相同（約 730 秒）。用 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 測得；見 [產業](industries.html)。
 
 月曆運行時，遊戲按目前月曆速度的年、月、日顯示這些時長（`util.tl:40-49`）。
 

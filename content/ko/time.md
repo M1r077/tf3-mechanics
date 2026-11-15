@@ -34,6 +34,7 @@ fact: 0 1x 2x 4x | 게임 속도 단계
 - **보조금 기한**과 ×2 수입 보너스(`subvention_util.tl:290-292`).
 - **마을 평판 회복**(`towns.script.tl:121-130`), **노동자 부스트**(`industry_productivity_util.tl:3`), 몇 년 동안 운송이 없을 때의 **산업 폐쇄**(`industries.script.tl:119-128`).
 - 최근 반년 동안의 마을 **배송 평가**(`town_util.tl:840`).
+- **새 산업**: 달력을 멈춘 상태에서도 게임 시간 1809초 동안 3개가 760초와 728초 간격으로 생겼다. 달력이 흐를 때(약 730초)와 같은 리듬이다. [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)로 측정. [산업](industries.html) 참고.
 
 달력이 흐르는 동안 게임은 이 기간들을 현재 달력 속도의 년, 월, 일로 보여준다(`util.tl:40-49`).
 

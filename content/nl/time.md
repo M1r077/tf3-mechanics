@@ -34,6 +34,7 @@ Deze worden in speltijd geteld, dus een tragere of gepauzeerde kalender vertraag
 - **Deadlines van subsidies** en de ×2-inkomstenbonus (`subvention_util.tl:290-292`).
 - **Herstel van de reputatie van steden** (`towns.script.tl:121-130`), **arbeidersboosts** (`industry_productivity_util.tl:3`) en **sluiting van industrieën** na jaren zonder bediening (`industries.script.tl:119-128`).
 - **Leveringsbeoordelingen** van steden, over het laatste halfjaar (`town_util.tl:840`).
+- **Nieuwe bedrijven**: met gepauzeerde kalender verschenen er 3 in 1809 s speltijd, 760 s en 728 s na elkaar, in hetzelfde ritme als met lopende kalender (ongeveer 730 s). Gemeten met het [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); zie [Industrie](industries.html).
 
 Met een lopende kalender toont het spel deze tijdsduren in jaren, maanden en dagen van de huidige kalendersnelheid (`util.tl:40-49`).
 

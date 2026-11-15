@@ -34,6 +34,7 @@ Estes são contados em tempo de jogo, então um calendário mais lento ou pausad
 - **Prazos de subsídios** e o bônus ×2 de renda (`subvention_util.tl:290-292`).
 - **Recuperação da reputação das cidades** (`towns.script.tl:121-130`), **bônus de trabalhadores** (`industry_productivity_util.tl:3`) e **fechamento de indústrias** após anos sem atendimento (`industries.script.tl:119-128`).
 - **Avaliações de entrega** das cidades, no último semestre (`town_util.tl:840`).
+- **Indústrias novas**: com o calendário pausado surgiram 3 em 1809 s de tempo de jogo, a 760 s e 728 s uma da outra, no mesmo ritmo do calendário rodando (cerca de 730 s). Medido com o [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); veja [Indústrias](industries.html).
 
 Com o calendário rodando, o jogo mostra essas durações em anos, meses e dias da velocidade do calendário atual (`util.tl:40-49`).
 

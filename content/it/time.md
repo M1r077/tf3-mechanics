@@ -34,6 +34,7 @@ Queste cose si contano in tempo di gioco, quindi un calendario più lento o in p
 - **Scadenze dei sussidi** e il bonus di entrate ×2 (`subvention_util.tl:290-292`).
 - **Recupero della reputazione delle cittadine** (`towns.script.tl:121-130`), **bonus dei lavoratori** (`industry_productivity_util.tl:3`) e **chiusura delle industrie** dopo anni senza servizio (`industries.script.tl:119-128`).
 - **Valutazioni delle consegne** delle cittadine, sull'ultimo semestre (`town_util.tl:840`).
+- **Nuove industrie**: con il calendario in pausa ne sono comparse 3 in 1809 s di tempo di gioco, a 760 s e 728 s l'una dall'altra, allo stesso ritmo del calendario in moto (circa 730 s). Misurato con [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); vedi [Industrie](industries.html).
 
 Con il calendario in moto, il gioco mostra queste durate in anni, mesi e giorni della velocità calendario attuale (`util.tl:40-49`).
 

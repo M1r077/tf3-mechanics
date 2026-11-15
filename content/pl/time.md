@@ -34,6 +34,7 @@ Te rzeczy liczą się w czasie gry, więc wolniejszy lub wstrzymany kalendarz ic
 - **Terminy dotacji** i premia ×2 do przychodu (`subvention_util.tl:290-292`).
 - **Odbudowa reputacji miast** (`towns.script.tl:121-130`), **premie od pracowników** (`industry_productivity_util.tl:3`) i **zamknięcie zakładu** po latach bez obsługi (`industries.script.tl:119-128`).
 - **Oceny dostaw** miast, z ostatniego półrocza (`town_util.tl:840`).
+- **Nowe zakłady**: przy wstrzymanym kalendarzu pojawiły się 3 w 1809 s czasu gry, co 760 s i 728 s, w tym samym rytmie co przy działającym kalendarzu (około 730 s). Zmierzone za pomocą [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); zobacz [Zakłady](industries.html).
 
 Gdy kalendarz działa, gra pokazuje te czasy w latach, miesiącach i dniach bieżącej szybkości kalendarza (`util.tl:40-49`).
 

@@ -34,6 +34,7 @@ Diese Dinge zählen in Spielzeit, ein langsamerer oder pausierter Kalender brems
 - **Fristen von Subventionen** und der Einnahmebonus ×2 (`subvention_util.tl:290-292`).
 - **Erholung des Stadtansehens** (`towns.script.tl:121-130`), **Arbeiterboni** (`industry_productivity_util.tl:3`) und **Schließung von Industrien** nach Jahren ohne Anbindung (`industries.script.tl:119-128`).
 - **Lieferbewertungen** der Städte, über das letzte halbe Jahr (`town_util.tl:840`).
+- **Neue Industrien**: bei pausiertem Kalender erschienen 3 in 1.809 s Spielzeit, 760 s und 728 s auseinander, im selben Rhythmus wie bei laufendem Kalender (etwa 730 s). Gemessen mit [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); siehe [Industrien](industries.html).
 
 Läuft der Kalender, zeigt das Spiel diese Dauern in Jahren, Monaten und Tagen der aktuellen Kalendergeschwindigkeit (`util.tl:40-49`).
 
