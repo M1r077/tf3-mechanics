@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Veículos: condição, idade e velocidade de carga · Mecânicas do TF3</title>
+<meta name="description" content="Como Transport Fever 3 funciona de verdade, lido nos próprios scripts do jogo.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/vehicles.html"><link rel="alternate" hreflang="fr" href="../fr/vehicles.html"><link rel="alternate" hreflang="de" href="../de/vehicles.html"><link rel="alternate" hreflang="es" href="../es/vehicles.html"><link rel="alternate" hreflang="it" href="../it/vehicles.html"><link rel="alternate" hreflang="nl" href="../nl/vehicles.html"><link rel="alternate" hreflang="pl" href="../pl/vehicles.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/vehicles.html"><link rel="alternate" hreflang="ru" href="../ru/vehicles.html"><link rel="alternate" hreflang="ja" href="../ja/vehicles.html"><link rel="alternate" hreflang="ko" href="../ko/vehicles.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/vehicles.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/vehicles.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Índice</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Mostrar ou ocultar as referências aos scripts"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Fontes</span></button>
+<details class="langs"><summary aria-label="Idioma"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Português (Brasil)</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Idioma"><a href="../en/vehicles.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/vehicles.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/vehicles.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/vehicles.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/vehicles.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/vehicles.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/vehicles.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/vehicles.html" class="on" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/vehicles.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/vehicles.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/vehicles.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/vehicles.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/vehicles.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Índice</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>Linhas e veículos</span></div><h1 class="rise d1">Veículos: condição, idade e velocidade de carga</h1><p class="lead rise d2">O que significam os atributos dos veículos, como funcionam condição e idade, o que fazem pátios e estações de manutenção, de onde vêm o preço e os custos operacionais, e quando substituir um veículo.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verificado nos scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Atualizado 2026-11-16</span></div><div class=facts><div class="fact rise d1"><b>5</b><span>níveis de condição, de Muito Ruim a Muito Bom, 20 % cada</span></div><div class="fact rise d2"><b>20 %</b><span>de condição dispara o aviso Condição do Veículo</span></div><div class="fact rise d3"><b>6 anos</b><span>de custos operacionais: o preço de um veículo</span></div><div class="fact rise d4"><b>4 a 16</b><span>veículos nos recursos de manutenção de um pátio ou estação de manutenção</span></div></div></div></section><div class="wrap layout"><article><p>Todo veículo tem atributos fixos (velocidade, capacidade, velocidade de carga, preço, custos operacionais, vida útil) e dois valores que mudam: sua <strong>condição</strong> e sua <strong>idade</strong>. A condição cai enquanto ele roda e é restaurada pela manutenção. A idade só aumenta.</p>
+<h2 id="os-atributos-na-loja-de-veículos"><span class="n">1</span><span>Os atributos na loja de veículos</span></h2>
+<ul>
+<li>A loja mostra cada atributo como uma barra. A barra compara o veículo com os outros do mesmo tipo de transporte e era, não com uma escala fixa<span class="sr"> (<code class="src">vehicle_util.tl:210-245</code>, <code class="src">vehicle_util.tl:248-270</code>)</span>.</li>
+<li>Para um trem, a loja mostra a <strong>maior</strong> velocidade de carga entre todas as suas partes<span class="sr"> (<code class="src">vehicle_store_util.tl:333</code>)</span>.</li>
+<li>Um veículo cujo arquivo não define velocidade de carga, ruído, poluição ou conforto recebe um valor calculado a partir dos outros atributos (ano, velocidade, potência, peso, tamanho)<span class="sr"> (<code class="src">model_metadata_util.lua:395-417</code>, <code class="src">vehicle_metadata_util.lua:233-256</code>)</span>. A velocidade de carga calculada é arredondada para 0,5 e nunca fica abaixo de 1<span class="sr"> (<code class="src">vehicle_metadata_util.lua:267-269</code>)</span>.</li>
+</ul>
+<h2 id="qual-veículo-carrega-mais-rápido"><span class="n">2</span><span>Qual veículo carrega mais rápido?</span></h2>
+<p>A velocidade de carga do veículo é só o primeiro fator; a plataforma e o estoque a multiplicam (veja <a href="loading.html">Velocidade de carga e descarga</a>).</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Tipo de transporte</th>
+<th>Velocidade de carga mostrada como barra cheia (última era)</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Navios</td>
+<td>10 a 45 (a partir de 2003)</td>
+<td class="sc"><code class="src">vehicle_util.tl:219-223</code></td>
+</tr>
+<tr>
+<td>Veículos rodoviários, bondes</td>
+<td>0,5 a 10 (a partir de 1995)</td>
+<td class="sc"><code class="src">vehicle_util.tl:232-243</code></td>
+</tr>
+<tr>
+<td>Trens</td>
+<td>0,1 a 10 (a partir de 1981)</td>
+<td class="sc"><code class="src">vehicle_util.tl:226-229</code></td>
+</tr>
+<tr>
+<td>Aeronaves</td>
+<td>1 a 4 (a partir de 1978)</td>
+<td class="sc"><code class="src">vehicle_util.tl:212-216</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Os navios têm de longe as maiores velocidades de carga, as aeronaves a menor escala.</li>
+<li>Compare veículos de um mesmo tipo de transporte na loja pela coluna de velocidade de carga; modelos mais novos costumam ficar mais altos na barra.</li>
+<li>Toda carga tem fator de carga 0,0625, passageiros 1<span class="sr"> (<code class="src">coal.cargo.lua:29</code>, <code class="src">passengers.cargo.lua:23</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>Como a velocidade de carga do veículo, o fator de carga da carga e os fatores de plataforma e estoque se combinam no tempo real de carga é calculado pelo motor. Os scripts só fornecem as entradas.</p></div></aside>
+<h2 id="condição"><span class="n">3</span><span>Condição</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Condição</th>
+<th>Nível</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acima de 80 %</td>
+<td><strong>Muito Bom</strong></td>
+<td class="sc"><code class="src">vehicle_util.tl:159-172</code></td>
+</tr>
+<tr>
+<td>60–80 %</td>
+<td><strong>Bom</strong></td>
+<td class="sc"><code class="src">vehicle_util.tl:159-172</code></td>
+</tr>
+<tr>
+<td>40–60 %</td>
+<td><strong>Medíocre</strong></td>
+<td class="sc"><code class="src">vehicle_util.tl:159-172</code></td>
+</tr>
+<tr>
+<td>20–40 %</td>
+<td><strong>Ruim</strong></td>
+<td class="sc"><code class="src">vehicle_util.tl:159-172</code></td>
+</tr>
+<tr>
+<td>até 20 %</td>
+<td><strong>Muito Ruim</strong></td>
+<td class="sc"><code class="src">vehicle_util.tl:159-172</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>A condição de um trem é a <strong>média</strong> de todos os seus vagões e locomotivas<span class="sr"> (<code class="src">vehicle_util.tl:285-295</code>)</span>.</li>
+<li>Abaixo de 80 % um veículo começa a perder velocidade máxima, potência e conforto, e a ganhar ruído, poluição e custos operacionais<span class="sr"> (<code class="src">vehicle_store_util.tl:230-259</code>)</span>. A janela do veículo lista essas penalidades em <strong>Condição</strong>.</li>
+<li>A força dessas penalidades é definida por <strong>Efeito da Manutenção do Veículo</strong> (Nenhum, Baixo, Médio, Alto, Muito Alto); com Nenhum, a condição não tem efeito<span class="sr"> (<code class="src">mod.script.tl:241-245</code>, <code class="src">vehicle_store_util.tl:211-228</code>)</span>. Detalhes: <a href="costs.html">Custos, manutenção e empréstimos</a>.</li>
+<li>Com <strong>20 %</strong> ou menos você recebe o aviso <strong>Condição do Veículo</strong>. Ele fica até o veículo voltar acima de <strong>30 %</strong><span class="sr"> (<code class="src">notifications.script.tl:310-318</code>)</span>.</li>
+<li>Um veículo clonado é uma compra nova: condição 100 %, nova data de compra<span class="sr"> (<code class="src">manager_window.tl:8502-8506</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>A rapidez com que a condição cai, quanto uma visita a uma estação de manutenção restaura e o tamanho de cada penalidade (getMaintenanceTopSpeedPenalty e as outras) são valores do motor. Cada modelo de veículo também pode definir sua própria penalidade de velocidade máxima por nível<span class="sr"> (<code class="src">vehicle_store_util.tl:250-253</code>)</span>.</p></div></aside>
+<h2 id="pátios-e-estações-de-manutenção"><span class="n">4</span><span>Pátios e estações de manutenção</span></h2>
+<p>Os veículos recebem manutenção de um pátio ou estação de manutenção próxima. Cada um atende um número limitado de veículos: seus <strong>Recursos de Manutenção</strong>.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Edifício</th>
+<th>Recursos de manutenção</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pátio ferroviário</td>
+<td>6</td>
+<td class="sc"><code class="src">rail_depot.script.lua:349</code></td>
+</tr>
+<tr>
+<td>Estação de manutenção ferroviária</td>
+<td>12</td>
+<td class="sc"><code class="src">rail_maint_station.script.lua:157</code></td>
+</tr>
+<tr>
+<td>Pátio rodoviário, pátio de bondes</td>
+<td>12</td>
+<td class="sc"><code class="src">road_depot.script.lua:198</code>, <code class="src">tram_depot.script.lua:226</code></td>
+</tr>
+<tr>
+<td>Estação de manutenção rodoviária</td>
+<td>16</td>
+<td class="sc"><code class="src">road_maint_station.script.lua:240</code></td>
+</tr>
+<tr>
+<td>Estaleiro</td>
+<td>8</td>
+<td class="sc"><code class="src">water_depot.script.lua:379</code></td>
+</tr>
+<tr>
+<td>Estação de manutenção de navios</td>
+<td>12</td>
+<td class="sc"><code class="src">water_maint_station.script.lua:262</code></td>
+</tr>
+<tr>
+<td>Hangar de aeródromo ou aeroporto</td>
+<td>16</td>
+<td class="sc"><code class="src">af_hangar.module.lua:280</code>, <code class="src">ap_hangar.module.lua:463</code></td>
+</tr>
+<tr>
+<td>Heliporto</td>
+<td>4</td>
+<td class="sc"><code class="src">heliport.script.lua:309</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>A janela do edifício mostra "usados / recursos" (por exemplo 14 / 12) e a lista de veículos atendidos, com sua condição<span class="sr"> (<code class="src">entity_window_util.tl:2010-2039</code>, <code class="src">maintenance_station_eow.script.tl:188-215</code>)</span>.</li>
+<li>Recursos mais ocupados deixam o edifício mais barulhento e mais poluente: as emissões sobem com a parcela em uso<span class="sr"> (<code class="src">emissions.script.tl:223-234</code>)</span>.</li>
+<li>Uma estação de manutenção ferroviária atende o dobro de trens de um pátio ferroviário: 12 contra 6.</li>
+<li>A wiki oficial sugere pontos de passagem para fazer os veículos passarem por um edifício de manutenção.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>A qual estação um veículo é atribuído, o que acontece quando mais veículos usam uma estação do que seus recursos e o raio de cobertura usado são decididos pelo motor.</p></div></aside>
+<h2 id="preço-e-custos-operacionais"><span class="n">5</span><span>Preço e custos operacionais</span></h2>
+<ul>
+<li>Os veículos do jogo base não têm preço fixo: os custos operacionais vêm da velocidade e da capacidade, e o preço é <strong>6 anos</strong> de custos operacionais<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>. Fórmula completa: <a href="costs.html">Custos, manutenção e empréstimos</a>.</li>
+<li><strong>Custos de Veículo</strong> e <strong>Manutenção de Veículos</strong> escalam ambos de 50 % a 150 %<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
+<li>Um veículo em má condição paga mais custos operacionais, além do valor base<span class="sr"> (<code class="src">vehicle_store_util.tl:256-259</code>)</span>.</li>
+</ul>
+<h2 id="idade-e-vida-útil"><span class="n">6</span><span>Idade e vida útil</span></h2>
+<ul>
+<li>Cada modelo tem uma <strong>vida útil</strong> em anos<span class="sr"> (<code class="src">vehicle_metadata_util.lua:79-83</code>)</span>. A coluna <strong>Idade</strong> da janela da linha mostra a idade; sua dica mostra a parcela da vida útil usada e o tempo restante, ou <strong>Vida útil alcançada</strong><span class="sr"> (<code class="src">line_eow.script.tl:133-147</code>)</span>.</li>
+<li>Para um trem, conta a parte <strong>mais antiga</strong><span class="sr"> (<code class="src">vehicle_util.tl:36-52</code>)</span>. Um vagão velho faz o trem inteiro aparecer como velho.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>O que muda ao atingir a vida útil (por exemplo perda de condição mais rápida ou menor valor de venda) não está nos scripts. Os scripts só exibem idade e vida útil.</p></div></aside>
+<h2 id="quando-devo-substituir-veículos-velhos"><span class="n">7</span><span>Quando devo substituir veículos velhos?</span></h2>
+<ol>
+<li><strong>A condição continua baixa</strong> mesmo com uma estação de manutenção por perto: o veículo perde velocidade e paga mais custos operacionais. Verifique primeiro os recursos da estação: podem estar cheios.</li>
+<li><strong>Vida útil alcançada</strong> na dica de Idade: o modelo passou da vida planejada.</li>
+<li><strong>Existe um modelo melhor</strong>: veículos mais rápidos ou maiores custam mais para operar, mas transportam mais (o preço segue velocidade × capacidade).</li>
+<li>Use <strong>Substituir Veículos</strong> no gerenciador de linhas. Ele abre a loja com uma comparação com o veículo atual<span class="sr"> (<code class="src">vehicle_store_window.tl:4893-4928</code>, <code class="src">vehicle_store_window.tl:2611</code>)</span>.</li>
+</ol>
+<h2 id="bom-saber"><span class="n">8</span><span>Bom saber</span></h2>
+<ul>
+<li>Construa capacidade de manutenção suficiente: um pátio ferroviário atende só 6 trens.</li>
+<li>Com <strong>Efeito da Manutenção do Veículo</strong> em Nenhum, a condição não importa.</li>
+<li><strong>Enviar ao Pátio</strong> manda um veículo para o pátio alcançável mais próximo, não para aquele onde foi comprado (wiki oficial).</li>
+<li><a href="https://mod.io/g/transportfever3/m/vehicle-comparison">Vehicle Comparison</a> ajuda a comparar modelos antes de substituí-los.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Wiki oficial e scripts do jogo</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Detalha</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>A wiki oficial diz</div><p>"This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles">Lines and Vehicles</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os scripts do jogo mostram</div><p>Cinco níveis de condição de 20 %; penalidades de velocidade, potência, conforto, emissões e custos operacionais abaixo de 80 %, escaladas por Efeito da Manutenção do Veículo; aviso em 20 %, removido acima de 30 %. Recursos de manutenção de 4 a 16 veículos por edifício. Preço = 6 anos de custos operacionais. Idade de um trem = sua parte mais antiga. Velocidades de carga ausentes são calculadas a partir dos outros atributos, arredondadas para 0,5, no mínimo 1.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os caminhos ficam dentro da pasta base/content do jogo ou dos seus arquivos zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Nesta página</h5><ol><li><a href="#os-atributos-na-loja-de-veículos">Os atributos na loja de veículos</a></li><li><a href="#qual-veículo-carrega-mais-rápido">Qual veículo carrega mais rápido?</a></li><li><a href="#condição">Condição</a></li><li><a href="#pátios-e-estações-de-manutenção">Pátios e estações de manutenção</a></li><li><a href="#preço-e-custos-operacionais">Preço e custos operacionais</a></li><li><a href="#idade-e-vida-útil">Idade e vida útil</a></li><li><a href="#quando-devo-substituir-veículos-velhos">Quando devo substituir veículos velhos?</a></li><li><a href="#bom-saber">Bom saber</a></li></ol><div class="box"><b>25</b><span>referências às fontes</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Mostrar as fontes</span><span class="h">Ocultar as fontes</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Outras mecânicas</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Custos, manutenção e empréstimos</b><small>Finanças e empréstimos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Poluição e barulho</b><small>Poluição e barulho</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Renda por carga e tempo de entrega</b><small>Carga e renda</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Indústrias</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Velocidade de carga e descarga</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputação dos municípios</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsídios: ofertas, prazos e recompensas</b><small>Subsídios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Tempo de jogo e calendário</b><small>Tempo de jogo e calendário</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Crescimento dos municípios: XP, classificações e tamanho</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Armazéns</b><small>Armazéns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Trabalhadores e o reforço de trabalhadores</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Projeto de fã por Miro. Sem vínculo com a Urban Games.</span><span>Textos e imagens: CC BY 4.0 · Código do jogo © Urban Games: só são mostradas referências curtas.</span><span class="tr">Traduzido do inglês; correções são bem-vindas (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

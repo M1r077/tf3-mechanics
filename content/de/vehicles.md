@@ -1,0 +1,118 @@
+---
+title: Fahrzeuge: Zustand, Alter und Ladegeschwindigkeit
+summary: Was die Fahrzeugwerte bedeuten, wie Zustand und Alter funktionieren, was Depots und Wartungsstationen tun, woher Preis und Betriebskosten kommen und wann man ein Fahrzeug ersetzen sollte.
+domain: vehicles
+official: gamemanual:management:linesvehicles
+status: verified
+updated: 2026-11-16
+fact: 5 | Zustandsstufen, von Sehr schlecht bis Sehr gut, je 20 %
+fact: 20 % | Zustand, der die Warnung Fahrzeugzustand auslöst
+fact: 6 Jahre | Betriebskosten: der Preis eines Fahrzeugs
+fact: 4 bis 16 | Fahrzeuge im Wartungspool eines Depots oder einer Wartungsstation
+---
+
+Jedes Fahrzeug hat feste Werte (Geschwindigkeit, Kapazität, Ladegeschwindigkeit, Preis, Betriebskosten, Lebensdauer) und zwei Werte, die sich ändern: seinen **Zustand** und sein **Alter**. Der Zustand sinkt im Betrieb und wird durch Wartung wiederhergestellt. Das Alter wächst nur.
+
+## Die Werte im Fahrzeugkatalog
+
+- Der Katalog zeigt jeden Wert als Balken. Der Balken vergleicht das Fahrzeug mit den anderen desselben Verkehrsträgers und derselben Epoche, nicht mit einer festen Skala (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- Bei einem Zug zeigt der Katalog die **höchste** Ladegeschwindigkeit aller seiner Teile (`vehicle_store_util.tl:333`).
+- Ein Fahrzeug, dessen Datei keine Ladegeschwindigkeit, keinen Lärm, keine Verschmutzung oder keinen Komfort festlegt, erhält einen aus seinen anderen Werten berechneten Wert (Jahr, Geschwindigkeit, Leistung, Gewicht, Größe) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). Die berechnete Ladegeschwindigkeit wird auf 0,5 gerundet und ist nie kleiner als 1 (`vehicle_metadata_util.lua:267-269`).
+
+## Welches Fahrzeug lädt am schnellsten?
+
+Die Ladegeschwindigkeit des Fahrzeugs ist nur der erste Faktor; Bahnsteig und Bestand multiplizieren sie (siehe [Lade- und Entladegeschwindigkeit](loading.html)).
+
+| Verkehrsträger | Ladegeschwindigkeit, die als voller Balken angezeigt wird (letzte Epoche) | Source |
+|---|---|---|
+| Schiffe | 10 bis 45 (ab 2003) | `vehicle_util.tl:219-223` |
+| Straßenfahrzeuge, Straßenbahnen | 0,5 bis 10 (ab 1995) | `vehicle_util.tl:232-243` |
+| Züge | 0,1 bis 10 (ab 1981) | `vehicle_util.tl:226-229` |
+| Flugzeuge | 1 bis 4 (ab 1978) | `vehicle_util.tl:212-216` |
+
+- Schiffe haben mit Abstand die höchsten Ladegeschwindigkeiten, Flugzeuge die niedrigste Skala.
+- Vergleiche Fahrzeuge eines Verkehrsträgers im Katalog über die Spalte Ladegeschwindigkeit; neuere Modelle liegen meist höher auf dem Balken.
+- Jede Frachtart hat einen Ladefaktor von 0,0625, Passagiere 1 (`coal.cargo.lua:29`, `passengers.cargo.lua:23`).
+
+```engine
+Wie Ladegeschwindigkeit des Fahrzeugs, Ladefaktor der Fracht sowie Bahnsteig- und Bestandsfaktoren zur tatsächlichen Ladezeit kombiniert werden, berechnet die Engine. Die Skripte liefern nur die Eingaben.
+```
+
+## Zustand
+
+| Zustand | Stufe | Source |
+|---|---|---|
+| über 80 % | **Sehr gut** | `vehicle_util.tl:159-172` |
+| 60–80 % | **Gut** | `vehicle_util.tl:159-172` |
+| 40–60 % | **Mittelmässig** | `vehicle_util.tl:159-172` |
+| 20–40 % | **Schlecht** | `vehicle_util.tl:159-172` |
+| bis 20 % | **Sehr schlecht** | `vehicle_util.tl:159-172` |
+
+- Der Zustand eines Zuges ist der **Durchschnitt** aller seiner Wagen und Lokomotiven (`vehicle_util.tl:285-295`).
+- Unter 80 % verliert ein Fahrzeug Höchstgeschwindigkeit, Leistung und Komfort und gewinnt Lärm, Verschmutzung und Betriebskosten (`vehicle_store_util.tl:230-259`). Das Fahrzeugfenster listet diese Abzüge unter **Zustand**.
+- Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keiner, Niedrig, Mittel, Hoch, Sehr hoch); bei Keiner hat der Zustand keine Wirkung (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
+- Bei **20 %** oder weniger erhältst du die Warnung **Fahrzeugzustand**. Sie bleibt, bis das Fahrzeug wieder über **30 %** liegt (`notifications.script.tl:310-318`).
+- Ein geklontes Fahrzeug ist ein Neukauf: Zustand 100 %, neues Kaufdatum (`manager_window.tl:8502-8506`).
+
+```engine
+Wie schnell der Zustand sinkt, wie viel ein Besuch in einer Wartungsstation wiederherstellt und wie groß jeder Abzug ist (getMaintenanceTopSpeedPenalty und die anderen), sind Engine-Werte. Jedes Fahrzeugmodell kann außerdem pro Stufe einen eigenen Abzug der Höchstgeschwindigkeit festlegen (`vehicle_store_util.tl:250-253`).
+```
+
+## Depots und Wartungsstationen
+
+Fahrzeuge werden von einem nahen Depot oder einer nahen Wartungsstation gewartet. Jedes davon bedient eine begrenzte Zahl von Fahrzeugen: seinen **Wartungspool**.
+
+| Gebäude | Wartungspool | Source |
+|---|---|---|
+| Zugdepot | 6 | `rail_depot.script.lua:349` |
+| Zug-Wartungsstation | 12 | `rail_maint_station.script.lua:157` |
+| Straßendepot, Straßenbahndepot | 12 | `road_depot.script.lua:198`, `tram_depot.script.lua:226` |
+| Straßen-Wartungsstation | 16 | `road_maint_station.script.lua:240` |
+| Schiffsdepot | 8 | `water_depot.script.lua:379` |
+| Schiffs-Wartungsstation | 12 | `water_maint_station.script.lua:262` |
+| Hangar eines Flugfelds oder Flughafens | 16 | `af_hangar.module.lua:280`, `ap_hangar.module.lua:463` |
+| Heliport | 4 | `heliport.script.lua:309` |
+
+- Das Gebäudefenster zeigt „belegt / Pool“ (zum Beispiel 14 / 12) und die Liste der bedienten Fahrzeuge mit ihrem Zustand (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
+- Ein vollerer Pool macht das Gebäude lauter und schmutziger: Die Emissionen steigen mit dem belegten Anteil des Pools (`emissions.script.tl:223-234`).
+- Eine Zug-Wartungsstation bedient doppelt so viele Züge wie ein Zugdepot: 12 gegen 6.
+- Das offizielle Wiki empfiehlt Wegpunkte, um Fahrzeuge an einem Wartungsgebäude vorbeizuschicken.
+
+```engine
+Welcher Station ein Fahrzeug zugeordnet wird, was passiert, wenn mehr Fahrzeuge eine Station nutzen als ihr Pool, und welcher Einzugsradius gilt, entscheidet die Engine.
+```
+
+## Preis und Betriebskosten
+
+- Fahrzeuge des Grundspiels haben keinen festen Preis: Die Betriebskosten ergeben sich aus Geschwindigkeit und Kapazität, und der Preis beträgt **6 Jahre** Betriebskosten (`model_metadata_util.lua:548-549`). Vollständige Formel: [Kosten, Unterhalt und Darlehen](costs.html).
+- **Fahrzeugkosten** und **Fahrzeugwartung** skalieren beide von 50 % bis 150 % (`post_run_util.tl:54-81`).
+- Ein Fahrzeug in schlechtem Zustand zahlt zusätzlich zum Grundwert höhere Betriebskosten (`vehicle_store_util.tl:256-259`).
+
+## Alter und Lebensdauer
+
+- Jedes Modell hat eine **Lebensdauer** in Jahren (`vehicle_metadata_util.lua:79-83`). Die Spalte **Alter** im Linienfenster zeigt das Alter; ihr Tooltip zeigt den verbrauchten Anteil der Lebensdauer und die verbleibende Zeit oder **Lebensdauer erreicht** (`line_eow.script.tl:133-147`).
+- Bei einem Zug zählt der **älteste** Teil (`vehicle_util.tl:36-52`). Ein einziger alter Wagen lässt den ganzen Zug alt erscheinen.
+
+```engine
+Was das Erreichen der Lebensdauer ändert (zum Beispiel schnellerer Zustandsverlust oder niedrigerer Verkaufswert), steht nicht in den Skripten. Die Skripte zeigen nur Alter und Lebensdauer an.
+```
+
+## Wann sollte ich alte Fahrzeuge ersetzen?
+
+1. **Der Zustand bleibt niedrig**, obwohl eine Wartungsstation in der Nähe ist: Das Fahrzeug verliert Geschwindigkeit und zahlt höhere Betriebskosten. Prüfe zuerst den Pool der Station: Er ist vielleicht voll.
+2. **Lebensdauer erreicht** im Tooltip von Alter: Das Modell hat seine geplante Lebensdauer überschritten.
+3. **Es gibt ein besseres Modell**: Schnellere oder größere Fahrzeuge kosten mehr im Betrieb, transportieren aber mehr (der Preis folgt Geschwindigkeit × Kapazität).
+4. Nutze **Fahrzeuge ersetzen** im Linienmanager. Es öffnet den Katalog mit einem Vergleich zum aktuellen Fahrzeug (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+
+## Gut zu wissen
+
+- Baue genug Wartungskapazität: Ein Zugdepot bedient nur 6 Züge.
+- Mit **Fahrzeugwartungseffekt** auf Keiner spielt der Zustand keine Rolle.
+- **Ins Depot schicken** schickt ein Fahrzeug zum nächsten erreichbaren Depot, nicht zu dem, in dem es gekauft wurde (offizielles Wiki).
+- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) hilft, Modelle vor dem Ersetzen zu vergleichen.
+
+```check
+official: „This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties.“ „Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store.“ ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))
+scripts: Fünf Zustandsstufen zu je 20 %; Abzüge bei Geschwindigkeit, Leistung, Komfort, Emissionen und Betriebskosten unter 80 %, skaliert durch Fahrzeugwartungseffekt; Warnung bei 20 %, aufgehoben über 30 %. Wartungspool 4 bis 16 Fahrzeuge pro Gebäude. Preis = 6 Jahre Betriebskosten. Alter eines Zuges = sein ältester Teil. Fehlende Ladegeschwindigkeiten werden aus den anderen Werten berechnet, auf 0,5 gerundet, mindestens 1.
+result: refines
+```

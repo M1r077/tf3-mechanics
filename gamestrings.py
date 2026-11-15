@@ -3,6 +3,7 @@
     python gamestrings.py "Specialized Warehouse: {boost}" [more msgids...]   # print every wiki language
     python gamestrings.py --lang ru,zh-cn "Cargo Income" ...                 # only some languages
     python gamestrings.py --find "Warehouse" [--lang ...]                    # search msgids
+    python gamestrings.py "vehicle-condition|Very Good"                      # string with a pGetText context
 Used to quote the in-game labels exactly in each language of the wiki.
 """
 import gettext
@@ -25,6 +26,10 @@ def catalog(lang):
 
 
 def tr(msgid, lang):
+    # "context|msgid" looks up a pGetText string (key "context\x04msgid" in the .mo)
+    if "|" in msgid:
+        ctx, mid = msgid.split("|", 1)
+        return catalog(lang)._catalog.get(f"{ctx}\x04{mid}", mid)
     return catalog(lang).gettext(msgid)
 
 
