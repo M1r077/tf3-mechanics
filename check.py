@@ -65,7 +65,7 @@ def main():
                 problems.append(f"{l}/{slug}: links differ from en: {sorted(set(links(texts[l])) ^ set(links(texts['en'])))}")
             for m in RX_FENCE.finditer(texts[l]):
                 kind, body = m.group(1), m.group(2)
-                if kind not in ("diagram", "check", "engine") and body.count("\n") > 3:
+                if kind not in ("diagram", "check", "engine", "tip") and body.count("\n") > 3:
                     problems.append(f"{l}/{slug}: code block of {body.count(chr(10))} lines (no long copies of game code)")
         for m in RX_REF.finditer(texts["en"]):
             name, a, b = m.group(1), m.group(2), m.group(3)

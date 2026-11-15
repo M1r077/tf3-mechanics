@@ -18,6 +18,7 @@ Inside a page:
   - `file.tl:12` or `file.tl:12-20` (a path ending in .lua / .tl, optional lines) becomes a source reference;
   - a fenced block ```diagram NAME``` inserts the SVG diagram NAME from diagrams.py (localised);
   - a fenced block ```engine``` marks what the engine decides;
+  - a fenced block ```tip``` is a gold practical tip box (measured in game);
   - a fenced block ```check``` holds the verification box: lines "official: ...", "scripts: ...", "result: agrees|refines|differs".
 """
 import html
@@ -57,7 +58,7 @@ UI = {
         "footer": "Fan project by Miro. Not affiliated with Urban Games.",
         "lic": "Texts and images: CC BY 4.0 · Game code © Urban Games: only short references are shown.",
         "engine_note": "Decided by the game engine",
-        "engine_sub": "C++, not visible in the scripts",
+        "engine_sub": "C++, not visible in the scripts", "tip_note": "Tip", "tip_sub": "measured in game",
         "read_more": "Read", "no_page": "No page yet", "updated": "Updated",
         "src_note": "Paths are inside the game's base/content folder or its zip files.",
         "toc": "On this page", "more": "Other mechanics", "filter": "Filter the game systems…",
@@ -79,7 +80,7 @@ UI = {
         "footer": "Projet de fan par Miro. Non affilié à Urban Games.",
         "lic": "Textes et images : CC BY 4.0 · Code du jeu © Urban Games : seules de courtes références sont montrées.",
         "engine_note": "Décidé par le moteur du jeu",
-        "engine_sub": "C++, non visible dans les scripts",
+        "engine_sub": "C++, non visible dans les scripts", "tip_note": "Astuce", "tip_sub": "mesuré en jeu",
         "read_more": "Lire", "no_page": "Pas encore de page", "updated": "Mis à jour",
         "src_note": "Les chemins sont dans le dossier base/content du jeu ou dans ses fichiers zip.",
         "toc": "Sur cette page", "more": "Autres mécaniques", "filter": "Filtrer les systèmes du jeu…",
@@ -101,7 +102,7 @@ UI = {
         "footer": "Fanprojekt von Miro. Nicht mit Urban Games verbunden.",
         "lic": "Texte und Bilder: CC BY 4.0 · Spielcode © Urban Games: es werden nur kurze Verweise gezeigt.",
         "engine_note": "Von der Spiel-Engine entschieden",
-        "engine_sub": "C++, in den Skripten nicht sichtbar",
+        "engine_sub": "C++, in den Skripten nicht sichtbar", "tip_note": "Tipp", "tip_sub": "im Spiel gemessen",
         "read_more": "Lesen", "no_page": "Noch keine Seite", "updated": "Aktualisiert",
         "src_note": "Die Pfade liegen im Ordner base/content des Spiels oder in seinen Zip-Dateien.",
         "toc": "Auf dieser Seite", "more": "Weitere Mechaniken", "filter": "Spielsysteme filtern…",
@@ -253,6 +254,8 @@ figcaption .ic{color:var(--gold);margin-top:2px}
 .callout .badge{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#130f1c;background:var(--violet)}
 .callout h4{margin:0;color:var(--text);font-size:15.5px}.callout h4 small{color:var(--violet);font-weight:600;margin-left:8px}
 .callout p{margin:5px 0 0;font-size:15px}
+.callout.tip{border-color:rgba(242,184,75,.45);background:linear-gradient(135deg,rgba(242,184,75,.16),rgba(242,184,75,.04))}
+.callout.tip .badge{background:var(--gold)}.callout.tip h4 small{color:var(--gold)}
 
 .check{margin:46px 0 16px;border-radius:20px;border:1px solid var(--line);background:var(--panel);overflow:hidden;box-shadow:var(--shadow)}
 .check .head{display:flex;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid var(--line);background:var(--panel2)}
@@ -462,9 +465,13 @@ def render_body(text, lang, ui):
             inner = markdown.markdown(body.strip(), extensions=["tables"])
             return stash(f'<aside class="callout"><div class="badge">{icon("cpu", 22)}</div><div>'
                          f'<h4>{ui["engine_note"]}<small>{ui["engine_sub"]}</small></h4>{inner}</div></aside>')
+        if kind == "tip":
+            inner = markdown.markdown(body.strip(), extensions=["tables"])
+            return stash(f'<aside class="callout tip"><div class="badge">{icon("lightbulb", 22)}</div><div>'
+                         f'<h4>{ui["tip_note"]}<small>{ui["tip_sub"]}</small></h4>{inner}</div></aside>')
         return m.group(0)
 
-    text = re.sub(r"```(diagram|check|engine)[ \t]*([^\n]*)\n(.*?)```", fence, text, flags=re.S)
+    text = re.sub(r"```(diagram|check|engine|tip)[ \t]*([^\n]*)\n(.*?)```", fence, text, flags=re.S)
     # en/fr/de keep their ASCII anchors; other scripts need Unicode anchors (ASCII ones would all be "_1", "_2"...)
     from markdown.extensions.toc import TocExtension, slugify, slugify_unicode
     toc_ext = TocExtension(slugify=slugify if lang in SOURCE_LANGS else slugify_unicode)

@@ -76,10 +76,19 @@ Una mina de carbón con 20 puestos de trabajo y "+84 %".
 - Algunas industrias (por ejemplo las plataformas petrolíferas) tienen su propia parada integrada, que acepta pasajeros y carga (`industryutil.lua:156-165`).
 - La ventana de la industria indica, para cada trabajador asignado, si está en **Ubicación actual** o **De camino** (`entity_window_util.tl:1371-1384`). La sección Refuerzos lista los trabajadores contados con su **Tiempo restante** de los 2 años (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
 - Una industria todavía sin trabajadores muestra: "Conecta esta ubicación con el transporte público para permitir que los residentes trabajen aquí." (`entity_window_util.tl:1650-1652`).
-- **Medido en el juego: empieza con una línea simple.** El juego reparte los empleos cuando abre tu línea, y el motor decide quién los obtiene. En dos pruebas, una primera línea de pasajeros de la industria a una sola ciudad, con una parada en la ciudad que no comparte área de captación con tus otras estaciones de pasajeros, dio **los 20 empleos a habitantes de esa ciudad**. La bonificación empezó tras 346 s y 925 s de tiempo de juego, una vez con un solo vehículo. En otra prueba, la parada en la ciudad tocaba el área de captación de una estación de pasajeros de la red: algunos empleos fueron a una ciudad lejana y los últimos trabajadores tardaron mucho más en llegar (964 s). Medido con [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) y el [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard).
 
 ```engine
 Qué parada sirve a una industria, cuánto camina un trabajador desde una parada hasta la entrada de la industria y los residentes de qué localidades toman el empleo lo decide el motor (áreas de influencia, búsqueda de ruta, elección de empleo). Los scripts no fijan ningún límite de distancia para los trabajadores. Algunos jugadores cuentan que una estación cuya área de influencia cubría la industria para la carga no llevó trabajadores hasta que un autobús fue a la entrada de la industria (hilo de Steam "Problem getting workers to site").
+```
+
+```tip
+**Consigue rápido el refuerzo de trabajadores (y el contrato Transportar trabajadores): empieza con una línea simple.**
+
+1. Crea una **nueva línea de pasajeros** desde una parada en la industria hasta **una sola localidad**.
+2. Coloca la parada de la localidad de modo que su área de influencia **no toque ninguna de tus otras estaciones de pasajeros**.
+3. Un solo vehículo basta para empezar.
+
+Los empleos se reparten cuando abre la línea: en dos pruebas los **20 empleos fueron a esa única localidad**, y el refuerzo empezó tras **346 s y 925 s** de tiempo de juego (una vez con un solo vehículo). Cuando la parada de la localidad tocaba el área de una estación de la red, algunos empleos fueron a una localidad lejana y los últimos trabajadores tardaron mucho más (964 s). Medido con [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) y el [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); quién obtiene un empleo lo sigue decidiendo el motor.
 ```
 
 ## Subsidio Transportar trabajadores

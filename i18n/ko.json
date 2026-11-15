@@ -45,7 +45,9 @@
   "src_btn": "소스",
   "src_toggle": "스크립트 참조 표시 또는 숨기기",
   "src_show": "소스 보기",
-  "src_hide": "소스 숨기기"
+  "src_hide": "소스 숨기기",
+  "tip_note": "팁",
+  "tip_sub": "게임에서 측정"
  },
  "diagrams": {
   "T_WORKERS": {

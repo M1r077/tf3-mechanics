@@ -76,10 +76,19 @@ Una miniera di carbone con 20 luoghi di lavoro e "+84%".
 - Alcune industrie (per esempio le piattaforme petrolifere) hanno una fermata integrata, che prende passeggeri e merci (`industryutil.lua:156-165`).
 - La finestra dell'industria mostra, per ogni lavoratore assegnato, se è **In posizione** o **In viaggio** (`entity_window_util.tl:1371-1384`). La sezione Booster elenca i lavoratori contati con il loro **Tempo rimanente** sui 2 anni (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
 - Un'industria senza ancora nessun lavoratore mostra: "Collega questo luogo al trasporto pubblico per consentire ai residenti di lavorare qui." (`entity_window_util.tl:1650-1652`).
-- **Misurato in gioco: inizia con una linea semplice.** Il gioco assegna i posti di lavoro quando la tua linea apre, e il motore decide chi li ottiene. In due prove, una prima linea passeggeri dall'industria a una sola città, con una fermata in città che non condivide il bacino di utenza con le tue altre stazioni passeggeri, ha dato **tutti i 20 posti ad abitanti di quella città**. Il potenziamento è partito dopo 346 s e 925 s di tempo di gioco, una volta con un solo veicolo. In un'altra prova la fermata in città toccava il bacino di una stazione passeggeri della rete: alcuni posti sono andati a una città lontana e gli ultimi lavoratori hanno impiegato molto di più ad arrivare (964 s). Misurato con [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) e il [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard).
 
 ```engine
 Quale fermata serve un'industria, quanto cammina un lavoratore da una fermata all'ingresso dell'industria, e i residenti di quali città prendono il lavoro sono decisi dal motore (bacini di utenza, ricerca del percorso, scelta del lavoro). Gli script non fissano alcun limite di distanza per i lavoratori. I giocatori segnalano che una stazione il cui bacino copriva l'industria per le merci non portava lavoratori finché un autobus non è andato fino all'ingresso dell'industria (discussione Steam "Problem getting workers to site").
+```
+
+```tip
+**Ottieni in fretta il potenziamento dei lavoratori (e il contratto Trasporta lavoratori): inizia con una linea semplice.**
+
+1. Crea una **nuova linea passeggeri** da una fermata all'industria a **una sola città**.
+2. Posiziona la fermata in città in modo che il suo bacino **non tocchi nessuna delle tue altre stazioni passeggeri**.
+3. Un solo veicolo basta per iniziare.
+
+I posti di lavoro vengono assegnati quando la linea apre: in due prove **tutti i 20 posti sono andati a quella sola città**, e il potenziamento è partito dopo **346 s e 925 s** di tempo di gioco (una volta con un solo veicolo). Quando la fermata in città toccava il bacino di una stazione della rete, alcuni posti sono andati a una città lontana e gli ultimi lavoratori hanno impiegato molto di più (964 s). Misurato con [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) e il [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); chi ottiene un posto lo decide comunque il motore.
 ```
 
 ## Commessa Trasporto di forza lavoro

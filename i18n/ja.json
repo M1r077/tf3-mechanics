@@ -45,7 +45,9 @@
   "src_btn": "ソース",
   "src_toggle": "スクリプト参照の表示・非表示",
   "src_show": "ソースを表示",
-  "src_hide": "ソースを隠す"
+  "src_hide": "ソースを隠す",
+  "tip_note": "ヒント",
+  "tip_sub": "ゲーム内で測定"
  },
  "diagrams": {
   "T_WORKERS": {

@@ -116,6 +116,8 @@ figcaption .ic{color:var(--gold);margin-top:2px}
 .callout .badge{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#130f1c;background:var(--violet)}
 .callout h4{margin:0;color:var(--text);font-size:15.5px}.callout h4 small{color:var(--violet);font-weight:600;margin-left:8px}
 .callout p{margin:5px 0 0;font-size:15px}
+.callout.tip{border-color:rgba(242,184,75,.45);background:linear-gradient(135deg,rgba(242,184,75,.16),rgba(242,184,75,.04))}
+.callout.tip .badge{background:var(--gold)}.callout.tip h4 small{color:var(--gold)}
 
 .check{margin:46px 0 16px;border-radius:20px;border:1px solid var(--line);background:var(--panel);overflow:hidden;box-shadow:var(--shadow)}
 .check .head{display:flex;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid var(--line);background:var(--panel2)}

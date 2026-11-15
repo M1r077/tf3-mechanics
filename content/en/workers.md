@@ -76,10 +76,19 @@ A coal mine with 20 workplaces and "+84 %".
 - Some industries (for example oil rigs) have their own built-in stop, which takes passengers and cargo (`industryutil.lua:156-165`).
 - The industry window shows, for each assigned worker, whether it is **Currently Here** or **On the Way** (`entity_window_util.tl:1371-1384`). The Booster section lists the counted workers with their **Time Left** of the 2 years (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
 - An industry with no worker yet shows: "Connect this location with public transport to allow residents to work here." (`entity_window_util.tl:1650-1652`).
-- **Measured in game: start with a simple line.** The game gives the jobs when your line opens, and the engine decides who gets them. In two tests, a first passenger line from the industry to one town, with a town stop that shares no catchment with your other passenger stations, gave **all 20 jobs to residents of that town**. The boost started after 346 s and 925 s of game time, once with a single vehicle. In another test, the town stop touched the catchment of a passenger station of the network: some jobs went to a distant town, and the last workers took much longer to arrive (964 s). Measured with [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) and the [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard).
 
 ```engine
 Which stop serves an industry, how far a worker walks from a stop to the industry entrance, and which towns' residents take the job are decided by the engine (catchment areas, path finding, job choice). The scripts set no distance limit for workers. Players report that a station whose catchment area covers the industry for cargo did not bring workers until a bus ran to the industry entrance (Steam thread "Problem getting workers to site").
+```
+
+```tip
+**Get the workers boost (and the Transport Workers contract) fast: start with a simple line.**
+
+1. Build a **new passenger line** from a stop at the industry to **one town**.
+2. Place the town stop so that its catchment **touches none of your other passenger stations**.
+3. One vehicle is enough to start.
+
+The jobs are given when the line opens: in two tests all **20 jobs went to that one town**, and the boost started after **346 s and 925 s** of game time (once with a single vehicle). When the town stop touched the catchment of a network station, some jobs went to a distant town and the last workers took much longer (964 s). Measured with [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) and the [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); who gets a job is still decided by the engine.
 ```
 
 ## Transport Workers subsidy

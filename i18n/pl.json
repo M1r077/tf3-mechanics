@@ -45,7 +45,9 @@
   "src_btn": "Źródła",
   "src_toggle": "Pokaż lub ukryj odwołania do skryptów",
   "src_show": "Pokaż źródła",
-  "src_hide": "Ukryj źródła"
+  "src_hide": "Ukryj źródła",
+  "tip_note": "Wskazówka",
+  "tip_sub": "zmierzone w grze"
  },
  "diagrams": {
   "T_WORKERS": {

@@ -49,6 +49,7 @@ Python 3.12 with `markdown`. The game folder is read in place, zips included, no
 - `` `file.tl:12-20` `` is a source reference (checked by `check.py`);
 - ` ```diagram NAME ``` ` inserts a diagram of `diagrams.py`;
 - ` ```engine ``` ` marks what the engine decides (not visible in the scripts);
+- ` ```tip ``` ` is a gold box with a practical tip measured in game;
 - ` ```check ``` ` is the box comparing the official wiki and the scripts (`official:`, `scripts:`,
   `result: agrees | refines | differs`).
 

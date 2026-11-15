@@ -45,7 +45,9 @@
   "src_btn": "Fuentes",
   "src_toggle": "Mostrar u ocultar las referencias a los scripts",
   "src_show": "Mostrar las fuentes",
-  "src_hide": "Ocultar las fuentes"
+  "src_hide": "Ocultar las fuentes",
+  "tip_note": "Consejo",
+  "tip_sub": "medido en el juego"
  },
  "diagrams": {
   "T_WORKERS": {

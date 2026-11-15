@@ -76,10 +76,19 @@ Une mine de charbon avec 20 emplois et « +84 % ».
 - Certaines industries (par exemple les plateformes pétrolières) ont leur propre arrêt intégré, qui prend passagers et fret (`industryutil.lua:156-165`).
 - La fenêtre de l'industrie indique, pour chaque travailleur attribué, s'il est **Actuellement ici** ou **En route** (`entity_window_util.tl:1371-1384`). La section Boosters liste les travailleurs comptés avec leur **Temps restant** sur les 2 ans (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
 - Une industrie encore sans travailleur affiche : « Connecter cet emplacement aux transports publics pour permettre à des habitants d'y travailler. » (`entity_window_util.tl:1650-1652`).
-- **Mesuré en jeu : commencer par une ligne simple.** Le jeu attribue les emplois quand votre ligne ouvre, et c'est le moteur qui choisit qui les obtient. Lors de deux tests, une première ligne de voyageurs de l'industrie vers une seule ville, avec un arrêt en ville qui ne partage aucune zone de desserte avec vos autres gares de voyageurs, a donné **les 20 emplois à des habitants de cette ville**. Le bonus a démarré après 346 s et 925 s de temps de jeu, une fois avec un seul véhicule. Lors d'un autre test, l'arrêt en ville touchait la zone de desserte d'une gare de voyageurs du réseau : des emplois sont allés à une ville éloignée et les derniers travailleurs ont mis beaucoup plus longtemps à arriver (964 s). Mesuré avec [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) et le [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard).
 
 ```engine
 Quel arrêt dessert une industrie, quelle distance un travailleur marche d'un arrêt à l'entrée de l'industrie, et les habitants de quelles villes prennent l'emploi sont décidés par le moteur (zones de desserte, recherche de chemin, choix de l'emploi). Les scripts ne fixent aucune limite de distance pour les travailleurs. Des joueurs signalent qu'une gare dont la zone de desserte couvre l'industrie pour le fret n'amenait pas de travailleurs avant qu'un bus aille jusqu'à l'entrée de l'industrie (fil Steam « Problem getting workers to site »).
+```
+
+```tip
+**Obtenir vite le bonus de travailleurs (et le contrat Transporter des travailleurs) : commencer par une ligne simple.**
+
+1. Créez une **nouvelle ligne de voyageurs** entre un arrêt à l'industrie et **une seule ville**.
+2. Placez l'arrêt en ville pour que sa zone de desserte **ne touche aucune de vos autres gares de voyageurs**.
+3. Un seul véhicule suffit pour démarrer.
+
+Les emplois sont attribués à l'ouverture de la ligne : lors de deux tests, les **20 emplois sont allés à cette seule ville**, et le bonus a démarré après **346 s et 925 s** de temps de jeu (une fois avec un seul véhicule). Quand l'arrêt en ville touchait la zone de desserte d'une gare du réseau, des emplois sont allés à une ville éloignée et les derniers travailleurs ont mis beaucoup plus longtemps (964 s). Mesuré avec [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) et le [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) ; c'est toujours le moteur qui choisit qui obtient un emploi.
 ```
 
 ## Contrat Transporter des travailleurs

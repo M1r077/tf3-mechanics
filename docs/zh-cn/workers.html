@@ -91,9 +91,15 @@
 <li>有些产业（例如石油钻井）有自带站点，可接乘客和货物<span class="sr">（<code class="src">industryutil.lua:156-165</code>）</span>。</li>
 <li>产业窗口为每个分配的工人显示他是<strong>目前在此处的</strong>还是<strong>在路上的</strong><span class="sr">（<code class="src">entity_window_util.tl:1371-1384</code>）</span>。“加成”部分列出计入的工人及其 2 年中的<strong>剩余时间</strong><span class="sr">（<code class="src">entity_window_util.tl:1579-1630</code>、<code class="src">industry_eow.script.tl:644-649</code>）</span>。</li>
 <li>还没有工人的产业显示：“将此位置接入公共交通网，以使居民能够来这里工作。”<span class="sr">（<code class="src">entity_window_util.tl:1650-1652</code>）</span>。</li>
-<li><strong>游戏内实测：先建一条简单线路。</strong> 线路开通时游戏分配工作岗位，由引擎决定谁得到。两次测试中，从产业到单个城镇的第一条客运线路（城镇站点与你的其他客运站没有重叠的覆盖范围）把<strong>全部 20 个岗位给了该城镇的居民</strong>。加成分别在游戏时间 346 秒和 925 秒后开始，其中一次只有 1 辆车。另一次测试中，城镇站点碰到了网络中一座客运站的覆盖范围：部分岗位给了远处的城镇，最后的工人到达所需时间长得多（964 秒）。使用 <a href="https://mod.io/g/transportfever3/m/worker-origins">Worker Origins</a> 和 <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> 测得。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>哪个站点服务产业、工人从站点到产业入口走多远、哪些城镇的居民得到这份工作，都由引擎决定（覆盖范围、寻路、工作选择）。脚本没有给工人设距离限制。玩家报告，一个货运覆盖范围包含产业的车站一直没带来工人，直到有公交开到产业入口（Steam 帖子“Problem getting workers to site”）。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示<small>游戏内实测</small></h4><p><strong>快速获得工人加成（以及“运送工人”合同）：先建一条简单线路。</strong></p>
+<ol>
+<li>新建一条从产业旁站点到<strong>单个城镇</strong>的<strong>客运线路</strong>。</li>
+<li>城镇站点的覆盖范围<strong>不要碰到你的任何其他客运站</strong>。</li>
+<li>起步只需 1 辆车。</li>
+</ol>
+<p>工作岗位在线路开通时分配：两次测试中<strong>全部 20 个岗位都给了这个城镇</strong>，加成分别在游戏时间 <strong>346 秒和 925 秒</strong>后开始（其中一次只有 1 辆车）。当城镇站点碰到网络中车站的覆盖范围时，部分岗位给了远处的城镇，最后的工人到达所需时间长得多（964 秒）。使用 <a href="https://mod.io/g/transportfever3/m/worker-origins">Worker Origins</a> 和 <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> 测得；谁得到岗位仍由引擎决定。</p></div></aside>
 <h2 id="运输工人补贴"><span class="n">8</span><span>运输工人补贴</span></h2>
 <ul>
 <li>只会为运出或接收货物、且尚未获得加成的产业提供<span class="sr">（<code class="src">deliver_workers.script.tl:121-131</code>、<code class="src">industry_util.tl:541-553</code>）</span>。</li>

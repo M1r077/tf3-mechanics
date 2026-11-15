@@ -76,10 +76,19 @@ Ein Kohlebergwerk mit 20 Arbeitsplätzen und „+84 %“.
 - Manche Industrien (zum Beispiel Ölplattformen) haben eine eigene eingebaute Haltestelle für Passagiere und Fracht (`industryutil.lua:156-165`).
 - Das Industriefenster zeigt für jeden zugeteilten Arbeiter, ob er **Derzeit hier** oder **Unterwegs** ist (`entity_window_util.tl:1371-1384`). Der Bereich Booster listet die gezählten Arbeiter mit ihrer **Zeit übrig** von den 2 Jahren (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
 - Eine Industrie noch ohne Arbeiter zeigt: „Erschliesse diesen Standort mit dem öffentlichen Verkehr, um den Einwohnern zu ermöglichen, dort zu arbeiten.“ (`entity_window_util.tl:1650-1652`).
-- **Im Spiel gemessen: mit einer einfachen Linie beginnen.** Das Spiel vergibt die Arbeitsplätze, wenn deine Linie öffnet, und die Engine entscheidet, wer sie bekommt. In zwei Tests gab eine erste Personenlinie von der Industrie zu einer einzigen Stadt, deren Stadthaltestelle kein Einzugsgebiet mit deinen anderen Personenbahnhöfen teilt, **alle 20 Arbeitsplätze an Einwohner dieser Stadt**. Der Boost startete nach 346 s und 925 s Spielzeit, einmal mit nur einem Fahrzeug. In einem anderen Test berührte die Stadthaltestelle das Einzugsgebiet eines Personenbahnhofs des Netzes: Einige Arbeitsplätze gingen an eine entfernte Stadt, und die letzten Arbeiter brauchten viel länger (964 s). Gemessen mit [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) und dem [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard).
 
 ```engine
 Welche Haltestelle eine Industrie bedient, wie weit ein Arbeiter von einer Haltestelle zum Eingang der Industrie läuft und die Einwohner welcher Städte den Arbeitsplatz nehmen, entscheidet die Engine (Einzugsgebiete, Wegfindung, Arbeitsplatzwahl). Die Skripte setzen keine Distanzgrenze für Arbeiter. Spieler berichten, dass ein Bahnhof, dessen Einzugsgebiet die Industrie für Fracht abdeckt, keine Arbeiter brachte, bis ein Bus zum Eingang der Industrie fuhr (Steam-Thread „Problem getting workers to site“).
+```
+
+```tip
+**Den Arbeiter-Boost (und den Auftrag „Arbeiter transportieren“) schnell bekommen: mit einer einfachen Linie beginnen.**
+
+1. Baue eine **neue Personenlinie** von einer Haltestelle an der Industrie zu **einer einzigen Stadt**.
+2. Setze die Stadthaltestelle so, dass ihr Einzugsgebiet **keinen deiner anderen Personenbahnhöfe berührt**.
+3. Ein Fahrzeug reicht für den Start.
+
+Die Arbeitsplätze werden vergeben, wenn die Linie öffnet: In zwei Tests gingen **alle 20 Arbeitsplätze an diese eine Stadt**, und der Boost startete nach **346 s und 925 s** Spielzeit (einmal mit nur einem Fahrzeug). Als die Stadthaltestelle das Einzugsgebiet eines Netzbahnhofs berührte, gingen einige Arbeitsplätze an eine entfernte Stadt und die letzten Arbeiter brauchten viel länger (964 s). Gemessen mit [Worker Origins](https://mod.io/g/transportfever3/m/worker-origins) und dem [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); wer einen Arbeitsplatz bekommt, entscheidet weiterhin die Engine.
 ```
 
 ## Subvention Transportiere Arbeiter

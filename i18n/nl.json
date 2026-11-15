@@ -45,7 +45,9 @@
   "src_btn": "Bronnen",
   "src_toggle": "Scriptverwijzingen tonen of verbergen",
   "src_show": "Bronnen tonen",
-  "src_hide": "Bronnen verbergen"
+  "src_hide": "Bronnen verbergen",
+  "tip_note": "Tip",
+  "tip_sub": "in het spel gemeten"
  },
  "diagrams": {
   "T_WORKERS": {
