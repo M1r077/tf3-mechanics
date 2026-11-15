@@ -5,7 +5,8 @@
 2. every `file.lua:12-20` reference names a real game file, and its lines exist;
 3. no long copy of game code (fenced code blocks of more than 3 lines are refused);
 4. every relative link of the built site points to an existing file;
-5. every mod named in a page (data/mods.json) is a link to its own mod.io page.
+5. every mod named in a page (data/mods.json) is a link to its own mod.io page;
+6. every source reference is in backticks, so the Sources switch hides it.
 
     python check.py      (exit code 1 on any problem)
 """
@@ -77,6 +78,12 @@ def main():
                 if not any(last <= n for _sid, n in cands):
                     problems.append(f"{slug}: {name} has no line {last}")
 
+    for l in LANGS:
+        for slug in pages[l]:
+            with open(os.path.join(CONTENT, l, slug + ".md"), encoding="utf-8") as f:
+                for n, ref in bare_refs(f.read()):
+                    problems.append(f"{l}/{slug}.md:{n}: source reference {ref} without backticks (Sources off would not hide it)")
+
     problems += check_mod_links(pages["en"])
     problems += check_texts()
 
@@ -98,6 +105,19 @@ def main():
 
 
 MODIO = "https://mod.io/g/transportfever3/m/"
+RX_BARE = re.compile(r"(?<![\w./`-])([\w-]+(?:\.[\w-]+)*\.(?:lua|tl)(?::\d+(?:-\d+)?)?)(?![\w`])")
+
+
+def bare_refs(text):
+    """Source references outside backticks, in prose and in engine/check blocks: build.mark_sources only hides
+    backticked ones. Link targets (](...)) and fence lines are skipped. Yields (line number, reference)."""
+    for n, line in enumerate(text.split("\n"), 1):
+        if line.lstrip().startswith("```"):
+            continue
+        line = re.sub(r"`[^`]*`", "", line)
+        line = re.sub(r"\]\([^)]*\)", "]", line)
+        for m in RX_BARE.finditer(line):
+            yield n, m.group(1)
 
 
 def check_texts():
