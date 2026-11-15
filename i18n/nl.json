@@ -376,6 +376,16 @@
    "slow": "33 % per jaar",
    "fast": "100 % per jaar",
    "noc": "zonder campagne"
+  },
+  "T_ICLOSE": {
+   "cap": "Een ongebruikt bedrijf: 5 jaar zonder laden of verbruik maken het kandidaat; daarna kan het elk jaar gemarkeerd worden (1,1 % bij Zelden, 8,8 % bij Zeer vaak); het aftellen duurt 2 jaar. Eén keer laden of verbruik zet alles terug.",
+   "x": "jaar",
+   "last": "laatste laden of verbruik",
+   "cand": "kandidaat",
+   "roll": "elk jaar willekeurig gemarkeerd",
+   "count": "aftellen 730 dagen",
+   "gone": "verwijderd",
+   "save": "één keer laden of verbruik: gered"
   }
  },
  "cargo": {

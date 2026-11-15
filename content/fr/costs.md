@@ -38,7 +38,7 @@ Le réglage **Inflation** n'augmente aucun coût : il baisse seulement tes reven
 - Les **revenus** n'ont aucun facteur d'année (`cargo_income.script.lua:10-13`).
 
 ```engine
-L'entretien réellement prélevé, et le fait que routes, voies et véhicules suivent aussi la table des années, sont décidés par le moteur (getCostMultiplierForYear ; la config de base fixe seulement chargeMaintenanceInterval = 60, mod.script.tl:105). Les scripts calculent seulement les valeurs affichées dans les fenêtres et le menu de construction, avec la table ci-dessus. Aucun script ne met le drapeau « suivre l'année » des autres bâtiments.
+L'entretien réellement prélevé, et le fait que routes, voies et véhicules suivent aussi la table des années, sont décidés par le moteur (getCostMultiplierForYear ; la config de base fixe seulement chargeMaintenanceInterval = 60, `mod.script.tl:105`). Les scripts calculent seulement les valeurs affichées dans les fenêtres et le menu de construction, avec la table ci-dessus. Aucun script ne met le drapeau « suivre l'année » des autres bâtiments.
 ```
 
 ## Voies, routes et bâtiments

@@ -69,7 +69,7 @@ Una conexión principal cuenta como cortada cuando el juego avisa **Se corto la 
 | Vecinos | tus líneas en esa localidad cuentan como la mitad de costosas cuando los vecinos eligen cómo viajar | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
 
 ```engine
-El script cuenta 360 segundos de tiempo de juego por nivel (120 con campaña). El calendario detrás es la duración del año del motor (getDefaultYearDuration); el 33 % y el 100 % de la ventana de la localidad corresponden a un año de 720 segundos (un día de 2 segundos, como en cargotype.script.lua:3). Cuánto atrae a los vecinos hacia tus líneas el coste de línea a la mitad lo decide la elección de ruta del motor.
+El script cuenta 360 segundos de tiempo de juego por nivel (120 con campaña). El calendario detrás es la duración del año del motor (getDefaultYearDuration); el 33 % y el 100 % de la ventana de la localidad corresponden a un año de 720 segundos (un día de 2 segundos, como en `cargotype.script.lua:3`). Cuánto atrae a los vecinos hacia tus líneas el coste de línea a la mitad lo decide la elección de ruta del motor.
 ```
 
 ## Bueno saber

@@ -38,7 +38,7 @@ De instelling **Inflatie** verhoogt geen enkele kost: ze verlaagt alleen je inko
 - **Inkomsten** hebben helemaal geen jaarfactor (`cargo_income.script.lua:10-13`).
 
 ```engine
-Het onderhoud dat echt wordt afgeschreven, en of straten, sporen en voertuigen ook de jaartabel volgen, bepaalt de engine (getCostMultiplierForYear; de basisconfiguratie zet alleen chargeMaintenanceInterval = 60, mod.script.tl:105). De scripts berekenen alleen de waarden die in de vensters en het bouwmenu staan, met de tabel hierboven. Geen enkel script zet de vlag "het jaar volgen" van de andere gebouwen.
+Het onderhoud dat echt wordt afgeschreven, en of straten, sporen en voertuigen ook de jaartabel volgen, bepaalt de engine (getCostMultiplierForYear; de basisconfiguratie zet alleen chargeMaintenanceInterval = 60, `mod.script.tl:105`). De scripts berekenen alleen de waarden die in de vensters en het bouwmenu staan, met de tabel hierboven. Geen enkel script zet de vlag "het jaar volgen" van de andere gebouwen.
 ```
 
 ## Sporen, wegen en gebouwen

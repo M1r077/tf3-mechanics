@@ -1084,6 +1084,55 @@ def rep_recovery(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- industries: closure of an unused industry
+T_ICLOSE = {
+    "en": {"cap": "An unused industry: 5 years without loading or consumption make it a candidate; each year it may then be marked "
+                  "(1.1 % at Rarely, 8.8 % at Very Often); the countdown lasts 2 years. One load or consumption resets everything.",
+           "x": "years", "last": "last load or consumption", "cand": "candidate", "roll": "marked by chance each year",
+           "count": "countdown 730 days", "gone": "removed", "save": "one load or consumption: saved"},
+    "fr": {"cap": "Une industrie inutilisée : 5 ans sans chargement ni consommation en font une candidate ; chaque année elle peut alors "
+                  "être marquée (1,1 % à Rarement, 8,8 % à Très souvent) ; le compte à rebours dure 2 ans. Un seul chargement ou une "
+                  "consommation remet tout à zéro.",
+           "x": "années", "last": "dernier chargement ou consommation", "cand": "candidate", "roll": "marquée au hasard chaque année",
+           "count": "compte à rebours 730 jours", "gone": "supprimée", "save": "un chargement ou une consommation : sauvée"},
+    "de": {"cap": "Eine ungenutzte Industrie: 5 Jahre ohne Verladen oder Verbrauch machen sie zum Kandidaten; danach kann sie jedes Jahr "
+                  "markiert werden (1,1 % bei Selten, 8,8 % bei Sehr oft); der Countdown dauert 2 Jahre. Ein einziges Verladen oder "
+                  "ein Verbrauch setzt alles zurück.",
+           "x": "Jahre", "last": "letztes Verladen oder Verbrauch", "cand": "Kandidat", "roll": "jedes Jahr zufällig markiert",
+           "count": "Countdown 730 Tage", "gone": "entfernt", "save": "einmal verladen oder verbraucht: gerettet"},
+}
+
+
+def ind_closure(lang):
+    t = T_ICLOSE[lang]
+    s = Svg("ic", 900, 300)
+    X0, PER, Y = 40, 80, 150  # px per year
+    px = lambda yr: X0 + yr * PER
+    # phases: unused 0-5, waiting for the draw 5-7.5, countdown 7.5-9.5
+    s.rect(px(0), Y - 22, px(5) - px(0), 44, "#1c2430", r=10, stroke=LINE)
+    s.rect(px(5), Y - 22, px(7.5) - px(5), 44, GOLD, r=0, opacity=.18)
+    s.rect(px(7.5), Y - 22, px(9.5) - px(7.5), 44, RED, r=0, opacity=.28)
+    for yr in range(0, 11):
+        s.add(f'<line x1="{px(yr)}" y1="{Y + 24}" x2="{px(yr)}" y2="{Y + 32}" stroke="{DIM}"/>')
+        s.text(px(yr), Y + 50, str(yr), 12, DIM)
+    s.text(px(5), Y + 74, t["x"], 13, TEXT, weight=600)
+    s.add(f'<circle cx="{px(0)}" cy="{Y}" r="7" fill="{TEAL}" stroke="{DEEP}" stroke-width="2"/>')
+    s.text(px(0) - 6, Y - 40, t["last"], 13, TEAL, "start", 700)
+    s.add(f'<line x1="{px(5)}" y1="{Y - 34}" x2="{px(5)}" y2="{Y + 24}" stroke="{GOLD}" stroke-width="2.5"/>')
+    s.chip(px(5) - 8, Y - 70, t["cand"], GOLD, size=12, h=24)
+    s.text(px(6.25), Y + 5, "?", 18, GOLD, weight=800)
+    s.lines(px(6.25), Y - 86, wrap_rows(t["roll"], 20), 12, GOLD, gap=1.3, weight=600)
+    s.add(f'<line x1="{px(7.5)}" y1="{Y - 34}" x2="{px(7.5)}" y2="{Y + 24}" stroke="{RED}" stroke-width="2.5"/>')
+    s.text(px(8.5), Y + 5, t["count"], 12, TEXT, weight=700)
+    s.icon_badge(px(10), Y, "industries", RED, 20)
+    s.text(px(10), Y - 34, t["gone"], 13, RED, weight=800)
+    # saved: dashed return arrow from the countdown back to the start
+    s.add(f'<path d="M{px(8.5)} {Y + 90} C {px(8.5)} {Y + 130}, {px(0)} {Y + 130}, {px(0)} {Y + 14}" fill="none" stroke="{TEAL}" '
+          f'stroke-width="2" stroke-dasharray="5 4" marker-end="{s.ref("ah")}"/>')
+    s.text(px(4.2), Y + 136, t["save"], 13, TEAL, weight=700)
+    return s.svg(), t["cap"]
+
+
 def _load_translations():
     """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
     for code in langs.translated():
@@ -1114,6 +1163,7 @@ REGISTRY = {
     "cost_years": cost_years,
     "loan_interest": loan_interest,
     "rep_recovery": rep_recovery,
+    "ind_closure": ind_closure,
 }
 
 

@@ -38,7 +38,7 @@ El ajuste **Inflación** no sube ningún coste: solo baja tus ingresos a medida 
 - Los **ingresos** no tienen ningún factor de año (`cargo_income.script.lua:10-13`).
 
 ```engine
-La conservación que se cobra de verdad, y si calles, vías y vehículos también siguen la tabla de años, lo decide el motor (getCostMultiplierForYear; la configuración base solo fija chargeMaintenanceInterval = 60, mod.script.tl:105). Los scripts solo calculan los valores que se muestran en las ventanas y en el menú de construcción, con la tabla de arriba. Ningún script activa la marca «seguir el año» de los demás edificios.
+La conservación que se cobra de verdad, y si calles, vías y vehículos también siguen la tabla de años, lo decide el motor (getCostMultiplierForYear; la configuración base solo fija chargeMaintenanceInterval = 60, `mod.script.tl:105`). Los scripts solo calculan los valores que se muestran en las ventanas y en el menú de construcción, con la tabla de arriba. Ningún script activa la marca «seguir el año» de los demás edificios.
 ```
 
 ## Vías, carreteras y edificios

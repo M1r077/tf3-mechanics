@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Предприятия · Механики TF3</title>
+<meta name="description" content="Как на самом деле устроена Transport Fever 3: прочитано в скриптах самой игры.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/industries.html"><link rel="alternate" hreflang="fr" href="../fr/industries.html"><link rel="alternate" hreflang="de" href="../de/industries.html"><link rel="alternate" hreflang="es" href="../es/industries.html"><link rel="alternate" hreflang="it" href="../it/industries.html"><link rel="alternate" hreflang="nl" href="../nl/industries.html"><link rel="alternate" hreflang="pl" href="../pl/industries.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/industries.html"><link rel="alternate" hreflang="ru" href="../ru/industries.html"><link rel="alternate" hreflang="ja" href="../ja/industries.html"><link rel="alternate" hreflang="ko" href="../ko/industries.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/industries.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/industries.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Главная</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Показать или скрыть ссылки на скрипты"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Источники</span></button>
+<details class="langs"><summary aria-label="Язык"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Русский</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Язык"><a href="../en/industries.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/industries.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/industries.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/industries.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/industries.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/industries.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/industries.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/industries.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/industries.html" class="on" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/industries.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/industries.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/industries.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/industries.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Главная</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg>Предприятия</span></div><h1 class="rise d1">Предприятия</h1><p class="lead rise d2">Правила производства, запасы, участки и расширение, бонусный груз, почему у предприятия нет бонуса и когда неиспользуемое предприятие на самом деле закрывается.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Проверено в скриптах</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Обновлено 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>5 лет</b><span>без погрузки и потребления делают предприятие кандидатом на закрытие</span></div><div class="fact rise d2"><b>1,1 %</b><span>шанс в год при «Редко» (по умолчанию), затем 730 дней обратного отсчёта</span></div><div class="fact rise d3"><b>+50–150 %</b><span>бонус от бонусного груза, постоянный для предприятия</span></div><div class="fact rise d4"><b>3 месяца</b><span>бонуса за одну партию бонусного груза</span></div></div></div></section><div class="wrap layout"><article><p>Каждое предприятие работает по <strong>правилам</strong>: «взять это из входных запасов, положить то в выходные запасы», фиксированное число раз в год. Добывающим предприятиям (шахты, фермы, скважины) вход не нужен; их размер зависит от <strong>участков</strong>. Производство могут умножать два бонуса: <strong>бонусный груз</strong> (только добывающие предприятия) и <strong>работники</strong>.</p>
+<h2 id="правила-производства"><span class="n">1</span><span>Правила производства</span></h2>
+<ul>
+<li>Правило задаёт груз, потребляемый и производимый за цикл, и число циклов в год: цикл длится год ÷ это число<span class="sr"> (<code class="src">industry_react_util.tl:51-57</code>)</span>. Раздел «Производство» окна предприятия показывает это мелкими числами.</li>
+<li>Число <strong>Макс.</strong> в окне: за цикл × циклов в год × бонусы × настройка <strong>Производительность предприятий</strong><span class="sr"> (<code class="src">industry_util.tl:310-379</code>)</span>.</li>
+<li><strong>Производительность предприятий</strong>: 50 %, 75 %, 100 %, 150 % или 200 %. Пресеты: Легкий 150 %, Нормальный 100 %, Сложный 75 %, Очень сложный 50 %<span class="sr"> (<code class="src">difficulty_util.tl:41</code>, <code class="src">difficulty_util.tl:93</code>, <code class="src">difficulty_util.tl:120</code>, <code class="src">difficulty_util.tl:148</code>, <code class="src">difficulty_util.tl:175</code>, <code class="src">mod.script.tl:196-197</code>)</span>.</li>
+<li>Пример, Металлургический комбинат: 6 железной руды + 6 угля → 3 стали + 4 листового железа, 121,7 цикла в год: 730 железной руды и 730 угля → 365 стали и 487 листового железа<span class="sr"> (<code class="src">steel_mill.con.lua:43-71</code>)</span>. Без одного входа правило стоит.</li>
+<li>У Консервного завода два правила: рыба + листовое железо или мясо + листовое железо<span class="sr"> (<code class="src">food_factory.con.lua:43-74</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Решает движок игры<small>C++, в скриптах не видно</small></h4><p>Правила выполняет движок. Он может удлинить цикл: подсказка цикла тогда показывает «(+ … из-за времени доставки)»<span class="sr"> (<code class="src">industry_react_util.tl:61-76</code>)</span>. Когда и насколько — в скриптах нет, поэтому реальное производство может оставаться ниже Макс.</p></div></aside>
+<h2 id="запасы"><span class="n">2</span><span>Запасы</span></h2>
+<ul>
+<li>У каждого груза свой запас с пределом: например, Угольная шахта держит 100 инструментов и 400 угля, Металлургический комбинат — 800 железной руды, 800 угля, 400 стали и 500 листового железа<span class="sr"> (<code class="src">coal_mine.con.lua:44-67</code>, <code class="src">steel_mill.con.lua:43-71</code>)</span>.</li>
+<li>Запасы никогда не портятся<span class="sr"> (<code class="src">industryutil.lua:25-29</code>)</span>: груз ждёт сколько нужно.</li>
+<li>Полный выходной запас не останавливает производство: излишек выбрасывается (официальная вики). График <strong>Грузопоток</strong> показывает <strong>Потреблено</strong>, <strong>Произведено</strong> и <strong>Уничтожено</strong><span class="sr"> (<code class="src">industry_eow.script.tl:804-816</code>)</span>.</li>
+<li>Если параметр постройки <strong>Поступление</strong> выключен, правила теряют входы и у предприятия нет входных запасов<span class="sr"> (<code class="src">industryutil.lua:280-287</code>, <code class="src">industryutil.lua:383-387</code>, <code class="src">industryutil.lua:432-441</code>)</span>.</li>
+</ul>
+<h2 id="участки-и-расширение"><span class="n">3</span><span>Участки и расширение</span></h2>
+<ul>
+<li>У добывающих предприятий и Животноводческой фермы есть <strong>участки</strong> (поля, шахтные стволы, вышки). Их уровень — это число участков<span class="sr"> (<code class="src">industryutil.lua:602-617</code>)</span>.</li>
+<li>Правило растёт с участками: выход за цикл × участки ÷ <strong>все участки этого типа предприятия</strong>, с округлением, минимум 1. Входы уменьшаются в той же пропорции<span class="sr"> (<code class="src">industryutil.lua:225-259</code>)</span>. Угольная шахта (8 типов участков) с 4 участками даёт 8 угля за цикл вместо 16.</li>
+<li>Каждое предприятие получает максимум: случайно от половины участков до всех, или Малый / Средний / Большой (50 / 75 / 100 %) параметром <strong>Размер предприятия</strong><span class="sr"> (<code class="src">industryutil.lua:519-537</code>)</span>. Шахта с максимумом 5 из 8 никогда не выходит на полное правило.</li>
+<li>Каждые полгода игра может добавить <strong>один участок</strong><span class="sr"> (<code class="src">industries_config.res.lua:5</code>, <code class="src">industries.script.tl:158-183</code>)</span>. Шанс равен (оценка − 25 %) ÷ 50 %, где оценка = оценка производства × доля продукции, которую ты вывозишь (не больше 1): 25 % и меньше — никогда, 75 % и больше — всегда<span class="sr"> (<code class="src">industries.script.tl:172-176</code>)</span>.</li>
+<li>Значит, предприятие, груз которого ты не вывозишь, <strong>никогда не растёт</strong>. У фабрик нет участков, и они не растут.</li>
+<li>На максимуме окно пишет <strong>Предприятие полностью расширено.</strong>; если мешают здания, пути или дороги — <strong>Дальнейшее расширение предприятия блокируется.</strong><span class="sr"> (<code class="src">industry_react_util.tl:588-602</code>, <code class="src">industries.script.tl:13-38</code>)</span>. Ни один скрипт не убирает участки; по официальной вики, снесённые участки снижают производство.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Решает движок игры<small>C++, в скриптах не видно</small></h4><p>Оценка производства (getProductionRating), годовая продукция и вывезенное количество (getCargoOutputPerYear, getCargoShippedPerYear) и место нового участка (makeIndustryExtendProposal) — значения движка.</p></div></aside>
+<h2 id="бонусный-груз"><span class="n">4</span><span>Бонусный груз</span></h2>
+<p>У 13 добывающих предприятий есть второе правило — <strong>бонус</strong>: 4 раза в год он берёт партию бонусного груза из входного запаса и даёт прибавку, пока работает.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Предприятие</th>
+<th>Участки</th>
+<th>При полном размере, в год</th>
+<th>Партия бонуса (4 в год)</th>
+<th class="sc">Источник</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Месторождение глины</td>
+<td>8</td>
+<td>365 глины</td>
+<td>12 инструментов</td>
+<td class="sc"><code class="src">clay_pit.con.lua:42-82</code></td>
+</tr>
+<tr>
+<td>Угольная шахта</td>
+<td>8</td>
+<td>320 угля</td>
+<td>13 инструментов</td>
+<td class="sc"><code class="src">coal_mine.con.lua:44-85</code></td>
+</tr>
+<tr>
+<td>Хлопковая ферма</td>
+<td>21</td>
+<td>274 шерсти</td>
+<td>17 удобрений</td>
+<td class="sc"><code class="src">cotton_farm.con.lua:42-98</code></td>
+</tr>
+<tr>
+<td>Земледельческая ферма</td>
+<td>20</td>
+<td>274 зерна + 183 овощей</td>
+<td>17 удобрений</td>
+<td class="sc"><code class="src">farm.con.lua:44-106</code></td>
+</tr>
+<tr>
+<td>Рыболовные угодья</td>
+<td>18</td>
+<td>263 рыбы</td>
+<td>12 инструментов</td>
+<td class="sc"><code class="src">fishing_grounds.con.lua:44-101</code></td>
+</tr>
+<tr>
+<td>Лесозаготовительное предприятие</td>
+<td>20</td>
+<td>243 брёвен</td>
+<td>15 оборудования</td>
+<td class="sc"><code class="src">forest.con.lua:44-99</code></td>
+</tr>
+<tr>
+<td>Железный рудник</td>
+<td>8</td>
+<td>365 железной руды</td>
+<td>15 оборудования</td>
+<td class="sc"><code class="src">iron_ore_mine.con.lua:44-84</code></td>
+</tr>
+<tr>
+<td>Нефтяная платформа</td>
+<td>9</td>
+<td>365 сырой нефти</td>
+<td>12 оборудования</td>
+<td class="sc"><code class="src">oil_platform.con.lua:45-96</code></td>
+</tr>
+<tr>
+<td>Нефтяная скважина</td>
+<td>14</td>
+<td>548 сырой нефти</td>
+<td>15 оборудования</td>
+<td class="sc"><code class="src">oil_well.con.lua:44-94</code></td>
+</tr>
+<tr>
+<td>Карьер</td>
+<td>7</td>
+<td>365 камня</td>
+<td>12 инструментов</td>
+<td class="sc"><code class="src">quarry.con.lua:44-83</code></td>
+</tr>
+<tr>
+<td>Каучуковая ферма</td>
+<td>23</td>
+<td>365 резины</td>
+<td>17 удобрений</td>
+<td class="sc"><code class="src">rubber_farm.con.lua:41-102</code></td>
+</tr>
+<tr>
+<td>Земснаряд</td>
+<td>9</td>
+<td>365 песка</td>
+<td>15 оборудования</td>
+<td class="sc"><code class="src">sand_excavator.con.lua:44-92</code></td>
+</tr>
+<tr>
+<td>Песчаный карьер</td>
+<td>8</td>
+<td>365 песка</td>
+<td>12 инструментов</td>
+<td class="sc"><code class="src">sand_pit.con.lua:44-84</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Прибавка выпадает один раз на предприятие: <strong>от +50 % до +150 %</strong>, с округлением до 1 %<span class="sr"> (<code class="src">industryutil.lua:394-405</code>)</span>. Раздел «Бонус» показывает её как «+X %»<span class="sr"> (<code class="src">industry_util.tl:428-434</code>)</span>. С параметром <strong>Фактор бонуса</strong> она вместо этого равна +50 %, +75 %, +100 %, +125 % или +150 %<span class="sr"> (<code class="src">industryutil.lua:289-299</code>)</span>.</li>
+<li>Окно показывает бонус активным, пока длится последняя партия (3 месяца), или как только в запасе есть полная партия<span class="sr"> (<code class="src">industry_util.tl:55-91</code>)</span>.</li>
+<li>Партия <strong>не</strong> уменьшается с участками: маленькой шахте нужно столько же инструментов, сколько большой<span class="sr"> (<code class="src">industryutil.lua:227-229</code>)</span>.</li>
+<li>Оба бонуса перемножаются: производство × фактор работников × (1 + бонус груза)<span class="sr"> (<code class="src">industry_util.tl:42-104</code>)</span>.</li>
+</ul>
+<h2 id="бонус-работников"><span class="n">5</span><span>Бонус работников</span></h2>
+<p>Половина рабочих мест (10 из 20) должна быть занята жителями, которые за последние 2 года <strong>приехали твоими пассажирскими линиями</strong>; множитель от ×1,5 до ×2,5, постоянный для предприятия<span class="sr"> (<code class="src">industry_productivity_util.tl:35-72</code>)</span>. Только назначенные работники не считаются. Подробнее: <a href="workers.html">Работники и бонус работников</a>.</p>
+<h2 id="почему-у-моего-предприятия-нет-бонуса"><span class="n">6</span><span>Почему у моего предприятия нет бонуса?</span></h2>
+<ol>
+<li><strong>Не добывающее предприятие</strong>: у фабрик нет правила бонуса, только бонус работников<span class="sr"> (<code class="src">steel_mill.con.lua:61-70</code>)</span>.</li>
+<li><strong>Неполная партия</strong>: в запасе должна быть полная партия, например 13 инструментов для Угольной шахты. Меньше 4 партий в год (52 инструмента) — и бонус пропадает между поставками.</li>
+<li><strong>Не тот груз</strong>: инструменты, оборудование или удобрения, в зависимости от предприятия (таблица выше).</li>
+<li><strong>Работники</strong>: назначенных недостаточно; раздел «Бонус» считает прибытия («12/10»)<span class="sr"> (<code class="src">industry_react_util.tl:617-654</code>)</span>. См. <a href="workers.html">Работники и бонус работников</a>.</li>
+</ol>
+<h2 id="когда-закрывается-неиспользуемое-предприятие"><span class="n">7</span><span>Когда закрывается неиспользуемое предприятие?</span></h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><linearGradient id="ic-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="ic-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="ic-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="ic-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="ic-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="ic-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="ic-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="40" y="128" width="400" height="44" rx="10" fill="#1c2430" stroke="#2a3340" stroke-width="1.5" opacity="1"/><rect x="440" y="128" width="200.0" height="44" rx="0" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="0.18"/><rect x="640.0" y="128" width="160.0" height="44" rx="0" fill="#f0705f" stroke="none" stroke-width="1.5" opacity="0.28"/><line x1="40" y1="174" x2="40" y2="182" stroke="#8f9bab"/><text x="40" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">0</text><line x1="120" y1="174" x2="120" y2="182" stroke="#8f9bab"/><text x="120" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1</text><line x1="200" y1="174" x2="200" y2="182" stroke="#8f9bab"/><text x="200" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">2</text><line x1="280" y1="174" x2="280" y2="182" stroke="#8f9bab"/><text x="280" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">3</text><line x1="360" y1="174" x2="360" y2="182" stroke="#8f9bab"/><text x="360" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">4</text><line x1="440" y1="174" x2="440" y2="182" stroke="#8f9bab"/><text x="440" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">5</text><line x1="520" y1="174" x2="520" y2="182" stroke="#8f9bab"/><text x="520" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">6</text><line x1="600" y1="174" x2="600" y2="182" stroke="#8f9bab"/><text x="600" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">7</text><line x1="680" y1="174" x2="680" y2="182" stroke="#8f9bab"/><text x="680" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">8</text><line x1="760" y1="174" x2="760" y2="182" stroke="#8f9bab"/><text x="760" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">9</text><line x1="840" y1="174" x2="840" y2="182" stroke="#8f9bab"/><text x="840" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">10</text><text x="440" y="224" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">годы</text><circle cx="40" cy="150" r="7" fill="#38d1bf" stroke="#0f141b" stroke-width="2"/><text x="34" y="110" font-size="13" fill="#38d1bf" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">последняя погрузка или потребление</text><line x1="440" y1="116" x2="440" y2="174" stroke="#f2b84b" stroke-width="2.5"/><rect x="432" y="80" width="81.52" height="24" rx="12.0" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="1"/><text x="472.76" y="96.56" font-size="12" fill="#0f141b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">кандидат</text><text x="540.0" y="155" font-size="18" fill="#f2b84b" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">?</text><text x="540.0" y="64.0" font-size="12" fill="#f2b84b" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">каждый год</text><text x="540.0" y="79.6" font-size="12" fill="#f2b84b" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">помечается случайно</text><line x1="640.0" y1="116" x2="640.0" y2="174" stroke="#f0705f" stroke-width="2.5"/><text x="720.0" y="155" font-size="12" fill="#eef1f5" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">отсчёт 730 дней</text><circle cx="840" cy="150" r="20" fill="#f0705f" fill-opacity="0.14" stroke="#f0705f" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(829.5,139.5) scale(0.875)" fill="none" stroke="#f0705f" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></g><text x="840" y="116" font-size="13" fill="#f0705f" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">удалено</text><path d="M720.0 240 C 720.0 280, 40 280, 40 164" fill="none" stroke="#38d1bf" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ic-ah)"/><text x="376.0" y="286" font-size="13" fill="#38d1bf" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">одна погрузка или потребление: спасено</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Неиспользуемое предприятие: 5 лет без погрузки и потребления делают его кандидатом; затем каждый год его могут пометить (1,1 % при «Редко», 8,8 % при «Очень часто»); отсчёт длится 2 года. Одна погрузка или потребление сбрасывает всё.</span></figcaption></figure>
+<p>Проверка идёт каждые 100 обновлений для каждого предприятия<span class="sr"> (<code class="src">industries.script.tl:84-85</code>)</span>:</p>
+<ol>
+<li><strong>Кандидат</strong>: никакой груз не <strong>погружен</strong> в транспорт и ничего не <strong>потреблено</strong> за <strong>5 лет</strong> (с постройки, если никогда)<span class="sr"> (<code class="src">industries.script.tl:104-119</code>, <code class="src">industries_config.res.lua:6</code>)</span>. Одно производство не считается.</li>
+<li><strong>Случай</strong>: каждый год кандидат помечается с шансом настройки <strong>Частота закрытия промышленных предприятий</strong> (таблица ниже)<span class="sr"> (<code class="src">industries.script.tl:120-131</code>)</span>.</li>
+<li><strong>Отсчёт</strong>: появляется уведомление <strong>Предприятие закрывается</strong>, срок — 2 года (730 дней)<span class="sr"> (<code class="src">industries_config.res.lua:7</code>, <code class="src">industry_close.script.tl:53-67</code>)</span>. Затем предприятие удаляется вместе со своими участками дороги<span class="sr"> (<code class="src">industries.script.tl:147-155</code>, <code class="src">industry_util.tl:560-601</code>)</span>.</li>
+<li><strong>Спасено</strong>: одна погрузка или потребление во время отсчёта отменяет его<span class="sr"> (<code class="src">industries.script.tl:134-137</code>)</span>. Принятая субсидия <strong>Предприятие по снабжению</strong> или <strong>Перевозка работников</strong> для него тоже отменяет отсчёт<span class="sr"> (<code class="src">subvention_util.tl:473-484</code>)</span>.</li>
+</ol>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Частота закрытия промышленных предприятий</th>
+<th>Шанс в год для кандидата</th>
+<th>Половина кандидатов помечена через</th>
+<th>Пресет</th>
+<th class="sc">Источник</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Никогда</td>
+<td>0</td>
+<td>никогда</td>
+<td>Легкий</td>
+<td class="sc"><code class="src">difficulty_util.tl:94</code></td>
+</tr>
+<tr>
+<td>Редко (по умолчанию)</td>
+<td>1,1 %</td>
+<td>около 63 лет</td>
+<td>Нормальный</td>
+<td class="sc"><code class="src">difficulty_util.tl:121</code></td>
+</tr>
+<tr>
+<td>Иногда</td>
+<td>2,2 %</td>
+<td>около 32 лет</td>
+<td>Сложный</td>
+<td class="sc"><code class="src">difficulty_util.tl:149</code></td>
+</tr>
+<tr>
+<td>Часто</td>
+<td>4,4 %</td>
+<td>около 16 лет</td>
+<td>–</td>
+<td class="sc"><code class="src">difficulty_util.tl:37</code></td>
+</tr>
+<tr>
+<td>Очень часто</td>
+<td>8,8 %</td>
+<td>около 8 лет</td>
+<td>Очень сложный</td>
+<td class="sc"><code class="src">difficulty_util.tl:176</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Шанс равен 0,011 в год × 0, 1, 2, 4 или 8<span class="sr"> (<code class="src">mod.script.tl:171</code>, <code class="src">mod.script.tl:202-203</code>, <code class="src">difficulty_util.tl:37</code>)</span>. Предприятия, принадлежащие тебе, никогда не закрываются, как и предприятия с ручным развитием, и ни одно — во время обучения<span class="sr"> (<code class="src">industries.script.tl:94-102</code>)</span>.</p>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Решает движок игры<small>C++, в скриптах не видно</small></h4><p>Что считается «погружено» и «потреблено» (журналы itemsLoaded и itemsConsumed, например, считается ли бонусный груз), флаг manualDevelopment и почему предприятия с депо пропускаются<span class="sr"> (<code class="src">industries.script.tl:140-146</code>)</span> — на стороне движка. Как и то, что движок делает с правилом бонуса без входа (Поступление выкл.).</p></div></aside>
+<h2 id="новые-предприятия"><span class="n">8</span><span>Новые предприятия</span></h2>
+<ul>
+<li>Движок со временем добавляет предприятия; скрипты задают ему только целевое время 50 лет, показатель 3 и отсутствие новых предприятий в редакторе карт<span class="sr"> (<code class="src">mod.script.tl:166-168</code>)</span>. Настройка <strong>Целевая плотность предприятий</strong> это масштабирует<span class="sr"> (<code class="src">mod.script.tl:194-195</code>)</span>. Уведомление — <strong>Открытие предприятия</strong><span class="sr"> (<code class="src">industry_spawn.res.lua:6</code>)</span>.</li>
+<li>Преимущество компании <strong>Разведка ресурсов</strong> ищет новое предприятие этого ресурса возле города: одна попытка в месяц с шансом от 20 % до 60 %, в течение 6 месяцев; при неудаче разрешение возвращается<span class="sr"> (<code class="src">company_util.tl:14-17</code>, <code class="src">company.script.tl:96-142</code>, <code class="src">company.script.tl:299-307</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Решает движок игры<small>C++, в скриптах не видно</small></h4><p>Где и когда появляется новое предприятие и какого типа, решает движок (makeIndustrySpawnProposal).</p></div></aside>
+<h2 id="полезно-знать"><span class="n">9</span><span>Полезно знать</span></h2>
+<ul>
+<li>Вывози продукцию с каждого добывающего предприятия, которое должно расти: невывезенная продукция блокирует расширение, какими бы ни были бонусы.</li>
+<li>Вози бонусный груз на самые большие шахты и фермы: партия стоит столько же, а прибавка растёт с участками.</li>
+<li>Запасы не портятся: бонусный груз можно привезти заранее, до предела запаса (100).</li>
+<li>Бонусы повышают шум и загрязнение: Угольная шахта идёт с 10 загрязнения до 20 с одним бонусом и 30 с двумя<span class="sr"> (<code class="src">coal_mine.con.lua:99-117</code>)</span>.</li>
+<li>При настройке по умолчанию неиспользуемое предприятие закрывается редко; при «Очень часто» время от времени что-нибудь грузи.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Официальная вики и скрипты игры</h4><span class="res differs"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Расходится</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики</div><p>"No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos">Industries and Cargo</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Скрипты игры</div><p>5 лет, а не 10, и производство не считается: только груз, погруженный в транспорт или потреблённый. После 5 лет предприятие лишь кандидат: каждый год оно помечается с шансом от 1,1 % («Редко») до 8,8 % («Очень часто»). Отсчёт длится 730 дней, как сказано. Бонусный груз даёт от +50 % до +150 % на предприятие, партиями по 3 месяца.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Пути указаны внутри папки игры base/content или её zip-файлов.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>На этой странице</h5><ol><li><a href="#правила-производства">Правила производства</a></li><li><a href="#запасы">Запасы</a></li><li><a href="#участки-и-расширение">Участки и расширение</a></li><li><a href="#бонусный-груз">Бонусный груз</a></li><li><a href="#бонус-работников">Бонус работников</a></li><li><a href="#почему-у-моего-предприятия-нет-бонуса">Почему у моего предприятия нет бонуса?</a></li><li><a href="#когда-закрывается-неиспользуемое-предприятие">Когда закрывается неиспользуемое предприятие?</a></li><li><a href="#новые-предприятия">Новые предприятия</a></li><li><a href="#полезно-знать">Полезно знать</a></li></ol><div class="box"><b>29</b><span>ссылок на источники</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Показать источники</span><span class="h">Скрыть источники</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Другие механики</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Расходы, обслуживание и займы</b><small>Финансы и кредиты</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Доход от грузов и время доставки</b><small>Грузы и доход</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Скорость погрузки и разгрузки</b><small>Станции и погрузка</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Репутация городов</b><small>Города</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Субсидии: предложения, сроки и награды</b><small>Субсидии</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Рост городов: опыт, оценки и размер</b><small>Города</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Работники и бонус работников</b><small>Предприятия</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Фанатский проект Miro. Не связан с Urban Games.</span><span>Тексты и изображения: CC BY 4.0 · Код игры © Urban Games: показаны только короткие ссылки.</span><span class="tr">Переведено с английского; исправления приветствуются (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

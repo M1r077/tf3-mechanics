@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Przemysł · Mechanika TF3</title>
+<meta name="description" content="Jak naprawdę działa Transport Fever 3: odczytane ze skryptów samej gry.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/industries.html"><link rel="alternate" hreflang="fr" href="../fr/industries.html"><link rel="alternate" hreflang="de" href="../de/industries.html"><link rel="alternate" hreflang="es" href="../es/industries.html"><link rel="alternate" hreflang="it" href="../it/industries.html"><link rel="alternate" hreflang="nl" href="../nl/industries.html"><link rel="alternate" hreflang="pl" href="../pl/industries.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/industries.html"><link rel="alternate" hreflang="ru" href="../ru/industries.html"><link rel="alternate" hreflang="ja" href="../ja/industries.html"><link rel="alternate" hreflang="ko" href="../ko/industries.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/industries.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/industries.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Strona główna</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Pokaż lub ukryj odwołania do skryptów"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Źródła</span></button>
+<details class="langs"><summary aria-label="Język"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Polski</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Język"><a href="../en/industries.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/industries.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/industries.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/industries.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/industries.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/industries.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/industries.html" class="on" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/industries.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/industries.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/industries.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/industries.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/industries.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/industries.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Strona główna</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg>Zakłady przemysłowe</span></div><h1 class="rise d1">Przemysł</h1><p class="lead rise d2">Reguły produkcji, zapasy, parcele i rozbudowa, towar premiujący, dlaczego zakład nie ma premii i kiedy nieużywany zakład naprawdę się zamyka.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Sprawdzone w skryptach</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Aktualizacja 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>5 lat</b><span>bez załadunku i zużycia czyni zakład kandydatem do zamknięcia</span></div><div class="fact rise d2"><b>1,1 %</b><span>szansy na rok przy Rzadko (domyślne), potem 730 dni odliczania</span></div><div class="fact rise d3"><b>+50–150 %</b><span>premii z towaru premiującego, stałej dla zakładu</span></div><div class="fact rise d4"><b>3 miesiące</b><span>premii z jednej partii towaru premiującego</span></div></div></div></section><div class="wrap layout"><article><p>Każdy zakład działa według <strong>reguł</strong>: „weź to z zapasów wejściowych, połóż tamto w zapasach wyjściowych”, stałą liczbę razy w roku. Zakłady surowcowe (kopalnie, gospodarstwa, odwierty) nie potrzebują wejścia; ich wielkość zależy od <strong>parcel</strong>. Dwie premie mogą mnożyć produkcję: <strong>towar premiujący</strong> (tylko zakłady surowcowe) i <strong>pracownicy</strong>.</p>
+<h2 id="reguły-produkcji"><span class="n">1</span><span>Reguły produkcji</span></h2>
+<ul>
+<li>Reguła podaje towar zużyty i wytworzony w jednym cyklu oraz liczbę cykli w roku: cykl trwa rok ÷ ta liczba<span class="sr"> (<code class="src">industry_react_util.tl:51-57</code>)</span>. Sekcja Produkcja okna zakładu pokazuje to małymi liczbami.</li>
+<li>Liczba <strong>Maks.</strong> w oknie to: na cykl × cykle na rok × premie × ustawienie <strong>Wydajność przemysłu</strong><span class="sr"> (<code class="src">industry_util.tl:310-379</code>)</span>.</li>
+<li><strong>Wydajność przemysłu</strong>: 50 %, 75 %, 100 %, 150 % lub 200 %. Ustawienia wstępne: Niski 150 %, Normalny 100 %, Wysoki 75 %, Bardzo wysoki 50 %<span class="sr"> (<code class="src">difficulty_util.tl:41</code>, <code class="src">difficulty_util.tl:93</code>, <code class="src">difficulty_util.tl:120</code>, <code class="src">difficulty_util.tl:148</code>, <code class="src">difficulty_util.tl:175</code>, <code class="src">mod.script.tl:196-197</code>)</span>.</li>
+<li>Przykład, Stalownia: 6 rudy żelaza + 6 węgla → 3 stal + 4 blacha, 121,7 cyklu w roku: 730 rudy żelaza i 730 węgla → 365 stali i 487 blachy<span class="sr"> (<code class="src">steel_mill.con.lua:43-71</code>)</span>. Brak jednego wejścia zatrzymuje regułę.</li>
+<li>Fabryka konserw ma dwie reguły: ryby + blacha albo mięso + blacha<span class="sr"> (<code class="src">food_factory.con.lua:43-74</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decyduje silnik gry<small>C++, niewidoczne w skryptach</small></h4><p>Silnik wykonuje reguły. Może wydłużyć cykl: podpowiedź cyklu pokazuje wtedy „(+ … z powodu czasu dostawy)”<span class="sr"> (<code class="src">industry_react_util.tl:61-76</code>)</span>. Kiedy i o ile, nie ma w skryptach, więc rzeczywista produkcja może zostać poniżej Maks.</p></div></aside>
+<h2 id="zapasy"><span class="n">2</span><span>Zapasy</span></h2>
+<ul>
+<li>Każdy towar ma własny zapas z limitem: np. Kopalnia węgla trzyma 100 narzędzi i 400 węgla, Stalownia 800 rudy żelaza, 800 węgla, 400 stali i 500 blachy<span class="sr"> (<code class="src">coal_mine.con.lua:44-67</code>, <code class="src">steel_mill.con.lua:43-71</code>)</span>.</li>
+<li>Zapasy nigdy się nie psują<span class="sr"> (<code class="src">industryutil.lua:25-29</code>)</span>: towar czeka tak długo, jak trzeba.</li>
+<li>Pełny zapas wyjściowy nie zatrzymuje produkcji: nadwyżka jest wyrzucana (oficjalna wiki). Wykres <strong>Przepływ towarów</strong> pokazuje <strong>Zużyte</strong>, <strong>Wyprodukowane</strong> i <strong>Zniszczone</strong><span class="sr"> (<code class="src">industry_eow.script.tl:804-816</code>)</span>.</li>
+<li>Z parametrem budowy <strong>Przybywa</strong> ustawionym na Wył. reguły tracą wejścia, a zakład nie ma zapasów wejściowych<span class="sr"> (<code class="src">industryutil.lua:280-287</code>, <code class="src">industryutil.lua:383-387</code>, <code class="src">industryutil.lua:432-441</code>)</span>.</li>
+</ul>
+<h2 id="parcele-i-rozbudowa"><span class="n">3</span><span>Parcele i rozbudowa</span></h2>
+<ul>
+<li>Zakłady surowcowe i Hodowla bydła mają <strong>parcele</strong> (pola, szyby, wieże wiertnicze). Ich poziom to liczba parcel<span class="sr"> (<code class="src">industryutil.lua:602-617</code>)</span>.</li>
+<li>Reguła rośnie z parcelami: produkcja na cykl × parcele ÷ <strong>wszystkie parcele tego typu zakładu</strong>, zaokrąglone, co najmniej 1. Wejścia maleją w tej samej proporcji<span class="sr"> (<code class="src">industryutil.lua:225-259</code>)</span>. Kopalnia węgla (8 typów parcel) z 4 parcelami robi 8 węgla na cykl zamiast 16.</li>
+<li>Każdy zakład dostaje maksimum: losowo między połową parcel a wszystkimi, albo Mały / Średni / Duży (50 / 75 / 100 %) z parametrem <strong>Wielkość zakładu</strong><span class="sr"> (<code class="src">industryutil.lua:519-537</code>)</span>. Kopalnia z maksimum 5 z 8 nigdy nie osiąga pełnej reguły.</li>
+<li>Co pół roku gra może dodać <strong>jedną parcelę</strong><span class="sr"> (<code class="src">industries_config.res.lua:5</code>, <code class="src">industries.script.tl:158-183</code>)</span>. Szansa to (ocena − 25 %) ÷ 50 %, gdzie ocena = ocena produkcji × część produkcji, którą wywozisz (najwyżej 1): 25 % lub mniej nigdy, 75 % lub więcej zawsze<span class="sr"> (<code class="src">industries.script.tl:172-176</code>)</span>.</li>
+<li>Zakład, którego towaru nie wywozisz, <strong>nigdy więc nie rośnie</strong>. Fabryki nie mają parcel i nigdy nie rosną.</li>
+<li>Przy maksimum okno pisze <strong>Zakład przemysłowy jest rozwinięty maksymalnie.</strong>; gdy budynki, tory lub drogi przeszkadzają, <strong>Dalszy rozwój zakładu przemysłowego jest zablokowany.</strong><span class="sr"> (<code class="src">industry_react_util.tl:588-602</code>, <code class="src">industries.script.tl:13-38</code>)</span>. Żaden skrypt nie usuwa parcel; według oficjalnej wiki zburzone parcele obniżają produkcję.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decyduje silnik gry<small>C++, niewidoczne w skryptach</small></h4><p>Ocena produkcji (getProductionRating), roczna produkcja i wywieziona ilość (getCargoOutputPerYear, getCargoShippedPerYear) oraz miejsce nowej parceli (makeIndustryExtendProposal) to wartości silnika.</p></div></aside>
+<h2 id="towar-premiujący"><span class="n">4</span><span>Towar premiujący</span></h2>
+<p>13 zakładów surowcowych ma drugą regułę, <strong>premię</strong>: 4 razy w roku bierze partię towaru premiującego z zapasu wejściowego i daje bonus, dopóki działa.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Zakład</th>
+<th>Parcele</th>
+<th>Przy pełnej wielkości, na rok</th>
+<th>Partia premii (4 na rok)</th>
+<th class="sc">Źródło</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Glinianka</td>
+<td>8</td>
+<td>365 gliny</td>
+<td>12 narzędzi</td>
+<td class="sc"><code class="src">clay_pit.con.lua:42-82</code></td>
+</tr>
+<tr>
+<td>Kopalnia węgla</td>
+<td>8</td>
+<td>320 węgla</td>
+<td>13 narzędzi</td>
+<td class="sc"><code class="src">coal_mine.con.lua:44-85</code></td>
+</tr>
+<tr>
+<td>Plantacja bawełny</td>
+<td>21</td>
+<td>274 wełny</td>
+<td>17 nawozów</td>
+<td class="sc"><code class="src">cotton_farm.con.lua:42-98</code></td>
+</tr>
+<tr>
+<td>Gospodarstwo rolne</td>
+<td>20</td>
+<td>274 zboża + 183 warzyw</td>
+<td>17 nawozów</td>
+<td class="sc"><code class="src">farm.con.lua:44-106</code></td>
+</tr>
+<tr>
+<td>Stawy rybackie</td>
+<td>18</td>
+<td>263 ryb</td>
+<td>12 narzędzi</td>
+<td class="sc"><code class="src">fishing_grounds.con.lua:44-101</code></td>
+</tr>
+<tr>
+<td>Poręba</td>
+<td>20</td>
+<td>243 drewna</td>
+<td>15 maszyn</td>
+<td class="sc"><code class="src">forest.con.lua:44-99</code></td>
+</tr>
+<tr>
+<td>Kopalnia rudy żelaza</td>
+<td>8</td>
+<td>365 rudy żelaza</td>
+<td>15 maszyn</td>
+<td class="sc"><code class="src">iron_ore_mine.con.lua:44-84</code></td>
+</tr>
+<tr>
+<td>Platforma wiertnicza</td>
+<td>9</td>
+<td>365 ropy surowej</td>
+<td>12 maszyn</td>
+<td class="sc"><code class="src">oil_platform.con.lua:45-96</code></td>
+</tr>
+<tr>
+<td>Kiwon</td>
+<td>14</td>
+<td>548 ropy surowej</td>
+<td>15 maszyn</td>
+<td class="sc"><code class="src">oil_well.con.lua:44-94</code></td>
+</tr>
+<tr>
+<td>Kamieniołom</td>
+<td>7</td>
+<td>365 kamienia</td>
+<td>12 narzędzi</td>
+<td class="sc"><code class="src">quarry.con.lua:44-83</code></td>
+</tr>
+<tr>
+<td>Plantacja kauczuku</td>
+<td>23</td>
+<td>365 gumy</td>
+<td>17 nawozów</td>
+<td class="sc"><code class="src">rubber_farm.con.lua:41-102</code></td>
+</tr>
+<tr>
+<td>Pogłębiarka</td>
+<td>9</td>
+<td>365 piasku</td>
+<td>15 maszyn</td>
+<td class="sc"><code class="src">sand_excavator.con.lua:44-92</code></td>
+</tr>
+<tr>
+<td>Piaskarnia</td>
+<td>8</td>
+<td>365 piasku</td>
+<td>12 narzędzi</td>
+<td class="sc"><code class="src">sand_pit.con.lua:44-84</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Bonus jest losowany raz na zakład: <strong>od +50 % do +150 %</strong>, zaokrąglony do 1 %<span class="sr"> (<code class="src">industryutil.lua:394-405</code>)</span>. Sekcja Premia pokazuje go jako „+X %”<span class="sr"> (<code class="src">industry_util.tl:428-434</code>)</span>. Z parametrem <strong>Współczynnik premii</strong> wynosi zamiast tego +50 %, +75 %, +100 %, +125 % lub +150 %<span class="sr"> (<code class="src">industryutil.lua:289-299</code>)</span>.</li>
+<li>Okno pokazuje premię jako aktywną, dopóki trwa ostatnia partia (3 miesiące), albo gdy tylko zapas zawiera pełną partię<span class="sr"> (<code class="src">industry_util.tl:55-91</code>)</span>.</li>
+<li>Partia <strong>nie</strong> maleje z parcelami: mała kopalnia potrzebuje tylu narzędzi co duża<span class="sr"> (<code class="src">industryutil.lua:227-229</code>)</span>.</li>
+<li>Obie premie się mnożą: produkcja × współczynnik pracowników × (1 + bonus premii)<span class="sr"> (<code class="src">industry_util.tl:42-104</code>)</span>.</li>
+</ul>
+<h2 id="premia-za-pracowników"><span class="n">5</span><span>Premia za pracowników</span></h2>
+<p>Połowa miejsc pracy (10 z 20) musi być zajęta przez mieszkańców, którzy w ostatnich 2 latach <strong>przyjechali twoimi liniami pasażerskimi</strong>; współczynnik wynosi ×1,5 do ×2,5, stały dla zakładu<span class="sr"> (<code class="src">industry_productivity_util.tl:35-72</code>)</span>. Pracownicy tylko przydzieleni się nie liczą. Szczegóły: <a href="workers.html">Pracownicy i premia za pracowników</a>.</p>
+<h2 id="dlaczego-mój-zakład-nie-ma-premii"><span class="n">6</span><span>Dlaczego mój zakład nie ma premii?</span></h2>
+<ol>
+<li><strong>To nie zakład surowcowy</strong>: fabryki nie mają reguły premii, tylko premię za pracowników<span class="sr"> (<code class="src">steel_mill.con.lua:61-70</code>)</span>.</li>
+<li><strong>Niepełna partia</strong>: zapas musi zawierać pełną partię, np. 13 narzędzi dla Kopalni węgla. Poniżej 4 partii rocznie (52 narzędzia) premia gaśnie między dostawami.</li>
+<li><strong>Zły towar</strong>: narzędzia, maszyny lub nawozy zależnie od zakładu (tabela wyżej).</li>
+<li><strong>Pracownicy</strong>: przydzieleni to za mało; sekcja Premia liczy przyjazdy („12/10”)<span class="sr"> (<code class="src">industry_react_util.tl:617-654</code>)</span>. Zobacz <a href="workers.html">Pracownicy i premia za pracowników</a>.</li>
+</ol>
+<h2 id="kiedy-nieużywany-zakład-się-zamyka"><span class="n">7</span><span>Kiedy nieużywany zakład się zamyka?</span></h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><linearGradient id="ic-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="ic-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="ic-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="ic-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="ic-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="ic-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="ic-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="40" y="128" width="400" height="44" rx="10" fill="#1c2430" stroke="#2a3340" stroke-width="1.5" opacity="1"/><rect x="440" y="128" width="200.0" height="44" rx="0" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="0.18"/><rect x="640.0" y="128" width="160.0" height="44" rx="0" fill="#f0705f" stroke="none" stroke-width="1.5" opacity="0.28"/><line x1="40" y1="174" x2="40" y2="182" stroke="#8f9bab"/><text x="40" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">0</text><line x1="120" y1="174" x2="120" y2="182" stroke="#8f9bab"/><text x="120" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1</text><line x1="200" y1="174" x2="200" y2="182" stroke="#8f9bab"/><text x="200" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">2</text><line x1="280" y1="174" x2="280" y2="182" stroke="#8f9bab"/><text x="280" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">3</text><line x1="360" y1="174" x2="360" y2="182" stroke="#8f9bab"/><text x="360" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">4</text><line x1="440" y1="174" x2="440" y2="182" stroke="#8f9bab"/><text x="440" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">5</text><line x1="520" y1="174" x2="520" y2="182" stroke="#8f9bab"/><text x="520" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">6</text><line x1="600" y1="174" x2="600" y2="182" stroke="#8f9bab"/><text x="600" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">7</text><line x1="680" y1="174" x2="680" y2="182" stroke="#8f9bab"/><text x="680" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">8</text><line x1="760" y1="174" x2="760" y2="182" stroke="#8f9bab"/><text x="760" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">9</text><line x1="840" y1="174" x2="840" y2="182" stroke="#8f9bab"/><text x="840" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">10</text><text x="440" y="224" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">lata</text><circle cx="40" cy="150" r="7" fill="#38d1bf" stroke="#0f141b" stroke-width="2"/><text x="34" y="110" font-size="13" fill="#38d1bf" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">ostatni załadunek lub zużycie</text><line x1="440" y1="116" x2="440" y2="174" stroke="#f2b84b" stroke-width="2.5"/><rect x="432" y="80" width="81.52" height="24" rx="12.0" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="1"/><text x="472.76" y="96.56" font-size="12" fill="#0f141b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">kandydat</text><text x="540.0" y="155" font-size="18" fill="#f2b84b" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">?</text><text x="540.0" y="64.0" font-size="12" fill="#f2b84b" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">co roku losowo</text><text x="540.0" y="79.6" font-size="12" fill="#f2b84b" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">oznaczany</text><line x1="640.0" y1="116" x2="640.0" y2="174" stroke="#f0705f" stroke-width="2.5"/><text x="720.0" y="155" font-size="12" fill="#eef1f5" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">odliczanie 730 dni</text><circle cx="840" cy="150" r="20" fill="#f0705f" fill-opacity="0.14" stroke="#f0705f" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(829.5,139.5) scale(0.875)" fill="none" stroke="#f0705f" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></g><text x="840" y="116" font-size="13" fill="#f0705f" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">usunięty</text><path d="M720.0 240 C 720.0 280, 40 280, 40 164" fill="none" stroke="#38d1bf" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ic-ah)"/><text x="376.0" y="286" font-size="13" fill="#38d1bf" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">jeden załadunek lub zużycie: uratowany</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Nieużywany zakład: 5 lat bez załadunku i zużycia czyni go kandydatem; potem co roku może zostać oznaczony (1,1 % przy Rzadko, 8,8 % przy Bardzo często); odliczanie trwa 2 lata. Jeden załadunek lub zużycie zeruje wszystko.</span></figcaption></figure>
+<p>Sprawdzenie odbywa się co 100 aktualizacji dla każdego zakładu<span class="sr"> (<code class="src">industries.script.tl:84-85</code>)</span>:</p>
+<ol>
+<li><strong>Kandydat</strong>: żaden towar nie został <strong>załadowany</strong> do pojazdu ani <strong>zużyty</strong> przez <strong>5 lat</strong> (od budowy, jeśli nigdy)<span class="sr"> (<code class="src">industries.script.tl:104-119</code>, <code class="src">industries_config.res.lua:6</code>)</span>. Sama produkcja się nie liczy.</li>
+<li><strong>Los</strong>: co roku kandydat jest oznaczany z szansą z ustawienia <strong>Częstotliwość zamykania przemysłu</strong> (tabela niżej)<span class="sr"> (<code class="src">industries.script.tl:120-131</code>)</span>.</li>
+<li><strong>Odliczanie</strong>: pojawia się powiadomienie <strong>Zamknięcie przemysłu</strong>, z 2 latami (730 dni) czasu<span class="sr"> (<code class="src">industries_config.res.lua:7</code>, <code class="src">industry_close.script.tl:53-67</code>)</span>. Potem zakład jest usuwany razem z własnymi odcinkami drogi<span class="sr"> (<code class="src">industries.script.tl:147-155</code>, <code class="src">industry_util.tl:560-601</code>)</span>.</li>
+<li><strong>Uratowany</strong>: jeden załadunek lub zużycie w trakcie odliczania je przerywa<span class="sr"> (<code class="src">industries.script.tl:134-137</code>)</span>. Przyjęcie dotacji <strong>Zaopatrz zakład przemysłowy</strong> lub <strong>Przewieź pracowników</strong> dla niego też je przerywa<span class="sr"> (<code class="src">subvention_util.tl:473-484</code>)</span>.</li>
+</ol>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Częstotliwość zamykania przemysłu</th>
+<th>Szansa na rok jako kandydat</th>
+<th>Połowa kandydatów oznaczona po</th>
+<th>Ustawienie wstępne</th>
+<th class="sc">Źródło</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nigdy</td>
+<td>0</td>
+<td>nigdy</td>
+<td>Niski</td>
+<td class="sc"><code class="src">difficulty_util.tl:94</code></td>
+</tr>
+<tr>
+<td>Rzadko (domyślne)</td>
+<td>1,1 %</td>
+<td>około 63 latach</td>
+<td>Normalny</td>
+<td class="sc"><code class="src">difficulty_util.tl:121</code></td>
+</tr>
+<tr>
+<td>Czasem</td>
+<td>2,2 %</td>
+<td>około 32 latach</td>
+<td>Wysoki</td>
+<td class="sc"><code class="src">difficulty_util.tl:149</code></td>
+</tr>
+<tr>
+<td>Często</td>
+<td>4,4 %</td>
+<td>około 16 latach</td>
+<td>–</td>
+<td class="sc"><code class="src">difficulty_util.tl:37</code></td>
+</tr>
+<tr>
+<td>Bardzo często</td>
+<td>8,8 %</td>
+<td>około 8 latach</td>
+<td>Bardzo wysoki</td>
+<td class="sc"><code class="src">difficulty_util.tl:176</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Szansa to 0,011 na rok × 0, 1, 2, 4 lub 8<span class="sr"> (<code class="src">mod.script.tl:171</code>, <code class="src">mod.script.tl:202-203</code>, <code class="src">difficulty_util.tl:37</code>)</span>. Zakłady należące do ciebie nigdy się nie zamykają, tak samo zakłady z ręcznym rozwojem i żaden zakład w samouczku<span class="sr"> (<code class="src">industries.script.tl:94-102</code>)</span>.</p>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decyduje silnik gry<small>C++, niewidoczne w skryptach</small></h4><p>Co liczy się jako „załadowane” i „zużyte” (logi itemsLoaded i itemsConsumed, np. czy liczy się towar premiujący), flaga manualDevelopment i dlaczego zakłady z zajezdnią są pomijane<span class="sr"> (<code class="src">industries.script.tl:140-146</code>)</span>, zależy od silnika. Tak samo, co silnik robi z regułą premii, która straciła wejście (Przybywa wył.).</p></div></aside>
+<h2 id="nowe-zakłady"><span class="n">8</span><span>Nowe zakłady</span></h2>
+<ul>
+<li>Silnik z czasem dodaje zakłady; skrypty dają mu tylko czas docelowy 50 lat, wykładnik 3 i brak nowych zakładów w edytorze map<span class="sr"> (<code class="src">mod.script.tl:166-168</code>)</span>. Ustawienie <strong>Docelowe zagęszczenie przemysłu</strong> to skaluje<span class="sr"> (<code class="src">mod.script.tl:194-195</code>)</span>. Powiadomienie to <strong>Założono zakład przemysłowy</strong><span class="sr"> (<code class="src">industry_spawn.res.lua:6</code>)</span>.</li>
+<li>Atut firmy <strong>Poszukiwania zasobu</strong> szuka nowego zakładu tego zasobu koło miasta: jedna próba na miesiąc z szansą od 20 % do 60 %, przez 6 miesięcy; jeśli się nie uda, zezwolenie wraca<span class="sr"> (<code class="src">company_util.tl:14-17</code>, <code class="src">company.script.tl:96-142</code>, <code class="src">company.script.tl:299-307</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decyduje silnik gry<small>C++, niewidoczne w skryptach</small></h4><p>Gdzie i kiedy pojawia się nowy zakład, i jakiego typu, decyduje silnik (makeIndustrySpawnProposal).</p></div></aside>
+<h2 id="warto-wiedzieć"><span class="n">9</span><span>Warto wiedzieć</span></h2>
+<ul>
+<li>Wywoź z każdego zakładu surowcowego, który ma rosnąć: niewywieziona produkcja blokuje rozbudowę, niezależnie od premii.</li>
+<li>Dawaj towar premiujący największym kopalniom i gospodarstwom: partia kosztuje tyle samo, bonus rośnie z parcelami.</li>
+<li>Zapasy się nie psują: możesz dostarczyć towar premiujący z góry, do limitu zapasu (100).</li>
+<li>Premie zwiększają hałas i zanieczyszczenie: Kopalnia węgla przechodzi z 10 zanieczyszczenia na 20 z jedną premią i 30 z dwiema<span class="sr"> (<code class="src">coal_mine.con.lua:99-117</code>)</span>.</li>
+<li>Przy ustawieniu domyślnym nieużywany zakład zamyka się rzadko; przy Bardzo często ładuj coś od czasu do czasu.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Oficjalna wiki a skrypty gry</h4><span class="res differs"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Rozbieżne</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki</div><p>"No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos">Industries and Cargo</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Skrypty gry</div><p>5 lat, nie 10, a produkcja się nie liczy: tylko towar załadowany do pojazdu lub zużyty. Po 5 latach zakład jest tylko kandydatem: co roku jest oznaczany z szansą od 1,1 % (Rzadko) do 8,8 % (Bardzo często). Odliczanie trwa 730 dni, jak podano. Towar premiujący daje od +50 % do +150 % na zakład, w partiach działających 3 miesiące.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Ścieżki są podane wewnątrz folderu gry base/content lub jego plików zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Na tej stronie</h5><ol><li><a href="#reguły-produkcji">Reguły produkcji</a></li><li><a href="#zapasy">Zapasy</a></li><li><a href="#parcele-i-rozbudowa">Parcele i rozbudowa</a></li><li><a href="#towar-premiujący">Towar premiujący</a></li><li><a href="#premia-za-pracowników">Premia za pracowników</a></li><li><a href="#dlaczego-mój-zakład-nie-ma-premii">Dlaczego mój zakład nie ma premii?</a></li><li><a href="#kiedy-nieużywany-zakład-się-zamyka">Kiedy nieużywany zakład się zamyka?</a></li><li><a href="#nowe-zakłady">Nowe zakłady</a></li><li><a href="#warto-wiedzieć">Warto wiedzieć</a></li></ol><div class="box"><b>29</b><span>odwołań do źródeł</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Pokaż źródła</span><span class="h">Ukryj źródła</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Inne mechaniki</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Koszty, utrzymanie i kredyty</b><small>Finanse i kredyty</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Przychód z towarów i czas dostawy</b><small>Towary i przychód</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Szybkość załadunku i rozładunku</b><small>Stacje i załadunek</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputacja miast</b><small>Miasta</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsydia: oferty, terminy i nagrody</b><small>Subsydia</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Rozwój miast: doświadczenie, oceny i wielkość</b><small>Miasta</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Pracownicy i premia za pracowników</b><small>Zakłady przemysłowe</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Projekt fanowski autorstwa Miro. Niezwiązany z Urban Games.</span><span>Teksty i obrazy: CC BY 4.0 · Kod gry © Urban Games: pokazano tylko krótkie odwołania.</span><span class="tr">Przetłumaczone z angielskiego; poprawki mile widziane (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Oficjalna wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

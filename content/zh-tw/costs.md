@@ -38,7 +38,7 @@ fact: 4 | 筆貸款可以同時存在
 - **收益**完全沒有年份係數（`cargo_income.script.lua:10-13`）。
 
 ```engine
-實際收取的維護費，以及道路、軌道與車輛是否也跟隨年份表，由引擎決定（getCostMultiplierForYear；基本設定只設了 chargeMaintenanceInterval = 60，mod.script.tl:105）。腳本只用上面的表計算視窗與建造選單中顯示的數值。沒有腳本替其他建築設定「跟隨年份」標記。
+實際收取的維護費，以及道路、軌道與車輛是否也跟隨年份表，由引擎決定（getCostMultiplierForYear；基本設定只設了 chargeMaintenanceInterval = 60，`mod.script.tl:105`）。腳本只用上面的表計算視窗與建造選單中顯示的數值。沒有腳本替其他建築設定「跟隨年份」標記。
 ```
 
 ## 軌道、道路與建築

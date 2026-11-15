@@ -38,7 +38,7 @@ fact: 4 | 동시에 받을 수 있는 대출 수
 - **수입**에는 연도 계수가 전혀 없다(`cargo_income.script.lua:10-13`).
 
 ```engine
-실제로 청구되는 관리비와, 도로, 선로, 운송 수단도 연도 표를 따르는지는 엔진이 정한다(getCostMultiplierForYear. 기본 설정은 chargeMaintenanceInterval = 60만 지정한다, mod.script.tl:105). 스크립트는 위의 표로 창과 건설 메뉴에 보이는 값만 계산한다. 다른 건물에 "연도를 따름" 표시를 붙이는 스크립트는 없다.
+실제로 청구되는 관리비와, 도로, 선로, 운송 수단도 연도 표를 따르는지는 엔진이 정한다(getCostMultiplierForYear. 기본 설정은 chargeMaintenanceInterval = 60만 지정한다, `mod.script.tl:105`). 스크립트는 위의 표로 창과 건설 메뉴에 보이는 값만 계산한다. 다른 건물에 "연도를 따름" 표시를 붙이는 스크립트는 없다.
 ```
 
 ## 선로, 도로, 건물

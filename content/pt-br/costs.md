@@ -38,7 +38,7 @@ A configuração **Inflação** não aumenta nenhum custo: ela só baixa a sua r
 - A **renda** não tem nenhum fator de ano (`cargo_income.script.lua:10-13`).
 
 ```engine
-A manutenção cobrada de verdade, e se ruas, trilhos e veículos também seguem a tabela de anos, é decidida pelo motor (getCostMultiplierForYear; a configuração base só define chargeMaintenanceInterval = 60, mod.script.tl:105). Os scripts só calculam os valores mostrados nas janelas e no menu de construção, com a tabela acima. Nenhum script liga a marca "seguir o ano" dos outros prédios.
+A manutenção cobrada de verdade, e se ruas, trilhos e veículos também seguem a tabela de anos, é decidida pelo motor (getCostMultiplierForYear; a configuração base só define chargeMaintenanceInterval = 60, `mod.script.tl:105`). Os scripts só calculam os valores mostrados nas janelas e no menu de construção, com a tabela acima. Nenhum script liga a marca "seguir o ano" dos outros prédios.
 ```
 
 ## Trilhos, estradas e prédios

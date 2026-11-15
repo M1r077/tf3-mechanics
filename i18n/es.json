@@ -376,6 +376,16 @@
    "slow": "33 % al año",
    "fast": "100 % al año",
    "noc": "sin campaña"
+  },
+  "T_ICLOSE": {
+   "cap": "Una industria sin uso: 5 años sin carga ni consumo la hacen candidata; luego cada año puede quedar marcada (1,1 % en Casi nunca, 8,8 % en Con mucha frecuencia); la cuenta atrás dura 2 años. Una sola carga o un consumo lo reinicia todo.",
+   "x": "años",
+   "last": "última carga o consumo",
+   "cand": "candidata",
+   "roll": "marcada al azar cada año",
+   "count": "cuenta atrás 730 días",
+   "gone": "eliminada",
+   "save": "una carga o un consumo: salvada"
   }
  },
  "cargo": {

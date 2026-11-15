@@ -376,6 +376,16 @@
    "slow": "33 % por ano",
    "fast": "100 % por ano",
    "noc": "sem campanha"
+  },
+  "T_ICLOSE": {
+   "cap": "Uma indústria sem uso: 5 anos sem carregamento nem consumo a tornam candidata; depois, a cada ano, pode ser marcada (1,1 % em Raramente, 8,8 % em Muito Frequentemente); a contagem dura 2 anos. Um único carregamento ou consumo zera tudo.",
+   "x": "anos",
+   "last": "último carregamento ou consumo",
+   "cand": "candidata",
+   "roll": "marcada ao acaso a cada ano",
+   "count": "contagem 730 dias",
+   "gone": "removida",
+   "save": "um carregamento ou consumo: salva"
   }
  },
  "cargo": {

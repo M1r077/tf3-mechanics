@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Industrien · TF3-Mechaniken</title>
+<meta name="description" content="Wie Transport Fever 3 wirklich funktioniert, gelesen in den Skripten des Spiels.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/industries.html"><link rel="alternate" hreflang="fr" href="../fr/industries.html"><link rel="alternate" hreflang="de" href="../de/industries.html"><link rel="alternate" hreflang="es" href="../es/industries.html"><link rel="alternate" hreflang="it" href="../it/industries.html"><link rel="alternate" hreflang="nl" href="../nl/industries.html"><link rel="alternate" hreflang="pl" href="../pl/industries.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/industries.html"><link rel="alternate" hreflang="ru" href="../ru/industries.html"><link rel="alternate" hreflang="ja" href="../ja/industries.html"><link rel="alternate" hreflang="ko" href="../ko/industries.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/industries.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/industries.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Index</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Skriptverweise ein- oder ausblenden"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Quellen</span></button>
+<details class="langs"><summary aria-label="Sprache"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Deutsch</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Sprache"><a href="../en/industries.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/industries.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/industries.html" class="on" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/industries.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/industries.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/industries.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/industries.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/industries.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/industries.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/industries.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/industries.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/industries.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/industries.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Index</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg>Industrien</span></div><h1 class="rise d1">Industrien</h1><p class="lead rise d2">Produktionsregeln, Lager, Parzellen und Erweiterung, Booster-Fracht, warum eine Industrie nicht geboostet ist, und wann eine ungenutzte Industrie wirklich schließt.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>In den Skripten geprüft</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Aktualisiert 2026-11-15</span></div><div class=facts><div class="fact rise d1"><b>5 Jahre</b><span>ohne Verladen oder Verbrauch machen eine Industrie zum Schließungskandidaten</span></div><div class="fact rise d2"><b>1,1 %</b><span>Chance pro Jahr bei Selten (Standard), dann 730 Tage Countdown</span></div><div class="fact rise d3"><b>+50–150 %</b><span>Bonus der Booster-Fracht, pro Industrie fest</span></div><div class="fact rise d4"><b>3 Monate</b><span>Bonus pro Charge Booster-Fracht</span></div></div></div></section><div class="wrap layout"><article><p>Jede Industrie arbeitet nach <strong>Regeln</strong>: „nimm dies aus den Eingangsbeständen, lege das in die Ausgangsbestände“, eine feste Anzahl Mal pro Jahr. Rohstoffindustrien (Bergwerke, Höfe, Quellen) brauchen keinen Eingang; ihre Größe kommt von ihren <strong>Parzellen</strong>. Zwei Boni können die Produktion vervielfachen: <strong>Booster-Fracht</strong> (nur Rohstoffindustrien) und <strong>Arbeiter</strong>.</p>
+<h2 id="produktionsregeln"><span class="n">1</span><span>Produktionsregeln</span></h2>
+<ul>
+<li>Eine Regel gibt die verbrauchte und erzeugte Fracht pro Durchlauf an und wie viele Durchläufe pro Jahr: ein Durchlauf dauert ein Jahr ÷ diese Zahl<span class="sr"> (<code class="src">industry_react_util.tl:51-57</code>)</span>. Der Abschnitt Produktion im Industriefenster zeigt sie als kleine Zahlen.</li>
+<li>Die Zahl <strong>Max.</strong> im Fenster ist: pro Durchlauf × Durchläufe pro Jahr × die Boni × die Einstellung <strong>Industrieproduktivität</strong><span class="sr"> (<code class="src">industry_util.tl:310-379</code>)</span>.</li>
+<li><strong>Industrieproduktivität</strong>: 50 %, 75 %, 100 %, 150 % oder 200 %. Voreinstellungen: Einfach 150 %, Normal 100 %, Schwierig 75 %, Sehr schwierig 50 %<span class="sr"> (<code class="src">difficulty_util.tl:41</code>, <code class="src">difficulty_util.tl:93</code>, <code class="src">difficulty_util.tl:120</code>, <code class="src">difficulty_util.tl:148</code>, <code class="src">difficulty_util.tl:175</code>, <code class="src">mod.script.tl:196-197</code>)</span>.</li>
+<li>Beispiel Stahlwerk: 6 Eisenerz + 6 Kohle → 3 Stahl + 4 Blech, 121,7 Durchläufe pro Jahr: 730 Eisenerz und 730 Kohle → 365 Stahl und 487 Blech<span class="sr"> (<code class="src">steel_mill.con.lua:43-71</code>)</span>. Fehlt ein Eingang, steht die Regel.</li>
+<li>Die Konservenfabrik hat zwei Regeln: Fisch + Blech oder Fleisch + Blech<span class="sr"> (<code class="src">food_factory.con.lua:43-74</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Die Engine führt die Regeln aus. Sie kann einen Durchlauf verlängern: der Tooltip zeigt dann „(+ … aufgrund der Lieferzeit)“<span class="sr"> (<code class="src">industry_react_util.tl:61-76</code>)</span>. Wann und um wie viel steht nicht in den Skripten, daher kann die echte Produktion unter Max. bleiben.</p></div></aside>
+<h2 id="lager"><span class="n">2</span><span>Lager</span></h2>
+<ul>
+<li>Jede Fracht hat ihr eigenes Lager mit Grenze: z. B. hält ein Kohlebergwerk 100 Werkzeuge und 400 Kohle, ein Stahlwerk 800 Eisenerz, 800 Kohle, 400 Stahl und 500 Blech<span class="sr"> (<code class="src">coal_mine.con.lua:44-67</code>, <code class="src">steel_mill.con.lua:43-71</code>)</span>.</li>
+<li>Lager verfallen nie<span class="sr"> (<code class="src">industryutil.lua:25-29</code>)</span>: Fracht wartet so lange wie nötig.</li>
+<li>Ein volles Ausgangslager stoppt die Produktion nicht: der Überschuss wird vernichtet (offizielles Wiki). Das Diagramm <strong>Güterfluss</strong> zeigt <strong>Verbraucht</strong>, <strong>Produziert</strong> und <strong>Vernichtet</strong><span class="sr"> (<code class="src">industry_eow.script.tl:804-816</code>)</span>.</li>
+<li>Mit dem Bauparameter <strong>Eingang</strong> auf Aus verlieren die Regeln ihre Eingänge und die Industrie hat keine Eingangsbestände<span class="sr"> (<code class="src">industryutil.lua:280-287</code>, <code class="src">industryutil.lua:383-387</code>, <code class="src">industryutil.lua:432-441</code>)</span>.</li>
+</ul>
+<h2 id="parzellen-und-erweiterung"><span class="n">3</span><span>Parzellen und Erweiterung</span></h2>
+<ul>
+<li>Rohstoffindustrien und der Viehzuchtbetrieb haben <strong>Parzellen</strong> (Felder, Schächte, Bohrtürme). Ihre Stufe ist ihre Zahl an Parzellen<span class="sr"> (<code class="src">industryutil.lua:602-617</code>)</span>.</li>
+<li>Die Regel wächst mit den Parzellen: Produktion pro Durchlauf × Parzellen ÷ <strong>alle Parzellen dieses Industrietyps</strong>, gerundet, mindestens 1. Die Eingänge sinken im gleichen Verhältnis<span class="sr"> (<code class="src">industryutil.lua:225-259</code>)</span>. Ein Kohlebergwerk (8 Parzellentypen) mit 4 Parzellen macht 8 statt 16 Kohle pro Durchlauf.</li>
+<li>Jede Industrie erhält ein Maximum: zufällig zwischen der Hälfte und allen Parzellen, oder Klein / Mittel / Groß (50 / 75 / 100 %) mit dem Parameter <strong>Industriegrösse</strong><span class="sr"> (<code class="src">industryutil.lua:519-537</code>)</span>. Ein Bergwerk mit Maximum 5 von 8 erreicht nie die volle Regel.</li>
+<li>Jedes halbe Jahr kann das Spiel <strong>eine Parzelle</strong> hinzufügen<span class="sr"> (<code class="src">industries_config.res.lua:5</code>, <code class="src">industries.script.tl:158-183</code>)</span>. Die Chance ist (Wertung − 25 %) ÷ 50 %, mit Wertung = Produktionswertung × dem Anteil der Produktion, den du abtransportierst (höchstens 1): 25 % oder weniger nie, 75 % oder mehr immer<span class="sr"> (<code class="src">industries.script.tl:172-176</code>)</span>.</li>
+<li>Eine Industrie, deren Fracht du nicht abtransportierst, <strong>wächst also nie</strong>. Fabriken haben keine Parzellen und wachsen nie.</li>
+<li>Am Maximum zeigt das Fenster <strong>Maximale Industrieerweiterung erreicht.</strong>; stehen Gebäude, Gleise oder Straßen im Weg, <strong>Industrieerweiterung ist blockiert.</strong><span class="sr"> (<code class="src">industry_react_util.tl:588-602</code>, <code class="src">industries.script.tl:13-38</code>)</span>. Kein Skript entfernt Parzellen; laut offiziellem Wiki senken abgerissene Parzellen die Produktion.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Die Produktionswertung (getProductionRating), die jährliche Produktion und die abtransportierte Menge (getCargoOutputPerYear, getCargoShippedPerYear) und wohin eine neue Parzelle kommt (makeIndustryExtendProposal) sind Werte der Engine.</p></div></aside>
+<h2 id="booster-fracht"><span class="n">4</span><span>Booster-Fracht</span></h2>
+<p>Die 13 Rohstoffindustrien haben eine zweite Regel, den <strong>Booster</strong>: er nimmt 4-mal pro Jahr eine Charge Booster-Fracht aus dem Eingangslager und gibt einen Bonus, solange er läuft.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Industrie</th>
+<th>Parzellen</th>
+<th>Bei voller Größe, pro Jahr</th>
+<th>Booster-Charge (4 pro Jahr)</th>
+<th class="sc">Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lehmgrube</td>
+<td>8</td>
+<td>365 Lehm</td>
+<td>12 Werkzeuge</td>
+<td class="sc"><code class="src">clay_pit.con.lua:42-82</code></td>
+</tr>
+<tr>
+<td>Kohlebergwerk</td>
+<td>8</td>
+<td>320 Kohle</td>
+<td>13 Werkzeuge</td>
+<td class="sc"><code class="src">coal_mine.con.lua:44-85</code></td>
+</tr>
+<tr>
+<td>Baumwollplantage</td>
+<td>21</td>
+<td>274 Wolle</td>
+<td>17 Dünger</td>
+<td class="sc"><code class="src">cotton_farm.con.lua:42-98</code></td>
+</tr>
+<tr>
+<td>Bauernhof</td>
+<td>20</td>
+<td>274 Getreide + 183 Gemüse</td>
+<td>17 Dünger</td>
+<td class="sc"><code class="src">farm.con.lua:44-106</code></td>
+</tr>
+<tr>
+<td>Fischzucht</td>
+<td>18</td>
+<td>263 Fisch</td>
+<td>12 Werkzeuge</td>
+<td class="sc"><code class="src">fishing_grounds.con.lua:44-101</code></td>
+</tr>
+<tr>
+<td>Holzfällerlager</td>
+<td>20</td>
+<td>243 Holz</td>
+<td>15 Maschinen</td>
+<td class="sc"><code class="src">forest.con.lua:44-99</code></td>
+</tr>
+<tr>
+<td>Eisenerzbergwerk</td>
+<td>8</td>
+<td>365 Eisenerz</td>
+<td>15 Maschinen</td>
+<td class="sc"><code class="src">iron_ore_mine.con.lua:44-84</code></td>
+</tr>
+<tr>
+<td>Ölplattform</td>
+<td>9</td>
+<td>365 Rohöl</td>
+<td>12 Maschinen</td>
+<td class="sc"><code class="src">oil_platform.con.lua:45-96</code></td>
+</tr>
+<tr>
+<td>Ölquelle</td>
+<td>14</td>
+<td>548 Rohöl</td>
+<td>15 Maschinen</td>
+<td class="sc"><code class="src">oil_well.con.lua:44-94</code></td>
+</tr>
+<tr>
+<td>Steinbruch</td>
+<td>7</td>
+<td>365 Stein</td>
+<td>12 Werkzeuge</td>
+<td class="sc"><code class="src">quarry.con.lua:44-83</code></td>
+</tr>
+<tr>
+<td>Gummiplantage</td>
+<td>23</td>
+<td>365 Gummi</td>
+<td>17 Dünger</td>
+<td class="sc"><code class="src">rubber_farm.con.lua:41-102</code></td>
+</tr>
+<tr>
+<td>Sandbaggerschiff</td>
+<td>9</td>
+<td>365 Sand</td>
+<td>15 Maschinen</td>
+<td class="sc"><code class="src">sand_excavator.con.lua:44-92</code></td>
+</tr>
+<tr>
+<td>Sandgrube</td>
+<td>8</td>
+<td>365 Sand</td>
+<td>12 Werkzeuge</td>
+<td class="sc"><code class="src">sand_pit.con.lua:44-84</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Der Bonus wird einmal pro Industrie gezogen: <strong>+50 % bis +150 %</strong>, auf 1 % gerundet<span class="sr"> (<code class="src">industryutil.lua:394-405</code>)</span>. Der Abschnitt Booster zeigt ihn als „+X %“<span class="sr"> (<code class="src">industry_util.tl:428-434</code>)</span>. Mit dem Parameter <strong>Boost-Faktor</strong> ist er stattdessen +50 %, +75 %, +100 %, +125 % oder +150 %<span class="sr"> (<code class="src">industryutil.lua:289-299</code>)</span>.</li>
+<li>Das Fenster zeigt den Booster aktiv, solange seine letzte Charge läuft (3 Monate), oder sobald das Lager eine volle Charge enthält<span class="sr"> (<code class="src">industry_util.tl:55-91</code>)</span>.</li>
+<li>Die Charge schrumpft <strong>nicht</strong> mit den Parzellen: ein kleines Bergwerk braucht so viele Werkzeuge wie ein großes<span class="sr"> (<code class="src">industryutil.lua:227-229</code>)</span>.</li>
+<li>Beide Boni multiplizieren sich: Produktion × Arbeiterfaktor × (1 + Booster-Bonus)<span class="sr"> (<code class="src">industry_util.tl:42-104</code>)</span>.</li>
+</ul>
+<h2 id="der-arbeiterbonus"><span class="n">5</span><span>Der Arbeiterbonus</span></h2>
+<p>Die Hälfte der Arbeitsplätze (10 von 20) muss mit Einwohnern besetzt sein, die in den letzten 2 Jahren <strong>mit deinen Personenlinien angekommen</strong> sind; der Faktor beträgt ×1,5 bis ×2,5, pro Industrie fest<span class="sr"> (<code class="src">industry_productivity_util.tl:35-72</code>)</span>. Nur zugeteilte Arbeiter zählen nicht. Details: <a href="workers.html">Arbeiter und Arbeiterbonus</a>.</p>
+<h2 id="warum-ist-meine-industrie-nicht-geboostet"><span class="n">6</span><span>Warum ist meine Industrie nicht geboostet?</span></h2>
+<ol>
+<li><strong>Keine Rohstoffindustrie</strong>: Fabriken haben keine Booster-Regel, nur den Arbeiterbonus<span class="sr"> (<code class="src">steel_mill.con.lua:61-70</code>)</span>.</li>
+<li><strong>Charge unvollständig</strong>: das Lager muss eine volle Charge enthalten, z. B. 13 Werkzeuge für ein Kohlebergwerk. Unter 4 Chargen pro Jahr (52 Werkzeuge) stoppt der Bonus zwischen den Lieferungen.</li>
+<li><strong>Falsche Fracht</strong>: Werkzeuge, Maschinen oder Dünger je nach Industrie (Tabelle oben).</li>
+<li><strong>Arbeiter</strong>: zugeteilt reicht nicht; der Abschnitt Booster zählt Ankünfte („12/10“)<span class="sr"> (<code class="src">industry_react_util.tl:617-654</code>)</span>. Siehe <a href="workers.html">Arbeiter und Arbeiterbonus</a>.</li>
+</ol>
+<h2 id="wann-schliet-eine-ungenutzte-industrie"><span class="n">7</span><span>Wann schließt eine ungenutzte Industrie?</span></h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" role="img"><defs><linearGradient id="ic-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient><linearGradient id="ic-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ee6d3"/><stop offset="1" stop-color="#1fa596"/></linearGradient><linearGradient id="ic-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2430"/><stop offset="1" stop-color="#131921"/></linearGradient><linearGradient id="ic-tealsoft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38d1bf" stop-opacity=".05"/><stop offset="1" stop-color="#38d1bf" stop-opacity=".28"/></linearGradient><filter id="ic-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter><filter id="ic-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="ic-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs><rect x="40" y="128" width="400" height="44" rx="10" fill="#1c2430" stroke="#2a3340" stroke-width="1.5" opacity="1"/><rect x="440" y="128" width="200.0" height="44" rx="0" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="0.18"/><rect x="640.0" y="128" width="160.0" height="44" rx="0" fill="#f0705f" stroke="none" stroke-width="1.5" opacity="0.28"/><line x1="40" y1="174" x2="40" y2="182" stroke="#8f9bab"/><text x="40" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">0</text><line x1="120" y1="174" x2="120" y2="182" stroke="#8f9bab"/><text x="120" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">1</text><line x1="200" y1="174" x2="200" y2="182" stroke="#8f9bab"/><text x="200" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">2</text><line x1="280" y1="174" x2="280" y2="182" stroke="#8f9bab"/><text x="280" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">3</text><line x1="360" y1="174" x2="360" y2="182" stroke="#8f9bab"/><text x="360" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">4</text><line x1="440" y1="174" x2="440" y2="182" stroke="#8f9bab"/><text x="440" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">5</text><line x1="520" y1="174" x2="520" y2="182" stroke="#8f9bab"/><text x="520" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">6</text><line x1="600" y1="174" x2="600" y2="182" stroke="#8f9bab"/><text x="600" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">7</text><line x1="680" y1="174" x2="680" y2="182" stroke="#8f9bab"/><text x="680" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">8</text><line x1="760" y1="174" x2="760" y2="182" stroke="#8f9bab"/><text x="760" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">9</text><line x1="840" y1="174" x2="840" y2="182" stroke="#8f9bab"/><text x="840" y="200" font-size="12" fill="#8f9bab" text-anchor="middle" font-weight="400" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">10</text><text x="440" y="224" font-size="13" fill="#eef1f5" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Jahre</text><circle cx="40" cy="150" r="7" fill="#38d1bf" stroke="#0f141b" stroke-width="2"/><text x="34" y="110" font-size="13" fill="#38d1bf" text-anchor="start" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">letztes Verladen oder Verbrauch</text><line x1="440" y1="116" x2="440" y2="174" stroke="#f2b84b" stroke-width="2.5"/><rect x="432" y="80" width="81.52" height="24" rx="12.0" fill="#f2b84b" stroke="none" stroke-width="1.5" opacity="1"/><text x="472.76" y="96.56" font-size="12" fill="#0f141b" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Kandidat</text><text x="540.0" y="155" font-size="18" fill="#f2b84b" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">?</text><text x="540.0" y="64.0" font-size="12" fill="#f2b84b" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">jedes Jahr zufällig</text><text x="540.0" y="79.6" font-size="12" fill="#f2b84b" text-anchor="middle" font-weight="600" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">markiert</text><line x1="640.0" y1="116" x2="640.0" y2="174" stroke="#f0705f" stroke-width="2.5"/><text x="720.0" y="155" font-size="12" fill="#eef1f5" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">Countdown 730 Tage</text><circle cx="840" cy="150" r="20" fill="#f0705f" fill-opacity="0.14" stroke="#f0705f" stroke-opacity=".55" stroke-width="1.5"/><g transform="translate(829.5,139.5) scale(0.875)" fill="none" stroke="#f0705f" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></g><text x="840" y="116" font-size="13" fill="#f0705f" text-anchor="middle" font-weight="800" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">entfernt</text><path d="M720.0 240 C 720.0 280, 40 280, 40 164" fill="none" stroke="#38d1bf" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ic-ah)"/><text x="376.0" y="286" font-size="13" fill="#38d1bf" text-anchor="middle" font-weight="700" font-family="Inter,Segoe UI Variable,Segoe UI,system-ui,Microsoft YaHei,Microsoft JhengHei,Yu Gothic,Malgun Gothic,PingFang SC,Hiragino Sans,Noto Sans CJK SC,sans-serif">einmal verladen oder verbraucht: gerettet</text></svg><figcaption><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Eine ungenutzte Industrie: 5 Jahre ohne Verladen oder Verbrauch machen sie zum Kandidaten; danach kann sie jedes Jahr markiert werden (1,1 % bei Selten, 8,8 % bei Sehr oft); der Countdown dauert 2 Jahre. Ein einziges Verladen oder ein Verbrauch setzt alles zurück.</span></figcaption></figure>
+<p>Die Prüfung läuft alle 100 Updates für jede Industrie<span class="sr"> (<code class="src">industries.script.tl:84-85</code>)</span>:</p>
+<ol>
+<li><strong>Kandidat</strong>: keine Fracht in ein Fahrzeug <strong>verladen</strong> und keine <strong>verbraucht</strong> für <strong>5 Jahre</strong> (ab dem Bau, falls nie)<span class="sr"> (<code class="src">industries.script.tl:104-119</code>, <code class="src">industries_config.res.lua:6</code>)</span>. Nur Produzieren zählt nicht.</li>
+<li><strong>Zufall</strong>: jedes Jahr wird ein Kandidat mit der Chance der Einstellung <strong>Häufigkeit von Industrieschliessungen</strong> markiert (Tabelle unten)<span class="sr"> (<code class="src">industries.script.tl:120-131</code>)</span>.</li>
+<li><strong>Countdown</strong>: die Meldung <strong>Industrieschliessung</strong> erscheint, mit 2 Jahren (730 Tagen) Frist<span class="sr"> (<code class="src">industries_config.res.lua:7</code>, <code class="src">industry_close.script.tl:53-67</code>)</span>. Danach wird die Industrie mit ihren eigenen Straßenstücken entfernt<span class="sr"> (<code class="src">industries.script.tl:147-155</code>, <code class="src">industry_util.tl:560-601</code>)</span>.</li>
+<li><strong>Gerettet</strong>: ein einziges Verladen oder ein Verbrauch während des Countdowns bricht ihn ab<span class="sr"> (<code class="src">industries.script.tl:134-137</code>)</span>. Eine angenommene Subvention <strong>Industrie beliefern</strong> oder <strong>Transportiere Arbeiter</strong> für sie bricht ihn ebenfalls ab<span class="sr"> (<code class="src">subvention_util.tl:473-484</code>)</span>.</li>
+</ol>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Häufigkeit von Industrieschliessungen</th>
+<th>Chance pro Jahr als Kandidat</th>
+<th>Hälfte der Kandidaten markiert nach</th>
+<th>Voreinstellung</th>
+<th class="sc">Quelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nie</td>
+<td>0</td>
+<td>nie</td>
+<td>Einfach</td>
+<td class="sc"><code class="src">difficulty_util.tl:94</code></td>
+</tr>
+<tr>
+<td>Selten (Standard)</td>
+<td>1,1 %</td>
+<td>etwa 63 Jahren</td>
+<td>Normal</td>
+<td class="sc"><code class="src">difficulty_util.tl:121</code></td>
+</tr>
+<tr>
+<td>Manchmal</td>
+<td>2,2 %</td>
+<td>etwa 32 Jahren</td>
+<td>Schwierig</td>
+<td class="sc"><code class="src">difficulty_util.tl:149</code></td>
+</tr>
+<tr>
+<td>Oft</td>
+<td>4,4 %</td>
+<td>etwa 16 Jahren</td>
+<td>–</td>
+<td class="sc"><code class="src">difficulty_util.tl:37</code></td>
+</tr>
+<tr>
+<td>Sehr oft</td>
+<td>8,8 %</td>
+<td>etwa 8 Jahren</td>
+<td>Sehr schwierig</td>
+<td class="sc"><code class="src">difficulty_util.tl:176</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Chance ist 0,011 pro Jahr × 0, 1, 2, 4 oder 8<span class="sr"> (<code class="src">mod.script.tl:171</code>, <code class="src">mod.script.tl:202-203</code>, <code class="src">difficulty_util.tl:37</code>)</span>. Industrien in deinem Besitz schließen nie, ebenso wenig Industrien mit manueller Entwicklung und keine Industrie während des Tutorials<span class="sr"> (<code class="src">industries.script.tl:94-102</code>)</span>.</p>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Was als „verladen“ und „verbraucht“ zählt (die Logs itemsLoaded und itemsConsumed, z. B. ob Booster-Fracht zählt), das Flag manualDevelopment und warum Industrien mit Depot ausgenommen sind<span class="sr"> (<code class="src">industries.script.tl:140-146</code>)</span>, liegt in der Engine. Ebenso, was die Engine mit einer Booster-Regel ohne Eingang macht (Eingang aus).</p></div></aside>
+<h2 id="neue-industrien"><span class="n">8</span><span>Neue Industrien</span></h2>
+<ul>
+<li>Die Engine fügt mit der Zeit Industrien hinzu; die Skripte geben ihr nur eine Zielzeit von 50 Jahren, einen Exponenten von 3 und keine neuen Industrien im Karteneditor<span class="sr"> (<code class="src">mod.script.tl:166-168</code>)</span>. Die Einstellung <strong>Industrie-Zieldichte</strong> skaliert das<span class="sr"> (<code class="src">mod.script.tl:194-195</code>)</span>. Die Meldung heißt <strong>Neue Industrie gegründet</strong><span class="sr"> (<code class="src">industry_spawn.res.lua:6</code>)</span>.</li>
+<li>Der Firmen-Perk <strong>Prospektion nach Ressourcen</strong> sucht eine neue Industrie dieser Ressource nahe einer Stadt: ein Versuch pro Monat mit einer Chance von 20 % bis 60 %, 6 Monate lang; scheitert er, kommt die Genehmigung zurück<span class="sr"> (<code class="src">company_util.tl:14-17</code>, <code class="src">company.script.tl:96-142</code>, <code class="src">company.script.tl:299-307</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Wo und wann eine neue Industrie entsteht, und welcher Typ, entscheidet die Engine (makeIndustrySpawnProposal).</p></div></aside>
+<h2 id="gut-zu-wissen"><span class="n">9</span><span>Gut zu wissen</span></h2>
+<ul>
+<li>Transportiere von jeder Rohstoffindustrie ab, die wachsen soll: nicht abtransportierte Produktion blockiert die Erweiterung, egal welche Boni.</li>
+<li>Gib Booster-Fracht den größten Bergwerken und Höfen: die Charge kostet gleich viel, der Bonus wächst mit den Parzellen.</li>
+<li>Lager verfallen nicht: du kannst Booster-Fracht im Voraus liefern, bis zur Lagergrenze (100).</li>
+<li>Boni erhöhen Lärm und Verschmutzung: ein Kohlebergwerk geht von 10 Verschmutzung auf 20 mit einem Bonus und 30 mit zwei<span class="sr"> (<code class="src">coal_mine.con.lua:99-117</code>)</span>.</li>
+<li>Bei der Standardeinstellung schließt eine ungenutzte Industrie selten; bei Sehr oft lade ab und zu etwas.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Offizielles Wiki und Spielskripte</h4><span class="res differs"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Weicht ab</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Das offizielle Wiki sagt</div><p>"No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos">Industries and Cargo</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Die Spielskripte zeigen</div><p>5 Jahre, nicht 10, und Produktion zählt nicht: nur in ein Fahrzeug verladene oder verbrauchte Fracht. Nach den 5 Jahren ist die Industrie nur Kandidat: jedes Jahr wird sie mit einer Chance von 1,1 % (Selten) bis 8,8 % (Sehr oft) markiert. Der Countdown dauert wie angegeben 730 Tage. Booster-Fracht gibt +50 % bis +150 % pro Industrie, in Chargen, die 3 Monate halten.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Die Pfade liegen im Ordner base/content des Spiels oder in seinen Zip-Dateien.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Auf dieser Seite</h5><ol><li><a href="#produktionsregeln">Produktionsregeln</a></li><li><a href="#lager">Lager</a></li><li><a href="#parzellen-und-erweiterung">Parzellen und Erweiterung</a></li><li><a href="#booster-fracht">Booster-Fracht</a></li><li><a href="#der-arbeiterbonus">Der Arbeiterbonus</a></li><li><a href="#warum-ist-meine-industrie-nicht-geboostet">Warum ist meine Industrie nicht geboostet?</a></li><li><a href="#wann-schliet-eine-ungenutzte-industrie">Wann schließt eine ungenutzte Industrie?</a></li><li><a href="#neue-industrien">Neue Industrien</a></li><li><a href="#gut-zu-wissen">Gut zu wissen</a></li></ol><div class="box"><b>29</b><span>Quellverweise</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Quellen anzeigen</span><span class="h">Quellen ausblenden</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Weitere Mechaniken</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Kosten, Unterhalt und Darlehen</b><small>Finanzen und Kredite</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Gütereinnahmen und Lieferzeit</b><small>Fracht und Einnahmen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Lade- und Entladegeschwindigkeit</b><small>Bahnhöfe und Laden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Ruf der Städte</b><small>Städte</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subventionen: Angebote, Fristen und Belohnungen</b><small>Subventionen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Stadtwachstum: XP, Wertungen und Größe</b><small>Städte</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Arbeiter und Arbeiterbonus</b><small>Industrien</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Fanprojekt von Miro. Nicht mit Urban Games verbunden.</span><span>Texte und Bilder: CC BY 4.0 · Spielcode © Urban Games: es werden nur kurze Verweise gezeigt.</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Offizielles Wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

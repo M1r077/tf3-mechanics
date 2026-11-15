@@ -376,6 +376,16 @@
    "slow": "33 % all'anno",
    "fast": "100 % all'anno",
    "noc": "senza campagna"
+  },
+  "T_ICLOSE": {
+   "cap": "Un'industria inutilizzata: 5 anni senza carico né consumo la rendono candidata; poi ogni anno può essere segnata (1,1 % con Raramente, 8,8 % con Regolarmente); il conto alla rovescia dura 2 anni. Un solo carico o un consumo azzera tutto.",
+   "x": "anni",
+   "last": "ultimo carico o consumo",
+   "cand": "candidata",
+   "roll": "segnata a caso ogni anno",
+   "count": "conto alla rovescia 730 giorni",
+   "gone": "rimossa",
+   "save": "un carico o un consumo: salvata"
   }
  },
  "cargo": {

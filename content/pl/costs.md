@@ -38,7 +38,7 @@ Ustawienie **Inflacja** nie podnosi żadnych kosztów: obniża tylko twój przyc
 - **Przychód** nie ma żadnego mnożnika roku (`cargo_income.script.lua:10-13`).
 
 ```engine
-O tym, jakie utrzymanie jest naprawdę pobierane i czy ulice, tory i pojazdy też podlegają tabeli lat, decyduje silnik (getCostMultiplierForYear; podstawowa konfiguracja ustawia tylko chargeMaintenanceInterval = 60, mod.script.tl:105). Skrypty liczą tylko wartości pokazywane w oknach i w menu budowy, według tabeli powyżej. Żaden skrypt nie ustawia flagi „zależny od roku” dla innych budynków.
+O tym, jakie utrzymanie jest naprawdę pobierane i czy ulice, tory i pojazdy też podlegają tabeli lat, decyduje silnik (getCostMultiplierForYear; podstawowa konfiguracja ustawia tylko chargeMaintenanceInterval = 60, `mod.script.tl:105`). Skrypty liczą tylko wartości pokazywane w oknach i w menu budowy, według tabeli powyżej. Żaden skrypt nie ustawia flagi „zależny od roku” dla innych budynków.
 ```
 
 ## Tory, drogi i budynki

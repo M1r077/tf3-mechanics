@@ -38,7 +38,7 @@ The **Inflation** setting does not raise any cost: it only lowers your income as
 - **Income** has no year factor at all (`cargo_income.script.lua:10-13`).
 
 ```engine
-The upkeep that is actually charged, and whether streets, tracks and vehicles also follow the year table, is decided by the engine (getCostMultiplierForYear; the base config only sets chargeMaintenanceInterval = 60, mod.script.tl:105). The scripts only compute the values shown in the windows and the build menu, with the table above. No script sets the "follow the year" flag of the other buildings.
+The upkeep that is actually charged, and whether streets, tracks and vehicles also follow the year table, is decided by the engine (getCostMultiplierForYear; the base config only sets chargeMaintenanceInterval = 60, `mod.script.tl:105`). The scripts only compute the values shown in the windows and the build menu, with the table above. No script sets the "follow the year" flag of the other buildings.
 ```
 
 ## Tracks, roads and buildings

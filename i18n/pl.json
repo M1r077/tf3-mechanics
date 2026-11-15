@@ -376,6 +376,16 @@
    "slow": "33 % na rok",
    "fast": "100 % na rok",
    "noc": "bez kampanii"
+  },
+  "T_ICLOSE": {
+   "cap": "Nieużywany zakład: 5 lat bez załadunku i zużycia czyni go kandydatem; potem co roku może zostać oznaczony (1,1 % przy Rzadko, 8,8 % przy Bardzo często); odliczanie trwa 2 lata. Jeden załadunek lub zużycie zeruje wszystko.",
+   "x": "lata",
+   "last": "ostatni załadunek lub zużycie",
+   "cand": "kandydat",
+   "roll": "co roku losowo oznaczany",
+   "count": "odliczanie 730 dni",
+   "gone": "usunięty",
+   "save": "jeden załadunek lub zużycie: uratowany"
   }
  },
  "cargo": {

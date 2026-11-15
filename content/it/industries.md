@@ -1,0 +1,131 @@
+---
+title: Industrie
+summary: Regole di produzione, scorte, lotti ed espansione, carico booster, perché un'industria non è potenziata, e quando un'industria inutilizzata chiude davvero.
+domain: industries
+official: gamemanual:simulation:industriescargos
+status: verified
+updated: 2026-11-15
+fact: 5 anni | senza carico né consumo rendono un'industria candidata alla chiusura
+fact: 1,1 % | di probabilità all'anno con Raramente (predefinito), poi 730 giorni di conto alla rovescia
+fact: +50–150 % | di bonus dal carico booster, fisso per ogni industria
+fact: 3 mesi | di bonus per lotto di carico booster
+---
+
+Ogni industria funziona con **regole**: «prendi questo dalle scorte in entrata, metti quello nelle scorte in uscita», un numero fisso di volte all'anno. Le industrie primarie (miniere, fattorie, pozzi) non hanno bisogno di entrate; la loro dimensione viene dai **lotti**. Due bonus possono moltiplicare la produzione: il **carico booster** (solo industrie primarie) e i **lavoratori**.
+
+## Regole di produzione
+
+- Una regola indica il carico usato e prodotto per ciclo, e quanti cicli all'anno: un ciclo dura un anno ÷ quel numero (`industry_react_util.tl:51-57`). La sezione Produzione della finestra dell'industria lo mostra con numeri piccoli.
+- Il numero **Massimo** della finestra è: per ciclo × cicli all'anno × i bonus × l'impostazione **Produttività industrie** (`industry_util.tl:310-379`).
+- **Produttività industrie**: 50 %, 75 %, 100 %, 150 % o 200 %. Preimpostazioni: Facile 150 %, Normale 100 %, Difficile 75 %, Molto difficile 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- Esempio, Acciaieria: 6 minerale di ferro + 6 carbone → 3 acciaio + 4 lamine di metallo, 121,7 cicli all'anno: 730 minerale di ferro e 730 carbone → 365 acciaio e 487 lamine di metallo (`steel_mill.con.lua:43-71`). Se manca un'entrata, la regola si ferma.
+- La Fabbrica di conserve ha due regole: pesce + lamine di metallo, oppure carne + lamine di metallo (`food_factory.con.lua:43-74`).
+
+```engine
+Il motore esegue le regole. Può allungare un ciclo: il tooltip del ciclo mostra allora «(+… per tempo di consegna)» (`industry_react_util.tl:61-76`). Quando e di quanto non è negli script, quindi la produzione reale può restare sotto il Massimo.
+```
+
+## Scorte
+
+- Ogni carico ha la sua scorta con un limite: ad es. una Miniera di carbone tiene 100 strumenti e 400 carbone, un'Acciaieria 800 minerale di ferro, 800 carbone, 400 acciaio e 500 lamine di metallo (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
+- Le scorte non si deteriorano mai (`industryutil.lua:25-29`): il carico aspetta quanto serve.
+- Una scorta in uscita piena non ferma la produzione: l'eccesso viene buttato (wiki ufficiale). Il grafico **Flusso di carichi** mostra **Consumato**, **Prodotto** e **Distrutto** (`industry_eow.script.tl:804-816`).
+- Con il parametro di costruzione **Ingresso** su Disattivato, le regole perdono le entrate e l'industria non ha scorte in entrata (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
+
+## Lotti ed espansione
+
+- Le industrie primarie e l'Allevamento di bestiame hanno **lotti** (campi, pozzi di miniera, torri). Il loro livello è il numero di lotti (`industryutil.lua:602-617`).
+- La regola cresce con i lotti: produzione per ciclo × lotti ÷ **tutti i lotti di quel tipo di industria**, arrotondato, almeno 1. Le entrate calano nella stessa proporzione (`industryutil.lua:225-259`). Una Miniera di carbone (8 tipi di lotto) con 4 lotti fa 8 carbone per ciclo invece di 16.
+- Ogni industria riceve un massimo: a caso tra metà dei lotti e tutti, oppure Piccola / Media / Grande (50 / 75 / 100 %) con il parametro **Dimensioni industria** (`industryutil.lua:519-537`). Una miniera con massimo 5 su 8 non raggiunge mai la regola completa.
+- Ogni sei mesi il gioco può aggiungere **un lotto** (`industries_config.res.lua:5`, `industries.script.tl:158-183`). La probabilità è (valutazione − 25 %) ÷ 50 %, con valutazione = valutazione di produzione × la quota della produzione che spedisci (al massimo 1): 25 % o meno mai, 75 % o più sempre (`industries.script.tl:172-176`).
+- Quindi un'industria di cui non spedisci il carico **non cresce mai**. Le fabbriche non hanno lotti e non crescono mai.
+- Al massimo la finestra dice **L'industria ha raggiunto il suo massimo potenziale.**; se edifici, binari o strade sono d'intralcio, **L'industria non può espandersi ulteriormente.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). Nessuno script toglie lotti; secondo la wiki ufficiale i lotti demoliti abbassano la produzione.
+
+```engine
+La valutazione di produzione (getProductionRating), la produzione annua e la quantità spedita (getCargoOutputPerYear, getCargoShippedPerYear), e dove va un nuovo lotto (makeIndustryExtendProposal) sono valori del motore.
+```
+
+## Carico booster
+
+Le 13 industrie primarie hanno una seconda regola, il **booster**: prende un lotto di carico booster dalla scorta in entrata 4 volte all'anno e dà un bonus finché dura.
+
+| Industria | Lotti | A piena dimensione, all'anno | Lotto booster (4 all'anno) | Fonte |
+|---|---|---|---|---|
+| Cava di argilla | 8 | 365 argilla | 12 strumenti | `clay_pit.con.lua:42-82` |
+| Miniera di carbone | 8 | 320 carbone | 13 strumenti | `coal_mine.con.lua:44-85` |
+| Piantagione di cotone | 21 | 274 lana | 17 fertilizzanti | `cotton_farm.con.lua:42-98` |
+| Azienda agricola | 20 | 274 cereali + 183 verdure | 17 fertilizzanti | `farm.con.lua:44-106` |
+| Area di pesca | 18 | 263 pesce | 12 strumenti | `fishing_grounds.con.lua:44-101` |
+| Campo di disboscamento | 20 | 243 tronchi | 15 macchinari | `forest.con.lua:44-99` |
+| Miniera di ferro | 8 | 365 minerale di ferro | 15 macchinari | `iron_ore_mine.con.lua:44-84` |
+| Piattaforma petrolifera | 9 | 365 petrolio grezzo | 12 macchinari | `oil_platform.con.lua:45-96` |
+| Pozzo petrolifero | 14 | 548 petrolio grezzo | 15 macchinari | `oil_well.con.lua:44-94` |
+| Cava | 7 | 365 pietra | 12 strumenti | `quarry.con.lua:44-83` |
+| Piantagione di gomma | 23 | 365 gomma | 17 fertilizzanti | `rubber_farm.con.lua:41-102` |
+| Dragatore di sabbia | 9 | 365 sabbia | 15 macchinari | `sand_excavator.con.lua:44-92` |
+| Cava di sabbia | 8 | 365 sabbia | 12 strumenti | `sand_pit.con.lua:44-84` |
+
+- Il bonus viene estratto una volta per industria: **da +50 % a +150 %**, arrotondato all'1 % (`industryutil.lua:394-405`). La sezione Booster lo mostra come «+X %» (`industry_util.tl:428-434`). Con il parametro **Fattore incremento** vale invece +50 %, +75 %, +100 %, +125 % o +150 % (`industryutil.lua:289-299`).
+- La finestra mostra il booster attivo finché dura il suo ultimo lotto (3 mesi), o appena la scorta contiene un lotto completo (`industry_util.tl:55-91`).
+- Il lotto **non** cala con i lotti di terreno: una miniera piccola chiede tanti strumenti quanto una grande (`industryutil.lua:227-229`).
+- I due bonus si moltiplicano: produzione × fattore lavoratori × (1 + bonus booster) (`industry_util.tl:42-104`).
+
+## Il booster dei lavoratori
+
+Metà dei posti (10 su 20) deve essere occupata da abitanti **arrivati con le tue linee passeggeri** negli ultimi 2 anni; il fattore è da ×1,5 a ×2,5, fisso per ogni industria (`industry_productivity_util.tl:35-72`). I lavoratori solo assegnati non contano. Dettagli: [I lavoratori e il booster dei lavoratori](workers.html).
+
+## Perché la mia industria non è potenziata?
+
+1. **Non è un'industria primaria**: le fabbriche non hanno regola booster, solo il booster dei lavoratori (`steel_mill.con.lua:61-70`).
+2. **Lotto incompleto**: la scorta deve contenere un lotto completo, ad es. 13 strumenti per una Miniera di carbone. Sotto i 4 lotti all'anno (52 strumenti) il bonus si ferma tra una consegna e l'altra.
+3. **Carico sbagliato**: strumenti, macchinari o fertilizzanti a seconda dell'industria (tabella sopra).
+4. **Lavoratori**: assegnati non basta; la sezione Booster conta gli arrivi («12/10») (`industry_react_util.tl:617-654`). Vedi [I lavoratori e il booster dei lavoratori](workers.html).
+
+## Quando chiude un'industria inutilizzata?
+
+```diagram ind_closure
+```
+
+Il controllo passa ogni 100 aggiornamenti per ogni industria (`industries.script.tl:84-85`):
+
+1. **Candidata**: nessun carico **caricato** su un veicolo e nessuno **consumato** per **5 anni** (dalla costruzione se mai) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Produrre non basta.
+2. **Caso**: ogni anno una candidata viene segnata con la probabilità dell'impostazione **Frequenza di chiusura delle industrie** (tabella sotto) (`industries.script.tl:120-131`).
+3. **Conto alla rovescia**: compare la notifica **Chiusura dell'industria**, con 2 anni (730 giorni) di tempo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Poi l'industria viene rimossa con i suoi tratti di strada (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
+4. **Salvata**: un solo carico o un consumo durante il conto alla rovescia lo annulla (`industries.script.tl:134-137`). Accettare un sussidio **Fornitura industriale** o **Trasporto di forza lavoro** per lei lo annulla pure (`subvention_util.tl:473-484`).
+
+| Frequenza di chiusura delle industrie | Probabilità all'anno da candidata | Metà delle candidate segnate dopo | Preimpostazione | Fonte |
+|---|---|---|---|---|
+| Mai | 0 | mai | Facile | `difficulty_util.tl:94` |
+| Raramente (predefinito) | 1,1 % | circa 63 anni | Normale | `difficulty_util.tl:121` |
+| Occasionalmente | 2,2 % | circa 32 anni | Difficile | `difficulty_util.tl:149` |
+| Frequentemente | 4,4 % | circa 16 anni | – | `difficulty_util.tl:37` |
+| Regolarmente | 8,8 % | circa 8 anni | Molto difficile | `difficulty_util.tl:176` |
+
+La probabilità è 0,011 all'anno × 0, 1, 2, 4 o 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Le industrie di tua proprietà non chiudono mai, né quelle a sviluppo manuale, né alcuna durante il tutorial (`industries.script.tl:94-102`).
+
+```engine
+Cosa conta come «caricato» e «consumato» (i registri itemsLoaded e itemsConsumed, ad es. se il carico booster conta), il flag manualDevelopment, e perché le industrie con un deposito sono escluse (`industries.script.tl:140-146`) dipendono dal motore. Così come cosa fa il motore di una regola booster che ha perso l'entrata (Ingresso disattivato).
+```
+
+## Nuove industrie
+
+- Il motore aggiunge industrie col tempo; gli script gli danno solo un tempo obiettivo di 50 anni, un esponente di 3 e nessuna nuova industria nell'editor di mappe (`mod.script.tl:166-168`). L'impostazione **Densità industrie obiettivo** la scala (`mod.script.tl:194-195`). La notifica è **Industria fondata** (`industry_spawn.res.lua:6`).
+- Il vantaggio aziendale **Prospezione risorse** cerca una nuova industria di quella risorsa vicino a una città: un tentativo al mese con probabilità dal 20 % al 60 %, per 6 mesi; se fallisce, il permesso torna (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+
+```engine
+Dove e quando compare una nuova industria, e di che tipo, lo decide il motore (makeIndustrySpawnProposal).
+```
+
+## Buono a sapersi
+
+- Spedisci da ogni industria primaria che vuoi far crescere: la produzione non spedita blocca l'espansione, qualunque siano i bonus.
+- Porta il carico booster alle miniere e fattorie più grandi: il lotto costa uguale, il bonus segue i lotti di terreno.
+- Le scorte non si deteriorano: puoi consegnare carico booster in anticipo, fino al limite della scorta (100).
+- I bonus aumentano rumore e inquinamento: una Miniera di carbone passa da 10 di inquinamento a 20 con un bonus e 30 con due (`coal_mine.con.lua:99-117`).
+- Con l'impostazione predefinita un'industria inutilizzata chiude di rado; con Regolarmente, carica qualcosa ogni tanto.
+
+```check
+official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
+scripts: 5 anni, non 10, e la produzione non conta: solo il carico caricato su un veicolo o consumato. Dopo i 5 anni l'industria è solo candidata: ogni anno viene segnata con probabilità dall'1,1 % (Raramente) all'8,8 % (Regolarmente). Il conto alla rovescia dura 730 giorni, come detto. Il carico booster dà da +50 % a +150 % per industria, in lotti che durano 3 mesi.
+result: differs
+```

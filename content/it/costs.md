@@ -38,7 +38,7 @@ L'impostazione **Inflazione** non aumenta nessun costo: abbassa solo le tue entr
 - Le **entrate** non hanno alcun fattore dell'anno (`cargo_income.script.lua:10-13`).
 
 ```engine
-La manutenzione addebitata davvero, e se anche strade, binari e veicoli seguono la tabella degli anni, lo decide il motore (getCostMultiplierForYear; la configurazione base fissa solo chargeMaintenanceInterval = 60, mod.script.tl:105). Gli script calcolano solo i valori mostrati nelle finestre e nel menu di costruzione, con la tabella qui sopra. Nessuno script attiva il contrassegno «segui l'anno» degli altri edifici.
+La manutenzione addebitata davvero, e se anche strade, binari e veicoli seguono la tabella degli anni, lo decide il motore (getCostMultiplierForYear; la configurazione base fissa solo chargeMaintenanceInterval = 60, `mod.script.tl:105`). Gli script calcolano solo i valori mostrati nelle finestre e nel menu di costruzione, con la tabella qui sopra. Nessuno script attiva il contrassegno «segui l'anno» degli altri edifici.
 ```
 
 ## Binari, strade ed edifici

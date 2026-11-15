@@ -38,7 +38,7 @@ Die Einstellung **Inflation** erhöht keine Kosten: Sie senkt nur deine Einnahme
 - **Einnahmen** haben gar keinen Jahresfaktor (`cargo_income.script.lua:10-13`).
 
 ```engine
-Der tatsächlich abgebuchte Unterhalt, und ob Straßen, Gleise und Fahrzeuge ebenfalls der Jahrestabelle folgen, entscheidet die Engine (getCostMultiplierForYear; die Grundkonfiguration setzt nur chargeMaintenanceInterval = 60, mod.script.tl:105). Die Skripte berechnen nur die Werte, die in den Fenstern und im Baumenü angezeigt werden, mit der Tabelle oben. Kein Skript setzt das Kennzeichen „dem Jahr folgen" der anderen Gebäude.
+Der tatsächlich abgebuchte Unterhalt, und ob Straßen, Gleise und Fahrzeuge ebenfalls der Jahrestabelle folgen, entscheidet die Engine (getCostMultiplierForYear; die Grundkonfiguration setzt nur chargeMaintenanceInterval = 60, `mod.script.tl:105`). Die Skripte berechnen nur die Werte, die in den Fenstern und im Baumenü angezeigt werden, mit der Tabelle oben. Kein Skript setzt das Kennzeichen „dem Jahr folgen" der anderen Gebäude.
 ```
 
 ## Gleise, Straßen und Gebäude

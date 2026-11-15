@@ -1,0 +1,131 @@
+---
+title: Industries
+summary: Production rules, stocks, plots and expansion, booster cargo, why an industry is not boosted, and when an unused industry really closes.
+domain: industries
+official: gamemanual:simulation:industriescargos
+status: verified
+updated: 2026-11-15
+fact: 5 years | without loading or consumption make an industry a closure candidate
+fact: 1.1 % | chance per year at Rarely (the default), then 730 days of countdown
+fact: +50–150 % | booster cargo boost, fixed per industry
+fact: 3 months | of boost per batch of booster cargo
+---
+
+Every industry works by **rules**: "take this from the input stocks, put that in the output stocks", a fixed number of times per year. Raw industries (mines, farms, wells) need no input; their size comes from **plots**. Two boosts can multiply the output: **booster cargo** (raw industries only) and **workers**.
+
+## Production rules
+
+- A rule gives the cargo used and made per run, and how many runs per year: one run lasts one year ÷ that number (`industry_react_util.tl:51-57`). The Production section of the industry window shows it as small numbers.
+- The **Max.** number of the window is: per run × runs per year × the boosts × the **Industry Productivity** setting (`industry_util.tl:310-379`).
+- **Industry Productivity**: 50 %, 75 %, 100 %, 150 % or 200 %. Presets: Easy 150 %, Normal 100 %, Hard 75 %, Very Hard 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- Example, Steel Mill: 6 iron ore + 6 coal → 3 steel + 4 sheet metal, 121.7 runs a year: 730 iron ore and 730 coal → 365 steel and 487 sheet metal (`steel_mill.con.lua:43-71`). Missing one input stops the rule.
+- The Canning Factory has two rules: fish + sheet metal, or meat + sheet metal (`food_factory.con.lua:43-74`).
+
+```engine
+The engine runs the rules. It can make a run last longer: the run tooltip then shows "(+ … Due to Delivery Time)" (`industry_react_util.tl:61-76`). When and by how much is not in the scripts, so the real production can stay below Max.
+```
+
+## Stocks
+
+- Each cargo has its own stock with a limit: e.g. a Coal Mine keeps 100 tools and 400 coal, a Steel Mill 800 iron ore, 800 coal, 400 steel and 500 sheet metal (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
+- Stocks never decay (`industryutil.lua:25-29`): cargo waits as long as needed.
+- A full output stock does not stop production: the extra cargo is thrown away (official wiki). The **Cargo Flow** chart shows **Consumed**, **Produced** and **Destroyed** (`industry_eow.script.tl:804-816`).
+- With the construction parameter **Input** set to Off, the rules lose their inputs and the industry has no input stocks (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
+
+## Plots and expansion
+
+- Raw industries and the Livestock Farm have **plots** (fields, mine shafts, rigs). Their level is their number of plots (`industryutil.lua:602-617`).
+- The rule grows with the plots: output per run × plots ÷ **all plots of that industry type**, rounded, at least 1. Inputs are cut in the same proportion (`industryutil.lua:225-259`). A Coal Mine (8 plot types) with 4 plots makes 8 coal per run instead of 16.
+- Each industry gets a maximum: random between half of the plots and all of them, or Small / Medium / Large (50 / 75 / 100 %) with the **Industry Size** parameter (`industryutil.lua:519-537`). A mine whose maximum is 5 of 8 never reaches the full rule.
+- Every half year the game may add **one plot** (`industries_config.res.lua:5`, `industries.script.tl:158-183`). The chance is (rating − 25 %) ÷ 50 %, where rating = production rating × the share of the output you ship (at most 1): 25 % or less never, 75 % or more always (`industries.script.tl:172-176`).
+- So an industry whose cargo you do not ship **never grows**. Factories have no plots and never grow.
+- At the maximum the window says **Industry is expanded to its full potential.**; when buildings, tracks or roads are in the way, **Industry is blocked from further expansion.** (`industry_react_util.tl:588-602`, `industries.script.tl:13-38`). No script removes plots; the official wiki says bulldozed plots lower the production.
+
+```engine
+The production rating (getProductionRating), the yearly output and the shipped amount (getCargoOutputPerYear, getCargoShippedPerYear), and where a new plot goes (makeIndustryExtendProposal) are engine values.
+```
+
+## Booster cargo
+
+The 13 raw industries have a second rule, the **booster**: it takes a batch of booster cargo from the input stock 4 times a year and gives a bonus while it runs.
+
+| Industry | Plots | At full size, per year | Booster batch (4 a year) | Source |
+|---|---|---|---|---|
+| Clay Pit | 8 | 365 clay | 12 tools | `clay_pit.con.lua:42-82` |
+| Coal Mine | 8 | 320 coal | 13 tools | `coal_mine.con.lua:44-85` |
+| Cotton Farm | 21 | 274 wool | 17 fertilizer | `cotton_farm.con.lua:42-98` |
+| Crop Farm | 20 | 274 grain + 183 vegetables | 17 fertilizer | `farm.con.lua:44-106` |
+| Fishing Grounds | 18 | 263 fish | 12 tools | `fishing_grounds.con.lua:44-101` |
+| Logging Camp | 20 | 243 logs | 15 machines | `forest.con.lua:44-99` |
+| Iron Ore Mine | 8 | 365 iron ore | 15 machines | `iron_ore_mine.con.lua:44-84` |
+| Oil Platform | 9 | 365 crude oil | 12 machines | `oil_platform.con.lua:45-96` |
+| Oil Well | 14 | 548 crude oil | 15 machines | `oil_well.con.lua:44-94` |
+| Quarry | 7 | 365 stone | 12 tools | `quarry.con.lua:44-83` |
+| Rubber Farm | 23 | 365 rubber | 17 fertilizer | `rubber_farm.con.lua:41-102` |
+| Sand Dredger | 9 | 365 sand | 15 machines | `sand_excavator.con.lua:44-92` |
+| Sand Pit | 8 | 365 sand | 12 tools | `sand_pit.con.lua:44-84` |
+
+- The bonus is drawn once per industry: **+50 % to +150 %**, rounded to 1 % (`industryutil.lua:394-405`). The Booster section shows it as "+X %" (`industry_util.tl:428-434`). With the **Boost Factor** parameter it is +50 %, +75 %, +100 %, +125 % or +150 % instead (`industryutil.lua:289-299`).
+- The window shows the booster as active while its last batch lasts (3 months), or as soon as the stock holds a full batch (`industry_util.tl:55-91`).
+- The batch does **not** shrink with the plots: a small mine needs as many tools as a big one (`industryutil.lua:227-229`).
+- Both boosts multiply: production × workers factor × (1 + booster bonus) (`industry_util.tl:42-104`).
+
+## The workers boost
+
+Half of the workplaces (10 of 20) must be filled by residents who **arrived by your passenger lines** in the last 2 years; the factor is ×1.5 to ×2.5, fixed per industry (`industry_productivity_util.tl:35-72`). Assigned workers alone do not count. Details: [Workers and the workers boost](workers.html).
+
+## Why is my industry not boosted?
+
+1. **Not a raw industry**: factories have no booster rule, only the workers boost (`steel_mill.con.lua:61-70`).
+2. **Batch not complete**: the stock must hold a full batch, e.g. 13 tools for a Coal Mine. Below 4 batches a year (52 tools) the boost stops between deliveries.
+3. **Wrong cargo**: tools, machines or fertilizer depending on the industry (table above).
+4. **Workers**: assigned is not enough; the Booster section counts arrivals ("12/10") (`industry_react_util.tl:617-654`). See [Workers and the workers boost](workers.html).
+
+## When does an unused industry close?
+
+```diagram ind_closure
+```
+
+The check runs every 100 updates for each industry (`industries.script.tl:84-85`):
+
+1. **Candidate**: no cargo **loaded** onto a vehicle and none **consumed** for **5 years** (counted from its construction if never) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Producing alone does not count.
+2. **Chance**: each year a candidate is marked with the chance of the **Industry Closing Frequency** setting (table below) (`industries.script.tl:120-131`).
+3. **Countdown**: the notification **Industry Closing** appears, with 2 years (730 days) to go (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Then the industry is removed with its own road pieces (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
+4. **Saved**: one load or consumption during the countdown cancels it (`industries.script.tl:134-137`). Accepting a **Supply Industry** or **Transport Workers** subsidy for it cancels it too (`subvention_util.tl:473-484`).
+
+| Industry Closing Frequency | Chance per year as a candidate | Half of the candidates marked after | Preset | Source |
+|---|---|---|---|---|
+| Never | 0 | never | Easy | `difficulty_util.tl:94` |
+| Rarely (default) | 1.1 % | about 63 years | Normal | `difficulty_util.tl:121` |
+| Sometimes | 2.2 % | about 32 years | Hard | `difficulty_util.tl:149` |
+| Often | 4.4 % | about 16 years | – | `difficulty_util.tl:37` |
+| Very Often | 8.8 % | about 8 years | Very Hard | `difficulty_util.tl:176` |
+
+The chance is 0.011 a year × 0, 1, 2, 4 or 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Industries you own never close, and neither do industries with manual development, nor any industry during the tutorial (`industries.script.tl:94-102`).
+
+```engine
+What counts as "loaded" and "consumed" (the logs itemsLoaded and itemsConsumed, e.g. whether booster cargo counts), the manualDevelopment flag, and why industries with a depot are left out (`industries.script.tl:140-146`) are engine-side. So is what the engine does with a booster rule that lost its input (Input Off).
+```
+
+## New industries
+
+- The engine adds industries over time; the scripts only give it a target time of 50 years, an exponent of 3, and no new industries in the map editor (`mod.script.tl:166-168`). The **Industry Target Density** setting scales it (`mod.script.tl:194-195`). The notification is **Industry Founded** (`industry_spawn.res.lua:6`).
+- The company perk **Prospect for Resources** looks for a new industry of that resource near a town: one try per month with a chance from 20 % to 60 %, for 6 months; if it fails, the permit comes back (`company_util.tl:14-17`, `company.script.tl:96-142`, `company.script.tl:299-307`).
+
+```engine
+Where and when a new industry appears, and which type, is decided by the engine (makeIndustrySpawnProposal).
+```
+
+## Good to know
+
+- Ship from every raw industry you want to grow: unshipped output blocks expansion, whatever the boosts.
+- Put booster cargo on the biggest mines and farms: the batch costs the same, the bonus scales with the plots.
+- Stocks do not decay: you can deliver booster cargo in advance, up to the stock limit (100).
+- Boosts raise noise and pollution: a Coal Mine goes from 10 pollution to 20 with one boost and 30 with two (`coal_mine.con.lua:99-117`).
+- At the default setting an unused industry rarely closes; at Very Often, keep loading something now and then.
+
+```check
+official: "No goods have been consumed/produced in the last 10 years. No goods have been shipped from this industry in the last 10 years. [...] For abandoned industries there is a countdown of 730 days before the industry is effectively closed." ([Industries and Cargo](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:industriescargos))
+scripts: 5 years, not 10, and production does not count: only cargo loaded onto a vehicle or consumed. After the 5 years the industry is only a candidate: each year it is marked with a chance of 1.1 % (Rarely) to 8.8 % (Very Often). The countdown is 730 days, as stated. Booster cargo gives +50 % to +150 % per industry, in batches that last 3 months.
+result: differs
+```
