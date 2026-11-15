@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>汙染與噪音 · TF3 機制</title>
+<meta name="description" content="Transport Fever 3 到底如何運作，直接取自遊戲本身的腳本。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/emission.html"><link rel="alternate" hreflang="fr" href="../fr/emission.html"><link rel="alternate" hreflang="de" href="../de/emission.html"><link rel="alternate" hreflang="es" href="../es/emission.html"><link rel="alternate" hreflang="it" href="../it/emission.html"><link rel="alternate" hreflang="nl" href="../nl/emission.html"><link rel="alternate" hreflang="pl" href="../pl/emission.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/emission.html"><link rel="alternate" hreflang="ru" href="../ru/emission.html"><link rel="alternate" hreflang="ja" href="../ja/emission.html"><link rel="alternate" hreflang="ko" href="../ko/emission.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/emission.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/emission.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目錄</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="顯示或隱藏腳本引用"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>來源</span></button>
+<details class="langs"><summary aria-label="語言"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>繁體中文</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="語言"><a href="../en/emission.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/emission.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/emission.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/emission.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/emission.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/emission.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/emission.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/emission.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/emission.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/emission.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/emission.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/emission.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/emission.html" class="on" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目錄</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg>汙染與噪音</span></div><h1 class="rise d1">汙染與噪音</h1><p class="lead rise d2">什麼會產生噪音和汙染，建築何時排放更多，城鎮如何評價它，以及產業綠化和淨化廠實際做什麼。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>已在腳本中核實</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns#town_authority_rating"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新於 2026-11-16</span></div><div class=facts><div class="fact rise d1"><b>65–80 dB</b><span>城鎮噪音：65 時滿分，80 時為零</span></div><div class="fact rise d2"><b>60–74 dB</b><span>城鎮汙染：60 時滿分，74 時為零</span></div><div class="fact rise d3"><b>−80 %</b><span>綠化後產業的噪音和汙染</span></div><div class="fact rise d4"><b>700 m</b><span>淨化廠的作用範圍</span></div></div></div></section><div class="wrap layout"><article><p>車輛、軌道、道路、車站、車庫、貨物倉庫和產業都會產生<strong>噪音</strong>和<strong>汙染</strong>。城鎮的兩項評價<strong>噪音</strong>和<strong>汙染</strong>，把到達城鎮的量與固定界限比較。評價差會降低城鎮管理機關評價，進而降低成長（見 <a href="towns.html">城鎮</a>）。</p>
+<h2 id="建築何時排放更多"><span class="n">1</span><span>建築何時排放更多</span></h2>
+<p>一個遊戲腳本每隔幾次更新，在安靜水準與繁忙水準之間設定四類建築的排放<span class="sr">（<code class="src">emissions.script.tl:12-18</code>）</span>：</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>建築</th>
+<th>何時排放更多</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>產業</strong></td>
+<td>生產時，每次加成（貨物或工人）再增加；輸出庫存滿時減半</td>
+<td class="sc"><code class="src">emissions.script.tl:152-194</code></td>
+</tr>
+<tr>
+<td><strong>車站</strong></td>
+<td>越繁忙越多：等待的人和貨物與容量相比</td>
+<td class="sc"><code class="src">emissions.script.tl:211-222</code></td>
+</tr>
+<tr>
+<td><strong>車庫</strong>、<strong>維修站</strong></td>
+<td>使用其維修的車輛越多越多</td>
+<td class="sc"><code class="src">emissions.script.tl:223-234</code></td>
+</tr>
+<tr>
+<td><strong>貨物倉庫</strong></td>
+<td>庫存越滿越多</td>
+<td class="sc"><code class="src">emissions.script.tl:237-250</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>閒置的產業預設不排放；生產、加成一次、加成兩次逐級上升<span class="sr">（<code class="src">industryutil.lua:470-475</code>）</span>。例如煤礦的汙染從 10 升到 20 和 30（見 <a href="industries.html">產業</a>）。</li>
+<li>輸出沒人運走的產業會回落到閒置水準：為它提供運輸會提高它的汙染。</li>
+<li>車輛和軌道也會排放；在<strong>車輛維修效果</strong>設定下，狀況差的車輛排放更多（見 <a href="costs.html">成本、維護費與貸款</a>）。</li>
+</ul>
+<h2 id="建造選單顯示什麼"><span class="n">2</span><span>建造選單顯示什麼</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>建築</th>
+<th>噪音</th>
+<th>汙染</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>港口</td>
+<td>180–280</td>
+<td>180–280</td>
+<td class="sc"><code class="src">harbor_modular.tl:86-87</code></td>
+</tr>
+<tr>
+<td>機場</td>
+<td>8–56</td>
+<td>80–560</td>
+<td class="sc"><code class="src">airport.tl:28-29</code></td>
+</tr>
+<tr>
+<td>火車站</td>
+<td>25</td>
+<td>45–350</td>
+<td class="sc"><code class="src">modular_station.con.lua:97-98</code></td>
+</tr>
+<tr>
+<td>鐵路車庫</td>
+<td>50</td>
+<td>100</td>
+<td class="sc"><code class="src">rail_depot.con.lua:32-33</code></td>
+</tr>
+<tr>
+<td>道路與電車車庫</td>
+<td>40</td>
+<td>80</td>
+<td class="sc"><code class="src">road_depot.con.lua:30-31</code>，<code class="src">tram_depot.con.lua:32-33</code></td>
+</tr>
+<tr>
+<td>地下車站</td>
+<td>40</td>
+<td>80</td>
+<td class="sc"><code class="src">underground_station.con.lua:75-76</code></td>
+</tr>
+<tr>
+<td>卡車與公車站</td>
+<td>1–10</td>
+<td>12–76</td>
+<td class="sc"><code class="src">modular_terminal.con.lua:67-68</code></td>
+</tr>
+<tr>
+<td>維修站</td>
+<td>20</td>
+<td>40–50</td>
+<td class="sc"><code class="src">road_maint_station.con.lua:30-31</code>，<code class="src">rail_maint_station.con.lua:30-31</code></td>
+</tr>
+<tr>
+<td>貨物倉庫</td>
+<td>20</td>
+<td>25 或 50</td>
+<td class="sc"><code class="src">warehouses/warehouse.tl:73-74</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>兩個數值是安靜水準和繁忙水準。讓港口、機場和大型貨運站遠離住宅。</p>
+<h2 id="城鎮如何評價"><span class="n">3</span><span>城鎮如何評價</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>評價</th>
+<th>測量</th>
+<th>滿分</th>
+<th>零</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>噪音</strong></td>
+<td>城鎮建築處的噪音</td>
+<td>65 dB 或以下</td>
+<td>80 dB</td>
+<td class="sc"><code class="src">town_util.tl:433-443</code>，<code class="src">emission_config.tl:10-11</code></td>
+</tr>
+<tr>
+<td><strong>汙染</strong></td>
+<td>整個城鎮面積的平均值，按 5 到 10 km² 計</td>
+<td>60 dB 或以下</td>
+<td>74 dB</td>
+<td class="sc"><code class="src">town_util.tl:413-431</code>，<code class="src">emission_config.tl:23-30</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>只有<strong>住宅</strong>區受噪音影響；商業和工業建築不受影響（官方 wiki）。住宅的視窗顯示其位置的噪音<span class="sr">（<code class="src">town_building.tl:165-183</code>）</span>。</li>
+<li>汙染按整個面積平均，所以遠離中心的一個汙染源，在大城鎮中比在小城鎮中分量更輕。</li>
+<li><strong>噪音靈敏度</strong>和<strong>汙染靈敏度</strong>設定會移動界限：兩倍的靈敏度相當於 +3 dB<span class="sr">（<code class="src">town_util.tl:426-428</code>，<code class="src">town_util.tl:439-441</code>）</span>。</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>檔位</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>噪音</td>
+<td>關閉（始終滿分）</td>
+<td>×¼</td>
+<td>×½</td>
+<td>×1</td>
+<td>×1.4</td>
+<td>×1.8</td>
+<td>×3.5</td>
+<td class="sc"><code class="src">difficulty_util.tl:48</code></td>
+</tr>
+<tr>
+<td>汙染</td>
+<td>關閉（始終滿分）</td>
+<td>×¼</td>
+<td>×½</td>
+<td>×1</td>
+<td>×1.7</td>
+<td>×3</td>
+<td>×5</td>
+<td class="sc"><code class="src">difficulty_util.tl:49</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>預設簡單、中等、困難和非常困難使用檔位 3、4、5 和 6<span class="sr">（<code class="src">difficulty_util.tl:114-115</code>，<code class="src">difficulty_util.tl:142-143</code>，<code class="src">difficulty_util.tl:169-170</code>，<code class="src">difficulty_util.tl:196-197</code>）</span>。</p>
+<h2 id="產業綠化"><span class="n">4</span><span>產業綠化</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>效果</td>
+<td>產業的噪音和汙染 ×0.2（−80 %），永久</td>
+<td class="sc"><code class="src">emission_config.tl:32</code>，<code class="src">emissions.script.tl:184-192</code></td>
+</tr>
+<tr>
+<td>次數</td>
+<td>公司等級 3、6、9、12 和 15 各一次</td>
+<td class="sc"><code class="src">industry_greenify_tool.script.tl:99-104</code></td>
+</tr>
+<tr>
+<td>限制</td>
+<td>每個產業一次；第二次嘗試不消耗許可</td>
+<td class="sc"><code class="src">company.script.tl:489-494</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>效果綁定在該版本的產業上：產業被重建時效果消失<span class="sr">（<code class="src">emissions.script.tl:187-190</code>）</span>。</li>
+<li>最佳用法：緊鄰城鎮的最繁忙產業，因為加成後的產業排放最多。</li>
+</ul>
+<h2 id="淨化廠"><span class="n">5</span><span>淨化廠</span></h2>
+<p>一項公司特權，可清除周圍的汙染。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>價格</td>
+<td>1 億</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.script.lua:560</code></td>
+</tr>
+<tr>
+<td>每年維護費</td>
+<td>1000 萬</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.script.lua:561</code></td>
+</tr>
+<tr>
+<td>可用</td>
+<td>公司等級 10 時 15 個</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:106-108</code></td>
+</tr>
+<tr>
+<td>需要</td>
+<td><strong>機械</strong>：每週期 8 個，每年兩個週期；20 名工人</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:43-60</code></td>
+</tr>
+<tr>
+<td>範圍</td>
+<td>700 m</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:72-99</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>汙染</th>
+<th>噪音</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>閒置（無機械）</td>
+<td>−50</td>
+<td>20</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:74-79</code></td>
+</tr>
+<tr>
+<td>運作中</td>
+<td>−10,000</td>
+<td>80</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:80-85</code></td>
+</tr>
+<tr>
+<td>加成一次</td>
+<td>−20,000</td>
+<td>160</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:86-91</code></td>
+</tr>
+<tr>
+<td>加成兩次</td>
+<td>−40,000</td>
+<td>200</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:92-97</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>沒有機械時它幾乎沒用：必須像產業一樣供應。</li>
+<li>它很吵：蓋在住宅區以外，距離汙染區 700 m 以內。</li>
+<li>它的工人加成係數為 ×2<span class="sr">（<code class="src">pollution_cleanup_facility.script.lua:549</code>）</span>。見 <a href="workers.html">工人</a>。</li>
+</ul>
+<h2 id="小提示"><span class="n">6</span><span>小提示</span></h2>
+<ul>
+<li>打開城鎮視窗或噪音與汙染圖層，可以看到評價和熱點。</li>
+<li>輸出庫存滿會讓產業排放減半，但你會失去它的貨物：與其餓著產業，不如讓城鎮搬開。</li>
+<li><a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> 和 <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> 可以幫你找到最繁忙的車站。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>引擎計算噪音和汙染地圖、數值如何擴散、車輛和軌道的排放，以及產業何時重建。腳本只設定每座建築的水準和城鎮的界限。</p></div></aside>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>官方 wiki 與遊戲腳本對照</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>補充細節</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki 的說法</div><p>"Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." 住宅區 "is sensitive to noise"；商業區 "is robust against the influence of noise"。(<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns">Towns</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>遊戲腳本顯示</div><p>噪音評價 65 → 80 dB，汙染 60 → 74 dB，按 5–10 km² 平均；靈敏度增加 10·log10 dB；產業、車站、車庫和貨物倉庫繁忙時排放更多；輸出庫存滿時產業排放減半；綠化每個產業一次 −80 %；淨化廠在 700 m 內最多清除 40,000 汙染，並需要機械。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>路徑位於遊戲的 base/content 資料夾或其 zip 檔案內。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>本頁內容</h5><ol><li><a href="#建築何時排放更多">建築何時排放更多</a></li><li><a href="#建造選單顯示什麼">建造選單顯示什麼</a></li><li><a href="#城鎮如何評價">城鎮如何評價</a></li><li><a href="#產業綠化">產業綠化</a></li><li><a href="#淨化廠">淨化廠</a></li><li><a href="#小提示">小提示</a></li></ol><div class="box"><b>21</b><span>處原始碼引用</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">顯示來源</span><span class="h">隱藏來源</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns#town_authority_rating"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>其他機制</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>成本、維護費與貸款</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨運收益與配送時間</b><small>貨物與收益</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>產業</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>裝載與卸貨速度</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮聲望</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>補助：提案、期限與獎勵</b><small>補助</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>遊戲時間與月曆</b><small>遊戲時間與月曆</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮成長：經驗值、評價與規模</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>貨物倉庫</b><small>貨物倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>工人與工人加速效果</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro 製作的玩家專案。與 Urban Games 無關。</span><span>文字與圖片：CC BY 4.0 · 遊戲程式碼 © Urban Games：僅展示簡短引用。</span><span class="tr">譯自英文；歡迎指正 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>

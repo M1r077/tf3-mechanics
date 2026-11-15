@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Poluição e barulho · Mecânicas do TF3</title>
+<meta name="description" content="Como Transport Fever 3 funciona de verdade, lido nos próprios scripts do jogo.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/emission.html"><link rel="alternate" hreflang="fr" href="../fr/emission.html"><link rel="alternate" hreflang="de" href="../de/emission.html"><link rel="alternate" hreflang="es" href="../es/emission.html"><link rel="alternate" hreflang="it" href="../it/emission.html"><link rel="alternate" hreflang="nl" href="../nl/emission.html"><link rel="alternate" hreflang="pl" href="../pl/emission.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/emission.html"><link rel="alternate" hreflang="ru" href="../ru/emission.html"><link rel="alternate" hreflang="ja" href="../ja/emission.html"><link rel="alternate" hreflang="ko" href="../ko/emission.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/emission.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/emission.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Índice</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></nav>
+<button class="srcbtn" type="button" data-src title="Mostrar ou ocultar as referências aos scripts"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Fontes</span></button>
+<details class="langs"><summary aria-label="Idioma"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Português (Brasil)</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Idioma"><a href="../en/emission.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/emission.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/emission.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/emission.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/emission.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/emission.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/emission.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/emission.html" class="on" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/emission.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/emission.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/emission.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/emission.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/emission.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Índice</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg>Poluição e barulho</span></div><h1 class="rise d1">Poluição e barulho</h1><p class="lead rise d2">O que emite barulho e poluição, quando um edifício emite mais, como as cidades avaliam isso e o que a Ecologização industrial e a Estação de Limpeza fazem de verdade.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verificado nos scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns#town_authority_rating"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Atualizado 2026-11-16</span></div><div class=facts><div class="fact rise d1"><b>65–80 dB</b><span>barulho na cidade: avaliação máxima em 65, zero em 80</span></div><div class="fact rise d2"><b>60–74 dB</b><span>poluição na cidade: avaliação máxima em 60, zero em 74</span></div><div class="fact rise d3"><b>−80 %</b><span>barulho e poluição de uma indústria ecologizada</span></div><div class="fact rise d4"><b>700 m</b><span>alcance da Estação de Limpeza</span></div></div></div></section><div class="wrap layout"><article><p>Veículos, trilhos, ruas, estações, garagens, armazéns e indústrias emitem <strong>barulho</strong> e <strong>poluição</strong>. Duas avaliações da cidade, <strong>Barulho</strong> e <strong>Poluição</strong>, comparam o que chega à cidade com limites fixos. Uma avaliação ruim reduz a avaliação da <strong>Autoridade do Município</strong> e, assim, o crescimento (veja <a href="towns.html">Cidades</a>).</p>
+<h2 id="quando-um-edifício-emite-mais"><span class="n">1</span><span>Quando um edifício emite mais</span></h2>
+<p>Um script do jogo define a emissão de quatro tipos de edifício a cada poucas atualizações, entre um nível calmo e um movimentado<span class="sr"> (<code class="src">emissions.script.tl:12-18</code>)</span>:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Edifício</th>
+<th>Emite mais quando</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Indústria</strong></td>
+<td>produz, e de novo a cada impulso (carga ou trabalhadores); metade quando seu estoque de saída está cheio</td>
+<td class="sc"><code class="src">emissions.script.tl:152-194</code></td>
+</tr>
+<tr>
+<td><strong>Estação</strong></td>
+<td>está mais movimentada: pessoas e carga esperando em relação à capacidade</td>
+<td class="sc"><code class="src">emissions.script.tl:211-222</code></td>
+</tr>
+<tr>
+<td><strong>Garagem</strong>, <strong>estação de manutenção</strong></td>
+<td>mais veículos usam sua manutenção</td>
+<td class="sc"><code class="src">emissions.script.tl:223-234</code></td>
+</tr>
+<tr>
+<td><strong>Armazém</strong></td>
+<td>seus estoques estão mais cheios</td>
+<td class="sc"><code class="src">emissions.script.tl:237-250</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Uma indústria parada não emite nada por padrão; produzindo, com um impulso e com dois impulsos sobem passo a passo<span class="sr"> (<code class="src">industryutil.lua:470-475</code>)</span>. Uma mina de carvão, por exemplo, vai de 10 de poluição para 20 e 30 (veja <a href="industries.html">Indústrias</a>).</li>
+<li>Uma indústria cuja produção não é recolhida volta ao nível parado: atendê-la aumenta sua poluição.</li>
+<li>Veículos e trilhos também emitem; um veículo em mau estado emite mais com a configuração <strong>Efeito da Manutenção do Veículo</strong> (veja <a href="costs.html">Custos, manutenção e empréstimos</a>).</li>
+</ul>
+<h2 id="o-que-o-menu-de-construção-mostra"><span class="n">2</span><span>O que o menu de construção mostra</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Edifício</th>
+<th>Barulho</th>
+<th>Poluição</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Porto</td>
+<td>180–280</td>
+<td>180–280</td>
+<td class="sc"><code class="src">harbor_modular.tl:86-87</code></td>
+</tr>
+<tr>
+<td>Aeroporto</td>
+<td>8–56</td>
+<td>80–560</td>
+<td class="sc"><code class="src">airport.tl:28-29</code></td>
+</tr>
+<tr>
+<td>Estação de trem</td>
+<td>25</td>
+<td>45–350</td>
+<td class="sc"><code class="src">modular_station.con.lua:97-98</code></td>
+</tr>
+<tr>
+<td>Garagem ferroviária</td>
+<td>50</td>
+<td>100</td>
+<td class="sc"><code class="src">rail_depot.con.lua:32-33</code></td>
+</tr>
+<tr>
+<td>Garagem rodoviária e de bonde</td>
+<td>40</td>
+<td>80</td>
+<td class="sc"><code class="src">road_depot.con.lua:30-31</code>, <code class="src">tram_depot.con.lua:32-33</code></td>
+</tr>
+<tr>
+<td>Estação de metrô</td>
+<td>40</td>
+<td>80</td>
+<td class="sc"><code class="src">underground_station.con.lua:75-76</code></td>
+</tr>
+<tr>
+<td>Estação de caminhões e ônibus</td>
+<td>1–10</td>
+<td>12–76</td>
+<td class="sc"><code class="src">modular_terminal.con.lua:67-68</code></td>
+</tr>
+<tr>
+<td>Estações de manutenção</td>
+<td>20</td>
+<td>40–50</td>
+<td class="sc"><code class="src">road_maint_station.con.lua:30-31</code>, <code class="src">rail_maint_station.con.lua:30-31</code></td>
+</tr>
+<tr>
+<td>Armazém</td>
+<td>20</td>
+<td>25 ou 50</td>
+<td class="sc"><code class="src">warehouses/warehouse.tl:73-74</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Dois valores são o nível calmo e o movimentado. Mantenha portos, aeroportos e grandes estações de carga longe das casas.</p>
+<h2 id="como-uma-cidade-avalia"><span class="n">3</span><span>Como uma cidade avalia</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Avaliação</th>
+<th>Medido</th>
+<th>Avaliação máxima</th>
+<th>Zero</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Barulho</strong></td>
+<td>barulho nos edifícios da cidade</td>
+<td>65 dB ou menos</td>
+<td>80 dB</td>
+<td class="sc"><code class="src">town_util.tl:433-443</code>, <code class="src">emission_config.tl:10-11</code></td>
+</tr>
+<tr>
+<td><strong>Poluição</strong></td>
+<td>média sobre a área da cidade, contada como 5 a 10 km²</td>
+<td>60 dB ou menos</td>
+<td>74 dB</td>
+<td class="sc"><code class="src">town_util.tl:413-431</code>, <code class="src">emission_config.tl:23-30</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Só o distrito <strong>residencial</strong> sofre com o barulho; edifícios comerciais e industriais não (wiki oficial). A janela de uma casa mostra o barulho na sua posição<span class="sr"> (<code class="src">town_building.tl:165-183</code>)</span>.</li>
+<li>A poluição é tirada como média de toda a área, então uma fonte longe do centro pesa menos numa cidade grande do que numa pequena.</li>
+<li>As configurações <strong>Sensibilidade de Barulho</strong> e <strong>Sensibilidade de Poluição</strong> deslocam os limites: o dobro da sensibilidade conta como +3 dB<span class="sr"> (<code class="src">town_util.tl:426-428</code>, <code class="src">town_util.tl:439-441</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Barulho</td>
+<td>Desligado (sempre máxima)</td>
+<td>×¼</td>
+<td>×½</td>
+<td>×1</td>
+<td>×1,4</td>
+<td>×1,8</td>
+<td>×3,5</td>
+<td class="sc"><code class="src">difficulty_util.tl:48</code></td>
+</tr>
+<tr>
+<td>Poluição</td>
+<td>Desligado (sempre máxima)</td>
+<td>×¼</td>
+<td>×½</td>
+<td>×1</td>
+<td>×1,7</td>
+<td>×3</td>
+<td>×5</td>
+<td class="sc"><code class="src">difficulty_util.tl:49</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>As predefinições Fácil, Médio, Difícil e Muito difícil usam os níveis 3, 4, 5 e 6<span class="sr"> (<code class="src">difficulty_util.tl:114-115</code>, <code class="src">difficulty_util.tl:142-143</code>, <code class="src">difficulty_util.tl:169-170</code>, <code class="src">difficulty_util.tl:196-197</code>)</span>.</p>
+<h2 id="ecologização-industrial"><span class="n">4</span><span>Ecologização industrial</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Efeito</td>
+<td>barulho e poluição da indústria ×0,2 (−80 %), para sempre</td>
+<td class="sc"><code class="src">emission_config.tl:32</code>, <code class="src">emissions.script.tl:184-192</code></td>
+</tr>
+<tr>
+<td>Usos</td>
+<td>um na classificação da empresa 3, 6, 9, 12 e 15</td>
+<td class="sc"><code class="src">industry_greenify_tool.script.tl:99-104</code></td>
+</tr>
+<tr>
+<td>Limite</td>
+<td>uma vez por indústria; uma segunda tentativa não gasta licença</td>
+<td class="sc"><code class="src">company.script.tl:489-494</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>O efeito está ligado àquela versão da indústria: quando a indústria é reconstruída, ele se perde<span class="sr"> (<code class="src">emissions.script.tl:187-190</code>)</span>.</li>
+<li>Melhor uso: a indústria mais movimentada bem ao lado de uma cidade, já que uma indústria impulsionada emite mais.</li>
+</ul>
+<h2 id="a-estação-de-limpeza"><span class="n">5</span><span>A Estação de Limpeza</span></h2>
+<p>Uma vantagem da empresa que remove a poluição ao seu redor.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preço</td>
+<td>100.000.000</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.script.lua:560</code></td>
+</tr>
+<tr>
+<td>Manutenção por ano</td>
+<td>10.000.000</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.script.lua:561</code></td>
+</tr>
+<tr>
+<td>Disponível</td>
+<td>15 na classificação da empresa 10</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:106-108</code></td>
+</tr>
+<tr>
+<td>Precisa de</td>
+<td><strong>Máquinas</strong>: 8 por ciclo, dois ciclos por ano; 20 trabalhadores</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:43-60</code></td>
+</tr>
+<tr>
+<td>Alcance</td>
+<td>700 m</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:72-99</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Poluição</th>
+<th>Barulho</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parada (sem máquinas)</td>
+<td>−50</td>
+<td>20</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:74-79</code></td>
+</tr>
+<tr>
+<td>funcionando</td>
+<td>−10.000</td>
+<td>80</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:80-85</code></td>
+</tr>
+<tr>
+<td>impulsionada uma vez</td>
+<td>−20.000</td>
+<td>160</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:86-91</code></td>
+</tr>
+<tr>
+<td>impulsionada duas vezes</td>
+<td>−40.000</td>
+<td>200</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:92-97</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Sem máquinas ela quase não faz nada: precisa ser abastecida como uma indústria.</li>
+<li>Ela é barulhenta: construa-a fora do distrito residencial, a até 700 m da área poluída.</li>
+<li>Seu fator de impulso por trabalhadores é ×2<span class="sr"> (<code class="src">pollution_cleanup_facility.script.lua:549</code>)</span>. Veja <a href="workers.html">Trabalhadores</a>.</li>
+</ul>
+<h2 id="bom-saber"><span class="n">6</span><span>Bom saber</span></h2>
+<ul>
+<li>Abra a janela da cidade ou as camadas de barulho e poluição para ver a avaliação e os pontos críticos.</li>
+<li>Um estoque de saída cheio reduz pela metade a emissão de uma indústria, mas custa a sua carga: é melhor mover a cidade do que deixar a indústria sem atendimento.</li>
+<li><a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> e <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> ajudam a encontrar as estações mais movimentadas.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>O motor calcula os mapas de barulho e poluição, como os valores se espalham, as emissões de veículos e trilhos e quando uma indústria é reconstruída. O script só define o nível de cada edifício e os limites da cidade.</p></div></aside>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Wiki oficial e scripts do jogo</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Detalha</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>A wiki oficial diz</div><p>"Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." O distrito residencial "is sensitive to noise"; o distrito comercial "is robust against the influence of noise". (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns">Towns</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os scripts do jogo mostram</div><p>Avaliação de barulho 65 → 80 dB, poluição 60 → 74 dB em média sobre 5–10 km²; a sensibilidade soma 10·log10 dB; indústrias, estações, garagens e armazéns emitem mais quando movimentados; um estoque de saída cheio reduz pela metade a emissão de uma indústria; ecologização −80 %, uma vez por indústria; a Estação de Limpeza remove até 40.000 de poluição num raio de 700 m e precisa de máquinas.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os caminhos ficam dentro da pasta base/content do jogo ou dos seus arquivos zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Nesta página</h5><ol><li><a href="#quando-um-edifício-emite-mais">Quando um edifício emite mais</a></li><li><a href="#o-que-o-menu-de-construção-mostra">O que o menu de construção mostra</a></li><li><a href="#como-uma-cidade-avalia">Como uma cidade avalia</a></li><li><a href="#ecologização-industrial">Ecologização industrial</a></li><li><a href="#a-estação-de-limpeza">A Estação de Limpeza</a></li><li><a href="#bom-saber">Bom saber</a></li></ol><div class="box"><b>21</b><span>referências às fontes</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Mostrar as fontes</span><span class="h">Ocultar as fontes</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns#town_authority_rating"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Outras mecânicas</h2><div class="mgrid"><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Custos, manutenção e empréstimos</b><small>Finanças e empréstimos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Renda por carga e tempo de entrega</b><small>Carga e renda</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Indústrias</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Velocidade de carga e descarga</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputação dos municípios</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsídios: ofertas, prazos e recompensas</b><small>Subsídios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Tempo de jogo e calendário</b><small>Tempo de jogo e calendário</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Crescimento dos municípios: XP, classificações e tamanho</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Armazéns</b><small>Armazéns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Trabalhadores e o reforço de trabalhadores</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Projeto de fã por Miro. Sem vínculo com a Urban Games.</span><span>Textos e imagens: CC BY 4.0 · Código do jogo © Urban Games: só são mostradas referências curtas.</span><span class="tr">Traduzido do inglês; correções são bem-vindas (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+})();</script>
+</body></html>
