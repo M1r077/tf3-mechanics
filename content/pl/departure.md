@@ -32,13 +32,13 @@ Poziom napełnienia to największa ilość danego towaru, jaką pojazd zabiera n
 
 | Pojazd | Poziom napełnienia | Odjeżdża z |
 |---|---|---|
-| ciężarówka, 15 miejsc, kłody | 50 % | **8** (7,5 zaokrąglone w górę) |
-| ciężarówka, 22 miejsca, tkanina | 70 % | za każdym razem **15** (15,4) |
+| ciężarówka, 15 miejsc, drewno | 50 % | **8** (7,5 zaokrąglone w górę) |
+| ciężarówka, 22 miejsca, płótna | 70 % | za każdym razem **15** (15,4) |
 | pociąg, 18 miejsc, szkło | 48 % | najwyżej **9** (8,64) |
 | tramwaj, 28 miejsc, paliwo | 66 % | najwyżej **18** (18,48) |
 
 - Towar już na pokładzie się liczy: tramwaj, który przyjechał z 14 paliwa, odjechał z 18, a nie z 14 + 18.
-- Powyżej limitu nic nie jest z tego powodu ładowane **ani rozładowywane**: ciężarówka, która przyjechała z 22 nawozu (limit 11), odjechała z 22.
+- Powyżej limitu nic nie jest z tego powodu ładowane **ani rozładowywane**: ciężarówka, która przyjechała z 22 nawozów (limit 11), odjechała z 22.
 - **0 %** oznacza: nie ładuj tu tego towaru.
 - W trybie ładowania do pełna limit liczy się jako pełny: ciężarówki z drewnem z poziomem napełnienia 50 % czekały około 270 s i odjechały z 8 z 15, a nie z 15.
 - Nie ma procentu rozładunku. O rozładunku decydują lista Ładunek i „Wymuś rozładowanie wszystkich towarów po przybyciu” ([Szybkość załadunku i rozładunku](loading.html)).
@@ -47,7 +47,7 @@ Poziom napełnienia to największa ilość danego towaru, jaką pojazd zabiera n
 
 - **Załaduj, jeśli dostępny**: pojazd bierze to, co jest, i odjeżdża.
 - **Do pełna (wszystkie)**: pojazd czeka, aż będzie pełny. Ciężarówki z drewnem czekały 460–566 s i odjechały z 15 z 15.
-- **Do pełna (dowolny)**: pojazd odjeżdża, gdy jeden towar jest pełny. Pociąg na drewno i deski odjechał ze 143 i 144 kłodami po 369–380 s; dwa inne odjazdy po około 30 s z 57 i 118 kłodami nie są wyjaśnione.
+- **Do pełna (dowolny)**: pojazd odjeżdża, gdy jeden towar jest pełny. Pociąg na drewno i deski odjechał ze 143 i 144 drewna po 369–380 s; dwa inne odjazdy po około 30 s z 57 i 118 drewna nie są wyjaśnione.
 - **Max. czas postoju** kończy oczekiwanie, nawet gdy nic nie załadowano. Pociąg z warzywami w trybie Do pełna (wszystkie) z maksimum 120 s albo zapełnił się (64 z 64) w około 25 s, albo odjechał po 116–120 s z 26 lub **0**. Z domyślnymi 600 s odjechał z 26 z 64 po 596–600 s.
 - **Min. czas postoju** to cały postój, łącznie z załadunkiem, a nie dodatkowy czas po nim: przy 60 s pociągi ze szkłem stały za każdym razem 55–61 s, niezależnie od tego, co ładowały.
 - **Maks. dodatkowe oczekiwanie**: „Maximum wait time after loading to improve vehicle distribution” (`cargofilter_window.tl:827`). Okno pojazdu pokazuje podczas oczekiwania „Utrzymuje bezpieczną odległość” (`entity_window_util.tl:2279-2286`).

@@ -33,25 +33,25 @@ Het vulniveau is het maximum van die vracht dat het voertuig bij deze halte meen
 | Voertuig | Vulniveau | Vertrekt met |
 |---|---|---|
 | vrachtwagen, 15 plaatsen, boomstammen | 50 % | **8** (7,5 naar boven afgerond) |
-| vrachtwagen, 22 plaatsen, stof | 70 % | elke keer **15** (15,4) |
+| vrachtwagen, 22 plaatsen, textiel | 70 % | elke keer **15** (15,4) |
 | trein, 18 plaatsen, glas | 48 % | hoogstens **9** (8,64) |
 | tram, 28 plaatsen, brandstof | 66 % | hoogstens **18** (18,48) |
 
 - Vracht die al aan boord is, telt mee: een tram die met 14 brandstof aankwam, vertrok met 18, niet met 14 + 18.
 - Boven de limiet wordt daardoor niets geladen **en niets gelost**: een vrachtwagen die met 22 kunstmest aankwam (limiet 11), vertrok met 22.
 - **0 %** betekent: deze vracht hier niet laden.
-- Met een modus voor volledige belading telt de limiet als vol: houtvrachtwagens met een vulniveau van 50 % wachtten ongeveer 270 s en vertrokken met 8 van 15, niet 15.
+- Met een modus voor volledige belading telt de limiet als vol: vrachtwagens met boomstammen met een vulniveau van 50 % wachtten ongeveer 270 s en vertrokken met 8 van 15, niet 15.
 - Er is geen lospercentage. Het lossen wordt bepaald door de lijst Lading en "Alle vracht bij aankomst verplicht lossen" ([Laad- en lossnelheid](loading.html)).
 
 ## Volledige belading en de stoptijden
 
 - **Laden indien beschikbaar**: het voertuig neemt wat er is en vertrekt.
-- **Volledige belading (alle)**: het voertuig wacht tot het vol is. Houtvrachtwagens wachtten 460–566 s en vertrokken met 15 van 15.
-- **Volledige belading (willekeurig)**: het voertuig vertrekt als één vracht vol is. Een trein voor hout en planken vertrok na 369–380 s met 143 en 144 boomstammen; twee andere vertrekken na ongeveer 30 s met 57 en 118 boomstammen zijn niet verklaard.
+- **Volledige belading (alle)**: het voertuig wacht tot het vol is. Vrachtwagens met boomstammen wachtten 460–566 s en vertrokken met 15 van 15.
+- **Volledige belading (willekeurig)**: het voertuig vertrekt als één vracht vol is. Een trein voor boomstammen en planken vertrok na 369–380 s met 143 en 144 boomstammen; twee andere vertrekken na ongeveer 30 s met 57 en 118 boomstammen zijn niet verklaard.
 - **Max. stoptijd** beëindigt het wachten, ook als er niets geladen is. Een groentetrein in Volledige belading (alle) met een maximum van 120 s werd ofwel in ongeveer 25 s vol (64 van 64), ofwel vertrok na 116–120 s met 26 of **0**. Met de standaard 600 s vertrok hij na 596–600 s met 26 van 64.
 - **Min. stoptijd** is de hele stop, laden inbegrepen, geen extra tijd erna: met 60 s stonden glastreinen elke keer 55–61 s stil, wat ze ook laadden.
 - **Maximale extra wachttijd**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:827`). Het voertuigvenster toont "Veilige afstand bewaren" terwijl het wacht (`entity_window_util.tl:2279-2286`).
-- **Meerdere voertuigen bij één halte laden tegelijk**, ongeacht wanneer elk aankwam (gezien in het spel). Twee houtvrachtwagens die ongeveer 90 s na elkaar aankwamen, vertrokken in dezelfde seconde, elk met 8. Hoe de vracht tussen hen verdeeld wordt, is niet gemeten.
+- **Meerdere voertuigen bij één halte laden tegelijk**, ongeacht wanneer elk aankwam (gezien in het spel). Twee vrachtwagens met boomstammen die ongeveer 90 s na elkaar aankwamen, vertrokken in dezelfde seconde, elk met 8. Hoe de vracht tussen hen verdeeld wordt, is niet gemeten.
 
 ```engine
 De scripts slaan alleen de instellingen op; wanneer een voertuig vertrekt, bepaalt de engine.

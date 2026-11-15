@@ -32,7 +32,7 @@ Der Füllstand ist das Höchste, was das Fahrzeug von dieser Fracht an diesem Ha
 
 | Fahrzeug | Füllstand | Fährt ab mit |
 |---|---|---|
-| LKW, 15 Plätze, Holzstämme | 50 % | **8** (7,5 aufgerundet) |
+| LKW, 15 Plätze, Holz | 50 % | **8** (7,5 aufgerundet) |
 | LKW, 22 Plätze, Stoff | 70 % | jedes Mal **15** (15,4) |
 | Zug, 18 Plätze, Glas | 48 % | höchstens **9** (8,64) |
 | Straßenbahn, 28 Plätze, Treibstoff | 66 % | höchstens **18** (18,48) |
@@ -47,7 +47,7 @@ Der Füllstand ist das Höchste, was das Fahrzeug von dieser Fracht an diesem Ha
 
 - **Lade wenn vorhanden**: Das Fahrzeug nimmt, was da ist, und fährt ab.
 - **Vollladen jeder Güterart**: Das Fahrzeug wartet, bis es voll ist. Holz-LKW warteten 460–566 s und fuhren mit 15 von 15 ab.
-- **Vollladen einer Güterart**: Das Fahrzeug fährt ab, wenn eine Fracht voll ist. Ein Zug für Holz und Bretter fuhr nach 369–380 s mit 143 und 144 Holzstämmen ab; zwei andere Abfahrten nach etwa 30 s mit 57 und 118 Holzstämmen sind nicht erklärt.
+- **Vollladen einer Güterart**: Das Fahrzeug fährt ab, wenn eine Fracht voll ist. Ein Zug für Holz und Bretter fuhr nach 369–380 s mit 143 und 144 Holz ab; zwei andere Abfahrten nach etwa 30 s mit 57 und 118 Holz sind nicht erklärt.
 - **Max. Haltezeit** beendet das Warten, auch wenn nichts geladen wurde. Ein Gemüsezug mit Vollladen jeder Güterart und 120 s Maximum war entweder in etwa 25 s voll (64 von 64) oder fuhr nach 116–120 s mit 26 oder **0** ab. Mit den standardmäßigen 600 s fuhr er nach 596–600 s mit 26 von 64 ab.
 - **Min. Haltezeit** ist der ganze Halt, Laden inklusive, keine zusätzliche Zeit danach: Mit 60 s hielten Glaszüge jedes Mal 55–61 s, egal was sie luden.
 - **Max. zusätzlicher Aufenthalt**: „Maximum wait time after loading to improve vehicle distribution“ (`cargofilter_window.tl:827`). Das Fahrzeugfenster zeigt „Sicheren Abstand garantieren“, während es wartet (`entity_window_util.tl:2279-2286`).

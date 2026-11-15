@@ -32,7 +32,7 @@ O Nível de Preenchimento é o máximo daquela carga que o veículo pega nesta p
 
 | Veículo | Nível de Preenchimento | Sai com |
 |---|---|---|
-| caminhão, 15 lugares, toras | 50 % | **8** (7,5 arredondado para cima) |
+| caminhão, 15 lugares, troncos | 50 % | **8** (7,5 arredondado para cima) |
 | caminhão, 22 lugares, tecido | 70 % | **15** todas as vezes (15,4) |
 | trem, 18 lugares, vidro | 48 % | no máximo **9** (8,64) |
 | bonde, 28 lugares, combustível | 66 % | no máximo **18** (18,48) |
@@ -40,18 +40,18 @@ O Nível de Preenchimento é o máximo daquela carga que o veículo pega nesta p
 - A carga já a bordo conta: um bonde que chegou com 14 de combustível saiu com 18, não 14 + 18.
 - Acima do limite nada é carregado **e nada é descarregado** por causa dele: um caminhão que chegou com 22 de fertilizante (limite 11) saiu com 22.
 - **0 %** significa: não carregar esta carga aqui.
-- Com um modo de Carga Completa, o limite conta como cheio: caminhões de madeira com Nível de Preenchimento de 50 % esperaram cerca de 270 s e saíram com 8 de 15, não 15.
+- Com um modo de Carga Completa, o limite conta como cheio: caminhões de troncos com Nível de Preenchimento de 50 % esperaram cerca de 270 s e saíram com 8 de 15, não 15.
 - Não existe porcentagem de descarga. A descarga é decidida pela lista Volume e por "Forçar descarregamento de todas as cargas na chegada" ([Velocidade de carga e descarga](loading.html)).
 
 ## Carga Completa e os tempos de parada
 
 - **Carregar, se disponível**: o veículo pega o que há e sai.
-- **Carga Completa (Tudo)**: o veículo espera até ficar cheio. Caminhões de madeira esperaram 460–566 s e saíram com 15 de 15.
-- **Carga Completa (Qualquer)**: o veículo sai quando uma carga está cheia. Um trem de madeira e tábuas saiu com 143 e 144 toras após 369–380 s; duas outras partidas após cerca de 30 s, com 57 e 118 toras, não têm explicação.
+- **Carga Completa (Tudo)**: o veículo espera até ficar cheio. Caminhões de troncos esperaram 460–566 s e saíram com 15 de 15.
+- **Carga Completa (Qualquer)**: o veículo sai quando uma carga está cheia. Um trem de troncos e tábuas saiu com 143 e 144 troncos após 369–380 s; duas outras partidas após cerca de 30 s, com 57 e 118 troncos, não têm explicação.
 - **Tempo de Parada Máx.** encerra a espera, mesmo sem nada carregado. Um trem de vegetais em Carga Completa (Tudo) com máximo de 120 s ou encheu (64 de 64) em cerca de 25 s, ou saiu após 116–120 s com 26 ou **0**. Com o padrão de 600 s ele saiu com 26 de 64 após 596–600 s.
 - **Tempo de Parada Mín.** é a parada inteira, carregamento incluído, não tempo extra depois dele: com 60 s, trens de vidro pararam 55–61 s todas as vezes, independentemente do que carregaram.
 - **Tempo Máximo de Espera Adicional**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:827`). A janela do veículo mostra "Garantindo distância segura" enquanto ele espera (`entity_window_util.tl:2279-2286`).
-- **Vários veículos em uma parada carregam ao mesmo tempo**, não importa quando cada um chegou (visto no jogo). Dois caminhões de madeira que chegaram com cerca de 90 s de diferença saíram no mesmo segundo, cada um com 8. Como a carga é dividida entre eles não foi medido.
+- **Vários veículos em uma parada carregam ao mesmo tempo**, não importa quando cada um chegou (visto no jogo). Dois caminhões de troncos que chegaram com cerca de 90 s de diferença saíram no mesmo segundo, cada um com 8. Como a carga é dividida entre eles não foi medido.
 
 ```engine
 Os scripts só guardam as configurações; quando um veículo sai é decidido pelo motor.

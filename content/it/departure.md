@@ -38,20 +38,20 @@ Riempi livello è la quantità massima di quel carico che il veicolo prende a qu
 | tram, 28 posti, carburante | 66 % | al massimo **18** (18,48) |
 
 - Il carico già a bordo conta: un tram arrivato con 14 di carburante è partito con 18, non 14 + 18.
-- Sopra il limite non viene caricato niente **e non viene scaricato niente** a causa sua: un camion arrivato con 22 di fertilizzante (limite 11) è partito con 22.
+- Sopra il limite non viene caricato niente **e non viene scaricato niente** a causa sua: un camion arrivato con 22 di fertilizzanti (limite 11) è partito con 22.
 - **0 %** significa: non caricare questo carico qui.
-- Con una modalità di carico completo, il limite conta come pieno: camion di legname con Riempi livello al 50 % hanno aspettato circa 270 s e sono partiti con 8 su 15, non 15.
+- Con una modalità di carico completo, il limite conta come pieno: camion di tronchi con Riempi livello al 50 % hanno aspettato circa 270 s e sono partiti con 8 su 15, non 15.
 - Non esiste una percentuale di scarico. Lo scarico dipende dalla lista Carico e da "Forza scarico di tutte le merci all'arrivo" ([Velocità di carico e scarico](loading.html)).
 
 ## Carico completo e tempi di sosta
 
 - **Carica se disponibile**: il veicolo prende ciò che c'è e parte.
-- **Carico completo (tutto)**: il veicolo aspetta di essere pieno. Camion di legname hanno aspettato 460–566 s e sono partiti con 15 su 15.
-- **Carico completo (qualsiasi)**: il veicolo parte quando un carico è pieno. Un treno per legname e assi è partito con 143 e 144 tronchi dopo 369–380 s; altre due partenze dopo circa 30 s con 57 e 118 tronchi non sono spiegate.
+- **Carico completo (tutto)**: il veicolo aspetta di essere pieno. Camion di tronchi hanno aspettato 460–566 s e sono partiti con 15 su 15.
+- **Carico completo (qualsiasi)**: il veicolo parte quando un carico è pieno. Un treno per tronchi e assi è partito con 143 e 144 tronchi dopo 369–380 s; altre due partenze dopo circa 30 s con 57 e 118 tronchi non sono spiegate.
 - **Tempo arresto massimo** termina l'attesa, anche senza niente caricato. Un treno di verdure in Carico completo (tutto) con un massimo di 120 s si è riempito (64 su 64) in circa 25 s, oppure è partito dopo 116–120 s con 26 o **0**. Con i 600 s predefiniti è partito con 26 su 64 dopo 596–600 s.
 - **Tempo arresto minimo** è l'intera sosta, carico compreso, non tempo extra dopo di esso: con 60 s, i treni del vetro si sono fermati 55–61 s ogni volta, qualunque cosa caricassero.
 - **Attesa aggiuntiva massima**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:827`). La finestra del veicolo mostra "Mantenimento distanza di sicurezza" mentre aspetta (`entity_window_util.tl:2279-2286`).
-- **Più veicoli a una stessa fermata caricano contemporaneamente**, indipendentemente da quando è arrivato ciascuno (visto in gioco). Due camion di legname arrivati a circa 90 s di distanza sono partiti nello stesso secondo, ciascuno con 8. Come il carico venga diviso tra loro non è stato misurato.
+- **Più veicoli a una stessa fermata caricano contemporaneamente**, indipendentemente da quando è arrivato ciascuno (visto in gioco). Due camion di tronchi arrivati a circa 90 s di distanza sono partiti nello stesso secondo, ciascuno con 8. Come il carico venga diviso tra loro non è stato misurato.
 
 ```engine
 Gli script memorizzano solo le impostazioni; quando un veicolo parte lo decide il motore.

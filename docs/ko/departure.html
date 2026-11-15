@@ -77,22 +77,22 @@
 </thead>
 <tbody>
 <tr>
-<td>트럭, 15칸, 통나무</td>
+<td>트럭, 용량 15, 통나무</td>
 <td>50 %</td>
 <td><strong>8</strong>(7.5 반올림)</td>
 </tr>
 <tr>
-<td>트럭, 22칸, 직물</td>
+<td>트럭, 용량 22, 천</td>
 <td>70 %</td>
 <td>매번 <strong>15</strong>(15.4)</td>
 </tr>
 <tr>
-<td>열차, 18칸, 유리</td>
+<td>열차, 용량 18, 유리</td>
 <td>48 %</td>
 <td>최대 <strong>9</strong>(8.64)</td>
 </tr>
 <tr>
-<td>트램, 28칸, 연료</td>
+<td>트램, 용량 28, 연료</td>
 <td>66 %</td>
 <td>최대 <strong>18</strong>(18.48)</td>
 </tr>
@@ -102,18 +102,18 @@
 <li>이미 실려 있는 화물도 포함된다. 연료 14를 싣고 도착한 트램은 14 + 18이 아니라 18을 싣고 떠났다.</li>
 <li>상한을 넘으면 그 때문에 상차되지 않고 <strong>하차되지도 않는다</strong>. 비료 22를 싣고 도착한 트럭(상한 11)은 22를 싣고 떠났다.</li>
 <li><strong>0 %</strong>는 이 정류장에서 이 화물을 싣지 않는다는 뜻이다.</li>
-<li>가득 실음 모드에서는 상한이 가득 찬 것으로 친다. 충전 수위 50 %인 목재 트럭은 약 270 s를 기다린 뒤 15가 아니라 15 중 8을 싣고 떠났다.</li>
+<li>가득 실음 모드에서는 상한이 가득 찬 것으로 친다. 충전 수위 50 %인 통나무 트럭은 약 270 s를 기다린 뒤 15가 아니라 15 중 8을 싣고 떠났다.</li>
 <li>하차 비율은 없다. 하차는 상차 목록과 "도착 시 모든 화물 강제 하차"로 정해진다(<a href="loading.html">상차 및 하차 속도</a>).</li>
 </ul>
 <h2 id="가득-실음과-정지-시간"><span class="n">3</span><span>가득 실음과 정지 시간</span></h2>
 <ul>
 <li><strong>가능하다면 상차</strong>: 운송 수단은 있는 것을 싣고 떠난다.</li>
-<li><strong>가득 실음(모든 종류)</strong>: 운송 수단은 가득 찰 때까지 기다린다. 목재 트럭은 460–566 s를 기다리고 15 중 15를 싣고 떠났다.</li>
-<li><strong>가득 실음(아무 종류)</strong>: 운송 수단은 화물 하나가 가득 차면 떠난다. 목재와 판자 열차는 369–380 s 뒤 통나무 143과 144를 싣고 떠났다. 약 30 s 뒤 통나무 57과 118을 싣고 떠난 다른 두 번의 출발은 설명되지 않았다.</li>
+<li><strong>가득 실음(모든 종류)</strong>: 운송 수단은 가득 찰 때까지 기다린다. 통나무 트럭은 460–566 s를 기다리고 15 중 15를 싣고 떠났다.</li>
+<li><strong>가득 실음(아무 종류)</strong>: 운송 수단은 화물 하나가 가득 차면 떠난다. 통나무와 널빤지 열차는 369–380 s 뒤 통나무 143과 144를 싣고 떠났다. 약 30 s 뒤 통나무 57과 118을 싣고 떠난 다른 두 번의 출발은 설명되지 않았다.</li>
 <li><strong>최대 정지 시간</strong>은 아무것도 싣지 않았더라도 대기를 끝낸다. 최대 120 s로 가득 실음(모든 종류) 상태인 채소 열차는 약 25 s 만에 가득 차거나(64 중 64), 116–120 s 뒤 26 또는 <strong>0</strong>을 싣고 떠났다. 기본값 600 s에서는 596–600 s 뒤 64 중 26을 싣고 떠났다.</li>
 <li><strong>최소 정지 시간</strong>은 상차를 포함한 정차 전체이며, 그 뒤에 더해지는 시간이 아니다. 60 s일 때 유리 열차는 무엇을 실었든 매번 55–61 s 정차했다.</li>
 <li><strong>최대 추가 대기 시간</strong>: "Maximum wait time after loading to improve vehicle distribution"<span class="sr">(<code class="src">cargofilter_window.tl:827</code>)</span>. 기다리는 동안 운송 수단 창에 "안전 거리 유지 중"이 표시된다<span class="sr">(<code class="src">entity_window_util.tl:2279-2286</code>)</span>.</li>
-<li><strong>한 정류장에 있는 여러 운송 수단은 각자 언제 도착했든 동시에 상차한다</strong>(게임 내 관찰). 약 90 s 간격으로 도착한 목재 트럭 두 대는 같은 초에 각각 8을 싣고 떠났다. 화물이 그들 사이에 어떻게 나뉘는지는 측정하지 않았다.</li>
+<li><strong>한 정류장에 있는 여러 운송 수단은 각자 언제 도착했든 동시에 상차한다</strong>(게임 내 관찰). 약 90 s 간격으로 도착한 통나무 트럭 두 대는 같은 초에 각각 8을 싣고 떠났다. 화물이 그들 사이에 어떻게 나뉘는지는 측정하지 않았다.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>스크립트는 설정만 저장하고, 운송 수단이 언제 떠나는지는 엔진이 정한다.</p></div></aside>
 <p>위의 규칙은 <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> 데이터베이스로 측정했다(2 s마다 스냅샷, 그래서 정지 시간은 ±2 s), 2026년 11월.</p>
