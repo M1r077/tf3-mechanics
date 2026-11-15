@@ -425,6 +425,68 @@
    "n2": "cała podróż autem: Samochód jest niedozwolony",
    "n3": "przydzielony, ale nigdy nie dociera (W drodze)",
    "n4": "wysiada na przystanku, który nie sięga zakładu"
+  },
+  "T_MFLOW": {
+   "cap": "Przychód zależy tylko od linii prostej od źródła do odbiorcy, płaconej raz u odbiorcy. Koszty rosną z tym, co budujesz i kupujesz, a niektóre z rokiem kalendarzowym.",
+   "inc": "Co płaci",
+   "cost": "Co kosztuje",
+   "bal": "Bilans linii",
+   "i1": "linia prosta źródło → odbiorca",
+   "i1b": "+8 × wzniesienie",
+   "i2": "płacone raz, u odbiorcy",
+   "i2b": "dzielone między linie wg odcinków",
+   "i3": "ranga firmy (Inflacja)",
+   "i3b": "ranga 15: do ×0,75 (Normalna)",
+   "i4": "wykonane subsydium",
+   "i4b": "×2 przez 5 lat na jego liniach",
+   "c1": "pojazdy",
+   "c1b": "eksploatacja wg prędkości × pojemności",
+   "c2": "tory i drogi",
+   "c2b": "utrzymanie ≈ 1/6 ceny rocznie",
+   "c3": "zajezdnie, stacje, magazyny",
+   "c3b": "warianty epok ×3 / ×9, rok ×1 → ×6",
+   "c4": "kredyty",
+   "c4b": "odsetki liczone raz od kwoty",
+   "np": "Nic nie płaci",
+   "n1": "dłuższa trasa",
+   "n2": "prędkość (spóźnienie płaci 100 %)",
+   "n3": "rozładunek w magazynie lub przeładunek",
+   "n4": "puste kursy"
+  },
+  "T_MCHECK": {
+   "cap": "Sprawdzaj w tej kolejności: najpierw które linie tracą pieniądze, potem dlaczego. Każdy krok prowadzi do strony ze szczegółami.",
+   "steps": [
+    [
+     "Które linie tracą pieniądze?",
+     "bilans linii z ostatnich 12 miesięcy",
+     "finance"
+    ],
+    [
+     "Czy towar jedzie daleko?",
+     "płaci tylko linia prosta; krótkie dowozy zarabiają mało",
+     "map"
+    ],
+    [
+     "Czy jeździ pełny?",
+     "puste powroty, Poziom napełnienia, do pełna",
+     "vehicles"
+    ],
+    [
+     "Rozładowany tam, gdzie płacą?",
+     "lista Ładunek; magazyny nic nie płacą",
+     "warehouses"
+    ],
+    [
+     "Za dużo pojazdu?",
+     "prędkość × pojemność kosztuje; prędkość pomaga tylko na długich liniach",
+     "train"
+    ],
+    [
+     "Koszty stałe",
+     "zajezdnie, moduły magazynu, szybkie tory, warianty późniejszych epok",
+     "infrastructure"
+    ]
+   ]
   }
  },
  "cargo": {

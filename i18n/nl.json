@@ -425,6 +425,68 @@
    "n2": "hele reis met de auto: Auto is niet toegestaan",
    "n3": "toegewezen maar komt nooit aan (Onderweg)",
    "n4": "stapt uit bij een halte die het bedrijf niet bereikt"
+  },
+  "T_MFLOW": {
+   "cap": "Inkomsten hangen alleen af van de rechte lijn van bron naar afnemer, één keer betaald bij de afnemer. Kosten groeien met wat je bouwt en koopt, en sommige met het kalenderjaar.",
+   "inc": "Wat oplevert",
+   "cost": "Wat kost",
+   "bal": "Balans van de lijn",
+   "i1": "rechte lijn bron → afnemer",
+   "i1b": "+8 × hoogteverschil",
+   "i2": "één keer betaald, bij de afnemer",
+   "i2b": "verdeeld over lijnen per deel",
+   "i3": "bedrijfsrang (Inflatie)",
+   "i3b": "rang 15: tot ×0,75 (Gemiddeld)",
+   "i4": "voltooide subsidie",
+   "i4b": "×2 voor 5 jaar op haar lijnen",
+   "c1": "voertuigen",
+   "c1b": "bedrijfskosten volgen snelheid × capaciteit",
+   "c2": "sporen en wegen",
+   "c2b": "onderhoud ≈ 1/6 van de prijs per jaar",
+   "c3": "depots, stations, opslagplaatsen",
+   "c3b": "tijdperkvarianten ×3 / ×9, jaar ×1 → ×6",
+   "c4": "leningen",
+   "c4b": "rente één keer over het bedrag",
+   "np": "Levert niets op",
+   "n1": "een langere route",
+   "n2": "snelheid (te laat betaalt 100 %)",
+   "n3": "lossen bij opslag of overstap",
+   "n4": "lege ritten"
+  },
+  "T_MCHECK": {
+   "cap": "Controleer in deze volgorde: eerst welke lijnen geld verliezen, dan waarom. Elke stap verwijst naar de pagina met details.",
+   "steps": [
+    [
+     "Welke lijnen verliezen geld?",
+     "balans van de lijn over de laatste 12 maanden",
+     "finance"
+    ],
+    [
+     "Gaat de vracht ver?",
+     "alleen de rechte lijn betaalt; korte aanvoer verdient weinig",
+     "map"
+    ],
+    [
+     "Rijdt hij vol?",
+     "lege terugritten, Vulniveau, volledige belading",
+     "vehicles"
+    ],
+    [
+     "Gelost waar het betaalt?",
+     "lijst Lading; opslagplaatsen betalen niets",
+     "warehouses"
+    ],
+    [
+     "Te veel voertuig?",
+     "snelheid × capaciteit kost; snelheid helpt alleen op lange lijnen",
+     "train"
+    ],
+    [
+     "Vaste kosten",
+     "depots, opslagmodules, snel spoor, latere tijdperkvarianten",
+     "infrastructure"
+    ]
+   ]
   }
  },
  "cargo": {

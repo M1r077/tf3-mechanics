@@ -1281,6 +1281,154 @@ def workers_trip(lang):
     return s.svg(), t["cap"]
 
 
+# ---------------------------------------------------------------- money: what pays and what costs
+T_MFLOW = {
+    "en": {"cap": "Income depends only on the straight line from the source to the consumer, paid once at the consumer. "
+                  "Costs grow with what you build and buy, and some of them with the calendar year.",
+           "inc": "What pays", "cost": "What costs", "bal": "Line balance",
+           "i1": "straight line source → consumer", "i1b": "+8 × climb",
+           "i2": "paid once, at the consumer", "i2b": "split between lines by leg length",
+           "i3": "company rank (Inflation)", "i3b": "rank 15: down to ×0.75 (Normal)",
+           "i4": "completed subsidy", "i4b": "×2 for 5 years on its lines",
+           "c1": "vehicles", "c1b": "running costs follow speed × capacity",
+           "c2": "tracks and roads", "c2b": "upkeep ≈ 1/6 of the price per year",
+           "c3": "depots, stations, warehouses", "c3b": "era variants ×3 / ×9, year ×1 → ×6",
+           "c4": "loans", "c4b": "interest charged once on the amount",
+           "np": "Pays nothing", "n1": "a longer route", "n2": "speed (late is paid 100 %)",
+           "n3": "unloading at a warehouse or transfer", "n4": "empty trips"},
+    "fr": {"cap": "Les revenus ne dépendent que de la ligne droite entre la source et le consommateur, payée une seule fois au consommateur. "
+                  "Les coûts grandissent avec ce que tu construis et achètes, et certains avec l'année du calendrier.",
+           "inc": "Ce qui rapporte", "cost": "Ce qui coûte", "bal": "Bilan de la ligne",
+           "i1": "ligne droite source → consommateur", "i1b": "+8 × dénivelé",
+           "i2": "payé une fois, au consommateur", "i2b": "partagé entre lignes selon la longueur des étapes",
+           "i3": "rang de l'entreprise (Inflation)", "i3b": "rang 15 : jusqu'à ×0,75 (Normale)",
+           "i4": "contrat rempli", "i4b": "×2 pendant 5 ans sur ses lignes",
+           "c1": "véhicules", "c1b": "coûts d'exploitation selon vitesse × capacité",
+           "c2": "voies et routes", "c2b": "entretien ≈ 1/6 du prix par an",
+           "c3": "dépôts, gares, entrepôts", "c3b": "variantes d'époque ×3 / ×9, année ×1 → ×6",
+           "c4": "emprunts", "c4b": "intérêts comptés une seule fois sur le montant",
+           "np": "Ne rapporte rien", "n1": "un trajet plus long", "n2": "la vitesse (le retard est payé 100 %)",
+           "n3": "décharger dans un entrepôt ou en correspondance", "n4": "les trajets à vide"},
+    "de": {"cap": "Die Einnahmen hängen nur von der Luftlinie zwischen Quelle und Verbraucher ab und werden einmal beim Verbraucher bezahlt. "
+                  "Die Kosten wachsen mit dem, was du baust und kaufst, manche auch mit dem Kalenderjahr.",
+           "inc": "Was einbringt", "cost": "Was kostet", "bal": "Bilanz der Linie",
+           "i1": "Luftlinie Quelle → Verbraucher", "i1b": "+8 × Steigung",
+           "i2": "einmal bezahlt, beim Verbraucher", "i2b": "nach Etappenlänge auf die Linien verteilt",
+           "i3": "Firmenrang (Inflation)", "i3b": "Rang 15: bis ×0,75 (Normal)",
+           "i4": "erfüllte Subvention", "i4b": "×2 für 5 Jahre auf ihren Linien",
+           "c1": "Fahrzeuge", "c1b": "Betriebskosten nach Tempo × Kapazität",
+           "c2": "Gleise und Straßen", "c2b": "Unterhalt ≈ 1/6 des Preises pro Jahr",
+           "c3": "Depots, Bahnhöfe, Lager", "c3b": "Epochenvarianten ×3 / ×9, Jahr ×1 → ×6",
+           "c4": "Darlehen", "c4b": "Zinsen einmal auf den Betrag",
+           "np": "Bringt nichts", "n1": "eine längere Strecke", "n2": "Tempo (Verspätung wird zu 100 % bezahlt)",
+           "n3": "Entladen in ein Lager oder beim Umstieg", "n4": "Leerfahrten"},
+}
+
+
+def money_flow(lang):
+    t = T_MFLOW[lang]
+    s = Svg("mf", 900, 420)
+    cw, top = 330, 24
+
+    def column(x, title, col, icon, keys, grad):
+        rows = [(wrap_rows(t[k], 30), wrap_rows(t[k + "b"], 36)) for k in keys]
+        h = 70 + sum(16 + len(a) * 17 + len(b) * 16 for a, b in rows) + 8
+        s.card(x, top, cw, h, stroke=col)
+        s.rect(x, top, cw, 54, grad, r=16, opacity=.18)
+        s.add(icons.place(icon, x + 20, top + 15, 24, col))
+        s.text(x + 54, top + 34, title, 18, col, "start", 800)
+        y = top + 82
+        for a, b in rows:
+            s.add(f'<circle cx="{x + 26}" cy="{y - 5}" r="4" fill="{col}"/>')
+            s.lines(x + 42, y, a, 14, TEXT, "start", 1.2, 700)
+            y += len(a) * 17
+            s.lines(x + 42, y, b, 12.5, DIM, "start", 1.28)
+            y += len(b) * 16 + 16
+        return h
+
+    h1 = column(20, t["inc"], TEAL, "finance", ("i1", "i2", "i3", "i4"), s.ref("teal"))
+    h2 = column(550, t["cost"], RED, "infrastructure", ("c1", "c2", "c3", "c4"), RED)
+    hmax = max(h1, h2)
+    # balance in the middle
+    cx, cy = 450, top + 120
+    s.add(f'<circle cx="{cx}" cy="{cy}" r="46" fill="{GOLD}" fill-opacity=".1" stroke="{GOLD}" stroke-opacity=".6" stroke-width="1.5"/>')
+    s.add(icons.place("scale", cx - 26, cy - 26, 52, GOLD, 1.8))
+    s.lines(cx, cy + 74, wrap_rows(t["bal"], 16), 15, GOLD, weight=800, gap=1.2)
+    s.flow(352, cy, 400, cy, TEAL)
+    s.flow(548, cy, 500, cy, RED)
+    s.text(cx, cy - 62, "+", 26, TEAL, weight=800)
+    s.text(cx, cy + 118, "−", 26, RED, weight=800)
+    # pays nothing
+    y0 = top + hmax + 26
+    items = [t[k] for k in ("n1", "n2", "n3", "n4")]
+    s.card(20, y0, 860, 92, stroke=DIM, dash="6 5", shadow=False)
+    s.add(icons.place("cross", 40, y0 + 16, 20, RED))
+    s.text(68, y0 + 32, t["np"], 15, RED, "start", 800)
+    colw = 820 / 4
+    for i, it in enumerate(items):
+        s.lines(40 + i * colw + colw / 2 - 10, y0 + 60, wrap_rows(it, 26), 12.5, TEXT, gap=1.25)
+    s.h = int(y0 + 92 + 16)
+    return s.svg(), t["cap"]
+
+
+# ---------------------------------------------------------------- money: where to look, in order
+T_MCHECK = {
+    "en": {"cap": "Check in this order: find the lines that lose money first, then why. Each step points to the page with the details.",
+           "steps": [("Which lines lose money?", "line balance of the last 12 months", "finance"),
+                     ("Does the cargo go far?", "only the straight line pays; short feeders earn little", "map"),
+                     ("Does it run full?", "empty returns, Fill Level, Full Load", "vehicles"),
+                     ("Is it unloaded where it pays?", "Load list; warehouses pay nothing", "warehouses"),
+                     ("Too much vehicle?", "speed × capacity costs; speed only helps on long lines", "train"),
+                     ("Fixed costs", "depots, warehouse modules, fast track, later era variants", "infrastructure")]},
+    "fr": {"cap": "Vérifie dans cet ordre : d'abord quelles lignes perdent de l'argent, puis pourquoi. Chaque étape renvoie à la page détaillée.",
+           "steps": [("Quelles lignes perdent de l'argent ?", "bilan de la ligne sur les 12 derniers mois", "finance"),
+                     ("Le fret va-t-il loin ?", "seule la ligne droite paie ; les petites lignes d'apport gagnent peu", "map"),
+                     ("Roule-t-elle pleine ?", "retours à vide, niveau de remplissage, plein", "vehicles"),
+                     ("Est-il déchargé là où il paie ?", "liste de chargement ; un entrepôt ne paie rien", "warehouses"),
+                     ("Trop de véhicule ?", "vitesse × capacité coûte ; la vitesse ne sert que sur les longues lignes", "train"),
+                     ("Coûts fixes", "dépôts, modules d'entrepôt, voies rapides, variantes d'époque", "infrastructure")]},
+    "de": {"cap": "Prüfe in dieser Reihenfolge: zuerst, welche Linien Geld verlieren, dann warum. Jeder Schritt verweist auf die Seite mit den Details.",
+           "steps": [("Welche Linien verlieren Geld?", "Bilanz der Linie der letzten 12 Monate", "finance"),
+                     ("Fährt die Fracht weit?", "nur die Luftlinie zählt; kurze Zubringer verdienen wenig", "map"),
+                     ("Fährt sie voll?", "Leerfahrten zurück, Füllstand, Volllast", "vehicles"),
+                     ("Wird sie dort entladen, wo es zahlt?", "Ladeliste; Lager zahlen nichts", "warehouses"),
+                     ("Zu viel Fahrzeug?", "Tempo × Kapazität kostet; Tempo hilft nur auf langen Linien", "train"),
+                     ("Fixkosten", "Depots, Lagermodule, schnelle Gleise, spätere Epochenvarianten", "infrastructure")]},
+}
+
+
+def money_check(lang):
+    t = T_MCHECK[lang]
+    s = Svg("mc", 900, 400)
+    cols, w, g, x0 = 3, 272, 22, 15
+    cards = [(wrap_rows(q, 24), wrap_rows(a, 34), ic) for q, a, ic in t["steps"]]
+    hrow = [max(84 + len(q) * 19 + len(a) * 16.5 for q, a, _ in cards[r * cols:(r + 1) * cols]) for r in range(2)]
+    y = 14
+    for r in range(2):
+        for c in range(cols):
+            i = r * cols + c
+            q, a, ic = cards[i]
+            x = x0 + c * (w + g)
+            col = GOLD if i == 0 else (RED if i == 5 else TEAL)
+            s.card(x, y, w, hrow[r], stroke=col if i == 0 else LINE)
+            s.add(f'<circle cx="{x + 32}" cy="{y + 34}" r="17" fill="{s.ref("gold") if i == 0 else DEEP}" stroke="{col}" stroke-width="1.5"/>')
+            s.text(x + 32, y + 40, str(i + 1), 16, DEEP if i == 0 else col, weight=800)
+            s.add(icons.place(ic, x + w - 42, y + 20, 26, col))
+            s.lines(x + 20, y + 78, q, 15, TEXT, "start", 1.25, 800)
+            s.lines(x + 20, y + 78 + len(q) * 19 + 6, a, 12.5, DIM, "start", 1.3)
+            if c < cols - 1:
+                s.flow(x + w + 2, y + 34, x + w + g - 2, y + 34, GOLD, 2)
+        if r == 0:
+            # bend from card 3 back to card 4
+            yb = y + hrow[0]
+            s.add(f'<path d="M{x0 + 2 * (w + g) + w / 2} {yb + 2} L{x0 + 2 * (w + g) + w / 2} {yb + 12} L{x0 + w / 2} {yb + 12} '
+                  f'L{x0 + w / 2} {yb + 26}" fill="none" stroke="{GOLD}" stroke-width="2" stroke-dasharray="8 4" '
+                  f'stroke-opacity=".8" marker-end="{s.ref("ah")}"/>')
+        y += hrow[r] + 30
+    s.h = int(y - 30 + 14)
+    return s.svg(), t["cap"]
+
+
 def _load_translations():
     """Diagram texts and cargo names of the languages kept in i18n/<code>.json."""
     for code in langs.translated():
@@ -1314,6 +1462,8 @@ REGISTRY = {
     "ind_closure": ind_closure,
     "ind_growth": ind_growth,
     "workers_trip": workers_trip,
+    "money_flow": money_flow,
+    "money_check": money_check,
 }
 
 

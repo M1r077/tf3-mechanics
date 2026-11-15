@@ -425,6 +425,68 @@
    "n2": "viagem toda de carro: Carro não é permitido",
    "n3": "atribuído, mas nunca chega (A caminho)",
    "n4": "desce numa parada que não alcança a indústria"
+  },
+  "T_MFLOW": {
+   "cap": "A renda depende só da linha reta da fonte ao consumidor, paga uma vez no consumidor. Os custos crescem com o que você constrói e compra, e alguns com o ano do calendário.",
+   "inc": "O que paga",
+   "cost": "O que custa",
+   "bal": "Saldo da linha",
+   "i1": "linha reta fonte → consumidor",
+   "i1b": "+8 × subida",
+   "i2": "pago uma vez, no consumidor",
+   "i2b": "dividido entre linhas por trecho",
+   "i3": "ranque da empresa (Inflação)",
+   "i3b": "ranque 15: até ×0,75 (Normal)",
+   "i4": "subsídio cumprido",
+   "i4b": "×2 por 5 anos nas suas linhas",
+   "c1": "veículos",
+   "c1b": "operação segue velocidade × capacidade",
+   "c2": "trilhos e estradas",
+   "c2b": "manutenção ≈ 1/6 do preço por ano",
+   "c3": "garagens, estações, armazéns",
+   "c3b": "variantes de era ×3 / ×9, ano ×1 → ×6",
+   "c4": "empréstimos",
+   "c4b": "juros cobrados uma vez sobre o valor",
+   "np": "Não paga nada",
+   "n1": "uma rota mais longa",
+   "n2": "velocidade (atraso paga 100 %)",
+   "n3": "descarregar em armazém ou transferência",
+   "n4": "viagens vazias"
+  },
+  "T_MCHECK": {
+   "cap": "Verifique nesta ordem: primeiro quais linhas perdem dinheiro, depois por quê. Cada passo leva à página com os detalhes.",
+   "steps": [
+    [
+     "Quais linhas perdem dinheiro?",
+     "saldo da linha dos últimos 12 meses",
+     "finance"
+    ],
+    [
+     "A carga vai longe?",
+     "só a linha reta paga; alimentadoras curtas ganham pouco",
+     "map"
+    ],
+    [
+     "Ela anda cheia?",
+     "voltas vazias, Nível de Preenchimento, carga completa",
+     "vehicles"
+    ],
+    [
+     "É descarregada onde paga?",
+     "lista Volume; armazéns não pagam nada",
+     "warehouses"
+    ],
+    [
+     "Veículo demais?",
+     "velocidade × capacidade custa; velocidade só ajuda em linhas longas",
+     "train"
+    ],
+    [
+     "Custos fixos",
+     "garagens, módulos de armazém, trilho rápido, variantes de eras posteriores",
+     "infrastructure"
+    ]
+   ]
   }
  },
  "cargo": {

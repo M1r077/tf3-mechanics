@@ -425,6 +425,68 @@
    "n2": "tutto il viaggio in auto: Auto non è permesso",
    "n3": "assegnato ma non arriva mai (In viaggio)",
    "n4": "scende a una fermata che non raggiunge l'industria"
+  },
+  "T_MFLOW": {
+   "cap": "Le entrate dipendono solo dalla linea d'aria tra fonte e consumatore, pagata una volta al consumatore. I costi crescono con ciò che costruisci e compri, e alcuni con l'anno del calendario.",
+   "inc": "Cosa paga",
+   "cost": "Cosa costa",
+   "bal": "Bilancio della linea",
+   "i1": "linea d'aria fonte → consumatore",
+   "i1b": "+8 × dislivello",
+   "i2": "pagato una volta, al consumatore",
+   "i2b": "diviso tra le linee per tratta",
+   "i3": "grado azienda (Inflazione)",
+   "i3b": "grado 15: fino a ×0,75 (Normale)",
+   "i4": "commessa completata",
+   "i4b": "×2 per 5 anni sulle sue linee",
+   "c1": "veicoli",
+   "c1b": "esercizio secondo velocità × capacità",
+   "c2": "binari e strade",
+   "c2b": "manutenzione ≈ 1/6 del prezzo all'anno",
+   "c3": "depositi, stazioni, magazzini",
+   "c3b": "varianti d'epoca ×3 / ×9, anno ×1 → ×6",
+   "c4": "prestiti",
+   "c4b": "interessi addebitati una volta sull'importo",
+   "np": "Non paga nulla",
+   "n1": "un percorso più lungo",
+   "n2": "la velocità (il ritardo paga 100 %)",
+   "n3": "scaricare in magazzino o trasbordo",
+   "n4": "viaggi a vuoto"
+  },
+  "T_MCHECK": {
+   "cap": "Controlla in questo ordine: prima quali linee perdono soldi, poi perché. Ogni passo rimanda alla pagina con i dettagli.",
+   "steps": [
+    [
+     "Quali linee perdono soldi?",
+     "bilancio della linea degli ultimi 12 mesi",
+     "finance"
+    ],
+    [
+     "La merce va lontano?",
+     "paga solo la linea d'aria; le brevi linee di raccolta guadagnano poco",
+     "map"
+    ],
+    [
+     "Viaggia piena?",
+     "ritorni a vuoto, Riempi livello, carico completo",
+     "vehicles"
+    ],
+    [
+     "Viene scaricata dove paga?",
+     "lista Carico; i magazzini non pagano nulla",
+     "warehouses"
+    ],
+    [
+     "Troppo veicolo?",
+     "velocità × capacità costa; la velocità aiuta solo su linee lunghe",
+     "train"
+    ],
+    [
+     "Costi fissi",
+     "depositi, moduli di magazzino, binari veloci, varianti d'epoca successive",
+     "infrastructure"
+    ]
+   ]
   }
  },
  "cargo": {

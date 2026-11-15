@@ -425,6 +425,68 @@
    "n2": "todo el viaje en coche: Coche no está permitido",
    "n3": "asignado pero nunca llega (De camino)",
    "n4": "baja en una parada que no llega a la industria"
+  },
+  "T_MFLOW": {
+   "cap": "Los ingresos dependen solo de la línea recta de la fuente al consumidor, pagada una vez en el consumidor. Los costes crecen con lo que construyes y compras, y algunos con el año del calendario.",
+   "inc": "Qué paga",
+   "cost": "Qué cuesta",
+   "bal": "Balance de la línea",
+   "i1": "línea recta fuente → consumidor",
+   "i1b": "+8 × desnivel",
+   "i2": "pagado una vez, en el consumidor",
+   "i2b": "repartido entre líneas por tramo",
+   "i3": "rango de la empresa (Inflación)",
+   "i3b": "rango 15: hasta ×0,75 (Normal)",
+   "i4": "subvención cumplida",
+   "i4b": "×2 durante 5 años en sus líneas",
+   "c1": "vehículos",
+   "c1b": "funcionamiento según velocidad × capacidad",
+   "c2": "vías y carreteras",
+   "c2b": "conservación ≈ 1/6 del precio al año",
+   "c3": "depósitos, estaciones, almacenes",
+   "c3b": "variantes de época ×3 / ×9, año ×1 → ×6",
+   "c4": "préstamos",
+   "c4b": "interés cobrado una vez sobre el importe",
+   "np": "No paga nada",
+   "n1": "una ruta más larga",
+   "n2": "la velocidad (el retraso paga 100 %)",
+   "n3": "descargar en almacén o transbordo",
+   "n4": "viajes vacíos"
+  },
+  "T_MCHECK": {
+   "cap": "Comprueba en este orden: primero qué líneas pierden dinero, luego por qué. Cada paso lleva a la página con los detalles.",
+   "steps": [
+    [
+     "¿Qué líneas pierden dinero?",
+     "balance de la línea de los últimos 12 meses",
+     "finance"
+    ],
+    [
+     "¿Va lejos el cargamento?",
+     "solo paga la línea recta; los aportes cortos ganan poco",
+     "map"
+    ],
+    [
+     "¿Va lleno?",
+     "vueltas vacías, nivel de llenado, capacidad máxima",
+     "vehicles"
+    ],
+    [
+     "¿Se descarga donde paga?",
+     "lista Carga; los almacenes no pagan nada",
+     "warehouses"
+    ],
+    [
+     "¿Demasiado vehículo?",
+     "velocidad × capacidad cuesta; la velocidad solo ayuda en líneas largas",
+     "train"
+    ],
+    [
+     "Costes fijos",
+     "depósitos, módulos de almacén, vía rápida, variantes de épocas posteriores",
+     "infrastructure"
+    ]
+   ]
   }
  },
  "cargo": {
