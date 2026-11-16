@@ -232,7 +232,12 @@ def check_builds(slugs):
             if (g, ch) != (game, changes):
                 found.append(f"{l}/{slug}: 'game:' / 'change:' builds differ from en")
     if indexed and seen and str(indexed) not in seen:
-        found.append(f"data/index.json is of build {indexed}, no page is checked on it (pages: {', '.join(sorted(seen))})")
+        if builds["builds"].get(str(indexed), {}).get("branch") == "preview":
+            # the game runs a preview: allowed, the pages keep describing the stable build
+            print(f"  note: the installed game is preview {indexed}; pages describe {', '.join(sorted(seen))}"
+                  f" (python scan.py --diff {min(seen)} {indexed})")
+        else:
+            found.append(f"data/index.json is of build {indexed}, no page is checked on it (pages: {', '.join(sorted(seen))})")
     return found
 
 

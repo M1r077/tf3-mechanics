@@ -14,6 +14,8 @@ data/builds.json (written by hand where marked, the rest by this script):
              {"text", "tag", "builds": [...], "triage": {"status", "pages", "dashboard", "why"}}  (triage: by hand)
              status: "new" (not looked at), "todo" (pages to check or update), "watch" (to measure in game),
              "done" (pages updated, see "pages"), "none" (nothing for the wiki).
+  "builds"[b]["findings"]: (by hand) [{"page", "what"}]: changes read in the scripts of a build with
+             scan.py --diff, which the release notes do not name; applied when the build reaches stable.
 """
 import html
 import json
@@ -139,6 +141,11 @@ def tasks(data, verified):
             print(f"  [{when}] {('(' + n['tag'] + ') ') if n['tag'] else ''}{n['text']}{extra}")
             if tri.get("why"):
                 print(f"      {tri['why']}")
+    for build, b in data["builds"].items():
+        if b.get("findings"):
+            print(f"\nfound in the scripts of {b['branch']} {build} (scan.py --diff), for the pages:")
+            for f in b["findings"]:
+                print(f"  - {f['page']}: {f['what']}")
     ready = [n for n in groups["todo"] + groups["watch"] if first_stable(data, n)]
     if ready:
         print(f"\n  ! {len(ready)} triaged note(s) are now in a stable build: update the pages, then set status \"done\"")

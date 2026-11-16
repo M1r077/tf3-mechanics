@@ -4,7 +4,29 @@
   "40444": {
    "branch": "preview",
    "date": "2026-11-13",
-   "store": "Steam"
+   "store": "Steam",
+   "findings": [
+    {
+     "page": "subsidies",
+     "what": "Connect Towns: the line that gets the x2 is now fixed when the contract completes; it no longer moves to the last direct line boarded (deliver_passengers.script.tl handleEvent returns before acceptance and after completion). Lines 51 and 82 of subsidies.md to rewrite."
+    },
+    {
+     "page": "subsidies",
+     "what": "Connect Towns offer: every direct line between the two towns is checked for a passenger vehicle, not only the first one found (subvention_util.getLinesConnectingTowns). subsidies.md:53 stays true, more strictly."
+    },
+    {
+     "page": "subsidies",
+     "what": "Card texts: \"2x Income for {duration} on First Established Connection\" (Connect Towns) and \"... on All Supplying Lines\" (cargo contracts) replace \"2x Income for {duration}\": quote the new labels (gamestrings.py)."
+    },
+    {
+     "page": "loading",
+     "what": "The automatic line configuration now clears a stop's alternative terminals (line_util.tl, next to the Max. Additional Wait default). Check in game; also for the dashboard's line_set_terminals."
+    },
+    {
+     "page": "all",
+     "what": "101 of 727 references moved or changed between 40425 and 40444: run scan.py --diff 40425 <stable> --renumber when it reaches stable."
+    }
+   ]
   },
   "40439": {
    "branch": "preview",
@@ -332,11 +354,11 @@
     40438
    ],
    "triage": {
-    "status": "watch",
-    "why": "check whether only the notification was repeated or the reward too",
+    "status": "todo",
     "pages": [
      "subsidies"
-    ]
+    ],
+    "why": "the scripts of 40444 show more than the notification: Connect Towns now keeps the x2 on the line that completed it (see the findings of 40444)"
    }
   },
   {
