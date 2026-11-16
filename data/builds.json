@@ -198,9 +198,9 @@
     40438
    ],
    "triage": {
-    "status": "watch",
-    "why": "the dashboard's line_set_terminals command and terminal list: test the alternative terminals again",
-    "dashboard": true
+    "status": "done",
+    "dashboard": true,
+    "why": "tested on preview 40444 (16 Nov 2026): line_set_terminals ack ok and the terminal set from the dashboard stayed in game"
    }
   },
   {
@@ -243,9 +243,9 @@
     40438
    ],
    "triage": {
-    "status": "watch",
-    "why": "the dashboard mod writes through app.saveUserdata (build 40420 already restricted it to three folders) and reads cmd.lua: test on the preview before it reaches stable",
-    "dashboard": true
+    "status": "done",
+    "dashboard": true,
+    "why": "tested on preview 40444 (16 Nov 2026): rev 30 writes every heightmaps/tf3dash_* file, reads cmd.lua and removes it, 333 snapshots with 0 errors; line_set_terminals ack ok"
    }
   },
   {
