@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | rumore in città: valutazione piena a 65, zero a 80
-fact: 60–74 dB | inquinamento in città: valutazione piena a 60, zero a 74
+fact: 60–74 | inquinamento in città, sulla scala logaritmica degli script (non un livello sonoro): valutazione piena a 60, zero a 74
 fact: −80 % | rumore e inquinamento di un'industria inverdita
 fact: 700 m | raggio dell'Impianto di bonifica
 ---
@@ -49,11 +49,11 @@ Due valori sono il livello tranquillo e quello intenso. Tieni porti, aeroporti e
 | Valutazione | Misura | Valutazione piena | Zero | Fonte |
 |---|---|---|---|---|
 | **Rumore** | rumore agli edifici della città | 65 dB o meno | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Inquinamento** | media sull'area della città, contata tra 5 e 10 km² | 60 dB o meno | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Inquinamento** | inquinamento medio per cella di 16 m dell'area della città (area contata tra 5 e 10 km²), convertito sulla scala logaritmica degli script («dB») | 60 o meno | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Solo il quartiere **Residenziale** soffre il rumore; gli edifici commerciali e industriali no (wiki ufficiale). La finestra di una casa mostra il rumore nella sua posizione (`town_building.tl:165-183`).
 - L'inquinamento è mediato su tutta l'area: una fonte lontana dal centro pesa meno in una città grande che in una piccola.
-- Le impostazioni **Sensibilità rumore** e **Sensibilità inquinamento** spostano i limiti: una sensibilità doppia conta come +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- Le impostazioni **Sensibilità rumore** e **Sensibilità inquinamento** spostano i limiti: una sensibilità doppia conta come +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). L'inquinamento usa la stessa scala logaritmica del rumore (10·log10): +3 «dB» significa il doppio dell'inquinamento. Non è un livello sonoro.
 
 | Livello | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Fonte |
 |---|---|---|---|---|---|---|---|---|

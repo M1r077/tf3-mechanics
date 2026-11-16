@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | ruido en la ciudad: valoración completa a 65, cero a 80
-fact: 60–74 dB | contaminación en la ciudad: valoración completa a 60, cero a 74
+fact: 60–74 | contaminación en la ciudad, en la escala logarítmica de los scripts (no es un nivel sonoro): valoración completa a 60, cero a 74
 fact: −80 % | ruido y contaminación de una industria ecologizada
 fact: 700 m | alcance de la Planta de limpieza
 ---
@@ -49,11 +49,11 @@ Dos valores son el nivel tranquilo y el ajetreado. Mantén puertos, aeropuertos 
 | Valoración | Medida | Valoración completa | Cero | Fuente |
 |---|---|---|---|---|
 | **Ruido** | ruido en los edificios de la ciudad | 65 dB o menos | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Polución** | media sobre el área de la ciudad, contada como 5 a 10 km² | 60 dB o menos | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Polución** | polución media por celda de 16 m del área de la ciudad (área contada entre 5 y 10 km²), convertida a la escala logarítmica de los scripts («dB») | 60 o menos | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Solo el distrito **Residencial** sufre el ruido; los edificios comerciales e industriales no (wiki oficial). La ventana de una casa muestra el ruido en su posición (`town_building.tl:165-183`).
 - La contaminación se promedia sobre toda el área: una fuente lejos del centro pesa menos en una ciudad grande que en una pequeña.
-- Los ajustes **Susceptibilidad al ruido** y **Susceptibilidad a la polución** desplazan los límites: el doble de susceptibilidad cuenta como +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- Los ajustes **Susceptibilidad al ruido** y **Susceptibilidad a la polución** desplazan los límites: el doble de susceptibilidad cuenta como +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). La polución usa la misma escala logarítmica que el ruido (10·log10): +3 «dB» significa el doble de polución. No es un nivel sonoro.
 
 | Nivel | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Fuente |
 |---|---|---|---|---|---|---|---|---|

@@ -58,7 +58,7 @@ Le taux de croissance vient de deux notes de la fenêtre de la ville (`town_util
 | **Bonheur** | part des voyageurs mécontents (au moins 15 personnes supposées) | `town_util.tl:479-503` |
 | **Livraison** | part des livraisons de fret en retard (voir [Revenus du fret](income.html)) | `town_util.tl:505-519` |
 | **Bruit** | bruit de la ville : 65 dB ou moins → note pleine, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Pollution** | pollution moyenne de la zone de la ville : 60 dB → pleine, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Pollution** | pollution moyenne par case de 16 m de la zone de la ville, sur l'échelle logarithmique des scripts (« dB », pas un niveau sonore) : 60 → pleine, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 Les réglages de **sensibilité** de chaque note (sept crans, le premier est Désactivé) déplacent ces limites ; Désactivé donne toujours la note pleine (`difficulty_util.tl:44-49`).
 

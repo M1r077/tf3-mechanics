@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | barulho na cidade: avaliação máxima em 65, zero em 80
-fact: 60–74 dB | poluição na cidade: avaliação máxima em 60, zero em 74
+fact: 60–74 | poluição na cidade, na escala logarítmica dos scripts (não é um nível sonoro): avaliação máxima em 60, zero em 74
 fact: −80 % | barulho e poluição de uma indústria ecologizada
 fact: 700 m | alcance da Estação de Limpeza
 ---
@@ -49,11 +49,11 @@ Dois valores são o nível calmo e o movimentado. Mantenha portos, aeroportos e 
 | Avaliação | Medido | Avaliação máxima | Zero | Fonte |
 |---|---|---|---|---|
 | **Barulho** | barulho nos edifícios da cidade | 65 dB ou menos | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Poluição** | média sobre a área da cidade, contada como 5 a 10 km² | 60 dB ou menos | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Poluição** | poluição média por célula de 16 m da área da cidade (área contada entre 5 e 10 km²), convertida para a escala logarítmica dos scripts ("dB") | 60 ou menos | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Só o distrito **residencial** sofre com o barulho; edifícios comerciais e industriais não (wiki oficial). A janela de uma casa mostra o barulho na sua posição (`town_building.tl:165-183`).
 - A poluição é tirada como média de toda a área, então uma fonte longe do centro pesa menos numa cidade grande do que numa pequena.
-- As configurações **Sensibilidade de Barulho** e **Sensibilidade de Poluição** deslocam os limites: o dobro da sensibilidade conta como +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- As configurações **Sensibilidade de Barulho** e **Sensibilidade de Poluição** deslocam os limites: o dobro da sensibilidade conta como +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). A poluição usa a mesma escala logarítmica do barulho (10·log10): +3 "dB" significa o dobro de poluição. Não é um nível sonoro.
 
 | Nível | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Fonte |
 |---|---|---|---|---|---|---|---|---|

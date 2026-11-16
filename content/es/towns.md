@@ -58,7 +58,7 @@ La tasa de crecimiento sale de dos calificaciones de la ventana de la localidad 
 | **Felicidad** | proporción de viajeros descontentos (se suponen al menos 15 personas) | `town_util.tl:479-503` |
 | **Entrega** | proporción de entregas de cargamento con retraso (ver [Ingresos por cargamento](income.html)) | `town_util.tl:505-519` |
 | **Ruido** | ruido de la localidad: 65 dB o menos → calificación máxima, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Polución** | polución media del área de la localidad: 60 dB → máxima, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Polución** | polución media por celda de 16 m del área de la localidad, en la escala logarítmica de los scripts («dB», no es un nivel sonoro): 60 → máxima, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 Los ajustes de **susceptibilidad** de cada calificación (siete niveles, el primero es No) desplazan estos límites; No significa calificación siempre máxima (`difficulty_util.tl:44-49`).
 

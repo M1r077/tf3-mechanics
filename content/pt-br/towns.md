@@ -58,7 +58,7 @@ A taxa de crescimento vem de duas classificações da janela do município (`tow
 | **Felicidade** | fração de viajantes insatisfeitos (no mínimo 15 pessoas consideradas) | `town_util.tl:479-503` |
 | **Entrega** | fração de entregas de carga atrasadas (veja [Renda por carga](income.html)) | `town_util.tl:505-519` |
 | **Barulho** | barulho do município: 65 dB ou menos → classificação cheia, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Poluição** | poluição média da área do município: 60 dB → cheia, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Poluição** | poluição média por célula de 16 m da área do município, na escala logarítmica dos scripts ("dB", não é um nível sonoro): 60 → cheia, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 As configurações de **sensibilidade** de cada classificação (sete níveis, o primeiro é Desligado) movem esses limites; Desligado significa classificação sempre cheia (`difficulty_util.tl:44-49`).
 

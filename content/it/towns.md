@@ -58,7 +58,7 @@ L'indice di crescita deriva da due valutazioni della finestra della cittadina (`
 | **Felicità** | quota di viaggiatori insoddisfatti (si presumono almeno 15 persone) | `town_util.tl:479-503` |
 | **Consegna** | quota di consegne di merci in ritardo (vedi [Entrate dalle merci](income.html)) | `town_util.tl:505-519` |
 | **Rumore** | rumore della cittadina: 65 dB o meno → valutazione piena, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Inquinamento** | inquinamento medio dell'area della cittadina: 60 dB → piena, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Inquinamento** | inquinamento medio per cella di 16 m dell'area della cittadina, sulla scala logaritmica degli script («dB», non un livello sonoro): 60 → piena, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 Le impostazioni di **sensibilità** di ogni valutazione (sette livelli, il primo è No) spostano questi limiti; No significa valutazione sempre piena (`difficulty_util.tl:44-49`).
 

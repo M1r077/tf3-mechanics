@@ -58,7 +58,7 @@ The growth rate comes from two ratings of the town window (`town_util.tl:607-633
 | **Happiness** | share of unhappy travellers (at least 15 people assumed) | `town_util.tl:479-503` |
 | **Delivery** | share of late cargo deliveries (see [Cargo income](income.html)) | `town_util.tl:505-519` |
 | **Noise** | town noise: 65 dB or less → full rating, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Pollution** | average pollution of the town area: 60 dB → full, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Pollution** | average pollution per 16 m cell of the town area, on the scripts' log scale ("dB", not a sound level): 60 → full, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 The **sensitivity** settings of each rating (seven steps, the first is Off) move these limits; Off means always full rating (`difficulty_util.tl:44-49`).
 

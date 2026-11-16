@@ -58,7 +58,7 @@ Het groeitempo komt uit twee beoordelingen in het stadsvenster (`town_util.tl:60
 | **Blijdschap** | aandeel ontevreden reizigers (minstens 15 personen aangenomen) | `town_util.tl:479-503` |
 | **Bezorging** | aandeel te late vrachtbezorgingen (zie [Vrachtinkomsten](income.html)) | `town_util.tl:505-519` |
 | **Geluidsoverlast** | geluid in de stad: 65 dB of minder → volle beoordeling, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Vervuiling** | gemiddelde vervuiling van het stadsgebied: 60 dB → vol, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Vervuiling** | gemiddelde vervuiling per cel van 16 m van het stadsgebied, op de logaritmische schaal van de scripts ("dB", geen geluidsniveau): 60 → vol, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 De **gevoeligheids**instellingen van elke beoordeling (zeven stappen, de eerste is Uit) verschuiven deze grenzen; Uit betekent altijd volle beoordeling (`difficulty_util.tl:44-49`).
 

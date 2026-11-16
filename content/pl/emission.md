@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | hałas w mieście: pełna ocena przy 65, zero przy 80
-fact: 60–74 dB | zanieczyszczenie w mieście: pełna ocena przy 60, zero przy 74
+fact: 60–74 | zanieczyszczenie w mieście, w skali logarytmicznej skryptów (to nie poziom dźwięku): pełna ocena przy 60, zero przy 74
 fact: −80 % | hałas i zanieczyszczenie zazielenionego zakładu
 fact: 700 m | zasięg Oczyszczalni
 ---
@@ -49,11 +49,11 @@ Dwie wartości to poziom spokojny i ruchliwy. Trzymaj porty, lotniska i duże st
 | Ocena | Mierzone | Pełna ocena | Zero | Źródło |
 |---|---|---|---|---|
 | **Hałas** | hałas przy budynkach miasta | 65 dB lub mniej | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Zanieczyszczenie** | średnia z obszaru miasta, liczonego jako 5 do 10 km² | 60 dB lub mniej | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Zanieczyszczenie** | średnie zanieczyszczenie na komórkę 16 m obszaru miasta (obszar liczony jako co najmniej 5 i najwyżej 10 km²), przeliczone na skalę logarytmiczną skryptów („dB”) | 60 lub mniej | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Od hałasu cierpi tylko dzielnica **mieszkalna**; budynki handlowe i przemysłowe nie (oficjalna wiki). Okno domu pokazuje hałas w jego miejscu (`town_building.tl:165-183`).
 - Zanieczyszczenie jest uśredniane z całego obszaru, więc jedno źródło daleko od centrum waży mniej w dużym mieście niż w małym.
-- Ustawienia **Wrażliwość na hałas** i **Wrażliwość na zanieczyszczenie** przesuwają limity: dwa razy większa wrażliwość liczy się jako +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- Ustawienia **Wrażliwość na hałas** i **Wrażliwość na zanieczyszczenie** przesuwają limity: dwa razy większa wrażliwość liczy się jako +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). Zanieczyszczenie używa tej samej skali logarytmicznej co hałas (10·log10): +3 „dB” oznacza dwa razy więcej zanieczyszczenia. To nie jest poziom dźwięku.
 
 | Stopień | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Źródło |
 |---|---|---|---|---|---|---|---|---|

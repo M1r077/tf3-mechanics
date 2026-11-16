@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | bruit en ville : note pleine à 65, nulle à 80
-fact: 60–74 dB | pollution en ville : note pleine à 60, nulle à 74
+fact: 60–74 | pollution en ville, sur l'échelle logarithmique des scripts (pas un niveau sonore) : note pleine à 60, nulle à 74
 fact: −80 % | bruit et pollution d'une industrie verdie
 fact: 700 m | portée de la Station de dépollution
 ---
@@ -49,11 +49,11 @@ Deux valeurs sont le niveau calme et le niveau chargé. Garde les ports, aéropo
 | Note | Mesure | Note pleine | Nulle | Source |
 |---|---|---|---|---|
 | **Bruit** | bruit aux bâtiments de la ville | 65 dB ou moins | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Pollution** | moyenne sur la surface de la ville, comptée entre 5 et 10 km² | 60 dB ou moins | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Pollution** | pollution moyenne par case de 16 m de la surface de la ville (surface comptée entre 5 et 10 km²), convertie sur l'échelle logarithmique des scripts (« dB ») | 60 ou moins | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Seul le quartier **Résidentiel** souffre du bruit ; les bâtiments commerciaux et industriels non (wiki officiel). La fenêtre d'une maison montre le bruit à son emplacement (`town_building.tl:165-183`).
 - La pollution est moyennée sur toute la surface : une source loin du centre pèse moins dans une grande ville que dans une petite.
-- Les réglages **Sensibilité au bruit** et **Sensibilité à la pollution** décalent les limites : une sensibilité doublée compte pour +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- Les réglages **Sensibilité au bruit** et **Sensibilité à la pollution** décalent les limites : une sensibilité doublée compte pour +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). La pollution utilise la même échelle logarithmique que le bruit (10·log10) : +3 « dB » veut dire deux fois plus de pollution. Ce n'est pas un niveau sonore.
 
 | Niveau | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Source |
 |---|---|---|---|---|---|---|---|---|

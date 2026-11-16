@@ -58,7 +58,7 @@ Tempo rozwoju zależy od dwóch ocen w oknie miasta (`town_util.tl:607-633`, `to
 | **Zadowolenie** | udział niezadowolonych podróżnych (przyjmuje się co najmniej 15 osób) | `town_util.tl:479-503` |
 | **Dostawa** | udział spóźnionych dostaw towarów (patrz [Przychód z towarów](income.html)) | `town_util.tl:505-519` |
 | **Hałas** | hałas w mieście: 65 dB lub mniej → pełna ocena, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Zanieczyszczenie** | średnie zanieczyszczenie obszaru miasta: 60 dB → pełna, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Zanieczyszczenie** | średnie zanieczyszczenie na komórkę 16 m obszaru miasta, w skali logarytmicznej skryptów („dB”, to nie poziom dźwięku): 60 → pełna, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 Ustawienia **wrażliwości** każdej oceny (siedem stopni, pierwszy to „Wył.”) przesuwają te progi; „Wył.” oznacza zawsze pełną ocenę (`difficulty_util.tl:44-49`).
 

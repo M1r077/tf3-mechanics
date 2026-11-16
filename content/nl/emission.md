@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | geluid in de stad: volle beoordeling bij 65, nul bij 80
-fact: 60–74 dB | vervuiling in de stad: volle beoordeling bij 60, nul bij 74
+fact: 60–74 | vervuiling in de stad, op de logaritmische schaal van de scripts (geen geluidsniveau): volle beoordeling bij 60, nul bij 74
 fact: −80 % | geluid en vervuiling van een vergroend industriebedrijf
 fact: 700 m | bereik van de Zuiveringsinstallatie
 ---
@@ -49,11 +49,11 @@ Twee waarden zijn het rustige en het drukke niveau. Houd havens, luchthavens en 
 | Beoordeling | Gemeten | Volle beoordeling | Nul | Bron |
 |---|---|---|---|---|
 | **Geluidsoverlast** | geluid bij de gebouwen van de stad | 65 dB of minder | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Vervuiling** | gemiddelde over het stadsgebied, geteld als 5 tot 10 km² | 60 dB of minder | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Vervuiling** | gemiddelde vervuiling per cel van 16 m van het stadsgebied (oppervlak geteld als minstens 5 en hoogstens 10 km²), omgerekend naar de logaritmische schaal van de scripts ("dB") | 60 of minder | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Alleen de **woonwijk** heeft last van geluid; commerciële en industriële gebouwen niet (officiële wiki). Het venster van een huis toont het geluid op zijn plek (`town_building.tl:165-183`).
 - Vervuiling wordt over het hele gebied gemiddeld, dus één bron ver van het centrum weegt in een grote stad minder dan in een kleine.
-- De instellingen **Gevoeligheid geluidsoverlast** en **Gevoeligheid vervuiling** verschuiven de grenzen: twee keer de gevoeligheid telt als +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- De instellingen **Gevoeligheid geluidsoverlast** en **Gevoeligheid vervuiling** verschuiven de grenzen: twee keer de gevoeligheid telt als +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). Vervuiling gebruikt dezelfde logaritmische schaal als geluid (10·log10): +3 "dB" betekent twee keer zoveel vervuiling. Het is geen geluidsniveau.
 
 | Stap | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Bron |
 |---|---|---|---|---|---|---|---|---|

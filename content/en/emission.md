@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | town noise: full rating at 65, zero at 80
-fact: 60–74 dB | town pollution: full rating at 60, zero at 74
+fact: 60–74 | town pollution, on the scripts' log scale (not a sound level): full rating at 60, zero at 74
 fact: −80 % | noise and pollution of a greenified industry
 fact: 700 m | reach of the Cleaning Plant
 ---
@@ -49,11 +49,11 @@ Two values are the quiet and the busy level. Keep harbours, airports and big fre
 | Rating | Measured | Full rating | Zero | Source |
 |---|---|---|---|---|
 | **Noise** | noise at the town's buildings | 65 dB or less | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Pollution** | average over the town area, counted as 5 to 10 km² | 60 dB or less | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Pollution** | average pollution per 16 m cell of the town area (area taken as at least 5 and at most 10 km²), converted to the scripts' log scale ("dB") | 60 or less | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Only the **residential** district suffers from noise; commercial and industrial buildings do not (official wiki). The window of a house shows the noise at its position (`town_building.tl:165-183`).
 - Pollution is averaged over the whole area, so one source far from the centre weighs less in a big town than in a small one.
-- The **Noise Sensitivity** and **Pollution Sensitivity** settings shift the limits: twice the sensitivity counts as +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- The **Noise Sensitivity** and **Pollution Sensitivity** settings shift the limits: twice the sensitivity counts as +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). Pollution uses the same log scale as noise (10·log10): +3 "dB" means twice the pollution. It is not a sound level.
 
 | Step | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Source |
 |---|---|---|---|---|---|---|---|---|

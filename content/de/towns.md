@@ -58,7 +58,7 @@ Die Wachstumsrate kommt aus zwei Wertungen des Stadtfensters (`town_util.tl:607-
 | **Zufriedenheit** | Anteil unzufriedener Reisender (mindestens 15 Personen angenommen) | `town_util.tl:479-503` |
 | **Lieferung** | Anteil verspäteter Frachtlieferungen (siehe [Frachteinnahmen](income.html)) | `town_util.tl:505-519` |
 | **Lärm** | Lärm der Stadt: 65 dB oder weniger → volle Wertung, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Verschmutzung** | mittlere Verschmutzung des Stadtgebiets: 60 dB → voll, 74 dB → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
+| **Verschmutzung** | mittlere Verschmutzung pro 16-m-Zelle des Stadtgebiets, auf der logarithmischen Skala der Skripte („dB“, kein Schallpegel): 60 → voll, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
 Die **Empfindlichkeits**-Einstellungen jeder Wertung (sieben Stufen, die erste ist Aus) verschieben diese Grenzen; Aus heißt immer volle Wertung (`difficulty_util.tl:44-49`).
 

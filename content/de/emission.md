@@ -6,7 +6,7 @@ official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
 fact: 65–80 dB | Lärm in der Stadt: volle Bewertung bei 65, null bei 80
-fact: 60–74 dB | Verschmutzung in der Stadt: volle Bewertung bei 60, null bei 74
+fact: 60–74 | Verschmutzung in der Stadt, auf der logarithmischen Skala der Skripte (kein Schallpegel): volle Bewertung bei 60, null bei 74
 fact: −80 % | Lärm und Verschmutzung einer begrünten Industrie
 fact: 700 m | Reichweite der Reinigungsanlage
 ---
@@ -49,11 +49,11 @@ Zwei Werte sind das ruhige und das ausgelastete Niveau. Halte Häfen, Flughäfen
 | Bewertung | Gemessen | Volle Bewertung | Null | Quelle |
 |---|---|---|---|---|
 | **Lärm** | Lärm an den Gebäuden der Stadt | 65 dB oder weniger | 80 dB | `town_util.tl:433-443`, `emission_config.tl:10-11` |
-| **Verschmutzung** | Durchschnitt über die Stadtfläche, gezählt als 5 bis 10 km² | 60 dB oder weniger | 74 dB | `town_util.tl:413-431`, `emission_config.tl:23-30` |
+| **Verschmutzung** | mittlere Verschmutzung pro 16-m-Zelle der Stadtfläche (Fläche als mindestens 5 und höchstens 10 km² gezählt), umgerechnet auf die logarithmische Skala der Skripte („dB“) | 60 oder weniger | 74 | `town_util.tl:413-431`, `emission_config.tl:23-30` |
 
 - Nur das **Wohngebäude**-Viertel leidet unter Lärm; Gewerbe- und Industriegebäude nicht (offizielles Wiki). Das Fenster eines Hauses zeigt den Lärm an seiner Position (`town_building.tl:165-183`).
 - Verschmutzung wird über die ganze Fläche gemittelt: Eine Quelle weit vom Zentrum wiegt in einer großen Stadt weniger als in einer kleinen.
-- Die Einstellungen **Lärmempfindlichkeit** und **Verschmutzungsempfindlichkeit** verschieben die Grenzen: doppelte Empfindlichkeit zählt als +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`).
+- Die Einstellungen **Lärmempfindlichkeit** und **Verschmutzungsempfindlichkeit** verschieben die Grenzen: doppelte Empfindlichkeit zählt als +3 dB (`town_util.tl:426-428`, `town_util.tl:439-441`). Verschmutzung nutzt dieselbe logarithmische Skala wie Lärm (10·log10): +3 „dB“ heißt doppelte Verschmutzung. Es ist kein Schallpegel.
 
 | Stufe | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Quelle |
 |---|---|---|---|---|---|---|---|---|
