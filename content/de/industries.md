@@ -73,7 +73,7 @@ Die Produktion wächst in Stufen: eine neue Parzelle erhöht die Produktion nich
 6. **Keine Produktion**: eine Industrie, die im Jahr nichts produziert, wird übersprungen (`industries.script.tl:168-171`).
 
 ```tip scripts
-**Damit eine Mine oder ein Hof wächst, transportiere mindestens 75 % der Produktion ab.** Bei 25 % oder weniger gibt es nie ein neues Grundstück; ab 75 % eines pro Halbjahr, bis zum Maximum.
+**Damit eine Mine oder ein Hof wächst, transportiere mindestens 75 % der Produktion ab und halte die Produktionsbewertung hoch.** Die Chance nutzt Produktionsbewertung × abtransportierter Anteil: bei 25 % oder weniger kein neues Grundstück; ab 75 % mit 100 % Produktionsbewertung eines pro Halbjahr, bis zum Maximum.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ Die Hälfte der Arbeitsplätze (10 von 20) muss mit Einwohnern besetzt sein, die
 4. **Arbeiter**: zugeteilt reicht nicht; der Abschnitt Booster zählt Ankünfte („12/10“) (`industry_react_util.tl:617-654`). Siehe [Arbeiter und Arbeiterbonus](workers.html).
 
 ```tip scripts
-**Für einen Booster ohne Pause liefere mindestens 4 volle Ladungen im Jahr** (52 Werkzeuge für eine Kohlemine). Der Bestand verfällt nicht, du kannst also vorausliefern.
+**Für einen Booster ohne Pause liefere mindestens 4 volle Ladungen im Jahr** (52 Werkzeuge für eine Kohlemine). Jede Ladung hält den Bonus 3 Monate.
 ```
 
 ## Wann schließt eine ungenutzte Industrie?

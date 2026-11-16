@@ -48,7 +48,7 @@ Eine Hauptverbindung gilt als unterbrochen, wenn das Spiel **Strassenverbindung 
 | 2 | 33 % | Mittelmässig | `town_util.tl:983-985` |
 | 3 | 0 % | Sehr schlecht: die Stadt wächst nicht mehr | `town_util.tl:607-633` |
 
-- Solange die Unterbrechung dauert, wird die Strafe auch Schritt für Schritt über ein halbes Jahr in den gespeicherten Wert geschrieben (`towns.script.tl:137-145`). Nach der Reparatur kommt dieser gespeicherte Teil nur mit der normalen Erholung zurück: eine lange Unterbrechung kostet noch eine Weile Ruf.
+- Solange die Unterbrechung dauert, wird die Strafe auch Schritt für Schritt über 3 Monate in den gespeicherten Wert geschrieben (`towns.script.tl:137-145`). Nach der Reparatur kommt dieser gespeicherte Teil nur mit der normalen Erholung zurück: eine lange Unterbrechung kostet noch eine Weile Ruf.
 - 67 % liegt genau an der Grenze zu Sehr gut: jeder kleine weitere Verlust senkt die Stadt auf Gut.
 
 ```tip scripts

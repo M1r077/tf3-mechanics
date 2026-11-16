@@ -106,7 +106,7 @@ Cosa cambia al raggiungimento della durata (per esempio una perdita di condizion
 4. Usa **Sostituisci veicoli** nel gestore delle linee. Apre il negozio con un confronto con il veicolo attuale (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**I veicoli restano in cattive condizioni vicino a un deposito? Apri la sua finestra e controlla che la capacità non sia piena.** Un deposito treni serve 6 treni, una stazione di manutenzione treni 12.
+**I veicoli restano in cattive condizioni vicino a un deposito? Apri la sua finestra e guarda «usati / capacità».** Un deposito treni serve 6 treni, una stazione di manutenzione treni 12. Cosa fa il motore con i veicoli oltre la capacità non è negli script; un secondo edificio è la risposta sicura.
 ```
 
 ## Buono a sapersi

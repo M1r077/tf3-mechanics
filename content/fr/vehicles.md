@@ -106,7 +106,7 @@ Ce que change le fait d'atteindre la durée de vie (par exemple une perte d'éta
 4. Utilise **Remplacer les véhicules** dans le gestionnaire de lignes. Il ouvre le magasin avec une comparaison avec le véhicule actuel (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**Des véhicules restent en mauvais état près d'un dépôt ? Ouvre sa fenêtre et vérifie que le pool n'est pas plein.** Un dépôt ferroviaire sert 6 trains, une station de maintenance ferroviaire 12.
+**Des véhicules restent en mauvais état près d'un dépôt ? Ouvre sa fenêtre et regarde « utilisé / pool ».** Un dépôt ferroviaire sert 6 trains, une station de maintenance ferroviaire 12. Ce que fait le moteur des véhicules au-delà du pool n'est pas dans les scripts ; un deuxième bâtiment est la réponse sûre.
 ```
 
 ## Bon à savoir

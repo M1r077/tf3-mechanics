@@ -106,7 +106,7 @@ What reaching the lifespan changes (for example faster loss of condition or lowe
 4. Use **Replace Vehicles** in the line manager. It opens the store with a comparison against the current vehicle (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**Vehicles stay in bad condition next to a depot? Open its window and check that the pool is not full.** A train depot serves 6 trains, a train maintenance station 12.
+**Vehicles stay in bad condition next to a depot? Open its window and check "used / pool".** A train depot serves 6 trains, a train maintenance station 12. What the engine does with the vehicles over the pool is not in the scripts; a second building is the safe answer.
 ```
 
 ## Good to know

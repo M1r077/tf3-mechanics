@@ -84,7 +84,7 @@ Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęci
 - Dwa kontrakty nigdy nie podwajają tej samej płatności dwukrotnie: gdy pasuje kilka, liczy się tylko ostatnia odpowiedź (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Chcesz podwójny dochód na kilku liniach? Niech wszystkie dostarczają przed wypełnieniem kontraktu.** Linia dodana później nic nie dostaje.
+**Chcesz podwójny dochód z Zaopatrz zakład przemysłowy lub Zaopatrz miasto na kilku liniach? Niech wszystkie dostarczają przed wypełnieniem kontraktu.** Linia dodana później nic nie dostaje. Połącz miasta podwaja tylko jedną linię.
 ```
 
 ```engine

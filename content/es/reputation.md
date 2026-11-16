@@ -48,7 +48,7 @@ Una conexión principal cuenta como cortada cuando el juego avisa **Se corto la 
 | 2 | 33 % | Mediocre | `town_util.tl:983-985` |
 | 3 | 0 % | Muy baja: la localidad deja de crecer | `town_util.tl:607-633` |
 
-- Mientras dura el corte, la penalización también se escribe en la puntuación guardada, paso a paso, durante medio año (`towns.script.tl:137-145`). Tras reparar la carretera, esa parte guardada solo vuelve a la velocidad normal de recuperación: un corte largo sigue costando reputación un tiempo.
+- Mientras dura el corte, la penalización también se escribe en la puntuación guardada, paso a paso, durante 3 meses (`towns.script.tl:137-145`). Tras reparar la carretera, esa parte guardada solo vuelve a la velocidad normal de recuperación: un corte largo sigue costando reputación un tiempo.
 - 67 % está justo en el límite de Muy buena: cualquier otra pequeña pérdida baja la localidad a Buena.
 
 ```tip scripts

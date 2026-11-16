@@ -84,7 +84,7 @@ Every contract keeps three lists, shown on its card as **On Acceptance**, **On F
 - Two contracts never double the same payment twice: when several match, only the last answer is used (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Want the doubled income on several lines? Have all of them deliver before the contract is fulfilled.** A line added afterwards gets nothing.
+**Want the doubled income of Supply Industry or Supply Town on several lines? Have all of them deliver before the contract is fulfilled.** A line added afterwards gets nothing. Connect Towns doubles only one line.
 ```
 
 ```engine

@@ -48,7 +48,7 @@ A main connection counts as cut when the game raises **Road Connection Between T
 | 2 | 33 % | Mediocre | `town_util.tl:983-985` |
 | 3 | 0 % | Very Poor: the town stops growing | `town_util.tl:607-633` |
 
-- While the cut lasts, the penalty is also written into the stored score, step by step, over half a year (`towns.script.tl:137-145`). After you repair the road, that stored part comes back only at the normal recovery speed: a long cut keeps costing reputation for a while.
+- While the cut lasts, the penalty is also written into the stored score, step by step, over 3 months (`towns.script.tl:137-145`). After you repair the road, that stored part comes back only at the normal recovery speed: a long cut keeps costing reputation for a while.
 - 67 % is right on the Very Good limit: any other small loss drops the town to Good.
 
 ```tip scripts

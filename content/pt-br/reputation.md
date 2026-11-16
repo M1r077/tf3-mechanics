@@ -48,7 +48,7 @@ Uma conexão principal conta como cortada quando o jogo avisa **A conexão rodov
 | 2 | 33 % | Medíocre | `town_util.tl:983-985` |
 | 3 | 0 % | Muito Ruim: o município para de crescer | `town_util.tl:607-633` |
 
-- Enquanto o corte dura, a penalidade também é gravada na pontuação salva, passo a passo, ao longo de meio ano (`towns.script.tl:137-145`). Depois que você conserta a estrada, essa parte gravada só volta na velocidade normal de recuperação: um corte longo continua custando reputação por um tempo.
+- Enquanto o corte dura, a penalidade também é gravada na pontuação salva, passo a passo, ao longo de 3 meses (`towns.script.tl:137-145`). Depois que você conserta a estrada, essa parte gravada só volta na velocidade normal de recuperação: um corte longo continua custando reputação por um tempo.
 - 67 % fica exatamente no limite de Muito Boa: qualquer outra pequena perda leva o município a Boa.
 
 ```tip scripts

@@ -73,7 +73,7 @@ De productie groeit in stappen: een nieuw perceel verhoogt de productie niet alt
 6. **Geen productie**: een bedrijf dat in het jaar niets produceert, wordt overgeslagen (`industries.script.tl:168-171`).
 
 ```tip scripts
-**Laat een mijn of boerderij groeien door minstens 75 % van de productie te vervoeren.** Bij 25 % of minder komt er nooit een nieuw perceel; bij 75 % of meer elk half jaar één, tot het maximum.
+**Laat een mijn of boerderij groeien door minstens 75 % van de productie te vervoeren en de productiebeoordeling hoog te houden.** De kans gebruikt productiebeoordeling × vervoerd deel: bij 25 % of minder geen nieuw perceel; bij 75 % of meer met 100 % productiebeoordeling elk half jaar één, tot het maximum.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ De helft van de arbeidsplaatsen (10 van 20) moet bezet zijn door inwoners die in
 4. **Werknemers**: toegewezen is niet genoeg; het onderdeel Booster telt aankomsten („12/10”) (`industry_react_util.tl:617-654`). Zie [Werknemers en de werknemersboost](workers.html).
 
 ```tip scripts
-**Voor een booster die nooit stopt: lever minstens 4 volle partijen per jaar** (52 gereedschappen voor een kolenmijn). De voorraad vervalt niet, dus je kunt vooruit leveren.
+**Voor een booster die nooit stopt: lever minstens 4 volle partijen per jaar** (52 gereedschappen voor een kolenmijn). Elke partij houdt de bonus 3 maanden.
 ```
 
 ## Wanneer sluit een ongebruikt industriebedrijf?

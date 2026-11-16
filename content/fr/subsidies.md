@@ -84,7 +84,7 @@ Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptat
 - Deux contrats ne doublent jamais deux fois le même paiement : quand plusieurs correspondent, seule la dernière réponse est utilisée (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Tu veux le revenu doublé sur plusieurs lignes ? Fais-les toutes livrer avant que le contrat soit réalisé.** Une ligne ajoutée après n'a rien.
+**Tu veux le revenu doublé d'Approvisionner l'industrie ou d'Approvisionner la ville sur plusieurs lignes ? Fais-les toutes livrer avant que le contrat soit réalisé.** Une ligne ajoutée après n'a rien. Relier des villes ne double qu'une seule ligne.
 ```
 
 ```engine

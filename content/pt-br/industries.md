@@ -73,7 +73,7 @@ A produção cresce em degraus: um lote novo nem sempre aumenta a produção.
 6. **Sem produção**: uma indústria que não produz nada no ano é pulada (`industries.script.tl:168-171`).
 
 ```tip scripts
-**Para uma mina ou fazenda crescer, transporte pelo menos 75 % da produção.** Com 25 % ou menos ela nunca ganha um lote novo; com 75 % ou mais ganha um a cada meio ano, até o máximo.
+**Para uma mina ou fazenda crescer, transporte pelo menos 75 % da produção e mantenha alta a avaliação de produção.** A chance usa avaliação de produção × parte transportada: com 25 % ou menos não há lote novo; com 75 % ou mais e avaliação de produção de 100 %, um a cada meio ano, até o máximo.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ Metade dos postos (10 de 20) precisa ser ocupada por moradores que **chegaram pe
 4. **Trabalhadores**: designados não basta; a seção Reforço conta chegadas (“12/10”) (`industry_react_util.tl:617-654`). Veja [Trabalhadores e o reforço de trabalhadores](workers.html).
 
 ```tip scripts
-**Para um bônus que nunca para, entregue pelo menos 4 lotes completos por ano** (52 ferramentas para uma mina de carvão). O estoque não se perde, então dá para entregar adiantado.
+**Para um bônus que nunca para, entregue pelo menos 4 lotes completos por ano** (52 ferramentas para uma mina de carvão). Cada lote mantém o bônus por 3 meses.
 ```
 
 ## Quando fecha uma indústria sem uso?

@@ -48,7 +48,7 @@ Une connexion principale compte comme coupée quand le jeu affiche **La liaison 
 | 2 | 33 % | Médiocre | `town_util.tl:983-985` |
 | 3 | 0 % | Très insuffisant : la ville arrête de grandir | `town_util.tl:607-633` |
 
-- Tant que la coupure dure, la pénalité est aussi inscrite dans le score enregistré, pas à pas, sur un semestre (`towns.script.tl:137-145`). Une fois la route réparée, cette partie enregistrée ne revient qu'à la vitesse normale : une longue coupure continue de coûter de la réputation pendant un moment.
+- Tant que la coupure dure, la pénalité est aussi inscrite dans le score enregistré, pas à pas, sur 3 mois (`towns.script.tl:137-145`). Une fois la route réparée, cette partie enregistrée ne revient qu'à la vitesse normale : une longue coupure continue de coûter de la réputation pendant un moment.
 - 67 % est pile à la limite de Très bon : la moindre autre perte fait passer la ville à Bon.
 
 ```tip scripts

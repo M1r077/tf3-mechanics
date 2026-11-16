@@ -106,7 +106,7 @@ Was das Erreichen der Lebensdauer ändert (zum Beispiel schnellerer Zustandsverl
 4. Nutze **Fahrzeuge ersetzen** im Linienmanager. Es öffnet den Katalog mit einem Vergleich zum aktuellen Fahrzeug (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**Fahrzeuge bleiben neben einem Depot in schlechtem Zustand? Öffne sein Fenster und prüfe, ob der Pool voll ist.** Ein Zugdepot bedient 6 Züge, eine Zug-Wartungsstation 12.
+**Fahrzeuge bleiben neben einem Depot in schlechtem Zustand? Öffne sein Fenster und prüfe „belegt / Pool“.** Ein Zugdepot bedient 6 Züge, eine Zug-Wartungsstation 12. Was die Engine mit Fahrzeugen über dem Pool macht, steht nicht in den Skripten; ein zweites Gebäude ist die sichere Lösung.
 ```
 
 ## Gut zu wissen

@@ -73,7 +73,7 @@ La produzione cresce a gradini: un nuovo lotto non aumenta sempre la produzione.
 6. **Nessuna produzione**: un'industria che non produce nulla nell'anno viene saltata (`industries.script.tl:168-171`).
 
 ```tip scripts
-**Per far crescere una miniera o una fattoria, spedisci almeno il 75 % della produzione.** Con il 25 % o meno non riceve mai un nuovo lotto; con il 75 % o più ne riceve uno ogni sei mesi, fino al massimo.
+**Per far crescere una miniera o una fattoria, spedisci almeno il 75 % della produzione e tieni alta la valutazione di produzione.** La probabilità usa valutazione di produzione × quota spedita: con il 25 % o meno nessun nuovo lotto; con il 75 % o più e una valutazione di produzione del 100 %, uno ogni sei mesi, fino al massimo.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ Metà dei posti (10 su 20) deve essere occupata da abitanti **arrivati con le tu
 4. **Lavoratori**: assegnati non basta; la sezione Booster conta gli arrivi («12/10») (`industry_react_util.tl:617-654`). Vedi [I lavoratori e il booster dei lavoratori](workers.html).
 
 ```tip scripts
-**Per un potenziamento che non si ferma mai, consegna almeno 4 lotti completi l'anno** (52 attrezzi per una miniera di carbone). La scorta non si perde, quindi puoi consegnare in anticipo.
+**Per un potenziamento che non si ferma mai, consegna almeno 4 lotti completi l'anno** (52 attrezzi per una miniera di carbone). Ogni lotto mantiene il bonus 3 mesi.
 ```
 
 ## Quando chiude un'industria inutilizzata?

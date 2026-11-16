@@ -73,7 +73,7 @@ Produkcja rośnie skokami: nowa parcela nie zawsze podnosi produkcję.
 6. **Brak produkcji**: zakład, który w roku nic nie wyprodukował, jest pomijany (`industries.script.tl:168-171`).
 
 ```tip scripts
-**Żeby kopalnia lub farma rosła, wywoź co najmniej 75 % jej produkcji.** Przy 25 % lub mniej nigdy nie dostaje nowej parceli; przy 75 % lub więcej dostaje jedną co pół roku, aż do maksimum.
+**Żeby kopalnia lub farma rosła, wywoź co najmniej 75 % jej produkcji i trzymaj wysoką ocenę produkcji.** Szansa to ocena produkcji × wywieziona część: przy 25 % lub mniej nie ma nowej parceli; przy 75 % lub więcej i ocenie produkcji 100 % jedna co pół roku, aż do maksimum.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ Połowa miejsc pracy (10 z 20) musi być zajęta przez mieszkańców, którzy w 
 4. **Pracownicy**: przydzieleni to za mało; sekcja Premia liczy przyjazdy („12/10”) (`industry_react_util.tl:617-654`). Zobacz [Pracownicy i premia za pracowników](workers.html).
 
 ```tip scripts
-**Żeby wzmocnienie nigdy nie stawało, dostarczaj co najmniej 4 pełne partie rocznie** (52 narzędzia dla kopalni węgla). Zapas nie przepada, więc możesz dostarczać z wyprzedzeniem.
+**Żeby wzmocnienie nigdy nie stawało, dostarczaj co najmniej 4 pełne partie rocznie** (52 narzędzia dla kopalni węgla). Każda partia utrzymuje bonus przez 3 miesiące.
 ```
 
 ## Kiedy nieużywany zakład się zamyka?

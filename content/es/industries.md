@@ -73,7 +73,7 @@ La producción sube por escalones: un terreno nuevo no siempre aumenta la produc
 6. **Sin producción**: una industria que no produce nada en el año se salta (`industries.script.tl:168-171`).
 
 ```tip scripts
-**Para que una mina o una granja crezca, transporta al menos el 75 % de su producción.** Con el 25 % o menos nunca recibe un terreno nuevo; con el 75 % o más recibe uno cada medio año, hasta su máximo.
+**Para que una mina o una granja crezca, transporta al menos el 75 % de su producción y mantén alta su valoración de producción.** La probabilidad usa valoración de producción × parte transportada: con el 25 % o menos no hay terreno nuevo; con el 75 % o más y una valoración de producción del 100 %, uno cada medio año, hasta su máximo.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ La mitad de los puestos (10 de 20) debe estar ocupada por residentes que **llega
 4. **Trabajadores**: asignados no basta; la sección Refuerzo cuenta llegadas («12/10») (`industry_react_util.tl:617-654`). Ver [Trabajadores y el refuerzo de trabajadores](workers.html).
 
 ```tip scripts
-**Para un potenciador que nunca se detenga, entrega al menos 4 lotes completos al año** (52 herramientas para una mina de carbón). Las existencias no se pierden, así que puedes entregar por adelantado.
+**Para un potenciador que nunca se detenga, entrega al menos 4 lotes completos al año** (52 herramientas para una mina de carbón). Cada lote mantiene el bonus 3 meses.
 ```
 
 ## ¿Cuándo cierra una industria sin uso?

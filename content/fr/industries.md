@@ -73,7 +73,7 @@ La production monte par paliers : une nouvelle parcelle n'augmente pas toujours 
 6. **Aucune production** : une industrie qui ne produit rien dans l'année est ignorée (`industries.script.tl:168-171`).
 
 ```tip scripts
-**Pour faire grandir une mine ou une ferme, expédie au moins 75 % de sa production.** À 25 % ou moins, elle n'a jamais de nouvelle parcelle ; à 75 % ou plus, elle en a une tous les six mois, jusqu'à son maximum.
+**Pour faire grandir une mine ou une ferme, expédie au moins 75 % de sa production et garde une bonne note de production.** La chance utilise note de production × part expédiée : à 25 % ou moins, aucune nouvelle parcelle ; à 75 % ou plus avec une note de production de 100 %, une tous les six mois, jusqu'à son maximum.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ La moitié des emplois (10 sur 20) doit être occupée par des habitants **arriv
 4. **Travailleurs** : attribués ne suffit pas ; la section Booster compte les arrivées (« 12/10 ») (`industry_react_util.tl:617-654`). Voir [Travailleurs et bonus des travailleurs](workers.html).
 
 ```tip scripts
-**Pour un booster qui ne s'arrête jamais, livre au moins 4 lots complets par an** (52 outils pour une mine de charbon). Le stock ne se perd pas : tu peux livrer d'avance.
+**Pour un booster qui ne s'arrête jamais, livre au moins 4 lots complets par an** (52 outils pour une mine de charbon). Chaque lot garde le bonus 3 mois.
 ```
 
 ## Quand une industrie inutilisée ferme-t-elle ?

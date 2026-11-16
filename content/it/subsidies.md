@@ -84,7 +84,7 @@ Ogni contratto tiene tre elenchi, mostrati sulla sua scheda come **In accettazio
 - Due contratti non raddoppiano mai due volte lo stesso pagamento: quando ne corrispondono diversi, viene usata solo l'ultima risposta (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Vuoi il reddito doppio su più linee? Falle consegnare tutte prima che il contratto sia adempiuto.** Una linea aggiunta dopo non ottiene nulla.
+**Vuoi il reddito doppio di Fornitura industriale o Fornitura urbana su più linee? Falle consegnare tutte prima che il contratto sia adempiuto.** Una linea aggiunta dopo non ottiene nulla. Collega cittadine raddoppia una sola linea.
 ```
 
 ```engine

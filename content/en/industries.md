@@ -73,7 +73,7 @@ The output grows in steps: a new plot does not always raise the production.
 6. **No output**: an industry producing nothing in the year is skipped (`industries.script.tl:168-171`).
 
 ```tip scripts
-**To make a mine or a farm grow, ship at least 75 % of its output.** At 25 % or less it never gets a new plot; at 75 % or more it gets one every half year, until its maximum.
+**To make a mine or a farm grow, ship at least 75 % of its output and keep its production rating high.** The growth chance uses production rating × share shipped: at 25 % or less there is no new plot; at 75 % or more with a 100 % production rating, one every half year, until its maximum.
 ```
 
 ```engine
@@ -117,7 +117,7 @@ Half of the workplaces (10 of 20) must be filled by residents who **arrived by y
 4. **Workers**: assigned is not enough; the Booster section counts arrivals ("12/10") (`industry_react_util.tl:617-654`). See [Workers and the workers boost](workers.html).
 
 ```tip scripts
-**For a booster that never stops, deliver at least 4 full batches a year** (52 tools for a Coal Mine). The stock does not decay, so you can deliver ahead.
+**For a booster that never stops, deliver at least 4 full batches a year** (52 tools for a Coal Mine). Each batch keeps the bonus for 3 months.
 ```
 
 ## When does an unused industry close?

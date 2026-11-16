@@ -48,7 +48,7 @@ Un collegamento principale conta come interrotto quando il gioco segnala **Il co
 | 2 | 33 % | Mediocre | `town_util.tl:983-985` |
 | 3 | 0 % | Pessima: la cittadina smette di crescere | `town_util.tl:607-633` |
 
-- Finché l'interruzione dura, la penalità viene scritta anche nel punteggio salvato, passo dopo passo, nell'arco di mezzo anno (`towns.script.tl:137-145`). Dopo aver riparato la strada, quella parte salvata torna solo alla velocità normale di recupero: un'interruzione lunga continua a costare reputazione per un po'.
+- Finché l'interruzione dura, la penalità viene scritta anche nel punteggio salvato, passo dopo passo, nell'arco di 3 mesi (`towns.script.tl:137-145`). Dopo aver riparato la strada, quella parte salvata torna solo alla velocità normale di recupero: un'interruzione lunga continua a costare reputazione per un po'.
 - 67 % è proprio al limite di Ottima: qualsiasi altra piccola perdita porta la cittadina a Buona.
 
 ```tip scripts

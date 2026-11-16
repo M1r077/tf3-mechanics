@@ -106,7 +106,7 @@ O que muda ao atingir a vida útil (por exemplo perda de condição mais rápida
 4. Use **Substituir Veículos** no gerenciador de linhas. Ele abre a loja com uma comparação com o veículo atual (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**Veículos continuam em mau estado perto de um pátio? Abra a janela dele e veja se a capacidade não está cheia.** Um pátio ferroviário atende 6 trens; uma estação de manutenção ferroviária, 12.
+**Veículos continuam em mau estado perto de um pátio? Abra a janela dele e veja "usado / capacidade".** Um pátio ferroviário atende 6 trens; uma estação de manutenção ferroviária, 12. O que o motor faz com os veículos acima da capacidade não está nos scripts; um segundo prédio é a resposta segura.
 ```
 
 ## Bom saber

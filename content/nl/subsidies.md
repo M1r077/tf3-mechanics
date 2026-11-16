@@ -84,7 +84,7 @@ Elk contract heeft drie lijsten, op zijn kaart getoond als **Bij aanvaarding**, 
 - Twee contracten verdubbelen dezelfde betaling nooit twee keer: als er meerdere passen, telt alleen het laatste antwoord (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Dubbel inkomen op meerdere lijnen? Laat ze allemaal leveren voordat het contract voltooid is.** Een lijn die daarna komt, krijgt niets.
+**Dubbel inkomen van Bevoorraad industriebedrijf of Bevoorraad stad op meerdere lijnen? Laat ze allemaal leveren voordat het contract voltooid is.** Een lijn die daarna komt, krijgt niets. Steden verbinden verdubbelt maar één lijn.
 ```
 
 ```engine

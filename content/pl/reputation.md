@@ -48,7 +48,7 @@ Połączenie główne liczy się jako przerwane, gdy gra zgłasza **Połączenie
 | 2 | 33 % | Kiepskie | `town_util.tl:983-985` |
 | 3 | 0 % | Bardzo złe: miasto przestaje rosnąć | `town_util.tl:607-633` |
 
-- Dopóki przerwa trwa, kara jest też zapisywana w zapisanym wyniku, krok po kroku, przez pół roku (`towns.script.tl:137-145`). Po naprawie drogi ta zapisana część wraca tylko w normalnym tempie odzysku: długa przerwa jeszcze przez jakiś czas kosztuje reputację.
+- Dopóki przerwa trwa, kara jest też zapisywana w zapisanym wyniku, krok po kroku, przez 3 miesiące (`towns.script.tl:137-145`). Po naprawie drogi ta zapisana część wraca tylko w normalnym tempie odzysku: długa przerwa jeszcze przez jakiś czas kosztuje reputację.
 - 67 % leży dokładnie na granicy Bardzo dobre: każda inna drobna strata obniża miasto do Dobre.
 
 ```tip scripts

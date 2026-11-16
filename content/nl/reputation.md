@@ -48,7 +48,7 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 | 2 | 33 % | Middelmatig | `town_util.tl:983-985` |
 | 3 | 0 % | Zeer slecht: de stad groeit niet meer | `town_util.tl:607-633` |
 
-- Zolang de onderbreking duurt, wordt de straf ook stap voor stap over een half jaar in de opgeslagen score geschreven (`towns.script.tl:137-145`). Na het herstel van de weg komt dat opgeslagen deel alleen met het normale herstel terug: een lange onderbreking blijft nog een tijd reputatie kosten.
+- Zolang de onderbreking duurt, wordt de straf ook stap voor stap over 3 maanden in de opgeslagen score geschreven (`towns.script.tl:137-145`). Na het herstel van de weg komt dat opgeslagen deel alleen met het normale herstel terug: een lange onderbreking blijft nog een tijd reputatie kosten.
 - 67 % ligt precies op de grens van Zeer goed: elk ander klein verlies zet de stad op Goed.
 
 ```tip scripts

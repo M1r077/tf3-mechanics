@@ -84,7 +84,7 @@ Jeder Vertrag hat drei Listen, auf seiner Karte als **Bei Annahme**, **Bei Erfü
 - Zwei Verträge verdoppeln dieselbe Zahlung nie zweimal: Passen mehrere, zählt nur die letzte Antwort (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Doppeltes Einkommen auf mehreren Linien? Lass alle liefern, bevor der Vertrag erfüllt ist.** Eine danach hinzugefügte Linie bekommt nichts.
+**Doppeltes Einkommen von Industrie beliefern oder Stadt versorgen auf mehreren Linien? Lass alle liefern, bevor der Vertrag erfüllt ist.** Eine danach hinzugefügte Linie bekommt nichts. Städte verbinden verdoppelt nur eine Linie.
 ```
 
 ```engine

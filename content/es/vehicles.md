@@ -106,7 +106,7 @@ Qué cambia al alcanzar la vida útil (por ejemplo, una pérdida de condición m
 4. Usa **Sustituir vehículos** en el gestor de líneas. Abre la tienda con una comparación con el vehículo actual (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**¿Los vehículos siguen en mal estado junto a un depósito? Abre su ventana y comprueba que el cupo no está lleno.** Un depósito de trenes atiende 6 trenes; una estación de mantenimiento de trenes, 12.
+**¿Los vehículos siguen en mal estado junto a un depósito? Abre su ventana y mira «usado / cupo».** Un depósito de trenes atiende 6 trenes; una estación de mantenimiento de trenes, 12. Lo que hace el motor con los vehículos que superan el cupo no está en los scripts; un segundo edificio es la respuesta segura.
 ```
 
 ## Conviene saber

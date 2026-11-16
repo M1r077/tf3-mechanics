@@ -106,7 +106,7 @@ Co zmienia osiągnięcie okresu trwałości (na przykład szybszą utratę stanu
 4. Użyj **Wymień pojazdy** w menedżerze linii. Otwiera sklep z porównaniem z obecnym pojazdem (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**Pojazdy przy bazie wciąż są w złym stanie? Otwórz jej okno i sprawdź, czy pula nie jest pełna.** Baza kolejowa obsługuje 6 pociągów, kolejowa stacja konserwacji 12.
+**Pojazdy przy bazie wciąż są w złym stanie? Otwórz jej okno i sprawdź „użyte / pula”.** Baza kolejowa obsługuje 6 pociągów, kolejowa stacja konserwacji 12. Co silnik robi z pojazdami ponad pulę, nie ma w skryptach; drugi budynek to bezpieczna odpowiedź.
 ```
 
 ## Dobrze wiedzieć

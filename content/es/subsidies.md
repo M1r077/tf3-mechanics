@@ -84,7 +84,7 @@ Cada contrato guarda tres listas, que su tarjeta muestra como **Tras la aceptaci
 - Dos contratos nunca duplican dos veces el mismo pago: cuando coinciden varios, solo se usa la última respuesta (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**¿Quieres los ingresos dobles en varias líneas? Haz que todas entreguen antes de que se cumpla el contrato.** Una línea añadida después no recibe nada.
+**¿Quieres los ingresos dobles de Suministrar a industria o Suministrar a localidad en varias líneas? Haz que todas entreguen antes de que se cumpla el contrato.** Una línea añadida después no recibe nada. Conectar localidades solo dobla una línea.
 ```
 
 ```engine

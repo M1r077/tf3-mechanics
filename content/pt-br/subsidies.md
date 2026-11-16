@@ -84,7 +84,7 @@ Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**,
 - Dois contratos nunca dobram o mesmo pagamento duas vezes: quando vários se aplicam, só a última resposta é usada (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Quer a renda dobrada em várias linhas? Faça todas entregarem antes de o contrato ser cumprido.** Uma linha adicionada depois não ganha nada.
+**Quer a renda dobrada de Abastecer Indústria ou Abastecer Município em várias linhas? Faça todas entregarem antes de o contrato ser cumprido.** Uma linha adicionada depois não ganha nada. Conectar Municípios dobra só uma linha.
 ```
 
 ```engine

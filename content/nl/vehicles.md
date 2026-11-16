@@ -106,7 +106,7 @@ Wat het bereiken van de levensduur verandert (bijvoorbeeld sneller verlies van s
 4. Gebruik **Voertuigen vervangen** in de lijnbeheerder. Het opent de winkel met een vergelijking met het huidige voertuig (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
 
 ```tip scripts
-**Blijven voertuigen in slechte staat naast een depot? Open het venster en kijk of de pool vol is.** Een treindepot bedient 6 treinen, een treinonderhoudsstation 12.
+**Blijven voertuigen in slechte staat naast een depot? Open het venster en kijk naar "gebruikt / pool".** Een treindepot bedient 6 treinen, een treinonderhoudsstation 12. Wat de engine doet met voertuigen boven de pool staat niet in de scripts; een tweede gebouw is het veilige antwoord.
 ```
 
 ## Goed om te weten
