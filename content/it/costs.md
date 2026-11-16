@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | fattore dell'anno sulla manutenzione di magazzini, porti e aeroporti nel 2020
 fact: 6 anni | di costi operativi: il prezzo di un veicolo
 fact: una volta | il tasso di un prestito si applica all'importo, non ogni anno

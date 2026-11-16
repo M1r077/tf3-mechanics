@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3,8 | lo stesso fattore di entrata per tutte le merci
 fact: +8 × salita | metri di salita aggiunti alla distanza
 fact: 100% | pagato anche quando la consegna è in ritardo

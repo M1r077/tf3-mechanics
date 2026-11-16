@@ -5,6 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 500 | unidades de carga por módulo, qualquer que seja o tipo
 fact: ×2 | velocidade de carregamento num módulo especializado, ×1 num universal
 fact: 150.000 / 300.000 | preço de um módulo universal / especializado

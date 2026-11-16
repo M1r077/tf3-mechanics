@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 1 | pagamento por item, no consumidor, pela linha reta
 fact: 0 | pago num armazém ou numa transferência
 fact: 100 % | pago mesmo atrasado

@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 años | sin carga ni consumo convierten una industria en candidata al cierre
 fact: 1,1 % | de probabilidad al año en Casi nunca (por defecto), luego 730 días de cuenta atrás
 fact: +50–150 % | de refuerzo por carga de refuerzo, fijo por industria

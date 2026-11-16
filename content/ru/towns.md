@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | роста, если одна оценка «Очень плохое»
 fact: ×1,5 | опыта на каждый следующий уровень (1000 для уровня 2)
 fact: ×40 | размер после 17 полученных уровней

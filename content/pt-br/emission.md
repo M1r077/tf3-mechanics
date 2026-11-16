@@ -5,6 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 65–80 dB | barulho na cidade: avaliação máxima em 65, zero em 80
 fact: 60–74 | poluição na cidade, na escala logarítmica dos scripts (não é um nível sonoro): avaliação máxima em 60, zero em 74
 fact: −80 % | barulho e poluição de uma indústria ecologizada

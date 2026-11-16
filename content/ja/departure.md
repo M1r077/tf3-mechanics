@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | 新しい停車地の最大停留時間の初期値
 fact: 30 s / 60 s | 最大追加待機時間の初期値、道路 / 鉄道
 fact: 0–100 % | 積載量、貨物ごと、車両の容量に対する割合

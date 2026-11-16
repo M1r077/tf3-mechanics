@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3.8 | 所有貨物相同的收益係數
 fact: +8 × 爬升 | 爬升的公尺數計入距離
 fact: 100 % | 即使遲到也全額支付

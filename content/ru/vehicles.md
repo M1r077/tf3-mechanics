@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | уровней состояния, от Очень плох. до Очень хорошее, по 20 %
 fact: 20 % | состояния, при котором появляется предупреждение Состояние транспорта
 fact: 6 лет | эксплуатационных расходов: цена транспорта

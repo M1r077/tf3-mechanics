@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | types de contrats en partie libre
 fact: 5 | contrats acceptés au plus en même temps
 fact: ×2 | revenus pendant 5 ans sur les lignes qui ont livré

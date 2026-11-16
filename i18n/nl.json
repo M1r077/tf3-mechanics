@@ -49,7 +49,10 @@
   "tips_btn": "Tips",
   "tips_toggle": "Tips tonen of verbergen",
   "tip_note": "Tip",
-  "tip_sub": "in het spel gemeten"
+  "tip_sub": "in het spel gemeten",
+  "game": "Spelversie",
+  "game_tip": "Spelversie waarop deze uitleg is gecontroleerd (officiële release notes)",
+  "changes": "Wijzigingen per spelversie"
  },
  "diagrams": {
   "T_WORKERS": {

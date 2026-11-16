@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | Vertragsarten im freien Spiel
 fact: 5 | angenommene Verträge höchstens gleichzeitig
 fact: ×2 | Einnahmen für 5 Jahre auf den Linien, die geliefert haben

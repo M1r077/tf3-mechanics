@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | 飛行機のサイズ：小型と大型
 fact: 1950 | 最初の空港と最初のヘリコプター
 fact: 1980 | 2 本目の滑走路

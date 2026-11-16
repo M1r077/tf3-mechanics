@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | 觸發加速效果所需的工人
 fact: 2 年 | 一次抵達的計入期限
 fact: ×1.5–2.5 | 加速係數，每個產業固定

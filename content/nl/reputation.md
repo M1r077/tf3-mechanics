@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | per onderbroken hoofdaansluiting naar een andere stad
 fact: ≈ 67 % | herstel per jaar bij kalendersnelheid ×1 (≈ 200 % tijdens een marketingcampagne); het stadsvenster toont 33 % en 100 %
 fact: 0,25 % | per verwijderde volgroeide boom bij de stad

@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | 他の町へのメイン接続が 1 本途切れるごと
 fact: ≈ 67 % | 暦の速度 ×1 での 1 年あたりの回復（マーケティングキャンペーン中は ≈ 200 %）。町のウィンドウの表示は 33 % と 100 %
 fact: 0.25 % | 町のそばで成木を 1 本撤去するごと

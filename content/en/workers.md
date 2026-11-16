@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | workers needed for the boost
 fact: 2 years | how long an arrival counts
 fact: ×1.5–2.5 | boost factor, fixed per industry

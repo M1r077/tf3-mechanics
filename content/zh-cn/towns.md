@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | 有一项评价为非常贫穷时的增长
 fact: ×1.5 | 每升一级所需经验（2 级需 1,000）
 fact: ×40 | 升 17 级后的规模

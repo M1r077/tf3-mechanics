@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | 평가 하나가 매우 형편없음일 때의 성장
 fact: ×1.5 | 다음 레벨마다 필요한 경험치(레벨 2는 1,000)
 fact: ×40 | 17레벨 상승 후의 규모

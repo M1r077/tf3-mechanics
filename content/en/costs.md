@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | year factor on the upkeep of warehouses, harbours and airports by 2020
 fact: 6 years | of running costs: the price of a vehicle
 fact: once | a loan's interest rate is charged on the amount, not every year

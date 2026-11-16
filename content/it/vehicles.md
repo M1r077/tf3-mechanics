@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | livelli di condizione, da Pessima a Ottima, 20 % ciascuno
 fact: 20 % | condizione che attiva l'avviso Condizione veicolo
 fact: 6 anni | di costi di esercizio: il prezzo di un veicolo

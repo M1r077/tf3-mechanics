@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | Tempo de Parada Máx. padrão de uma parada nova
 fact: 30 s / 60 s | Tempo Máximo de Espera Adicional padrão, rodovia / ferrovia
 fact: 0–100 % | Nível de Preenchimento, por carga, da capacidade do veículo

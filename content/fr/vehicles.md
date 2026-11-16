@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | niveaux d'état, de Très mauvais à Très bon, 20 % chacun
 fact: 20 % | état qui déclenche l'avertissement État du véhicule
 fact: 6 ans | de coûts d'exploitation : le prix d'un véhicule

@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | za każde przerwane połączenie główne z innym miastem
 fact: ≈ 67 % | odzysku na rok przy tempie kalendarza ×1 (≈ 200 % w czasie kampanii reklamowej); okno miasta pokazuje 33 % i 100 %
 fact: 0,25 % | za każde usunięte dorosłe drzewo przy mieście

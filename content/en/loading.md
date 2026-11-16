@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | specialised platform section
 fact: ×0.25 | wrong section or train too long
 fact: ×4 | best case: specialised platform and warehouse

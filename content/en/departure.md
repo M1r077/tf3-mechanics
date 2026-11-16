@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | default Max. Stop Time of a new stop
 fact: 30 s / 60 s | default Max. Additional Wait, road / rail
 fact: 0–100 % | Fill Level, per cargo, of the vehicle's capacity

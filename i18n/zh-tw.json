@@ -49,7 +49,10 @@
   "tips_btn": "提示",
   "tips_toggle": "顯示或隱藏提示",
   "tip_note": "提示",
-  "tip_sub": "遊戲內實測"
+  "tip_sub": "遊戲內實測",
+  "game": "遊戲版本",
+  "game_tip": "核對這些說明時使用的遊戲版本(官方更新說明)",
+  "changes": "隨遊戲版本的變化"
  },
  "diagrams": {
   "T_WORKERS": {

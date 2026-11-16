@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3,8 | derselbe Einnahmefaktor für jede Fracht
 fact: +8 × Steigung | Höhenmeter, die zur Entfernung addiert werden
 fact: 100 % | bezahlt, auch wenn die Lieferung verspätet ist

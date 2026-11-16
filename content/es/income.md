@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3,8 | el mismo factor de ingresos para todos los cargamentos
 fact: +8 × desnivel | metros de subida sumados a la distancia
 fact: 100 % | se paga aunque la entrega llegue tarde

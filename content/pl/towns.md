@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | rozwoju, gdy jedna ocena jest „Bardzo złe”
 fact: ×1,5 | doświadczenia na każdy kolejny poziom (1000 na poziom 2)
 fact: ×40 | wielkość po zdobyciu 17 poziomów

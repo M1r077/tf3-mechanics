@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | rodzaje kontraktów w grze swobodnej
 fact: 5 | przyjętych kontraktów najwyżej naraz
 fact: ×2 | przychodu przez 5 lat na liniach, które dostarczały

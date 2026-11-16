@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | 新站點的預設最長停留時間
 fact: 30 s / 60 s | 預設額外等待時間上限，道路 / 鐵路
 fact: 0–100 % | 裝填量，依貨物計，占車輛容量的比例

@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | mnożnik roku dla utrzymania magazynów, portów i lotnisk do 2020
 fact: 6 lat | kosztów bieżących: cena pojazdu
 fact: raz | naliczane jest oprocentowanie kredytu od kwoty, a nie co roku

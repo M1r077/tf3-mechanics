@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | condition levels, from Very Bad to Very Good, 20 % each
 fact: 20 % | condition that triggers the Vehicle Condition warning
 fact: 6 years | of running costs: the price of a vehicle

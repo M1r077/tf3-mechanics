@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | 2020 年までに貨物倉庫、港、空港の維持費にかかる年係数
 fact: 6 年 | 分のランニングコスト：これが車両の価格
 fact: 1 回 | 融資の利率は毎年ではなく、金額に 1 回だけかかる

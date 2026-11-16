@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | specjalistyczna sekcja peronu
 fact: ×0,25 | niewłaściwa sekcja lub za długi pociąg
 fact: ×4 | najlepszy przypadek: specjalistyczny peron i magazyn

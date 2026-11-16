@@ -5,6 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 4 s | un día del calendario a velocidad del calendario ×1, velocidad del juego x1
 fact: ≈ 24 min | un año del calendario a las mismas velocidades
 fact: 0 ×0,25 ×0,5 ×1 ×2 ×4 | niveles de la velocidad del calendario

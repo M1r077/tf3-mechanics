@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 年 | 積み込みも消費もないと、産業は閉鎖候補になる
 fact: 1.1 % | 稀に閉鎖（既定）での 1 年あたりの確率、その後 730 日のカウントダウン
 fact: +50–150 % | ブースター貨物のボーナス、産業ごとに固定

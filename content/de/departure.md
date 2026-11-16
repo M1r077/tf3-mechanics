@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | Standard-Max. Haltezeit eines neuen Halts
 fact: 30 s / 60 s | Standard-Max. zusätzlicher Aufenthalt, Straße / Schiene
 fact: 0–100 % | Füllstand, pro Fracht, der Fahrzeugkapazität

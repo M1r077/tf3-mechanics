@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | travailleurs requis pour le bonus
 fact: 2 ans | durée pendant laquelle une arrivée compte
 fact: ×1,5–2,5 | facteur de bonus, fixe pour chaque industrie

@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | 自由遊戲中的合約類型
 fact: 5 | 同時最多可接受的合約數
 fact: ×2 | 有配送的路線 5 年內的收益

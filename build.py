@@ -11,6 +11,8 @@ Pages are Markdown with a small header:
     official: gamemanual:simulation:industriescargos#booster
     status: verified            (verified | draft | engine)
     updated: 2026-11-14
+    game: 40425                 (stable game build the page was checked on)
+    change: 40438 | what changed in that build    (0 or more lines: history box at the end of the page)
     fact: 10 / 20 | workers needed for the boost      (0 to 4 lines: big value | label)
     ---
 
@@ -66,6 +68,7 @@ UI = {
         "sources": "source references", "in": "in",
         "translated": "Translated from English; corrections welcome", "lang_label": "Language",
         "src_btn": "Sources", "src_toggle": "Show or hide the script references", "src_show": "Show the sources", "src_hide": "Hide the sources",
+        "game": "Game build", "game_tip": "Game version these explanations were checked on (official release notes)", "changes": "Changes with game versions",
     },
     "fr": {
         "site": "Mécaniques TF3", "tagline": "Comment Transport Fever 3 fonctionne vraiment, lu dans les scripts du jeu.",
@@ -88,6 +91,7 @@ UI = {
         "sources": "références aux sources", "in": "dans",
         "translated": "Traduit de l'anglais ; corrections bienvenues", "lang_label": "Langue",
         "src_btn": "Sources", "src_toggle": "Afficher ou cacher les références aux scripts", "src_show": "Afficher les sources", "src_hide": "Cacher les sources",
+        "game": "Version du jeu", "game_tip": "Version du jeu sur laquelle ces explications ont été vérifiées (notes de version officielles)", "changes": "Changements selon les versions du jeu",
     },
     "de": {
         "site": "TF3-Mechaniken", "tagline": "Wie Transport Fever 3 wirklich funktioniert, gelesen in den Skripten des Spiels.",
@@ -110,6 +114,7 @@ UI = {
         "sources": "Quellverweise", "in": "in",
         "translated": "Aus dem Englischen übersetzt; Korrekturen willkommen", "lang_label": "Sprache",
         "src_btn": "Quellen", "src_toggle": "Skriptverweise ein- oder ausblenden", "src_show": "Quellen anzeigen", "src_hide": "Quellen ausblenden",
+        "game": "Spielversion", "game_tip": "Spielversion, auf der diese Erklärungen geprüft wurden (offizielle Versionshinweise)", "changes": "Änderungen mit Spielversionen",
     },
 }
 
@@ -268,6 +273,9 @@ figcaption .ic{color:var(--gold);margin-top:2px}
 .check .off .lab{color:var(--blue)}.check .scr .lab{color:var(--teal)}
 .check .off p{font-style:italic}
 
+.changes{margin:40px 0 0;padding:16px 20px;border-radius:var(--r);border:1px solid var(--line);background:var(--panel)}
+.changes h4{margin:0 0 8px;color:var(--text);font-size:15px;display:flex;align-items:center;gap:9px}
+.changes ul{margin:0}.changes li{margin:6px 0;font-size:15px}.changes li b{color:var(--gold);margin-right:6px}
 .srcnote{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--dim);margin-top:30px}
 html:not(.srcon) .sr,html:not(.srcon) .sc,html:not(.srcon) .srcnote{display:none}
 .srcbtn{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:11px;background:var(--panel);border:1px solid var(--line);
@@ -412,7 +420,7 @@ def load_json(path, default):
 def parse_page(path):
     with open(path, encoding="utf-8") as f:
         text = f.read()
-    meta = {"facts": []}
+    meta = {"facts": [], "changes": []}
     if text.startswith("---"):
         head, text = text[3:].split("\n---", 1)
         for line in head.strip().splitlines():
@@ -422,6 +430,9 @@ def parse_page(path):
                 if k == "fact":
                     value, _, label = v.partition("|")
                     meta["facts"].append((value.strip(), label.strip()))
+                elif k == "change":
+                    build, _, what = v.partition("|")
+                    meta["changes"].append((build.strip(), what.strip()))
                 else:
                     meta[k] = v
     return meta, text.lstrip("\n")
@@ -681,6 +692,9 @@ def build():
                              f'{icon("external", 12)}</a>')
             if meta.get("updated"):
                 pills.append(f'<span class="pill">{icon("clock", 14)}{ui["updated"]} {meta["updated"]}</span>')
+            if meta.get("game"):
+                pills.append(f'<span class="pill" title="{html.escape(ui["game_tip"])}">{icon("cpu", 14)}'
+                             f'{ui["game"]} {html.escape(meta["game"])}</span>')
             facts = "".join(f'<div class="fact rise d{i + 1}"><b>{html.escape(v)}</b><span>{html.escape(lab)}</span></div>'
                             for i, (v, lab) in enumerate(meta["facts"]))
             article, toc = render_body(text, lang, ui)
@@ -705,7 +719,13 @@ def build():
                 f'{icon("arrow", 18, "end")}</a>'
                 for s, (m, _t) in pages[lang].items() if s != slug)
             more = f'<section class="wrap more"><h2>{ui["more"]}</h2><div class="mgrid">{others}</div></section>' if others else ""
-            body = (f'{hero}<div class="wrap layout"><article>{article}'
+            changes = ""
+            if meta["changes"]:
+                rows = "".join(f'<li><b>{html.escape(b)}</b> {md_inline(w)}</li>'
+                               for b, w in sorted(meta["changes"], key=lambda c: c[0], reverse=True))
+                changes = (f'<section class="changes"><h4>{icon("clock", 16)}{ui["changes"]}</h4>'
+                           f'<ul>{rows}</ul></section>')
+            body = (f'{hero}<div class="wrap layout"><article>{article}{changes}'
                     f'<p class="srcnote">{icon("code", 15)}{ui["src_note"]}</p></article>{side}</div>{more}')
             alt = {l: (f"../{l}/{slug}.html" if slug in pages[l] else f"../{l}/index.html") for l in LANGS}
             with open(os.path.join(OUT, lang, f"{slug}.html"), "w", encoding="utf-8", newline="\n") as f:

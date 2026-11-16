@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | growth when one rating is Very Poor
 fact: ×1.5 | XP for each next level (1,000 for level 2)
 fact: ×40 | size after 17 levels gained

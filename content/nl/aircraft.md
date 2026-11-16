@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | vliegtuiggroottes: klein en groot
 fact: 1950 | eerste luchthaven en eerste helikopters
 fact: 1980 | tweede landingsbaan

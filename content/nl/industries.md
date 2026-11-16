@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 jaar | zonder laden of verbruik maken een bedrijf kandidaat voor sluiting
 fact: 1,1 % | kans per jaar bij Zelden (standaard), daarna 730 dagen aftellen
 fact: +50–150 % | bonus van boostervracht, vast per bedrijf

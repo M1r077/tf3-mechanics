@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | jaarfactor op het onderhoud van opslagplaatsen, havens en luchthavens tot 2020
 fact: 6 jaar | gebruikskosten: de prijs van een voertuig
 fact: één keer | wordt de rente van een lening over het bedrag berekend, niet elk jaar

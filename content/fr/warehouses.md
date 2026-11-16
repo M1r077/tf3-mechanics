@@ -5,6 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 500 | unités de fret par module, quel que soit son type
 fact: ×2 | vitesse de chargement à un module spécialisé, ×1 à un module universel
 fact: 150 000 / 300 000 | prix d'un module universel / spécialisé

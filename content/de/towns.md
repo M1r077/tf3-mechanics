@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | Wachstum, wenn eine Wertung Sehr schlecht ist
 fact: ×1,5 | XP für jede weitere Stufe (1.000 für Stufe 2)
 fact: ×40 | Größe nach 17 gewonnenen Stufen

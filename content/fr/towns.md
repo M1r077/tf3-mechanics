@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | de croissance quand une note est Très insuffisant
 fact: ×1,5 | d'XP pour chaque niveau suivant (1 000 pour le niveau 2)
 fact: ×40 | de taille après 17 niveaux gagnés

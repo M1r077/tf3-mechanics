@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | níveis de condição, de Muito Ruim a Muito Bom, 20 % cada
 fact: 20 % | de condição dispara o aviso Condição do Veículo
 fact: 6 anos | de custos operacionais: o preço de um veículo

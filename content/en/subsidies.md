@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | contract types in a free game
 fact: 5 | accepted contracts at most at the same time
 fact: ×2 | income for 5 years on the lines that delivered

@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | poziomów stanu, od Bardzo zły do Bardzo dobry, po 20 %
 fact: 20 % | stanu, przy którym pojawia się ostrzeżenie Stan pojazdu
 fact: 6 lat | kosztów eksploatacji: cena pojazdu

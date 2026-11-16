@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 years | without loading or consumption make an industry a closure candidate
 fact: 1.1 % | chance per year at Rarely (the default), then 730 days of countdown
 fact: +50–150 % | booster cargo boost, fixed per industry

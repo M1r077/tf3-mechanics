@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | 段階の状態、非常に悪いから非常に良いまで、各 20 %
 fact: 20 % | 車両状態の警告が出る状態
 fact: 6 years | 分の運行費：車両の価格

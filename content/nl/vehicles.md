@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | staatniveaus, van Zeer slecht tot Zeer goed, elk 20 %
 fact: 20 % | staat die de waarschuwing Voertuigstaat activeert
 fact: 6 jaar | bedrijfskosten: de prijs van een voertuig

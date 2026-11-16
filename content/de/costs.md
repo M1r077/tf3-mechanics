@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | Jahresfaktor auf den Unterhalt von Lagern, Häfen und Flughäfen bis 2020
 fact: 6 Jahre | Betriebskosten: der Preis eines Fahrzeugs
 fact: einmal | wird der Zinssatz eines Darlehens auf den Betrag angewandt, nicht jedes Jahr

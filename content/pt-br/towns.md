@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0% | de crescimento quando uma classificação está Muito Ruim
 fact: ×1,5 | de XP para cada nível seguinte (1.000 para o nível 2)
 fact: ×40 | de tamanho após 17 níveis ganhos

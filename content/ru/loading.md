@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | специализированная секция платформы
 fact: ×0,25 | не та секция или слишком длинный поезд
 fact: ×4 | лучший случай: специализированные платформа и склад

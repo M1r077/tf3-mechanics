@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | tiempo de parada máx. por defecto de una parada nueva
 fact: 30 s / 60 s | espera adicional máxima por defecto, carretera / ferrocarril
 fact: 0–100 % | nivel de llenado, por cargamento, de la capacidad del vehículo

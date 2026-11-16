@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | フリーゲームの契約の種類
 fact: 5 | 同時に受諾できる契約の上限
 fact: ×2 | 配送した路線で 5 年間の収入

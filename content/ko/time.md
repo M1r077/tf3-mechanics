@@ -5,6 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 4 s | 달력 속도 ×1, 게임 속도 1x에서 달력의 하루
 fact: ≈ 24 min | 같은 속도에서 달력의 1년
 fact: 0 ×0.25 ×0.5 ×1 ×2 ×4 | 달력 속도 단계

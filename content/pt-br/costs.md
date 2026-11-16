@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | fator de ano na manutenção de armazéns, portos e aeroportos em 2020
 fact: 6 anos | de custos operacionais: o preço de um veículo
 fact: uma vez | a taxa de um empréstimo é aplicada ao valor, não a cada ano

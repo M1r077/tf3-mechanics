@@ -5,6 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 4 s | 月曆速度 ×1、遊戲速度 1x 時的一個月曆日
 fact: ≈ 24 min | 相同速度下的一個月曆年
 fact: 0 ×0.25 ×0.5 ×1 ×2 ×4 | 月曆速度檔位

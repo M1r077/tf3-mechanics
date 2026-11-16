@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | 有一項評價為極差時的成長
 fact: ×1.5 | 每升一級所需經驗值（等級 2 需 1,000）
 fact: ×40 | 升 17 級後的規模

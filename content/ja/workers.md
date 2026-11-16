@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | ブーストに必要な労働者数
 fact: 2 年 | 1 回の到着が数えられる期間
 fact: ×1.5–2.5 | ブースト係数（産業ごとに固定）

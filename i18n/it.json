@@ -49,7 +49,10 @@
   "tips_btn": "Consigli",
   "tips_toggle": "Mostra o nascondi i consigli",
   "tip_note": "Consiglio",
-  "tip_sub": "misurato in gioco"
+  "tip_sub": "misurato in gioco",
+  "game": "Versione del gioco",
+  "game_tip": "Versione del gioco su cui sono state verificate queste spiegazioni (note di rilascio ufficiali)",
+  "changes": "Modifiche con le versioni del gioco"
  },
  "diagrams": {
   "T_WORKERS": {

@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | Zustandsstufen, von Sehr schlecht bis Sehr gut, je 20 %
 fact: 20 % | Zustand, der die Warnung Fahrzeugzustand auslöst
 fact: 6 Jahre | Betriebskosten: der Preis eines Fahrzeugs

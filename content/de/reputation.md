@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | pro unterbrochener Hauptverbindung zu einer anderen Stadt
 fact: ≈ 67 % | Erholung pro Jahr bei Kalendertempo ×1 (≈ 200 % während einer Marketingkampagne); das Stadtfenster zeigt 33 % und 100 %
 fact: 0,25 % | pro entferntem ausgewachsenem Baum bei der Stadt

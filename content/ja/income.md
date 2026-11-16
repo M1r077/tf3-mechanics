@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3.8 | すべての貨物に共通の収入係数
 fact: +8 × 上昇量 | 上った高さ（m）を距離に加算
 fact: 100 % | 遅延しても全額支払われる

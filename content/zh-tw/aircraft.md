@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | 飛機尺寸：小型與大型
 fact: 1950 | 第一座機場，也是第一批直升機
 fact: 1980 | 第二跑道

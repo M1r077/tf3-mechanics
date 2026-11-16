@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 1 | pago por artículo, en el consumidor, por la línea recta
 fact: 0 | pagado en un almacén o en un transbordo
 fact: 100 % | pagado incluso con retraso

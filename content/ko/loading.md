@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | 특화된 플랫폼 구간
 fact: ×0.25 | 맞지 않는 구간 또는 너무 긴 열차
 fact: ×4 | 최선의 경우: 특화된 플랫폼과 특화된 창고

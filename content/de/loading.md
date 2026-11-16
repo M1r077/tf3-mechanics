@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | spezialisierter Bahnsteigabschnitt
 fact: ×0,25 | falscher Abschnitt oder Zug zu lang
 fact: ×4 | bestenfalls: Bahnsteig und Lager spezialisiert

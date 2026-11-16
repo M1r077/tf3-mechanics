@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3,8 | o mesmo fator de renda para todas as cargas
 fact: +8 × subida | metros de subida somados à distância
 fact: 100% | pago mesmo quando a entrega atrasa

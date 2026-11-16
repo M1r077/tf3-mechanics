@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | tipos de contrato em um jogo livre
 fact: 5 | contratos aceitos no máximo ao mesmo tempo
 fact: ×2 | de renda por 5 anos nas linhas que entregaram

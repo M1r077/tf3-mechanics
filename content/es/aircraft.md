@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | tamaños de avión: pequeño y grande
 fact: 1950 | primer aeropuerto y primeros helicópteros
 fact: 1980 | segunda pista

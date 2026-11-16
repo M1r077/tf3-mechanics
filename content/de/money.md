@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 1 | Zahlung pro Einheit, beim Verbraucher, für die Luftlinie
 fact: 0 | bezahlt in einem Lager oder beim Umstieg
 fact: 100 % | bezahlt, auch bei Verspätung

@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | por conexión principal interrumpida con otra localidad
 fact: ≈ 67 % | recuperado al año a velocidad de calendario ×1 (≈ 200 % durante una campaña de marketing); la ventana de la localidad muestra 33 % y 100 %
 fact: 0,25 % | por árbol adulto eliminado junto a la localidad

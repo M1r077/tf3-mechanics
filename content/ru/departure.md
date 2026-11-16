@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | Макс. время стоянки по умолчанию для новой остановки
 fact: 30 s / 60 s | Макс. дополнительное ожидание по умолчанию, дорога / железная дорога
 fact: 0–100 % | Уровень заполнения для каждого груза, от вместимости транспорта

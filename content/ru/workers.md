@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | работников нужно для бонуса
 fact: 2 года | столько засчитывается прибытие
 fact: ×1,5–2,5 | множитель бонуса, свой у каждого предприятия

@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | temps d'arrêt max. par défaut d'un nouvel arrêt
 fact: 30 s / 60 s | attente supplémentaire max. par défaut, route / rail
 fact: 0–100 % | niveau de remplissage, par fret, de la capacité du véhicule

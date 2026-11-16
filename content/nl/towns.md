@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | groei als één beoordeling Zeer slecht is
 fact: ×1,5 | XP voor elk volgend niveau (1.000 voor niveau 2)
 fact: ×40 | grootte na 17 gewonnen niveaus

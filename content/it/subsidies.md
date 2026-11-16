@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | tipi di contratto in una partita libera
 fact: 5 | contratti accettati al massimo contemporaneamente
 fact: ×2 | di entrate per 5 anni sulle linee che hanno consegnato

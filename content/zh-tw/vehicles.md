@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | 個狀態等級，從很差到很好，每級 20 %
 fact: 20 % | 觸發車輛狀況警告的狀態
 fact: 6 years | 的營運成本：車輛的價格

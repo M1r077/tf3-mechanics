@@ -5,6 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 4 s | カレンダー速度 ×1、ゲーム速度 1x でのカレンダーの 1 日
 fact: ≈ 24 min | 同じ速度でのカレンダーの 1 年
 fact: 0 ×0.25 ×0.5 ×1 ×2 ×4 | カレンダー速度の段階

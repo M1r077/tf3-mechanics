@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | 船舶尺寸：小型與大型
 fact: 1, 2, 4 | 每個港口的總站數
 fact: 27 | 基本遊戲中的船舶數

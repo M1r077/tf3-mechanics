@@ -5,6 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 500 | units of cargo per module, whatever its type
 fact: ×2 | load speed at a specialised module, ×1 at a universal one
 fact: 150,000 / 300,000 | price of a universal / specialised module

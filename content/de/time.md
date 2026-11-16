@@ -5,6 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 4 s | ein Kalendertag bei Kalendergeschwindigkeit ×1, Spielgeschwindigkeit 1x
 fact: ≈ 24 min | ein Kalenderjahr bei denselben Geschwindigkeiten
 fact: 0 ×0,25 ×0,5 ×1 ×2 ×4 | Stufen der Kalendergeschwindigkeit

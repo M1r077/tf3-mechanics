@@ -22,7 +22,9 @@ Python 3.12 with `markdown`. The game folder is read in place, zips included, no
 
 | Script | Does |
 |---|---|
-| `scan.py` | indexes every .lua / .tl file of `base/content` (zips included) into `data/index.json`; after a game update, lists the changed files and the pages that cite them |
+| `scan.py` | indexes every .lua / .tl file of `base/content` (zips included) into `data/index.json` and keeps a snapshot of the game build (`cache/builds/<build>/`); after a game update, lists the changed files and the pages that cite them |
+| `scan.py --diff A B [--renumber]` | every page reference whose lines differ between two builds; references whose code only moved get their new line numbers (`--renumber` writes them in every language) |
+| `notes.py` | reads the official release notes into `data/builds.json` and prints the task list: notes not triaged yet, pages to update, things to measure in game |
 | `grep.py REGEX [PATH]` | searches the game sources |
 | `gamestrings.py MSGID` | the game's own translation of a label in en / fr / de |
 | `official.py` | reads the official wiki's Game Manual pages (ids from its navigation) into `cache/official/` |
@@ -32,6 +34,39 @@ Python 3.12 with `markdown`. The game folder is read in place, zips included, no
     python scan.py
     python build.py
     python check.py
+
+## Game versions
+
+The wiki describes the **stable** game. Each page says which build it was checked on (`game: 40425`), and
+`check.py` refuses a preview build there.
+
+Preview builds reach stable later, so their release notes are the to-do list. `python notes.py` reads the
+[official release notes](https://wiki.transportfever3.com/doku.php?id=releasenotes) into `data/builds.json`;
+every note gets a triage, written by hand in that file:
+
+| status | meaning |
+|---|---|
+| `new` | not looked at yet |
+| `todo` | pages to check or update (`pages`) |
+| `watch` | to measure in game (`pages`, or `dashboard` for the companion mod) |
+| `done` | handled, or already in the build the pages were checked on |
+| `none` | nothing for the wiki |
+
+A note keeps its triage when the same text appears again under a stable build. `notes.py` then warns that it
+reached stable.
+
+When a new stable build is installed:
+
+1. `python scan.py`: snapshot of the new build (the build number comes from the game's log, or `TF3_BUILD`).
+2. `python scan.py --diff OLD NEW --renumber`: moved references are renumbered; the changed ones are read again.
+3. Update the pages of the `todo` / `watch` notes of that build, set them to `done`.
+4. Set `game:` to the new build on every page checked, and add a `change:` line where a mechanic changed.
+5. `git tag game-OLD` on the last commit that described the old build, so its text stays available.
+
+A page header can carry the history of a mechanic, shown in a box at the end of the page:
+
+    game: 40438
+    change: 40438 | Building cargo stocks are kept when a street is upgraded.
 
 ## Writing a page
 
@@ -44,6 +79,7 @@ Python 3.12 with `markdown`. The game folder is read in place, zips included, no
     official: gamemanual:simulation:industriescargos#booster
     status: verified            (verified | draft | engine)
     updated: 2026-11-14
+    game: 40425                 (stable build the page was checked on)
     ---
 
 - `` `file.tl:12-20` `` is a source reference (checked by `check.py`);

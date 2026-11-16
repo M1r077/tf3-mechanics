@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | rozmiary samolotów: małe i duże
 fact: 1950 | pierwsze lotnisko i pierwsze helikoptery
 fact: 1980 | drugi pas

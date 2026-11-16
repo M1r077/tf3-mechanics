@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | 단계의 상태, 매우 나쁨부터 매우 좋음까지, 각 20 %
 fact: 20 % | 운송 수단 상태 경고가 뜨는 상태
 fact: 6 years | 치 운행비: 운송 수단의 가격

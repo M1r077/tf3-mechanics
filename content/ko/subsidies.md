@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | 자유 게임의 계약 유형
 fact: 5 | 동시에 수락할 수 있는 최대 계약 수
 fact: ×2 | 배송한 노선의 5년간 수입

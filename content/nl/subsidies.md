@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | soorten contracten in vrij spelen
 fact: 5 | aanvaarde contracten hooguit tegelijk
 fact: ×2 | inkomsten gedurende 5 jaar op de lijnen die hebben geleverd

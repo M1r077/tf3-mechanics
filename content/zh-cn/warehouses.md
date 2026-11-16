@@ -5,6 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 500 | 每个模块可存的货物单位，不论类型
 fact: ×2 | 专用模块的装载速度，通用模块为 ×1
 fact: 15 万 / 30 万 | 通用 / 专用模块的价格

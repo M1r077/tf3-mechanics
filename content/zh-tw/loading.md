@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | 專用月台區段
 fact: ×0.25 | 區段不符或列車過長
 fact: ×4 | 最佳情況：專用月台加專用貨物倉庫

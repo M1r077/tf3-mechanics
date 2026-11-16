@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 anni | senza carico né consumo rendono un'industria candidata alla chiusura
 fact: 1,1 % | di probabilità all'anno con Raramente (predefinito), poi 730 giorni di conto alla rovescia
 fact: +50–150 % | di bonus dal carico booster, fisso per ogni industria

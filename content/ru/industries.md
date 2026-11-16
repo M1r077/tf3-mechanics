@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 лет | без погрузки и потребления делают предприятие кандидатом на закрытие
 fact: 1,1 % | шанс в год при «Редко» (по умолчанию), затем 730 дней обратного отсчёта
 fact: +50–150 % | бонус от бонусного груза, постоянный для предприятия

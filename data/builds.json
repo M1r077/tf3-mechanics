@@ -1,0 +1,1234 @@
+{
+ "stable": 40425,
+ "builds": {
+  "40444": {
+   "branch": "preview",
+   "date": "2026-11-13",
+   "store": "Steam"
+  },
+  "40439": {
+   "branch": "preview",
+   "date": "2026-11-13",
+   "store": "Steam"
+  },
+  "40438": {
+   "branch": "preview",
+   "date": "2026-11-10",
+   "store": "Steam"
+  },
+  "40428": {
+   "branch": "preview",
+   "date": "2026-11-03",
+   "store": "Steam"
+  },
+  "40427": {
+   "branch": "preview",
+   "date": "2026-11-02",
+   "store": "Steam"
+  },
+  "40425": {
+   "branch": "stable",
+   "date": "2026-10-24",
+   "store": ""
+  },
+  "40423": {
+   "branch": "stable",
+   "date": "2026-10-22",
+   "store": ""
+  },
+  "40420": {
+   "branch": "stable",
+   "date": "2026-10-08",
+   "store": "Steam"
+  },
+  "40408": {
+   "branch": "stable",
+   "date": "2026-09-29",
+   "store": "Steam / 40393 Epic & GOG"
+  }
+ },
+ "notes": [
+  {
+   "text": "Improved localization",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "todo",
+    "why": "in-game labels quoted in the pages may change: re-read them with gamestrings.py",
+    "pages": [
+     "all"
+    ]
+   }
+  },
+  {
+   "text": "Improved mod hub user interface to show used and available mod storage space",
+   "tag": "",
+   "builds": [
+    40439
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed rare mod hub rate limit issues in certain scenarios",
+   "tag": "",
+   "builds": [
+    40439
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed missing bridges in the type selection pop-up when building streets or tracks",
+   "tag": "",
+   "builds": [
+    40439
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed save game overwrite window not receiving focus when using a controller",
+   "tag": "",
+   "builds": [
+    40439
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed mission task links not being selectable with a controller",
+   "tag": "Campaign",
+   "builds": [
+    40439
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved vehicle store: better consist display for trains and trams",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "pages describe what the vehicle store shows (stats, capacity as the sum of the compartments)",
+    "pages": [
+     "vehicles",
+     "aircraft",
+     "ships"
+    ]
+   }
+  },
+  {
+   "text": "Improved vehicle store: better sorting",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "vehicles.md describes the vehicle store",
+    "pages": [
+     "vehicles"
+    ]
+   }
+  },
+  {
+   "text": "Improved line manager: added filtering by cargo or passenger lines",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved line manager: added filtering by lines that have errors",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved line manager: better alternative terminals selection",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "the dashboard's line_set_terminals command and terminal list: test the alternative terminals again",
+    "dashboard": true
+   }
+  },
+  {
+   "text": "Improved object windows for signals, double slip switches and railroad crossings",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved graphics settings and defaults for Steam Deck",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved display message to show the mod name that causes the UI to crash",
+   "tag": "Modding",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved sandboxing of mod script execution",
+   "tag": "Modding",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "the dashboard mod writes through app.saveUserdata (build 40420 already restricted it to three folders) and reads cmd.lua: test on the preview before it reaches stable",
+    "dashboard": true
+   }
+  },
+  {
+   "text": "Improved display of mod storage capacity and location",
+   "tag": "Modding",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed road stop naming logic to use all stop names per town before falling back to numbers",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed behavior of game when mod hub login expires (20997)",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed or improved message for several errors when using the mod hub (20489, 20997, 20489, 20488, 13009, 20487, 11008, 29002)",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed inconsistent behavior of costs and income HUD filter",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed overtaking in traffic not working properly in certain cases",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed position of preview images in construction menu to not overlap with parameters",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed issue where shortcut keys (M, N) for rotating constructions stopped working",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed text for hot air balloon not localized (Deluxe)",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed line specific subsidy reward notifications triggered repeatedly",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "check whether only the notification was repeated or the reward too",
+    "pages": [
+     "subsidies"
+    ]
+   }
+  },
+  {
+   "text": "Fixed cargo needs disappearing in buildings affected by upgrading streets",
+   "tag": "",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "todo",
+    "why": "towns.md, Cargo demand and building stocks: building stocks were lost on a street upgrade before this build",
+    "pages": [
+     "towns"
+    ]
+   }
+  },
+  {
+   "text": "Fixed crash when adjusting the number of gui threads",
+   "tag": "Modding",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed crash caused by invalid build proposals",
+   "tag": "Modding",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed inconsistent column widths in mod activation list view",
+   "tag": "Modding",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed issues related to upload and management of mod gallery images",
+   "tag": "Modding",
+   "builds": [
+    40438
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved error message for mod.io error 20997",
+   "tag": "",
+   "builds": [
+    40428
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed accidental removal of \"accessNotificationCacheFn\" from GameContext",
+   "tag": "Modding",
+   "builds": [
+    40428
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Improved performance when line manager is active",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "dashboard cost gauge measurements are not comparable across this build",
+    "dashboard": true
+   }
+  },
+  {
+   "text": "Fixed crash when modifying tram tracks on two-way intersections",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed crash when starting new game with mods that are no longer subscribed",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed rare crash while building streets",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed error code 20487 while browsing mods (Linux)",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed income incorrectly earned when cargo is force-unloaded",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "income.md: 43 of ~17,000 measured payments went to a stock that was not a consumer, maybe this bug; measure again with Force Unload",
+    "pages": [
+     "income",
+     "money",
+     "loading",
+     "warehouses"
+    ]
+   }
+  },
+  {
+   "text": "Fixed category filter icons not working when configuring a station",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed borderless mode not recognized as fullscreen in some situations",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed performance issues related to notifications",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "watch",
+    "why": "dashboard cost gauge measurements are not comparable across this build",
+    "dashboard": true
+   }
+  },
+  {
+   "text": "Fixed some performance issues in Mod Hub",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed error messages sometimes containing absolute paths",
+   "tag": "",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed crash when importing towns and industries",
+   "tag": "Map Editor",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed crash caused by missing resources (e.g. mesh files)",
+   "tag": "Modding",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed crash while loading game related to misconfigured vehicle icons",
+   "tag": "Modding",
+   "builds": [
+    40427
+   ],
+   "triage": {
+    "status": "none",
+    "why": "nothing in the pages or the dashboard depends on it"
+   }
+  },
+  {
+   "text": "Fixed crash introduced with NVIDIA GeForce Driver 621.01 on RTX 50xx GPUs",
+   "tag": "",
+   "builds": [
+    40425
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved render performance of certain HUD icons",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved render performance of several station models by optimizing LODs",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved performance while the vehicle store is open",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved in-game performance for users running multiple mods",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved overall graphic memory management and performance",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved several construction menu icons",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved validation for aircraft metadata",
+   "tag": "Modding",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash in line manager when zooming in/out on specific static models",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash when building road constructions that create track crossings",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash when loading a save game after vehicle capacity was reduced",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash caused by mods adding CSS files",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash when attempting to load corrupt save files",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash caused by aircraft with out-of-range metadata",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash when changing the language setting under certain conditions",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash when placing stop on country roads",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare crash when selling a vehicle after sending it back to depot",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare crash when rendering particles after the game was idle for a long time",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare crash during simulation pathfinding",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed error caused by moving the topmost mod up in the mod list view",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed error caused by selling a vehicle while the vehicle store is open",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed issue where corrupt save files were generated when running out of disk space",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed issue where station building comfort bonuses were not applied correctly",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed issue where upgrading streets caused an unintended reputation penalty for moved buildings",
+   "tag": "",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare crash in mission 4",
+   "tag": "Campaign",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash during onboarding caused by bulldozing or automatic closure of industries",
+   "tag": "Tutorial",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash caused by passing invalid nodes to pathfinding utility",
+   "tag": "Modding",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed mod ratings not displaying correctly in Mod Hub",
+   "tag": "Modding",
+   "builds": [
+    40423
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved FPS consistency when displaying town and vehicle HUD icons",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved rendering performance during camera movement in certain scenarios",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved rendering performance when various layer views are active",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved video memory management across many graphics configurations",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved generation of vehicle store images in Model Editor",
+   "tag": "Modding",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved validator message when mod is not found",
+   "tag": "Modding",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved internal scripting API functionality",
+   "tag": "Modding",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved file validation in the mod validator",
+   "tag": "Modding",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash caused by repeatedly pressing the screenshot shortcut (F9)",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare crash when updating user interface elements",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare crash when rendering catchment areas",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare random crash during rendering",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed error when opening new construction from inside module builder",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed error in the construction menu caused by faulty mods",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed error when bulldozing stations with active pinned window",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed error when trying to open deactivated layers with controller",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed incorrect terminal assignment when building stops on modded asymmetric streets",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed graphic settings reset to default not properly applying device-specific defaults",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed street marking rendering issues on experimental maps at high coordinates",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed flickering of fences at airports",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed inability to build airport hangars in specific scenarios",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed Tycoon Mod not correctly unlocking perks on maps without towns",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed incorrect vehicle icon coloring in the vehicle store",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed tram depot door animation",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed various minor localization errors",
+   "tag": "",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed rare error in mission 2 during the build signal task",
+   "tag": "Campaign",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed positioning of construction menu buttons",
+   "tag": "Map Editor",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed the \"Keep Heightmap\" option not working correctly",
+   "tag": "Map Editor",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed crash with mods with dependencies in staging area",
+   "tag": "Modding",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Fixed incorrect auto-activation for non-builtin mods",
+   "tag": "Modding",
+   "builds": [
+    40420
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Initial release",
+   "tag": "",
+   "builds": [
+    40408
+   ],
+   "triage": {
+    "status": "done",
+    "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  }
+ ]
+}

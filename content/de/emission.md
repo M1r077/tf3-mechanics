@@ -5,6 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 65–80 dB | Lärm in der Stadt: volle Bewertung bei 65, null bei 80
 fact: 60–74 | Verschmutzung in der Stadt, auf der logarithmischen Skala der Skripte (kein Schallpegel): volle Bewertung bei 60, null bei 74
 fact: −80 % | Lärm und Verschmutzung einer begrünten Industrie

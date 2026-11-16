@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | 到 2020 年貨物倉庫、港口與機場維護費的年份係數
 fact: 6 年 | 的運行成本：這就是一輛車輛的價格
 fact: 一次 | 貸款利率只依金額收一次，而不是每年都收

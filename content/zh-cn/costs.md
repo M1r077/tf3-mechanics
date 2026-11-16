@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | 到 2020 年仓库、港口和机场维护费的年份系数
 fact: 6 年 | 的运营成本：这就是一辆载具的价格
 fact: 一次 | 贷款利率只按金额收一次，而不是每年都收

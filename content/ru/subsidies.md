@@ -5,6 +5,7 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 4 | типа контрактов в свободной игре
 fact: 5 | принятых контрактов максимум одновременно
 fact: ×2 | дохода на 5 лет на маршрутах, которые возили груз

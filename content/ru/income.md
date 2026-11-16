@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3,8 | одинаковый множитель дохода для всех грузов
 fact: +8 × подъём | метры подъёма добавляются к расстоянию
 fact: 100 % | оплата даже при опоздании

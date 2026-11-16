@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3.8 | 모든 화물에 같은 수입 계수
 fact: +8 × 오르막 | 오르막 높이(m)가 거리에 더해짐
 fact: 100 % | 배송이 늦어도 전액 지급

@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | per interrupted main connection to another town
 fact: ≈ 67 % | recovered per year at calendar speed ×1 (≈ 200 % during a Marketing Campaign); the town window shows 33 % and 100 %
 fact: 0.25 % | per removed full-size tree next to the town

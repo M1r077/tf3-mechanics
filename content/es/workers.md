@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | trabajadores necesarios para el refuerzo
 fact: 2 años | tiempo durante el que cuenta una llegada
 fact: ×1,5–2,5 | factor de refuerzo, fijo para cada industria

@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | gespecialiseerde perronsectie
 fact: ×0,25 | verkeerde sectie of trein te lang
 fact: ×4 | in het beste geval: gespecialiseerd perron en opslagplaats

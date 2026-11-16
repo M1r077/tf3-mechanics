@@ -5,6 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 65–80 dB | hałas w mieście: pełna ocena przy 65, zero przy 80
 fact: 60–74 | zanieczyszczenie w mieście, w skali logarytmicznej skryptów (to nie poziom dźwięku): pełna ocena przy 60, zero przy 74
 fact: −80 % | hałas i zanieczyszczenie zazielenionego zakładu

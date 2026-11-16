@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | trabalhadores necessários para o reforço
 fact: 2 anos | tempo durante o qual uma chegada conta
 fact: ×1,5–2,5 | fator de reforço, fixo para cada indústria

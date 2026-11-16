@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3,8 | ten sam mnożnik przychodu dla każdego towaru
 fact: +8 × wzniesienie | metry wzniesienia dodawane do odległości
 fact: 100 % | zapłaty nawet za spóźnioną dostawę

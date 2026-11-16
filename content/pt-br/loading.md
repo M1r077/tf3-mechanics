@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | seção de plataforma especializada
 fact: ×0,25 | seção errada ou trem longo demais
 fact: ×4 | melhor caso: plataforma e armazém especializados

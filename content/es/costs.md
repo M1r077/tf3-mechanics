@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | factor de año sobre la conservación de almacenes, puertos y aeropuertos en 2020
 fact: 6 años | de gastos de mantenimiento: el precio de un vehículo
 fact: una vez | el interés de un préstamo se aplica al importe, no cada año

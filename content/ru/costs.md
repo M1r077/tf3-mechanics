@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | множитель года для обслуживания складов, портов и аэропортов к 2020 году
 fact: 6 лет | эксплуатационных расходов: цена транспорта
 fact: один раз | начисляется процент займа на сумму, а не каждый год

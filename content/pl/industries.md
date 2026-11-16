@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 lat | bez załadunku i zużycia czyni zakład kandydatem do zamknięcia
 fact: 1,1 % | szansy na rok przy Rzadko (domyślne), potem 730 dni odliczania
 fact: +50–150 % | premii z towaru premiującego, stałej dla zakładu

@@ -5,6 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 65–80 дБ | шум в городе: полная оценка при 65, ноль при 80
 fact: 60–74 | загрязнение в городе, по логарифмической шкале скриптов (это не уровень звука): полная оценка при 60, ноль при 74
 fact: −80 % | шум и загрязнение озеленённого предприятия

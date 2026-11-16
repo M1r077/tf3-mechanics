@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 ans | sans chargement ni consommation font d'une industrie une candidate à la fermeture
 fact: 1,1 % | de chance par an à Rarement (le défaut), puis 730 jours de compte à rebours
 fact: +50–150 % | de bonus du fret booster, fixe pour chaque industrie

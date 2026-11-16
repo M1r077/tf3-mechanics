@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 1 | pagamento per unità, al consumatore, per la linea d'aria
 fact: 0 | pagato in un magazzino o in un trasbordo
 fact: 100 % | pagato anche in ritardo

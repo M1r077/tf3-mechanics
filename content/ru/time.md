@@ -5,6 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 4 с | один день календаря при скорости календаря ×1 и скорости игры 1x
 fact: ≈ 24 мин | один год календаря при тех же скоростях
 fact: 0 ×0,25 ×0,5 ×1 ×2 ×4 | шаги скорости календаря

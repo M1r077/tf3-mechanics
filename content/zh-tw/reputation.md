@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | 每中斷一條通往其他城鎮的主要連接
 fact: ≈ 67 % | 日曆速度 ×1 時每年恢復（行銷活動期間 ≈ 200 %）；城鎮視窗顯示 33 % 與 100 %
 fact: 0.25 % | 在城鎮旁每移除一棵成樹

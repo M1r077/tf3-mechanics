@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | Tempo arresto massimo predefinito di una nuova fermata
 fact: 30 s / 60 s | Attesa aggiuntiva massima predefinita, strada / ferrovia
 fact: 0–100 % | Riempi livello, per carico, della capacità del veicolo

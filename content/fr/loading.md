@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | section de quai spécialisée
 fact: ×0,25 | mauvaise section ou train trop long
 fact: ×4 | au mieux : quai et entrepôt spécialisés

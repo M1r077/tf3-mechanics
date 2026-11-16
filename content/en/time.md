@@ -5,6 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 4 s | one calendar day at calendar speed ×1, game speed 1x
 fact: ≈ 24 min | one calendar year at the same speeds
 fact: 0 ×0.25 ×0.5 ×1 ×2 ×4 | calendar speed steps

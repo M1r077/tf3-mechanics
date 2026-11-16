@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | domyślny Max. czas postoju nowego przystanku
 fact: 30 s / 60 s | domyślne Maks. dodatkowe oczekiwanie, drogi / kolej
 fact: 0–100 % | Poziom napełnienia, dla każdego towaru, jako część pojemności pojazdu

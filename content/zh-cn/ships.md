@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | 船只尺寸：小型与大型
 fact: 1, 2, 4 | 每个码头的终点站数
 fact: 27 | 基础游戏中的船只数

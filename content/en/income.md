@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3.8 | the same income factor for every cargo
 fact: +8 × climb | metres of climb added to the distance
 fact: 100 % | paid even when the delivery is late

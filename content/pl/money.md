@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 1 | zapłata za sztukę, u odbiorcy, za linię prostą
 fact: 0 | zapłaty w magazynie lub przy przeładunku
 fact: 100 % | zapłaty nawet przy spóźnieniu

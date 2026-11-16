@@ -130,6 +130,9 @@ figcaption .ic{color:var(--gold);margin-top:2px}
 .check .off .lab{color:var(--blue)}.check .scr .lab{color:var(--teal)}
 .check .off p{font-style:italic}
 
+.changes{margin:40px 0 0;padding:16px 20px;border-radius:var(--r);border:1px solid var(--line);background:var(--panel)}
+.changes h4{margin:0 0 8px;color:var(--text);font-size:15px;display:flex;align-items:center;gap:9px}
+.changes ul{margin:0}.changes li{margin:6px 0;font-size:15px}.changes li b{color:var(--gold);margin-right:6px}
 .srcnote{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--dim);margin-top:30px}
 html:not(.srcon) .sr,html:not(.srcon) .sc,html:not(.srcon) .srcnote{display:none}
 .srcbtn{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:11px;background:var(--panel);border:1px solid var(--line);

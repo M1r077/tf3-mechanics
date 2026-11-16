@@ -6,7 +6,9 @@
 3. no long copy of game code (fenced code blocks of more than 3 lines are refused);
 4. every relative link of the built site points to an existing file;
 5. every mod named in a page (data/mods.json) is a link to its own mod.io page;
-6. every source reference is in backticks, and in the built site sits in an element the Sources switch hides.
+6. every source reference is in backticks, and in the built site sits in an element the Sources switch hides;
+7. every page says which game build it was checked on ("game:"), a stable build of data/builds.json, the same
+   in every language, with the same "change:" builds; the local script index is of that build.
 
     python check.py      (exit code 1 on any problem)
 """
@@ -86,6 +88,7 @@ def main():
 
     problems += check_mod_links(pages["en"])
     problems += check_texts()
+    problems += check_builds(pages["en"])
 
     for root, _d, fs in os.walk(DOCS):
         for f in fs:
@@ -193,6 +196,43 @@ def check_texts():
                 diagrams.render(name, l)
             except Exception as e:  # noqa: BLE001
                 found.append(f"{l}: diagram {name} fails: {e!r}")
+    return found
+
+
+def check_builds(slugs):
+    """"game:" and "change:" header lines against data/builds.json, in every language."""
+    with open(os.path.join(HERE, "data", "builds.json"), encoding="utf-8") as f:
+        builds = json.load(f)
+    with open(os.path.join(HERE, "data", "index.json"), encoding="utf-8") as f:
+        indexed = json.load(f).get("build")
+    found = []
+    seen = set()
+    for slug in slugs:
+        heads = {}
+        for l in LANGS:
+            p = os.path.join(CONTENT, l, slug + ".md")
+            if os.path.exists(p):
+                head = open(p, encoding="utf-8").read()[3:].split("\n---", 1)[0]
+                heads[l] = (re.findall(r"(?m)^game:\s*(\S+)", head),
+                            sorted(re.findall(r"(?m)^change:\s*(\d+)\s*\|", head)))
+        game, changes = heads["en"]
+        if len(game) != 1:
+            found.append(f"en/{slug}: needs one 'game:' line (the build the page was checked on)")
+            continue
+        b = builds["builds"].get(game[0])
+        if not b:
+            found.append(f"en/{slug}: game build {game[0]} is not in data/builds.json (python notes.py)")
+        elif b["branch"] != "stable":
+            found.append(f"en/{slug}: game build {game[0]} is a preview; pages describe the stable game")
+        seen.add(game[0])
+        for c in changes:
+            if c not in builds["builds"]:
+                found.append(f"en/{slug}: change: {c} is not a known build")
+        for l, (g, ch) in heads.items():
+            if (g, ch) != (game, changes):
+                found.append(f"{l}/{slug}: 'game:' / 'change:' builds differ from en")
+    if indexed and seen and str(indexed) not in seen:
+        found.append(f"data/index.json is of build {indexed}, no page is checked on it (pages: {', '.join(sorted(seen))})")
     return found
 
 

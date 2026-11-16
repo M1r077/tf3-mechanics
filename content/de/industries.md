@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 Jahre | ohne Verladen oder Verbrauch machen eine Industrie zum Schließungskandidaten
 fact: 1,1 % | Chance pro Jahr bei Selten (Standard), dann 730 Tage Countdown
 fact: +50–150 % | Bonus der Booster-Fracht, pro Industrie fest

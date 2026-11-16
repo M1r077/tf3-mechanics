@@ -5,6 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 65–80 dB | rumore in città: valutazione piena a 65, zero a 80
 fact: 60–74 | inquinamento in città, sulla scala logaritmica degli script (non un livello sonoro): valutazione piena a 60, zero a 74
 fact: −80 % | rumore e inquinamento di un'industria inverdita

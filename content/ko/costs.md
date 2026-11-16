@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | 2020년까지 창고, 항구, 공항 관리비에 붙는 연도 계수
 fact: 6년 | 치 운영 비용: 이것이 운송 수단의 가격
 fact: 한 번 | 대출 이자율은 매년이 아니라 금액에 한 번만 붙음

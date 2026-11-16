@@ -5,6 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 5 | 个状况等级，从很差到很好，每级 20 %
 fact: 20 % | 触发载具状况警告的状况
 fact: 6 years | 的运营成本：载具的价格

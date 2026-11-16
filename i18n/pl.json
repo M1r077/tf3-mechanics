@@ -49,7 +49,10 @@
   "tips_btn": "Wskazówki",
   "tips_toggle": "Pokaż lub ukryj wskazówki",
   "tip_note": "Wskazówka",
-  "tip_sub": "zmierzone w grze"
+  "tip_sub": "zmierzone w grze",
+  "game": "Wersja gry",
+  "game_tip": "Wersja gry, na której sprawdzono te wyjaśnienia (oficjalne informacje o wydaniu)",
+  "changes": "Zmiany w kolejnych wersjach gry"
  },
  "diagrams": {
   "T_WORKERS": {

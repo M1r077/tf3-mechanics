@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | standaard Max. stoptijd van een nieuwe halte
 fact: 30 s / 60 s | standaard Maximale extra wachttijd, weg / spoor
 fact: 0–100 % | Vulniveau, per vracht, van de capaciteit van het voertuig

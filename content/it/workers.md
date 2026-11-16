@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | lavoratori necessari per il booster
 fact: 2 anni | per quanto tempo conta un arrivo
 fact: ×1,5–2,5 | fattore del booster, fisso per ogni industria

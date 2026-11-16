@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5년 | 동안 적재도 소비도 없으면 산업이 폐쇄 후보가 된다
 fact: 1.1 % | 드물게(기본값)에서 1년당 확률, 그 뒤 730일 카운트다운
 fact: +50–150 % | 부스터 화물 보너스, 산업마다 고정

@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | 触发加成所需的工人
 fact: 2 年 | 一次到达的计入时长
 fact: ×1.5–2.5 | 加成系数，每个产业固定

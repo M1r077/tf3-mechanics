@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: −33 % | 다른 마을로 가는 주 연결부가 하나 끊길 때마다
 fact: ≈ 67 % | 달력 속도 ×1에서 연간 복구(마케팅 캠페인 중에는 ≈ 200 %), 마을 창에는 33 %와 100 %로 표시
 fact: 0.25 % | 마을 근처에서 다 자란 나무를 하나 제거할 때마다

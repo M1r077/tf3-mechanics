@@ -5,6 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
+game: 40425
 fact: 500 | 単位：種類に関係なく、モジュール 1 つあたりの貨物
 fact: ×2 | 専門モジュールでの積載速度、汎用モジュールでは ×1
 fact: 15万 / 30万 | 汎用 / 専門モジュールの価格

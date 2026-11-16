@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 2 | размера судов: маленькие и большие
 fact: 1, 2, 4 | терминала на порт
 fact: 27 | судов в базовой игре

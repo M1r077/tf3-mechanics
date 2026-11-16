@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: ×6 | facteur d'année sur l'entretien des entrepôts, ports et aéroports en 2020
 fact: 6 ans | de coûts d'exploitation : le prix d'un véhicule
 fact: une fois | le taux d'un emprunt est appliqué au montant, pas chaque année

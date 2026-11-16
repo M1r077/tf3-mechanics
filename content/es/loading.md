@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | sección de andén especializada
 fact: ×0,25 | sección incorrecta o tren demasiado largo
 fact: ×4 | mejor caso: andén y almacén especializados

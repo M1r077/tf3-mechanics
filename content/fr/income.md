@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3,8 | le même facteur de revenu pour tous les frets
 fact: +8 × montée | mètres de montée ajoutés à la distance
 fact: 100 % | payé même quand la livraison est en retard

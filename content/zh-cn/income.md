@@ -5,6 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
+game: 40425
 fact: 3.8 | 所有货物相同的收入系数
 fact: +8 × 爬升 | 爬升的米数计入距离
 fact: 100 % | 即使迟到也全额支付

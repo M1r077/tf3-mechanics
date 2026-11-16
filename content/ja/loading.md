@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: ×2 | 専門化されたプラットフォーム区画
 fact: ×0.25 | 区画が合わない、または列車が長すぎる
 fact: ×4 | 最良のケース：専門プラットフォームと専門倉庫

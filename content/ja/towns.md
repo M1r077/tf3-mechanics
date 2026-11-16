@@ -5,6 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 0 % | 評価が 1 つでも「劣」のときの成長
 fact: ×1.5 | 次のレベルごとに必要な経験値（レベル 2 は 1,000）
 fact: ×40 | 17 レベル上がった後の規模

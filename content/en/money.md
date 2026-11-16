@@ -5,6 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 1 | payment per item, at the consumer, for the straight line
 fact: 0 | paid at a warehouse or a transfer
 fact: 100 % | paid even when late

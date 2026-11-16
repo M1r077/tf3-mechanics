@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 5 年 | 沒有裝載也沒有消耗，產業就成為關閉候選
 fact: 1.1 % | 極少（預設）時每年的機率，之後 730 天倒數
 fact: +50–150 % | 加速貨物的加成，每個產業固定

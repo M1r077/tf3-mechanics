@@ -5,6 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 600 s | 새 정류장의 기본 최대 정지 시간
 fact: 30 s / 60 s | 기본 최대 추가 대기 시간, 도로 / 철도
 fact: 0–100 % | 충전 수위, 화물별, 운송 수단 수용량 대비

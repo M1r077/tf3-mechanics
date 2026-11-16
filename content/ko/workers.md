@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | 부스트에 필요한 근로자
 fact: 2년 | 한 번의 도착이 집계되는 기간
 fact: ×1.5–2.5 | 부스트 계수, 산업마다 고정

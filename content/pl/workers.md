@@ -5,6 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
+game: 40425
 fact: 10 / 20 | pracowników potrzeba do premii
 fact: 2 lata | tak długo liczy się przyjazd
 fact: ×1,5–2,5 | mnożnik premii, stały dla każdego zakładu
