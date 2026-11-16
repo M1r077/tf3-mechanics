@@ -17,8 +17,8 @@ Każdy zakład działa według **reguł**: „weź to z zapasów wejściowych, p
 
 ## Reguły produkcji
 
-- Reguła podaje towar zużyty i wytworzony w jednym cyklu oraz liczbę cykli w roku: cykl trwa rok ÷ ta liczba (`industry_react_util.tl:51-57`). Sekcja Produkcja okna zakładu pokazuje to małymi liczbami.
-- Liczba **Maks.** w oknie to: na cykl × cykle na rok × premie × ustawienie **Wydajność przemysłu** (`industry_util.tl:310-379`).
+- Reguła podaje towar zużyty i wytworzony w jednym cyklu oraz liczbę cykli w roku: cykl trwa rok ÷ ta liczba, krócej o premie w regułach produkcji (`industry_react_util.tl:51-57`). Sekcja Produkcja okna zakładu pokazuje to małymi liczbami.
+- Liczba **Maks.** w oknie to: na cykl × cykle na rok × współczynnik wielkości (`rule.consumptionFactor`) × premie × ustawienie **Wydajność przemysłu**, dwa ostatnie tylko w regułach produkcji (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
 - **Wydajność przemysłu**: 50 %, 75 %, 100 %, 150 % lub 200 %. Ustawienia wstępne: Niski 150 %, Normalny 100 %, Wysoki 75 %, Bardzo wysoki 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
 - Przykład, Stalownia: 6 rudy żelaza + 6 węgla → 3 stal + 4 blacha, 121,7 cyklu w roku: 730 rudy żelaza i 730 węgla → 365 stali i 487 blachy (`steel_mill.con.lua:43-71`). Brak jednego wejścia zatrzymuje regułę.
 - Fabryka konserw ma dwie reguły: ryby + blacha albo mięso + blacha (`food_factory.con.lua:43-74`).
@@ -130,11 +130,11 @@ Sprawdzenie odbywa się co 100 aktualizacji dla każdego zakładu (`industries.s
 
 1. **Kandydat**: żaden towar nie został **załadowany** do pojazdu ani **zużyty** przez **5 lat** (od budowy, jeśli nigdy) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Sama produkcja się nie liczy.
 2. **Los**: kandydat jest losowany przy każdej kontroli z częścią rocznej szansy z ustawienia **Częstotliwość zamykania przemysłu** (tabela niżej), tak że w ciągu roku daje to tę szansę (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
-3. **Odliczanie**: pojawia się powiadomienie **Zamknięcie przemysłu**, z 2 latami (730 dni) czasu (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Potem zakład jest usuwany razem z własnymi odcinkami drogi (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
-4. **Uratowany**: jeden załadunek lub zużycie w trakcie odliczania je przerywa (`industries.script.tl:134-137`). Przyjęcie dotacji **Zaopatrz zakład przemysłowy** lub **Przewieź pracowników** dla niego też je przerywa (`subvention_util.tl:473-484`).
+3. **Odliczanie**: pojawia się powiadomienie **Zamknięcie przemysłu**, z 2 latami (730 dni) czasu (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Potem zakład jest usuwany razem z własnymi odcinkami drogi (`industries.script.tl:147-155`, `industries.script.tl:193-222`, `industry_util.tl:560-601`).
+4. **Uratowany**: jeden załadunek lub zużycie w trakcie odliczania je przerywa (`industries.script.tl:134-137`). Przyjęcie dotacji **Zaopatrz zakład przemysłowy** lub **Przewieź pracowników** dla niego przerywa odliczanie, dopóki dotacja trwa (`subvention_util.tl:473-484`, `subvention_util.tl:478-483`). Nie zeruje to testu 5 lat (`industries.script.tl:119`): jeśli nic nie zostanie załadowane ani zużyte, zakład może zostać później oznaczony ponownie.
 
 ```tip scripts
-**Powiadomienie Zamknięcie przemysłu? Jeden załadunek lub jedna dostawa w ciągu 730 dni je przerywa.** Przyjęcie dotacji Zaopatrz zakład przemysłowy lub Przewieź pracowników dla tego zakładu też je przerywa.
+**Powiadomienie Zamknięcie przemysłu? Jeden załadunek lub jedna dostawa w ciągu 730 dni je przerywa.** Przyjęcie dotacji Zaopatrz zakład przemysłowy lub Przewieź pracowników dla tego zakładu przerywa je, dopóki dotacja trwa, ale ładuj dalej: test 5 lat nie jest zerowany.
 ```
 
 | Częstotliwość zamykania przemysłu | Szansa na rok jako kandydat | Połowa kandydatów oznaczona po | Ustawienie wstępne | Źródło |
@@ -153,7 +153,7 @@ Co liczy się jako „załadowane” i „zużyte” (logi itemsLoaded i itemsCo
 
 ## Nowe zakłady
 
-Silnik dodaje nowe zakłady w trakcie gry. Powiadomienie to **Założono nowy zakład przemysłowy**: „Śmiały przedsiębiorca wyczuł okazję do zarobku i założył zakład przemysłowy {industry}.” (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Żaden skrypt gry nie wybiera miejsca, typu ani czasu i żaden nie filtruje tego, co proponuje silnik.
+Silnik dodaje nowe zakłady w trakcie gry. Powiadomienie to **Założono nowy zakład przemysłowy**: „Śmiały przedsiębiorca wyczuł okazję do zarobku i założył zakład przemysłowy {industry}.” (`industry_spawn.script.tl:34-36`); jego etykieta typu to **Założono zakład przemysłowy** (`industry_spawn.res.lua:6`). Żaden skrypt gry nie wybiera miejsca, typu ani czasu i żaden nie filtruje tego, co proponuje silnik.
 
 Co skrypty dają silnikowi (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
 
@@ -163,7 +163,7 @@ Co skrypty dają silnikowi (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `m
 | spawnProbabilityExponent | 3,0 | wykładnik szansy pojawienia się (wzór w silniku) |
 | spawnIndustries | wył. w edytorze map, wł. w grze | brak nowych zakładów w edytorze map |
 | industryDensity | 1 × **Docelowe zagęszczenie przemysłu** | docelowa liczba zakładów |
-| maxNumberPerArea, absoluteMinimum | 0,8 na km² (0,64 na konsolach), 24 | używane też przez generator map |
+| maxNumberPerArea, absoluteMinimum | 0,8 na km² (0,64 na konsolach), 24 | limit na powierzchnię i minimum (ich użycie leży po stronie silnika) |
 
 **Docelowe zagęszczenie przemysłu** („Ustaw docelowe zagęszczenie zakładów przemysłowych na mapie.”): 5 stopni, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
 

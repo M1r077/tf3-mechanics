@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | pago por artículo, en el consumidor, por la línea recta
 fact: 0 | pagado en un almacén o en un transbordo
 fact: 100 % | pagado incluso con retraso
-fact: ×6 | factor de año sobre la conservación de almacenes, puertos y aeropuertos en 2020
+fact: ×6 | factor de año mostrado sobre la conservación de almacenes, aeródromos, aeropuertos y puertos en 2020
 ---
 
 Una entrega paga por **una sola línea recta**, desde donde se produjo el cargamento hasta donde se usa, y solo cuando llega allí. Todo lo que construyes y compras cuesta dinero cada año, y una parte cada vez más con el año del calendario. Una línea pierde dinero cuando su parte de los pagos es menor que los costes que genera.
@@ -32,7 +32,7 @@ Detalles: [Ingresos por cargamento y tiempo de entrega](income.html).
 
 - **Vehículos**: los costes de funcionamiento siguen la velocidad media × la capacidad, y el precio equivale a 6 años de costes de funcionamiento (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Vías y carreteras**: alrededor de una sexta parte del precio de construcción por km y año; la vía de alta velocidad cuesta 9 veces la vía simple (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Depósitos, estaciones, almacenes, puertos, aeropuertos**: las variantes de épocas posteriores cuestan ×3 y ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), y la conservación de almacenes, puertos y aeropuertos también sigue el año, de ×1 en 1900 a ×6 en 2020 (`mod.script.tl:92-100`).
+- **Depósitos, estaciones, almacenes, puertos, aeropuertos**: las variantes de épocas posteriores cuestan ×3 y ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), y para almacenes, aeródromos, aeropuertos y puertos la ventana del edificio muestra una conservación que sigue el año, de ×1 en 1900 a ×6 en 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). Lo que se cobra lo decide el motor.
 - **Préstamos**: el tipo se cobra una vez sobre el importe, repartido a lo largo del plazo (`loan_util.tl:102-111`).
 - **La Inflación no sube ningún coste**. Solo baja los ingresos.
 

@@ -23,7 +23,7 @@ fact: ×9 | 1990년 항구 버전의 가격과 관리비
 - 소형 항구는 소형 부두로 지어지며, 소형 선박만 받는다(`small_pier.module.lua:7`). 대형 항구는 중형 부두를 쓰며, 두 크기 모두 받는다(`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **터미널**: 1, 2 또는 4개, 건설할 때 선택한다(`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - 부두 터미널 하나에는 소형 부두에서 대기 승객 100명, 중형 부두에서 50명이 들어간다(`modules.script.lua:872`, `modules.script.lua:1004`).
-- 항구는 해안을 따라 항행 가능한 수면에 지어야 한다(`harbor_modular.tl:29`).
+- 항구를 배치하는 동안 스크립트는 항행 가능한 수면 표시만 켠다(`harbor_modular.tl:26-30`). 항구를 놓을 수 있는 곳은 엔진이 정한다.
 - 각 선박은 자신의 차량 파일에서 크기를 정하며, 게임이 이를 소형 또는 대형 선박 모드로 바꾼다(`model_metadata_util.lua:1411-1412`).
 
 ## 비용

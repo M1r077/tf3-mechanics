@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>Das Lager fügt eigene Verschmutzung hinzu: <strong>25</strong>, oder <strong>50</strong>, sobald ein spezialisiertes Modul gebaut ist<span class="sr"> (<code class="src">warehouse.script.lua:327</code>, <code class="src">warehouse.script.lua:338-345</code>)</span>.</li>
-<li>Das Baumenü hat einen Eintrag pro Klasse und Epoche (ab 1900, 1940 und 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; spätere Epochen zeigen ×3 und ×9, und der Lagerunterhalt steigt außerdem mit dem Jahr. Details: <a href="costs.html">Kosten, Unterhalt und Darlehen</a>.</li>
+<li>Das Baumenü hat einen Eintrag pro Klasse und Epoche (ab 1900, 1940 und 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; spätere Epochen zeigen ×3 und ×9<span class="sr"> (<code class="src">warehouses/warehouse.tl:48</code>, <code class="src">warehouses/warehouse.tl:75-76</code>)</span>, und der Lagerunterhalt steigt außerdem mit dem Jahr. Details: <a href="costs.html">Kosten, Unterhalt und Darlehen</a>.</li>
 <li>Schüttgut-, Sperrgut- und Stückgutmodule kosten so viel wie Flüssiggutmodule<span class="sr"> (<code class="src">wh_bulk.module.lua:22-23</code>, <code class="src">wh_flatbed.module.lua:22-23</code>, <code class="src">wh_goods.module.lua:18-19</code>)</span>.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Von der Spiel-Engine entschieden<small>C++, in den Skripten nicht sichtbar</small></h4><p>Die Skripte geben zwei Emissionsstufen an, die zweite doppelt so hoch wie die erste<span class="sr"> (<code class="src">warehouse.script.lua:342-343</code>)</span>; das Lager geht von der ersten zur zweiten über, je voller seine Lager sind, volle Lager = doppelt<span class="sr"> (<code class="src">emissions.script.tl:237-249</code>)</span>. Den tatsächlich berechneten Preis der Module bestimmt die Engine.</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="gut-zu-wissen"><span class="n">7</span><span>Gut zu wissen</span></h2>
 <ul>
 <li>Prüfe die Liste Ladung jedes Halts in der Nähe eines Lagers: Was nicht darauf steht, wird ins Lager entladen, auch mitten auf der Linie.</li>
-<li>Ein voller Bestand nimmt keine weitere Fracht an, außer der Halt nutzt „Entladen aller Güter nach Ankunft erzwingen“, was alles zerstört, was nicht hineinpasst (siehe <a href="loading.html">Lade- und Entladegeschwindigkeit</a>).</li>
+<li>Ein voller Bestand nimmt keine weitere Fracht an, außer der Halt nutzt „Entladen aller Güter nach Ankunft erzwingen“ („Güter auch bei vollen Beständen entladen“); was mit den Gütern geschieht, die nicht hineinpassen, entscheidet die Engine (siehe <a href="loading.html">Lade- und Entladegeschwindigkeit</a>).</li>
 <li>Um ein spezialisiertes Modul für eine Fracht zu behalten, lege seine Frachtart im Bereich Bestände fest.</li>
 <li><a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> listet pro Bahnhof die erreichbaren Lager mit ihren Beständen; <a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> zeigt, wohin die entladene Fracht ging.</li>
 </ul>

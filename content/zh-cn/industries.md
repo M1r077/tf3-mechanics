@@ -17,8 +17,8 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 
 ## 生产规则
 
-- 规则给出每轮使用和产出的货物，以及每年的轮数：一轮持续一年 ÷ 该数（`industry_react_util.tl:51-57`）。产业窗口的“生产”部分用小数字显示。
-- 窗口中的**最大**数值是：每轮 × 每年轮数 × 加成 × 设置**工业生产力**（`industry_util.tl:310-379`）。
+- 规则给出每轮使用和产出的货物，以及每年的轮数：一轮持续一年 ÷ 该数，生产规则会因加成而缩短（`industry_react_util.tl:51-57`）。产业窗口的“生产”部分用小数字显示。
+- 窗口中的**最大**数值是：每轮 × 每年轮数 × 规模系数（`rule.consumptionFactor`）× 加成 × 设置**工业生产力**，后两项仅用于生产规则（`industry_util.tl:310-379`、`industry_util.tl:357-362`）。
 - **工业生产力**：50 %、75 %、100 %、150 % 或 200 %。预设：简单 150 %，正常 100 %，困难 75 %，极难 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:196-197`）。
 - 例如铁厂：6 铁矿石 + 6 煤炭 → 3 钢 + 4 金属薄板，每年 121.7 轮：730 铁矿石和 730 煤炭 → 365 钢和 487 金属薄板（`steel_mill.con.lua:43-71`）。缺一种输入，规则就停。
 - 罐头工厂有两条规则：鱼 + 金属薄板，或肉类 + 金属薄板（`food_factory.con.lua:43-74`）。
@@ -130,11 +130,11 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 
 1. **候选**：**5 年**内没有货物**装载**上车，也没有**消耗**（从未有过则从建成时算起）（`industries.script.tl:104-119`、`industries_config.res.lua:6`）。只生产不算。
 2. **概率**：每次检查时，候选按设置**工业关闭频率**年概率的一部分抽签，一年累计起来就是该概率（下表）（`industries.script.tl:84-85`, `industries.script.tl:120-131`）。
-3. **倒计时**：出现通知**工业关闭**，剩 2 年（730 天）（`industries_config.res.lua:7`、`industry_close.script.tl:53-67`）。之后产业连同它自己的道路段一起被移除（`industries.script.tl:147-155`、`industry_util.tl:560-601`）。
-4. **挽救**：倒计时期间只要有一次装载或消耗就会取消（`industries.script.tl:134-137`）。为它接受**供应产业**或**运输工人**补贴也会取消（`subvention_util.tl:473-484`）。
+3. **倒计时**：出现通知**工业关闭**，剩 2 年（730 天）（`industries_config.res.lua:7`、`industry_close.script.tl:53-67`）。之后产业连同它自己的道路段一起被移除（`industries.script.tl:147-155`、`industries.script.tl:193-222`、`industry_util.tl:560-601`）。
+4. **挽救**：倒计时期间只要有一次装载或消耗就会取消（`industries.script.tl:134-137`）。为它接受**供应产业**或**运输工人**补贴，在补贴期间倒计时被取消（`subvention_util.tl:473-484`、`subvention_util.tl:478-483`）。它不会重置 5 年检测（`industries.script.tl:119`）：如果没有装载或消耗，产业以后仍可能再次被标记。
 
 ```tip scripts
-**收到工业关闭通知？在 730 天内装载或交付一次就能取消。** 为这个产业接受供应产业或运输工人补贴也会取消。
+**收到工业关闭通知？在 730 天内装载或交付一次就能取消。** 为这个产业接受供应产业或运输工人补贴，在补贴期间会取消，但要继续装载：5 年检测不会重置。
 ```
 
 | 工业关闭频率 | 作为候选每年的概率 | 一半候选被标记所需时间 | 预设 | 来源 |
@@ -153,7 +153,7 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 
 ## 新产业
 
-引擎在游戏中增加新产业。通知为**新行业创立**：“一位有远见的企业家嗅到盈利机会，并创立了 {industry}。”（`industry_spawn.script.tl:34-36`、`industry_spawn.res.lua:6`）。没有游戏脚本选择地点、类型或时间，也没有脚本过滤引擎的提议。
+引擎在游戏中增加新产业。通知为**新行业创立**：“一位有远见的企业家嗅到盈利机会，并创立了 {industry}。”（`industry_spawn.script.tl:34-36`）；其类型标签为**行业创立**（`industry_spawn.res.lua:6`）。没有游戏脚本选择地点、类型或时间，也没有脚本过滤引擎的提议。
 
 脚本交给引擎的值（`mod.script.tl:128-133`、`mod.script.tl:166-168`、`mod.script.tl:194-195`）：
 
@@ -163,7 +163,7 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 | spawnProbabilityExponent | 3.0 | 生成概率的指数（公式在引擎中） |
 | spawnIndustries | 地图编辑器中关闭，游戏中开启 | 地图编辑器中没有新产业 |
 | industryDensity | 1 × **产业目标密度** | 产业的目标数量 |
-| maxNumberPerArea, absoluteMinimum | 每 km² 0.8（主机 0.64），24 | 地图生成器也使用 |
+| maxNumberPerArea, absoluteMinimum | 每 km² 0.8（主机 0.64），24 | 每面积上限和最小数量（用法在引擎端） |
 
 **产业目标密度**（“设置地图上的产业目标密度”）：5 档，×2/3、×5/6、×1、×1.2、×1.5（`difficulty_util.tl:55`、`difficulty_util.tl:85`）。
 

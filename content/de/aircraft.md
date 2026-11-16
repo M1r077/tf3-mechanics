@@ -48,7 +48,7 @@ Preis und Unterhalt der ersten Variante, Epochenfaktor eingerechnet. Der Faktor 
 | Flugplatz | 3.600.000 - 9.000.000 | 150.000 - 600.000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | Flughafen | 5.400.000 - 13.500.000 | 900.000 - 2.250.000 | `airport.tl:8`, `airport.tl:30-31` |
 | Flugplatzmodul (Hauptgebäude, Terminal, Hangar) | 600.000 | 100.000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| Flughafenmodul (Terminal, Hangar, zweite Landebahn) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| Flughafenmodul (Hauptgebäude, Terminal, Hangar, zweite Landebahn) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - Der Unterhalt von Flughäfen und Flugplätzen folgt auch dem Kalenderjahr, ×1 im Jahr 1900 bis ×6 im Jahr 2020 ([Kosten, Unterhalt und Darlehen](costs.html)).
 - Preis und Betriebskosten eines Luftfahrzeugs werden aus Geschwindigkeit und Kapazität berechnet, wie bei Schiffen und Straßenfahrzeugen ([Kosten, Unterhalt und Darlehen](costs.html)).

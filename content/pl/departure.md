@@ -24,8 +24,8 @@ Każdy przystanek linii ma własne ustawienia odjazdu, w oknie „Filtr towarów
 | „Poziom napełnienia”, dla każdego ładowanego towaru | 0–100 %, krok 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Kliknięcie czasu otwiera pole liczbowe: można w nim wpisać wartości powyżej 600 s (`cargofilter_window.tl:204-208`).
-- Trzy czasy zachowują kolejność: podniesienie minimum lub dodatkowego oczekiwania powyżej maksimum podnosi też maksimum (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).
-- Zmiana któregokolwiek z nich oznacza linię jako własną: konfiguracja automatyczna nie rusza już jej list Ładunek (`cargofilter_window.tl:438`, zobacz [Szybkość załadunku i rozładunku](loading.html)). Sama konfiguracja automatyczna nigdy nie zmienia trybu ani czasów (`line_util.tl:495-513`).
+- Trzy czasy zachowują kolejność: podniesienie minimum lub dodatkowego oczekiwania powyżej maksimum podnosi też maksimum (`cargofilter_window.tl:834-836`, `cargofilter_window.tl:848-850`); obniżenie maksimum obniża dwa pozostałe (`cargofilter_window.tl:865-869`). Gdy maksimum to „---”, nic nie jest korygowane.
+- Zmiana któregokolwiek z nich oznacza linię jako własną: konfiguracja automatyczna nie rusza już jej list Ładunek (`cargofilter_window.tl:438`, zobacz [Szybkość załadunku i rozładunku](loading.html)). Sama konfiguracja automatyczna nigdy nie zmienia trybu ani czasów, ale ustawia każdy Poziom napełnienia z powrotem na 100 % (`line_util.tl:495-719`, `line_util.tl:511`, `line_util.tl:543`).
 
 ## Poziom napełnienia: limit dla każdego towaru
 
@@ -51,7 +51,7 @@ Poziom napełnienia to największa ilość danego towaru, jaką pojazd zabiera n
 - **Do pełna (dowolny)**: pojazd odjeżdża, gdy jeden towar jest pełny. Pociąg na drewno i deski odjechał ze 143 i 144 drewna po 369–380 s; dwa inne odjazdy po około 30 s z 57 i 118 drewna nie są wyjaśnione.
 - **Max. czas postoju** kończy oczekiwanie, nawet gdy nic nie załadowano. Pociąg z warzywami w trybie Do pełna (wszystkie) z maksimum 120 s albo zapełnił się (64 z 64) w około 25 s, albo odjechał po 116–120 s z 26 lub **0**. Z domyślnymi 600 s odjechał z 26 z 64 po 596–600 s.
 - **Min. czas postoju** to cały postój, łącznie z załadunkiem, a nie dodatkowy czas po nim: przy 60 s pociągi ze szkłem stały za każdym razem 55–61 s, niezależnie od tego, co ładowały.
-- **Maks. dodatkowe oczekiwanie**: „Maximum wait time after loading to improve vehicle distribution” (`cargofilter_window.tl:828`). Okno pojazdu pokazuje podczas oczekiwania „Utrzymuje bezpieczną odległość” (`entity_window_util.tl:2279-2286`).
+- **Maks. dodatkowe oczekiwanie**: „Maximum wait time after loading to improve vehicle distribution” (`cargofilter_window.tl:828`). Okno pojazdu pokazuje „Utrzymuje bezpieczną odległość”, gdy pojazd czeka na planowy odjazd (`entity_window_util.tl:2283-2284`), przypuszczalnie podczas tego oczekiwania.
 - **Kilka pojazdów na jednym przystanku ładuje się jednocześnie**, niezależnie od tego, kiedy każdy przyjechał (widziane w grze). Dwie ciężarówki z drewnem, które przyjechały w odstępie około 90 s, odjechały w tej samej sekundzie, każda z 8. Jak towar jest między nie dzielony, nie zmierzono.
 
 ```engine

@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>倉庫自体も汚染を加える。<strong>25</strong>、専門モジュールを 1 つでも建てると <strong>50</strong> になる<span class="sr">（<code class="src">warehouse.script.lua:327</code>、<code class="src">warehouse.script.lua:338-345</code>）</span>。</li>
-<li>建設メニューには、クラスと時代（1900 年、1940 年、1980 年から）ごとに 1 つの項目がある<span class="sr">（<code class="src">warehouses/warehouse.tl:3-5</code>）</span>。後の時代は ×3 と ×9 を示し、倉庫の維持費も年とともに増える。詳細：<a href="costs.html">コスト、維持費、融資</a>。</li>
+<li>建設メニューには、クラスと時代（1900 年、1940 年、1980 年から）ごとに 1 つの項目がある<span class="sr">（<code class="src">warehouses/warehouse.tl:3-5</code>）</span>。後の時代は ×3 と ×9 を示し<span class="sr">（<code class="src">warehouses/warehouse.tl:48</code>、<code class="src">warehouses/warehouse.tl:75-76</code>）</span>、倉庫の維持費も年とともに増える。詳細：<a href="costs.html">コスト、維持費、融資</a>。</li>
 <li>ばら積み、平型、商品のモジュールは、液体モジュールと同じコストである<span class="sr">（<code class="src">wh_bulk.module.lua:22-23</code>、<code class="src">wh_flatbed.module.lua:22-23</code>、<code class="src">wh_goods.module.lua:18-19</code>）</span>。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>スクリプトは 2 つの排出レベルを与え、2 つ目は 1 つ目の 2 倍である<span class="sr">（<code class="src">warehouse.script.lua:342-343</code>）</span>。倉庫は在庫が埋まるにつれて 1 つ目から 2 つ目へ移り、在庫が満杯なら 2 倍になる<span class="sr">（<code class="src">emissions.script.tl:237-249</code>）</span>。モジュールに実際に請求される価格はエンジンが計算する。</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="知っておくと便利なこと"><span class="n">7</span><span>知っておくと便利なこと</span></h2>
 <ul>
 <li>倉庫の近くにあるすべての停車地の積込リストを確認すること。リストにないものは、路線の途中でも倉庫に積み下ろされる。</li>
-<li>満杯の在庫はそれ以上の貨物を拒む。ただし停車地が「到着時にすべての貨物を強制的に積み下ろし」を使っていれば別で、入りきらない分は破壊される（<a href="loading.html">積み込みと積み下ろしの速度</a> を参照）。</li>
+<li>満杯の在庫はそれ以上の貨物を拒む。ただし停車地が「到着時にすべての貨物を強制的に積み下ろし」（「在庫が満杯でも貨物を積み下ろす」）を使っていれば別。入りきらない貨物がどうなるかはエンジンが決める（<a href="loading.html">積み込みと積み下ろしの速度</a> を参照）。</li>
 <li>専門モジュールを 1 つの貨物用に保つには、「在庫」セクションでその貨物の種類を固定する。</li>
 <li><a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> は駅ごとに、届く範囲の倉庫とその在庫を一覧にする。<a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> は積み下ろした貨物の行き先を表示する。</li>
 </ul>

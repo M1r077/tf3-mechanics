@@ -57,7 +57,7 @@ fact: 0 | 창고에 하차한 화물의 수입
 | 오염 | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - 창고 자체도 오염을 더한다. **25**, 특화된 모듈을 하나라도 지으면 **50**이다(`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- 건설 메뉴에는 분류와 시대(1900년, 1940년, 1980년부터)마다 항목이 하나씩 있다(`warehouses/warehouse.tl:3-5`). 뒤의 시대는 ×3과 ×9를 보여주며, 창고 관리비도 연도에 따라 커진다. 자세한 내용: [비용, 관리비, 대출](costs.html).
+- 건설 메뉴에는 분류와 시대(1900년, 1940년, 1980년부터)마다 항목이 하나씩 있다(`warehouses/warehouse.tl:3-5`). 뒤의 시대는 ×3과 ×9를 보여주며(`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), 창고 관리비도 연도에 따라 커진다. 자세한 내용: [비용, 관리비, 대출](costs.html).
 - 벌크, 평상식, 상품 모듈은 액체 모듈과 비용이 같다(`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ fact: 0 | 창고에 하차한 화물의 수입
 ## 알아두면 좋은 점
 
 - 창고 근처의 모든 정류장의 상차 목록을 확인하자. 목록에 없는 것은 노선 중간이라도 창고에 하차된다.
-- 가득 찬 재고는 더 이상 화물을 받지 않는다. 단, 정류장이 "도착 시 모든 화물 강제 하차"를 쓰면 받으며, 들어가지 않는 것은 파괴된다([상차 및 하차 속도](loading.html) 참조).
+- 가득 찬 재고는 더 이상 화물을 받지 않는다. 단, 정류장이 "도착 시 모든 화물 강제 하차"("재고가 가득 차 있어도 화물 하차")를 쓰면 받는다. 들어가지 않는 화물이 어떻게 되는지는 엔진이 정한다([상차 및 하차 속도](loading.html) 참조).
 - 특화된 모듈을 한 화물 전용으로 두려면 재고 섹션에서 그 화물 종류를 고정한다.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)는 역마다 닿는 범위의 창고와 그 재고를 보여준다. [Platform Details](https://mod.io/g/transportfever3/m/platform-details)는 하차한 화물이 어디로 갔는지 보여준다.
 

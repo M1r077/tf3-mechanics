@@ -21,7 +21,7 @@ Eine Lieferung bezahlt die **Luftlinie**, sonst nichts von der Fahrt. Die Geschw
 Die ganze Formel steht in einem kurzen Spielskript (`cargo_income.script.lua:10-13`):
 
 1. **Einnahmefaktor** der Fracht. Alle Frachten des Grundspiels nutzen dieselbe Funktion und dieselben Preise (`initialPrice = 4`, `finalPrice = 3.2`), das ergibt **3,8 für alle 36 Frachten** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Kohle bringt über dieselbe Entfernung genau so viel wie Güter.
-2. Einstellung **Gütereinnahmen**: 50 %, 75 %, 100 %, 125 % oder 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Alle vier Schwierigkeitsvorgaben nutzen 100 % (`difficulty_util.tl:97`).
+2. Einstellung **Gütereinnahmen**: 50 %, 75 %, 100 %, 125 % oder 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Alle vier Schwierigkeitsvorgaben nutzen 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Entfernung**, siehe unten.
 
 Die Funktion erhält die Fahrzeit, **nutzt sie aber nicht** (`cargotype.script.lua:7-13`): Eine langsame oder verspätete Lieferung bringt gleich viel.
@@ -32,7 +32,7 @@ Die Funktion erhält die Fahrzeit, **nutzt sie aber nicht** (`cargotype.script.l
 ```
 
 - Die Entfernung ist die **Luftlinie in 3D** zwischen den beiden Punkten, nicht die Länge deiner Strecke (`cargo_income.script.lua:3-7`).
-- Ist der Höhenunterschied positiv, werden **8 × diese Höhe** addiert (`cargo_income.script.lua:5`): 100 m Steigung bringen so viel wie 800 m mehr. In der Gegenrichtung wird nichts abgezogen.
+- Wird die Fracht höher geliefert als ihre Quelle, werden **8 × diese Höhe** addiert (`cargo_income.script.lua:5`): 100 m bringen so viel wie 800 m mehr. Die Skripte nehmen den Höhenunterschied, den die Engine übergibt; seine Richtung ist in den Skripten nicht sichtbar. Ein negativer Unterschied zieht nichts ab.
 - Eine kurvige Linie verdient also so viel wie eine gerade, aber du zahlst Unterhalt für jeden gebauten Meter Gleis oder Straße.
 
 ```engine
@@ -65,7 +65,7 @@ Die Skripte berechnen nur den Gesamtbetrag (`economy/cargo_income.script.lua`); 
 | **Erfüllte Subvention** | ×2 für Lieferungen an die Industrie oder Stadt des Vertrags, auf den Linien, die für die Subvention geliefert haben | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Verspätete Lieferung** | keine Wirkung auf die Einnahme | `cargotype.script.lua:7-13` |
 
-- Der Rangmultiplikator gilt für **alle** Fracht- und Passagierzahlungen (`company_growth.script.tl:159-170`). Die Schwierigkeitsvorgaben nutzen Inflation Niedrig (Easy), Normal (Normal), Hoch (Hard), Sehr hoch (Very Hard) (`difficulty_util.tl:108`).
+- Der Rangmultiplikator gilt für **alle** Fracht- und Passagierzahlungen (`company_growth.script.tl:159-170`). Die Schwierigkeitsvorgaben nutzen Inflation Niedrig (Easy), Normal (Normal), Hoch (Hard), Sehr hoch (Very Hard) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - Das ×2 der Subventionen gilt nur für die Linien, die während der Subvention geliefert haben, und nur für begrenzte Zeit (offizielles Wiki, Subsidies).
 
 ## Passagiere
@@ -74,7 +74,7 @@ Passagiere nutzen dieselbe Entfernung und einen festen Einnahmefaktor von etwa 3
 
 ## Lieferzeiten
 
-Jede Fracht hat ihre eigene Lieferzeit (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Frischware hat die kürzeste, schwere Rohstoffe fünfmal mehr:
+Jede Fracht hat ihre eigene Lieferzeit (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Frischware hat die kürzeste: Fleisch 900 s, Kohle 3.000 s (3,3 × länger), Eisenerz, Sand, Stein und Stahl 4.500 s:
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ Verspätete Fracht wird voll bezahlt, aber jede Stadt führt eine **Lieferungs**
 
 1. Das Spiel zählt die Lieferungen an die Stadt im **letzten Halbjahr** und wie viele verspätet waren (mindestens 10 werden angenommen, damit die ersten Lieferungen sie nicht kippen).
 2. Pünktlicher Anteil → Bewertung: unter einer unteren Grenze ist sie 0, über einer oberen 1, dazwischen linear. Mit der Standard-Empfindlichkeit (**Normal**): **30 % pünktlich → 0, 100 % → 1**, also ergeben 90 % pünktlich 0,86.
-3. Die Einstellung **Lieferungsempfindlichkeit** verschiebt die Grenzen (`difficulty_util.tl:47`). Aus: immer 1. Vorgaben: Easy Niedrig, Normal Normal, Hard Hoch, Very Hard Sehr hoch (`difficulty_util.tl:113`).
+3. Die Einstellung **Lieferungsempfindlichkeit** verschiebt die Grenzen (`difficulty_util.tl:47`). Aus: immer 1. Vorgaben: Easy Niedrig, Normal Normal, Hard Hoch, Very Hard Sehr hoch (`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ Dieselbe Kohlelieferung, 5 km Luftlinie.
 |---|---|
 | flach, egal wie lang die Strecke | **100 %** |
 | 10 km Luftlinie | **200 %** |
-| Ziel 100 m höher | **116 %** |
+| 100 m höher geliefert als die Quelle | **116 %** |
 | verspätet geliefert | **100 %** (Lieferungs-Bewertung sinkt) |
 | Unternehmensrang 15, Inflation Normal | **75 %** |
 | Lieferung, die eine erfüllte Subvention abdeckt | **200 %** |
@@ -117,7 +117,7 @@ Dieselbe Kohlelieferung, 5 km Luftlinie.
 
 - Da jede Fracht pro Kilometer gleich viel bringt, **wähle Frachten nach Menge, Entfernung und Lieferzeit**, nicht nach Preis.
 - Lieferzeiten zählen vor allem bei Fleisch, Fisch, Gemüse und Getränken: kurze Linien oder Lager, die die Zeit einfrieren.
-- Jede an ein Stadtgebäude gelieferte Einheit gibt dieser Stadt auch Erfahrung (`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- Jede an ein Stadtgebäude gelieferte Einheit gibt dieser Stadt auch Erfahrung, bei Frachten, deren Kategorie eine Stufe hat (`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: „The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." „While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

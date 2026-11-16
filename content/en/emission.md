@@ -20,13 +20,13 @@ A game script sets the emission of four kinds of buildings every few updates, be
 
 | Building | Emits more when | Source |
 |---|---|---|
-| **Industry** | it produces, and again with each boost (cargo or workers); lower, toward its idle level, when its output stock is full | `emissions.script.tl:152-194` |
+| **Industry** | it produces, and again with each boost (cargo or workers); when all its output stocks are full together, its level is halved: producing → idle, boosted twice → producing | `emissions.script.tl:152-194` |
 | **Station** | it is busier: waiting people and cargo against its capacity | `emissions.script.tl:211-222` |
 | **Depot**, **maintenance station** | more vehicles use its maintenance | `emissions.script.tl:223-234` |
 | **Warehouse** | its stocks are fuller | `emissions.script.tl:237-250` |
 
 - Each industry has its own four levels: idle, producing, boosted once, boosted twice (`industryutil.lua:464-475`; the 0 / 78 / 84 / 88 default only applies to an industry without its own). Most still emit a little when idle: a Coal Mine goes 2 → 10 → 20 → 30 pollution, its fields 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, see [Industries](industries.html)).
-- An industry whose output is not picked up drops back toward its idle level: serving it raises its pollution.
+- An industry whose output stocks are all full drops to half its level (`emissions.script.tl:172-182`): serving it raises its pollution.
 - Vehicles and tracks emit too; a vehicle in bad condition emits more with the **Vehicle Maintenance Effect** setting (see [Costs, upkeep and loans](costs.html)).
 
 ## What the build menu shows
@@ -39,7 +39,7 @@ A game script sets the emission of four kinds of buildings every few updates, be
 | Rail depot | 50 | 100 | `rail_depot.con.lua:32-33` |
 | Road and tram depot | 40 | 80 | `road_depot.con.lua:30-31`, `tram_depot.con.lua:32-33` |
 | Underground station | 40 | 80 | `underground_station.con.lua:75-76` |
-| Truck and bus station | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| Truck and bus station | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | Maintenance stations | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
 | Warehouse | 20 | 50 (universal) or 100 (specialised) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ A company perk that removes pollution around it.
 | boosted once | −20,000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | boosted twice | −40,000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+The last level needs a booster rule, which the Cleaning Plant does not have: with workers it reaches −20,000 (`pollution_cleanup_facility.con.lua:51-58`, `emissions.script.tl:158-166`).
+
 - Without machines it does almost nothing: it must be supplied like an industry.
 - It is loud: build it out of the residential district, within 700 m of the polluted area.
 - Its worker boost factor is ×2 (`pollution_cleanup_facility.script.lua:549`). See [Workers](workers.html).
@@ -100,7 +102,7 @@ A company perk that removes pollution around it.
 ## Good to know
 
 - Open the town window or the noise and pollution layers to see the rating and the hotspots.
-- A full output stock lowers an industry's emission toward its idle level, but costs you its cargo: better move the town than starve the industry.
+- When all output stocks of an industry are full, its emission level is halved, but you lose its cargo: better move the town than starve the industry.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) and [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) help you find the busiest stations.
 
 ```engine
@@ -109,6 +111,6 @@ The engine computes the noise and pollution maps, how the values spread, the emi
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." The residential district "is sensitive to noise"; the commercial district "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Noise rating 65 → 80 dB, pollution 60 → 74 dB averaged over 5–10 km²; sensitivity adds 10·log10 dB; industries, stations, depots and warehouses emit more when busy; a full output stock lowers an industry's emission toward idle; greenification −80 % once per industry; the Cleaning Plant removes up to 40,000 pollution within 700 m and needs machines.
+scripts: Noise rating 65 → 80 dB, pollution 60 → 74 dB averaged over 5–10 km²; sensitivity adds 10·log10 dB; industries, stations, depots and warehouses emit more when busy; when all output stocks are full, an industry's emission level is halved; greenification −80 % once per industry; the Cleaning Plant removes up to 20,000 pollution (40,000 is defined but needs a booster rule) within 700 m and needs machines.
 result: refines
 ```

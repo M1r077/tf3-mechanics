@@ -48,7 +48,7 @@ Prezzo e manutenzione della prima variante, coefficiente d'epoca incluso. Il coe
 | Aerodromo | 3.600.000 - 9.000.000 | 150.000 - 600.000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | Aeroporto | 5.400.000 - 13.500.000 | 900.000 - 2.250.000 | `airport.tl:8`, `airport.tl:30-31` |
 | Modulo dell'aerodromo (edificio principale, terminal, hangar) | 600.000 | 100.000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| Modulo dell'aeroporto (terminal, hangar, seconda pista) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| Modulo dell'aeroporto (edificio principale, terminal, hangar, seconda pista) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - Anche la manutenzione di aeroporti e aerodromi segue l'anno del calendario, da ×1 nel 1900 a ×6 nel 2020 ([Costi, manutenzione e prestiti](costs.html)).
 - Prezzo e costi di esercizio di un velivolo sono calcolati da velocità e capacità, come per le navi e i veicoli stradali ([Costi, manutenzione e prestiti](costs.html)).

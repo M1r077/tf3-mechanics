@@ -17,8 +17,8 @@ Chaque industrie fonctionne par **règles** : « prendre ceci dans les stocks en
 
 ## Règles de production
 
-- Une règle donne le fret utilisé et produit par cycle, et combien de cycles par an : un cycle dure un an ÷ ce nombre (`industry_react_util.tl:51-57`). La section Production de la fenêtre de l'industrie l'affiche en petits nombres.
-- Le nombre **Max.** de la fenêtre vaut : par cycle × cycles par an × les bonus × le réglage **Productivité des industries** (`industry_util.tl:310-379`).
+- Une règle donne le fret utilisé et produit par cycle, et combien de cycles par an : un cycle dure un an ÷ ce nombre, moins avec les bonus pour les règles de production (`industry_react_util.tl:51-57`). La section Production de la fenêtre de l'industrie l'affiche en petits nombres.
+- Le nombre **Max.** de la fenêtre vaut : par cycle × cycles par an × le facteur de taille (`rule.consumptionFactor`) × les bonus × le réglage **Productivité des industries**, ces deux derniers pour les règles de production seulement (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
 - **Productivité des industries** : 50 %, 75 %, 100 %, 150 % ou 200 %. Préréglages : Facile 150 %, Normale 100 %, Difficile 75 %, Très difficile 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
 - Exemple, Acierie : 6 minerai de fer + 6 charbon → 3 acier + 4 tôle, 121,7 cycles par an : 730 minerai de fer et 730 charbon → 365 acier et 487 tôle (`steel_mill.con.lua:43-71`). Une entrée qui manque arrête la règle.
 - La Conserverie a deux règles : poisson + tôle, ou viande + tôle (`food_factory.con.lua:43-74`).
@@ -130,11 +130,11 @@ La vérification passe toutes les 100 mises à jour pour chaque industrie (`indu
 
 1. **Candidate** : aucun fret **chargé** dans un véhicule et aucun **consommé** pendant **5 ans** (comptés depuis sa construction si jamais) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Produire seul ne compte pas.
 2. **Hasard** : une candidate est tirée à chaque contrôle avec une part de la chance annuelle du réglage **Fréquence de fermeture des industries** (tableau ci-dessous), de sorte que sur un an cela fait cette chance (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
-3. **Compte à rebours** : la notification **Fermeture de l'industrie** apparaît, avec 2 ans (730 jours) à attendre (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Ensuite l'industrie est supprimée avec ses propres morceaux de route (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
-4. **Sauvée** : un seul chargement ou une consommation pendant le compte à rebours l'annule (`industries.script.tl:134-137`). Accepter un contrat **Approvisionner l'industrie** ou **Transporter des travailleurs** pour elle l'annule aussi (`subvention_util.tl:473-484`).
+3. **Compte à rebours** : la notification **Fermeture de l'industrie** apparaît, avec 2 ans (730 jours) à attendre (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Ensuite l'industrie est supprimée avec ses propres morceaux de route (`industries.script.tl:147-155`, `industries.script.tl:193-222`, `industry_util.tl:560-601`).
+4. **Sauvée** : un seul chargement ou une consommation pendant le compte à rebours l'annule (`industries.script.tl:134-137`). Accepter un contrat **Approvisionner l'industrie** ou **Transporter des travailleurs** pour elle annule le compte à rebours tant que le contrat court (`subvention_util.tl:473-484`, `subvention_util.tl:478-483`). Cela ne remet pas à zéro le test des 5 ans (`industries.script.tl:119`) : si rien n'est chargé ni consommé, l'industrie peut être marquée de nouveau plus tard.
 
 ```tip scripts
-**Une notification Fermeture de l'industrie ? Un seul chargement ou une seule livraison pendant les 730 jours l'annule.** Accepter un contrat Approvisionner l'industrie ou Transporter des travailleurs pour elle l'annule aussi.
+**Une notification Fermeture de l'industrie ? Un seul chargement ou une seule livraison pendant les 730 jours l'annule.** Accepter un contrat Approvisionner l'industrie ou Transporter des travailleurs pour elle l'annule tant que le contrat court, mais continue à charger quelque chose : le test des 5 ans n'est pas remis à zéro.
 ```
 
 | Fréquence de fermeture des industries | Chance par an en tant que candidate | La moitié des candidates marquées après | Préréglage | Source |
@@ -153,7 +153,7 @@ Ce qui compte comme « chargé » et « consommé » (les journaux itemsLoaded e
 
 ## Nouvelles industries
 
-Le moteur ajoute de nouvelles industries pendant la partie. La notification est **Nouvelle industrie fondée** : « Un entrepreneur visionnaire a flairé une opportunité de profit et a fondé {industry}. » (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Aucun script du jeu ne choisit l'endroit, le type ou le moment, et aucun ne filtre ce que le moteur propose.
+Le moteur ajoute de nouvelles industries pendant la partie. La notification est **Nouvelle industrie fondée** : « Un entrepreneur visionnaire a flairé une opportunité de profit et a fondé {industry}. » (`industry_spawn.script.tl:34-36`) ; son libellé de type est **Industrie fondée** (`industry_spawn.res.lua:6`). Aucun script du jeu ne choisit l'endroit, le type ou le moment, et aucun ne filtre ce que le moteur propose.
 
 Ce que les scripts donnent au moteur (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`) :
 
@@ -163,7 +163,7 @@ Ce que les scripts donnent au moteur (`mod.script.tl:128-133`, `mod.script.tl:16
 | spawnProbabilityExponent | 3,0 | exposant de la chance d'apparition (formule dans le moteur) |
 | spawnIndustries | désactivé dans l'éditeur de cartes, activé en partie | pas de nouvelles industries dans l'éditeur de cartes |
 | industryDensity | 1 × **Densité cible des industries** | le nombre cible d'industries |
-| maxNumberPerArea, absoluteMinimum | 0,8 par km² (0,64 sur consoles), 24 | aussi utilisé par le générateur de cartes |
+| maxNumberPerArea, absoluteMinimum | 0,8 par km² (0,64 sur consoles), 24 | une limite par surface et un minimum (leur usage est côté moteur) |
 
 **Densité cible des industries** (« Définissez la densité cible des industries sur la carte. ») : 5 crans, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
 

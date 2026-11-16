@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>O armazém soma a sua própria poluição: <strong>25</strong>, ou <strong>50</strong> assim que um módulo especializado é construído<span class="sr"> (<code class="src">warehouse.script.lua:327</code>, <code class="src">warehouse.script.lua:338-345</code>)</span>.</li>
-<li>O menu de construção tem uma entrada por classe e era (a partir de 1900, 1940 e 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; as eras seguintes mostram ×3 e ×9, e a manutenção dos armazéns também cresce com o ano. Detalhes: <a href="costs.html">Custos, manutenção e empréstimos</a>.</li>
+<li>O menu de construção tem uma entrada por classe e era (a partir de 1900, 1940 e 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; as eras seguintes mostram ×3 e ×9<span class="sr"> (<code class="src">warehouses/warehouse.tl:48</code>, <code class="src">warehouses/warehouse.tl:75-76</code>)</span>, e a manutenção dos armazéns também cresce com o ano. Detalhes: <a href="costs.html">Custos, manutenção e empréstimos</a>.</li>
 <li>Módulos a granel, de plataforma e de mercadorias custam o mesmo que os de líquidos<span class="sr"> (<code class="src">wh_bulk.module.lua:22-23</code>, <code class="src">wh_flatbed.module.lua:22-23</code>, <code class="src">wh_goods.module.lua:18-19</code>)</span>.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>Os scripts dão dois níveis de emissão, o segundo o dobro do primeiro<span class="sr"> (<code class="src">warehouse.script.lua:342-343</code>)</span>; o armazém passa do primeiro ao segundo à medida que os estoques enchem, estoques cheios = o dobro<span class="sr"> (<code class="src">emissions.script.tl:237-249</code>)</span>. O preço realmente cobrado pelos módulos é calculado pelo motor.</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="bom-saber"><span class="n">7</span><span>Bom saber</span></h2>
 <ul>
 <li>Confira a lista Volume de cada parada perto de um armazém: o que não está nela é descarregado no armazém, mesmo no meio da linha.</li>
-<li>Um estoque cheio recusa mais carga, a menos que a parada use "Forçar descarregamento de todas as cargas na chegada", que destrói o que não cabe (veja <a href="loading.html">Velocidade de carga e descarga</a>).</li>
+<li>Um estoque cheio recusa mais carga, a menos que a parada use "Forçar descarregamento de todas as cargas na chegada" ("Descarregar a carga mesmo se os estoques estiverem cheios"); o que acontece com a carga que não cabe é decidido pelo motor (veja <a href="loading.html">Velocidade de carga e descarga</a>).</li>
 <li>Para manter um módulo especializado para uma carga, fixe o tipo de carga dele na seção Estoques.</li>
 <li>O <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> lista, por estação, os armazéns ao alcance com os seus estoques; o <a href="https://mod.io/g/transportfever3/m/platform-details">Detalhes das plataformas (Platform Details)</a> mostra para onde foi a carga descarregada.</li>
 </ul>

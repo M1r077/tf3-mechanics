@@ -57,7 +57,7 @@ Un magazzino è un ingresso e un insieme di **moduli**. Conserva il carico tra d
 | Inquinamento | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - Il magazzino aggiunge un proprio inquinamento: **25**, oppure **50** non appena viene costruito un modulo specializzato (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- Il menu di costruzione ha una voce per classe ed epoca (dal 1900, 1940 e 1980) (`warehouses/warehouse.tl:3-5`); le epoche successive mostrano ×3 e ×9, e anche la manutenzione dei magazzini cresce con l'anno. Dettagli: [Costi, manutenzione e prestiti](costs.html).
+- Il menu di costruzione ha una voce per classe ed epoca (dal 1900, 1940 e 1980) (`warehouses/warehouse.tl:3-5`); le epoche successive mostrano ×3 e ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), e anche la manutenzione dei magazzini cresce con l'anno. Dettagli: [Costi, manutenzione e prestiti](costs.html).
 - I moduli per merci sfuse, merci ingombranti e merci generiche costano quanto quelli per liquidi (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Dove va il carico scaricato, e se il tempo di consegna di un'unità immagazzinat
 ## Da sapere
 
 - Controlla la lista Carico di ogni fermata vicino a un magazzino: ciò che non c'è viene scaricato nel magazzino, anche a metà linea.
-- Una scorta piena rifiuta altro carico, a meno che la fermata usi "Forza scarico di tutte le merci all'arrivo", che distrugge ciò che non entra (vedi [Velocità di carico e scarico](loading.html)).
+- Una scorta piena rifiuta altro carico, a meno che la fermata usi "Forza scarico di tutte le merci all'arrivo" ("Scarica le merci anche se le scorte sono piene"); cosa succede alle merci che non entrano lo decide il motore (vedi [Velocità di carico e scarico](loading.html)).
 - Per tenere un modulo specializzato per un solo carico, fissa il suo tipo di carico nella sezione Scorte.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) elenca, per stazione, i magazzini raggiungibili con le loro scorte; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) mostra dove è finito il carico scaricato.
 

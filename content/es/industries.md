@@ -17,8 +17,8 @@ Cada industria funciona con **reglas**: «toma esto de las existencias de entrad
 
 ## Reglas de producción
 
-- Una regla indica la carga usada y producida por ciclo, y cuántos ciclos al año: un ciclo dura un año ÷ ese número (`industry_react_util.tl:51-57`). La sección Producción de la ventana de la industria lo muestra con números pequeños.
-- El número **Máx.** de la ventana es: por ciclo × ciclos al año × los refuerzos × el ajuste **Productividad de la industria** (`industry_util.tl:310-379`).
+- Una regla indica la carga usada y producida por ciclo, y cuántos ciclos al año: un ciclo dura un año ÷ ese número, menos con los refuerzos en las reglas de producción (`industry_react_util.tl:51-57`). La sección Producción de la ventana de la industria lo muestra con números pequeños.
+- El número **Máx.** de la ventana es: por ciclo × ciclos al año × el factor de tamaño (`rule.consumptionFactor`) × los refuerzos × el ajuste **Productividad de la industria**, estos dos últimos solo en las reglas de producción (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
 - **Productividad de la industria**: 50 %, 75 %, 100 %, 150 % o 200 %. Preajustes: Fácil 150 %, Normal 100 %, Difícil 75 %, Muy difícil 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
 - Ejemplo, Acería: 6 mineral de hierro + 6 carbón → 3 acero + 4 lámina de metal, 121,7 ciclos al año: 730 mineral de hierro y 730 carbón → 365 acero y 487 lámina de metal (`steel_mill.con.lua:43-71`). Si falta una entrada, la regla se para.
 - La Fábrica de conservas tiene dos reglas: pescado + lámina de metal, o carne + lámina de metal (`food_factory.con.lua:43-74`).
@@ -130,11 +130,11 @@ La comprobación se hace cada 100 actualizaciones para cada industria (`industri
 
 1. **Candidata**: ninguna carga **cargada** en un vehículo y ninguna **consumida** durante **5 años** (desde su construcción si nunca) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Producir no basta.
 2. **Azar**: una candidata se sortea en cada comprobación con una parte de la probabilidad anual del ajuste **Frecuencia de cierre de industrias** (tabla abajo), de modo que en un año suma esa probabilidad (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
-3. **Cuenta atrás**: aparece la notificación **Cierre de industria**, con 2 años (730 días) de plazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Después la industria se elimina con sus propios tramos de carretera (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
-4. **Salvada**: una sola carga o un consumo durante la cuenta atrás la cancela (`industries.script.tl:134-137`). Aceptar un subsidio **Suministrar a industria** o **Transportar trabajadores** para ella también la cancela (`subvention_util.tl:473-484`).
+3. **Cuenta atrás**: aparece la notificación **Cierre de industria**, con 2 años (730 días) de plazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Después la industria se elimina con sus propios tramos de carretera (`industries.script.tl:147-155`, `industries.script.tl:193-222`, `industry_util.tl:560-601`).
+4. **Salvada**: una sola carga o un consumo durante la cuenta atrás la cancela (`industries.script.tl:134-137`). Aceptar un subsidio **Suministrar a industria** o **Transportar trabajadores** para ella cancela la cuenta atrás mientras dura el subsidio (`subvention_util.tl:473-484`, `subvention_util.tl:478-483`). No reinicia la prueba de 5 años (`industries.script.tl:119`): si no se carga ni se consume nada, la industria puede marcarse de nuevo más tarde.
 
 ```tip scripts
-**¿Aviso de Cierre de industria? Una sola carga o una sola entrega durante los 730 días lo cancela.** Aceptar un subsidio Suministrar a industria o Transportar trabajadores para esa industria también lo cancela.
+**¿Aviso de Cierre de industria? Una sola carga o una sola entrega durante los 730 días lo cancela.** Aceptar un subsidio Suministrar a industria o Transportar trabajadores para esa industria lo cancela mientras dura el subsidio, pero sigue cargando algo: la prueba de 5 años no se reinicia.
 ```
 
 | Frecuencia de cierre de industrias | Probabilidad al año como candidata | Mitad de las candidatas marcadas tras | Preajuste | Fuente |
@@ -153,7 +153,7 @@ Qué cuenta como «cargado» y «consumido» (los registros itemsLoaded e itemsC
 
 ## Industrias nuevas
 
-El motor añade industrias nuevas durante la partida. La notificación es **Nueva industria fundada**: «Un emprendedor visionario ha descubierto una oportunidad para sacar beneficio y ha fundado {industry}.» (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Ningún script del juego elige el lugar, el tipo ni el momento, y ninguno filtra lo que propone el motor.
+El motor añade industrias nuevas durante la partida. La notificación es **Nueva industria fundada**: «Un emprendedor visionario ha descubierto una oportunidad para sacar beneficio y ha fundado {industry}.» (`industry_spawn.script.tl:34-36`); su etiqueta de tipo es **Industria fundada** (`industry_spawn.res.lua:6`). Ningún script del juego elige el lugar, el tipo ni el momento, y ninguno filtra lo que propone el motor.
 
 Lo que los scripts dan al motor (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
 
@@ -163,7 +163,7 @@ Lo que los scripts dan al motor (`mod.script.tl:128-133`, `mod.script.tl:166-168
 | spawnProbabilityExponent | 3,0 | exponente de la probabilidad de aparición (fórmula en el motor) |
 | spawnIndustries | desactivado en el editor de mapas, activado en partida | ninguna industria nueva en el editor de mapas |
 | industryDensity | 1 × **Densidad objetivo de la industria** | el número objetivo de industrias |
-| maxNumberPerArea, absoluteMinimum | 0,8 por km² (0,64 en consolas), 24 | también lo usa el generador de mapas |
+| maxNumberPerArea, absoluteMinimum | 0,8 por km² (0,64 en consolas), 24 | un límite por superficie y un mínimo (su uso está en el motor) |
 
 **Densidad objetivo de la industria** («Establece la densidad objetivo de las industrias del mapa.»): 5 niveles, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
 

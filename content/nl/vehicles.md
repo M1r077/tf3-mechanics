@@ -8,7 +8,7 @@ updated: 2026-11-16
 game: 40425
 fact: 5 | staatniveaus, van Zeer slecht tot Zeer goed, elk 20 %
 fact: 20 % | staat die de waarschuwing Voertuigstaat activeert
-fact: 6 jaar | bedrijfskosten: de prijs van een voertuig
+fact: 6 × | de jaarlijkse basisbedrijfskosten: de prijs van een voertuig
 fact: 4 tot 16 | voertuigen in de onderhoudsgroep van één depot of onderhoudsstation
 ---
 
@@ -16,7 +16,7 @@ Elk voertuig heeft vaste statistieken (snelheid, capaciteit, laadsnelheid, prijs
 
 ## De statistieken in de voertuigwinkel
 
-- De winkel toont elke statistiek als een balk. De balk vergelijkt het voertuig met de andere van hetzelfde vervoermiddel en tijdperk, niet met een vaste schaal (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- De winkel toont elke statistiek als een balk. De balk gebruikt een vaste schaal per vervoermiddel, die met het jaar verandert (bijvoorbeeld laadsnelheid van schepen: 10 tot 45 vanaf 2003). Hij vergelijkt het voertuig niet met andere voertuigen (`vehicle_util.tl:210-245`, `vehicle_util.tl:259-268`).
 - Voor een trein toont de winkel de **hoogste** laadsnelheid van al zijn onderdelen (`vehicle_store_util.tl:333`).
 - Een voertuig waarvan het bestand geen laadsnelheid, geluid, vervuiling of comfort instelt, krijgt een waarde berekend uit zijn andere statistieken (jaar, snelheid, vermogen, gewicht, grootte) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). De berekende laadsnelheid wordt afgerond op 0,5 en is nooit lager dan 1 (`vehicle_metadata_util.lua:267-269`).
 
@@ -50,8 +50,8 @@ Hoe de laadsnelheid van het voertuig, de laadfactor van de vracht en de perron- 
 | tot 20 % | **Zeer slecht** | `vehicle_util.tl:159-172` |
 
 - De staat van een trein is het **gemiddelde** van al zijn wagons en locomotieven (`vehicle_util.tl:285-295`).
-- Onder 80 % begint een voertuig topsnelheid, vermogen en comfort te verliezen, en geluid, vervuiling en bedrijfskosten te winnen (`vehicle_store_util.tl:230-259`). Het voertuigvenster toont deze straffen onder **Staat**.
-- Hoe sterk deze straffen zijn, stelt **Effect voertuigonderhoud** in (Geen, Laag, Gemiddeld, Hoog, Zeer hoog); met Geen heeft de staat geen effect (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Details: [Kosten, onderhoud en leningen](costs.html).
+- Een versleten voertuig verliest topsnelheid, vermogen en comfort, en wint geluid, vervuiling en bedrijfskosten (`vehicle_store_util.tl:236-258`). Hoeveel, en vanaf welke staat, zijn waarden van de engine. Het voertuigvenster toont deze straffen onder **Staat**.
+- Hoe sterk deze straffen zijn, stelt **Effect voertuigonderhoud** in (Geen, Laag, Gemiddeld, Hoog, Zeer hoog); met Geen heeft de staat geen effect (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Kosten, onderhoud en leningen](costs.html).
 - Bij **20 %** of minder krijg je de waarschuwing **Voertuigstaat**. Ze blijft tot het voertuig weer boven **30 %** is (`notifications.script.tl:310-318`).
 - Een gekloond voertuig is een nieuwe aankoop: staat 100 %, nieuwe aankoopdatum (`manager_window.tl:8502-8506`).
 
@@ -77,7 +77,7 @@ Voertuigen worden onderhouden door een depot of onderhoudsstation in de buurt. E
 - Het gebouwvenster toont "gebruikt / groep" (bijvoorbeeld 14 / 12) en de lijst van voertuigen die het bedient, met hun staat (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Een vollere groep maakt het gebouw luidruchtiger en vuiler: de emissies stijgen met het gebruikte deel van de groep (`emissions.script.tl:223-234`).
 - Een treinonderhoudsstation bedient twee keer zoveel treinen als een treindepot: 12 tegen 6.
-- Onderhoudsstations kunnen geen voertuigen kopen of stallen, maar hun straal is vaak groter dan die van het depot: 600 m tegen 400 m op de weg, 1400 m tegen 1000 m voor schepen. Alleen het wegonderhoudsstation onderhoudt ook trams.
+- Onderhoudsstations kunnen geen voertuigen kopen of stallen, maar hun straal is vaak groter dan die van het depot: 600 m tegen 400 m op de weg, 1400 m tegen 1000 m voor schepen. Trams worden onderhouden door het tramdepot en het wegonderhoudsstation; het wegdepot onderhoudt geen trams (`tram_depot.script.lua:209`, `tram_depot.script.lua:226`).
 - De officiële wiki raadt waypoints aan om voertuigen langs een onderhoudsgebouw te sturen.
 
 ```engine
@@ -86,13 +86,13 @@ Aan welk station een voertuig wordt toegewezen, wat er gebeurt als meer voertuig
 
 ## Prijs en bedrijfskosten
 
-- Voertuigen uit het basisspel hebben geen vaste prijs: de bedrijfskosten komen uit snelheid en capaciteit, en de prijs is **6 jaar** bedrijfskosten (`model_metadata_util.lua:548-549`). Volledige formule: [Kosten, onderhoud en leningen](costs.html).
-- **Kosten voertuigen** en **Voertuigonderhoud** schalen beide van 50 % tot 150 % (`post_run_util.tl:54-81`).
+- Voertuigen uit het basisspel hebben geen vaste prijs: de bedrijfskosten komen uit snelheid en capaciteit, en de prijs is **6 ×** de jaarlijkse basisbedrijfskosten, vóór de instellingen Kosten voertuigen en Voertuigonderhoud (`model_metadata_util.lua:548-549`). Precies 6 jaar bedrijfskosten is het alleen als beide instellingen gelijk zijn. Volledige formule: [Kosten, onderhoud en leningen](costs.html).
+- **Kosten voertuigen** schaalt de prijzen van 50 % tot 150 % (`post_run_util.tl:54-81`). Bij **Voertuigonderhoud** rondt het script de factor af op een geheel getal als de bedrijfskosten nog niet vastliggen (`post_run_util.tl:71-72`). Dat zou 100 % geven op elk niveau behalve Zeer hoog (200 %). Nog te bevestigen in het spel.
 - Een voertuig in slechte staat betaalt meer bedrijfskosten, bovenop de basiswaarde (`vehicle_store_util.tl:256-259`).
 
 ## Leeftijd en levensduur
 
-- Elk model heeft een **levensduur** in jaren (`vehicle_metadata_util.lua:79-83`). De kolom **Leeftijd** van het lijnvenster toont de leeftijd; de tooltip toont de resterende tijd, of **Max. levensduur bereikt** (`line_eow.script.tl:133-147`). Het deel van de levensduur in die tooltip staat op **0 %** tot de levensduur bereikt is: het script rondt de breuk naar beneden af voordat die getoond wordt (`line_eow.script.tl:139`), terwijl hetzelfde deel elders volledig berekend wordt (`vehicle_util.tl:311`). Kijk in plaats daarvan naar de resterende tijd.
+- Elk model heeft een **levensduur** (`vehicle_util.tl:31-34`). De kolom **Leeftijd** van het lijnvenster toont de leeftijd; de tooltip toont de resterende tijd, of **Max. levensduur bereikt** (`line_eow.script.tl:133-147`). Het deel van de levensduur in die tooltip staat op **0 %** tot de levensduur bereikt is: het script rondt de breuk naar beneden af voordat die getoond wordt (`line_eow.script.tl:139`), terwijl hetzelfde deel elders volledig berekend wordt (`vehicle_util.tl:311`). Kijk in plaats daarvan naar de resterende tijd.
 - Voor een trein telt het **oudste** onderdeel (`vehicle_util.tl:36-52`). Eén oude wagon laat de hele trein als oud verschijnen.
 
 ```engine

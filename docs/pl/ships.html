@@ -25,7 +25,7 @@
 <li>Mały port składa się z małych pomostów, które przyjmują tylko małe statki<span class="sr"> (<code class="src">small_pier.module.lua:7</code>)</span>. Duży port używa średnich pomostów, które przyjmują oba rozmiary<span class="sr"> (<code class="src">medium_pier.module.lua:6</code>, <code class="src">harbor_modular.script.lua:35-39</code>)</span>.</li>
 <li><strong>Terminale</strong>: 1, 2 lub 4, wybierane przy budowie<span class="sr"> (<code class="src">harbor_modular.tl:16</code>, <code class="src">harbor_modular.script.lua:33</code>)</span>.</li>
 <li>Terminal pomostu mieści 100 czekających pasażerów na małym pomoście i 50 na średnim<span class="sr"> (<code class="src">modules.script.lua:872</code>, <code class="src">modules.script.lua:1004</code>)</span>.</li>
-<li>Porty trzeba stawiać wzdłuż brzegu, na żeglownej wodzie<span class="sr"> (<code class="src">harbor_modular.tl:29</code>)</span>.</li>
+<li>Podczas stawiania portu skrypt tylko włącza warstwę żeglownej wody<span class="sr"> (<code class="src">harbor_modular.tl:26-30</code>)</span>. Gdzie wolno postawić port, decyduje silnik gry.</li>
 <li>Każdy statek określa swój rozmiar w pliku pojazdu; gra zamienia go na tryb małego lub dużego statku<span class="sr"> (<code class="src">model_metadata_util.lua:1411-1412</code>)</span>.</li>
 </ul>
 <h2 id="koszty"><span class="n">2</span><span>Koszty</span></h2>

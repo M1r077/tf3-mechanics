@@ -44,7 +44,7 @@ La tasa de crecimiento sale de dos calificaciones de la ventana de la localidad 
 - Cada calificación tiene seis niveles: un valor de 0 a 1 dividido en sextos (`town_util.tl:983-985`). **Excelente** exige 5/6 = 83 % o más.
 - Con **una sola** calificación en Muy baja, la autoridad queda en Muy baja y la tasa de crecimiento es **0 %**: la localidad se detiene, entregues lo que entregues.
 - El 100 % exige autoridad Excelente con suministros Muy buena o mejor, o autoridad Muy buena con suministros Excelente.
-- Tu **sede central** añade +5 % a la localidad más cercana, y la mayoría de sus ampliaciones añaden otro +5 % cada una (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Esta bonificación multiplica la tasa, así que no hace nada con 0 %.
+- Tu **sede central** añade +5 % a la localidad más cercana, varias ampliaciones añaden +5 %, algunas menos o nada; el valor está en el archivo de cada módulo (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Esta bonificación multiplica la tasa, así que no hace nada con 0 %.
 
 ```tip scripts
 **¿Una localidad ya no crece? Arregla primero su peor calificación.** La Autoridad municipal es la más baja de las seis: una sola calificación en Muy baja deja la localidad en 0 %, y mejorar las demás no cambia nada.
@@ -54,7 +54,7 @@ La tasa de crecimiento sale de dos calificaciones de la ventana de la localidad 
 
 | Calificación | Qué la baja | Fuente |
 |---|---|---|
-| **Reputación** | modificar el terreno, demoler edificios de la localidad, talar árboles; cada conexión principal cortada con otra localidad −1/3 | `town_util.tl:396-404`, `town_util.tl:1608` |
+| **Reputación** | modificar el terreno, demoler edificios de la localidad, quitar árboles o rocas, subsidios fallidos; cada conexión principal cortada con otra localidad −1/3 | `town_util.tl:396-404`, `town_util.tl:1608`, `town_react_util.tl:30-43` |
 | **Tráfico** | calles congestionadas en la localidad | `town_util.tl:445-456` |
 | **Felicidad** | proporción de viajeros descontentos (se suponen al menos 15 personas) | `town_util.tl:479-503` |
 | **Entrega** | proporción de entregas de cargamento con retraso (ver [Ingresos por cargamento](income.html)) | `town_util.tl:505-519` |
@@ -92,12 +92,12 @@ El motor calcula el uso de línea, la velocidad del tráfico, los mapas de ruido
 
 ## Demanda de cargamento y existencias de los edificios
 
-- La demanda de una localidad es la suma de sus **edificios**. Cada edificio tiene una pequeña reserva de entrada por cada cargamento que pide su distrito: capacidad ÷ 4, redondeada hacia arriba, × el factor de ese cargamento en las necesidades de la localidad (1 salvo que se fije otro; de dónde sale el factor no está en los scripts) (`townbuildingutil.lua:226-251`). El juego anota que este tamaño de reserva "is currently nowhere shown in the UI" (de momento no se muestra en ninguna parte de la interfaz) (`townbuildingutil.lua:249`).
+- La demanda de una localidad es la suma de sus **edificios**. Cada edificio tiene una pequeña reserva de entrada por cada cargamento que pide su distrito: capacidad ÷ 4, redondeada hacia arriba, × el factor de ese cargamento en las necesidades de la localidad (1 salvo que se fije otro; de dónde sale el factor no está en los scripts) (`townbuildingutil.lua:226-251`). Cada cargamento define un townConsumptionFactor de 1, 0,5 o 0,25 (`placementparamsutil.lua:506-616`); cómo llega al edificio está en el motor. El juego anota que este tamaño de reserva "is currently nowhere shown in the UI" (de momento no se muestra en ninguna parte de la interfaz) (`townbuildingutil.lua:249`).
 - La demanda de la ventana de la localidad es el límite total de estas reservas; el suministro que cuenta para la calificación está limitado a la demanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Las localidades más grandes piden más porque tienen más edificios.
 - La ventana del edificio muestra una **Calificación de consumo**: lo rápido que el edificio usa su cargamento en comparación con su máximo (`town_building.tl:103-132`).
 - La XP y el pago llegan cuando una unidad entra en la reserva de un edificio (`town_growth.script.tl:620-642`).
 - Una parada solo alcanza los edificios de su área de captación. Sus reservas pueden estar llenas mientras a la localidad en conjunto aún le falta cargamento: entonces el cargamento que no cabe **se queda en el vehículo**, salvo que esté marcado **Forzar la descarga de todo el cargamento al llegar** ("Descargar cargamento aunque se haya alcanzado el límite de existencias.") (`cargofilter_window.tl:757-763`), que destruye lo que no cabe (ver [Velocidad de carga y descarga](loading.html)).
-- El cargamento que se queda a bordo genera la notificación **Cargamento sin descargar**: "Número de cargamentos del vehículo {vehicle} no descargados en la línea: {cargoCount}." (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- El cargamento que se queda a bordo genera la notificación **Problema de descarga de cargamento**: "Número de cargamentos del vehículo {vehicle} no descargados en la línea: {cargoCount}." (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`); su etiqueta de tipo es **Cargamento sin descargar** (`cargo_rtc_warning.res.lua:6`).
 - **Demandas de cargamento de localidades** ("Elige el límite de demandas de cargamento por cada localidad."): 2, 4 o 6, 2 por defecto (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Los scripts añaden demandas según el nivel (ver arriba) y pasan este valor al motor.
 
 ```engine
@@ -107,7 +107,7 @@ La velocidad a la que un edificio consume su reserva (consumeFrequency), qué ed
 ## ¿Puedo impedir que una localidad crezca?
 
 - En una partida normal **no hay ningún ajuste** de tamaño máximo de las localidades (`difficulty_util.tl:90-199`).
-- En el **modo sandbox** y en el editor de mapas, la ventana de la localidad tiene una tarjeta **Capacidades del distrito objetivo** con **Activar desarrollo de la localidad** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Si se desmarca, la localidad no recibe XP y no cambia de tamaño; la ventana muestra **Desarrollo de la localidad inactivo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- En el **modo sandbox**, la ventana de la localidad tiene una tarjeta **Capacidades del distrito objetivo** con **Activar desarrollo de la localidad** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Si se desmarca, la localidad no recibe XP y no cambia de tamaño; la ventana muestra **Desarrollo de la localidad inactivo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Sin sandbox, las únicas formas son indirectas: una localidad solo crece con tus pasajeros y tu cargamento, y una sola calificación en Muy baja la detiene (ver arriba).
 
 ## Conviene saber

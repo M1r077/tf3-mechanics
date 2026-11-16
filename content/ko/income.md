@@ -21,7 +21,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 공식 전체가 짧은 게임 스크립트 하나다(`cargo_income.script.lua:10-13`).
 
 1. 화물의 **수입 계수**. 기본 게임의 모든 화물이 같은 함수와 같은 가격(`initialPrice = 4`, `finalPrice = 3.2`)을 쓰므로 **36종 화물 모두 3.8**이다(`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). 같은 거리라면 석탄도 상품과 똑같이 번다.
-2. **화물 수입** 설정: 50 %, 75 %, 100 %, 125 % 또는 150 %(`difficulty_util.tl:38`, `mod.script.tl:211`). 네 가지 난이도 프리셋은 모두 100 %를 쓴다(`difficulty_util.tl:97`).
+2. **화물 수입** 설정: 50 %, 75 %, 100 %, 125 % 또는 150 %(`difficulty_util.tl:38`, `mod.script.tl:211`). 네 가지 난이도 프리셋은 모두 100 %를 쓴다(`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **거리**, 아래 참조.
 
 이 함수는 이동 시간을 받지만 **사용하지 않는다**(`cargotype.script.lua:7-13`). 느린 배송이나 늦은 배송도 같은 금액을 받는다.
@@ -32,7 +32,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 ```
 
 - 거리는 두 지점 사이의 **3D 직선**이며, 노선의 길이가 아니다(`cargo_income.script.lua:3-7`).
-- 높이 차가 양수이면 **8 × 그 높이**가 더해진다(`cargo_income.script.lua:5`). 100 m 오르막은 800 m를 더 간 것처럼 지급된다. 반대 방향으로는 아무것도 빠지지 않는다.
+- 화물이 출발지보다 높은 곳에 배송되면 **8 × 그 높이**가 더해진다(`cargo_income.script.lua:5`). 100 m는 800 m를 더 간 것처럼 지급된다. 스크립트는 엔진이 넘기는 높이 차를 쓰며, 그 방향은 스크립트에서 보이지 않는다. 음수 차이는 아무것도 빼지 않는다.
 - 따라서 구불구불한 노선도 곧은 노선과 똑같이 벌지만, 건설한 선로나 도로는 1미터마다 유지비가 든다.
 
 ```engine
@@ -65,7 +65,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 | **완료된 보조금** | 계약의 산업이나 마을로의 배송에 ×2, 계약을 위해 배송한 노선에서만 | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **늦은 배송** | 수입에 영향 없음 | `cargotype.script.lua:7-13` |
 
-- 랭크 배수는 **모든** 화물 및 승객 수입에 적용된다(`company_growth.script.tl:159-170`). 난이도 프리셋별 인플레이션: 낮음(쉬움), 보통(보통), 높음(어려움), 매우 높음(매우 어려움)(`difficulty_util.tl:108`).
+- 랭크 배수는 **모든** 화물 및 승객 수입에 적용된다(`company_growth.script.tl:159-170`). 난이도 프리셋별 인플레이션: 낮음(쉬움), 보통(보통), 높음(어려움), 매우 높음(매우 어려움)(`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - 보조금의 ×2는 계약 기간 동안 배송한 노선에만, 제한된 기간 동안 적용된다(공식 위키, 보조금).
 
 ## 승객
@@ -74,7 +74,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 
 ## 배송 제한 시간
 
-화물마다 고유한 제한 시간이 있다(`meat.cargo.lua:30`, `coal.cargo.lua:30`). 신선 식품이 가장 짧고, 무거운 원자재는 다섯 배 길다.
+화물마다 고유한 제한 시간이 있다(`meat.cargo.lua:30`, `coal.cargo.lua:30`). 신선 식품이 가장 짧다. 고기 900초, 석탄 3,000초(3.3배), 철광석·모래·석재·강철 4,500초.
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 
 1. 게임은 **최근 반년** 동안 마을에 들어온 배송 수와 그중 늦은 배송 수를 센다(최소 10회로 가정하므로 처음 몇 번의 배송으로 크게 흔들리지 않는다).
 2. 정시 비율 → 평가: 하한 미만이면 평가 0, 상한 초과면 1, 그 사이는 선형이다. 기본 민감도(**보통**)에서는 **정시 30 % → 0, 100 % → 1**이므로 정시 90 %는 0.86이 된다.
-3. **배달 민감도** 설정이 이 한계를 옮긴다(`difficulty_util.tl:47`). 끄기: 항상 1. 프리셋: 쉬움 낮음, 보통 보통, 어려움 높음, 매우 어려움 아주 높음(`difficulty_util.tl:113`).
+3. **배달 민감도** 설정이 이 한계를 옮긴다(`difficulty_util.tl:47`). 끄기: 항상 1. 프리셋: 쉬움 낮음, 보통 보통, 어려움 높음, 매우 어려움 아주 높음(`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 |---|---|
 | 평지, 노선 길이 무관 | **100 %** |
 | 10 km 거리 | **200 %** |
-| 목적지가 100 m 더 높음 | **116 %** |
+| 출발지보다 100 m 높은 곳에 배송 | **116 %** |
 | 늦게 배송 | **100 %**(배송 평가 하락) |
 | 회사 랭크 15, 인플레이션 보통 | **75 %** |
 | 완료된 보조금이 적용되는 배송 | **200 %** |
@@ -117,7 +117,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 
 - 모든 화물이 킬로미터당 같은 금액을 받으므로, 가격이 아니라 **물량, 거리, 제한 시간으로 화물을 고르자**.
 - 제한 시간은 고기, 어류, 채소, 음료에서 가장 중요하다. 짧은 노선이나 타이머를 멈추는 창고를 쓰자.
-- 마을 건물에 배송된 화물 한 단위마다 그 마을에 경험치도 준다(`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- 마을 건물에 배송된 화물 한 단위마다 그 마을에 경험치도 준다. 범주에 단계가 있는 화물만 해당한다(`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

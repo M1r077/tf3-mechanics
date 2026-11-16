@@ -21,7 +21,7 @@ Una entrega paga por la **distancia en línea recta**, y nada más del viaje. La
 La fórmula completa es un breve script del juego (`cargo_income.script.lua:10-13`):
 
 1. **Factor de ingresos** del cargamento. Todos los cargamentos del juego base usan la misma función y los mismos precios (`initialPrice = 4`, `finalPrice = 3.2`), lo que da **3,8 para los 36 cargamentos** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). El carbón paga exactamente lo mismo que las mercancías en la misma distancia.
-2. Ajuste **Ingresos por el cargamento**: 50 %, 75 %, 100 %, 125 % o 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Los cuatro niveles de dificultad predefinidos usan 100 % (`difficulty_util.tl:97`).
+2. Ajuste **Ingresos por el cargamento**: 50 %, 75 %, 100 %, 125 % o 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Los cuatro niveles de dificultad predefinidos usan 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distancia**, ver más abajo.
 
 La función recibe el tiempo de viaje pero **no lo usa** (`cargotype.script.lua:7-13`): una entrega lenta o con retraso paga lo mismo.
@@ -32,7 +32,7 @@ La función recibe el tiempo de viaje pero **no lo usa** (`cargotype.script.lua:
 ```
 
 - La distancia es la **línea recta en 3D** entre los dos puntos, no la longitud de tu ruta (`cargo_income.script.lua:3-7`).
-- Cuando la diferencia de altura es positiva, se suma **8 × esa altura** (`cargo_income.script.lua:5`): 100 m de subida pagan como 800 m más. En sentido contrario no se resta nada.
+- Cuando el cargamento se entrega más alto que su origen, se suma **8 × esa altura** (`cargo_income.script.lua:5`): 100 m pagan como 800 m más. Los scripts toman la diferencia de altura que les pasa el motor; su sentido no es visible en los scripts. Una diferencia negativa no resta nada.
 - Así, una línea llena de curvas rinde lo mismo que una recta, pero pagas el mantenimiento de cada metro de vía o carretera que construiste.
 
 ```engine
@@ -65,7 +65,7 @@ Los scripts solo calculan el total (`economy/cargo_income.script.lua`); el repar
 | **Subvención cumplida** | ×2 para entregas a la industria o localidad del contrato, en las líneas que entregaron para el contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Entrega con retraso** | ningún efecto en los ingresos | `cargotype.script.lua:7-13` |
 
-- El multiplicador de rango se aplica a **todos** los pagos de cargamento y de pasajeros (`company_growth.script.tl:159-170`). Los niveles de dificultad usan Inflación Baja (Fácil), Normal (Normal), Alta (Difícil), Muy alta (Muy difícil) (`difficulty_util.tl:108`).
+- El multiplicador de rango se aplica a **todos** los pagos de cargamento y de pasajeros (`company_growth.script.tl:159-170`). Los niveles de dificultad usan Inflación Baja (Fácil), Normal (Normal), Alta (Difícil), Muy alta (Muy difícil) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - El ×2 de las subvenciones solo se aplica a las líneas que entregaron durante el contrato, durante un tiempo limitado (wiki oficial, Subsidies).
 
 ## Pasajeros
@@ -74,7 +74,7 @@ Los pasajeros usan la misma distancia y un factor de ingresos fijo de unos 3,61 
 
 ## Plazos de entrega
 
-Cada cargamento tiene su propio plazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Los alimentos frescos tienen el más corto; las materias primas pesadas, uno cinco veces más largo:
+Cada cargamento tiene su propio plazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Los alimentos frescos tienen el más corto: carne 900 s, carbón 3.000 s (3,3 × más largo), mineral de hierro, arena, piedra y acero 4.500 s:
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ El cargamento con retraso se paga entero, pero cada localidad lleva una califica
 
 1. El juego cuenta las entregas a la localidad durante el **último medio año**, y cuántas llegaron tarde (se suponen al menos 10, para que las primeras entregas no la hagan oscilar).
 2. Proporción a tiempo → calificación: por debajo de un límite inferior la calificación es 0, por encima de un límite superior es 1, y lineal entre ambos. Con la susceptibilidad por defecto (**Normal**): **30 % a tiempo → 0, 100 % → 1**, así que un 90 % a tiempo da 0,86.
-3. El ajuste **Susceptibilidad a las entregas** desplaza los límites (`difficulty_util.tl:47`). No: siempre 1. Niveles predefinidos: Fácil Baja, Normal Normal, Difícil Alta, Muy difícil Muy alta (`difficulty_util.tl:113`).
+3. El ajuste **Susceptibilidad a las entregas** desplaza los límites (`difficulty_util.tl:47`). No: siempre 1. Niveles predefinidos: Fácil Baja, Normal Normal, Difícil Alta, Muy difícil Muy alta (`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ La misma entrega de carbón, a 5 km en línea recta.
 |---|---|
 | terreno llano, cualquier longitud de ruta | **100 %** |
 | a 10 km | **200 %** |
-| destino 100 m más alto | **116 %** |
+| entregado 100 m más alto que su origen | **116 %** |
 | entregado con retraso | **100 %** (baja la calificación Entrega) |
 | rango de la empresa 15, Inflación Normal | **75 %** |
 | entrega cubierta por una subvención cumplida | **200 %** |
@@ -117,7 +117,7 @@ La misma entrega de carbón, a 5 km en línea recta.
 
 - Como todos los cargamentos pagan lo mismo por kilómetro, **elige los cargamentos por volumen, distancia y plazo**, no por precio.
 - Los plazos importan sobre todo para la carne, el pescado, los vegetales y las bebidas: líneas cortas, o almacenes que congelan el plazo.
-- Cada unidad entregada a un edificio de la localidad también da experiencia a esa localidad (`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- Cada unidad entregada a un edificio de la localidad también da experiencia a esa localidad, para los cargamentos cuya categoría tiene un nivel (`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

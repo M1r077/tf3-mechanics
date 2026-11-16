@@ -20,13 +20,13 @@ Een spelscript stelt om de paar updates de emissie van vier soorten gebouwen in,
 
 | Gebouw | Stoot meer uit als | Bron |
 |---|---|---|
-| **Industriebedrijf** | het produceert, en opnieuw bij elke boost (vracht of arbeiders); minder, richting stilstandniveau, als zijn uitvoervoorraad vol is | `emissions.script.tl:152-194` |
+| **Industriebedrijf** | het produceert, en opnieuw bij elke boost (vracht of arbeiders); als al zijn uitvoervoorraden tegelijk vol zijn, wordt zijn niveau gehalveerd: producerend → stilstand, twee keer geboost → producerend | `emissions.script.tl:152-194` |
 | **Station** | het drukker is: wachtende mensen en vracht tegenover zijn capaciteit | `emissions.script.tl:211-222` |
 | **Depot**, **onderhoudsstation** | meer voertuigen zijn onderhoud gebruiken | `emissions.script.tl:223-234` |
 | **Opslagplaats** | haar voorraden voller zijn | `emissions.script.tl:237-250` |
 
 - Elk industriebedrijf heeft zijn eigen vier niveaus: stilstaand, producerend, één keer geboost, twee keer geboost (`industryutil.lua:464-475`; de standaard 0 / 78 / 84 / 88 geldt alleen voor een industriebedrijf zonder eigen waarden). De meeste stoten ook stilstaand iets uit: een kolenmijn gaat van 2 → 10 → 20 → 30 vervuiling, zijn velden 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, zie [Industriebedrijven](industries.html)).
-- Een industriebedrijf waarvan de uitvoer niet wordt opgehaald, zakt terug naar zijn stilstandniveau: het bedienen verhoogt zijn vervuiling.
+- Een industriebedrijf waarvan alle uitvoervoorraden vol zijn, zakt naar de helft van zijn niveau (`emissions.script.tl:172-182`): het bedienen verhoogt zijn vervuiling.
 - Voertuigen en sporen stoten ook uit; een voertuig in slechte staat stoot meer uit met de instelling **Effect voertuigonderhoud** (zie [Kosten, onderhoud en leningen](costs.html)).
 
 ## Wat het bouwmenu toont
@@ -39,7 +39,7 @@ Een spelscript stelt om de paar updates de emissie van vier soorten gebouwen in,
 | Spoordepot | 50 | 100 | `rail_depot.con.lua:32-33` |
 | Weg- en tramdepot | 40 | 80 | `road_depot.con.lua:30-31`, `tram_depot.con.lua:32-33` |
 | Metrostation | 40 | 80 | `underground_station.con.lua:75-76` |
-| Vrachtwagen- en busstation | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| Vrachtwagen- en busstation | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | Onderhoudsstations | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
 | Opslagplaats | 20 | 50 (universeel) of 100 (gespecialiseerd) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ Een bedrijfsvoordeel dat vervuiling in de omgeving verwijdert.
 | één keer geboost | −20.000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | twee keer geboost | −40.000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+Het laatste niveau vraagt een boosterregel, die de Zuiveringsinstallatie niet heeft: met arbeiders haalt ze −20.000 (`pollution_cleanup_facility.con.lua:51-58`, `emissions.script.tl:158-166`).
+
 - Zonder machines doet ze bijna niets: ze moet bevoorraad worden als een industriebedrijf.
 - Ze is luid: bouw haar buiten de woonwijk, binnen 700 m van het vervuilde gebied.
 - Haar boostfactor voor arbeiders is ×2 (`pollution_cleanup_facility.script.lua:549`). Zie [Arbeiders](workers.html).
@@ -100,7 +102,7 @@ Een bedrijfsvoordeel dat vervuiling in de omgeving verwijdert.
 ## Goed om te weten
 
 - Open het stadsvenster of de lagen voor geluid en vervuiling om de beoordeling en de brandpunten te zien.
-- Een volle uitvoervoorraad verlaagt de emissie van een industriebedrijf richting stilstandniveau, maar kost je zijn vracht: verplaats liever de stad dan het industriebedrijf uit te hongeren.
+- Als alle uitvoervoorraden van een industriebedrijf vol zijn, wordt zijn emissieniveau gehalveerd, maar verlies je zijn vracht: verplaats liever de stad dan het industriebedrijf uit te hongeren.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) en [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) helpen je de drukste stations te vinden.
 
 ```engine
@@ -109,6 +111,6 @@ De engine berekent de geluids- en vervuilingskaarten, hoe de waarden zich verspr
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." De woonwijk "is sensitive to noise"; de commerciële wijk "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Geluidsbeoordeling 65 → 80 dB, vervuiling 60 → 74 dB, gemiddeld over 5–10 km²; gevoeligheid voegt 10·log10 dB toe; industriebedrijven, stations, depots en opslagplaatsen stoten meer uit als ze druk zijn; een volle uitvoervoorraad verlaagt de emissie van een industriebedrijf richting stilstandniveau; vergroenen −80 %, één keer per industriebedrijf; de Zuiveringsinstallatie verwijdert tot 40.000 vervuiling binnen 700 m en heeft machines nodig.
+scripts: Geluidsbeoordeling 65 → 80 dB, vervuiling 60 → 74 dB, gemiddeld over 5–10 km²; gevoeligheid voegt 10·log10 dB toe; industriebedrijven, stations, depots en opslagplaatsen stoten meer uit als ze druk zijn; als alle uitvoervoorraden vol zijn, wordt het emissieniveau van een industriebedrijf gehalveerd; vergroenen −80 %, één keer per industriebedrijf; de Zuiveringsinstallatie verwijdert tot 20.000 vervuiling (40.000 is gedefinieerd maar vraagt een boosterregel) binnen 700 m en heeft machines nodig.
 result: refines
 ```

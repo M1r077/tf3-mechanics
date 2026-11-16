@@ -48,7 +48,7 @@ Precio y conservación de la primera variante, con el coeficiente de época incl
 | Aeródromo | 3.600.000 - 9.000.000 | 150.000 - 600.000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | Aeropuerto | 5.400.000 - 13.500.000 | 900.000 - 2.250.000 | `airport.tl:8`, `airport.tl:30-31` |
 | Módulo de aeródromo (edificio principal, terminal, hangar) | 600.000 | 100.000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| Módulo de aeropuerto (terminal, hangar, segunda pista) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| Módulo de aeropuerto (edificio principal, terminal, hangar, segunda pista) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - La conservación de aeropuertos y aeródromos también sigue el año del calendario, ×1 en 1900 hasta ×6 en 2020 ([Costes, conservación y préstamos](costs.html)).
 - El precio y los costes de funcionamiento de una aeronave se calculan a partir de su velocidad y su capacidad, como los barcos y los vehículos de carretera ([Costes, conservación y préstamos](costs.html)).

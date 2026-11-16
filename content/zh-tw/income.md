@@ -21,7 +21,7 @@ fact: 100 % | 即使遲到也全額支付
 整個公式就是一段很短的遊戲腳本（`cargo_income.script.lua:10-13`）：
 
 1. 貨物的**收益係數**。每種基本遊戲貨物都使用同一個函式與相同的價格（`initialPrice = 4`，`finalPrice = 3.2`），因此**全部 36 種貨物都是 3.8**（`cargotype.script.lua:7-13`，`coal.cargo.lua:21-22`）。在相同距離下，煤和一般貨物賺的錢完全一樣。
-2. **貨運收益** 設定：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:211`）。四種難度預設都使用 100 %（`difficulty_util.tl:97`）。
+2. **貨運收益** 設定：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:211`）。四種難度預設都使用 100 %（`difficulty_util.tl:97`，`difficulty_util.tl:124`，`difficulty_util.tl:152`，`difficulty_util.tl:179`）。
 3. **距離**，見下文。
 
 這個函式會收到行程時間，但**並不使用它**（`cargotype.script.lua:7-13`）：慢的或遲到的配送收益都一樣。
@@ -32,7 +32,7 @@ fact: 100 % | 即使遲到也全額支付
 ```
 
 - 距離是兩點之間的**三維直線**，而不是你路線的長度（`cargo_income.script.lua:3-7`）。
-- 高度差為正時，會加上 **8 × 該高度**（`cargo_income.script.lua:5`）：爬升 100 m 相當於多跑 800 m。反方向則什麼也不扣。
+- 貨物送達地點高於來源時，會加上 **8 × 該高度**（`cargo_income.script.lua:5`）：100 m 相當於多跑 800 m。腳本使用引擎傳入的高度差，其方向在腳本中看不到。差值為負時什麼也不扣。
 - 所以蜿蜒的路線和筆直的路線賺得一樣多，但你蓋的每一公尺軌道或道路都要付維護費。
 
 ```engine
@@ -65,7 +65,7 @@ fact: 100 % | 即使遲到也全額支付
 | **已達成的補助** | 配送到合約產業或城鎮的貨物 ×2，只限為該合約配送過的路線 | `deliver_cargo.script.tl:463-469`，`deliver_cargo_town.script.tl:554-565` |
 | **配送遲到** | 對收益沒有影響 | `cargotype.script.lua:7-13` |
 
-- 等級乘數作用於**所有**貨物與乘客收益（`company_growth.script.tl:159-170`）。難度預設使用的通貨膨脹分別為：低（簡單）、普通（普通）、高（困難）、極高（極度困難）（`difficulty_util.tl:108`）。
+- 等級乘數作用於**所有**貨物與乘客收益（`company_growth.script.tl:159-170`）。難度預設使用的通貨膨脹分別為：低（簡單）、普通（普通）、高（困難）、極高（極度困難）（`difficulty_util.tl:108`，`difficulty_util.tl:136`，`difficulty_util.tl:163`，`difficulty_util.tl:190`）。
 - 補助的 ×2 只作用於合約期間有配送的路線，而且有時間限制（官方 wiki，補助）。
 
 ## 乘客
@@ -74,7 +74,7 @@ fact: 100 % | 即使遲到也全額支付
 
 ## 配送時限
 
-每種貨物都有自己的時限（`meat.cargo.lua:30`, `coal.cargo.lua:30`）。生鮮食品最短，沉重的原料長五倍：
+每種貨物都有自己的時限（`meat.cargo.lua:30`, `coal.cargo.lua:30`）。生鮮食品最短：肉類 900 秒，煤炭 3000 秒（3.3 倍），鐵礦石、沙子、石材與鋼材 4500 秒：
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ fact: 100 % | 即使遲到也全額支付
 
 1. 遊戲會統計**最近半年**配送到該城鎮的次數，以及其中遲到的次數（至少以 10 次計算，所以最初幾次配送不會讓評價大起大落）。
 2. 準時比例 → 評價：低於下限時評價為 0，高於上限時為 1，兩者之間為線性。預設靈敏度（**普通**）下：**準時 30 % → 0，100 % → 1**，所以準時 90 % 會得到 0.86。
-3. **配送靈敏度** 設定會移動這兩個界限（`difficulty_util.tl:47`）。關閉：始終為 1。預設：簡單為低、普通為普通、困難為高、極度困難為極高（`difficulty_util.tl:113`）。
+3. **配送靈敏度** 設定會移動這兩個界限（`difficulty_util.tl:47`）。關閉：始終為 1。預設：簡單為低、普通為普通、困難為高、極度困難為極高（`difficulty_util.tl:113`，`difficulty_util.tl:141`，`difficulty_util.tl:168`，`difficulty_util.tl:195`）。
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ fact: 100 % | 即使遲到也全額支付
 |---|---|
 | 平地，路線長度不限 | **100 %** |
 | 相距 10 km | **200 %** |
-| 目的地高 100 m | **116 %** |
+| 送達地點比來源高 100 m | **116 %** |
 | 配送遲到 | **100 %**（配送評價下降） |
 | 公司等級 15，通貨膨脹普通 | **75 %** |
 | 已達成補助涵蓋的配送 | **200 %** |
@@ -117,7 +117,7 @@ fact: 100 % | 即使遲到也全額支付
 
 - 既然每種貨物每公里的收益都一樣，**請依運量、距離與時限來挑選貨物**，而不是看價格。
 - 時限對肉品、漁獲、蔬菜與飲料最重要：使用短路線，或能凍結計時的貨物倉庫。
-- 每配送一單位貨物到城鎮建築，也會為該城鎮帶來經驗值（`town_growth.script.tl:642`，`town_growth_config.res.lua:5`）。
+- 每配送一單位貨物到城鎮建築，也會為該城鎮帶來經驗值，僅限類別有等級的貨物（`town_growth.script.tl:641-642`，`town_growth_config.res.lua:5`）。
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

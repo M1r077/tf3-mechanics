@@ -23,7 +23,7 @@ Todo navio é **pequeno** ou **grande**. Um navio grande só pode atracar em um 
 - O porto pequeno é feito de píeres pequenos, que aceitam apenas navios pequenos (`small_pier.module.lua:7`). O porto grande usa píeres médios, que aceitam os dois tamanhos (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminais**: 1, 2 ou 4, escolhidos na construção (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - Um terminal de píer comporta 100 passageiros esperando em um píer pequeno e 50 em um píer médio (`modules.script.lua:872`, `modules.script.lua:1004`).
-- Portos devem ser colocados ao longo de uma costa, em água navegável (`harbor_modular.tl:29`).
+- Ao posicionar um porto, o script só mostra a camada de água navegável (`harbor_modular.tl:26-30`). Onde um porto pode ser colocado é decidido pelo motor do jogo.
 - Cada navio define seu tamanho no próprio arquivo de veículo; o jogo o converte no modo navio pequeno ou grande (`model_metadata_util.lua:1411-1412`).
 
 ## Custos

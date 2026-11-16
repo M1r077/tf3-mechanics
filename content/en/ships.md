@@ -23,7 +23,7 @@ Every ship is **small** or **large**. A large ship can only dock at a **large po
 - The small port is built from small piers, which accept only small ships (`small_pier.module.lua:7`). The large port uses medium piers, which accept both sizes (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminals**: 1, 2 or 4, chosen when you build (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - A pier terminal holds 100 waiting passengers on a small pier and 50 on a medium pier (`modules.script.lua:872`, `modules.script.lua:1004`).
-- Ports must be placed along a coast, on navigable water (`harbor_modular.tl:29`).
+- While you place a port, the script only turns on the navigable-water overlay (`harbor_modular.tl:26-30`). Where a port may be placed is decided by the engine.
 - Each ship sets its own size in its vehicle file; the game turns it into the small or large ship mode (`model_metadata_util.lua:1411-1412`).
 
 ## Costs

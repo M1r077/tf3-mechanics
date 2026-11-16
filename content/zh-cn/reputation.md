@@ -19,7 +19,7 @@ fact: 200 万 m³ | 地形工程会耗尽全部声誉
 
 ## 什么会降低声誉
 
-你确认的每次建造都会在执行前检查；损失记在相关城镇上（`towns.script.tl:271-291`，`town_util.tl:1062-1080`）。只有你自己的建造才算，地图编辑器中什么都不算（`town_util.tl:1078-1080`，`towns.script.tl:58`）。
+你确认的每次建造都会在执行前检查；损失记在相关城镇上（`towns.script.tl:271-291`，`town_util.tl:1062-1080`）。只有你自己的建造才算，地图编辑器中什么都不算（`town_util.tl:1078-1080`，`towns.script.tl:233`，`towns.script.tl:271`）。
 
 | 城镇窗口中的原因 | 什么会损失声誉 | 来源 |
 |---|---|---|
@@ -27,7 +27,7 @@ fact: 200 万 m³ | 地形工程会耗尽全部声誉
 | **移除石头** | 每块 0.25 %，× 距离系数 | `town_util.tl:1148-1149`，`town_util.tl:884-885` |
 | **景观美化** | 地形抬高**或**降低，每 m³ 0.00005 %：200 万 m³ = 100 %。轨道、道路和建筑塑造的地形也算（从 10,000 m² 起递减，50,000 m² 及以上减半），新隧道的净体积也算 | `town_util.tl:873-886`，`town_util.tl:1245-1269`，`town_util.tl:1403-1436` |
 | **拆除建筑** | 拆掉一个区（该城镇的住宅、商店或工作岗位）40.5 % 的容量 = 100 % | `town_util.tl:867-869`，`town_util.tl:1165-1184` |
-| **失败的补贴** | 供给城镇：10 % 起，按风险最高 60–90 %；连接城镇：10–100 % × 距离系数，**两座**城镇都扣（见[补贴](subsidies.html)） | `deliver_cargo_town.script.tl:202-210`，`deliver_passengers.script.tl:113-114`，`towns.script.tl:331-333` |
+| **失败的补贴** | 供给城镇：随机抽取一种惩罚，声誉损失（10 % 起，按风险最高 60–90 %）或罚款；没有罚款选项时总是声誉损失。连接城镇：10–100 % × 距离系数，**两座**城镇都扣（见[补贴](subsidies.html)） | `deliver_cargo_town.script.tl:202-210`，`deliver_cargo_town.script.tl:209-211`，`deliver_cargo_town.script.tl:225`，`deliver_passengers.script.tl:113-114`，`towns.script.tl:331-333` |
 | **切断主要连接点** | 每有一座主要连接被切断或过长的其他城镇，扣 **1/3** | `town_util.tl:376-394`，`town_util.tl:1608` |
 
 - 每个原因最多 100 %（`town_util.tl:1611-1620`）。
@@ -61,7 +61,7 @@ fact: 200 万 m³ | 地形工程会耗尽全部声誉
 - **自动恢复**：每 3 个月游戏时间（360 秒）恢复一级（1/6），营销活动期间每个月（120 秒）一级（`towns.script.tl:121-135`）。日历速度 ×1 时约为每年 **67 %**，活动期间 **200 %**：从 0 % 回满约需 1.5 年。城镇窗口中的**年度声誉恢复** 33 % 和 100 % 是固定文字，只有实际速度的一半（`town_react_util.tl:1066`）。在测试城镇实测：每 358 秒一级，活动期间每 120 秒一级。
 - 恢复会把增加量分到所有原因上；不会超过仍未修复的切断连接（`town_util.tl:1649-1687`）。
 - **庆典**：城镇里第一位乘客登上你的线路 **+50 %**，第一批货物送到城镇 +50 %，城镇每次升级 +50 %，每个工业第一次收到货物时最近的城镇 +20 %（`celebrations.script.tl:181-273`）。这时消息末尾会加上**定居点声誉已提升。**或**你在…的声誉有所提升。**（`celebration_react_util.tl:63-75`）。只有声誉低于被切断的主要连接仍允许的上限（满分减去每条切断连接 1/3）且声誉设置为打开时才算，战役任务中不算（`celebrations.script.tl:79-93`，`celebrations.script.tl:140-142`）。
-- **供给城镇**接受时可给 +5 % 到 +20 % × 风险系数（`deliver_cargo_town.script.tl:195-199`）。和所有增加一样，它只抵消已有的损失（`towns.script.tl:324-330`）。
+- **供给城镇**接受时随机给予现金预付或 +5 % 到 +20 % × 风险系数（`deliver_cargo_town.script.tl:197-200`，`deliver_cargo_town.script.tl:220-222`）。和所有增加一样，它只抵消已有的损失（`towns.script.tl:324-330`）。
 
 ## 营销活动
 
@@ -83,7 +83,7 @@ fact: 200 万 m³ | 地形工程会耗尽全部声誉
 - 不要让两座城镇之间的主要道路一直断着：每条立刻 −33 %，三条会让城镇停下。
 - 声誉满分时的营销活动只帮助你的线路，不提升评价。在大工程刚结束、恢复还有东西可补时再开展。
 - 总部大型模块的**声誉恢复**奖励（+1 %）会显示在奖励标签页中，但在脚本里它只改变一个没有任何评价读取的数值（`hq_module_l.module.lua:171`，`towns.script.tl:157`，`town_util.tl:829`，`town_util.tl:857`）。
-- 成就**不是我的错**需要在自由游戏中让一座城镇的声誉达到 0 %（`achievements.script.tl:261-267`）。
+- 成就**不是我的错**需要一座城镇的声誉降到 1 % 以下（`achievements.script.tl:261-267`）。
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

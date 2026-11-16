@@ -57,7 +57,7 @@ Un almacén es una entrada y un conjunto de **módulos**. Guarda cargamento entr
 | Contaminación | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - El almacén añade su propia contaminación: **25**, o **50** en cuanto se construye un módulo especializado (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- El menú de construcción tiene una entrada por clase y época (desde 1900, 1940 y 1980) (`warehouses/warehouse.tl:3-5`); las épocas posteriores muestran ×3 y ×9, y la conservación de los almacenes también crece con el año. Detalles: [Costes, conservación y préstamos](costs.html).
+- El menú de construcción tiene una entrada por clase y época (desde 1900, 1940 y 1980) (`warehouses/warehouse.tl:3-5`); las épocas posteriores muestran ×3 y ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), y la conservación de los almacenes también crece con el año. Detalles: [Costes, conservación y préstamos](costs.html).
 - Los módulos a granel, de plataforma y de mercancías cuestan lo mismo que los de líquidos (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Adónde va el cargamento descargado, y si se detiene el plazo de entrega de una 
 ## Conviene saber
 
 - Revisa la lista Carga de cada parada cerca de un almacén: lo que no está en ella se descarga en el almacén, incluso a mitad de la línea.
-- Unas existencias llenas rechazan más cargamento, salvo que la parada use "Forzar la descarga de todo el cargamento al llegar", que destruye lo que no cabe (ver [Velocidad de carga y descarga](loading.html)).
+- Unas existencias llenas rechazan más cargamento, salvo que la parada use "Forzar la descarga de todo el cargamento al llegar" ("Descargar el cargamento aunque las existencias estén llenas"); qué pasa con el cargamento que no cabe lo decide el motor (ver [Velocidad de carga y descarga](loading.html)).
 - Para reservar un módulo especializado a un cargamento, fija su tipo de cargamento en la sección Existencias.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) enumera, por estación, los almacenes a su alcance con sus existencias; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) muestra adónde fue el cargamento descargado.
 

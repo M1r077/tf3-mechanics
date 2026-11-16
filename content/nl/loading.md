@@ -31,8 +31,8 @@ Voor het spel is een perron geen rij modules, maar een **lijst van secties, éé
 |---|---|---|
 | op een sectie van hun klasse (bulkwagons, bulksectie) | **×2** | `modular_station.script.lua:1042` |
 | op een universele sectie | ×1 | `modular_station.script.lua:1042` |
-| zonder sectie van hun klasse aan het perron | **×0,25** | `cargo_react_util.tl:60` |
-| voorbij de perronlengte (trein te lang) | **×0,25** | `cargo_react_util.tl:61` |
+| zonder sectie van hun klasse aan het perron | **×0,25** (constante van de laadtooltip; de factor zelf past de engine toe) | `cargo_react_util.tl:60` |
+| voorbij de perronlengte (trein te lang) | **×0,25** (constante van de laadtooltip; de factor zelf past de engine toe) | `cargo_react_util.tl:61` |
 
 - De factor is een **mix naar aandeel van de trein**: als 3/4 van de wagons past en 1/4 niet, is de factor ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`, dezelfde verdeling die het spel toont als "Gedeeltelijk gespecialiseerde terminal").
 - **Waar** de wagons aan het perron staan, maakt niet uit, alleen de opgetelde lengtes tellen (gemeten in het spel).
@@ -88,7 +88,7 @@ Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter
 
 | Optie in "Vrachtfilter" | Wat het doet | Bron |
 |---|---|---|
-| "Alle vracht bij aankomst verplicht lossen" | lost in passende voorraden, ook als ze vol zijn; wat niet past, wordt vernietigd. Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Alle vracht bij aankomst verplicht lossen" | tooltip: "Vracht lossen, ook als de voorraden vol zijn"; wat er gebeurt met de vracht die niet past, bepaalt de engine. Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Vracht bij aankomst vernietigen na wijziging configuratie" | lost of vernietigt de vracht aan boord als er bij deze halte vracht wacht voor een andere laadconfiguratie van het voertuig; welke van de twee bepaalt de engine | `cargofilter_window.tl:767` |
 | "Vervangen door nieuwere vracht indien beschikbaar" | vernietigt vracht die terug is bij de halte waar hij geladen werd, als er nieuwere vracht van hetzelfde type wacht | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ In welke volgorde meerdere soorten vracht geladen worden, hoe een gedeelde voorr
 
 ## De automatische configuratie
 
-Zolang niemand een wijziging heeft opgeslagen in het venster "Vrachtfilter" van een halte, wat haar op die lijn voorgoed uitschakelt (`line_util.tl:495-498`, `cargofilter_window.tl:438`), vult het spel de lijsten Lading zelf telkens als de lijn wordt aangemaakt, een halte wordt toegevoegd of verwijderd, de haltes worden herschikt of een waypoint wordt toegevoegd (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Een halte naar een ander station of perron verplaatsen, en een waypoint verwijderen of verplaatsen, start haar niet (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+Zolang niemand een wijziging heeft opgeslagen in het venster "Vrachtfilter" van een halte, wat haar op die lijn voorgoed uitschakelt (`line_util.tl:495-498`, `cargofilter_window.tl:438`), vult het spel de lijsten Lading zelf telkens als de lijn wordt aangemaakt, een halte wordt toegevoegd of verwijderd, de haltes worden herschikt of een waypoint wordt toegevoegd (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Een halte naar een ander station of perron verplaatsen, en een waypoint verwijderen of verplaatsen, start haar niet (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - Ze begint opnieuw met lege lijsten, met passagiers bij passagiersstations (`line_util.tl:542-588`).
 - Ze zoekt producenten en afnemers alleen onder industriebedrijven en stadsgebouwen: opslagplaatsen tellen niet mee (`cargo_util.tl:518-526`).

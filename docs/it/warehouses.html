@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>Il magazzino aggiunge un proprio inquinamento: <strong>25</strong>, oppure <strong>50</strong> non appena viene costruito un modulo specializzato<span class="sr"> (<code class="src">warehouse.script.lua:327</code>, <code class="src">warehouse.script.lua:338-345</code>)</span>.</li>
-<li>Il menu di costruzione ha una voce per classe ed epoca (dal 1900, 1940 e 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; le epoche successive mostrano ×3 e ×9, e anche la manutenzione dei magazzini cresce con l'anno. Dettagli: <a href="costs.html">Costi, manutenzione e prestiti</a>.</li>
+<li>Il menu di costruzione ha una voce per classe ed epoca (dal 1900, 1940 e 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; le epoche successive mostrano ×3 e ×9<span class="sr"> (<code class="src">warehouses/warehouse.tl:48</code>, <code class="src">warehouses/warehouse.tl:75-76</code>)</span>, e anche la manutenzione dei magazzini cresce con l'anno. Dettagli: <a href="costs.html">Costi, manutenzione e prestiti</a>.</li>
 <li>I moduli per merci sfuse, merci ingombranti e merci generiche costano quanto quelli per liquidi<span class="sr"> (<code class="src">wh_bulk.module.lua:22-23</code>, <code class="src">wh_flatbed.module.lua:22-23</code>, <code class="src">wh_goods.module.lua:18-19</code>)</span>.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Deciso dal motore di gioco<small>C++, non visibile negli script</small></h4><p>Gli script danno due livelli di emissione, il secondo doppio del primo<span class="sr"> (<code class="src">warehouse.script.lua:342-343</code>)</span>; il magazzino passa dal primo al secondo man mano che le scorte si riempiono, scorte piene = il doppio<span class="sr"> (<code class="src">emissions.script.tl:237-249</code>)</span>. Il prezzo davvero addebitato per i moduli lo calcola il motore.</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="da-sapere"><span class="n">7</span><span>Da sapere</span></h2>
 <ul>
 <li>Controlla la lista Carico di ogni fermata vicino a un magazzino: ciò che non c'è viene scaricato nel magazzino, anche a metà linea.</li>
-<li>Una scorta piena rifiuta altro carico, a meno che la fermata usi "Forza scarico di tutte le merci all'arrivo", che distrugge ciò che non entra (vedi <a href="loading.html">Velocità di carico e scarico</a>).</li>
+<li>Una scorta piena rifiuta altro carico, a meno che la fermata usi "Forza scarico di tutte le merci all'arrivo" ("Scarica le merci anche se le scorte sono piene"); cosa succede alle merci che non entrano lo decide il motore (vedi <a href="loading.html">Velocità di carico e scarico</a>).</li>
 <li>Per tenere un modulo specializzato per un solo carico, fissa il suo tipo di carico nella sezione Scorte.</li>
 <li><a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> elenca, per stazione, i magazzini raggiungibili con le loro scorte; <a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> mostra dove è finito il carico scaricato.</li>
 </ul>

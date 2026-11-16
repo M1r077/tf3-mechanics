@@ -34,13 +34,13 @@
 <td><strong>Coût des véhicules</strong>, <strong>Entretien des véhicules</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:39</code>, <code class="src">difficulty_util.tl:98-99</code>, <code class="src">difficulty_util.tl:125-126</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:39</code>, <code class="src">difficulty_util.tl:98-101</code>, <code class="src">difficulty_util.tl:125-128</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>Coût des infrastructures</strong>, <strong>Entretien des infrastructures</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:100-101</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:98-101</code>, <code class="src">difficulty_util.tl:125-128</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>Effet de la maintenance des véhicules</strong></td>
@@ -57,13 +57,13 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Coût des infrastructures</strong> règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Il règle aussi le coût de démolition des bâtiments<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Entretien des infrastructures</strong> règle leur entretien<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Coût des infrastructures</strong> règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Il règle aussi le coût de démolition des bâtiments<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Entretien des infrastructures</strong> règle l'entretien des routes, voies, ponts, tunnels, passages à niveau et modules au chargement<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>)</span>. Pour les bâtiments, les scripts ne l'appliquent que dans la fenêtre du bâtiment<span class="sr"> (<code class="src">entity_window_util.tl:186</code>)</span> ; ce qui est facturé est décidé par le moteur.</li>
 <li><strong>Coût des véhicules</strong> et <strong>Entretien des véhicules</strong> règlent le prix d'achat et les coûts d'exploitation de chaque véhicule<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Effet de la maintenance des véhicules</strong> règle à quel point un véhicule en mauvais état perd vitesse, puissance et confort et gagne bruit, pollution et coûts d'exploitation<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
 <h2 id="ce-qui-monte-avec-lannee-du-calendrier"><span class="n">2</span><span>Ce qui monte avec l&#x27;année du calendrier</span></h2>
 <ul>
-<li><strong>Entretien des bâtiments</strong> : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque ceux-ci : entrepôts, aérodromes, aéroports et ports<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1149</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
+<li><strong>Entretien des bâtiments</strong> : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque toutes les méta-constructions (dans le jeu de base : entrepôts, aérodromes, aéroports et ports)<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1149</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
 <li>Les <strong>modules</strong> ajoutés à un tel bâtiment sont facturés à l'année de construction du bâtiment, leur entretien à l'année en cours<span class="sr"> (<code class="src">construction.tl:3720-3727</code>, <code class="src">construction.tl:4364-4367</code>)</span>.</li>
 <li><strong>Variantes par époque</strong> : dépôts, ateliers d'entretien, entrepôts, gares, ports et aéroports ont une variante par époque, et chaque variante suivante coûte <strong>×3</strong> (époque B) ou <strong>×9</strong> (époque C) de la première<span class="sr"> (<code class="src">rail_depot.con.lua:7</code>, <code class="src">warehouse.tl:48</code>, <code class="src">modular_station.con.lua:71</code>, <code class="src">harbor_modular.tl:76</code>, <code class="src">airport.tl:8</code>)</span>.</li>
 <li><strong>Argent des contrats</strong> : ×1 en 1900 jusqu'à ×4 dès 2000<span class="sr"> (<code class="src">finances_util.tl:87-90</code>)</span>. <strong>Montant des emprunts</strong> : ×0,4 en 1900 jusqu'à ×2,4 en 2020<span class="sr"> (<code class="src">loan_util.tl:7-10</code>)</span>.</li>
@@ -106,10 +106,10 @@
 </tr>
 <tr>
 <td>Petite route de campagne ancienne</td>
-<td>début</td>
+<td>début – 1940</td>
 <td>60 000</td>
 <td>10 000</td>
-<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:4-5</code>, <code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
 </tr>
 <tr>
 <td>Grande rue moderne</td>

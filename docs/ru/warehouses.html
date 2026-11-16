@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>Склад добавляет своё собственное загрязнение: <strong>25</strong>, или <strong>50</strong>, как только построен один специализированный модуль<span class="sr"> (<code class="src">warehouse.script.lua:327</code>, <code class="src">warehouse.script.lua:338-345</code>)</span>.</li>
-<li>В меню строительства по одной позиции на класс и эпоху (с 1900, 1940 и 1980 года)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; поздние эпохи показывают ×3 и ×9, а обслуживание складов к тому же растёт с годом. Подробнее: <a href="costs.html">Расходы, обслуживание и займы</a>.</li>
+<li>В меню строительства по одной позиции на класс и эпоху (с 1900, 1940 и 1980 года)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; поздние эпохи показывают ×3 и ×9<span class="sr"> (<code class="src">warehouses/warehouse.tl:48</code>, <code class="src">warehouses/warehouse.tl:75-76</code>)</span>, а обслуживание складов к тому же растёт с годом. Подробнее: <a href="costs.html">Расходы, обслуживание и займы</a>.</li>
 <li>Модули сыпучих материалов, негабаритных грузов и товаров стоят столько же, сколько модули жидкостей<span class="sr"> (<code class="src">wh_bulk.module.lua:22-23</code>, <code class="src">wh_flatbed.module.lua:22-23</code>, <code class="src">wh_goods.module.lua:18-19</code>)</span>.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Решает движок игры<small>C++, в скриптах не видно</small></h4><p>Скрипты задают два уровня выбросов, второй вдвое выше первого<span class="sr"> (<code class="src">warehouse.script.lua:342-343</code>)</span>; склад переходит от первого ко второму по мере заполнения запасов, полные запасы = вдвое<span class="sr"> (<code class="src">emissions.script.tl:237-249</code>)</span>. Цену, которая на самом деле списывается за модули, считает движок.</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="полезно-знать"><span class="n">7</span><span>Полезно знать</span></h2>
 <ul>
 <li>Проверьте список Загрузка каждой остановки рядом со складом: то, чего в нём нет, выгружается на склад, даже посреди линии.</li>
-<li>Полный запас отказывается принимать груз, если только остановка не использует «Принудительно выгружать весь груз по прибытии», что уничтожает то, что не помещается (см. <a href="loading.html">Скорость погрузки и разгрузки</a>).</li>
+<li>Полный запас отказывается принимать груз, если только остановка не использует «Принудительно выгружать весь груз по прибытии» («Выгружать груз, даже если запасы полны»); что происходит с грузом, который не помещается, решает движок (см. <a href="loading.html">Скорость погрузки и разгрузки</a>).</li>
 <li>Чтобы оставить специализированный модуль за одним грузом, закрепите его тип груза в разделе Запасы.</li>
 <li><a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> показывает для каждой станции склады в зоне досягаемости с их запасами; мод <a href="https://mod.io/g/transportfever3/m/platform-details">Детали платформ</a> показывает, куда ушёл выгруженный груз.</li>
 </ul>

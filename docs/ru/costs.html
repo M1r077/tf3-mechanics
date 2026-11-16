@@ -34,13 +34,13 @@
 <td><strong>Стоимость транспорта</strong>, <strong>Техобслуживание транспорта</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:39</code>, <code class="src">difficulty_util.tl:98-99</code>, <code class="src">difficulty_util.tl:125-126</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:39</code>, <code class="src">difficulty_util.tl:98-101</code>, <code class="src">difficulty_util.tl:125-128</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>Стоимость инфраструктуры</strong>, <strong>Обслуживание инфраструктуры</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:100-101</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:98-101</code>, <code class="src">difficulty_util.tl:125-128</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>Эффект техобслуживания транспорта</strong></td>
@@ -57,13 +57,13 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Стоимость инфраструктуры</strong> масштабирует цену улиц, путей, мостов, тоннелей, переездов, зданий и модулей, а также работ с ландшафтом<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Она масштабирует и стоимость сноса зданий<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Обслуживание инфраструктуры</strong> масштабирует их содержание<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Стоимость инфраструктуры</strong> масштабирует цену улиц, путей, мостов, тоннелей, переездов, зданий и модулей, а также работ с ландшафтом<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Она масштабирует и стоимость сноса зданий<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Обслуживание инфраструктуры</strong> при загрузке масштабирует содержание улиц, путей, мостов, тоннелей, переездов и модулей<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>)</span>. Для зданий скрипты применяют его только в окне здания<span class="sr"> (<code class="src">entity_window_util.tl:186</code>)</span>; что списывается на самом деле, решает движок.</li>
 <li><strong>Стоимость транспорта</strong> и <strong>Техобслуживание транспорта</strong> масштабируют цену покупки и эксплуатационные расходы каждого транспортного средства<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Эффект техобслуживания транспорта</strong> задаёт, насколько сильно транспорт в плохом состоянии теряет скорость, мощность и комфорт и получает больше шума, загрязнения и эксплуатационных расходов<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
 <h2 id="что-растёт-с-календарным-годом"><span class="n">2</span><span>Что растёт с календарным годом</span></h2>
 <ul>
-<li><strong>Обслуживание зданий</strong>: ×1 в 1900 году, ×1,5 в 1920, ×2,2 в 1940, ×3,2 в 1960, ×4 в 1980, ×5 в 2000, ×6 в 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. Окно здания и меню строительства применяют его к каждому зданию, помеченному как зависящее от года, а меню строительства помечает такие: склады, аэродромы, аэропорты и порты<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1149</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
+<li><strong>Обслуживание зданий</strong>: ×1 в 1900 году, ×1,5 в 1920, ×2,2 в 1940, ×3,2 в 1960, ×4 в 1980, ×5 в 2000, ×6 в 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. Окно здания и меню строительства применяют его к каждому зданию, помеченному как зависящее от года, а меню строительства помечает каждую мета-конструкцию (в базовой игре: склады, аэродромы, аэропорты и порты)<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1149</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
 <li><strong>Модули</strong> такого здания стоят по году постройки здания, а их обслуживание — по текущему году<span class="sr"> (<code class="src">construction.tl:3720-3727</code>, <code class="src">construction.tl:4364-4367</code>)</span>.</li>
 <li><strong>Варианты эпох</strong>: депо, станции техобслуживания, склады, станции, порты и аэропорты имеют по одному варианту на эпоху, и каждый следующий стоит <strong>×3</strong> (эпоха B) или <strong>×9</strong> (эпоха C) от первого<span class="sr"> (<code class="src">rail_depot.con.lua:7</code>, <code class="src">warehouse.tl:48</code>, <code class="src">modular_station.con.lua:71</code>, <code class="src">harbor_modular.tl:76</code>, <code class="src">airport.tl:8</code>)</span>.</li>
 <li><strong>Деньги субсидий</strong>: от ×1 в 1900 году до ×4 с 2000 года<span class="sr"> (<code class="src">finances_util.tl:87-90</code>)</span>. <strong>Суммы займов</strong>: от ×0,4 в 1900 году до ×2,4 в 2020 году<span class="sr"> (<code class="src">loan_util.tl:7-10</code>)</span>.</li>
@@ -106,10 +106,10 @@
 </tr>
 <tr>
 <td>Малая старая просёлочная дорога</td>
-<td>начало</td>
+<td>начало – 1940</td>
 <td>60 000</td>
 <td>10 000</td>
-<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:4-5</code>, <code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
 </tr>
 <tr>
 <td>Большая новая городская улица</td>

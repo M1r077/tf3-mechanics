@@ -33,7 +33,7 @@
 <tbody>
 <tr>
 <td><strong>産業への供給</strong></td>
-<td>まだ何も生産したことのない産業</td>
+<td>まだ何も生産したことがなく、マップのどこかですでに生産されている貨物を必要とする産業<span class="sr">（<code class="src">deliver_cargo.script.tl:157</code>）</span></td>
 <td>その産業への所定回数の配送。<strong>投入貨物のどれでもよい</strong></td>
 <td class="sc"><code class="src">deliver_cargo.script.tl:54-61</code>、<code class="src">deliver_cargo.script.tl:230-234</code>、<code class="src">deliver_cargo.script.tl:470-479</code></td>
 </tr>
@@ -60,8 +60,8 @@
 <ul>
 <li>新しい提案は、その時点で出現可能な種類の中から等しい確率で 1 つが選ばれる<span class="sr">（<code class="src">subventions.script.tl:147-169</code>）</span>。</li>
 <li><strong>産業への供給</strong>と<strong>町への供給</strong>は移動ではなく配送を数える。対象に到着した支払い済みの 1 単位ごとに 1 が加算される。乗り継ぎも認められる<span class="sr">（<code class="src">deliver_cargo.script.tl:470-479</code>）</span>。</li>
-<li><strong>町の接続</strong>には旅客数の条件がない。2 つの町の間であなたの路線に乗った最初の旅客 1 人で達成となる。「乗り換えなし」とは、この区間が両方の町を結ぶ 1 本の路線で運ばれるという意味である。2 つの町の間ですでに旅客を運んでいる路線がある場合、提案は出ない<span class="sr">（<code class="src">deliver_passengers.script.tl:72-78</code>）</span>。</li>
-<li>近い町ほどはるかに選ばれやすい。ペアの重みは、距離係数（1 km 以下で 1、20 km で 0.01）の 7 乗 × 100 に、エンジンが町の位置でプレイヤーのインフラのグリッドから読む町ごとの値（最低 1）を加えたもの<span class="sr">（<code class="src">deliver_passengers.script.tl:154-156</code>, <code class="src">deliver_passengers.script.tl:175-191</code>）</span>。約 10 km を超えると距離の部分はほぼゼロになり、そのエンジンの値だけが残る。</li>
+<li><strong>町の接続</strong>には旅客数の条件がない。2 つの町の間であなたの路線に乗った最初の旅客 1 人で達成となる。「乗り換えなし」とは、この区間が両方の町を結ぶ 1 本の路線で運ばれるという意味である。両方の町ですでに旅客を積み込み、旅客を運べる車両を持つ路線がある場合、提案は出ない<span class="sr">（<code class="src">deliver_passengers.script.tl:72-78</code>）</span>。</li>
+<li>近い町ほどはるかに選ばれやすい。ペアの重みは、（距離の重み）の 7 乗 × 100 に、エンジンが町の位置でプレイヤーのインフラのグリッドから読む 2 つの町の値（それぞれ最低 1）の<strong>平均</strong>を加えたもの<span class="sr">（<code class="src">deliver_passengers.script.tl:156</code>, <code class="src">deliver_passengers.script.tl:186</code>, <code class="src">deliver_passengers.script.tl:191</code>）</span>。距離の重みは 1 km で 1、そこから一定の割合で下がり 20 km で 0.01 になる<span class="sr">（<code class="src">deliver_passengers.script.tl:154-156</code>, <code class="src">deliver_passengers.script.tl:175-191</code>）</span>。そのため距離の部分は 5 km で約 19、10 km で約 1、約 15 km を超えるとほぼゼロになり、町の値だけが残る。</li>
 <li><strong>町への供給</strong>は、マップ上のどこかですでに生産されている貨物を優先する。他の貨物より 16 倍選ばれやすい<span class="sr">（<code class="src">deliver_cargo_town.script.tl:277-280</code>）</span>。</li>
 <li>配送する量は <strong>補助のリスク</strong> 設定で決まる。</li>
 </ul>
@@ -112,7 +112,7 @@
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>駅がどの町に属するか（stationSystem.getTown）、旅客が路線の「利用を開始」するのは正確にいつか（OnStartedLineUsage）、路線のどの編集が新しいバージョンとみなされるかはエンジン側で決まる。達成後の路線の編集で収入2倍の効果が終わるかどうかは検証していない。</p></div></aside>
 <h2 id="報酬とペナルティ"><span class="n">3</span><span>報酬とペナルティ</span></h2>
-<p>どの契約も 3 つのリストを持ち、カードには <strong>受諾時</strong>、<strong>達成時</strong>、<strong>失敗時</strong> として表示される<span class="sr">（<code class="src">subvention_util.tl:449-471</code>）</span>。失敗時には受諾時に与えられたものがすべて取り戻され、さらにペナルティが 1 つ加わる。「町の接続」では 2 つで、両方の町で評判が下がる<span class="sr">（<code class="src">subvention_util.tl:457-463</code>, <code class="src">deliver_cargo.script.tl:134-136</code>, <code class="src">deliver_passengers.script.tl:111-114</code>）</span>。</p>
+<p>どの契約も 3 つのリストを持ち、カードには <strong>受諾時</strong>、<strong>達成時</strong>、<strong>失敗時</strong> として表示され、スクリプトは受諾時・達成時・失敗時にそれを適用する<span class="sr">（<code class="src">subvention_util.tl:449-471</code>）</span>。失敗時には受諾時に与えられたものがすべて取り戻され、さらにペナルティが 1 つ加わる。「町の接続」では 2 つで、両方の町で評判が下がる<span class="sr">（<code class="src">subvention_util.tl:457-463</code>, <code class="src">deliver_cargo.script.tl:134-136</code>, <code class="src">deliver_passengers.script.tl:111-114</code>）</span>。</p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -155,7 +155,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>資金</strong>（年による補正の前）：前払いは 150万～375万 × リスク係数（なし ×2、適正 ×1、高リスク ×0.75、非常に高リスク ×0.5。「町の接続」と「労働者の移送」では ×0.625）。「町の接続」ではさらに距離係数（0.3～3.0）を掛ける。罰金は 300万～600万。達成時の支払いは 375万～1125万<span class="sr">（<code class="src">deliver_cargo.script.tl:100-128</code>、<code class="src">deliver_passengers.script.tl:82-106</code>、<code class="src">deliver_workers.script.tl:64-104</code>）</span>。</li>
+<li><strong>資金</strong>（年による補正の前）：前払いは 150万～375万 × リスク係数（なし ×2、適正 ×1、高リスク ×0.75、非常に高リスク ×0.5。「町の接続」と「労働者の移送」では ×0.625）。「町の接続」ではさらに距離係数（0.3～3.0）を掛ける。罰金は 300万～600万。達成時の支払いは 375万～1125万<span class="sr">（<code class="src">deliver_cargo.script.tl:100-128</code>、<code class="src">deliver_passengers.script.tl:82-106</code>、<code class="src">deliver_workers.script.tl:64-104</code>）</span>。すべての金額には基本設定の係数 <code>subventionFinancialRewardMultiplier</code><span class="sr">（<code class="src">deliver_cargo.script.tl:120</code>）</span>も掛けられ、その値はスクリプトでは決められていない。</li>
 <li>金額はインフレ設定ではなく<strong>暦年</strong>に応じて増える。1900 年は ×1、2000 年以降の ×4 まで均等に上がり、1万単位で切り上げられる<span class="sr">（<code class="src">finances_util.tl:87-90</code>）</span>。財務では <strong>助成金</strong> として計上される<span class="sr">（<code class="src">subvention_util.tl:126-135</code>）</span>。</li>
 <li><strong>町への供給</strong>が達成時の資金の支払いと資金の罰金を持てるのは、提案が作られた時点で銀行口座の残高が 1億 未満の場合だけである。それを超えると、まだそうなるのは提案 10 件に 1 件だけで、残りは代わりに町の経験値を与え、評判を奪う。前払いは影響を受けない<span class="sr">（<code class="src">deliver_cargo_town.script.tl:194-229</code>）</span>。</li>
 <li><strong>町の経験値</strong>は町の現在のレベルに対する割合で、そのレベルから次のレベルまでの XP の 20 %～100 % である<span class="sr">（<code class="src">deliver_cargo_town.script.tl:216</code>、<code class="src">town_growth.script.tl:605-608</code>）</span>。<strong>町の接続</strong>では距離係数（1 km で 0.3、20 km で 3.0 まで）が掛けられるので、遠い町は複数レベル上がることがある<span class="sr">（<code class="src">deliver_passengers.script.tl:94-96</code>、<code class="src">deliver_passengers.script.tl:116-118</code>）</span>。</li>
@@ -167,7 +167,7 @@
 <li><strong>産業への供給</strong>：契約期間中にその産業へ配送した路線による、その産業への配送<span class="sr">（<code class="src">deliver_cargo.script.tl:463-469</code>）</span>。</li>
 <li><strong>町への供給</strong>：契約の貨物を配送した路線による、その町のどの建物への配送も対象で、<strong>貨物の種類は問わない</strong><span class="sr">（<code class="src">deliver_cargo_town.script.tl:554-565</code>）</span>。</li>
 <li><strong>町の接続</strong>：2 つの町の間の旅客で、直通路線 <strong>1 本</strong> だけが対象。2 つの町の間の旅客が最後に乗った直通路線である。これは契約後も更新され続けるので、直通路線が 2 本あると 2 倍が一方から他方へ移ることがある<span class="sr">（<code class="src">deliver_passengers.script.tl:263-296</code>）</span>。</li>
-<li><strong>労働者の移送</strong>には収入への効果がない<span class="sr">（<code class="src">deliver_workers.script.tl:90</code>）</span>。</li>
+<li><strong>労働者の移送</strong>には収入への効果がない<span class="sr">（<code class="src">deliver_workers.script.tl:189-190</code>）</span>。</li>
 <li>「産業への供給」と「町への供給」では、契約の達成後に配送を始めた路線には何もない。路線のリストは契約期間中にしか記録されない。</li>
 <li>2 つの契約が同じ支払いを二重に 2 倍にすることはない。複数が該当する場合、最後の応答だけが使われる<span class="sr">（<code class="src">subventions.script.tl:570-583</code>）</span>。</li>
 </ul>
@@ -218,7 +218,7 @@
 <li><strong>補助の提案頻度</strong>：稀に、時々閉鎖（デフォルト）、頻繁に閉鎖、非常に頻繁に閉鎖 で、それぞれ 12、6、3、1 か月ごとに新しい提案が 1 件来る。<strong>なし</strong> で助成金はオフになる<span class="sr">（<code class="src">subvention_util.tl:13-38</code>、<code class="src">mod.script.tl:247-248</code>）</span>。</li>
 <li>間隔は<strong>会社ランク</strong>とともに長くなる。ランク 1 で ×1、ランク 15 で ×2 まで<span class="sr">（<code class="src">subvention_util.tl:19-22</code>）</span>。</li>
 <li>提案を<strong>拒否</strong>すると次の間隔が半分になる。受諾するか新しい提案が来るとリセットされる<span class="sr">（<code class="src">subventions.script.tl:429</code>、<code class="src">subventions.script.tl:395</code>、<code class="src">subventions.script.tl:118</code>）</span>。</li>
-<li>受諾済みで進行中の契約が <strong>5 件</strong>ある間は、新しい提案は来ない<span class="sr">（<code class="src">subventions.script.tl:23</code>、<code class="src">subventions.script.tl:256-262</code>）</span>。最初の提案は半月後に来る。</li>
+<li>受諾済みで進行中の契約が <strong>5 件</strong>ある間は、新しい提案は来ない<span class="sr">（<code class="src">subventions.script.tl:23</code>、<code class="src">subventions.script.tl:256-262</code>）</span>。最初の提案は半月後に来る<span class="sr">（<code class="src">subventions.script.tl:25</code>）</span>。</li>
 <li>同じ対象（産業、町と貨物、町のペア）は、期限切れや失敗の後でも、<strong>1 ゲームにつき 1 回だけ</strong>提案される<span class="sr">（<code class="src">subventions.script.tl:107-113</code>、<code class="src">subventions.script.tl:186</code>）</span>。</li>
 <li>難易度プリセットの提案頻度 / リスク<span class="sr">（<code class="src">difficulty_util.tl:104-105</code>、<code class="src">difficulty_util.tl:132-133</code>、<code class="src">difficulty_util.tl:159-160</code>、<code class="src">difficulty_util.tl:186-187</code>）</span>：イージーは 頻繁に閉鎖 / なし、ノーマルは 時々閉鎖 / 適正、ハードは 稀に / 高リスク、<strong>ベリーハードは なし</strong>：助成金はまったくない。</li>
 <li>評価が「優」の町でのみ助成金を許可する町の評価チェックは存在するが、無効になっている<span class="sr">（<code class="src">town_util.tl:1574-1580</code>、<code class="src">deliver_cargo_town.script.tl:272-275</code>）</span>。</li>

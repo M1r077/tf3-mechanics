@@ -31,8 +31,8 @@ Für das Spiel ist ein Bahnsteig keine Reihe von Modulen, sondern eine **Liste v
 |---|---|---|
 | auf einem Abschnitt ihrer Klasse (Schüttgutwagen, Schüttgut-Abschnitt) | **×2** | `modular_station.script.lua:1042` |
 | auf einem Universalabschnitt | ×1 | `modular_station.script.lua:1042` |
-| ohne Abschnitt ihrer Klasse am Bahnsteig | **×0,25** | `cargo_react_util.tl:60` |
-| jenseits der Bahnsteiglänge (Zug zu lang) | **×0,25** | `cargo_react_util.tl:61` |
+| ohne Abschnitt ihrer Klasse am Bahnsteig | **×0,25** (Konstante des Lade-Tooltips; den Faktor selbst wendet die Engine an) | `cargo_react_util.tl:60` |
+| jenseits der Bahnsteiglänge (Zug zu lang) | **×0,25** (Konstante des Lade-Tooltips; den Faktor selbst wendet die Engine an) | `cargo_react_util.tl:61` |
 
 - Der Faktor ist eine **Mischung nach Anteil am Zug**: passen 3/4 der Wagen und 1/4 nicht, ist der Faktor ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`, dieselbe Aufteilung, die das Spiel als „Teilweise spezialisiertes Terminal“ zeigt).
 - **Wo** die Wagen am Bahnsteig stehen, zählt nicht, nur die addierten Längen (im Spiel gemessen).
@@ -88,7 +88,7 @@ Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ 
 
 | Option im „Güterfilter“ | Wirkung | Quelle |
 |---|---|---|
-| „Entladen aller Güter nach Ankunft erzwingen“ | entlädt in passende Bestände, auch wenn sie voll sind; was nicht hineinpasst, wird zerstört. Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Entladen aller Güter nach Ankunft erzwingen“ | Tooltip: „Güter auch bei vollen Beständen entladen“; was mit den Gütern geschieht, die nicht hineinpassen, entscheidet die Engine. Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | „Bei Konfigurationsänderung Güter nach Ankunft zerstören“ | entlädt oder zerstört die Fracht an Bord, wenn an diesem Halt Fracht für eine andere Ladekonfiguration des Fahrzeugs wartet; was davon geschieht, entscheidet die Engine | `cargofilter_window.tl:767` |
 | „Durch neuere Güter ersetzen, falls verfügbar“ | zerstört Fracht, die zu dem Halt zurückgekommen ist, an dem sie geladen wurde, wenn neuere Fracht derselben Art wartet | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ In welcher Reihenfolge mehrere Frachten geladen werden, wie ein gemeinsamer Best
 
 ## Die automatische Konfiguration
 
-Solange niemand eine Änderung im Fenster „Güterfilter“ eines Halts gespeichert hat, was sie auf dieser Linie für immer abschaltet (`line_util.tl:495-498`, `cargofilter_window.tl:438`), füllt das Spiel die Listen Ladung selbst, jedes Mal wenn die Linie erstellt, ein Halt hinzugefügt oder entfernt, die Halte umsortiert oder ein Wegpunkt hinzugefügt wird (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Einen Halt an einen anderen Bahnhof oder Bahnsteig zu verschieben sowie einen Wegpunkt zu entfernen oder zu verschieben, startet sie nicht (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+Solange niemand eine Änderung im Fenster „Güterfilter“ eines Halts gespeichert hat, was sie auf dieser Linie für immer abschaltet (`line_util.tl:495-498`, `cargofilter_window.tl:438`), füllt das Spiel die Listen Ladung selbst, jedes Mal wenn die Linie erstellt, ein Halt hinzugefügt oder entfernt, die Halte umsortiert oder ein Wegpunkt hinzugefügt wird (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Einen Halt an einen anderen Bahnhof oder Bahnsteig zu verschieben sowie einen Wegpunkt zu entfernen oder zu verschieben, startet sie nicht (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - Sie beginnt wieder mit leeren Listen, mit Passagieren an Personenbahnhöfen (`line_util.tl:542-588`).
 - Sie sucht Erzeuger und Abnehmer nur unter Industrien und Stadtgebäuden: Lager zählen nicht (`cargo_util.tl:518-526`).

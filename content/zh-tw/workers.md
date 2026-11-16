@@ -36,7 +36,7 @@ fact: ×1.5–2.5 | 加速係數，每個產業固定
 
 1. 當一位居民抵達產業，且他的**最後一段行程是搭乘你的路線**時，這次抵達會連同遊戲時間一起被記錄下來（`industry_workers.script.tl:86-118`）。
 2. 只保留**最近 2 個遊戲年**內的抵達紀錄（`industry_productivity_util.tl:3`：`2 * getDefaultYearDuration()`）。
-3. 最多只保留**最近的 20 次**抵達（`industry_workers.script.tl:4`，`KeepHistoryCount = 20`）。
+3. 已保留 20 次抵達後，最早的會被刪除；同一次更新中的新抵達總是全部保留（`industry_workers.script.tl:4`，`KeepHistoryCount = 20`，`industry_workers.script.tl:54-70`）。
 4. 同一個人再次抵達時，新紀錄會取代舊紀錄：每位居民只算**一次**（`industry_workers.script.tl:56-70`）。
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ fact: ×1.5–2.5 | 加速係數，每個產業固定
 - **你的任何路線都能送他們**，包括載貨的路線，只要車輛能載客、站點會裝載乘客。腳本不檢查車輛類型（`industry_workers.script.tl:86-118`）。玩家回報使用獨立的客運路線問題較少。
 - 有些產業（例如鑽油設施）有內建站點，可接乘客和貨物（`industryutil.lua:156-165`）。
 - 產業視窗會為每位已指派的工人顯示他是**目前位置**還是**移動途中**（`entity_window_util.tl:1371-1384`）。「加速效果」區塊列出計入的工人及其 2 年中的**剩餘時間**（`entity_window_util.tl:1579-1630`、`industry_eow.script.tl:644-649`）。
-- 還沒有工人的產業會顯示：「將這個地點與大眾交通連接，讓居民可在此工作。」（`entity_window_util.tl:1650-1652`）。
+- 沒有計入任何抵達時（過去 2 年內一次也沒有），加速部分的工人清單會顯示：「將這個地點與大眾交通連接，讓居民可在此工作。」（`entity_window_util.tl:1650-1652`、`entity_window_util.tl:1608`、`entity_window_util.tl:1632`）。
 
 ```engine
 哪個站點服務產業、工人從站點走到產業入口有多遠、哪些城鎮的居民得到這份工作，都由引擎決定（涵蓋範圍、尋路、工作選擇）。腳本沒有為工人設距離限制。玩家回報，一個貨運涵蓋範圍包含產業的車站一直沒帶來工人，直到有公車開到產業入口（Steam 討論串「Problem getting workers to site」）。
@@ -94,7 +94,7 @@ fact: ×1.5–2.5 | 加速係數，每個產業固定
 
 ## 運送工人補助
 
-- 只會為有工作職位、工人加速效果尚未啟動、並且依引擎的年度數據在過去一年運出或接收過貨物的產業提供（`deliver_workers.script.tl:121-131`、`industry_util.tl:541-558`）。只接收貨物是否足夠，取決於引擎如何填寫生產規則，腳本中沒有。
+- 只會為有工作職位、工人加速效果尚未啟動、並且在過去一年運出過貨物的產業提供（`deliver_workers.script.tl:121-131`、`industry_util.tl:541-558`）。每條規則都有輸出表（加速規則為 `output = { }`），而空的 Lua 表視為真，所以只會走到這個分支（`industry_util.tl:544-551`）。
 - 工人加速效果啟動時達成：同樣是 20 個中有 10 個不同的人搭你的路線抵達（`deliver_workers.script.tl:152-156`）。不計其他東西；沒有隱藏規則。
 - 合約卡上的進度條是「計入的工人 ÷ 工作場所的一半」（`deliver_workers.script.tl:267-272`、`industry_util.tl:11-18`）。
 - 合約地圖上的箭頭來自**最近的 5 個城鎮**。它們只是提示：腳本依距離畫出，而不是依誰有這份工作（`deliver_workers.script.tl:297-317`）。

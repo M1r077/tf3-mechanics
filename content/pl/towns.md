@@ -44,7 +44,7 @@ Tempo rozwoju zależy od dwóch ocen w oknie miasta (`town_util.tl:607-633`, `to
 - Każda ocena ma sześć poziomów: wartość 0–1 jest dzielona na szóste części (`town_util.tl:983-985`). Poziom **„Znakomite”** wymaga 5/6 = 83 % lub więcej.
 - Gdy **jedna** ocena jest na poziomie „Bardzo złe”, władze miejskie też są „Bardzo złe”, a tempo rozwoju wynosi **0 %**: miasto stoi w miejscu, cokolwiek dostarczasz.
 - 100 % wymaga władz „Znakomite” przy zaopatrzeniu „Bardzo dobre” lub lepszym albo władz „Bardzo dobre” przy zaopatrzeniu „Znakomite”.
-- Twoja **centrala** dodaje +5 % najbliższemu miastu, a większość jej rozbudów dodaje po kolejne +5 % (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Ta premia mnoży tempo, więc przy 0 % nic nie daje.
+- Twoja **centrala** dodaje +5 % najbliższemu miastu, kilka rozbudów dodaje +5 %, niektóre mniej lub nic; wartość jest w pliku każdego modułu (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Ta premia mnoży tempo, więc przy 0 % nic nie daje.
 
 ```tip scripts
 **Miasto przestało rosnąć? Najpierw popraw jego najgorszą ocenę.** Władze miejskie to najniższa z sześciu ocen: jedna ocena „Bardzo złe” trzyma miasto na 0 %, a poprawa pozostałych nic nie zmienia.
@@ -54,7 +54,7 @@ Tempo rozwoju zależy od dwóch ocen w oknie miasta (`town_util.tl:607-633`, `to
 
 | Ocena | Co ją obniża | Źródło |
 |---|---|---|
-| **Reputacja** | kształtowanie terenu, wyburzanie budynków w mieście, usuwanie drzew; każde przerwane główne połączenie z innym miastem −1/3 | `town_util.tl:396-404`, `town_util.tl:1608` |
+| **Reputacja** | kształtowanie terenu, wyburzanie budynków w mieście, usuwanie drzew lub skał, nieudane dotacje; każde przerwane główne połączenie z innym miastem −1/3 | `town_util.tl:396-404`, `town_util.tl:1608`, `town_react_util.tl:30-43` |
 | **Ruch drogowy** | zakorkowane ulice w mieście | `town_util.tl:445-456` |
 | **Zadowolenie** | udział niezadowolonych podróżnych (przyjmuje się co najmniej 15 osób) | `town_util.tl:479-503` |
 | **Dostawa** | udział spóźnionych dostaw towarów (patrz [Przychód z towarów](income.html)) | `town_util.tl:505-519` |
@@ -92,12 +92,12 @@ Silnik oblicza obciążenie linii, prędkość ruchu, mapy hałasu i zanieczyszc
 
 ## Popyt na towary i zapasy budynków
 
-- Popyt miasta to suma jego **budynków**. Każdy budynek ma mały zapas wejściowy na każdy towar, o który prosi jego dzielnica: pojemność ÷ 4, zaokrąglona w górę, × współczynnik tego towaru w potrzebach miasta (1, chyba że ustawiono inaczej; skąd bierze się współczynnik, nie ma w skryptach) (`townbuildingutil.lua:226-251`). Gra zaznacza, że ta wielkość zapasu „is currently nowhere shown in the UI” (obecnie nie jest nigdzie pokazywana w interfejsie) (`townbuildingutil.lua:249`).
+- Popyt miasta to suma jego **budynków**. Każdy budynek ma mały zapas wejściowy na każdy towar, o który prosi jego dzielnica: pojemność ÷ 4, zaokrąglona w górę, × współczynnik tego towaru w potrzebach miasta (1, chyba że ustawiono inaczej; skąd bierze się współczynnik, nie ma w skryptach) (`townbuildingutil.lua:226-251`). Każdy towar określa townConsumptionFactor równy 1, 0,5 lub 0,25 (`placementparamsutil.lua:506-616`); jak trafia on do budynku, leży po stronie silnika. Gra zaznacza, że ta wielkość zapasu „is currently nowhere shown in the UI” (obecnie nie jest nigdzie pokazywana w interfejsie) (`townbuildingutil.lua:249`).
 - Popyt w oknie miasta to łączny limit tych zapasów; zaopatrzenie liczone do oceny jest ograniczone do popytu (`town_util.tl:95-99`, `town_util.tl:194-198`). Większe miasta proszą o więcej, bo mają więcej budynków.
 - Okno budynku pokazuje **Współczynnik zużycia**: jak szybko budynek zużywa swój towar w porównaniu z maksimum (`town_building.tl:103-132`).
 - Doświadczenie i zapłata przychodzą, gdy jednostka trafia do zapasu budynku (`town_growth.script.tl:620-642`).
 - Przystanek obejmuje tylko budynki w swoim obszarze obsługi. Ich zapasy mogą być pełne, choć miastu jako całości wciąż brakuje towaru: wtedy towar, który się nie mieści, **zostaje w pojeździe**, chyba że zaznaczono **Wymuś rozładowanie wszystkich towarów po przybyciu** („Rozładuj, nawet jeśli zapas jest pełny.”) (`cargofilter_window.tl:757-763`), co niszczy to, co się nie mieści (patrz [Szybkość załadunku i rozładunku](loading.html)).
-- Towar pozostały na pokładzie wywołuje powiadomienie **Towar nie został rozładowany**: „Nie rozładowano {cargoCount} szt. ładunku pojazdu {vehicle}.” (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- Towar pozostały na pokładzie wywołuje powiadomienie **Problem z rozładunkiem**: „Nie rozładowano {cargoCount} szt. ładunku pojazdu {vehicle}.” (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`); jego etykieta typu to **Towar nie został rozładowany** (`cargo_rtc_warning.res.lua:6`).
 - **Popyt na towary w mieście** („Wybierz maksymalną liczbę towarów wymaganych przez miasto.”): 2, 4 lub 6, domyślnie 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Skrypty dodają zapotrzebowania według poziomu (patrz wyżej) i przekazują tę wartość silnikowi.
 
 ```engine
@@ -107,7 +107,7 @@ To, jak szybko budynek zużywa swój zapas (consumeFrequency), który budynek w 
 ## Czy mogę powstrzymać rozwój miasta?
 
 - W normalnej grze **nie ma ustawienia** maksymalnej wielkości miasta (`difficulty_util.tl:90-199`).
-- W **trybie piaskownicy** i w edytorze map okno miasta ma kartę **Docelowa pojemność dzielnic** z opcją **Włącz rozwój miast** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Po jej odznaczeniu miasto nie dostaje doświadczenia i nie zmienia wielkości; okno pokazuje **Rozwój miasta nieaktywny** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- W **trybie piaskownicy** okno miasta ma kartę **Docelowa pojemność dzielnic** z opcją **Włącz rozwój miast** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Po jej odznaczeniu miasto nie dostaje doświadczenia i nie zmienia wielkości; okno pokazuje **Rozwój miasta nieaktywny** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Bez piaskownicy pozostają tylko sposoby pośrednie: miasto rośnie wyłącznie dzięki twoim pasażerom i towarom, a jedna ocena „Bardzo złe” je zatrzymuje (patrz wyżej).
 
 ## Warto wiedzieć

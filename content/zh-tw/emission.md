@@ -20,13 +20,13 @@ fact: 700 m | 淨化廠的作用範圍
 
 | 建築 | 何時排放更多 | 來源 |
 |---|---|---|
-| **產業** | 生產時，每次加成（貨物或工人）再增加；輸出庫存滿時向閒置水準回落 | `emissions.script.tl:152-194` |
+| **產業** | 生產時，每次加成（貨物或工人）再增加；所有輸出庫存同時滿時，水準減半（生產 → 閒置，加成兩次 → 生產） | `emissions.script.tl:152-194` |
 | **車站** | 越繁忙越多：等待的人和貨物與容量相比 | `emissions.script.tl:211-222` |
 | **車庫**、**維修站** | 使用其維修的車輛越多越多 | `emissions.script.tl:223-234` |
 | **貨物倉庫** | 庫存越滿越多 | `emissions.script.tl:237-250` |
 
 - 每個產業都有自己的四個等級：閒置、生產、加成一次、加成兩次（`industryutil.lua:464-475`；預設的 0 / 78 / 84 / 88 只用於沒有自己數值的產業）。大多數產業閒置時也會少量排放：煤礦的汙染為 2 → 10 → 20 → 30，它的田地為 2 → 30 → 60 → 90（`coal_mine.con.lua:99-135`，見 [產業](industries.html)）。
-- 輸出沒人運走的產業會回落到閒置水準：為它提供運輸會提高它的汙染。
+- 所有輸出庫存都滿的產業，水準會減半（`emissions.script.tl:172-182`）：為它提供運輸會提高它的汙染。
 - 車輛和軌道也會排放；在**車輛維修效果**設定下，狀況差的車輛排放更多（見 [成本、維護費與貸款](costs.html)）。
 
 ## 建造選單顯示什麼
@@ -39,7 +39,7 @@ fact: 700 m | 淨化廠的作用範圍
 | 鐵路車庫 | 50 | 100 | `rail_depot.con.lua:32-33` |
 | 道路與電車車庫 | 40 | 80 | `road_depot.con.lua:30-31`，`tram_depot.con.lua:32-33` |
 | 地下車站 | 40 | 80 | `underground_station.con.lua:75-76` |
-| 卡車與公車站 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| 卡車與公車站 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | 維修站 | 20 | 40–50 | `road_maint_station.con.lua:30-31`，`rail_maint_station.con.lua:30-31` |
 | 貨物倉庫 | 20 | 50（通用）或 100（專用） | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ fact: 700 m | 淨化廠的作用範圍
 | 加成一次 | −20,000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | 加成兩次 | −40,000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+最後一級需要加成規則，而淨化廠沒有：有工人時它最多達到 −20,000（`pollution_cleanup_facility.con.lua:51-58`，`emissions.script.tl:158-166`）。
+
 - 沒有機械時它幾乎沒用：必須像產業一樣供應。
 - 它很吵：蓋在住宅區以外，距離汙染區 700 m 以內。
 - 它的工人加成係數為 ×2（`pollution_cleanup_facility.script.lua:549`）。見 [工人](workers.html)。
@@ -100,7 +102,7 @@ fact: 700 m | 淨化廠的作用範圍
 ## 小提示
 
 - 打開城鎮視窗或噪音與汙染圖層，可以看到評價和熱點。
-- 輸出庫存滿會讓產業排放向閒置水準回落，但你會失去它的貨物：與其餓著產業，不如讓城鎮搬開。
+- 產業所有輸出庫存都滿時，排放水準減半，但你會失去它的貨物：與其餓著產業，不如讓城鎮搬開。
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) 和 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 可以幫你找到最繁忙的車站。
 
 ```engine
@@ -109,6 +111,6 @@ fact: 700 m | 淨化廠的作用範圍
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." 住宅區 "is sensitive to noise"；商業區 "is robust against the influence of noise"。([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 噪音評價 65 → 80 dB，汙染 60 → 74 dB，按 5–10 km² 平均；靈敏度增加 10·log10 dB；產業、車站、車庫和貨物倉庫繁忙時排放更多；輸出庫存滿時產業排放向閒置水準回落；綠化每個產業一次 −80 %；淨化廠在 700 m 內最多清除 40,000 汙染，並需要機械。
+scripts: 噪音評價 65 → 80 dB，汙染 60 → 74 dB，按 5–10 km² 平均；靈敏度增加 10·log10 dB；產業、車站、車庫和貨物倉庫繁忙時排放更多；所有輸出庫存都滿時產業排放水準減半；綠化每個產業一次 −80 %；淨化廠在 700 m 內最多清除 20,000 汙染（40,000 已定義，但需要加成規則），並需要機械。
 result: refines
 ```

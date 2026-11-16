@@ -32,8 +32,8 @@ Diese Dinge zählen in Spielzeit, ein langsamerer oder pausierter Kalender brems
 
 - **Produktion**: Die Produktionszeit einer Industrie ist ein fester Anteil eines Standardjahres (`industry_react_util.tl:51`). Das Industriefenster zeigt sie in Tagen des aktuellen Kalenders (`industry_react_util.tl:23`): Bei ×0,25 zeigt dieselbe Rate ein Viertel der Tage.
 - **Darlehensraten**: eine pro Standardmonat Spielzeit, auch bei pausiertem Kalender (`loan.script.tl:83-88`).
-- **Fristen von Subventionen** und der Einnahmebonus ×2 (`subvention_util.tl:290-292`).
-- **Erholung des Stadtansehens** (`towns.script.tl:121-130`), **Arbeiterboni** (`industry_productivity_util.tl:3`) und **Schließung von Industrien** nach Jahren ohne Anbindung (`industries.script.tl:119-128`).
+- **Fristen von Subventionen** und die Dauer des Bonus, 5 Standardjahre (`subvention_util.tl:286`, `subvention_util.tl:290-292`).
+- **Erholung des Stadtansehens** (`towns.script.tl:121-130`), **Wirkung der Arbeiter**, gezählt über höchstens 2 Standardjahre (`industry_productivity_util.tl:3`), und **Schließung von Industrien** nach Jahren ohne Anbindung (`industries.script.tl:119-128`).
 - **Lieferbewertungen** der Städte, über das letzte halbe Jahr (`town_util.tl:840`).
 - **Neue Industrien**: bei pausiertem Kalender erschienen 3 in 1.809 s Spielzeit, 760 s und 728 s auseinander, im selben Rhythmus wie bei laufendem Kalender (etwa 730 s). Gemessen mit [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); siehe [Industrien](industries.html).
 

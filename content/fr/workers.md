@@ -36,7 +36,7 @@ Un petit script du jeu surveille chaque arrivée (`industry_workers.script.tl`) 
 
 1. Quand un habitant arrive à une industrie et que son **dernier trajet s'est fait par tes lignes**, l'arrivée est notée avec l'heure du jeu (`industry_workers.script.tl:86-118`).
 2. Seules les arrivées des **2 dernières années de jeu** sont gardées (`industry_productivity_util.tl:3` : `2 * getDefaultYearDuration()`).
-3. Au plus les **20 dernières** arrivées sont gardées (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
+3. Une fois 20 arrivées gardées, les plus anciennes sont retirées ; les nouvelles arrivées d'une même mise à jour sont toujours gardées en entier (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`, `industry_workers.script.tl:54-70`).
 4. Quand la même personne arrive à nouveau, la nouvelle arrivée remplace l'ancienne : chaque habitant compte **une seule fois** (`industry_workers.script.tl:56-70`).
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ Une mine de charbon avec 20 emplois et « +84 % ».
 - **N'importe laquelle de tes lignes peut les amener**, même une ligne de fret, tant que ses véhicules prennent des passagers et que l'arrêt charge des passagers. Le script ne vérifie pas le type de véhicule (`industry_workers.script.tl:86-118`). Les joueurs signalent moins de problèmes avec des lignes de passagers séparées.
 - Certaines industries (par exemple les plateformes pétrolières) ont leur propre arrêt intégré, qui prend passagers et fret (`industryutil.lua:156-165`).
 - La fenêtre de l'industrie indique, pour chaque travailleur attribué, s'il est **Actuellement ici** ou **En route** (`entity_window_util.tl:1371-1384`). La section Boosters liste les travailleurs comptés avec leur **Temps restant** sur les 2 ans (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
-- Une industrie encore sans travailleur affiche : « Connecter cet emplacement aux transports publics pour permettre à des habitants d'y travailler. » (`entity_window_util.tl:1650-1652`).
+- Quand aucune arrivée n'est comptée (aucune dans les 2 dernières années), la liste des travailleurs de la section Bonus affiche : « Connecter cet emplacement aux transports publics pour permettre à des habitants d'y travailler. » (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine
 Quel arrêt dessert une industrie, quelle distance un travailleur marche d'un arrêt à l'entrée de l'industrie, et les habitants de quelles villes prennent l'emploi sont décidés par le moteur (zones de desserte, recherche de chemin, choix de l'emploi). Les scripts ne fixent aucune limite de distance pour les travailleurs. Des joueurs signalent qu'une gare dont la zone de desserte couvre l'industrie pour le fret n'amenait pas de travailleurs avant qu'un bus aille jusqu'à l'entrée de l'industrie (fil Steam « Problem getting workers to site »).
@@ -94,7 +94,7 @@ Les emplois sont attribués à l'ouverture de la ligne : lors de deux tests, les
 
 ## Contrat Transporter des travailleurs
 
-- Il n'est proposé que pour une industrie avec des emplois, dont le bonus des travailleurs n'est pas encore actif et qui a expédié ou reçu du fret sur la dernière année, d'après les chiffres annuels du moteur (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Savoir si recevoir seulement suffit dépend de la façon dont le moteur remplit les règles de production ; ce n'est pas dans les scripts.
+- Il n'est proposé que pour une industrie avec des emplois, dont le bonus des travailleurs n'est pas encore actif et qui a expédié du fret sur la dernière année (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Chaque règle a une table de sortie (les règles de boost ont `output = { }`) et une table Lua vide compte comme vraie : seule cette branche est atteinte (`industry_util.tl:544-551`).
 - Il est rempli quand le bonus des travailleurs devient actif : les mêmes 10 arrivées différentes sur 20 par tes lignes (`deliver_workers.script.tl:152-156`). Rien d'autre n'est compté ; il n'y a pas de règle cachée.
 - La barre de progression de la carte du contrat vaut « travailleurs comptés ÷ la moitié des emplois » (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Les flèches sur la carte du contrat partent des **5 villes les plus proches**. Ce n'est qu'une indication : le script les trace selon la distance, pas selon qui a l'emploi (`deliver_workers.script.tl:297-317`).

@@ -21,18 +21,18 @@ fact: 4 | 筆貸款可以同時存在
 
 | 設定 | 數值 | 預設 簡單 · 普通 · 困難 · 極度困難 | 來源 |
 |---|---|---|---|
-| **車輛成本**、**車輛維修** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`，`difficulty_util.tl:98-99`，`difficulty_util.tl:125-126` |
-| **基礎設施成本**、**基礎設施維護** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
+| **車輛成本**、**車輛維修** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`，`difficulty_util.tl:98-101`，`difficulty_util.tl:125-128`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
+| **基礎設施成本**、**基礎設施維護** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`，`difficulty_util.tl:125-128`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
 | **車輛維修效果** | 無 ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 極高 ×2 | 低 · 中 · 高 · 極高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
 | **通貨膨脹** | 只影響收益，見 [貨運收益與配送時間](income.html) | 低 · 普通 · 高 · 極高 | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
 
-- **基礎設施成本** 決定道路、軌道、橋梁、隧道、平交道、建築與模組的價格，也包括地形工程（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。它也決定建築的拆除費用（`construction.script.tl:39-44`）。**基礎設施維護** 決定它們的維護費（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。
+- **基礎設施成本** 決定道路、軌道、橋梁、隧道、平交道、建築與模組的價格，也包括地形工程（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。它也決定建築的拆除費用（`construction.script.tl:39-44`）。**基礎設施維護** 在載入時決定道路、軌道、橋梁、隧道、平交道與模組的維護費（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`）。對於建築，腳本只在建築視窗中套用它（`entity_window_util.tl:186`）；實際收取多少由引擎決定。
 - **車輛成本** 與 **車輛維修** 決定每輛車輛的購買價格與運行成本（`post_run_util.tl:54-81`）。
 - **車輛維修效果** 決定狀況差的車輛會損失多少速度、功率與舒適度，又會增加多少噪音、污染與運行成本（`mod.script.tl:241-245`）。
 
 ## 隨月曆年份成長的項目
 
-- **建築維護費**：1900 年 ×1、1920 年 ×1.5、1940 年 ×2.2、1960 年 ×3.2、1980 年 ×4、2000 年 ×5、2020 年 ×6（`mod.script.tl:92-100`）。建築視窗與建造選單會把它套用到每個標記為跟隨年份的建築，而建造選單標記的是：貨物倉庫、飛行場、機場與港口（`entity_window_util.tl:186-193`，`construction_react_util.tl:1149`，`warehouse.tl:7`，`harbor_modular.tl:24`）。
+- **建築維護費**：1900 年 ×1、1920 年 ×1.5、1940 年 ×2.2、1960 年 ×3.2、1980 年 ×4、2000 年 ×5、2020 年 ×6（`mod.script.tl:92-100`）。建築視窗與建造選單會把它套用到每個標記為跟隨年份的建築，而建造選單會標記每個元建築（基礎遊戲中為：貨物倉庫、飛行場、機場與港口）（`entity_window_util.tl:186-193`，`construction_react_util.tl:1149`，`warehouse.tl:7`，`harbor_modular.tl:24`）。
 - 加到這類建築上的**模組**，價格依建築興建的年份計算，維護費依目前年份計算（`construction.tl:3720-3727`，`construction.tl:4364-4367`）。
 - **時代版本**：車庫、維修站、貨物倉庫、車站、港口與機場每個時代各有一個版本，後面的版本花費是第一個的 **×3**（時代 B）或 **×9**（時代 C）（`rail_depot.con.lua:7`，`warehouse.tl:48`，`modular_station.con.lua:71`，`harbor_modular.tl:76`，`airport.tl:8`）。
 - **補助現金**：從 1900 年的 ×1 到 2000 年以後的 ×4（`finances_util.tl:87-90`）。**貸款金額**：從 1900 年的 ×0.4 到 2020 年的 ×2.4（`loan_util.tl:7-10`）。
@@ -51,7 +51,7 @@ fact: 4 | 筆貸款可以同時存在
 | 簡易軌道 | 開局 | 6 萬 | 1 萬 | `simple.street_template.lua:9`，`simple.street_template.lua:33` |
 | 標準軌道 | 1930 | 18 萬 | 3 萬 | `standard.street_template.lua:11`，`standard.street_template.lua:35` |
 | 高速軌道 | 1980 | 54 萬 | 9 萬 | `high_speed.street_template.lua:11`，`high_speed.street_template.lua:35` |
-| 小型舊鄉間道路 | 開局 | 6 萬 | 1 萬 | `country_old_small.street_template.lua:8`，`country_old_small.street_template.lua:58` |
+| 小型舊鄉間道路 | 開局 – 1940 | 6 萬 | 1 萬 | `country_old_small.street_template.lua:4-5`，`country_old_small.street_template.lua:8`，`country_old_small.street_template.lua:58` |
 | 大型新城鎮街道 | 1940 | 54 萬 | 9 萬 | `town_new_large.street_template.lua:11`，`town_new_large.street_template.lua:91` |
 
 - 電纜會增加軌道價格的 **30 %**；公車專用道增加道路價格的 10 %，輕軌軌道 20 %，電氣化輕軌軌道 40 %（`mod.script.tl:24-28`）。

@@ -32,8 +32,8 @@ Deze worden in speltijd geteld, dus een tragere of gepauzeerde kalender vertraag
 
 - **Productie**: de productietijd van een industrie is een vast deel van een standaardjaar (`industry_react_util.tl:51`). Het industrievenster toont die in dagen van de huidige kalender (`industry_react_util.tl:23`): bij ×0.25 toont hetzelfde tempo een kwart van de dagen.
 - **Aflossingen van leningen**: één per standaardmaand speltijd, ook met een gepauzeerde kalender (`loan.script.tl:83-88`).
-- **Deadlines van subsidies** en de ×2-inkomstenbonus (`subvention_util.tl:290-292`).
-- **Herstel van de reputatie van steden** (`towns.script.tl:121-130`), **arbeidersboosts** (`industry_productivity_util.tl:3`) en **sluiting van industrieën** na jaren zonder bediening (`industries.script.tl:119-128`).
+- **Deadlines van subsidies** en de duur van de bonus, 5 standaardjaren (`subvention_util.tl:286`, `subvention_util.tl:290-292`).
+- **Herstel van de reputatie van steden** (`towns.script.tl:121-130`), **effecten van arbeiders**, geteld over hooguit 2 standaardjaren (`industry_productivity_util.tl:3`), en **sluiting van industrieën** na jaren zonder bediening (`industries.script.tl:119-128`).
 - **Leveringsbeoordelingen** van steden, over het laatste halfjaar (`town_util.tl:840`).
 - **Nieuwe bedrijven**: met gepauzeerde kalender verschenen er 3 in 1809 s speltijd, 760 s en 728 s na elkaar, in hetzelfde ritme als met lopende kalender (ongeveer 730 s). Gemeten met het [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); zie [Industrie](industries.html).
 

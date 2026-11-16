@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | Zahlung pro Einheit, beim Verbraucher, für die Luftlinie
 fact: 0 | bezahlt in einem Lager oder beim Umstieg
 fact: 100 % | bezahlt, auch bei Verspätung
-fact: ×6 | Jahresfaktor auf den Unterhalt von Lagern, Häfen und Flughäfen bis 2020
+fact: ×6 | angezeigter Jahresfaktor auf den Unterhalt von Lagern, Flugfeldern, Flughäfen und Häfen bis 2020
 ---
 
 Eine Lieferung bezahlt **eine einzige Luftlinie**, vom Ort, an dem die Fracht hergestellt wurde, bis zum Ort, an dem sie gebraucht wird, und nur wenn sie dort ankommt. Alles, was du baust und kaufst, kostet jedes Jahr Geld, ein Teil davon mit dem Kalenderjahr immer mehr. Eine Linie verliert Geld, wenn ihr Anteil an den Zahlungen kleiner ist als die Kosten, die sie verursacht.
@@ -32,7 +32,7 @@ Details: [Gütereinnahmen und Lieferzeit](income.html).
 
 - **Fahrzeuge**: Die Betriebskosten folgen Durchschnittstempo × Kapazität, und der Preis entspricht 6 Jahren Betriebskosten (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Gleise und Straßen**: etwa ein Sechstel des Baupreises pro km und Jahr; Hochgeschwindigkeitsgleis kostet 9-mal so viel wie einfaches Gleis (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Depots, Bahnhöfe, Lager, Häfen, Flughäfen**: Varianten späterer Epochen kosten ×3 und ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), und der Unterhalt von Lagern, Häfen und Flughäfen folgt auch dem Jahr, ×1 im Jahr 1900 bis ×6 im Jahr 2020 (`mod.script.tl:92-100`).
+- **Depots, Bahnhöfe, Lager, Häfen, Flughäfen**: Varianten späterer Epochen kosten ×3 und ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), und für Lager, Flugfelder, Flughäfen und Häfen zeigt das Gebäudefenster einen Unterhalt, der dem Jahr folgt, ×1 im Jahr 1900 bis ×6 im Jahr 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). Was abgebucht wird, entscheidet die Engine.
 - **Darlehen**: Der Zinssatz wird einmal auf den Betrag berechnet und über die Laufzeit verteilt (`loan_util.tl:102-111`).
 - **Inflation erhöht keine Kosten**. Sie senkt nur die Einnahmen.
 

@@ -57,7 +57,7 @@ fact: 0 | 倉庫で積み下ろした貨物の収入
 | 汚染 | 25 | 50 | `wh_universal.module.lua:34`、`wh_liquid.module.lua:38` |
 
 - 倉庫自体も汚染を加える。**25**、専門モジュールを 1 つでも建てると **50** になる（`warehouse.script.lua:327`、`warehouse.script.lua:338-345`）。
-- 建設メニューには、クラスと時代（1900 年、1940 年、1980 年から）ごとに 1 つの項目がある（`warehouses/warehouse.tl:3-5`）。後の時代は ×3 と ×9 を示し、倉庫の維持費も年とともに増える。詳細：[コスト、維持費、融資](costs.html)。
+- 建設メニューには、クラスと時代（1900 年、1940 年、1980 年から）ごとに 1 つの項目がある（`warehouses/warehouse.tl:3-5`）。後の時代は ×3 と ×9 を示し（`warehouses/warehouse.tl:48`、`warehouses/warehouse.tl:75-76`）、倉庫の維持費も年とともに増える。詳細：[コスト、維持費、融資](costs.html)。
 - ばら積み、平型、商品のモジュールは、液体モジュールと同じコストである（`wh_bulk.module.lua:22-23`、`wh_flatbed.module.lua:22-23`、`wh_goods.module.lua:18-19`）。
 
 ```engine
@@ -78,7 +78,7 @@ fact: 0 | 倉庫で積み下ろした貨物の収入
 ## 知っておくと便利なこと
 
 - 倉庫の近くにあるすべての停車地の積込リストを確認すること。リストにないものは、路線の途中でも倉庫に積み下ろされる。
-- 満杯の在庫はそれ以上の貨物を拒む。ただし停車地が「到着時にすべての貨物を強制的に積み下ろし」を使っていれば別で、入りきらない分は破壊される（[積み込みと積み下ろしの速度](loading.html) を参照）。
+- 満杯の在庫はそれ以上の貨物を拒む。ただし停車地が「到着時にすべての貨物を強制的に積み下ろし」（「在庫が満杯でも貨物を積み下ろす」）を使っていれば別。入りきらない貨物がどうなるかはエンジンが決める（[積み込みと積み下ろしの速度](loading.html) を参照）。
 - 専門モジュールを 1 つの貨物用に保つには、「在庫」セクションでその貨物の種類を固定する。
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) は駅ごとに、届く範囲の倉庫とその在庫を一覧にする。[Platform Details](https://mod.io/g/transportfever3/m/platform-details) は積み下ろした貨物の行き先を表示する。
 

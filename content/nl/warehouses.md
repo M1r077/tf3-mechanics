@@ -57,7 +57,7 @@ Een opslagplaats is een ingang met een aantal **modules**. Ze bewaart vracht tus
 | Vervuiling | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - De opslagplaats voegt haar eigen vervuiling toe: **25**, of **50** zodra er één gespecialiseerde module is gebouwd (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- Het bouwmenu heeft één item per klasse en tijdperk (vanaf 1900, 1940 en 1980) (`warehouses/warehouse.tl:3-5`); latere tijdperken tonen ×3 en ×9, en het onderhoud van opslagplaatsen stijgt ook met het jaar. Details: [Kosten, onderhoud en leningen](costs.html).
+- Het bouwmenu heeft één item per klasse en tijdperk (vanaf 1900, 1940 en 1980) (`warehouses/warehouse.tl:3-5`); latere tijdperken tonen ×3 en ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), en het onderhoud van opslagplaatsen stijgt ook met het jaar. Details: [Kosten, onderhoud en leningen](costs.html).
 - Bulk-, dieplader- en goederenmodules kosten hetzelfde als vloeistofmodules (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Waar geloste vracht naartoe gaat, en of de bezorgtimer van opgeslagen vracht sto
 ## Goed om te weten
 
 - Controleer de lijst Lading van elke halte bij een opslagplaats: wat er niet in staat, wordt in de opslagplaats gelost, ook halverwege de lijn.
-- Een volle voorraad weigert meer vracht, tenzij de halte "Alle vracht bij aankomst verplicht lossen" gebruikt, wat vernietigt wat niet past (zie [Laad- en lossnelheid](loading.html)).
+- Een volle voorraad weigert meer vracht, tenzij de halte "Alle vracht bij aankomst verplicht lossen" ("Vracht lossen, ook als de voorraden vol zijn") gebruikt; wat er gebeurt met de vracht die niet past, bepaalt de engine (zie [Laad- en lossnelheid](loading.html)).
 - Wil je een gespecialiseerde module voor één vracht houden, zet dan haar vrachttype vast in de sectie Voorraad.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) toont per station de opslagplaatsen binnen bereik met hun voorraden; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) toont waar de geloste vracht naartoe ging.
 

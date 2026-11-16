@@ -20,13 +20,13 @@ Un script del juego fija la emisión de cuatro tipos de edificios cada pocas act
 
 | Edificio | Emite más cuando | Fuente |
 |---|---|---|
-| **Industria** | produce, y más con cada impulso (carga o trabajadores); menos, hacia su nivel parado, cuando su existencia de salida está llena | `emissions.script.tl:152-194` |
+| **Industria** | produce, y más con cada impulso (carga o trabajadores); cuando todas sus existencias de salida están llenas a la vez, su nivel se reduce a la mitad: produciendo → parado, impulsada dos veces → produciendo | `emissions.script.tl:152-194` |
 | **Estación** | está más concurrida: personas y carga en espera frente a su capacidad | `emissions.script.tl:211-222` |
 | **Cochera**, **estación de mantenimiento** | más vehículos usan su mantenimiento | `emissions.script.tl:223-234` |
 | **Almacén** | sus existencias están más llenas | `emissions.script.tl:237-250` |
 
 - Cada industria tiene sus propios cuatro niveles: parada, produciendo, impulsada una vez, impulsada dos veces (`industryutil.lua:464-475`; el valor por defecto 0 / 78 / 84 / 88 solo se aplica a una industria sin los suyos). La mayoría emite algo incluso parada: una mina de carbón pasa de 2 → 10 → 20 → 30 de contaminación, sus campos 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, ver [Industrias](industries.html)).
-- Una industria cuya producción no se recoge vuelve hacia su nivel parado: darle servicio aumenta su contaminación.
+- Una industria con todas sus existencias de salida llenas baja a la mitad de su nivel (`emissions.script.tl:172-182`): darle servicio aumenta su contaminación.
 - Vehículos y vías también emiten; un vehículo en mal estado emite más con el ajuste **Efecto del mantenimiento de vehículos** (ver [Costes, mantenimiento y préstamos](costs.html)).
 
 ## Lo que muestra el menú de construcción
@@ -39,7 +39,7 @@ Un script del juego fija la emisión de cuatro tipos de edificios cada pocas act
 | Cochera ferroviaria | 50 | 100 | `rail_depot.con.lua:32-33` |
 | Cochera de carretera y tranvía | 40 | 80 | `road_depot.con.lua:30-31`, `tram_depot.con.lua:32-33` |
 | Estación subterránea | 40 | 80 | `underground_station.con.lua:75-76` |
-| Estación de camiones y autobuses | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| Estación de camiones y autobuses | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | Estaciones de mantenimiento | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
 | Almacén | 20 | 50 (universal) o 100 (especializado) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ Una ventaja de empresa que elimina la contaminación a su alrededor.
 | impulsada una vez | −20.000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | impulsada dos veces | −40.000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+El último nivel necesita una regla de impulso, que la Planta de limpieza no tiene: con trabajadores llega a −20.000 (`pollution_cleanup_facility.con.lua:51-58`, `emissions.script.tl:158-166`).
+
 - Sin máquinas casi no hace nada: hay que abastecerla como a una industria.
 - Es ruidosa: constrúyela fuera del distrito residencial, a menos de 700 m de la zona contaminada.
 - Su factor de impulso por trabajadores es ×2 (`pollution_cleanup_facility.script.lua:549`). Ver [Trabajadores](workers.html).
@@ -100,7 +102,7 @@ Una ventaja de empresa que elimina la contaminación a su alrededor.
 ## Conviene saber
 
 - Abre la ventana de la ciudad o las capas de ruido y contaminación para ver la valoración y los puntos críticos.
-- Una existencia de salida llena baja la emisión de una industria hacia su nivel parado, pero te cuesta su carga: mejor alejar la ciudad que dejar sin servicio a la industria.
+- Cuando todas las existencias de salida de una industria están llenas, su nivel de emisión se reduce a la mitad, pero pierdes su carga: mejor alejar la ciudad que dejar sin servicio a la industria.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) y [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) ayudan a encontrar las estaciones más concurridas.
 
 ```engine
@@ -109,6 +111,6 @@ El motor calcula los mapas de ruido y contaminación, cómo se propagan los valo
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." El distrito residencial "is sensitive to noise"; el distrito comercial "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Valoración de ruido 65 → 80 dB, contaminación 60 → 74 dB promediada sobre 5–10 km²; la susceptibilidad suma 10·log10 dB; industrias, estaciones, cocheras y almacenes emiten más cuando están ocupados; una existencia de salida llena baja la emisión de una industria hacia su nivel parado; ecologización −80 % una vez por industria; la Planta de limpieza elimina hasta 40.000 de contaminación en 700 m y necesita máquinas.
+scripts: Valoración de ruido 65 → 80 dB, contaminación 60 → 74 dB promediada sobre 5–10 km²; la susceptibilidad suma 10·log10 dB; industrias, estaciones, cocheras y almacenes emiten más cuando están ocupados; con todas las existencias de salida llenas, el nivel de emisión de una industria se reduce a la mitad; ecologización −80 % una vez por industria; la Planta de limpieza elimina hasta 20.000 de contaminación (40.000 está definido pero necesita una regla de impulso) en 700 m y necesita máquinas.
 result: refines
 ```

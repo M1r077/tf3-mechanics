@@ -48,7 +48,7 @@ fact: 5 | 격납고당 항공기 수
 | 비행장 | 3,600,000 – 9,000,000 | 150,000 – 600,000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | 공항 | 5,400,000 – 13,500,000 | 900,000 – 2,250,000 | `airport.tl:8`, `airport.tl:30-31` |
 | 비행장 모듈(본관, 터미널, 격납고) | 600,000 | 100,000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| 공항 모듈(터미널, 격납고, 두 번째 활주로…) | 900,000 | 150,000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| 공항 모듈(본관, 터미널, 격납고, 두 번째 활주로) | 900,000 | 150,000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - 공항과 비행장의 관리비도 달력 연도를 따라 1900년 ×1에서 2020년 ×6이 된다([비용, 관리비, 대출](costs.html)).
 - 항공기의 가격과 운영비는 선박이나 도로 차량처럼 속도와 용량으로 계산된다([비용, 관리비, 대출](costs.html)).

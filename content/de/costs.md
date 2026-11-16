@@ -21,18 +21,18 @@ Die Einstellung **Inflation** erhöht keine Kosten: Sie senkt nur deine Einnahme
 
 | Einstellung | Werte | Vorgaben Easy · Normal · Hard · Very Hard | Quelle |
 |---|---|---|---|
-| **Fahrzeugkosten**, **Fahrzeugwartung** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-99`, `difficulty_util.tl:125-126` |
-| **Infrastrukturkosten**, **Unterhalt der Infrastruktur** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Fahrzeugkosten**, **Fahrzeugwartung** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Infrastrukturkosten**, **Unterhalt der Infrastruktur** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Fahrzeugwartungseffekt** | Keine ×0 · Niedrig ×0,5 · Mittel ×1 · Hoch ×1,5 · Sehr hoch ×2 | Niedrig · Mittel · Hoch · Sehr hoch | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflation** | nur Einnahmen, siehe [Fracht-Einnahmen](income.html) | Niedrig · Normal · Hoch · Sehr hoch | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Infrastrukturkosten** skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Sie skaliert auch die Abrisskosten von Gebäuden (`construction.script.tl:39-44`). **Unterhalt der Infrastruktur** skaliert deren Unterhalt (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Infrastrukturkosten** skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Sie skaliert auch die Abrisskosten von Gebäuden (`construction.script.tl:39-44`). **Unterhalt der Infrastruktur** skaliert beim Laden den Unterhalt von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen und Modulen (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Bei Gebäuden wenden die Skripte ihn nur im Gebäudefenster an (`entity_window_util.tl:186`); was abgebucht wird, entscheidet die Engine.
 - **Fahrzeugkosten** und **Fahrzeugwartung** skalieren Kaufpreis und Betriebskosten jedes Fahrzeugs (`post_run_util.tl:54-81`).
 - **Fahrzeugwartungseffekt** legt fest, wie stark ein Fahrzeug in schlechtem Zustand Geschwindigkeit, Leistung und Komfort verliert und Lärm, Verschmutzung und Betriebskosten gewinnt (`mod.script.tl:241-245`).
 
 ## Was mit dem Kalenderjahr steigt
 
-- **Gebäudeunterhalt**: ×1 im Jahr 1900, ×1,5 1920, ×2,2 1940, ×3,2 1960, ×4 1980, ×5 2000, ×6 2020 (`mod.script.tl:92-100`). Das Gebäudefenster und das Baumenü wenden ihn auf jedes Gebäude an, das dem Jahr folgen soll, und das Baumenü markiert diese: Lager, Flugfelder, Flughäfen und Häfen (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Gebäudeunterhalt**: ×1 im Jahr 1900, ×1,5 1920, ×2,2 1940, ×3,2 1960, ×4 1980, ×5 2000, ×6 2020 (`mod.script.tl:92-100`). Das Gebäudefenster und das Baumenü wenden ihn auf jedes Gebäude an, das dem Jahr folgen soll, und das Baumenü markiert jede Meta-Konstruktion (im Basisspiel: Lager, Flugfelder, Flughäfen und Häfen) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
 - **Module** eines solchen Gebäudes kosten den Preis des Baujahrs des Gebäudes, ihr Unterhalt den des aktuellen Jahres (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
 - **Epochenvarianten**: Depots, Wartungsstationen, Lager, Bahnhöfe, Häfen und Flughäfen haben eine Variante pro Epoche, und jede spätere Variante kostet **×3** (Epoche B) oder **×9** (Epoche C) der ersten (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Geld aus Subventionen**: ×1 im Jahr 1900 bis ×4 ab 2000 (`finances_util.tl:87-90`). **Darlehensbeträge**: ×0,4 im Jahr 1900 bis ×2,4 im Jahr 2020 (`loan_util.tl:7-10`).
@@ -51,7 +51,7 @@ Straßen- und Gleisdateien geben Preis und jährlichen Unterhalt pro Meter an; d
 | Einfaches Gleis | Start | 60.000 | 10.000 | `simple.street_template.lua:9`, `simple.street_template.lua:33` |
 | Standardgleis | 1930 | 180.000 | 30.000 | `standard.street_template.lua:11`, `standard.street_template.lua:35` |
 | Hochgeschwindigkeitsgleis | 1980 | 540.000 | 90.000 | `high_speed.street_template.lua:11`, `high_speed.street_template.lua:35` |
-| Kleine alte Landstraße | Start | 60.000 | 10.000 | `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
+| Kleine alte Landstraße | Start – 1940 | 60.000 | 10.000 | `country_old_small.street_template.lua:4-5`, `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
 | Große neue Stadtstraße | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Eine Oberleitung kostet zusätzlich **30 %** des Gleispreises; eine Busspur 10 %, ein Straßenbahngleis 20 %, ein elektrisches Straßenbahngleis 40 % des Straßenpreises (`mod.script.tl:24-28`).

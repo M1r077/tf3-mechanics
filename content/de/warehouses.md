@@ -57,7 +57,7 @@ Ein Lager ist ein Eingang und eine Reihe von **Modulen**. Es lagert Fracht zwisc
 | Verschmutzung | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - Das Lager fügt eigene Verschmutzung hinzu: **25**, oder **50**, sobald ein spezialisiertes Modul gebaut ist (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- Das Baumenü hat einen Eintrag pro Klasse und Epoche (ab 1900, 1940 und 1980) (`warehouses/warehouse.tl:3-5`); spätere Epochen zeigen ×3 und ×9, und der Lagerunterhalt steigt außerdem mit dem Jahr. Details: [Kosten, Unterhalt und Darlehen](costs.html).
+- Das Baumenü hat einen Eintrag pro Klasse und Epoche (ab 1900, 1940 und 1980) (`warehouses/warehouse.tl:3-5`); spätere Epochen zeigen ×3 und ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), und der Lagerunterhalt steigt außerdem mit dem Jahr. Details: [Kosten, Unterhalt und Darlehen](costs.html).
 - Schüttgut-, Sperrgut- und Stückgutmodule kosten so viel wie Flüssiggutmodule (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Wohin entladene Fracht geht und ob die Lieferfrist einer gelagerten Einheit stop
 ## Gut zu wissen
 
 - Prüfe die Liste Ladung jedes Halts in der Nähe eines Lagers: Was nicht darauf steht, wird ins Lager entladen, auch mitten auf der Linie.
-- Ein voller Bestand nimmt keine weitere Fracht an, außer der Halt nutzt „Entladen aller Güter nach Ankunft erzwingen“, was alles zerstört, was nicht hineinpasst (siehe [Lade- und Entladegeschwindigkeit](loading.html)).
+- Ein voller Bestand nimmt keine weitere Fracht an, außer der Halt nutzt „Entladen aller Güter nach Ankunft erzwingen“ („Güter auch bei vollen Beständen entladen“); was mit den Gütern geschieht, die nicht hineinpassen, entscheidet die Engine (siehe [Lade- und Entladegeschwindigkeit](loading.html)).
 - Um ein spezialisiertes Modul für eine Fracht zu behalten, lege seine Frachtart im Bereich Bestände fest.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) listet pro Bahnhof die erreichbaren Lager mit ihren Beständen; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) zeigt, wohin die entladene Fracht ging.
 

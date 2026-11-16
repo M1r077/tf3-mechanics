@@ -8,7 +8,7 @@ updated: 2026-11-16
 game: 40425
 fact: 5 | níveis de condição, de Muito Ruim a Muito Bom, 20 % cada
 fact: 20 % | de condição dispara o aviso Condição do Veículo
-fact: 6 anos | de custos operacionais: o preço de um veículo
+fact: 6 × | o custo operacional anual base: o preço de um veículo
 fact: 4 a 16 | veículos nos recursos de manutenção de um pátio ou estação de manutenção
 ---
 
@@ -16,7 +16,7 @@ Todo veículo tem atributos fixos (velocidade, capacidade, velocidade de carga, 
 
 ## Os atributos na loja de veículos
 
-- A loja mostra cada atributo como uma barra. A barra compara o veículo com os outros do mesmo tipo de transporte e era, não com uma escala fixa (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- A loja mostra cada atributo como uma barra. A barra usa uma escala fixa por tipo de transporte, que muda com o ano (por exemplo velocidade de carga dos navios: 10 a 45 a partir de 2003). Ela não compara o veículo com outros veículos (`vehicle_util.tl:210-245`, `vehicle_util.tl:259-268`).
 - Para um trem, a loja mostra a **maior** velocidade de carga entre todas as suas partes (`vehicle_store_util.tl:333`).
 - Um veículo cujo arquivo não define velocidade de carga, ruído, poluição ou conforto recebe um valor calculado a partir dos outros atributos (ano, velocidade, potência, peso, tamanho) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). A velocidade de carga calculada é arredondada para 0,5 e nunca fica abaixo de 1 (`vehicle_metadata_util.lua:267-269`).
 
@@ -50,8 +50,8 @@ Como a velocidade de carga do veículo, o fator de carga da carga e os fatores d
 | até 20 % | **Muito Ruim** | `vehicle_util.tl:159-172` |
 
 - A condição de um trem é a **média** de todos os seus vagões e locomotivas (`vehicle_util.tl:285-295`).
-- Abaixo de 80 % um veículo começa a perder velocidade máxima, potência e conforto, e a ganhar ruído, poluição e custos operacionais (`vehicle_store_util.tl:230-259`). A janela do veículo lista essas penalidades em **Condição**.
-- A força dessas penalidades é definida por **Efeito da Manutenção do Veículo** (Nenhum, Baixo, Médio, Alto, Muito Alto); com Nenhum, a condição não tem efeito (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Detalhes: [Custos, manutenção e empréstimos](costs.html).
+- Um veículo desgastado perde velocidade máxima, potência e conforto, e ganha ruído, poluição e custos operacionais (`vehicle_store_util.tl:236-258`). Quanto, e a partir de qual condição, são valores do motor do jogo. A janela do veículo lista essas penalidades em **Condição**.
+- A força dessas penalidades é definida por **Efeito da Manutenção do Veículo** (Nenhum, Baixo, Médio, Alto, Muito Alto); com Nenhum, a condição não tem efeito (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Detalhes: [Custos, manutenção e empréstimos](costs.html).
 - Com **20 %** ou menos você recebe o aviso **Condição do Veículo**. Ele fica até o veículo voltar acima de **30 %** (`notifications.script.tl:310-318`).
 - Um veículo clonado é uma compra nova: condição 100 %, nova data de compra (`manager_window.tl:8502-8506`).
 
@@ -77,7 +77,7 @@ Os veículos recebem manutenção de um pátio ou estação de manutenção pró
 - A janela do edifício mostra "usados / recursos" (por exemplo 14 / 12) e a lista de veículos atendidos, com sua condição (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Recursos mais ocupados deixam o edifício mais barulhento e mais poluente: as emissões sobem com a parcela em uso (`emissions.script.tl:223-234`).
 - Uma estação de manutenção ferroviária atende o dobro de trens de um pátio ferroviário: 12 contra 6.
-- As estações de manutenção não compram nem guardam veículos, mas seu raio costuma ser maior que o do pátio: 600 m contra 400 m nas estradas, 1400 m contra 1000 m para navios. Só a estação de manutenção rodoviária também faz a manutenção dos bondes.
+- As estações de manutenção não compram nem guardam veículos, mas seu raio costuma ser maior que o do pátio: 600 m contra 400 m nas estradas, 1400 m contra 1000 m para navios. Os bondes recebem manutenção do pátio de bondes e da estação de manutenção rodoviária; o pátio rodoviário não faz a manutenção dos bondes (`tram_depot.script.lua:209`, `tram_depot.script.lua:226`).
 - A wiki oficial sugere pontos de passagem para fazer os veículos passarem por um edifício de manutenção.
 
 ```engine
@@ -86,13 +86,13 @@ A qual estação um veículo é atribuído, o que acontece quando mais veículos
 
 ## Preço e custos operacionais
 
-- Os veículos do jogo base não têm preço fixo: os custos operacionais vêm da velocidade e da capacidade, e o preço é **6 anos** de custos operacionais (`model_metadata_util.lua:548-549`). Fórmula completa: [Custos, manutenção e empréstimos](costs.html).
-- **Custos de Veículo** e **Manutenção de Veículos** escalam ambos de 50 % a 150 % (`post_run_util.tl:54-81`).
+- Os veículos do jogo base não têm preço fixo: os custos operacionais vêm da velocidade e da capacidade, e o preço é **6 ×** o custo operacional anual base, antes das configurações Custos de Veículo e Manutenção de Veículos (`model_metadata_util.lua:548-549`). Dá exatamente 6 anos de custos operacionais só quando as duas configurações são iguais. Fórmula completa: [Custos, manutenção e empréstimos](costs.html).
+- **Custos de Veículo** escala os preços de 50 % a 150 % (`post_run_util.tl:54-81`). Para **Manutenção de Veículos**, o script arredonda o fator para um número inteiro quando o custo operacional ainda não está definido (`post_run_util.tl:71-72`). Isso daria 100 % em todos os níveis exceto Muito Alto (200 %). A confirmar no jogo.
 - Um veículo em má condição paga mais custos operacionais, além do valor base (`vehicle_store_util.tl:256-259`).
 
 ## Idade e vida útil
 
-- Cada modelo tem uma **vida útil** em anos (`vehicle_metadata_util.lua:79-83`). A coluna **Idade** da janela da linha mostra a idade; sua dica mostra o tempo restante, ou **Vida útil alcançada** (`line_eow.script.tl:133-147`). A parcela da vida útil nessa dica mostra **0%** até a vida útil ser alcançada: o script arredonda a fração para baixo antes de mostrá-la (`line_eow.script.tl:139`), enquanto a mesma parcela é calculada por inteiro em outro lugar (`vehicle_util.tl:311`). Use o tempo restante.
+- Cada modelo tem uma **vida útil** (`vehicle_util.tl:31-34`). A coluna **Idade** da janela da linha mostra a idade; sua dica mostra o tempo restante, ou **Vida útil alcançada** (`line_eow.script.tl:133-147`). A parcela da vida útil nessa dica mostra **0%** até a vida útil ser alcançada: o script arredonda a fração para baixo antes de mostrá-la (`line_eow.script.tl:139`), enquanto a mesma parcela é calculada por inteiro em outro lugar (`vehicle_util.tl:311`). Use o tempo restante.
 - Para um trem, conta a parte **mais antiga** (`vehicle_util.tl:36-52`). Um vagão velho faz o trem inteiro aparecer como velho.
 
 ```engine

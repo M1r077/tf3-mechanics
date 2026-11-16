@@ -34,13 +34,13 @@
 <td><strong>Koszty pojazdów</strong>, <strong>Konserwacja pojazdów</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:39</code>, <code class="src">difficulty_util.tl:98-99</code>, <code class="src">difficulty_util.tl:125-126</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:39</code>, <code class="src">difficulty_util.tl:98-101</code>, <code class="src">difficulty_util.tl:125-128</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>Koszty infrastruktury</strong>, <strong>Utrzymanie infrastruktury</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:100-101</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:98-101</code>, <code class="src">difficulty_util.tl:125-128</code>, <code class="src">difficulty_util.tl:153-156</code>, <code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>Wpływ konserwacji pojazdów</strong></td>
@@ -57,13 +57,13 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Koszty infrastruktury</strong> skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Skalują też koszt rozbiórki budynków<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Utrzymanie infrastruktury</strong> skaluje ich utrzymanie<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Koszty infrastruktury</strong> skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Skalują też koszt rozbiórki budynków<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Utrzymanie infrastruktury</strong> skaluje przy wczytaniu utrzymanie ulic, torów, mostów, tuneli, przejazdów i modułów<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>)</span>. Dla budynków skrypty stosują je tylko w oknie budynku<span class="sr"> (<code class="src">entity_window_util.tl:186</code>)</span>; o tym, co jest pobierane, decyduje silnik.</li>
 <li><strong>Koszty pojazdów</strong> i <strong>Konserwacja pojazdów</strong> skalują cenę zakupu i koszty bieżące każdego pojazdu<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Wpływ konserwacji pojazdów</strong> ustala, jak mocno pojazd w złym stanie traci prędkość, moc i komfort oraz zyskuje hałas, zanieczyszczenie i koszty bieżące<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
 <h2 id="co-rośnie-z-rokiem-kalendarzowym"><span class="n">2</span><span>Co rośnie z rokiem kalendarzowym</span></h2>
 <ul>
-<li><strong>Utrzymanie budynków</strong>: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza te: magazyny, lądowiska, lotniska i porty<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1149</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
+<li><strong>Utrzymanie budynków</strong>: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty)<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1149</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
 <li><strong>Moduły</strong> dodane do takiego budynku kosztują według roku budowy budynku, a ich utrzymanie według bieżącego roku<span class="sr"> (<code class="src">construction.tl:3720-3727</code>, <code class="src">construction.tl:4364-4367</code>)</span>.</li>
 <li><strong>Warianty epok</strong>: zajezdnie, stacje konserwacji, magazyny, dworce, porty i lotniska mają jeden wariant na epokę, a każdy późniejszy kosztuje <strong>×3</strong> (epoka B) lub <strong>×9</strong> (epoka C) pierwszego<span class="sr"> (<code class="src">rail_depot.con.lua:7</code>, <code class="src">warehouse.tl:48</code>, <code class="src">modular_station.con.lua:71</code>, <code class="src">harbor_modular.tl:76</code>, <code class="src">airport.tl:8</code>)</span>.</li>
 <li><strong>Pieniądze z subsydiów</strong>: od ×1 w 1900 do ×4 od 2000<span class="sr"> (<code class="src">finances_util.tl:87-90</code>)</span>. <strong>Kwoty kredytów</strong>: od ×0,4 w 1900 do ×2,4 w 2020<span class="sr"> (<code class="src">loan_util.tl:7-10</code>)</span>.</li>
@@ -106,10 +106,10 @@
 </tr>
 <tr>
 <td>Mała stara droga wiejska</td>
-<td>start</td>
+<td>start – 1940</td>
 <td>60 000</td>
 <td>10 000</td>
-<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:4-5</code>, <code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
 </tr>
 <tr>
 <td>Duża nowa ulica miejska</td>

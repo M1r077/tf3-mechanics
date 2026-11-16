@@ -31,8 +31,8 @@ Para el juego, un andén no es una fila de módulos: es una **lista de secciones
 |---|---|---|
 | en una sección de su clase (vagones a granel, sección a granel) | **×2** | `modular_station.script.lua:1042` |
 | en una sección universal | ×1 | `modular_station.script.lua:1042` |
-| sin ninguna sección de su clase en el andén | **×0,25** | `cargo_react_util.tl:60` |
-| más allá de la longitud del andén (tren demasiado largo) | **×0,25** | `cargo_react_util.tl:61` |
+| sin ninguna sección de su clase en el andén | **×0,25** (constante del tooltip de carga; el factor en sí lo aplica el motor) | `cargo_react_util.tl:60` |
+| más allá de la longitud del andén (tren demasiado largo) | **×0,25** (constante del tooltip de carga; el factor en sí lo aplica el motor) | `cargo_react_util.tl:61` |
 
 - El factor es una **mezcla según la proporción del tren**: si 3/4 de los vagones coinciden y 1/4 no, el factor es ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`, el mismo reparto que el juego muestra como "Terminal parcialmente especializada").
 - **Dónde** se detienen los vagones en el andén no importa, solo cuentan las longitudes sumadas (medido en el juego).
@@ -88,7 +88,7 @@ Cada parada de una línea tiene una lista **Carga**, en la ventana "Filtro de ca
 
 | Opción de "Filtro de cargamento" | Qué hace | Fuente |
 |---|---|---|
-| "Forzar la descarga de todo el cargamento al llegar" | descarga en las existencias compatibles aunque estén llenas; lo que no cabe se destruye. Desactivada en una parada nueva. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forzar la descarga de todo el cargamento al llegar" | tooltip: "Descargar el cargamento aunque las existencias estén llenas"; qué pasa con el cargamento que no cabe lo decide el motor. Desactivada en una parada nueva. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Destruir el cargamento al llegar cuando cambie la configuración" | descarga o destruye el cargamento a bordo cuando en esta parada espera carga para otra configuración de carga del vehículo; cuál de las dos cosas pasa lo decide el motor | `cargofilter_window.tl:767` |
 | "Sustituir por cargamento nuevo si hay disponibilidad" | destruye el cargamento que volvió a la parada donde se cargó, cuando espera cargamento más nuevo del mismo tipo | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ El orden en que se cargan varios cargamentos, cómo se reparten unas existencias
 
 ## La configuración automática
 
-Mientras nadie haya guardado un cambio en la ventana "Filtro de cargamento" de una parada, lo que la desactiva para siempre en esa línea (`line_util.tl:495-498`, `cargofilter_window.tl:438`), el juego rellena él mismo las listas Carga cada vez que se crea la línea, se añade o quita una parada, se reordenan las paradas o se añade un punto de paso (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Mover una parada a otra estación o andén, y quitar o mover un punto de paso, no la ejecutan (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+Mientras nadie haya guardado un cambio en la ventana "Filtro de cargamento" de una parada, lo que la desactiva para siempre en esa línea (`line_util.tl:495-498`, `cargofilter_window.tl:438`), el juego rellena él mismo las listas Carga cada vez que se crea la línea, se añade o quita una parada, se reordenan las paradas o se añade un punto de paso (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Mover una parada a otra estación o andén, y quitar o mover un punto de paso, no la ejecutan (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - Empieza de nuevo con listas vacías, con pasajeros en las estaciones de pasajeros (`line_util.tl:542-588`).
 - Busca productores y consumidores solo entre industrias y edificios de la ciudad: los almacenes no cuentan (`cargo_util.tl:518-526`).

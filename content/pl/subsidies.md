@@ -24,15 +24,15 @@ Subsydium to kontrakt: zakład przemysłowy lub miasto proponuje zadanie, przy p
 
 | Kontrakt | Cel | Co go wypełnia | Źródło |
 |---|---|---|---|
-| **Zaopatrz zakład przemysłowy** | zakład przemysłowy, który jeszcze nigdy nic nie wyprodukował | wymagana liczba dostaw do niego, **dowolnym z jego surowców wejściowych** | `deliver_cargo.script.tl:54-61`, `deliver_cargo.script.tl:230-234`, `deliver_cargo.script.tl:470-479` |
+| **Zaopatrz zakład przemysłowy** | zakład przemysłowy, który jeszcze nigdy nic nie wyprodukował i potrzebuje ładunku produkowanego już gdzieś na mapie (`deliver_cargo.script.tl:157`) | wymagana liczba dostaw do niego, **dowolnym z jego surowców wejściowych** | `deliver_cargo.script.tl:54-61`, `deliver_cargo.script.tl:230-234`, `deliver_cargo.script.tl:470-479` |
 | **Zaopatrz miasto** | towar, którego miasto potrzebuje i w ogóle nie dostaje | wymagana liczba jednostek **tego towaru** dostarczonych do budynków miasta | `deliver_cargo_town.script.tl:566-581` |
 | **Połącz miasta** | dwa miasta | **jeden** pasażer, który zaczyna podróż między tymi miastami linią zatrzymującą się w obu | `deliver_passengers.script.tl:263-280`, `subvention_util.tl:561-592` |
 | **Przewieź pracowników** | zakład przemysłowy, który już wysyła lub przyjmuje towary i nie ma jeszcze premii | włącza się jego premia za pracowników (połowa miejsc pracy) | `deliver_workers.script.tl:121-131`, `deliver_workers.script.tl:152-156` |
 
 - Każda nowa oferta wybiera, z równymi szansami, jeden z rodzajów, które mogą się w danej chwili pojawić (`subventions.script.tl:147-169`).
 - **Zaopatrz zakład przemysłowy** i **Zaopatrz miasto** liczą dostawy, a nie kursy: każda opłacona jednostka, która dotrze do celu, dodaje 1. Przeładunki są dozwolone (`deliver_cargo.script.tl:470-479`).
-- **Połącz miasta** nie wymaga żadnej liczby pasażerów: wypełnia go pierwszy pasażer, który wsiądzie do twojej linii między tymi dwoma miastami. „Bez przesiadki” oznacza, że ten odcinek podróży odbywa się jedną linią obsługującą oba miasta. Oferta się nie pojawia, jeśli jakaś linia już przewozi pasażerów między nimi (`deliver_passengers.script.tl:72-78`).
-- Bliskie miasta są dużo bardziej prawdopodobne: waga pary to 100 × współczynnik odległości do potęgi 7 (1 przy 1 km lub mniej, 0,01 przy 20 km) plus wartość co najmniej 1 na miasto, którą silnik odczytuje w miejscu miasta ze swojej siatki infrastruktury gracza (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Powyżej około 10 km część odległości jest prawie zerowa i zostaje tylko ta wartość silnika.
+- **Połącz miasta** nie wymaga żadnej liczby pasażerów: wypełnia go pierwszy pasażer, który wsiądzie do twojej linii między tymi dwoma miastami. „Bez przesiadki” oznacza, że ten odcinek podróży odbywa się jedną linią obsługującą oba miasta. Oferta się nie pojawia, jeśli jakaś linia już ładuje pasażerów w obu miastach i ma pojazd, który może ich przewieźć (`deliver_passengers.script.tl:72-78`).
+- Bliskie miasta są dużo bardziej prawdopodobne: waga pary to (waga odległości)^7 × 100 plus **średnia** wartości obu miast, każda co najmniej 1, które silnik odczytuje w miejscu miasta ze swojej siatki infrastruktury gracza (`deliver_passengers.script.tl:156`, `deliver_passengers.script.tl:186`, `deliver_passengers.script.tl:191`). Waga odległości wynosi 1 przy 1 km i spada równomiernie do 0,01 przy 20 km (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Część odległości wynosi więc około 19 przy 5 km, około 1 przy 10 km i prawie zero powyżej około 15 km, gdzie zostają tylko wartości miast.
 - **Zaopatrz miasto** woli towary, które są już gdzieś produkowane na mapie: 16 razy bardziej prawdopodobne niż pozostałe (`deliver_cargo_town.script.tl:277-280`).
 - Ilość do dostarczenia zależy od ustawienia **Ryzyko subsydiów**:
 
@@ -59,7 +59,7 @@ To, do którego miasta należy stacja (stationSystem.getTown), kiedy dokładnie 
 
 ## Nagrody i kary
 
-Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęcia**, **W chwili wypełnienia** i **W chwili niepowodzenia** (`subvention_util.tl:449-471`). Przy niepowodzeniu odbierane jest wszystko, co dano przy przyjęciu, a do tego dochodzi jedna kara, a w Połącz miasta dwie, utrata reputacji w każdym mieście (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
+Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęcia**, **W chwili wypełnienia** i **W chwili niepowodzenia**; skrypty stosują je przy przyjęciu, wypełnieniu i niepowodzeniu (`subvention_util.tl:449-471`). Przy niepowodzeniu odbierane jest wszystko, co dano przy przyjęciu, a do tego dochodzi jedna kara, a w Połącz miasta dwie, utrata reputacji w każdym mieście (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Kontrakt | W chwili przyjęcia | W chwili wypełnienia | W chwili niepowodzenia | Źródło |
 |---|---|---|---|---|
@@ -68,7 +68,7 @@ Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęci
 | Połącz miasta | pieniądze, więcej za odległe miasta | doświadczenie w **obu** miastach, plus podwojony dochód | zwrot zaliczki + utrata reputacji w **obu** miastach | `deliver_passengers.script.tl:105-119` |
 | Przewieź pracowników | pieniądze | pieniądze | zwrot zaliczki + kara | `deliver_workers.script.tl:92-116` |
 
-- **Pieniądze**, przed skalowaniem według roku: zaliczka od 1,5 mln do 3,75 mln × mnożnik ryzyka („Brak” ×2, „Rozsądne” ×1, „Ryzykowne” ×0,75, „Bardzo ryzykowne” ×0,5, albo ×0,625 w Połącz miasta i Przewieź pracowników), a w Połącz miasta jeszcze × współczynnik odległości (od 0,3 do 3,0); kara od 3 mln do 6 mln; zapłata za wykonanie od 3,75 mln do 11,25 mln (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
+- **Pieniądze**, przed skalowaniem według roku: zaliczka od 1,5 mln do 3,75 mln × mnożnik ryzyka („Brak” ×2, „Rozsądne” ×1, „Ryzykowne” ×0,75, „Bardzo ryzykowne” ×0,5, albo ×0,625 w Połącz miasta i Przewieź pracowników), a w Połącz miasta jeszcze × współczynnik odległości (od 0,3 do 3,0); kara od 3 mln do 6 mln; zapłata za wykonanie od 3,75 mln do 11,25 mln (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`). Każda kwota jest też mnożona przez współczynnik z konfiguracji bazowej, `subventionFinancialRewardMultiplier` (`deliver_cargo.script.tl:120`), którego wartość nie jest ustawiona w skryptach.
 - Kwoty rosną z **rokiem kalendarzowym**, a nie z ustawieniem „Inflacja”: ×1 w 1900, równomiernie do ×4 od 2000, zaokrąglone w górę do 10 000 (`finances_util.tl:87-90`). W finansach są księgowane jako **Subsydia** (`subvention_util.tl:126-135`).
 - **Zaopatrz miasto** może mieć zapłatę pieniężną za wykonanie i karę pieniężną tylko wtedy, gdy stan twojego konta jest poniżej 100 mln w chwili tworzenia oferty; powyżej może to już tylko 1 oferta na 10, pozostałe dają zamiast tego doświadczenie miasta i odbierają reputację. Zaliczka się nie zmienia (`deliver_cargo_town.script.tl:194-229`).
 - **Doświadczenie miasta** to część bieżącego poziomu miasta: od 20 % do 100 % XP między jego poziomem a następnym (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). W **Połącz miasta** jest mnożone przez mnożnik odległości, od 0,3 przy 1 km do 3,0 przy 20 km: odległe miasta mogą zyskać kilka poziomów (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
@@ -80,7 +80,7 @@ Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęci
 - **Zaopatrz zakład przemysłowy**: dostawy do tego zakładu, na liniach, które dostarczały do niego w czasie kontraktu (`deliver_cargo.script.tl:463-469`).
 - **Zaopatrz miasto**: dostawy do dowolnego budynku tego miasta, **dowolnego towaru**, na liniach, które dostarczały towar z kontraktu (`deliver_cargo_town.script.tl:554-565`).
 - **Połącz miasta**: pasażerowie między tymi dwoma miastami, tylko na **jednej** linii bezpośredniej: ostatniej linii bezpośredniej, do której wsiadł pasażer między nimi. Aktualizuje się to także po kontrakcie, więc przy dwóch liniach bezpośrednich ×2 może przechodzić z jednej na drugą (`deliver_passengers.script.tl:263-296`).
-- **Przewieź pracowników** nie ma żadnego efektu przychodowego (`deliver_workers.script.tl:90`).
+- **Przewieź pracowników** nie ma żadnego efektu przychodowego (`deliver_workers.script.tl:189-190`).
 - W Zaopatrz zakład przemysłowy i Zaopatrz miasto linia, która zaczęła dostarczać dopiero po wypełnieniu kontraktu, nic nie dostaje: lista linii jest wypełniana tylko w czasie kontraktu.
 - Dwa kontrakty nigdy nie podwajają tej samej płatności dwukrotnie: gdy pasuje kilka, liczy się tylko ostatnia odpowiedź (`subventions.script.tl:570-583`).
 
@@ -118,7 +118,7 @@ Długość miesiąca gry, a więc rzeczywistą długość terminów, ustala siln
 - **Dostępność subsydiów**: „Rzadko”, „Czasem” (domyślnie), „Często”, „Bardzo często” dają nową ofertę co 12, 6, 3 lub 1 miesiąc; **„Nigdy”** wyłącza subsydia (`subvention_util.tl:13-38`, `mod.script.tl:247-248`).
 - Odstęp rośnie z **rangą firmy**: ×1 przy randze 1 do ×2 przy randze 15 (`subvention_util.tl:19-22`).
 - **Odrzucenie** oferty skraca następny odstęp o połowę; przyjęcie lub nowa oferta go resetuje (`subventions.script.tl:429`, `subventions.script.tl:395`, `subventions.script.tl:118`).
-- Nowych ofert nie ma, dopóki **5 kontraktów** jest przyjętych i w toku (`subventions.script.tl:23`, `subventions.script.tl:256-262`). Pierwsza oferta pojawia się po pół miesiąca.
+- Nowych ofert nie ma, dopóki **5 kontraktów** jest przyjętych i w toku (`subventions.script.tl:23`, `subventions.script.tl:256-262`). Pierwsza oferta pojawia się po pół miesiąca (`subventions.script.tl:25`).
 - Ten sam cel (zakład, miasto i towar, para miast) jest oferowany **tylko raz na grę**, nawet po przekroczonym terminie lub nieudanym kontrakcie (`subventions.script.tl:107-113`, `subventions.script.tl:186`).
 - Gotowe poziomy trudności, dostępność / ryzyko (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`): „Niski” „Często” / „Brak”, „Normalny” „Czasem” / „Rozsądne”, „Wysoki” „Rzadko” / „Ryzykowne”, **„Bardzo wysoki” „Nigdy”**: żadnych subsydiów.
 - Warunek, który pozwalałby na subsydia tylko w miastach z oceną „Bardzo dobre”, istnieje, ale jest wyłączony (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:272-275`).

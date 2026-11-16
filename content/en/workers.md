@@ -36,8 +36,8 @@ A small game script watches every arrival (`industry_workers.script.tl`):
 
 1. When a resident arrives at an industry and its **last move was by your lines**, the arrival is noted with the game time (`industry_workers.script.tl:86-118`).
 2. Only arrivals of the **last 2 game years** are kept (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).
-3. At most the **latest 20** arrivals are kept (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
-4. When the same person arrives again, the new arrival replaces the older one: each resident counts **once** (`industry_workers.script.tl:56-70`).
+3. Once 20 arrivals are kept, older ones are dropped; the new arrivals of one update are always kept whole (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`, `industry_workers.script.tl:54-70`).
+4. When the same person arrives again, the new arrival replaces that person's older entry: each resident counts **once** (`industry_workers.script.tl:56-70`).
 
 ```diagram workers_window
 ```
@@ -76,7 +76,7 @@ A coal mine with 20 workplaces and "+84 %".
 - **Any of your lines can bring them**, also a line that carries cargo, as long as its vehicles take passengers and the stop loads passengers. The script does not check the vehicle type (`industry_workers.script.tl:86-118`). Players report fewer problems with separate passenger lines.
 - Some industries (for example oil rigs) have their own built-in stop, which takes passengers and cargo (`industryutil.lua:156-165`).
 - The industry window shows, for each assigned worker, whether it is **Currently Here** or **On the Way** (`entity_window_util.tl:1371-1384`). The Booster section lists the counted workers with their **Time Left** of the 2 years (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
-- An industry with no worker yet shows: "Connect this location with public transport to allow residents to work here." (`entity_window_util.tl:1650-1652`).
+- When no arrival is counted (none in the last 2 years), the worker list of the Booster section shows: "Connect this location with public transport to allow residents to work here." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine
 Which stop serves an industry, how far a worker walks from a stop to the industry entrance, and which towns' residents take the job are decided by the engine (catchment areas, path finding, job choice). The scripts set no distance limit for workers. Players report that a station whose catchment area covers the industry for cargo did not bring workers until a bus ran to the industry entrance (Steam thread "Problem getting workers to site").
@@ -94,7 +94,7 @@ The jobs are given when the line opens: in two tests all **20 jobs went to that 
 
 ## Transport Workers subsidy
 
-- It is offered only for an industry with workplaces whose workers boost is not active yet and that shipped or received cargo over the last year, by the engine's yearly figures (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Whether receiving alone is enough depends on how the engine fills the production rules; it is not in the scripts.
+- It is offered only for an industry with workplaces whose workers boost is not active yet and that shipped cargo over the last year (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Every rule has an output table (booster rules have `output = { }`) and an empty Lua table counts as true, so only this branch is reached (`industry_util.tl:544-551`).
 - It is completed when the workers boost becomes active: the same 10 of 20 different arrivals by your lines (`deliver_workers.script.tl:152-156`). Nothing else is counted; there is no hidden rule.
 - The progress bar on the contract card is "counted workers ÷ half the workplaces" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - The arrows on the contract map come from the **5 nearest towns**. They are only a hint: the script draws them by distance, not by who has the job (`deliver_workers.script.tl:297-317`).

@@ -21,7 +21,7 @@ A delivery pays for **distance as the crow flies**, nothing else about the trip.
 The whole formula is one short game script (`cargo_income.script.lua:10-13`):
 
 1. **Income factor** of the cargo. Every base-game cargo uses the same function and the same prices (`initialPrice = 4`, `finalPrice = 3.2`), which gives **3.8 for all 36 cargos** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Coal pays exactly what goods pay over the same distance.
-2. **Cargo Income** setting: 50 %, 75 %, 100 %, 125 % or 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). All four difficulty presets use 100 % (`difficulty_util.tl:97`).
+2. **Cargo Income** setting: 50 %, 75 %, 100 %, 125 % or 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). All four difficulty presets use 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distance**, see below.
 
 The function receives the travel time but **does not use it** (`cargotype.script.lua:7-13`): a slow or late delivery pays the same.
@@ -32,7 +32,7 @@ The function receives the travel time but **does not use it** (`cargotype.script
 ```
 
 - The distance is the **straight line in 3D** between the two points, not the length of your route (`cargo_income.script.lua:3-7`).
-- When the height difference is positive, **8 × that height** is added (`cargo_income.script.lua:5`): 100 m of climb pays like 800 m more. In the other direction nothing is subtracted.
+- When the cargo is delivered higher than its source, **8 × that height** is added (`cargo_income.script.lua:5`): 100 m pays like 800 m more. The scripts take the height difference the engine passes; its direction is not visible in the scripts. A negative difference subtracts nothing.
 - So a winding line earns the same as a straight one, but you pay maintenance for every metre of track or road you built.
 
 ```engine
@@ -65,7 +65,7 @@ The scripts only compute the total (`economy/cargo_income.script.lua`); the spli
 | **Completed subsidy** | ×2 for deliveries to the contract's industry or town, on the lines that delivered for the contract | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Late delivery** | no effect on the income | `cargotype.script.lua:7-13` |
 
-- The rank multiplier applies to **every** cargo and passenger payment (`company_growth.script.tl:159-170`). The difficulty presets use Inflation Low (Easy), Normal (Medium), High (Hard), Very High (Very Hard) (`difficulty_util.tl:108`).
+- The rank multiplier applies to **every** cargo and passenger payment (`company_growth.script.tl:159-170`). The difficulty presets use Inflation Low (Easy), Normal (Medium), High (Hard), Very High (Very Hard) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - The ×2 of subsidies applies only to the lines that delivered during the contract, for a limited time (official wiki, Subsidies).
 
 ## Passengers
@@ -74,7 +74,7 @@ Passengers use the same distance and a fixed income factor of about 3.61 (`cargo
 
 ## Delivery time limits
 
-Every cargo has its own time limit (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Fresh food has the shortest one, heavy raw materials five times longer:
+Every cargo has its own time limit (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Fresh food has the shortest one: meat 900 s, coal 3,000 s (3.3 × longer), iron ore, sand, stone and steel 4,500 s:
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ Late cargo is paid in full, but each town keeps a **Delivery** rating (`town_uti
 
 1. The game counts the deliveries to the town over the **last half year**, and how many were late (at least 10 are assumed, so the first deliveries do not swing it).
 2. On-time share → rating: below a lower limit the rating is 0, above an upper limit it is 1, linear in between. With the default sensitivity (**Normal**): **30 % on time → 0, 100 % → 1**, so 90 % on time gives 0.86.
-3. The **Delivery Sensitivity** setting moves the limits (`difficulty_util.tl:47`). Off: always 1. Presets: Easy Low, Medium Normal, Hard High, Very Hard Very High (`difficulty_util.tl:113`).
+3. The **Delivery Sensitivity** setting moves the limits (`difficulty_util.tl:47`). Off: always 1. Presets: Easy Low, Medium Normal, Hard High, Very Hard Very High (`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ The same coal delivery, 5 km apart as the crow flies.
 |---|---|
 | flat, any route length | **100 %** |
 | 10 km apart | **200 %** |
-| destination 100 m higher | **116 %** |
+| delivered 100 m higher than its source | **116 %** |
 | delivered late | **100 %** (Delivery rating drops) |
 | company rank 15, Inflation Normal | **75 %** |
 | delivery covered by a completed subsidy | **200 %** |
@@ -117,7 +117,7 @@ The same coal delivery, 5 km apart as the crow flies.
 
 - Since every cargo pays the same per kilometre, **choose cargos by volume, distance and time limit**, not by price.
 - Time limits matter most for meat, fish, vegetables and beverages: short lines or warehouses that freeze the timer.
-- Each unit delivered to a town building also gives that town experience (`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- Each unit delivered to a town building also gives that town experience, for cargos whose category has a tier (`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

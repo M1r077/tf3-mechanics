@@ -48,7 +48,7 @@ fact: 5 | 每個機庫的航空器數
 | 飛行場 | 3,600,000 – 9,000,000 | 150,000 – 600,000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | 機場 | 5,400,000 – 13,500,000 | 900,000 – 2,250,000 | `airport.tl:8`, `airport.tl:30-31` |
 | 飛行場模組（主建築、總站、機庫） | 600,000 | 100,000 | `af_main.module.lua:316-317`，`af_hangar.module.lua:326-327` |
-| 機場模組（總站、機庫、第二跑道…） | 900,000 | 150,000 | `ap_main.module.lua:672-673`，`ap_hangar.module.lua:508-509`，`airport_2nd_runway.module.lua:27-28` |
+| 機場模組（主建築、總站、機庫、第二跑道） | 900,000 | 150,000 | `ap_main.module.lua:672-673`，`ap_terminal.module.lua:949-950`，`ap_hangar.module.lua:508-509`，`airport_2nd_runway.module.lua:27-28` |
 
 - 機場與飛行場的維護費也隨日曆年份變化，從 1900 年的 ×1 到 2020 年的 ×6（[成本、維護費與貸款](costs.html)）。
 - 航空器的價格和營運成本由速度與容量計算，與船舶和道路車輛一樣（[成本、維護費與貸款](costs.html)）。

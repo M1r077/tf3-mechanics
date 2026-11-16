@@ -8,7 +8,7 @@ updated: 2026-11-16
 game: 40425
 fact: 5 | Zustandsstufen, von Sehr schlecht bis Sehr gut, je 20 %
 fact: 20 % | Zustand, der die Warnung Fahrzeugzustand auslöst
-fact: 6 Jahre | Betriebskosten: der Preis eines Fahrzeugs
+fact: 6 × | die jährlichen Grund-Betriebskosten: der Preis eines Fahrzeugs
 fact: 4 bis 16 | Fahrzeuge im Wartungspool eines Depots oder einer Wartungsstation
 ---
 
@@ -16,7 +16,7 @@ Jedes Fahrzeug hat feste Werte (Geschwindigkeit, Kapazität, Ladegeschwindigkeit
 
 ## Die Werte im Fahrzeugkatalog
 
-- Der Katalog zeigt jeden Wert als Balken. Der Balken vergleicht das Fahrzeug mit den anderen desselben Verkehrsträgers und derselben Epoche, nicht mit einer festen Skala (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- Der Katalog zeigt jeden Wert als Balken. Der Balken nutzt eine feste Skala je Verkehrsträger, die sich mit dem Jahr ändert (zum Beispiel Ladegeschwindigkeit von Schiffen: 10 bis 45 ab 2003). Er vergleicht das Fahrzeug nicht mit anderen Fahrzeugen (`vehicle_util.tl:210-245`, `vehicle_util.tl:259-268`).
 - Bei einem Zug zeigt der Katalog die **höchste** Ladegeschwindigkeit aller seiner Teile (`vehicle_store_util.tl:333`).
 - Ein Fahrzeug, dessen Datei keine Ladegeschwindigkeit, keinen Lärm, keine Verschmutzung oder keinen Komfort festlegt, erhält einen aus seinen anderen Werten berechneten Wert (Jahr, Geschwindigkeit, Leistung, Gewicht, Größe) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). Die berechnete Ladegeschwindigkeit wird auf 0,5 gerundet und ist nie kleiner als 1 (`vehicle_metadata_util.lua:267-269`).
 
@@ -50,8 +50,8 @@ Wie Ladegeschwindigkeit des Fahrzeugs, Ladefaktor der Fracht sowie Bahnsteig- un
 | bis 20 % | **Sehr schlecht** | `vehicle_util.tl:159-172` |
 
 - Der Zustand eines Zuges ist der **Durchschnitt** aller seiner Wagen und Lokomotiven (`vehicle_util.tl:285-295`).
-- Unter 80 % verliert ein Fahrzeug Höchstgeschwindigkeit, Leistung und Komfort und gewinnt Lärm, Verschmutzung und Betriebskosten (`vehicle_store_util.tl:230-259`). Das Fahrzeugfenster listet diese Abzüge unter **Zustand**.
-- Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keine, Niedrig, Mittel, Hoch, Sehr hoch); bei Keine hat der Zustand keine Wirkung (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
+- Ein abgenutztes Fahrzeug verliert Höchstgeschwindigkeit, Leistung und Komfort und gewinnt Lärm, Verschmutzung und Betriebskosten (`vehicle_store_util.tl:236-258`). Wie viel und ab welchem Zustand, sind Werte der Engine. Das Fahrzeugfenster listet diese Abzüge unter **Zustand**.
+- Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keine, Niedrig, Mittel, Hoch, Sehr hoch); bei Keine hat der Zustand keine Wirkung (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
 - Bei **20 %** oder weniger erhältst du die Warnung **Fahrzeugzustand**. Sie bleibt, bis das Fahrzeug wieder über **30 %** liegt (`notifications.script.tl:310-318`).
 - Ein geklontes Fahrzeug ist ein Neukauf: Zustand 100 %, neues Kaufdatum (`manager_window.tl:8502-8506`).
 
@@ -77,7 +77,7 @@ Fahrzeuge werden von einem nahen Depot oder einer nahen Wartungsstation gewartet
 - Das Gebäudefenster zeigt „belegt / Pool“ (zum Beispiel 14 / 12) und die Liste der bedienten Fahrzeuge mit ihrem Zustand (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Ein vollerer Pool macht das Gebäude lauter und schmutziger: Die Emissionen steigen mit dem belegten Anteil des Pools (`emissions.script.tl:223-234`).
 - Eine Zug-Wartungsstation bedient doppelt so viele Züge wie ein Zugdepot: 12 gegen 6.
-- Wartungsstationen können keine Fahrzeuge kaufen oder abstellen, haben aber oft einen größeren Radius als das Depot: 600 m gegen 400 m auf der Straße, 1400 m gegen 1000 m bei Schiffen. Nur die Straßen-Wartungsstation wartet auch Straßenbahnen.
+- Wartungsstationen können keine Fahrzeuge kaufen oder abstellen, haben aber oft einen größeren Radius als das Depot: 600 m gegen 400 m auf der Straße, 1400 m gegen 1000 m bei Schiffen. Straßenbahnen werden vom Straßenbahndepot und von der Straßen-Wartungsstation gewartet; das Straßendepot wartet keine Straßenbahnen (`tram_depot.script.lua:209`, `tram_depot.script.lua:226`).
 - Das offizielle Wiki empfiehlt Wegpunkte, um Fahrzeuge an einem Wartungsgebäude vorbeizuschicken.
 
 ```engine
@@ -86,13 +86,13 @@ Welcher Station ein Fahrzeug zugeordnet wird, was passiert, wenn mehr Fahrzeuge 
 
 ## Preis und Betriebskosten
 
-- Fahrzeuge des Grundspiels haben keinen festen Preis: Die Betriebskosten ergeben sich aus Geschwindigkeit und Kapazität, und der Preis beträgt **6 Jahre** Betriebskosten (`model_metadata_util.lua:548-549`). Vollständige Formel: [Kosten, Unterhalt und Darlehen](costs.html).
-- **Fahrzeugkosten** und **Fahrzeugwartung** skalieren beide von 50 % bis 150 % (`post_run_util.tl:54-81`).
+- Fahrzeuge des Grundspiels haben keinen festen Preis: Die Betriebskosten ergeben sich aus Geschwindigkeit und Kapazität, und der Preis beträgt das **6-Fache** der jährlichen Grund-Betriebskosten, vor den Einstellungen Fahrzeugkosten und Fahrzeugwartung (`model_metadata_util.lua:548-549`). Genau 6 Jahre Betriebskosten sind es nur, wenn beide Einstellungen gleich sind. Vollständige Formel: [Kosten, Unterhalt und Darlehen](costs.html).
+- **Fahrzeugkosten** skaliert die Preise von 50 % bis 150 % (`post_run_util.tl:54-81`). Bei **Fahrzeugwartung** rundet das Skript den Faktor auf eine ganze Zahl, wenn die Betriebskosten noch nicht gesetzt sind (`post_run_util.tl:71-72`). Das ergäbe 100 % auf jeder Stufe außer Sehr hoch (200 %). Im Spiel noch zu bestätigen.
 - Ein Fahrzeug in schlechtem Zustand zahlt zusätzlich zum Grundwert höhere Betriebskosten (`vehicle_store_util.tl:256-259`).
 
 ## Alter und Lebensdauer
 
-- Jedes Modell hat eine **Lebensdauer** in Jahren (`vehicle_metadata_util.lua:79-83`). Die Spalte **Alter** im Linienfenster zeigt das Alter; ihr Tooltip zeigt die verbleibende Zeit oder **Lebensdauer erreicht** (`line_eow.script.tl:133-147`). Der Anteil der Lebensdauer in diesem Tooltip steht auf **0 %**, bis die Lebensdauer erreicht ist: Das Skript rundet den Bruch vor der Anzeige ab (`line_eow.script.tl:139`), während derselbe Anteil an anderer Stelle vollständig berechnet wird (`vehicle_util.tl:311`). Nimm stattdessen die verbleibende Zeit.
+- Jedes Modell hat eine **Lebensdauer** (`vehicle_util.tl:31-34`). Die Spalte **Alter** im Linienfenster zeigt das Alter; ihr Tooltip zeigt die verbleibende Zeit oder **Lebensdauer erreicht** (`line_eow.script.tl:133-147`). Der Anteil der Lebensdauer in diesem Tooltip steht auf **0 %**, bis die Lebensdauer erreicht ist: Das Skript rundet den Bruch vor der Anzeige ab (`line_eow.script.tl:139`), während derselbe Anteil an anderer Stelle vollständig berechnet wird (`vehicle_util.tl:311`). Nimm stattdessen die verbleibende Zeit.
 - Bei einem Zug zählt der **älteste** Teil (`vehicle_util.tl:36-52`). Ein einziger alter Wagen lässt den ganzen Zug alt erscheinen.
 
 ```engine

@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | pagamento per unità, al consumatore, per la linea d'aria
 fact: 0 | pagato in un magazzino o in un trasbordo
 fact: 100 % | pagato anche in ritardo
-fact: ×6 | fattore anno sulla manutenzione di magazzini, porti e aeroporti nel 2020
+fact: ×6 | fattore anno mostrato sulla manutenzione di magazzini, aerodromi, aeroporti e porti nel 2020
 ---
 
 Una consegna paga per **una sola linea d'aria**, da dove la merce è stata prodotta a dove viene usata, e solo quando arriva lì. Tutto ciò che costruisci e compri costa soldi ogni anno, una parte sempre di più con l'anno del calendario. Una linea perde soldi quando la sua parte dei pagamenti è più piccola dei costi che porta.
@@ -32,7 +32,7 @@ Dettagli: [Entrate dalle merci e tempi di consegna](income.html).
 
 - **Veicoli**: i costi di esercizio seguono la velocità media × la capacità, e il prezzo vale 6 anni di costi di esercizio (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Binari e strade**: circa un sesto del prezzo di costruzione per km e per anno; il binario ad alta velocità costa 9 volte il binario semplice (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Depositi, stazioni, magazzini, porti, aeroporti**: le varianti di epoche successive costano ×3 e ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), e la manutenzione di magazzini, porti e aeroporti segue anche l'anno, da ×1 nel 1900 a ×6 nel 2020 (`mod.script.tl:92-100`).
+- **Depositi, stazioni, magazzini, porti, aeroporti**: le varianti di epoche successive costano ×3 e ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), e per magazzini, aerodromi, aeroporti e porti la finestra dell'edificio mostra una manutenzione che segue l'anno, da ×1 nel 1900 a ×6 nel 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). Ciò che viene addebitato lo decide il motore.
 - **Prestiti**: il tasso viene addebitato una volta sull'importo, distribuito sulla durata (`loan_util.tl:102-111`).
 - **L'Inflazione non alza nessun costo**. Abbassa solo le entrate.
 

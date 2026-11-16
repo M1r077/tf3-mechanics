@@ -36,7 +36,7 @@ Niewielki skrypt gry śledzi każdy przyjazd (`industry_workers.script.tl`):
 
 1. Gdy mieszkaniec przybywa do zakładu, a jego **ostatni odcinek podróży odbył się twoimi liniami**, przyjazd jest zapisywany wraz z czasem gry (`industry_workers.script.tl:86-118`).
 2. Przechowywane są tylko przyjazdy z **ostatnich 2 lat gry** (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).
-3. Przechowywanych jest najwyżej **20 ostatnich** przyjazdów (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
+3. Gdy zapisanych jest już 20 przyjazdów, najstarsze są usuwane; nowe przyjazdy z jednej aktualizacji są zawsze zachowywane w całości (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`, `industry_workers.script.tl:54-70`).
 4. Gdy ta sama osoba przyjeżdża ponownie, nowy przyjazd zastępuje starszy: każdy mieszkaniec liczy się **tylko raz** (`industry_workers.script.tl:56-70`).
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ Kopalnia węgla z 20 miejscami pracy i „+84 %”.
 - **Dowieźć ich może każda twoja linia**, także linia towarowa, o ile jej pojazdy zabierają pasażerów, a przystanek ładuje pasażerów. Skrypt nie sprawdza typu pojazdu (`industry_workers.script.tl:86-118`). Gracze zgłaszają mniej problemów z osobnymi liniami pasażerskimi.
 - Niektóre zakłady (na przykład platformy wiertnicze) mają własny wbudowany przystanek, który przyjmuje pasażerów i towary (`industryutil.lua:156-165`).
 - Okno zakładu pokazuje dla każdego przydzielonego pracownika, czy jest **Obecnie tu**, czy **W drodze** (`entity_window_util.tl:1371-1384`). Sekcja Premia wymienia zaliczonych pracowników z ich **Czas do końca** z 2 lat (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
-- Zakład bez żadnego pracownika pokazuje: „Doprowadź komunikację publiczną do tego miejsca, aby mieszkańcy mogli tu pracować.” (`entity_window_util.tl:1650-1652`).
+- Gdy żaden przyjazd nie jest liczony (brak w ostatnich 2 latach), lista pracowników w sekcji wzmocnienia pokazuje: „Doprowadź komunikację publiczną do tego miejsca, aby mieszkańcy mogli tu pracować.” (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine
 Który przystanek obsługuje zakład, jak daleko pracownik idzie od przystanku do wejścia zakładu i mieszkańcy których miast biorą pracę, decyduje silnik (obszary obsługi, wyszukiwanie tras, wybór pracy). Skrypty nie ustalają żadnego limitu odległości dla pracowników. Gracze zgłaszają, że stacja, której obszar obsługi obejmował zakład dla towarów, nie przywoziła pracowników, dopóki autobus nie zaczął jeździć do wejścia zakładu (wątek Steam „Problem getting workers to site”).
@@ -94,7 +94,7 @@ Miejsca pracy są rozdzielane, gdy linia rusza: w dwóch testach **wszystkie 20 
 
 ## Subsydium Przewieź pracowników
 
-- Jest oferowane tylko dla zakładu z miejscami pracy, którego premia za pracowników nie jest jeszcze aktywna i który w ostatnim roku wysłał lub przyjął towary, według rocznych danych silnika (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Czy wystarczy samo przyjmowanie, zależy od tego, jak silnik wypełnia reguły produkcji; nie ma tego w skryptach.
+- Jest oferowane tylko dla zakładu z miejscami pracy, którego premia za pracowników nie jest jeszcze aktywna i który w ostatnim roku wysłał towary (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Każda reguła ma tabelę wyjścia (reguły wzmacniacza mają `output = { }`), a pusta tabela Lua liczy się jako prawda: osiągana jest tylko ta gałąź (`industry_util.tl:544-551`).
 - Jest wykonane, gdy premia za pracowników się włącza: te same 10 z 20 różnych przyjazdów twoimi liniami (`deliver_workers.script.tl:152-156`). Nic innego się nie liczy; nie ma ukrytej reguły.
 - Pasek postępu na karcie kontraktu to „zaliczeni pracownicy ÷ połowa miejsc pracy” (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Strzałki na mapie kontraktu wychodzą z **5 najbliższych miast**. To tylko wskazówka: skrypt rysuje je według odległości, a nie według tego, kto ma pracę (`deliver_workers.script.tl:297-317`).

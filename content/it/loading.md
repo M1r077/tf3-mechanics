@@ -31,8 +31,8 @@ Per il gioco una piattaforma non è una fila di moduli: è un **elenco di sezion
 |---|---|---|
 | su una sezione della loro classe (vagoni per merci sfuse, sezione per merci sfuse) | **×2** | `modular_station.script.lua:1042` |
 | su una sezione universale | ×1 | `modular_station.script.lua:1042` |
-| senza alcuna sezione della loro classe sulla piattaforma | **×0,25** | `cargo_react_util.tl:60` |
-| oltre la lunghezza della piattaforma (treno troppo lungo) | **×0,25** | `cargo_react_util.tl:61` |
+| senza alcuna sezione della loro classe sulla piattaforma | **×0,25** (costante del tooltip di carico; il fattore in sé lo applica il motore) | `cargo_react_util.tl:60` |
+| oltre la lunghezza della piattaforma (treno troppo lungo) | **×0,25** (costante del tooltip di carico; il fattore in sé lo applica il motore) | `cargo_react_util.tl:61` |
 
 - Il fattore è una **media pesata sulla quota del treno**: se 3/4 dei vagoni corrispondono e 1/4 no, il fattore è ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`, la stessa suddivisione che il gioco mostra come "Terminal parzialmente specializzato").
 - **Dove** si fermano i vagoni sulla piattaforma non conta, contano solo le lunghezze sommate (misurato in gioco).
@@ -88,7 +88,7 @@ Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico
 
 | Opzione di "Filtro carico" | Che cosa fa | Fonte |
 |---|---|---|
-| "Forza scarico di tutte le merci all'arrivo" | scarica nelle scorte compatibili anche se sono piene; ciò che non entra viene distrutto. Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forza scarico di tutte le merci all'arrivo" | tooltip: "Scarica le merci anche se le scorte sono piene"; cosa succede alle merci che non entrano lo decide il motore. Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Distrugge il carico all'arrivo se la configurazione cambia" | scarica o distrugge il carico a bordo quando a questa fermata aspetta merce per un'altra configurazione di carico del veicolo; quale delle due lo decide il motore | `cargofilter_window.tl:767` |
 | "Sostituisci con nuovo carico se disponibile" | distrugge il carico tornato alla fermata dove era stato caricato, quando aspetta un carico più recente dello stesso tipo | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ L'ordine in cui vengono caricate più merci, come una scorta condivisa viene rip
 
 ## La configurazione automatica
 
-Finché nessuno ha salvato una modifica nella finestra "Filtro carico" di una fermata, cosa che la disattiva per sempre su quella linea (`line_util.tl:495-498`, `cargofilter_window.tl:438`), il gioco riempie da solo le liste Carico ogni volta che la linea viene creata, una fermata viene aggiunta o tolta, le fermate vengono riordinate o viene aggiunto un punto di passaggio (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Spostare una fermata su un'altra stazione o piattaforma, e togliere o spostare un punto di passaggio, non la riavviano (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+Finché nessuno ha salvato una modifica nella finestra "Filtro carico" di una fermata, cosa che la disattiva per sempre su quella linea (`line_util.tl:495-498`, `cargofilter_window.tl:438`), il gioco riempie da solo le liste Carico ogni volta che la linea viene creata, una fermata viene aggiunta o tolta, le fermate vengono riordinate o viene aggiunto un punto di passaggio (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Spostare una fermata su un'altra stazione o piattaforma, e togliere o spostare un punto di passaggio, non la riavviano (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - Riparte da liste vuote, con i passeggeri nelle stazioni passeggeri (`line_util.tl:542-588`).
 - Cerca produttori e consumatori solo tra industrie ed edifici della città: i magazzini non contano (`cargo_util.tl:518-526`).

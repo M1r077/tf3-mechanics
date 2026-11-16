@@ -25,7 +25,7 @@
 <li>Маленький порт строится из маленьких причалов, которые принимают только маленькие суда<span class="sr"> (<code class="src">small_pier.module.lua:7</code>)</span>. Большой порт использует средние причалы, которые принимают оба размера<span class="sr"> (<code class="src">medium_pier.module.lua:6</code>, <code class="src">harbor_modular.script.lua:35-39</code>)</span>.</li>
 <li><strong>Терминалы</strong>: 1, 2 или 4, выбираются при строительстве<span class="sr"> (<code class="src">harbor_modular.tl:16</code>, <code class="src">harbor_modular.script.lua:33</code>)</span>.</li>
 <li>Терминал причала вмещает 100 ожидающих пассажиров на маленьком причале и 50 на среднем<span class="sr"> (<code class="src">modules.script.lua:872</code>, <code class="src">modules.script.lua:1004</code>)</span>.</li>
-<li>Порты ставятся вдоль берега, на судоходной воде<span class="sr"> (<code class="src">harbor_modular.tl:29</code>)</span>.</li>
+<li>При установке порта скрипт только включает слой судоходной воды<span class="sr"> (<code class="src">harbor_modular.tl:26-30</code>)</span>. Где можно поставить порт, решает движок.</li>
 <li>Каждое судно задаёт свой размер в файле транспорта; игра превращает его в режим маленького или большого судна<span class="sr"> (<code class="src">model_metadata_util.lua:1411-1412</code>)</span>.</li>
 </ul>
 <h2 id="расходы"><span class="n">2</span><span>Расходы</span></h2>

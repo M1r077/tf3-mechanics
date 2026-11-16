@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | paiement par unité, au consommateur, pour la ligne droite
 fact: 0 | payé dans un entrepôt ou en correspondance
 fact: 100 % | payé même en retard
-fact: ×6 | facteur d'année sur l'entretien des entrepôts, ports et aéroports en 2020
+fact: ×6 | facteur d'année affiché sur l'entretien des entrepôts, aérodromes, aéroports et ports en 2020
 ---
 
 Une livraison paie pour **une seule ligne droite**, du lieu où le fret a été produit au lieu où il est utilisé, et seulement quand il y arrive. Tout ce que tu construis et achètes coûte de l'argent chaque année, une partie de plus en plus avec l'année du calendrier. Une ligne perd de l'argent quand sa part des paiements est plus petite que les coûts qu'elle apporte.
@@ -32,7 +32,7 @@ Détails : [Revenus du fret et délai de livraison](income.html).
 
 - **Véhicules** : les coûts d'exploitation suivent la vitesse moyenne × la capacité, et le prix vaut 6 ans de coûts d'exploitation (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Voies et routes** : environ un sixième du prix de construction par km et par an ; une voie à grande vitesse coûte 9 fois une voie simple (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Dépôts, gares, entrepôts, ports, aéroports** : les variantes d'époques plus récentes coûtent ×3 et ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), et l'entretien des entrepôts, ports et aéroports suit aussi l'année, de ×1 en 1900 à ×6 en 2020 (`mod.script.tl:92-100`).
+- **Dépôts, gares, entrepôts, ports, aéroports** : les variantes d'époques plus récentes coûtent ×3 et ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), et pour les entrepôts, aérodromes, aéroports et ports la fenêtre du bâtiment affiche un entretien qui suit l'année, de ×1 en 1900 à ×6 en 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). Ce qui est facturé est décidé par le moteur.
 - **Emprunts** : le taux est compté une seule fois sur le montant, réparti sur la durée (`loan_util.tl:102-111`).
 - **L'Inflation n'augmente aucun coût**. Elle baisse seulement les revenus.
 

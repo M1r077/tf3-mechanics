@@ -25,7 +25,7 @@
 <li>小型港口由小型碼頭組成，只接收小型船舶<span class="sr">（<code class="src">small_pier.module.lua:7</code>）</span>。大型港口使用中型碼頭，接收兩種尺寸<span class="sr">（<code class="src">medium_pier.module.lua:6</code>，<code class="src">harbor_modular.script.lua:35-39</code>）</span>。</li>
 <li><strong>總站</strong>：1、2 或 4 個，建造時選擇<span class="sr">（<code class="src">harbor_modular.tl:16</code>，<code class="src">harbor_modular.script.lua:33</code>）</span>。</li>
 <li>一個碼頭總站在小型碼頭上可容納 100 名候船乘客，在中型碼頭上 50 名<span class="sr">（<code class="src">modules.script.lua:872</code>，<code class="src">modules.script.lua:1004</code>）</span>。</li>
-<li>港口必須沿海岸建在可通航的水面上<span class="sr">（<code class="src">harbor_modular.tl:29</code>）</span>。</li>
+<li>放置港口時，腳本只顯示可通航水域圖層<span class="sr">（<code class="src">harbor_modular.tl:26-30</code>）</span>。港口能放在哪裡由引擎決定。</li>
 <li>每艘船在自己的車輛檔案中設定尺寸；遊戲把它轉換為小型或大型船舶模式<span class="sr">（<code class="src">model_metadata_util.lua:1411-1412</code>）</span>。</li>
 </ul>
 <h2 id="成本"><span class="n">2</span><span>成本</span></h2>

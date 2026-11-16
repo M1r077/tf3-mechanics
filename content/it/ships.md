@@ -23,7 +23,7 @@ Ogni nave è **piccola** o **grande**. Una nave grande può attraccare solo in u
 - Il porto piccolo è fatto di moli piccoli, che accettano solo navi piccole (`small_pier.module.lua:7`). Il porto grande usa moli medi, che accettano entrambe le dimensioni (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminal**: 1, 2 o 4, scelti alla costruzione (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - Un terminal di molo accoglie 100 passeggeri in attesa su un molo piccolo e 50 su un molo medio (`modules.script.lua:872`, `modules.script.lua:1004`).
-- I porti vanno posizionati lungo una costa, su acqua navigabile (`harbor_modular.tl:29`).
+- Mentre posizioni un porto, lo script mostra solo il livello dell'acqua navigabile (`harbor_modular.tl:26-30`). Dove un porto si può posizionare lo decide il motore di gioco.
 - Ogni nave stabilisce la propria dimensione nel suo file del veicolo; il gioco la trasforma nella modalità nave piccola o grande (`model_metadata_util.lua:1411-1412`).
 
 ## Costi

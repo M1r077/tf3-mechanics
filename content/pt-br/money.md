@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | pagamento por item, no consumidor, pela linha reta
 fact: 0 | pago num armazém ou numa transferência
 fact: 100 % | pago mesmo atrasado
-fact: ×6 | fator de ano na manutenção de armazéns, portos e aeroportos em 2020
+fact: ×6 | fator de ano exibido na manutenção de armazéns, aeródromos, aeroportos e portos em 2020
 ---
 
 Uma entrega paga por **uma única linha reta**, de onde a carga foi produzida até onde ela é usada, e só quando chega lá. Tudo o que você constrói e compra custa dinheiro todo ano, uma parte cada vez mais com o ano do calendário. Uma linha perde dinheiro quando a sua parte dos pagamentos é menor que os custos que ela traz.
@@ -32,7 +32,7 @@ Detalhes: [Renda por carga e tempo de entrega](income.html).
 
 - **Veículos**: os custos operacionais seguem a velocidade média × a capacidade, e o preço vale 6 anos de custos operacionais (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Trilhos e estradas**: cerca de um sexto do preço de construção por km e por ano; trilho de alta velocidade custa 9 vezes o trilho simples (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Garagens, estações, armazéns, portos, aeroportos**: as variantes de eras posteriores custam ×3 e ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), e a manutenção de armazéns, portos e aeroportos também segue o ano, de ×1 em 1900 a ×6 em 2020 (`mod.script.tl:92-100`).
+- **Garagens, estações, armazéns, portos, aeroportos**: as variantes de eras posteriores custam ×3 e ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), e para armazéns, aeródromos, aeroportos e portos a janela do prédio mostra uma manutenção que segue o ano, de ×1 em 1900 a ×6 em 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). O que é cobrado é decidido pelo motor.
 - **Empréstimos**: a taxa é cobrada uma vez sobre o valor, distribuída ao longo do prazo (`loan_util.tl:102-111`).
 - **A Inflação não aumenta nenhum custo**. Ela só baixa a renda.
 

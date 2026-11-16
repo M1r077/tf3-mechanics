@@ -20,13 +20,13 @@ fact: 700 m | 净化厂的作用范围
 
 | 建筑 | 何时排放更多 | 来源 |
 |---|---|---|
-| **产业** | 生产时，每次加成（货物或工人）再增加；输出库存满时向闲置水平回落 | `emissions.script.tl:152-194` |
+| **产业** | 生产时，每次加成（货物或工人）再增加；所有输出库存同时满时，水平减半（生产 → 闲置，加成两次 → 生产） | `emissions.script.tl:152-194` |
 | **车站** | 越繁忙越多：等待的人和货物与容量相比 | `emissions.script.tl:211-222` |
 | **车库**、**维护站** | 使用其维护的载具越多越多 | `emissions.script.tl:223-234` |
 | **仓库** | 库存越满越多 | `emissions.script.tl:237-250` |
 
 - 每个产业都有自己的四个等级：闲置、生产、加成一次、加成两次（`industryutil.lua:464-475`；默认的 0 / 78 / 84 / 88 只用于没有自己数值的产业）。大多数产业闲置时也会少量排放：煤矿的污染为 2 → 10 → 20 → 30，它的田地为 2 → 30 → 60 → 90（`coal_mine.con.lua:99-135`，见 [产业](industries.html)）。
-- 输出无人运走的产业会回落到闲置水平：为它提供运输会提高它的污染。
+- 所有输出库存都满的产业，水平会减半（`emissions.script.tl:172-182`）：为它提供运输会提高它的污染。
 - 载具和轨道也会排放；在**载具老化影响**设置下，状况差的载具排放更多（见 [成本、维护费与贷款](costs.html)）。
 
 ## 建造菜单显示什么
@@ -39,7 +39,7 @@ fact: 700 m | 净化厂的作用范围
 | 铁路车库 | 50 | 100 | `rail_depot.con.lua:32-33` |
 | 道路和电车车库 | 40 | 80 | `road_depot.con.lua:30-31`，`tram_depot.con.lua:32-33` |
 | 地下车站 | 40 | 80 | `underground_station.con.lua:75-76` |
-| 卡车和公交车站 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| 卡车和公交车站 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | 维护站 | 20 | 40–50 | `road_maint_station.con.lua:30-31`，`rail_maint_station.con.lua:30-31` |
 | 仓库 | 20 | 50（通用）或 100（专用） | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ fact: 700 m | 净化厂的作用范围
 | 加成一次 | −20,000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | 加成两次 | −40,000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+最后一级需要加成规则，而净化厂没有：有工人时它最多达到 −20,000（`pollution_cleanup_facility.con.lua:51-58`，`emissions.script.tl:158-166`）。
+
 - 没有机器时它几乎没用：必须像产业一样供应。
 - 它很吵：建在住宅区以外，距离污染区 700 m 以内。
 - 它的工人加成系数为 ×2（`pollution_cleanup_facility.script.lua:549`）。见 [工人](workers.html)。
@@ -100,7 +102,7 @@ fact: 700 m | 净化厂的作用范围
 ## 小贴士
 
 - 打开城镇窗口或噪音与污染图层，可以看到评价和热点。
-- 输出库存满会让产业排放向闲置水平回落，但你会失去它的货物：与其饿着产业，不如让城镇搬开。
+- 产业所有输出库存都满时，排放水平减半，但你会失去它的货物：与其饿着产业，不如让城镇搬开。
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) 和 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 可以帮你找到最繁忙的车站。
 
 ```engine
@@ -109,6 +111,6 @@ fact: 700 m | 净化厂的作用范围
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." 住宅区 "is sensitive to noise"；商业区 "is robust against the influence of noise"。([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 噪音评价 65 → 80 dB，污染 60 → 74 dB，按 5–10 km² 平均；敏感度增加 10·log10 dB；产业、车站、车库和仓库繁忙时排放更多；输出库存满时产业排放向闲置水平回落；绿化每个产业一次 −80 %；净化厂在 700 m 内最多清除 40,000 污染，并需要机器。
+scripts: 噪音评价 65 → 80 dB，污染 60 → 74 dB，按 5–10 km² 平均；敏感度增加 10·log10 dB；产业、车站、车库和仓库繁忙时排放更多；所有输出库存都满时产业排放水平减半；绿化每个产业一次 −80 %；净化厂在 700 m 内最多清除 20,000 污染（40,000 已定义，但需要加成规则），并需要机器。
 result: refines
 ```

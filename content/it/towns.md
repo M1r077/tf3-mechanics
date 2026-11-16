@@ -44,7 +44,7 @@ L'indice di crescita deriva da due valutazioni della finestra della cittadina (`
 - Ogni valutazione ha sei livelli: un valore tra 0 e 1 diviso in sesti (`town_util.tl:983-985`). **Eccellente** richiede 5/6 = 83% o più.
 - Con **una sola** valutazione Pessima, l'autorità è Pessima e l'indice di crescita è **0%**: la cittadina si ferma, qualunque cosa tu consegni.
 - Il 100% richiede un'autorità Eccellente con forniture Ottima o migliori, oppure un'autorità Ottima con forniture Eccellente.
-- La tua **Sede centrale** aggiunge +5% alla cittadina più vicina, e la maggior parte delle sue estensioni aggiunge un altro +5% ciascuna (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Questo bonus moltiplica l'indice, quindi a 0% non fa nulla.
+- La tua **Sede centrale** aggiunge +5% alla cittadina più vicina, diverse estensioni aggiungono +5%, alcune meno o niente; il valore è nel file di ogni modulo (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Questo bonus moltiplica l'indice, quindi a 0% non fa nulla.
 
 ```tip scripts
 **Una cittadina non cresce più? Correggi prima la sua valutazione peggiore.** L'Autorità cittadina è la più bassa delle sei valutazioni: una sola valutazione Pessima blocca la cittadina allo 0 %, e migliorare le altre non cambia nulla.
@@ -54,7 +54,7 @@ L'indice di crescita deriva da due valutazioni della finestra della cittadina (`
 
 | Valutazione | Che cosa la abbassa | Fonte |
 |---|---|---|
-| **Reputazione** | modifiche del terreno, demolizione di edifici della cittadina, rimozione di alberi; ogni collegamento principale interrotto con un'altra cittadina −1/3 | `town_util.tl:396-404`, `town_util.tl:1608` |
+| **Reputazione** | modifiche del terreno, demolizione di edifici della cittadina, rimozione di alberi o rocce, sussidi falliti; ogni collegamento principale interrotto con un'altra cittadina −1/3 | `town_util.tl:396-404`, `town_util.tl:1608`, `town_react_util.tl:30-43` |
 | **Traffico** | strade congestionate nella cittadina | `town_util.tl:445-456` |
 | **Felicità** | quota di viaggiatori insoddisfatti (si presumono almeno 15 persone) | `town_util.tl:479-503` |
 | **Consegna** | quota di consegne di merci in ritardo (vedi [Entrate dalle merci](income.html)) | `town_util.tl:505-519` |
@@ -92,12 +92,12 @@ Il motore calcola l'utilizzo delle linee, la velocità del traffico, le mappe de
 
 ## Domanda di merci e scorte degli edifici
 
-- La domanda di una cittadina è la somma dei suoi **edifici**. Ogni edificio ha una piccola scorta in entrata per ogni merce richiesta dal suo quartiere: capacità ÷ 4, arrotondata per eccesso, × il fattore di quella merce nei bisogni della cittadina (1 salvo diversa impostazione; da dove venga il fattore non è negli script) (`townbuildingutil.lua:226-251`). Il gioco annota che questa dimensione della scorta "is currently nowhere shown in the UI" (per ora non è mostrata da nessuna parte nell'interfaccia) (`townbuildingutil.lua:249`).
+- La domanda di una cittadina è la somma dei suoi **edifici**. Ogni edificio ha una piccola scorta in entrata per ogni merce richiesta dal suo quartiere: capacità ÷ 4, arrotondata per eccesso, × il fattore di quella merce nei bisogni della cittadina (1 salvo diversa impostazione; da dove venga il fattore non è negli script) (`townbuildingutil.lua:226-251`). Ogni merce definisce un townConsumptionFactor di 1, 0,5 o 0,25 (`placementparamsutil.lua:506-616`); come arrivi all'edificio è nel motore. Il gioco annota che questa dimensione della scorta "is currently nowhere shown in the UI" (per ora non è mostrata da nessuna parte nell'interfaccia) (`townbuildingutil.lua:249`).
 - La domanda nella finestra della cittadina è il limite totale di queste scorte; l'offerta contata per la valutazione è limitata alla domanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Le cittadine più grandi chiedono di più perché hanno più edifici.
 - La finestra dell'edificio mostra una **Valutazione consumo**: quanto velocemente l'edificio usa le sue merci rispetto al suo massimo (`town_building.tl:103-132`).
 - XP e pagamento arrivano quando un'unità entra nella scorta di un edificio (`town_growth.script.tl:620-642`).
 - Una fermata raggiunge solo gli edifici nella sua area di influenza. Le loro scorte possono essere piene mentre alla cittadina nel complesso mancano ancora merci: allora le merci che non entrano **restano sul veicolo**, a meno che non sia spuntato **Forza scarico di tutte le merci all'arrivo** ("Scarica anche con scorte al completo.") (`cargofilter_window.tl:757-763`), che distrugge ciò che non entra (vedi [Velocità di carico e scarico](loading.html)).
-- Le merci rimaste a bordo generano la notifica **Merci non scaricate**: "Unità del carico di {vehicle} non scaricate sulla linea: {cargoCount}" (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- Le merci rimaste a bordo generano la notifica **Problema di scarico**: "Unità del carico di {vehicle} non scaricate sulla linea: {cargoCount}" (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`); la sua etichetta di tipo è **Merci non scaricate** (`cargo_rtc_warning.res.lua:6`).
 - **Richiesta di carico delle cittadine** ("Seleziona il numero massimo di carichi richiesti dalle cittadine."): 2, 4 o 6, predefinito 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Gli script aggiungono le richieste in base al livello (vedi sopra) e passano questo valore al motore.
 
 ```engine
@@ -107,7 +107,7 @@ La velocità con cui un edificio consuma la sua scorta (consumeFrequency), quale
 ## Posso impedire a una cittadina di crescere?
 
 - In una partita normale **non c'è nessuna impostazione** per una dimensione massima delle cittadine (`difficulty_util.tl:90-199`).
-- In **modalità sandbox** e nell'editor di mappe, la finestra della cittadina ha una scheda **Capacità quartiere obiettivo** con **Attiva sviluppo cittadina** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Se non è spuntata, la cittadina non riceve XP e non viene ridimensionata; la finestra mostra **Sviluppo cittadina non attivo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- In **modalità sandbox**, la finestra della cittadina ha una scheda **Capacità quartiere obiettivo** con **Attiva sviluppo cittadina** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Se non è spuntata, la cittadina non riceve XP e non viene ridimensionata; la finestra mostra **Sviluppo cittadina non attivo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Senza sandbox, gli unici modi sono indiretti: una cittadina cresce solo con i tuoi passeggeri e le tue merci, e una sola valutazione Pessima la ferma (vedi sopra).
 
 ## Da sapere

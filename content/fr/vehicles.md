@@ -8,7 +8,7 @@ updated: 2026-11-16
 game: 40425
 fact: 5 | niveaux d'état, de Très mauvais à Très bon, 20 % chacun
 fact: 20 % | état qui déclenche l'avertissement État du véhicule
-fact: 6 ans | de coûts d'exploitation : le prix d'un véhicule
+fact: 6 × | le coût d'exploitation annuel de base : le prix d'un véhicule
 fact: 4 à 16 | véhicules dans la réserve de maintenance d'un dépôt ou d'une station de maintenance
 ---
 
@@ -16,7 +16,7 @@ Chaque véhicule a des caractéristiques fixes (vitesse, capacité, vitesse de c
 
 ## Les caractéristiques dans le magasin de véhicules
 
-- Le magasin affiche chaque caractéristique sous forme de barre. La barre compare le véhicule aux autres du même type de transport et de la même époque, pas à une échelle fixe (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- Le magasin affiche chaque caractéristique sous forme de barre. La barre utilise une échelle fixe par type de transport, qui change avec l'année (par exemple vitesse de chargement des navires : 10 à 45 à partir de 2003). Elle ne compare pas le véhicule aux autres véhicules (`vehicle_util.tl:210-245`, `vehicle_util.tl:259-268`).
 - Pour un train, le magasin affiche la vitesse de chargement **la plus élevée** de toutes ses parties (`vehicle_store_util.tl:333`).
 - Un véhicule dont le fichier ne fixe ni vitesse de chargement, ni bruit, ni pollution, ni confort reçoit une valeur calculée à partir de ses autres caractéristiques (année, vitesse, puissance, poids, taille) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). La vitesse de chargement calculée est arrondie à 0,5 et jamais inférieure à 1 (`vehicle_metadata_util.lua:267-269`).
 
@@ -50,8 +50,8 @@ La façon dont la vitesse de chargement du véhicule, le facteur de chargement d
 | jusqu'à 20 % | **Très mauvais** | `vehicle_util.tl:159-172` |
 
 - L'état d'un train est la **moyenne** de tous ses wagons et locomotives (`vehicle_util.tl:285-295`).
-- Sous 80 %, un véhicule commence à perdre vitesse maximale, puissance et confort, et à gagner bruit, pollution et coûts d'exploitation (`vehicle_store_util.tl:230-259`). La fenêtre du véhicule liste ces pénalités sous **État**.
-- La force de ces pénalités est réglée par **Effet de la maintenance des véhicules** (Aucun(e), Bas, Moyen, Élevée, Très élevée) ; avec Aucun(e), l'état n'a aucun effet (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Détails : [Coûts, entretien et emprunts](costs.html).
+- Un véhicule usé perd vitesse maximale, puissance et confort, et gagne bruit, pollution et coûts d'exploitation (`vehicle_store_util.tl:236-258`). L'ampleur, et l'état à partir duquel cela commence, sont des valeurs du moteur. La fenêtre du véhicule liste ces pénalités sous **État**.
+- La force de ces pénalités est réglée par **Effet de la maintenance des véhicules** (Aucun(e), Bas, Moyen, Élevée, Très élevée) ; avec Aucun(e), l'état n'a aucun effet (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Détails : [Coûts, entretien et emprunts](costs.html).
 - À **20 %** ou moins, tu reçois l'avertissement **État du véhicule**. Il reste jusqu'à ce que le véhicule repasse au-dessus de **30 %** (`notifications.script.tl:310-318`).
 - Un véhicule cloné est un nouvel achat : état 100 %, nouvelle date d'achat (`manager_window.tl:8502-8506`).
 
@@ -77,7 +77,7 @@ Les véhicules sont entretenus par un dépôt ou une station de maintenance proc
 - La fenêtre du bâtiment affiche « utilisé / réserve » (par exemple 14 / 12) et la liste des véhicules qu'il sert, avec leur état (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Une réserve plus remplie rend le bâtiment plus bruyant et plus polluant : les émissions augmentent avec la part de la réserve utilisée (`emissions.script.tl:223-234`).
 - Une station de maintenance ferroviaire sert deux fois plus de trains qu'un dépôt ferroviaire : 12 contre 6.
-- Les stations de maintenance n'achètent ni ne stockent de véhicules, mais leur rayon est souvent plus grand que celui du dépôt : 600 m contre 400 m sur route, 1400 m contre 1000 m pour les navires. Seule la station de maintenance routière entretient aussi les trams.
+- Les stations de maintenance n'achètent ni ne stockent de véhicules, mais leur rayon est souvent plus grand que celui du dépôt : 600 m contre 400 m sur route, 1400 m contre 1000 m pour les navires. Les trams sont entretenus par le dépôt de trams et par la station de maintenance routière ; le dépôt routier n'entretient pas les trams (`tram_depot.script.lua:209`, `tram_depot.script.lua:226`).
 - Le wiki officiel conseille des points de passage pour faire passer les véhicules par un bâtiment de maintenance.
 
 ```engine
@@ -86,13 +86,13 @@ La station à laquelle un véhicule est affecté, ce qui se passe quand plus de 
 
 ## Prix et coûts d'exploitation
 
-- Les véhicules du jeu de base n'ont pas de prix fixe : les coûts d'exploitation viennent de la vitesse et de la capacité, et le prix vaut **6 ans** de coûts d'exploitation (`model_metadata_util.lua:548-549`). Formule complète : [Coûts, entretien et emprunts](costs.html).
-- **Coût des véhicules** et **Entretien des véhicules** les modulent tous deux de 50 % à 150 % (`post_run_util.tl:54-81`).
+- Les véhicules du jeu de base n'ont pas de prix fixe : les coûts d'exploitation viennent de la vitesse et de la capacité, et le prix vaut **6 ×** le coût d'exploitation annuel de base, avant les réglages Coût des véhicules et Entretien des véhicules (`model_metadata_util.lua:548-549`). Cela fait exactement 6 ans de coûts d'exploitation seulement si les deux réglages sont égaux. Formule complète : [Coûts, entretien et emprunts](costs.html).
+- **Coût des véhicules** module les prix de 50 % à 150 % (`post_run_util.tl:54-81`). Pour **Entretien des véhicules**, le script arrondit le facteur à un nombre entier quand le coût d'exploitation n'est pas encore fixé (`post_run_util.tl:71-72`). Cela donnerait 100 % à tous les niveaux sauf Très élevée (200 %). À confirmer en jeu.
 - Un véhicule en mauvais état paie plus de coûts d'exploitation, en plus de la valeur de base (`vehicle_store_util.tl:256-259`).
 
 ## Âge et durée de vie
 
-- Chaque modèle a une **durée de vie** en années (`vehicle_metadata_util.lua:79-83`). La colonne **Âge** de la fenêtre de ligne montre l'âge ; son info-bulle montre le temps restant, ou **Durée de vie atteinte** (`line_eow.script.tl:133-147`). La part de la durée de vie dans cette info-bulle affiche **0 %** jusqu'à ce que la durée de vie soit atteinte : le script arrondit la fraction à l'entier inférieur avant de l'afficher (`line_eow.script.tl:139`), alors que la même part est calculée en entier ailleurs (`vehicle_util.tl:311`). Fie-toi plutôt au temps restant.
+- Chaque modèle a une **durée de vie** (`vehicle_util.tl:31-34`). La colonne **Âge** de la fenêtre de ligne montre l'âge ; son info-bulle montre le temps restant, ou **Durée de vie atteinte** (`line_eow.script.tl:133-147`). La part de la durée de vie dans cette info-bulle affiche **0 %** jusqu'à ce que la durée de vie soit atteinte : le script arrondit la fraction à l'entier inférieur avant de l'afficher (`line_eow.script.tl:139`), alors que la même part est calculée en entier ailleurs (`vehicle_util.tl:311`). Fie-toi plutôt au temps restant.
 - Pour un train, c'est la partie **la plus ancienne** qui compte (`vehicle_util.tl:36-52`). Un seul vieux wagon fait apparaître tout le train comme vieux.
 
 ```engine

@@ -17,8 +17,8 @@ Every industry works by **rules**: "take this from the input stocks, put that in
 
 ## Production rules
 
-- A rule gives the cargo used and made per run, and how many runs per year: one run lasts one year ÷ that number (`industry_react_util.tl:51-57`). The Production section of the industry window shows it as small numbers.
-- The **Max.** number of the window is: per run × runs per year × the boosts × the **Industry Productivity** setting (`industry_util.tl:310-379`).
+- A rule gives the cargo used and made per run, and how many runs per year: one run lasts one year ÷ that number, shorter by the boosts for production rules (`industry_react_util.tl:51-57`). The Production section of the industry window shows it as small numbers.
+- The **Max.** number of the window is: per run × runs per year × the size factor (`rule.consumptionFactor`) × the boosts × the **Industry Productivity** setting, the last two for production rules only (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
 - **Industry Productivity**: 50 %, 75 %, 100 %, 150 % or 200 %. Presets: Easy 150 %, Normal 100 %, Hard 75 %, Very Hard 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
 - Example, Steel Mill: 6 iron ore + 6 coal → 3 steel + 4 sheet metal, 121.7 runs a year: 730 iron ore and 730 coal → 365 steel and 487 sheet metal (`steel_mill.con.lua:43-71`). Missing one input stops the rule.
 - The Canning Factory has two rules: fish + sheet metal, or meat + sheet metal (`food_factory.con.lua:43-74`).
@@ -130,11 +130,11 @@ The check runs every 100 updates for each industry (`industries.script.tl:84-85`
 
 1. **Candidate**: no cargo **loaded** onto a vehicle and none **consumed** for **5 years** (counted from its construction if never) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Producing alone does not count.
 2. **Chance**: a candidate is drawn at every check with a share of the yearly chance of the **Industry Closing Frequency** setting (table below), so that over a year it adds up to that chance (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
-3. **Countdown**: the notification **Industry Closing** appears, with 2 years (730 days) to go (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Then the industry is removed with its own road pieces (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
-4. **Saved**: one load or consumption during the countdown cancels it (`industries.script.tl:134-137`). Accepting a **Supply Industry** or **Transport Workers** subsidy for it cancels it too (`subvention_util.tl:473-484`).
+3. **Countdown**: the notification **Industry Closing** appears, with 2 years (730 days) to go (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Then the industry is removed with its own road pieces (`industries.script.tl:147-155`, `industries.script.tl:193-222`, `industry_util.tl:560-601`).
+4. **Saved**: one load or consumption during the countdown cancels it (`industries.script.tl:134-137`). Accepting a **Supply Industry** or **Transport Workers** subsidy for it cancels the countdown while the subsidy runs (`subvention_util.tl:473-484`, `subvention_util.tl:478-483`). It does not reset the 5-year test (`industries.script.tl:119`): if nothing is loaded or consumed, the industry can be marked again later.
 
 ```tip scripts
-**Got an Industry Closing notice? One pickup or one delivery during the 730 days cancels it.** Accepting a Supply Industry or Transport Workers subsidy for that industry cancels it too.
+**Got an Industry Closing notice? One pickup or one delivery during the 730 days cancels it.** Accepting a Supply Industry or Transport Workers subsidy for that industry cancels it while the subsidy runs, but keep loading something: the 5-year test is not reset.
 ```
 
 | Industry Closing Frequency | Chance per year as a candidate | Half of the candidates marked after | Preset | Source |
@@ -153,7 +153,7 @@ What counts as "loaded" and "consumed" (the logs itemsLoaded and itemsConsumed, 
 
 ## New industries
 
-The engine adds new industries during the game. The notification is **New Industry Founded**: "A visionary entrepreneur smells an opportunity for profit and has founded {industry}." (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). No game script picks the place, the type or the time, and none filters what the engine proposes.
+The engine adds new industries during the game. The notification is **New Industry Founded**: "A visionary entrepreneur smells an opportunity for profit and has founded {industry}." (`industry_spawn.script.tl:34-36`); its type label is **Industry Founded** (`industry_spawn.res.lua:6`). No game script picks the place, the type or the time, and none filters what the engine proposes.
 
 What the scripts give the engine (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
 
@@ -163,7 +163,7 @@ What the scripts give the engine (`mod.script.tl:128-133`, `mod.script.tl:166-16
 | spawnProbabilityExponent | 3.0 | exponent of the spawn chance (formula in the engine) |
 | spawnIndustries | off in the map editor, on in a game | no new industries in the map editor |
 | industryDensity | 1 × **Industry Target Density** | the target number of industries |
-| maxNumberPerArea, absoluteMinimum | 0.8 per km² (0.64 on consoles), 24 | also used by the map generator |
+| maxNumberPerArea, absoluteMinimum | 0.8 per km² (0.64 on consoles), 24 | a limit per area and a minimum (their use is engine-side) |
 
 **Industry Target Density** ("Set the target density of industries on the map."): 5 steps, ×2/3, ×5/6, ×1, ×1.2, ×1.5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
 

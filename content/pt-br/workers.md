@@ -36,7 +36,7 @@ Um pequeno script do jogo acompanha cada chegada (`industry_workers.script.tl`):
 
 1. Quando um morador chega a uma indústria e o seu **último trajeto foi pelas suas linhas**, a chegada é registrada com o horário do jogo (`industry_workers.script.tl:86-118`).
 2. Só ficam guardadas as chegadas dos **últimos 2 anos de jogo** (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).
-3. Ficam guardadas no máximo as **20 chegadas mais recentes** (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
+3. Quando já há 20 chegadas guardadas, as mais antigas são descartadas; as novas chegadas de uma mesma atualização são sempre guardadas inteiras (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`, `industry_workers.script.tl:54-70`).
 4. Quando a mesma pessoa chega de novo, a nova chegada substitui a antiga: cada morador conta **uma única vez** (`industry_workers.script.tl:56-70`).
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ Uma mina de carvão com 20 locais de trabalho e "+84 %".
 - **Qualquer uma das suas linhas pode trazê-los**, também uma linha que leva carga, desde que os veículos levem passageiros e a parada carregue passageiros. O script não verifica o tipo de veículo (`industry_workers.script.tl:86-118`). Jogadores relatam menos problemas com linhas de passageiros separadas.
 - Algumas indústrias (por exemplo plataformas de petróleo) têm uma parada própria embutida, que aceita passageiros e carga (`industryutil.lua:156-165`).
 - A janela da indústria mostra, para cada trabalhador atribuído, se está **Aqui** ou **A caminho** (`entity_window_util.tl:1371-1384`). A seção Reforço lista os trabalhadores contados com o **Tempo Restante** dos 2 anos (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
-- Uma indústria ainda sem trabalhador mostra: "Conecte este local ao transporte público para que os habitantes possam trabalhar aqui." (`entity_window_util.tl:1650-1652`).
+- Quando nenhuma chegada é contada (nenhuma nos últimos 2 anos), a lista de trabalhadores da seção de reforço mostra: "Conecte este local ao transporte público para que os habitantes possam trabalhar aqui." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine
 Qual parada atende uma indústria, quanto um trabalhador anda de uma parada até a entrada da indústria e os moradores de quais municípios pegam o emprego são decididos pelo motor (áreas de captação, busca de caminho, escolha de emprego). Os scripts não definem limite de distância para trabalhadores. Jogadores relatam que uma estação cuja área de captação cobria a indústria para carga não trouxe trabalhadores até um ônibus ir à entrada da indústria (tópico do Steam "Problem getting workers to site").
@@ -94,7 +94,7 @@ Os empregos são distribuídos quando a linha abre: em dois testes **os 20 empre
 
 ## Subsídio Transportar Trabalhadores
 
-- Só é oferecido para uma indústria com postos de trabalho, cujo reforço de trabalhadores ainda não está ativo e que enviou ou recebeu carga no último ano, pelos números anuais do motor (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Se só receber basta depende de como o motor preenche as regras de produção; isso não está nos scripts.
+- Só é oferecido para uma indústria com postos de trabalho, cujo reforço de trabalhadores ainda não está ativo e que enviou carga no último ano (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Toda regra tem uma tabela de saída (as regras de reforço têm `output = { }`) e uma tabela Lua vazia conta como verdadeira: só este ramo é alcançado (`industry_util.tl:544-551`).
 - É cumprido quando o reforço de trabalhadores fica ativo: as mesmas 10 de 20 chegadas diferentes pelas suas linhas (`deliver_workers.script.tl:152-156`). Nada mais é contado; não há regra escondida.
 - A barra de progresso no cartão do contrato é "trabalhadores contados ÷ metade dos locais de trabalho" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - As setas no mapa do contrato vêm dos **5 municípios mais próximos**. São só uma dica: o script as desenha pela distância, não por quem tem o emprego (`deliver_workers.script.tl:297-317`).

@@ -48,7 +48,7 @@ Price and upkeep of the first variant, era coefficient included. The coefficient
 | Airfield | 3,600,000 – 9,000,000 | 150,000 – 600,000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | Airport | 5,400,000 – 13,500,000 | 900,000 – 2,250,000 | `airport.tl:8`, `airport.tl:30-31` |
 | Airfield module (main building, terminal, hangar) | 600,000 | 100,000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| Airport module (terminal, hangar, second runway…) | 900,000 | 150,000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| Airport module (main building, terminal, hangar, second runway) | 900,000 | 150,000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - Airport and airfield upkeep also follows the calendar year, ×1 in 1900 to ×6 in 2020 ([Costs, upkeep and loans](costs.html)).
 - An aircraft's price and running costs are computed from its speed and capacity, like ships and road vehicles ([Costs, upkeep and loans](costs.html)).

@@ -21,18 +21,18 @@ fact: 4 | 同時に組める融資の数
 
 | 設定 | 値 | プリセット イージー · ノーマル · ハード · ベリーハード | ソース |
 |---|---|---|---|
-| **車両コスト**、**車両整備** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`、`difficulty_util.tl:98-99`、`difficulty_util.tl:125-126` |
-| **インフラコスト**、**インフラ維持費** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`、`difficulty_util.tl:153-156`、`difficulty_util.tl:180-183` |
+| **車両コスト**、**車両整備** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`、`difficulty_util.tl:98-101`、`difficulty_util.tl:125-128`、`difficulty_util.tl:153-156`、`difficulty_util.tl:180-183` |
+| **インフラコスト**、**インフラ維持費** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`、`difficulty_util.tl:125-128`、`difficulty_util.tl:153-156`、`difficulty_util.tl:180-183` |
 | **車両整備エフェクト** | なし ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 極高 ×2 | 低 · 中 · 高 · 極高 | `difficulty_util.tl:42`、`difficulty_util.tl:103`、`difficulty_util.tl:185` |
 | **インフレ** | 収入のみ。[貨物収入と配送時間](income.html) を参照 | 低い · 普通 · 高い · とても高い | `difficulty_util.tl:50`、`mod.script.tl:694-697` |
 
-- **インフラコスト** は道路、線路、橋、トンネル、踏切、建物、モジュールの価格と、地形の造成にかかる費用を変える（`post_run_util.tl:23-52`、`post_run_util.tl:83-120`、`construction.script.tl:31-35`、`mod.script.tl:223-226`）。建物の撤去費用も変える（`construction.script.tl:39-44`）。**インフラ維持費** はそれらの維持費を変える（`post_run_util.tl:43-45`、`post_run_util.tl:105-112`、`entity_window_util.tl:186`）。
+- **インフラコスト** は道路、線路、橋、トンネル、踏切、建物、モジュールの価格と、地形の造成にかかる費用を変える（`post_run_util.tl:23-52`、`post_run_util.tl:83-120`、`construction.script.tl:31-35`、`mod.script.tl:223-226`）。建物の撤去費用も変える（`construction.script.tl:39-44`）。**インフラ維持費** は読み込み時に道路、線路、橋、トンネル、踏切、モジュールの維持費を変える（`post_run_util.tl:43-45`、`post_run_util.tl:105-112`）。建物については、スクリプトは建物ウィンドウでのみこれを適用する（`entity_window_util.tl:186`）。実際に請求される額はエンジンが決める。
 - **車両コスト** と **車両整備** は、すべての車両の購入価格とランニングコストを変える（`post_run_util.tl:54-81`）。
 - **車両整備エフェクト** は、状態の悪い車両がどれだけ速度、出力、快適性を失い、騒音、汚染、ランニングコストが増えるかを決める（`mod.script.tl:241-245`）。
 
 ## 暦年とともに増えるもの
 
-- **建物の維持費**：1900 年は ×1、1920 年は ×1.5、1940 年は ×2.2、1960 年は ×3.2、1980 年は ×4、2000 年は ×5、2020 年は ×6（`mod.script.tl:92-100`）。建物ウィンドウと建設メニューは、年に従うと指定されたすべての建物にこれを適用する。建設メニューがこの指定をするのは貨物倉庫、飛行場、空港、港である（`entity_window_util.tl:186-193`、`construction_react_util.tl:1149`、`warehouse.tl:7`、`harbor_modular.tl:24`）。
+- **建物の維持費**：1900 年は ×1、1920 年は ×1.5、1940 年は ×2.2、1960 年は ×3.2、1980 年は ×4、2000 年は ×5、2020 年は ×6（`mod.script.tl:92-100`）。建物ウィンドウと建設メニューは、年に従うと指定されたすべての建物にこれを適用する。建設メニューはすべてのメタ建設物にこの指定をする（ベースゲームでは貨物倉庫、飛行場、空港、港）（`entity_window_util.tl:186-193`、`construction_react_util.tl:1149`、`warehouse.tl:7`、`harbor_modular.tl:24`）。
 - そうした建物に追加した**モジュール**は、価格は建物を建てた年、維持費は現在の年で決まる（`construction.tl:3720-3727`、`construction.tl:4364-4367`）。
 - **時代ごとの種類**：デポ、整備施設、貨物倉庫、駅、港、空港には時代ごとに 1 つの種類があり、後の種類は最初の種類の **×3**（時代 B）または **×9**（時代 C）のコストがかかる（`rail_depot.con.lua:7`、`warehouse.tl:48`、`modular_station.con.lua:71`、`harbor_modular.tl:76`、`airport.tl:8`）。
 - **助成金の資金**：1900 年の ×1 から 2000 年以降の ×4 まで（`finances_util.tl:87-90`）。**融資の金額**：1900 年の ×0.4 から 2020 年の ×2.4 まで（`loan_util.tl:7-10`）。
@@ -51,7 +51,7 @@ fact: 4 | 同時に組める融資の数
 | 簡易線路 | 開始時 | 6万 | 1万 | `simple.street_template.lua:9`、`simple.street_template.lua:33` |
 | 標準線路 | 1930 | 18万 | 3万 | `standard.street_template.lua:11`、`standard.street_template.lua:35` |
 | 高速線路 | 1980 | 54万 | 9万 | `high_speed.street_template.lua:11`、`high_speed.street_template.lua:35` |
-| 古い小さな田舎道 | 開始時 | 6万 | 1万 | `country_old_small.street_template.lua:8`、`country_old_small.street_template.lua:58` |
+| 古い小さな田舎道 | 開始時 – 1940 | 6万 | 1万 | `country_old_small.street_template.lua:4-5`、`country_old_small.street_template.lua:8`、`country_old_small.street_template.lua:58` |
 | 新しい大きな町の通り | 1940 | 54万 | 9万 | `town_new_large.street_template.lua:11`、`town_new_large.street_template.lua:91` |
 
 - 懸垂線は線路の価格の **30 %** を加える。バスレーンは道路の価格の 10 %、路面電車の線路は 20 %、電化された路面電車の線路は 40 % を加える（`mod.script.tl:24-28`）。

@@ -23,7 +23,7 @@ Każdy statek jest **mały** albo **duży**. Duży statek może przybić tylko d
 - Mały port składa się z małych pomostów, które przyjmują tylko małe statki (`small_pier.module.lua:7`). Duży port używa średnich pomostów, które przyjmują oba rozmiary (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminale**: 1, 2 lub 4, wybierane przy budowie (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - Terminal pomostu mieści 100 czekających pasażerów na małym pomoście i 50 na średnim (`modules.script.lua:872`, `modules.script.lua:1004`).
-- Porty trzeba stawiać wzdłuż brzegu, na żeglownej wodzie (`harbor_modular.tl:29`).
+- Podczas stawiania portu skrypt tylko włącza warstwę żeglownej wody (`harbor_modular.tl:26-30`). Gdzie wolno postawić port, decyduje silnik gry.
 - Każdy statek określa swój rozmiar w pliku pojazdu; gra zamienia go na tryb małego lub dużego statku (`model_metadata_util.lua:1411-1412`).
 
 ## Koszty

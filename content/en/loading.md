@@ -31,8 +31,8 @@ A platform is not a row of modules for the game: it is a **list of sections, one
 |---|---|---|
 | on a section of their class (bulk wagons, bulk section) | **×2** | `modular_station.script.lua:1042` |
 | on a universal section | ×1 | `modular_station.script.lua:1042` |
-| with no section of their class on the platform | **×0.25** | `cargo_react_util.tl:60` |
-| beyond the platform length (train too long) | **×0.25** | `cargo_react_util.tl:61` |
+| with no section of their class on the platform | **×0.25** (constant of the loading tooltip; the factor itself is applied by the engine) | `cargo_react_util.tl:60` |
+| beyond the platform length (train too long) | **×0.25** (constant of the loading tooltip; the factor itself is applied by the engine) | `cargo_react_util.tl:61` |
 
 - The factor is a **mix by share of the train**: if 3/4 of the wagons match and 1/4 do not, the factor is ¾ × 2 + ¼ × 0.25 ≈ ×1.56 (`cargo_react_util.tl:63-70`, the same split the game shows as "Partially Specialized Terminal").
 - **Where** the wagons stand on the platform does not matter, only the summed lengths do (measured in game).
@@ -88,7 +88,7 @@ Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At
 
 | Option in "Cargo Filter" | What it does | Source |
 |---|---|---|
-| "Force Unload All Cargo On Arrival" | unloads into compatible stocks even when they are full; what does not fit is destroyed. Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Force Unload All Cargo On Arrival" | tooltip: "Unload cargo even if stocks are full"; what happens to the cargo that does not fit is decided by the engine. Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Destroy Cargo On Arrival When Config Changes" | unloads or destroys the cargo on board when cargo for another load configuration of the vehicle is waiting at this stop; which of the two is up to the engine | `cargofilter_window.tl:767` |
 | "Replace with Newer Cargo if Available" | destroys cargo that came back to the stop where it was loaded, when newer cargo of the same type is waiting | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ In which order several cargos are loaded, how a shared stock is split between wa
 
 ## The automatic configuration
 
-As long as nobody has saved a change in a stop's "Cargo Filter" window, which switches it off for good on that line (`line_util.tl:495-498`, `cargofilter_window.tl:438`), the game fills the Load lists itself each time the line is created, a stop is added or removed, the stops are reordered, or a waypoint is added (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Moving a stop to another station or platform, and removing or moving a waypoint, do not run it (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+As long as nobody has saved a change in a stop's "Cargo Filter" window, which switches it off for good on that line (`line_util.tl:495-498`, `cargofilter_window.tl:438`), the game fills the Load lists itself each time the line is created, a stop is added or removed, the stops are reordered, or a waypoint is added (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Moving a stop to another station or platform, and removing or moving a waypoint, do not run it (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - It starts again from empty lists, with passengers at passenger stations (`line_util.tl:542-588`).
 - It looks for producers and consumers among industries and town buildings only: warehouses do not count (`cargo_util.tl:518-526`).

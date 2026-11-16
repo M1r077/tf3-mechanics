@@ -44,7 +44,7 @@ Le taux de croissance vient de deux notes de la fenêtre de la ville (`town_util
 - Chaque note a six niveaux : une valeur de 0 à 1 coupée en sixièmes (`town_util.tl:983-985`). **Excellent** demande 5/6 = 83 % ou plus.
 - Avec **une seule** note à Très insuffisant, l'autorité est Très insuffisant et le taux vaut **0 %** : la ville s'arrête, quoi que tu livres.
 - 100 % demande une autorité Excellent avec des apports Très bon ou mieux, ou une autorité Très bon avec des apports Excellent.
-- Ton **siège social** ajoute +5 % à la ville la plus proche, et la plupart de ses extensions +5 % chacune (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Ce bonus multiplie le taux : il ne fait rien à 0 %.
+- Ton **siège social** ajoute +5 % à la ville la plus proche, plusieurs extensions ajoutent +5 %, certaines moins ou rien ; la valeur est dans le fichier de chaque module (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Ce bonus multiplie le taux : il ne fait rien à 0 %.
 
 ```tip scripts
 **Une ville ne grandit plus ? Corrige d'abord sa pire note.** L'Autorité municipale est la plus basse des six notes : une seule note à Très insuffisant bloque la ville à 0 %, et améliorer les autres n'y change rien.
@@ -54,7 +54,7 @@ Le taux de croissance vient de deux notes de la fenêtre de la ville (`town_util
 
 | Note | Ce qui la fait baisser | Source |
 |---|---|---|
-| **Réputation** | terrassement, démolition de bâtiments de la ville, arbres retirés ; chaque liaison principale coupée vers une autre ville −1/3 | `town_util.tl:396-404`, `town_util.tl:1608` |
+| **Réputation** | terrassement, démolition de bâtiments de la ville, arbres ou rochers retirés, contrats échoués ; chaque liaison principale coupée vers une autre ville −1/3 | `town_util.tl:396-404`, `town_util.tl:1608`, `town_react_util.tl:30-43` |
 | **Trafic** | rues encombrées dans la ville | `town_util.tl:445-456` |
 | **Bonheur** | part des voyageurs mécontents (au moins 15 personnes supposées) | `town_util.tl:479-503` |
 | **Livraison** | part des livraisons de fret en retard (voir [Revenus du fret](income.html)) | `town_util.tl:505-519` |
@@ -92,12 +92,12 @@ Le moteur calcule l'utilisation des lignes, la vitesse du trafic, les cartes de 
 
 ## Demande de fret et stocks des bâtiments
 
-- La demande d'une ville est la somme de ses **bâtiments**. Chaque bâtiment a un petit stock d'entrée par fret que son quartier demande : capacité ÷ 4, arrondie au supérieur, × le facteur de ce fret dans les besoins de la ville (1 sauf indication contraire ; d'où vient ce facteur n'est pas dans les scripts) (`townbuildingutil.lua:226-251`). Le jeu note que cette taille de stock « is currently nowhere shown in the UI » (n'est affichée nulle part dans l'interface pour l'instant) (`townbuildingutil.lua:249`).
+- La demande d'une ville est la somme de ses **bâtiments**. Chaque bâtiment a un petit stock d'entrée par fret que son quartier demande : capacité ÷ 4, arrondie au supérieur, × le facteur de ce fret dans les besoins de la ville (1 sauf indication contraire ; d'où vient ce facteur n'est pas dans les scripts) (`townbuildingutil.lua:226-251`). Chaque fret définit un townConsumptionFactor de 1, 0,5 ou 0,25 (`placementparamsutil.lua:506-616`) ; comment il arrive au bâtiment est côté moteur. Le jeu note que cette taille de stock « is currently nowhere shown in the UI » (n'est affichée nulle part dans l'interface pour l'instant) (`townbuildingutil.lua:249`).
 - La demande de la fenêtre de la ville est la limite totale de ces stocks ; l'apport compté pour la note est plafonné à la demande (`town_util.tl:95-99`, `town_util.tl:194-198`). Les grandes villes demandent plus parce qu'elles ont plus de bâtiments.
 - La fenêtre du bâtiment affiche un **Taux de consommation** : la vitesse à laquelle le bâtiment utilise son fret par rapport à son maximum (`town_building.tl:103-132`).
 - L'XP et le paiement arrivent quand une unité entre dans le stock d'un bâtiment (`town_growth.script.tl:620-642`).
 - Un arrêt n'atteint que les bâtiments de sa zone de desserte. Leurs stocks peuvent être pleins alors que la ville dans son ensemble manque encore de fret : le fret qui ne rentre pas **reste alors dans le véhicule**, sauf si **Forcer le déchargement de tout le fret à l’arrivée** est coché (« Décharger le fret même si les stocks sont pleins. ») (`cargofilter_window.tl:757-763`), ce qui détruit ce qui ne rentre pas (voir [Vitesse de chargement et de déchargement](loading.html)).
-- Le fret resté à bord déclenche la notification **Fret non déchargé** : « {cargoCount} unités de fret de {vehicle} n’ont pas été déchargées sur la ligne. » (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- Le fret resté à bord déclenche la notification **Problème de déchargement du fret** : « {cargoCount} unités de fret de {vehicle} n’ont pas été déchargées sur la ligne. » (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`) ; son libellé de type est **Fret non déchargé** (`cargo_rtc_warning.res.lua:6`).
 - **Demandes de fret urbain** (« Choisissez le nombre maximal de demandes de fret par ville. ») : 2, 4 ou 6, 2 par défaut (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Les scripts ajoutent les demandes selon le niveau (plus haut) et transmettent cette valeur au moteur.
 
 ```engine
@@ -107,7 +107,7 @@ La vitesse à laquelle un bâtiment consomme son stock (consumeFrequency), le b�
 ## Peut-on empêcher une ville de grandir ?
 
 - Dans une partie normale, il n'y a **aucun réglage** de taille maximale des villes (`difficulty_util.tl:90-199`).
-- En **mode bac à sable** et dans l'éditeur de carte, la fenêtre de la ville a une carte **Capacités cibles du district** avec **Activer le développement des villes** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Décochée, la ville ne reçoit pas d'XP et n'est pas redimensionnée ; la fenêtre affiche **Développement urbain inactif** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- En **mode bac à sable**, la fenêtre de la ville a une carte **Capacités cibles du district** avec **Activer le développement des villes** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Décochée, la ville ne reçoit pas d'XP et n'est pas redimensionnée ; la fenêtre affiche **Développement urbain inactif** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Sans bac à sable, les seuls moyens sont indirects : une ville ne grandit qu'avec tes passagers et ton fret, et une seule note Très insuffisant l'arrête (plus haut).
 
 ## Bon à savoir

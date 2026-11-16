@@ -21,7 +21,7 @@ Una consegna paga la **distanza in linea d'aria**, e nient'altro del viaggio. La
 L'intera formula è un breve script del gioco (`cargo_income.script.lua:10-13`):
 
 1. **Fattore di entrata** della merce. Tutte le merci del gioco base usano la stessa funzione e gli stessi prezzi (`initialPrice = 4`, `finalPrice = 3.2`), il che dà **3,8 per tutte le 36 merci** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Il carbone paga esattamente quanto le merci generiche sulla stessa distanza.
-2. Impostazione **Entrate carichi**: 50%, 75%, 100%, 125% o 150% (`difficulty_util.tl:38`, `mod.script.tl:211`). Tutti e quattro i livelli di difficoltà predefiniti usano 100% (`difficulty_util.tl:97`).
+2. Impostazione **Entrate carichi**: 50%, 75%, 100%, 125% o 150% (`difficulty_util.tl:38`, `mod.script.tl:211`). Tutti e quattro i livelli di difficoltà predefiniti usano 100% (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distanza**, vedi sotto.
 
 La funzione riceve il tempo di viaggio ma **non lo usa** (`cargotype.script.lua:7-13`): una consegna lenta o in ritardo paga lo stesso.
@@ -32,7 +32,7 @@ La funzione riceve il tempo di viaggio ma **non lo usa** (`cargotype.script.lua:
 ```
 
 - La distanza è la **linea retta in 3D** tra i due punti, non la lunghezza del tuo percorso (`cargo_income.script.lua:3-7`).
-- Quando la differenza di quota è positiva, si aggiunge **8 × quel dislivello** (`cargo_income.script.lua:5`): 100 m di salita pagano come 800 m in più. Nel senso opposto non viene sottratto nulla.
+- Quando la merce è consegnata più in alto della sua origine, si aggiunge **8 × quel dislivello** (`cargo_income.script.lua:5`): 100 m pagano come 800 m in più. Gli script usano la differenza di quota che il motore passa loro; la sua direzione non è visibile negli script. Una differenza negativa non sottrae nulla.
 - Quindi una linea tortuosa rende quanto una diritta, ma paghi la manutenzione di ogni metro di binario o di strada che hai costruito.
 
 ```engine
@@ -65,7 +65,7 @@ Gli script calcolano solo il totale (`economy/cargo_income.script.lua`); la ripa
 | **Commessa completata** | ×2 per le consegne all'industria o alla cittadina del contratto, sulle linee che hanno consegnato per il contratto | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Consegna in ritardo** | nessun effetto sulle entrate | `cargotype.script.lua:7-13` |
 
-- Il moltiplicatore del grado si applica a **tutti** i pagamenti di merci e passeggeri (`company_growth.script.tl:159-170`). I livelli di difficoltà predefiniti usano Inflazione Ridotta (Facile), Normale (Normale), Elevata (Difficile), Molto elevata (Molto difficile) (`difficulty_util.tl:108`).
+- Il moltiplicatore del grado si applica a **tutti** i pagamenti di merci e passeggeri (`company_growth.script.tl:159-170`). I livelli di difficoltà predefiniti usano Inflazione Ridotta (Facile), Normale (Normale), Elevata (Difficile), Molto elevata (Molto difficile) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - Il ×2 delle commesse vale solo per le linee che hanno consegnato durante il contratto, per un tempo limitato (wiki ufficiale, Subsidies).
 
 ## Passeggeri
@@ -74,7 +74,7 @@ I passeggeri usano la stessa distanza e un fattore di entrata fisso di circa 3,6
 
 ## Tempi limite di consegna
 
-Ogni merce ha il proprio tempo limite (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Gli alimenti freschi hanno il più breve, le materie prime pesanti uno cinque volte più lungo:
+Ogni merce ha il proprio tempo limite (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Gli alimenti freschi hanno il più breve: carne 900 s, carbone 3.000 s (3,3 × più lungo), minerale di ferro, sabbia, pietra e acciaio 4.500 s:
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ Le merci in ritardo vengono pagate per intero, ma ogni cittadina tiene una valut
 
 1. Il gioco conta le consegne alla cittadina nell'**ultimo mezzo anno**, e quante erano in ritardo (se ne presumono almeno 10, così le prime consegne non la fanno oscillare).
 2. Quota puntuale → valutazione: sotto un limite inferiore la valutazione è 0, sopra un limite superiore è 1, lineare nel mezzo. Con la sensibilità predefinita (**Normale**): **30% puntuali → 0, 100% → 1**, quindi il 90% di consegne puntuali dà 0,86.
-3. L'impostazione **Sensibilità consegne** sposta i limiti (`difficulty_util.tl:47`). No: sempre 1. Livelli predefiniti: Facile Ridotta, Normale Normale, Difficile Elevata, Molto difficile Molto elevata (`difficulty_util.tl:113`).
+3. L'impostazione **Sensibilità consegne** sposta i limiti (`difficulty_util.tl:47`). No: sempre 1. Livelli predefiniti: Facile Ridotta, Normale Normale, Difficile Elevata, Molto difficile Molto elevata (`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ La stessa consegna di carbone, a 5 km in linea d'aria.
 |---|---|
 | in piano, qualsiasi lunghezza del percorso | **100%** |
 | a 10 km | **200%** |
-| destinazione 100 m più in alto | **116%** |
+| consegnata 100 m più in alto dell'origine | **116%** |
 | consegnata in ritardo | **100%** (la valutazione Consegna scende) |
 | grado azienda 15, Inflazione Normale | **75%** |
 | consegna coperta da una commessa completata | **200%** |
@@ -117,7 +117,7 @@ La stessa consegna di carbone, a 5 km in linea d'aria.
 
 - Poiché tutte le merci pagano lo stesso per chilometro, **scegli le merci in base a volume, distanza e tempo limite**, non al prezzo.
 - I tempi limite contano soprattutto per carne, pesce, verdure e bevande: linee brevi o magazzini che congelano il tempo.
-- Ogni unità consegnata a un edificio della cittadina dà anche esperienza a quella cittadina (`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- Ogni unità consegnata a un edificio della cittadina dà anche esperienza a quella cittadina, per le merci la cui categoria ha un livello (`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

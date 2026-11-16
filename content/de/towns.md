@@ -44,7 +44,7 @@ Die Wachstumsrate kommt aus zwei Wertungen des Stadtfensters (`town_util.tl:607-
 - Jede Wertung hat sechs Stufen: ein Wert von 0–1 wird in Sechstel geteilt (`town_util.tl:983-985`). **Ausgezeichnet** braucht 5/6 = 83 % oder mehr.
 - Steht **eine einzige** Wertung auf Sehr schlecht, ist die Verwaltung Sehr schlecht und die Rate **0 %**: die Stadt steht still, egal was du lieferst.
 - 100 % braucht Verwaltung Ausgezeichnet mit Versorgung Sehr gut oder besser, oder Verwaltung Sehr gut mit Versorgung Ausgezeichnet.
-- Dein **Hauptquartier** gibt der nächstgelegenen Stadt +5 %, und die meisten Erweiterungen je weitere +5 % (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Der Bonus multipliziert die Rate, bei 0 % bringt er nichts.
+- Dein **Hauptquartier** gibt der nächstgelegenen Stadt +5 %, mehrere Erweiterungen geben +5 %, manche weniger oder nichts; der Wert steht in der Datei jedes Moduls (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Der Bonus multipliziert die Rate, bei 0 % bringt er nichts.
 
 ```tip scripts
 **Eine Stadt wächst nicht mehr? Verbessere zuerst ihre schlechteste Wertung.** Die Stadtverwaltung ist die niedrigste der sechs Wertungen: eine einzige Wertung auf Sehr schlecht hält die Stadt bei 0 %, die anderen zu verbessern ändert nichts.
@@ -54,7 +54,7 @@ Die Wachstumsrate kommt aus zwei Wertungen des Stadtfensters (`town_util.tl:607-
 
 | Wertung | Was sie senkt | Quelle |
 |---|---|---|
-| **Ruf** | Terraforming, Abriss von Stadtgebäuden, gefällte Bäume; jede getrennte Hauptverbindung zu einer anderen Stadt −1/3 | `town_util.tl:396-404`, `town_util.tl:1608` |
+| **Ruf** | Terraforming, Abriss von Stadtgebäuden, entfernte Bäume oder Felsen, gescheiterte Subventionen; jede getrennte Hauptverbindung zu einer anderen Stadt −1/3 | `town_util.tl:396-404`, `town_util.tl:1608`, `town_react_util.tl:30-43` |
 | **Verkehr** | verstopfte Straßen in der Stadt | `town_util.tl:445-456` |
 | **Zufriedenheit** | Anteil unzufriedener Reisender (mindestens 15 Personen angenommen) | `town_util.tl:479-503` |
 | **Lieferung** | Anteil verspäteter Frachtlieferungen (siehe [Frachteinnahmen](income.html)) | `town_util.tl:505-519` |
@@ -92,12 +92,12 @@ Die Engine berechnet die Linienauslastung, die Verkehrsgeschwindigkeit, die Lär
 
 ## Frachtbedarf und Gebäudelager
 
-- Der Bedarf einer Stadt ist die Summe ihrer **Gebäude**. Jedes Gebäude hat ein kleines Eingangslager pro Fracht, die sein Viertel verlangt: Kapazität ÷ 4, aufgerundet, × der Faktor dieser Fracht im Bedarf der Stadt (1, wenn nichts anderes festgelegt ist; woher der Faktor kommt, steht nicht in den Skripten) (`townbuildingutil.lua:226-251`). Das Spiel vermerkt, dass diese Lagergröße „is currently nowhere shown in the UI" (derzeit nirgends in der Oberfläche angezeigt wird) (`townbuildingutil.lua:249`).
+- Der Bedarf einer Stadt ist die Summe ihrer **Gebäude**. Jedes Gebäude hat ein kleines Eingangslager pro Fracht, die sein Viertel verlangt: Kapazität ÷ 4, aufgerundet, × der Faktor dieser Fracht im Bedarf der Stadt (1, wenn nichts anderes festgelegt ist; woher der Faktor kommt, steht nicht in den Skripten) (`townbuildingutil.lua:226-251`). Jede Fracht legt einen townConsumptionFactor von 1, 0,5 oder 0,25 fest (`placementparamsutil.lua:506-616`); wie er zum Gebäude gelangt, liegt in der Engine. Das Spiel vermerkt, dass diese Lagergröße „is currently nowhere shown in the UI" (derzeit nirgends in der Oberfläche angezeigt wird) (`townbuildingutil.lua:249`).
 - Der Bedarf im Stadtfenster ist die Gesamtgrenze dieser Lager; das für die Wertung gezählte Angebot ist auf den Bedarf begrenzt (`town_util.tl:95-99`, `town_util.tl:194-198`). Größere Städte verlangen mehr, weil sie mehr Gebäude haben.
 - Das Gebäudefenster zeigt eine **Verbrauchsrate**: wie schnell das Gebäude seine Fracht im Vergleich zu seinem Maximum verbraucht (`town_building.tl:103-132`).
 - XP und Bezahlung gibt es, wenn eine Einheit in das Lager eines Gebäudes gelangt (`town_growth.script.tl:620-642`).
 - Eine Haltestelle erreicht nur die Gebäude in ihrem Einzugsgebiet. Deren Lager können voll sein, während der Stadt insgesamt noch Fracht fehlt: dann **bleibt** die Fracht, die nicht hineinpasst, **im Fahrzeug**, außer **Entladen aller Güter nach Ankunft erzwingen** ist angehakt („Entladen, auch wenn das Lager voll ist.") (`cargofilter_window.tl:757-763`), was vernichtet, was nicht hineinpasst (siehe [Lade- und Entladegeschwindigkeit](loading.html)).
-- An Bord gebliebene Fracht löst die Meldung **Güter nicht entladen** aus: „{cargoCount} Güter von {vehicle} wurden auf der Linie nicht entladen." (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- An Bord gebliebene Fracht löst die Meldung **Güter-Entladeproblem** aus: „{cargoCount} Güter von {vehicle} wurden auf der Linie nicht entladen." (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`); ihr Typname ist **Güter nicht entladen** (`cargo_rtc_warning.res.lua:6`).
 - **Stadtgüterbedarf** („Wähle die maximale Anzahl an Güterbedürfnissen pro Stadt."): 2, 4 oder 6, Standard 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Die Skripte fügen Bedarfe nach Stufe hinzu (siehe oben) und geben diesen Wert an die Engine weiter.
 
 ```engine
@@ -107,7 +107,7 @@ Wie schnell ein Gebäude sein Lager verbraucht (consumeFrequency), welches Gebä
 ## Kann ich verhindern, dass eine Stadt wächst?
 
 - In einem normalen Spiel gibt es **keine Einstellung** für eine maximale Stadtgröße (`difficulty_util.tl:90-199`).
-- Im **Sandbox-Modus** und im Karteneditor hat das Stadtfenster eine Karte **Angestrebte Gebietskapazitäten** mit **Stadtentwicklung aktivieren** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Nicht angehakt bekommt die Stadt keine XP und wird nicht in der Größe angepasst; das Fenster zeigt **Stadtentwicklung inaktiv** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- Im **Sandbox-Modus** hat das Stadtfenster eine Karte **Angestrebte Gebietskapazitäten** mit **Stadtentwicklung aktivieren** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Nicht angehakt bekommt die Stadt keine XP und wird nicht in der Größe angepasst; das Fenster zeigt **Stadtentwicklung inaktiv** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Ohne Sandbox geht es nur indirekt: eine Stadt wächst nur durch deine Passagiere und deine Fracht, und eine einzige Wertung Sehr schlecht stoppt sie (siehe oben).
 
 ## Gut zu wissen

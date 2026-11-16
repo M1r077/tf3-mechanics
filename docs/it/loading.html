@@ -45,12 +45,12 @@
 </tr>
 <tr>
 <td>senza alcuna sezione della loro classe sulla piattaforma</td>
-<td><strong>×0,25</strong></td>
+<td><strong>×0,25</strong> (costante del tooltip di carico; il fattore in sé lo applica il motore)</td>
 <td class="sc"><code class="src">cargo_react_util.tl:60</code></td>
 </tr>
 <tr>
 <td>oltre la lunghezza della piattaforma (treno troppo lungo)</td>
-<td><strong>×0,25</strong></td>
+<td><strong>×0,25</strong> (costante del tooltip di carico; il fattore in sé lo applica il motore)</td>
 <td class="sc"><code class="src">cargo_react_util.tl:61</code></td>
 </tr>
 </tbody>
@@ -163,7 +163,7 @@
 <tbody>
 <tr>
 <td>"Forza scarico di tutte le merci all'arrivo"</td>
-<td>scarica nelle scorte compatibili anche se sono piene; ciò che non entra viene distrutto. Disattivata per una nuova fermata.</td>
+<td>tooltip: "Scarica le merci anche se le scorte sono piene"; cosa succede alle merci che non entrano lo decide il motore. Disattivata per una nuova fermata.</td>
 <td class="sc"><code class="src">cargofilter_window.tl:757</code>, <code class="src">line_util.tl:476</code></td>
 </tr>
 <tr>
@@ -192,7 +192,7 @@
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Deciso dal motore di gioco<small>C++, non visibile negli script</small></h4><p>L'ordine in cui vengono caricate più merci, come una scorta condivisa viene ripartita tra i veicoli in attesa e come un veicolo sceglie la sua configurazione di carico sono decisi dal motore.</p></div></aside>
 <h2 id="la-configurazione-automatica"><span class="n">8</span><span>La configurazione automatica</span></h2>
-<p>Finché nessuno ha salvato una modifica nella finestra "Filtro carico" di una fermata, cosa che la disattiva per sempre su quella linea<span class="sr"> (<code class="src">line_util.tl:495-498</code>, <code class="src">cargofilter_window.tl:438</code>)</span>, il gioco riempie da solo le liste Carico ogni volta che la linea viene creata, una fermata viene aggiunta o tolta, le fermate vengono riordinate o viene aggiunto un punto di passaggio (<span class="sr"><code class="src">manager_window.tl:6712</code>, </span><code>:6786</code>, <code>:6845</code>, <code>:6879</code>, <code>:6963</code>). Spostare una fermata su un'altra stazione o piattaforma, e togliere o spostare un punto di passaggio, non la riavviano<span class="sr"> (<code class="src">manager_window.tl:6851-6868</code>, <code class="src">manager_window.tl:6968-6987</code>)</span>.</p>
+<p>Finché nessuno ha salvato una modifica nella finestra "Filtro carico" di una fermata, cosa che la disattiva per sempre su quella linea<span class="sr"> (<code class="src">line_util.tl:495-498</code>, <code class="src">cargofilter_window.tl:438</code>)</span>, il gioco riempie da solo le liste Carico ogni volta che la linea viene creata, una fermata viene aggiunta o tolta, le fermate vengono riordinate o viene aggiunto un punto di passaggio (<span class="sr"><code class="src">manager_window.tl:6712</code>, </span><code>:6786</code>, <code>:6845</code>, <code>:6879</code>, <code>:6963</code>). Spostare una fermata su un'altra stazione o piattaforma, e togliere o spostare un punto di passaggio, non la riavviano<span class="sr"> (<code class="src">manager_window.tl:6851-6868</code>, <code class="src">manager_window.tl:6968-6992</code>)</span>.</p>
 <ul>
 <li>Riparte da liste vuote, con i passeggeri nelle stazioni passeggeri<span class="sr"> (<code class="src">line_util.tl:542-588</code>)</span>.</li>
 <li>Cerca produttori e consumatori solo tra industrie ed edifici della città: i magazzini non contano<span class="sr"> (<code class="src">cargo_util.tl:518-526</code>)</span>.</li>

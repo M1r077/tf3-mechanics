@@ -44,7 +44,7 @@ A taxa de crescimento vem de duas classificações da janela do município (`tow
 - Cada classificação tem seis níveis: um valor de 0 a 1 dividido em sextos (`town_util.tl:983-985`). **Excelente** exige 5/6 = 83% ou mais.
 - Com **uma única** classificação em Muito Ruim, a autoridade fica Muito Ruim e a taxa de crescimento é **0%**: o município para, não importa o que você entregue.
 - 100% exige autoridade Excelente com suprimentos Muito Boa ou melhor, ou autoridade Muito Boa com suprimentos Excelente.
-- A sua **Sede** soma +5% ao município mais próximo dela, e a maioria das suas extensões soma mais +5% cada (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Esse bônus multiplica a taxa, então não faz nada em 0%.
+- A sua **Sede** soma +5% ao município mais próximo dela, várias extensões somam +5%, algumas menos ou nada; o valor está no arquivo de cada módulo (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). Esse bônus multiplica a taxa, então não faz nada em 0%.
 
 ```tip scripts
 **Um município parou de crescer? Corrija primeiro a pior classificação.** A Autoridade do Município é a mais baixa das seis: uma única classificação em Muito Ruim deixa o município em 0 %, e melhorar as outras não muda nada.
@@ -54,7 +54,7 @@ A taxa de crescimento vem de duas classificações da janela do município (`tow
 
 | Classificação | O que a reduz | Fonte |
 |---|---|---|
-| **Reputação** | terraplenagem, demolição de prédios do município, remoção de árvores; cada ligação principal cortada com outro município −1/3 | `town_util.tl:396-404`, `town_util.tl:1608` |
+| **Reputação** | terraplenagem, demolição de prédios do município, remoção de árvores ou rochas, subsídios fracassados; cada ligação principal cortada com outro município −1/3 | `town_util.tl:396-404`, `town_util.tl:1608`, `town_react_util.tl:30-43` |
 | **Tráfego** | ruas congestionadas no município | `town_util.tl:445-456` |
 | **Felicidade** | fração de viajantes insatisfeitos (no mínimo 15 pessoas consideradas) | `town_util.tl:479-503` |
 | **Entrega** | fração de entregas de carga atrasadas (veja [Renda por carga](income.html)) | `town_util.tl:505-519` |
@@ -92,12 +92,12 @@ O motor calcula o uso das linhas, a velocidade do tráfego, os mapas de barulho 
 
 ## Demanda de carga e estoques dos prédios
 
-- A demanda de um município é a soma dos seus **prédios**. Cada prédio tem um pequeno estoque de entrada para cada carga que o seu distrito pede: capacidade ÷ 4, arredondado para cima, × o fator dessa carga nas necessidades do município (1 salvo outra definição; de onde vem o fator não está nos scripts) (`townbuildingutil.lua:226-251`). O jogo anota que esse tamanho de estoque "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
+- A demanda de um município é a soma dos seus **prédios**. Cada prédio tem um pequeno estoque de entrada para cada carga que o seu distrito pede: capacidade ÷ 4, arredondado para cima, × o fator dessa carga nas necessidades do município (1 salvo outra definição; de onde vem o fator não está nos scripts) (`townbuildingutil.lua:226-251`). Cada carga define um townConsumptionFactor de 1, 0,5 ou 0,25 (`placementparamsutil.lua:506-616`); como ele chega ao prédio fica no motor. O jogo anota que esse tamanho de estoque "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
 - A demanda na janela do município é o limite total desses estoques; a oferta contada para a classificação é limitada à demanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Municípios maiores pedem mais porque têm mais prédios.
 - A janela do prédio mostra uma **Taxa de Consumo**: a velocidade com que o prédio usa a sua carga em relação ao máximo (`town_building.tl:103-132`).
 - XP e pagamento vêm quando uma unidade entra no estoque de um prédio (`town_growth.script.tl:620-642`).
 - Uma parada só alcança os prédios da sua área de cobertura. Os estoques deles podem estar cheios enquanto o município como um todo ainda está em falta: então a carga que não cabe **fica no veículo**, a menos que **Forçar descarregamento de todas as cargas na chegada** esteja marcado ("Descarregar carga mesmo se os estoques estiverem cheios.") (`cargofilter_window.tl:757-763`), o que destrói o que não cabe (veja [Velocidade de carga e descarga](loading.html)).
-- A carga que fica a bordo gera a notificação **Carga Não Descarregada**: "O descarregamento de {cargoCount} carga(s) de {vehicle} não foi realizado na linha." (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- A carga que fica a bordo gera a notificação **Problema com o Descarregamento de Carga**: "O descarregamento de {cargoCount} carga(s) de {vehicle} não foi realizado na linha." (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`); seu rótulo de tipo é **Carga Não Descarregada** (`cargo_rtc_warning.res.lua:6`).
 - **Demandas de Carga do Município** ("Escolha o número máximo de demandas de carga por município."): 2, 4 ou 6, padrão 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). Os scripts adicionam demandas por nível (acima) e passam esse valor ao motor.
 
 ```engine
@@ -107,7 +107,7 @@ A velocidade com que um prédio consome o seu estoque (consumeFrequency), qual p
 ## Dá para impedir um município de crescer?
 
 - Em um jogo normal **não há configuração** para um tamanho máximo de município (`difficulty_util.tl:90-199`).
-- No **modo sandbox** e no editor de mapas, a janela do município tem um cartão **Capacidades do Distrito Alvo** com **Ativar Desenvolvimento de Município** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Desmarcado, o município não recebe XP e não é redimensionado; a janela mostra **Desenvolvimento do Município Inativo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- No **modo sandbox**, a janela do município tem um cartão **Capacidades do Distrito Alvo** com **Ativar Desenvolvimento de Município** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Desmarcado, o município não recebe XP e não é redimensionado; a janela mostra **Desenvolvimento do Município Inativo** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Sem sandbox, os únicos meios são indiretos: um município só cresce com os seus passageiros e cargas, e uma única classificação Muito Ruim o para (acima).
 
 ## Bom saber

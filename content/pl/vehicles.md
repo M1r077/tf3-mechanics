@@ -8,7 +8,7 @@ updated: 2026-11-16
 game: 40425
 fact: 5 | poziomów stanu, od Bardzo zły do Bardzo dobry, po 20 %
 fact: 20 % | stanu, przy którym pojawia się ostrzeżenie Stan pojazdu
-fact: 6 lat | kosztów eksploatacji: cena pojazdu
+fact: 6 × | bazowy roczny koszt eksploatacji: cena pojazdu
 fact: 4 do 16 | pojazdów w puli konserwacji jednej bazy lub stacji konserwacji
 ---
 
@@ -16,7 +16,7 @@ Każdy pojazd ma stałe statystyki (prędkość, pojemność, szybkość załadu
 
 ## Statystyki w sklepie z pojazdami
 
-- Sklep pokazuje każdą statystykę jako pasek. Pasek porównuje pojazd z innymi tego samego rodzaju transportu i epoki, a nie ze stałą skalą (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- Sklep pokazuje każdą statystykę jako pasek. Pasek używa stałej skali dla każdego rodzaju transportu, zmieniającej się z rokiem (na przykład prędkość załadunku statków: od 10 do 45 od 2003). Nie porównuje pojazdu z innymi pojazdami (`vehicle_util.tl:210-245`, `vehicle_util.tl:259-268`).
 - Dla pociągu sklep pokazuje **najwyższą** szybkość załadunku spośród wszystkich jego części (`vehicle_store_util.tl:333`).
 - Pojazd, którego plik nie ustawia szybkości załadunku, hałasu, zanieczyszczenia ani komfortu, dostaje wartość obliczoną z pozostałych statystyk (rok, prędkość, moc, masa, rozmiar) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). Obliczona szybkość załadunku jest zaokrąglana do 0,5 i nigdy nie jest niższa niż 1 (`vehicle_metadata_util.lua:267-269`).
 
@@ -50,8 +50,8 @@ Jak szybkość załadunku pojazdu, współczynnik załadunku towaru oraz mnożni
 | do 20 % | **Bardzo zły** | `vehicle_util.tl:159-172` |
 
 - Stan pociągu to **średnia** wszystkich jego wagonów i lokomotyw (`vehicle_util.tl:285-295`).
-- Poniżej 80 % pojazd zaczyna tracić prędkość maksymalną, moc i komfort, a zyskiwać hałas, zanieczyszczenie i koszty eksploatacji (`vehicle_store_util.tl:230-259`). Okno pojazdu wymienia te kary w sekcji **Stan techniczny**.
-- Siłę tych kar ustawia **Wpływ konserwacji pojazdów** („Brak”, „Niski”, „Średni”, „Wysoki”, „Bardzo wysoki”); przy „Brak” stan nie ma wpływu (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Szczegóły: [Koszty, utrzymanie i kredyty](costs.html).
+- Zużyty pojazd traci prędkość maksymalną, moc i komfort, a zyskuje hałas, zanieczyszczenie i koszty eksploatacji (`vehicle_store_util.tl:236-258`). Ile i od jakiego stanu, to wartości silnika gry. Okno pojazdu wymienia te kary w sekcji **Stan techniczny**.
+- Siłę tych kar ustawia **Wpływ konserwacji pojazdów** („Brak”, „Niski”, „Średni”, „Wysoki”, „Bardzo wysoki”); przy „Brak” stan nie ma wpływu (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Szczegóły: [Koszty, utrzymanie i kredyty](costs.html).
 - Przy **20 %** lub mniej pojawia się ostrzeżenie **Stan pojazdu**. Pozostaje, dopóki pojazd nie wróci powyżej **30 %** (`notifications.script.tl:310-318`).
 - Sklonowany pojazd to nowy zakup: stan 100 %, nowa data zakupu (`manager_window.tl:8502-8506`).
 
@@ -77,7 +77,7 @@ Pojazdy są konserwowane przez pobliską bazę lub stację konserwacji. Każda o
 - Okno budynku pokazuje „zajęte / pula” (na przykład 14 / 12) i listę obsługiwanych pojazdów wraz z ich stanem (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Pełniejsza pula sprawia, że budynek jest głośniejszy i brudniejszy: emisje rosną wraz z zajętą częścią puli (`emissions.script.tl:223-234`).
 - Kolejowa stacja konserwacji obsługuje dwa razy więcej pociągów niż baza kolejowa: 12 wobec 6.
-- Stacje konserwacji nie kupują ani nie przechowują pojazdów, ale ich promień jest często większy niż bazy: 600 m wobec 400 m na drogach, 1400 m wobec 1000 m dla statków. Tylko drogowa stacja konserwacji obsługuje też tramwaje.
+- Stacje konserwacji nie kupują ani nie przechowują pojazdów, ale ich promień jest często większy niż bazy: 600 m wobec 400 m na drogach, 1400 m wobec 1000 m dla statków. Tramwaje konserwuje zajezdnia tramwajowa i drogowa stacja konserwacji; baza drogowa nie konserwuje tramwajów (`tram_depot.script.lua:209`, `tram_depot.script.lua:226`).
 - Oficjalna wiki radzi używać punktów trasy, by kierować pojazdy obok budynku konserwacji.
 
 ```engine
@@ -86,13 +86,13 @@ Do której stacji pojazd zostaje przypisany, co się dzieje, gdy stację używa 
 
 ## Cena i koszty eksploatacji
 
-- Pojazdy z podstawowej gry nie mają stałej ceny: koszty eksploatacji wynikają z prędkości i pojemności, a cena to **6 lat** kosztów eksploatacji (`model_metadata_util.lua:548-549`). Pełny wzór: [Koszty, utrzymanie i kredyty](costs.html).
-- **Koszty pojazdów** i **Konserwacja pojazdów** skalują się obie od 50 % do 150 % (`post_run_util.tl:54-81`).
+- Pojazdy z podstawowej gry nie mają stałej ceny: koszty eksploatacji wynikają z prędkości i pojemności, a cena to **6 ×** bazowy roczny koszt eksploatacji, przed ustawieniami Koszty pojazdów i Konserwacja pojazdów (`model_metadata_util.lua:548-549`). Dokładnie 6 lat kosztów eksploatacji wychodzi tylko, gdy oba ustawienia są równe. Pełny wzór: [Koszty, utrzymanie i kredyty](costs.html).
+- **Koszty pojazdów** skalują ceny od 50 % do 150 % (`post_run_util.tl:54-81`). Przy **Konserwacji pojazdów** skrypt zaokrągla współczynnik do liczby całkowitej, gdy koszt eksploatacji nie jest jeszcze ustalony (`post_run_util.tl:71-72`). Dawałoby to 100 % na każdym poziomie oprócz „Bardzo wysoki” (200 %). Do potwierdzenia w grze.
 - Pojazd w złym stanie płaci wyższe koszty eksploatacji, ponad wartość bazową (`vehicle_store_util.tl:256-259`).
 
 ## Wiek i okres trwałości
 
-- Każdy model ma **okres trwałości** w latach (`vehicle_metadata_util.lua:79-83`). Kolumna **Wiek** w oknie linii pokazuje wiek; jej podpowiedź pokazuje pozostały czas albo **Osiągnięto koniec okresu trwałości** (`line_eow.script.tl:133-147`). Część okresu trwałości w tej podpowiedzi wynosi **0 %**, dopóki okres trwałości nie minie: skrypt zaokrągla ułamek w dół przed pokazaniem (`line_eow.script.tl:139`), a ta sama część jest gdzie indziej liczona w całości (`vehicle_util.tl:311`). Patrz raczej na pozostały czas.
+- Każdy model ma **okres trwałości** (`vehicle_util.tl:31-34`). Kolumna **Wiek** w oknie linii pokazuje wiek; jej podpowiedź pokazuje pozostały czas albo **Osiągnięto koniec okresu trwałości** (`line_eow.script.tl:133-147`). Część okresu trwałości w tej podpowiedzi wynosi **0 %**, dopóki okres trwałości nie minie: skrypt zaokrągla ułamek w dół przed pokazaniem (`line_eow.script.tl:139`), a ta sama część jest gdzie indziej liczona w całości (`vehicle_util.tl:311`). Patrz raczej na pozostały czas.
 - Dla pociągu liczy się **najstarsza** część (`vehicle_util.tl:36-52`). Jeden stary wagon sprawia, że cały pociąg wygląda na stary.
 
 ```engine

@@ -21,18 +21,18 @@ Ustawienie **Inflacja** nie podnosi żadnych kosztów: obniża tylko twój przyc
 
 | Ustawienie | Wartości | Gotowe poziomy „Niski” · „Normalny” · „Wysoki” · „Bardzo wysoki” | Źródło |
 |---|---|---|---|
-| **Koszty pojazdów**, **Konserwacja pojazdów** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-99`, `difficulty_util.tl:125-126` |
-| **Koszty infrastruktury**, **Utrzymanie infrastruktury** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Koszty pojazdów**, **Konserwacja pojazdów** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Koszty infrastruktury**, **Utrzymanie infrastruktury** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Wpływ konserwacji pojazdów** | „Brak” ×0 · „Niski” ×0,5 · „Średni” ×1 · „Wysoki” ×1,5 · „Bardzo wysoki” ×2 | „Niski” · „Średni” · „Wysoki” · „Bardzo wysoki” | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflacja** | tylko przychód, patrz [Przychód z towarów](income.html) | „Niska” · „Normalna” · „Wysoka” · „Bardzo wysoka” | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Koszty infrastruktury** skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Skalują też koszt rozbiórki budynków (`construction.script.tl:39-44`). **Utrzymanie infrastruktury** skaluje ich utrzymanie (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Koszty infrastruktury** skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Skalują też koszt rozbiórki budynków (`construction.script.tl:39-44`). **Utrzymanie infrastruktury** skaluje przy wczytaniu utrzymanie ulic, torów, mostów, tuneli, przejazdów i modułów (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Dla budynków skrypty stosują je tylko w oknie budynku (`entity_window_util.tl:186`); o tym, co jest pobierane, decyduje silnik.
 - **Koszty pojazdów** i **Konserwacja pojazdów** skalują cenę zakupu i koszty bieżące każdego pojazdu (`post_run_util.tl:54-81`).
 - **Wpływ konserwacji pojazdów** ustala, jak mocno pojazd w złym stanie traci prędkość, moc i komfort oraz zyskuje hałas, zanieczyszczenie i koszty bieżące (`mod.script.tl:241-245`).
 
 ## Co rośnie z rokiem kalendarzowym
 
-- **Utrzymanie budynków**: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020 (`mod.script.tl:92-100`). Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza te: magazyny, lądowiska, lotniska i porty (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Utrzymanie budynków**: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020 (`mod.script.tl:92-100`). Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
 - **Moduły** dodane do takiego budynku kosztują według roku budowy budynku, a ich utrzymanie według bieżącego roku (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
 - **Warianty epok**: zajezdnie, stacje konserwacji, magazyny, dworce, porty i lotniska mają jeden wariant na epokę, a każdy późniejszy kosztuje **×3** (epoka B) lub **×9** (epoka C) pierwszego (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Pieniądze z subsydiów**: od ×1 w 1900 do ×4 od 2000 (`finances_util.tl:87-90`). **Kwoty kredytów**: od ×0,4 w 1900 do ×2,4 w 2020 (`loan_util.tl:7-10`).
@@ -51,7 +51,7 @@ Pliki ulic i torów podają cenę i roczne utrzymanie na metr; menu budowy pokaz
 | Prosty tor | start | 60 000 | 10 000 | `simple.street_template.lua:9`, `simple.street_template.lua:33` |
 | Tor standardowy | 1930 | 180 000 | 30 000 | `standard.street_template.lua:11`, `standard.street_template.lua:35` |
 | Tor dużych prędkości | 1980 | 540 000 | 90 000 | `high_speed.street_template.lua:11`, `high_speed.street_template.lua:35` |
-| Mała stara droga wiejska | start | 60 000 | 10 000 | `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
+| Mała stara droga wiejska | start – 1940 | 60 000 | 10 000 | `country_old_small.street_template.lua:4-5`, `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
 | Duża nowa ulica miejska | 1940 | 540 000 | 90 000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Sieć trakcyjna dodaje **30 %** ceny toru; buspas 10 %, tor tramwajowy 20 %, elektryczny tor tramwajowy 40 % ceny ulicy (`mod.script.tl:24-28`).

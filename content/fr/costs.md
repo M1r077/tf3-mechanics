@@ -21,18 +21,18 @@ Le réglage **Inflation** n'augmente aucun coût : il baisse seulement tes reven
 
 | Réglage | Valeurs | Préréglages Easy · Moyen · Hard · Very Hard | Source |
 |---|---|---|---|
-| **Coût des véhicules**, **Entretien des véhicules** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-99`, `difficulty_util.tl:125-126` |
-| **Coût des infrastructures**, **Entretien des infrastructures** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Coût des véhicules**, **Entretien des véhicules** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Coût des infrastructures**, **Entretien des infrastructures** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Effet de la maintenance des véhicules** | Aucun(e) ×0 · Bas ×0,5 · Moyen ×1 · Élevée ×1,5 · Très élevée ×2 | Bas · Moyen · Élevée · Très élevée | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflation** | revenus seulement, voir [Revenus du fret](income.html) | Faible · Normale · Élevée · Très élevée | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Coût des infrastructures** règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Il règle aussi le coût de démolition des bâtiments (`construction.script.tl:39-44`). **Entretien des infrastructures** règle leur entretien (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Coût des infrastructures** règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Il règle aussi le coût de démolition des bâtiments (`construction.script.tl:39-44`). **Entretien des infrastructures** règle l'entretien des routes, voies, ponts, tunnels, passages à niveau et modules au chargement (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Pour les bâtiments, les scripts ne l'appliquent que dans la fenêtre du bâtiment (`entity_window_util.tl:186`) ; ce qui est facturé est décidé par le moteur.
 - **Coût des véhicules** et **Entretien des véhicules** règlent le prix d'achat et les coûts d'exploitation de chaque véhicule (`post_run_util.tl:54-81`).
 - **Effet de la maintenance des véhicules** règle à quel point un véhicule en mauvais état perd vitesse, puissance et confort et gagne bruit, pollution et coûts d'exploitation (`mod.script.tl:241-245`).
 
 ## Ce qui monte avec l'année du calendrier
 
-- **Entretien des bâtiments** : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque ceux-ci : entrepôts, aérodromes, aéroports et ports (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Entretien des bâtiments** : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque toutes les méta-constructions (dans le jeu de base : entrepôts, aérodromes, aéroports et ports) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
 - Les **modules** ajoutés à un tel bâtiment sont facturés à l'année de construction du bâtiment, leur entretien à l'année en cours (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
 - **Variantes par époque** : dépôts, ateliers d'entretien, entrepôts, gares, ports et aéroports ont une variante par époque, et chaque variante suivante coûte **×3** (époque B) ou **×9** (époque C) de la première (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Argent des contrats** : ×1 en 1900 jusqu'à ×4 dès 2000 (`finances_util.tl:87-90`). **Montant des emprunts** : ×0,4 en 1900 jusqu'à ×2,4 en 2020 (`loan_util.tl:7-10`).
@@ -51,7 +51,7 @@ Les fichiers des routes et des voies donnent le prix et l'entretien annuel par m
 | Voie simple | début | 60 000 | 10 000 | `simple.street_template.lua:9`, `simple.street_template.lua:33` |
 | Voie standard | 1930 | 180 000 | 30 000 | `standard.street_template.lua:11`, `standard.street_template.lua:35` |
 | Voie à grande vitesse | 1980 | 540 000 | 90 000 | `high_speed.street_template.lua:11`, `high_speed.street_template.lua:35` |
-| Petite route de campagne ancienne | début | 60 000 | 10 000 | `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
+| Petite route de campagne ancienne | début – 1940 | 60 000 | 10 000 | `country_old_small.street_template.lua:4-5`, `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
 | Grande rue moderne | 1940 | 540 000 | 90 000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - La caténaire ajoute **30 %** du prix de la voie ; une voie de bus 10 %, une voie de tram 20 %, une voie de tram électrique 40 % du prix de la rue (`mod.script.tl:24-28`).

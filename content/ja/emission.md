@@ -20,13 +20,13 @@ fact: 700 m | 清掃工場の届く範囲
 
 | 建物 | 多く出すとき | ソース |
 |---|---|---|
-| **産業** | 生産しているとき、そしてブースト（貨物または労働者）ごとにさらに。出力在庫が満杯だと停止中のレベルに向けて下がる | `emissions.script.tl:152-194` |
+| **産業** | 生産しているとき、そしてブースト（貨物または労働者）ごとにさらに。すべての出力在庫が同時に満杯だとレベルが半分になる（生産中 → 停止中、ブースト 2 回 → 生産中） | `emissions.script.tl:152-194` |
 | **駅** | 忙しいほど。待っている人と貨物を容量と比べる | `emissions.script.tl:211-222` |
 | **車庫**、**整備所** | その整備を使う車両が多いほど | `emissions.script.tl:223-234` |
 | **倉庫** | 在庫が多いほど | `emissions.script.tl:237-250` |
 
 - 産業はそれぞれ独自の 4 段階（停止中、生産中、ブースト 1 回、ブースト 2 回）を持つ（`industryutil.lua:464-475`。既定値 0 / 78 / 84 / 88 は独自の値を持たない産業にだけ使われる）。ほとんどの産業は停止中でも少し出す。炭鉱は汚染 2 → 10 → 20 → 30、その畑は 2 → 30 → 60 → 90（`coal_mine.con.lua:99-135`、[産業](industries.html) を参照）。
-- 出力が引き取られない産業は停止中のレベルに戻っていく。つまり、輸送するとその汚染は増える。
+- 出力在庫がすべて満杯の産業はレベルが半分になる（`emissions.script.tl:172-182`）。つまり、輸送するとその汚染は増える。
 - 車両と線路も排出する。**車両整備エフェクト**の設定では、状態の悪い車両はより多く出す（[コスト、維持費、融資](costs.html) を参照）。
 
 ## 建設メニューに表示されるもの
@@ -39,7 +39,7 @@ fact: 700 m | 清掃工場の届く範囲
 | 鉄道車庫 | 50 | 100 | `rail_depot.con.lua:32-33` |
 | 道路・路面電車の車庫 | 40 | 80 | `road_depot.con.lua:30-31`、`tram_depot.con.lua:32-33` |
 | 地下駅 | 40 | 80 | `underground_station.con.lua:75-76` |
-| トラック・バス駅 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| トラック・バス駅 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | 整備所 | 20 | 40–50 | `road_maint_station.con.lua:30-31`、`rail_maint_station.con.lua:30-31` |
 | 倉庫 | 20 | 50（汎用）または 100（専用） | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ fact: 700 m | 清掃工場の届く範囲
 | ブースト 1 回 | −20,000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | ブースト 2 回 | −40,000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+最後のレベルにはブースター規則が必要だが、清掃工場にはない。労働者があれば −20,000 に達する（`pollution_cleanup_facility.con.lua:51-58`、`emissions.script.tl:158-166`）。
+
 - 機械がなければほとんど何もしない。産業のように供給する必要がある。
 - うるさい。住宅地区の外で、汚染された地域から 700 m 以内に建てること。
 - 労働者ブースト係数は ×2 である（`pollution_cleanup_facility.script.lua:549`）。[労働者](workers.html) を参照。
@@ -100,7 +102,7 @@ fact: 700 m | 清掃工場の届く範囲
 ## 知っておくと便利なこと
 
 - 町のウィンドウ、または騒音と汚染のレイヤーを開くと、評価と発生地点が見える。
-- 出力在庫が満杯だと産業の排出は停止中のレベルに向けて下がるが、その貨物を失う。産業を干上がらせるより町を移すほうがよい。
+- 産業の出力在庫がすべて満杯だと排出レベルは半分になるが、その貨物を失う。産業を干上がらせるより町を移すほうがよい。
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) と [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) は最も忙しい駅を見つけるのに役立つ。
 
 ```engine
@@ -109,6 +111,6 @@ fact: 700 m | 清掃工場の届く範囲
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." 住宅地区は "is sensitive to noise"、商業地区は "is robust against the influence of noise"。([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 騒音評価は 65 → 80 dB、汚染は 60 → 74 dB で 5〜10 km² で平均。感度は 10·log10 dB を加える。産業、駅、車庫、倉庫は忙しいと多く出す。出力在庫が満杯だと産業の排出は停止中のレベルに向けて下がる。緑化は産業ごとに 1 回 −80 %。清掃工場は 700 m 以内で最大 40,000 の汚染を取り除き、機械が必要。
+scripts: 騒音評価は 65 → 80 dB、汚染は 60 → 74 dB で 5〜10 km² で平均。感度は 10·log10 dB を加える。産業、駅、車庫、倉庫は忙しいと多く出す。出力在庫がすべて満杯だと産業の排出レベルは半分になる。緑化は産業ごとに 1 回 −80 %。清掃工場は 700 m 以内で最大 20,000 の汚染を取り除き（40,000 は定義されているがブースター規則が必要）、機械が必要。
 result: refines
 ```

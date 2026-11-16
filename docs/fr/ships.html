@@ -25,7 +25,7 @@
 <li>Le petit port est construit avec de petits quais, qui n'acceptent que les petits navires<span class="sr"> (<code class="src">small_pier.module.lua:7</code>)</span>. Le grand port utilise des quais moyens, qui acceptent les deux tailles<span class="sr"> (<code class="src">medium_pier.module.lua:6</code>, <code class="src">harbor_modular.script.lua:35-39</code>)</span>.</li>
 <li><strong>Terminaux</strong> : 1, 2 ou 4, au choix à la construction<span class="sr"> (<code class="src">harbor_modular.tl:16</code>, <code class="src">harbor_modular.script.lua:33</code>)</span>.</li>
 <li>Un terminal de quai accueille 100 passagers en attente sur un petit quai et 50 sur un quai moyen<span class="sr"> (<code class="src">modules.script.lua:872</code>, <code class="src">modules.script.lua:1004</code>)</span>.</li>
-<li>Les ports se placent le long d'une côte, sur une eau navigable<span class="sr"> (<code class="src">harbor_modular.tl:29</code>)</span>.</li>
+<li>Pendant la pose d'un port, le script affiche seulement le calque de l'eau navigable<span class="sr"> (<code class="src">harbor_modular.tl:26-30</code>)</span>. Les endroits où un port peut être posé sont décidés par le moteur.</li>
 <li>Chaque navire définit sa propre taille dans son fichier de véhicule ; le jeu la convertit en mode petit ou grand navire<span class="sr"> (<code class="src">model_metadata_util.lua:1411-1412</code>)</span>.</li>
 </ul>
 <h2 id="couts"><span class="n">2</span><span>Coûts</span></h2>

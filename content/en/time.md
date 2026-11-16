@@ -32,8 +32,8 @@ These are counted in game time, so a slower or paused calendar does not slow the
 
 - **Production**: an industry's production time is a fixed share of a standard year (`industry_react_util.tl:51`). The industry window shows it in days of the current calendar (`industry_react_util.tl:23`): at ×0.25 the same rate shows a quarter of the days.
 - **Loan payments**: one every standard month of game time, also with a paused calendar (`loan.script.tl:83-88`).
-- **Subsidy deadlines** and the ×2 income bonus (`subvention_util.tl:290-292`).
-- **Town reputation recovery** (`towns.script.tl:121-130`), **worker boosts** (`industry_productivity_util.tl:3`) and **industry closure** after years without service (`industries.script.tl:119-128`).
+- **Subsidy deadlines** and the bonus duration, 5 standard years (`subvention_util.tl:286`, `subvention_util.tl:290-292`).
+- **Town reputation recovery** (`towns.script.tl:121-130`), **worker effects**, counted over at most 2 standard years (`industry_productivity_util.tl:3`), and **industry closure** after years without service (`industries.script.tl:119-128`).
 - **Delivery ratings** of towns, over the last half year (`town_util.tl:840`).
 - **New industries**: with the calendar paused, 3 appeared in 1,809 s of game time, 760 s and 728 s apart, the same rhythm as with a running calendar (about 730 s). Measured with the [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); see [Industries](industries.html).
 

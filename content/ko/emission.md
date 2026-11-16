@@ -20,13 +20,13 @@ fact: 700 m | 정화 시설의 범위
 
 | 건물 | 더 많이 내는 때 | 출처 |
 |---|---|---|
-| **산업** | 생산할 때, 그리고 부스트(화물 또는 노동자)마다 더. 출력 재고가 가득 차면 유휴 수준 쪽으로 낮아짐 | `emissions.script.tl:152-194` |
+| **산업** | 생산할 때, 그리고 부스트(화물 또는 노동자)마다 더. 모든 출력 재고가 동시에 가득 차면 수준이 절반이 됨(생산 → 유휴, 부스트 2회 → 생산) | `emissions.script.tl:152-194` |
 | **역** | 바쁠수록. 기다리는 사람과 화물을 수용량과 비교 | `emissions.script.tl:211-222` |
 | **차고**, **정비소** | 그 정비를 쓰는 운송 수단이 많을수록 | `emissions.script.tl:223-234` |
 | **창고** | 재고가 많을수록 | `emissions.script.tl:237-250` |
 
 - 산업마다 고유한 4단계(유휴, 생산 중, 부스트 1회, 부스트 2회)가 있다(`industryutil.lua:464-475`. 기본값 0 / 78 / 84 / 88은 고유 값이 없는 산업에만 쓰인다). 대부분은 유휴 상태에서도 조금 낸다. 탄광은 오염 2 → 10 → 20 → 30, 그 밭은 2 → 30 → 60 → 90이다(`coal_mine.con.lua:99-135`, [산업](industries.html) 참조).
-- 출력을 가져가지 않는 산업은 유휴 수준으로 돌아간다. 즉, 운송하면 그 오염이 올라간다.
+- 출력 재고가 모두 가득 찬 산업은 수준이 절반으로 떨어진다(`emissions.script.tl:172-182`). 즉, 운송하면 그 오염이 올라간다.
 - 운송 수단과 선로도 배출한다. **운송 수단 유지보수 효과** 설정에서는 상태가 나쁜 운송 수단이 더 많이 낸다([비용, 관리비, 대출](costs.html) 참조).
 
 ## 건설 메뉴에 표시되는 것
@@ -39,7 +39,7 @@ fact: 700 m | 정화 시설의 범위
 | 철도 차고 | 50 | 100 | `rail_depot.con.lua:32-33` |
 | 도로 및 트램 차고 | 40 | 80 | `road_depot.con.lua:30-31`, `tram_depot.con.lua:32-33` |
 | 지하역 | 40 | 80 | `underground_station.con.lua:75-76` |
-| 트럭 및 버스 정류장 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| 트럭 및 버스 정류장 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | 정비소 | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
 | 창고 | 20 | 50(범용) 또는 100(전용) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ fact: 700 m | 정화 시설의 범위
 | 부스트 1회 | −20,000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | 부스트 2회 | −40,000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+마지막 수준에는 부스터 규칙이 필요하지만 정화 시설에는 없다. 노동자가 있으면 −20,000에 이른다(`pollution_cleanup_facility.con.lua:51-58`, `emissions.script.tl:158-166`).
+
 - 기계가 없으면 거의 아무것도 하지 않는다. 산업처럼 공급해야 한다.
 - 시끄럽다. 주거 지구 밖, 오염된 지역에서 700 m 이내에 짓는다.
 - 노동자 부스트 계수는 ×2다(`pollution_cleanup_facility.script.lua:549`). [노동자](workers.html) 참조.
@@ -100,7 +102,7 @@ fact: 700 m | 정화 시설의 범위
 ## 알아두면 좋은 점
 
 - 마을 창이나 소음 및 오염 레이어를 열면 평가와 발생 지점을 볼 수 있다.
-- 출력 재고가 가득 차면 산업의 배출이 유휴 수준 쪽으로 낮아지지만, 그 화물을 잃는다. 산업을 굶기기보다 마을을 옮기는 편이 낫다.
+- 산업의 출력 재고가 모두 가득 차면 배출 수준이 절반이 되지만, 그 화물을 잃는다. 산업을 굶기기보다 마을을 옮기는 편이 낫다.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details)와 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)는 가장 바쁜 역을 찾는 데 도움이 된다.
 
 ```engine
@@ -109,6 +111,6 @@ fact: 700 m | 정화 시설의 범위
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." 주거 지구는 "is sensitive to noise", 상업 지구는 "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 소음 평가 65 → 80 dB, 오염 60 → 74 dB, 5~10 km²에서 평균. 민감도는 10·log10 dB를 더한다. 산업, 역, 차고, 창고는 바쁠 때 더 많이 낸다. 출력 재고가 가득 차면 산업의 배출이 유휴 수준 쪽으로 낮아진다. 녹화는 산업마다 한 번 −80 %. 정화 시설은 700 m 이내에서 최대 40,000의 오염을 없애며 기계가 필요하다.
+scripts: 소음 평가 65 → 80 dB, 오염 60 → 74 dB, 5~10 km²에서 평균. 민감도는 10·log10 dB를 더한다. 산업, 역, 차고, 창고는 바쁠 때 더 많이 낸다. 출력 재고가 모두 가득 차면 산업의 배출 수준이 절반이 된다. 녹화는 산업마다 한 번 −80 %. 정화 시설은 700 m 이내에서 최대 20,000의 오염을 없애며(40,000은 정의되어 있지만 부스터 규칙이 필요) 기계가 필요하다.
 result: refines
 ```

@@ -19,7 +19,7 @@ A **Reputação** é uma das seis avaliações da janela do município, e a Auto
 
 ## O que a baixa
 
-Cada construção que você confirma é verificada antes de ser aplicada; o custo vai para o município afetado (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Só as suas construções contam, e no editor de mapas nada conta (`town_util.tl:1078-1080`, `towns.script.tl:58`).
+Cada construção que você confirma é verificada antes de ser aplicada; o custo vai para o município afetado (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Só as suas construções contam, e no editor de mapas nada conta (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
 
 | Motivo na janela do município | O que custa reputação | Fonte |
 |---|---|---|
@@ -27,7 +27,7 @@ Cada construção que você confirma é verificada antes de ser aplicada; o cust
 | **Rochas Removidas** | 0,25 % por rocha, × o fator de distância | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Paisagismo** | 0,00005 % por m³ de terreno elevado **ou** rebaixado: 2 milhões de m³ = 100 %. Também conta o terreno moldado por trilhos, estradas e edifícios (reduzido a partir de 10.000 m², pela metade a partir de 50.000 m²), e o volume líquido de túneis novos | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Edifícios Demolidos** | 100 % para 40,5 % da capacidade de um distrito removida (moradias, lojas ou empregos daquele município) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Subsídio Fracassado** | Abastecer Município: de 10 % até 60–90 % (conforme o risco); Conectar Municípios: 10–100 % × o fator de distância, nos **dois** municípios (veja [Subsídios](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Subsídio Fracassado** | Abastecer Município: uma penalidade sorteada, a perda de reputação (de 10 % até 60–90 % conforme o risco) ou uma multa; sempre a perda de reputação se nenhuma multa for oferecida. Conectar Municípios: 10–100 % × o fator de distância, nos **dois** municípios (veja [Subsídios](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
 | **Conexões Principais Interrompidas** | **1/3** por outro município cuja conexão principal está cortada ou longa demais | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Cada motivo tem limite de 100 % (`town_util.tl:1611-1620`).
@@ -61,7 +61,7 @@ Uma conexão principal conta como cortada quando o jogo avisa **A conexão rodov
 - **Sozinha**: um nível (1/6) a cada 3 meses de tempo de jogo (360 s), a cada mês (120 s) durante uma campanha de marketing (`towns.script.tl:121-135`). Na velocidade de calendário ×1 são cerca de **67 %** por ano, **200 %** com campanha: de 0 % ao máximo em cerca de 1,5 ano. A janela do município mostra **Recuperação Anual** 33 % e 100 %: textos fixos, metade da velocidade real (`town_react_util.tl:1066`). Medido num município de teste: um nível a cada 358 s, a cada 120 s com campanha.
 - A recuperação divide o ganho entre todos os motivos; ela nunca passa das conexões cortadas ainda abertas (`town_util.tl:1649-1687`).
 - As **celebrações** somam **+50 %** pelo primeiro passageiro que embarca numa das suas linhas num município, +50 % pela primeira carga entregue a um município, +50 % a cada subida de nível do município, e +20 % ao município mais próximo pela primeira carga entregue a cada indústria (`celebrations.script.tl:181-273`). A mensagem termina então com **Reputação da aldeia melhorada.** ou **Reputação melhorada em …** (`celebration_react_util.tl:63-75`). Elas só contam se a reputação estiver abaixo do que as conexões principais cortadas ainda permitem (cheia menos 1/3 por conexão cortada) e a configuração Reputação estiver em Ligado, e não nas missões de campanha (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Abastecer Município** pode dar de +5 % a +20 % × o fator de risco ao aceitar (`deliver_cargo_town.script.tl:195-199`). Como todo ganho, só remove perdas existentes (`towns.script.tl:324-330`).
+- **Abastecer Município** dá ao aceitar um adiantamento em dinheiro ou de +5 % a +20 % × o fator de risco, sorteado (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Como todo ganho, só remove perdas existentes (`towns.script.tl:324-330`).
 
 ## Campanha de marketing
 
@@ -83,7 +83,7 @@ O script conta 360 segundos de tempo de jogo por nível (120 com campanha), com 
 - Nunca deixe cortada uma estrada principal entre dois municípios: cada uma vale −33 % na hora, e três cortes param o município.
 - Uma campanha de marketing com a reputação cheia só ajuda suas linhas, não a avaliação. Lance-a logo depois de grandes obras, quando a recuperação tem algo a recuperar.
 - O bônus **Recuperação da Reputação** do módulo grande da sede (+1 %) aparece na aba Bônus, mas nos scripts só muda um valor que nenhuma avaliação lê (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
-- A conquista **Vexame** pede um município com 0 % de reputação no Jogo Livre (`achievements.script.tl:261-267`).
+- A conquista **Vexame** pede um município cuja reputação caia abaixo de 1 % (`achievements.script.tl:261-267`).
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | payment per item, at the consumer, for the straight line
 fact: 0 | paid at a warehouse or a transfer
 fact: 100 % | paid even when late
-fact: ×6 | year factor on warehouse, harbour and airport upkeep by 2020
+fact: ×6 | year factor shown on warehouse, airfield, airport and harbour upkeep by 2020
 ---
 
 A delivery pays for **one straight line**, from where the cargo was made to where it is used, and only when it arrives there. Everything you build and buy costs money every year, some of it more and more with the calendar year. A line loses money when its share of the payments is smaller than the costs it brings.
@@ -32,7 +32,7 @@ Details: [Cargo income and delivery time](income.html).
 
 - **Vehicles**: running costs follow average speed × capacity, and the price is 6 years of running costs (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Tracks and roads**: about one sixth of the build price per km and year; high-speed track costs 9 times simple track (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Depots, stations, warehouses, harbours, airports**: later era variants cost ×3 and ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), and the upkeep of warehouses, harbours and airports also follows the year, ×1 in 1900 to ×6 in 2020 (`mod.script.tl:92-100`).
+- **Depots, stations, warehouses, harbours, airports**: later era variants cost ×3 and ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), and for warehouses, airfields, airports and harbours the building window shows an upkeep that follows the year, ×1 in 1900 to ×6 in 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). What is charged is decided by the engine.
 - **Loans**: the rate is charged once on the amount, spread over the term (`loan_util.tl:102-111`).
 - **Inflation does not raise any cost**. It only lowers income.
 

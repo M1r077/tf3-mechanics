@@ -32,8 +32,8 @@ Queste cose si contano in tempo di gioco, quindi un calendario più lento o in p
 
 - **Produzione**: il tempo di produzione di un'industria è una quota fissa di un anno standard (`industry_react_util.tl:51`). La finestra dell'industria lo mostra in giorni del calendario attuale (`industry_react_util.tl:23`): a ×0,25 lo stesso ritmo mostra un quarto dei giorni.
 - **Rate dei prestiti**: una ogni mese standard di tempo di gioco, anche con il calendario in pausa (`loan.script.tl:83-88`).
-- **Scadenze dei sussidi** e il bonus di entrate ×2 (`subvention_util.tl:290-292`).
-- **Recupero della reputazione delle cittadine** (`towns.script.tl:121-130`), **bonus dei lavoratori** (`industry_productivity_util.tl:3`) e **chiusura delle industrie** dopo anni senza servizio (`industries.script.tl:119-128`).
+- **Scadenze dei sussidi** e la durata del bonus, 5 anni standard (`subvention_util.tl:286`, `subvention_util.tl:290-292`).
+- **Recupero della reputazione delle cittadine** (`towns.script.tl:121-130`), **effetti dei lavoratori**, contati su al massimo 2 anni standard (`industry_productivity_util.tl:3`), e **chiusura delle industrie** dopo anni senza servizio (`industries.script.tl:119-128`).
 - **Valutazioni delle consegne** delle cittadine, sull'ultimo semestre (`town_util.tl:840`).
 - **Nuove industrie**: con il calendario in pausa ne sono comparse 3 in 1809 s di tempo di gioco, a 760 s e 728 s l'una dall'altra, allo stesso ritmo del calendario in moto (circa 730 s). Misurato con [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); vedi [Industrie](industries.html).
 

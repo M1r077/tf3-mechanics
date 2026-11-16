@@ -36,7 +36,7 @@ Ein kleines Spielskript beobachtet jede Ankunft (`industry_workers.script.tl`):
 
 1. Kommt ein Einwohner an einer Industrie an und war seine **letzte Fahrt mit deinen Linien**, wird die Ankunft mit der Spielzeit notiert (`industry_workers.script.tl:86-118`).
 2. Nur Ankünfte der **letzten 2 Spieljahre** bleiben (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).
-3. Höchstens die **letzten 20** Ankünfte bleiben (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
+3. Sind 20 Ankünfte gespeichert, fallen die ältesten weg; die neuen Ankünfte eines Updates bleiben immer vollständig (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`, `industry_workers.script.tl:54-70`).
 4. Kommt dieselbe Person erneut an, ersetzt die neue Ankunft die alte: jeder Einwohner zählt **nur einmal** (`industry_workers.script.tl:56-70`).
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ Ein Kohlebergwerk mit 20 Arbeitsplätzen und „+84 %“.
 - **Jede deiner Linien kann sie bringen**, auch eine Frachtlinie, solange ihre Fahrzeuge Passagiere mitnehmen und die Haltestelle Passagiere lädt. Das Skript prüft den Fahrzeugtyp nicht (`industry_workers.script.tl:86-118`). Spieler berichten von weniger Problemen mit getrennten Personenlinien.
 - Manche Industrien (zum Beispiel Ölplattformen) haben eine eigene eingebaute Haltestelle für Passagiere und Fracht (`industryutil.lua:156-165`).
 - Das Industriefenster zeigt für jeden zugeteilten Arbeiter, ob er **Derzeit hier** oder **Unterwegs** ist (`entity_window_util.tl:1371-1384`). Der Bereich Booster listet die gezählten Arbeiter mit ihrer **Zeit übrig** von den 2 Jahren (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
-- Eine Industrie noch ohne Arbeiter zeigt: „Erschliesse diesen Standort mit dem öffentlichen Verkehr, um den Einwohnern zu ermöglichen, dort zu arbeiten.“ (`entity_window_util.tl:1650-1652`).
+- Wird keine Ankunft gezählt (keine in den letzten 2 Jahren), zeigt die Arbeiterliste im Booster-Abschnitt: „Erschliesse diesen Standort mit dem öffentlichen Verkehr, um den Einwohnern zu ermöglichen, dort zu arbeiten.“ (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine
 Welche Haltestelle eine Industrie bedient, wie weit ein Arbeiter von einer Haltestelle zum Eingang der Industrie läuft und die Einwohner welcher Städte den Arbeitsplatz nehmen, entscheidet die Engine (Einzugsgebiete, Wegfindung, Arbeitsplatzwahl). Die Skripte setzen keine Distanzgrenze für Arbeiter. Spieler berichten, dass ein Bahnhof, dessen Einzugsgebiet die Industrie für Fracht abdeckt, keine Arbeiter brachte, bis ein Bus zum Eingang der Industrie fuhr (Steam-Thread „Problem getting workers to site“).
@@ -94,7 +94,7 @@ Die Arbeitsplätze werden vergeben, wenn die Linie öffnet: In zwei Tests gingen
 
 ## Subvention Transportiere Arbeiter
 
-- Sie wird nur für eine Industrie mit Arbeitsplätzen angeboten, deren Arbeiterbonus noch nicht aktiv ist und die im letzten Jahr Fracht versendet oder empfangen hat, nach den Jahreszahlen der Engine (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Ob Empfangen allein reicht, hängt davon ab, wie die Engine die Produktionsregeln füllt; das steht nicht in den Skripten.
+- Sie wird nur für eine Industrie mit Arbeitsplätzen angeboten, deren Arbeiterbonus noch nicht aktiv ist und die im letzten Jahr Fracht versendet hat (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Jede Regel hat eine Ausgabetabelle (Booster-Regeln haben `output = { }`), und eine leere Lua-Tabelle gilt als wahr: Nur dieser Zweig wird erreicht (`industry_util.tl:544-551`).
 - Sie ist erfüllt, wenn der Arbeiterbonus aktiv wird: dieselben 10 von 20 verschiedenen Ankünften mit deinen Linien (`deliver_workers.script.tl:152-156`). Sonst wird nichts gezählt; es gibt keine versteckte Regel.
 - Der Fortschrittsbalken auf der Vertragskarte ist „gezählte Arbeiter ÷ Hälfte der Arbeitsplätze“ (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Die Pfeile auf der Vertragskarte kommen von den **5 nächsten Städten**. Sie sind nur ein Hinweis: das Skript zeichnet sie nach Entfernung, nicht danach, wer den Arbeitsplatz hat (`deliver_workers.script.tl:297-317`).

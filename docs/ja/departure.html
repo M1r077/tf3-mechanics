@@ -63,8 +63,8 @@
 </table></div>
 <ul>
 <li>時間をクリックすると数値入力欄が開き、600 秒を超える値を入力できる<span class="sr">（<code class="src">cargofilter_window.tl:204-208</code>）</span>。</li>
-<li>3 つの時間は互いの順序を保つ。最小時間や追加待機時間を最大時間より上げると、最大時間も上がる<span class="sr">（<code class="src">cargofilter_window.tl:834-835</code>, <code class="src">cargofilter_window.tl:848-849</code>, <code class="src">cargofilter_window.tl:865-869</code>）</span>。</li>
-<li>どれかを変更すると、路線はカスタムとして記録され、自動設定はその積込リストにもう触れない（<span class="sr"><code class="src">cargofilter_window.tl:438</code>、</span><a href="loading.html">積み込みと積み下ろしの速度</a>を参照）。自動設定自体がモードや時間を変えることはない<span class="sr">（<code class="src">line_util.tl:495-513</code>）</span>。</li>
+<li>3 つの時間は互いの順序を保つ。最小時間や追加待機時間を最大時間より上げると、最大時間も上がる<span class="sr">（<code class="src">cargofilter_window.tl:834-836</code>, <code class="src">cargofilter_window.tl:848-850</code>）</span>。最大時間を下げると、ほかの 2 つも下がる<span class="sr">（<code class="src">cargofilter_window.tl:865-869</code>）</span>。最大時間が「---」の間は何も調整されない。</li>
+<li>どれかを変更すると、路線はカスタムとして記録され、自動設定はその積込リストにもう触れない（<span class="sr"><code class="src">cargofilter_window.tl:438</code>、</span><a href="loading.html">積み込みと積み下ろしの速度</a>を参照）。自動設定自体がモードや時間を変えることはないが、すべての積載量を 100 % に戻す<span class="sr">（<code class="src">line_util.tl:495-719</code>, <code class="src">line_util.tl:511</code>, <code class="src">line_util.tl:543</code>）</span>。</li>
 </ul>
 <h2 id="積載量貨物ごとの上限"><span class="n">2</span><span>積載量：貨物ごとの上限</span></h2>
 <p>積載量は、車両がこの停車地でその貨物を積む最大量で、車両の容量に対する割合として表し、最も近い単位に丸められる（ゲーム内で計測）。</p>
@@ -113,7 +113,7 @@
 <li><strong>満載（任意）</strong>：車両は 1 つの貨物が満杯になると出発する。木材と板の列車は 369–380 秒後に木材 143 と 144 で出発した。約 30 秒後に木材 57 と 118 で出発した別の 2 回は説明がつかない。</li>
 <li><strong>最大停留時間</strong>は、何も積んでいなくても待機を終わらせる。最大 120 秒の満載（全て）の野菜列車は、約 25 秒で満杯（64 のうち 64）になるか、116–120 秒後に 26 または <strong>0</strong> で出発した。初期値の 600 秒では、596–600 秒後に 64 のうち 26 で出発した。</li>
 <li><strong>最小停留時間</strong>は積み込みを含む停車全体であり、その後の追加時間ではない。60 秒のとき、ガラス列車は何を積んでも毎回 55–61 秒停車した。</li>
-<li><strong>最大追加待機時間</strong>：「Maximum wait time after loading to improve vehicle distribution」<span class="sr">（<code class="src">cargofilter_window.tl:828</code>）</span>。待機中、車両ウィンドウには「安全な距離を確保中」と表示される<span class="sr">（<code class="src">entity_window_util.tl:2279-2286</code>）</span>。</li>
+<li><strong>最大追加待機時間</strong>：「Maximum wait time after loading to improve vehicle distribution」<span class="sr">（<code class="src">cargofilter_window.tl:828</code>）</span>。車両が予定の発車を待っている間、車両ウィンドウには「安全な距離を確保中」と表示される<span class="sr">（<code class="src">entity_window_util.tl:2283-2284</code>）</span>。おそらくこの待機中のことである。</li>
 <li><strong>1 つの停車地にいる複数の車両は同時に積み込む</strong>。それぞれがいつ到着したかは関係ない（ゲーム内で確認）。約 90 秒違いで到着した 2 台の木材トラックは同じ秒に、それぞれ 8 で出発した。貨物が車両の間でどう分けられるかは計測していない。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>スクリプトは設定を保存するだけで、車両がいつ出発するかはエンジンが決める。</p></div></aside>

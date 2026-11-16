@@ -8,7 +8,7 @@ updated: 2026-11-16
 game: 40425
 fact: 5 | condition levels, from Very Bad to Very Good, 20 % each
 fact: 20 % | condition that triggers the Vehicle Condition warning
-fact: 6 years | of running costs: the price of a vehicle
+fact: 6 × | the base yearly running cost: the price of a vehicle
 fact: 4 to 16 | vehicles in the maintenance pool of one depot or maintenance station
 ---
 
@@ -16,7 +16,7 @@ Every vehicle has fixed stats (speed, capacity, load speed, price, running costs
 
 ## The stats in the vehicle store
 
-- The store shows each stat as a bar. The bar compares the vehicle with the others of the same carrier and era, not with a fixed scale (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- The store shows each stat as a bar. The bar uses a fixed scale per carrier that changes with the year (for example ship load speed: 10 to 45 from 2003). It does not compare the vehicle with other vehicles (`vehicle_util.tl:210-245`, `vehicle_util.tl:259-268`).
 - For a train, the store shows the **highest** load speed of all its parts (`vehicle_store_util.tl:333`).
 - A vehicle whose file sets no load speed, noise, pollution or comfort gets a value computed from its other stats (year, speed, power, weight, size) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). The computed load speed is rounded to 0.5 and never below 1 (`vehicle_metadata_util.lua:267-269`).
 
@@ -50,8 +50,8 @@ How the vehicle load speed, the cargo load factor and the platform and stock fac
 | up to 20 % | **Very Bad** | `vehicle_util.tl:159-172` |
 
 - A train's condition is the **average** of all its wagons and locomotives (`vehicle_util.tl:285-295`).
-- Below 80 % a vehicle starts to lose top speed, power and comfort, and to gain noise, pollution and running costs (`vehicle_store_util.tl:230-259`). The vehicle window lists these penalties under **Condition**.
-- How strong these penalties are is set by **Vehicle Maintenance Effect** (None, Low, Medium, High, Very High); with None, condition has no effect (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Details: [Costs, upkeep and loans](costs.html).
+- A worn vehicle loses top speed, power and comfort, and gains noise, pollution and running costs (`vehicle_store_util.tl:236-258`). How much, and from which condition, are engine values. The vehicle window lists these penalties under **Condition**.
+- How strong these penalties are is set by **Vehicle Maintenance Effect** (None, Low, Medium, High, Very High); with None, condition has no effect (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Costs, upkeep and loans](costs.html).
 - At **20 %** or less you get the **Vehicle Condition** warning. It stays until the vehicle is back above **30 %** (`notifications.script.tl:310-318`).
 - A cloned vehicle is a new purchase: condition 100 %, new purchase date (`manager_window.tl:8502-8506`).
 
@@ -77,7 +77,7 @@ Vehicles are maintained by a depot or maintenance station nearby. Each one serve
 - The building window shows "used / pool" (for example 14 / 12) and the list of vehicles it serves, with their condition (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - A fuller pool makes the building noisier and dirtier: emissions go up with the share of the pool in use (`emissions.script.tl:223-234`).
 - A train maintenance station serves twice as many trains as a train depot: 12 against 6.
-- Maintenance stations cannot buy or store vehicles, but their radius is often larger than the depot's: 600 m against 400 m on roads, 1400 m against 1000 m for ships. Only the road maintenance station also maintains trams.
+- Maintenance stations cannot buy or store vehicles, but their radius is often larger than the depot's: 600 m against 400 m on roads, 1400 m against 1000 m for ships. Trams are maintained by the tram depot and the road maintenance station; the road depot does not maintain trams (`tram_depot.script.lua:209`, `tram_depot.script.lua:226`).
 - The official wiki suggests waypoints to send vehicles past a maintenance building.
 
 ```engine
@@ -86,13 +86,13 @@ Which station a vehicle is assigned to, what happens when more vehicles use a st
 
 ## Price and running costs
 
-- Base-game vehicles have no fixed price: running costs come from speed and capacity, and the price is **6 years** of running costs (`model_metadata_util.lua:548-549`). Full formula: [Costs, upkeep and loans](costs.html).
-- **Vehicle Costs** and **Vehicle Maintenance** scale both from 50 % to 150 % (`post_run_util.tl:54-81`).
+- Base-game vehicles have no fixed price: running costs come from speed and capacity, and the price is **6 ×** the base yearly running cost, before the Vehicle Costs and Vehicle Maintenance settings (`model_metadata_util.lua:548-549`). It equals exactly 6 years of running costs only when both settings are equal. Full formula: [Costs, upkeep and loans](costs.html).
+- **Vehicle Costs** scales prices from 50 % to 150 % (`post_run_util.tl:54-81`). For **Vehicle Maintenance**, the script rounds the scale to a whole number when the running cost is not yet set (`post_run_util.tl:71-72`). That would give 100 % at every level except Very High (200 %). To be confirmed in game.
 - A vehicle in bad condition pays more running costs, on top of the base value (`vehicle_store_util.tl:256-259`).
 
 ## Age and lifespan
 
-- Each model has a **lifespan** in years (`vehicle_metadata_util.lua:79-83`). The **Age** column of the line window shows the age; its tooltip shows the time left, or **Lifetime Reached** (`line_eow.script.tl:133-147`). The share of the lifetime in that tooltip reads **0 %** until the lifespan is reached: the script rounds the fraction down before showing it (`line_eow.script.tl:139`), while the same share is computed in full elsewhere (`vehicle_util.tl:311`). Use the time left instead.
+- Each model has a **lifespan** (`vehicle_util.tl:31-34`). The **Age** column of the line window shows the age; its tooltip shows the time left, or **Lifetime Reached** (`line_eow.script.tl:133-147`). The share of the lifetime in that tooltip reads **0 %** until the lifespan is reached: the script rounds the fraction down before showing it (`line_eow.script.tl:139`), while the same share is computed in full elsewhere (`vehicle_util.tl:311`). Use the time left instead.
 - For a train, the **oldest** part counts (`vehicle_util.tl:36-52`). One old wagon makes the whole train show as old.
 
 ```engine

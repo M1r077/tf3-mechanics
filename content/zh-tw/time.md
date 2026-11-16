@@ -32,8 +32,8 @@ fact: 0 1x 2x 4x | 遊戲速度檔位
 
 - **生產**：產業的生產時間是標準一年的固定比例（`industry_react_util.tl:51`）。產業視窗按目前月曆的天數顯示它（`industry_react_util.tl:23`）：在 ×0.25 下，同樣的速率顯示的天數只有四分之一。
 - **貸款還款**：每個標準月的遊戲時間還一次，月曆暫停時也一樣（`loan.script.tl:83-88`）。
-- **補助期限**和 ×2 收益獎勵（`subvention_util.tl:290-292`）。
-- **城鎮聲望恢復**（`towns.script.tl:121-130`）、**工人加成**（`industry_productivity_util.tl:3`），以及多年無人服務後的**產業關閉**（`industries.script.tl:119-128`）。
+- **補助期限**和獎勵持續時間，5 個標準年（`subvention_util.tl:286`，`subvention_util.tl:290-292`）。
+- **城鎮聲望恢復**（`towns.script.tl:121-130`）、最多按 2 個標準年計算的**工人效果**（`industry_productivity_util.tl:3`），以及多年無人服務後的**產業關閉**（`industries.script.tl:119-128`）。
 - 城鎮最近半年的**送貨評價**（`town_util.tl:840`）。
 - **新產業**：月曆暫停時，1809 秒遊戲時間內出現了 3 個，間隔 760 秒與 728 秒，與月曆運行時的節奏相同（約 730 秒）。用 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 測得；見 [產業](industries.html)。
 

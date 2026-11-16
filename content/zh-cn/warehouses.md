@@ -57,7 +57,7 @@ fact: 0 | 在仓库卸下的货物带来的收入
 | 污染 | 25 | 50 | `wh_universal.module.lua:34`，`wh_liquid.module.lua:38` |
 
 - 仓库本身也会增加污染：**25**，只要建了一个专用模块就是 **50**（`warehouse.script.lua:327`，`warehouse.script.lua:338-345`）。
-- 建造菜单中每个类别和时代（从 1900、1940 和 1980 年起）各有一项（`warehouses/warehouse.tl:3-5`）；后面的时代显示 ×3 和 ×9，仓库维护费也随年份增长。详见：[成本、维护费与贷款](costs.html)。
+- 建造菜单中每个类别和时代（从 1900、1940 和 1980 年起）各有一项（`warehouses/warehouse.tl:3-5`）；后面的时代显示 ×3 和 ×9（`warehouses/warehouse.tl:48`，`warehouses/warehouse.tl:75-76`），仓库维护费也随年份增长。详见：[成本、维护费与贷款](costs.html)。
 - 散货、拖车和商品模块的花费与液体模块相同（`wh_bulk.module.lua:22-23`，`wh_flatbed.module.lua:22-23`，`wh_goods.module.lua:18-19`）。
 
 ```engine
@@ -78,7 +78,7 @@ fact: 0 | 在仓库卸下的货物带来的收入
 ## 须知
 
 - 检查仓库附近每个站点的载重列表：不在列表里的货物会卸进仓库，即使在线路半途。
-- 库存满了就不再接收货物，除非站点使用“到达时强制卸下所有货品”，那样放不下的会被销毁（见 [装载与卸载速度](loading.html)）。
+- 库存满了就不再接收货物，除非站点使用“到达时强制卸下所有货品”（“即使库存已满也卸下货物”）；放不下的货物如何处理由引擎决定（见 [装载与卸载速度](loading.html)）。
 - 要让一个专用模块只存一种货物，就在库存部分固定它的货物类型。
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 会按车站列出范围内的仓库及其库存；[Platform Details](https://mod.io/g/transportfever3/m/platform-details) 会显示卸下的货物去了哪里。
 

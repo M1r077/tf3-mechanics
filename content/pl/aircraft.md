@@ -48,7 +48,7 @@ Cena i utrzymanie pierwszego wariantu, z mnożnikiem epoki. Mnożnik wynosi ×3 
 | Lotnisko polowe | 3 600 000 - 9 000 000 | 150 000 - 600 000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | Lotnisko | 5 400 000 - 13 500 000 | 900 000 - 2 250 000 | `airport.tl:8`, `airport.tl:30-31` |
 | Moduł lotniska polowego (budynek główny, terminal, hangar) | 600 000 | 100 000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| Moduł lotniska (terminal, hangar, drugi pas) | 900 000 | 150 000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| Moduł lotniska (budynek główny, terminal, hangar, drugi pas) | 900 000 | 150 000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - Utrzymanie lotnisk i lotnisk polowych zależy też od roku kalendarzowego, od ×1 w 1900 do ×6 w 2020 ([Koszty, utrzymanie i kredyty](costs.html)).
 - Cena i koszty bieżące statku powietrznego są liczone z jego prędkości i pojemności, jak w statkach i pojazdach drogowych ([Koszty, utrzymanie i kredyty](costs.html)).

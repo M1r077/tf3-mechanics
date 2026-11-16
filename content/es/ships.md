@@ -23,7 +23,7 @@ Cada barco es **pequeño** o **grande**. Un barco grande solo puede atracar en u
 - El puerto pequeño se construye con muelles pequeños, que solo admiten barcos pequeños (`small_pier.module.lua:7`). El puerto grande usa muelles medianos, que admiten ambos tamaños (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminales**: 1, 2 o 4, a elegir al construir (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - Una terminal de muelle admite 100 pasajeros en espera en un muelle pequeño y 50 en un muelle mediano (`modules.script.lua:872`, `modules.script.lua:1004`).
-- Los puertos deben colocarse a lo largo de una costa, en agua navegable (`harbor_modular.tl:29`).
+- Al colocar un puerto, el script solo muestra la capa de agua navegable (`harbor_modular.tl:26-30`). Dónde se puede colocar un puerto lo decide el motor.
 - Cada barco fija su propio tamaño en su archivo de vehículo; el juego lo convierte en el modo de barco pequeño o grande (`model_metadata_util.lua:1411-1412`).
 
 ## Costes

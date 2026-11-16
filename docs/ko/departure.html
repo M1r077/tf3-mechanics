@@ -63,8 +63,8 @@
 </table></div>
 <ul>
 <li>시간을 클릭하면 숫자 입력란이 열린다. 600 s보다 큰 값은 거기에 입력할 수 있다<span class="sr">(<code class="src">cargofilter_window.tl:204-208</code>)</span>.</li>
-<li>세 시간은 서로의 순서를 유지한다. 최소 시간이나 추가 대기 시간을 최대 시간보다 높이면 최대 시간도 올라간다<span class="sr">(<code class="src">cargofilter_window.tl:834-835</code>, <code class="src">cargofilter_window.tl:848-849</code>, <code class="src">cargofilter_window.tl:865-869</code>)</span>.</li>
-<li>이 중 하나라도 바꾸면 노선은 사용자 지정으로 표시된다. 자동 구성은 더 이상 그 노선의 상차 목록을 건드리지 않는다(<span class="sr"><code class="src">cargofilter_window.tl:438</code>, </span><a href="loading.html">상차 및 하차 속도</a> 참고). 자동 구성 자체는 모드나 시간을 절대 바꾸지 않는다<span class="sr">(<code class="src">line_util.tl:495-513</code>)</span>.</li>
+<li>세 시간은 서로의 순서를 유지한다. 최소 시간이나 추가 대기 시간을 최대 시간보다 높이면 최대 시간도 올라간다<span class="sr">(<code class="src">cargofilter_window.tl:834-836</code>, <code class="src">cargofilter_window.tl:848-850</code>)</span>. 최대 시간을 낮추면 나머지 둘도 내려간다<span class="sr">(<code class="src">cargofilter_window.tl:865-869</code>)</span>. 최대 시간이 "---"인 동안에는 아무것도 조정되지 않는다.</li>
+<li>이 중 하나라도 바꾸면 노선은 사용자 지정으로 표시된다. 자동 구성은 더 이상 그 노선의 상차 목록을 건드리지 않는다(<span class="sr"><code class="src">cargofilter_window.tl:438</code>, </span><a href="loading.html">상차 및 하차 속도</a> 참고). 자동 구성 자체는 모드나 시간을 절대 바꾸지 않지만, 모든 충전 수위를 100 %로 되돌린다<span class="sr">(<code class="src">line_util.tl:495-719</code>, <code class="src">line_util.tl:511</code>, <code class="src">line_util.tl:543</code>)</span>.</li>
 </ul>
 <h2 id="충전-수위-화물별-상한"><span class="n">2</span><span>충전 수위: 화물별 상한</span></h2>
 <p>충전 수위는 운송 수단이 이 정류장에서 그 화물을 최대로 싣는 양이며, 운송 수단 수용량에 대한 비율이고, 가장 가까운 단위로 반올림된다(게임 내 측정).</p>
@@ -113,7 +113,7 @@
 <li><strong>가득 실음(아무 종류)</strong>: 운송 수단은 화물 하나가 가득 차면 떠난다. 통나무와 널빤지 열차는 369–380 s 뒤 통나무 143과 144를 싣고 떠났다. 약 30 s 뒤 통나무 57과 118을 싣고 떠난 다른 두 번의 출발은 설명되지 않았다.</li>
 <li><strong>최대 정지 시간</strong>은 아무것도 싣지 않았더라도 대기를 끝낸다. 최대 120 s로 가득 실음(모든 종류) 상태인 채소 열차는 약 25 s 만에 가득 차거나(64 중 64), 116–120 s 뒤 26 또는 <strong>0</strong>을 싣고 떠났다. 기본값 600 s에서는 596–600 s 뒤 64 중 26을 싣고 떠났다.</li>
 <li><strong>최소 정지 시간</strong>은 상차를 포함한 정차 전체이며, 그 뒤에 더해지는 시간이 아니다. 60 s일 때 유리 열차는 무엇을 실었든 매번 55–61 s 정차했다.</li>
-<li><strong>최대 추가 대기 시간</strong>: "Maximum wait time after loading to improve vehicle distribution"<span class="sr">(<code class="src">cargofilter_window.tl:828</code>)</span>. 기다리는 동안 운송 수단 창에 "안전 거리 유지 중"이 표시된다<span class="sr">(<code class="src">entity_window_util.tl:2279-2286</code>)</span>.</li>
+<li><strong>최대 추가 대기 시간</strong>: "Maximum wait time after loading to improve vehicle distribution"<span class="sr">(<code class="src">cargofilter_window.tl:828</code>)</span>. 운송 수단이 예정된 출발을 기다리는 동안 운송 수단 창에 "안전 거리 유지 중"이 표시된다<span class="sr">(<code class="src">entity_window_util.tl:2283-2284</code>)</span>. 아마 이 대기 중일 것이다.</li>
 <li><strong>한 정류장에 있는 여러 운송 수단은 각자 언제 도착했든 동시에 상차한다</strong>(게임 내 관찰). 약 90 s 간격으로 도착한 통나무 트럭 두 대는 같은 초에 각각 8을 싣고 떠났다. 화물이 그들 사이에 어떻게 나뉘는지는 측정하지 않았다.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>스크립트는 설정만 저장하고, 운송 수단이 언제 떠나는지는 엔진이 정한다.</p></div></aside>

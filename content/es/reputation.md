@@ -19,7 +19,7 @@ La **Reputación** es una de las seis calificaciones de la ventana de la localid
 
 ## Qué la baja
 
-Cada construcción que confirmas se revisa antes de aplicarla; el coste se asigna a la localidad afectada (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Solo cuentan tus propias construcciones, y en el editor de mapas no cuenta nada (`town_util.tl:1078-1080`, `towns.script.tl:58`).
+Cada construcción que confirmas se revisa antes de aplicarla; el coste se asigna a la localidad afectada (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Solo cuentan tus propias construcciones, y en el editor de mapas no cuenta nada (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
 
 | Motivo en la ventana de la localidad | Qué cuesta reputación | Fuente |
 |---|---|---|
@@ -27,7 +27,7 @@ Cada construcción que confirmas se revisa antes de aplicarla; el coste se asign
 | **Rocas eliminadas** | 0,25 % por roca, × el factor de distancia | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Paisajismo** | 0,00005 % por m³ de terreno elevado **o** hundido: 2 millones de m³ = 100 %. También cuenta el terreno que forman vías, carreteras y edificios (reducido a partir de 10.000 m², a la mitad desde 50.000 m²), y el volumen neto de los túneles nuevos | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Edificios demolidos** | 100 % por el 40,5 % de la capacidad de un distrito eliminada (viviendas, comercios o empleos de esa localidad) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Subvención fallida** | Suministrar a localidad: del 10 % hasta 60–90 % (según el riesgo); Conectar localidades: 10–100 % × el factor de distancia, en **ambas** localidades (ver [Subvenciones](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Subvención fallida** | Suministrar a localidad: una penalización elegida al azar, la pérdida de reputación (del 10 % hasta 60–90 % según el riesgo) o una multa; siempre la pérdida de reputación si no se ofrece multa. Conectar localidades: 10–100 % × el factor de distancia, en **ambas** localidades (ver [Subvenciones](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
 | **Conexiones principales interrumpidas** | **1/3** por cada otra localidad cuya conexión principal está cortada o es demasiado larga | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Cada motivo tiene un tope del 100 % (`town_util.tl:1611-1620`).
@@ -61,7 +61,7 @@ Una conexión principal cuenta como cortada cuando el juego avisa **Se corto la 
 - **Sola**: un nivel (1/6) cada 3 meses de tiempo de juego (360 s), cada mes (120 s) durante una campaña de marketing (`towns.script.tl:121-135`). A velocidad de calendario ×1 son unos **67 %** al año, **200 %** con campaña: de 0 % al máximo en 1,5 años aproximadamente. La ventana de la localidad muestra **Recuperación anual** 33 % y 100 %: textos fijos, la mitad de la velocidad real (`town_react_util.tl:1066`). Medido en una localidad de prueba: un nivel cada 358 s, cada 120 s con campaña.
 - La recuperación reparte la ganancia entre todos los motivos; nunca supera las conexiones cortadas que siguen abiertas (`town_util.tl:1649-1687`).
 - Las **celebraciones** añaden **+50 %** por el primer pasajero que sube a una de tus líneas en una localidad, +50 % por la primera carga entregada a una localidad, +50 % en cada subida de nivel de la localidad, y +20 % a la localidad más cercana por la primera carga entregada a cada industria (`celebrations.script.tl:181-273`). El mensaje termina entonces con **Ha mejorado la reputación del asentamiento.** o **Reputación mejorada en …** (`celebration_react_util.tl:63-75`). Solo cuentan si la reputación está por debajo de lo que permiten las conexiones principales cortadas (completa menos 1/3 por conexión cortada) y el ajuste Reputación está en Sí, y no en las misiones de campaña (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Suministrar a localidad** puede dar de +5 % a +20 % × el factor de riesgo al aceptar (`deliver_cargo_town.script.tl:195-199`). Como toda ganancia, solo quita pérdidas existentes (`towns.script.tl:324-330`).
+- **Suministrar a localidad** da al aceptar un adelanto en efectivo o de +5 % a +20 % × el factor de riesgo, elegido al azar (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Como toda ganancia, solo quita pérdidas existentes (`towns.script.tl:324-330`).
 
 ## Campaña de marketing
 
@@ -83,7 +83,7 @@ El script cuenta 360 segundos de tiempo de juego por nivel (120 con campaña), c
 - No dejes nunca cortada una carretera principal entre dos localidades: cada una es −33 % al instante, y tres cortes detienen la localidad.
 - Una campaña de marketing con la reputación completa solo ayuda a tus líneas, no a la calificación. Lánzala justo después de grandes obras, cuando la recuperación tiene algo que recuperar.
 - La bonificación **Recuperación de la reputación** del módulo grande de la sede central (+1 %) aparece en la pestaña Bonificaciones, pero en los scripts solo cambia un valor que ninguna calificación lee (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
-- El logro **Yo no he sido** pide una localidad con 0 % de reputación en una partida libre (`achievements.script.tl:261-267`).
+- El logro **Yo no he sido** pide una localidad cuya reputación baje de 1 % (`achievements.script.tl:261-267`).
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

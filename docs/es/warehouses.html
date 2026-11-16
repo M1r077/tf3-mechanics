@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>El almacén añade su propia contaminación: <strong>25</strong>, o <strong>50</strong> en cuanto se construye un módulo especializado<span class="sr"> (<code class="src">warehouse.script.lua:327</code>, <code class="src">warehouse.script.lua:338-345</code>)</span>.</li>
-<li>El menú de construcción tiene una entrada por clase y época (desde 1900, 1940 y 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; las épocas posteriores muestran ×3 y ×9, y la conservación de los almacenes también crece con el año. Detalles: <a href="costs.html">Costes, conservación y préstamos</a>.</li>
+<li>El menú de construcción tiene una entrada por clase y época (desde 1900, 1940 y 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span>; las épocas posteriores muestran ×3 y ×9<span class="sr"> (<code class="src">warehouses/warehouse.tl:48</code>, <code class="src">warehouses/warehouse.tl:75-76</code>)</span>, y la conservación de los almacenes también crece con el año. Detalles: <a href="costs.html">Costes, conservación y préstamos</a>.</li>
 <li>Los módulos a granel, de plataforma y de mercancías cuestan lo mismo que los de líquidos<span class="sr"> (<code class="src">wh_bulk.module.lua:22-23</code>, <code class="src">wh_flatbed.module.lua:22-23</code>, <code class="src">wh_goods.module.lua:18-19</code>)</span>.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Lo decide el motor del juego<small>C++, no visible en los scripts</small></h4><p>Los scripts dan dos niveles de emisión, el segundo el doble del primero<span class="sr"> (<code class="src">warehouse.script.lua:342-343</code>)</span>; el almacén pasa del primero al segundo a medida que se llenan sus existencias, existencias llenas = el doble<span class="sr"> (<code class="src">emissions.script.tl:237-249</code>)</span>. El precio que se cobra de verdad por los módulos lo calcula el motor.</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="conviene-saber"><span class="n">7</span><span>Conviene saber</span></h2>
 <ul>
 <li>Revisa la lista Carga de cada parada cerca de un almacén: lo que no está en ella se descarga en el almacén, incluso a mitad de la línea.</li>
-<li>Unas existencias llenas rechazan más cargamento, salvo que la parada use "Forzar la descarga de todo el cargamento al llegar", que destruye lo que no cabe (ver <a href="loading.html">Velocidad de carga y descarga</a>).</li>
+<li>Unas existencias llenas rechazan más cargamento, salvo que la parada use "Forzar la descarga de todo el cargamento al llegar" ("Descargar el cargamento aunque las existencias estén llenas"); qué pasa con el cargamento que no cabe lo decide el motor (ver <a href="loading.html">Velocidad de carga y descarga</a>).</li>
 <li>Para reservar un módulo especializado a un cargamento, fija su tipo de cargamento en la sección Existencias.</li>
 <li><a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> enumera, por estación, los almacenes a su alcance con sus existencias; <a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> muestra adónde fue el cargamento descargado.</li>
 </ul>

@@ -24,8 +24,8 @@ Elke halte van een lijn heeft eigen vertrekinstellingen, in het venster "Vrachtf
 | "Vulniveau", per geladen vracht | 0–100 %, stap 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Klikken op een tijd opent een invoervak: daar kun je waarden boven 600 s typen (`cargofilter_window.tl:204-208`).
-- De drie tijden blijven op volgorde: als je het minimum of de extra wachttijd boven het maximum zet, gaat het maximum ook omhoog (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).
-- Elke wijziging markeert de lijn als aangepast: de automatische configuratie raakt haar lijsten Lading niet meer aan (`cargofilter_window.tl:438`, zie [Laad- en lossnelheid](loading.html)). De automatische configuratie zelf wijzigt nooit de modus of de tijden (`line_util.tl:495-513`).
+- De drie tijden blijven op volgorde: als je het minimum of de extra wachttijd boven het maximum zet, gaat het maximum ook omhoog (`cargofilter_window.tl:834-836`, `cargofilter_window.tl:848-850`); het maximum verlagen verlaagt de andere twee (`cargofilter_window.tl:865-869`). Zolang het maximum "---" is, wordt niets aangepast.
+- Elke wijziging markeert de lijn als aangepast: de automatische configuratie raakt haar lijsten Lading niet meer aan (`cargofilter_window.tl:438`, zie [Laad- en lossnelheid](loading.html)). De automatische configuratie zelf wijzigt nooit de modus of de tijden, maar zet elk Vulniveau terug op 100 % (`line_util.tl:495-719`, `line_util.tl:511`, `line_util.tl:543`).
 
 ## Vulniveau: een limiet per vracht
 
@@ -51,7 +51,7 @@ Het vulniveau is het maximum van die vracht dat het voertuig bij deze halte meen
 - **Volledige belading (willekeurig)**: het voertuig vertrekt als één vracht vol is. Een trein voor boomstammen en planken vertrok na 369–380 s met 143 en 144 boomstammen; twee andere vertrekken na ongeveer 30 s met 57 en 118 boomstammen zijn niet verklaard.
 - **Max. stoptijd** beëindigt het wachten, ook als er niets geladen is. Een groentetrein in Volledige belading (alle) met een maximum van 120 s werd ofwel in ongeveer 25 s vol (64 van 64), ofwel vertrok na 116–120 s met 26 of **0**. Met de standaard 600 s vertrok hij na 596–600 s met 26 van 64.
 - **Min. stoptijd** is de hele stop, laden inbegrepen, geen extra tijd erna: met 60 s stonden glastreinen elke keer 55–61 s stil, wat ze ook laadden.
-- **Maximale extra wachttijd**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). Het voertuigvenster toont "Veilige afstand bewaren" terwijl het wacht (`entity_window_util.tl:2279-2286`).
+- **Maximale extra wachttijd**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). Het voertuigvenster toont "Veilige afstand bewaren" terwijl het op zijn geplande vertrek wacht (`entity_window_util.tl:2283-2284`), vermoedelijk tijdens deze wachttijd.
 - **Meerdere voertuigen bij één halte laden tegelijk**, ongeacht wanneer elk aankwam (gezien in het spel). Twee vrachtwagens met boomstammen die ongeveer 90 s na elkaar aankwamen, vertrokken in dezelfde seconde, elk met 8. Hoe de vracht tussen hen verdeeld wordt, is niet gemeten.
 
 ```engine

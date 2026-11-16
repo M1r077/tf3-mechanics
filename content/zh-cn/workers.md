@@ -36,7 +36,7 @@ fact: ×1.5–2.5 | 加成系数，每个产业固定
 
 1. 当一个居民到达产业，且他的**最后一段行程乘坐的是你的线路**时，这次到达会连同游戏时间一起被记录（`industry_workers.script.tl:86-118`）。
 2. 只保留**最近 2 个游戏年**内的到达（`industry_productivity_util.tl:3`：`2 * getDefaultYearDuration()`）。
-3. 最多只保留**最近的 20 次**到达（`industry_workers.script.tl:4`，`KeepHistoryCount = 20`）。
+3. 已保留 20 次到达后，最早的会被删除；同一次更新中的新到达总是全部保留（`industry_workers.script.tl:4`，`KeepHistoryCount = 20`，`industry_workers.script.tl:54-70`）。
 4. 同一个人再次到达时，新的记录会替换旧的：每个居民只计**一次**（`industry_workers.script.tl:56-70`）。
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ fact: ×1.5–2.5 | 加成系数，每个产业固定
 - **你的任何线路都能送他们**，包括运货的线路，只要车辆能载客、站点会装载乘客。脚本不检查车辆类型（`industry_workers.script.tl:86-118`）。玩家报告使用单独的客运线路问题更少。
 - 有些产业（例如石油钻井）有自带站点，可接乘客和货物（`industryutil.lua:156-165`）。
 - 产业窗口为每个分配的工人显示他是**目前在此处的**还是**在路上的**（`entity_window_util.tl:1371-1384`）。“加成”部分列出计入的工人及其 2 年中的**剩余时间**（`entity_window_util.tl:1579-1630`、`industry_eow.script.tl:644-649`）。
-- 还没有工人的产业显示：“将此位置接入公共交通网，以使居民能够来这里工作。”（`entity_window_util.tl:1650-1652`）。
+- 没有计入任何到达时（过去 2 年内一次也没有），加成部分的工人列表显示：“将此位置接入公共交通网，以使居民能够来这里工作。”（`entity_window_util.tl:1650-1652`、`entity_window_util.tl:1608`、`entity_window_util.tl:1632`）。
 
 ```engine
 哪个站点服务产业、工人从站点到产业入口走多远、哪些城镇的居民得到这份工作，都由引擎决定（覆盖范围、寻路、工作选择）。脚本没有给工人设距离限制。玩家报告，一个货运覆盖范围包含产业的车站一直没带来工人，直到有公交开到产业入口（Steam 帖子“Problem getting workers to site”）。
@@ -94,7 +94,7 @@ fact: ×1.5–2.5 | 加成系数，每个产业固定
 
 ## 运输工人补贴
 
-- 只会为有工作岗位、工人加成尚未生效、并且按引擎的年度数据在过去一年运出或接收过货物的产业提供（`deliver_workers.script.tl:121-131`、`industry_util.tl:541-558`）。只接收货物是否足够，取决于引擎如何填写生产规则，脚本中没有。
+- 只会为有工作岗位、工人加成尚未生效、并且在过去一年运出过货物的产业提供（`deliver_workers.script.tl:121-131`、`industry_util.tl:541-558`）。每条规则都有输出表（加成规则为 `output = { }`），而空的 Lua 表视为真，所以只会走到这个分支（`industry_util.tl:544-551`）。
 - 工人加成激活时完成：同样是 20 个中有 10 个不同的人乘你的线路到达（`deliver_workers.script.tl:152-156`）。不计其他东西；没有隐藏规则。
 - 合同卡上的进度条是“计入的工人 ÷ 工作岗位的一半”（`deliver_workers.script.tl:267-272`、`industry_util.tl:11-18`）。
 - 合同地图上的箭头来自**最近的 5 个城镇**。它们只是提示：脚本按距离画出，而不是按谁有这份工作（`deliver_workers.script.tl:297-317`）。

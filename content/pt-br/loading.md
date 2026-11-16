@@ -31,8 +31,8 @@ Para o jogo, uma plataforma não é uma fileira de módulos: é uma **lista de s
 |---|---|---|
 | em uma seção da sua classe (vagões a granel, seção a granel) | **×2** | `modular_station.script.lua:1042` |
 | em uma seção universal | ×1 | `modular_station.script.lua:1042` |
-| sem nenhuma seção da sua classe na plataforma | **×0,25** | `cargo_react_util.tl:60` |
-| além do comprimento da plataforma (trem longo demais) | **×0,25** | `cargo_react_util.tl:61` |
+| sem nenhuma seção da sua classe na plataforma | **×0,25** (constante da dica de carregamento; o fator em si é aplicado pelo motor) | `cargo_react_util.tl:60` |
+| além do comprimento da plataforma (trem longo demais) | **×0,25** (constante da dica de carregamento; o fator em si é aplicado pelo motor) | `cargo_react_util.tl:61` |
 
 - O fator é uma **mistura pela fração do trem**: se 3/4 dos vagões combinam e 1/4 não, o fator é ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`, a mesma divisão que o jogo mostra como "Terminal Parcialmente Especializado").
 - **Onde** os vagões param na plataforma não importa, só os comprimentos somados (medido no jogo).
@@ -88,7 +88,7 @@ Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" 
 
 | Opção de "Filtro de Cargas" | O que faz | Fonte |
 |---|---|---|
-| "Forçar descarregamento de todas as cargas na chegada" | descarrega nos estoques compatíveis mesmo cheios; o que não cabe é destruído. Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forçar descarregamento de todas as cargas na chegada" | dica: "Descarregar a carga mesmo se os estoques estiverem cheios"; o que acontece com a carga que não cabe é decidido pelo motor. Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Destruir cargas na chegada quando a configuração mudar" | descarrega ou destrói a carga a bordo quando há carga esperando nesta parada para outra configuração de carregamento do veículo; qual das duas coisas acontece é o motor que decide | `cargofilter_window.tl:767` |
 | "Substituir com carga mais nova, se disponível" | destrói a carga que voltou à parada onde foi carregada, quando há carga mais nova do mesmo tipo esperando | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ A ordem em que várias cargas são carregadas, como um estoque compartilhado é 
 
 ## A configuração automática
 
-Enquanto ninguém salvar uma mudança na janela "Filtro de Cargas" de uma parada, o que a desliga de vez nessa linha (`line_util.tl:495-498`, `cargofilter_window.tl:438`), o próprio jogo preenche as listas Volume cada vez que a linha é criada, uma parada é adicionada ou removida, as paradas são reordenadas ou um ponto de passagem é adicionado (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Mover uma parada para outra estação ou plataforma, e remover ou mover um ponto de passagem, não a executam (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+Enquanto ninguém salvar uma mudança na janela "Filtro de Cargas" de uma parada, o que a desliga de vez nessa linha (`line_util.tl:495-498`, `cargofilter_window.tl:438`), o próprio jogo preenche as listas Volume cada vez que a linha é criada, uma parada é adicionada ou removida, as paradas são reordenadas ou um ponto de passagem é adicionado (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Mover uma parada para outra estação ou plataforma, e remover ou mover um ponto de passagem, não a executam (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - Ela recomeça de listas vazias, com passageiros nas estações de passageiros (`line_util.tl:542-588`).
 - Ela procura produtores e consumidores só entre indústrias e prédios da cidade: armazéns não contam (`cargo_util.tl:518-526`).

@@ -19,7 +19,7 @@ La **Reputazione** è una delle sei valutazioni della finestra della cittadina, 
 
 ## Cosa la abbassa
 
-Ogni costruzione che confermi viene controllata prima di essere applicata; il costo va alla cittadina interessata (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Contano solo le tue costruzioni, e nell'editor di mappe non conta nulla (`town_util.tl:1078-1080`, `towns.script.tl:58`).
+Ogni costruzione che confermi viene controllata prima di essere applicata; il costo va alla cittadina interessata (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Contano solo le tue costruzioni, e nell'editor di mappe non conta nulla (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
 
 | Motivo nella finestra della cittadina | Cosa costa reputazione | Fonte |
 |---|---|---|
@@ -27,7 +27,7 @@ Ogni costruzione che confermi viene controllata prima di essere applicata; il co
 | **Rocce rimosse** | 0,25 % per roccia, × il fattore di distanza | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Progettazione paesaggi** | 0,00005 % per m³ di terreno alzato **o** abbassato: 2 milioni di m³ = 100 %. Conta anche il terreno modellato da binari, strade ed edifici (ridotto a partire da 10.000 m², fino alla metà da 50.000 m²), e il volume netto dei nuovi tunnel | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Edifici demoliti** | 100 % per il 40,5 % della capacità di un distretto rimossa (abitazioni, negozi o posti di lavoro di quella cittadina) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Commessa non completata** | Fornitura urbana: dal 10 % fino al 60–90 % (secondo il rischio); Collegamento urbano: 10–100 % × il fattore di distanza, in **entrambe** le cittadine (vedi [Commesse](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Commessa non completata** | Fornitura urbana: una penalità estratta a caso, la perdita di reputazione (dal 10 % fino al 60–90 % secondo il rischio) o una multa; sempre la perdita di reputazione se non è prevista una multa. Collegamento urbano: 10–100 % × il fattore di distanza, in **entrambe** le cittadine (vedi [Commesse](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
 | **Collegamenti principali interrotti** | **1/3** per ogni altra cittadina il cui collegamento principale è interrotto o troppo lungo | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Ogni motivo ha un tetto del 100 % (`town_util.tl:1611-1620`).
@@ -61,7 +61,7 @@ Un collegamento principale conta come interrotto quando il gioco segnala **Il co
 - **Da sola**: un livello (1/6) ogni 3 mesi di tempo di gioco (360 s), ogni mese (120 s) durante una campagna marketing (`towns.script.tl:121-135`). A velocità calendario ×1 sono circa **67 %** all'anno, **200 %** con una campagna: da 0 % al massimo in circa 1,5 anni. La finestra della cittadina mostra **Recupero annuale** 33 % e 100 %: testi fissi, metà della velocità reale (`town_react_util.tl:1066`). Misurato su una cittadina di prova: un livello ogni 358 s, ogni 120 s con una campagna.
 - Il recupero ripartisce il guadagno su tutti i motivi; non supera mai i collegamenti ancora interrotti (`town_util.tl:1649-1687`).
 - Le **celebrazioni** aggiungono **+50 %** per il primo passeggero che sale su una tua linea in una cittadina, +50 % per il primo carico consegnato a una cittadina, +50 % a ogni salita di livello della cittadina, e +20 % alla cittadina più vicina per il primo carico consegnato a ogni industria (`celebrations.script.tl:181-273`). Il messaggio termina allora con **Reputazione insediamento migliorata.** o **Reputazione … migliorata.** (`celebration_react_util.tl:63-75`). Contano solo se la reputazione è sotto quanto permettono ancora i collegamenti principali interrotti (piena meno 1/3 per collegamento interrotto) e l'impostazione Reputazione è su Sì, e non nelle missioni della campagna (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Fornitura urbana** può dare da +5 % a +20 % × il fattore di rischio all'accettazione (`deliver_cargo_town.script.tl:195-199`). Come ogni guadagno, toglie solo perdite esistenti (`towns.script.tl:324-330`).
+- **Fornitura urbana** dà all'accettazione un anticipo in denaro oppure da +5 % a +20 % × il fattore di rischio, estratto a caso (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Come ogni guadagno, toglie solo perdite esistenti (`towns.script.tl:324-330`).
 
 ## Campagna marketing
 
@@ -83,7 +83,7 @@ Lo script conta 360 secondi di tempo di gioco per livello (120 con una campagna)
 - Non lasciare mai interrotta una strada principale tra due cittadine: ognuna vale −33 % subito, e tre interruzioni fermano la cittadina.
 - Una campagna marketing a reputazione piena aiuta solo le tue linee, non la valutazione. Lanciala subito dopo grandi lavori, quando il recupero ha qualcosa da recuperare.
 - Il bonus **Recupero reputazione** del modulo grande della sede centrale (+1 %) compare nella scheda Bonus, ma negli script cambia solo un valore che nessuna valutazione legge (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
-- L'obiettivo **Non è colpa mia** chiede una cittadina con 0 % di reputazione in Gioco libero (`achievements.script.tl:261-267`).
+- L'obiettivo **Non è colpa mia** chiede una cittadina la cui reputazione scende sotto l'1 % (`achievements.script.tl:261-267`).
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

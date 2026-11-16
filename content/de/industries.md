@@ -17,8 +17,8 @@ Jede Industrie arbeitet nach **Regeln**: „nimm dies aus den Eingangsbeständen
 
 ## Produktionsregeln
 
-- Eine Regel gibt die verbrauchte und erzeugte Fracht pro Durchlauf an und wie viele Durchläufe pro Jahr: ein Durchlauf dauert ein Jahr ÷ diese Zahl (`industry_react_util.tl:51-57`). Der Abschnitt Produktion im Industriefenster zeigt sie als kleine Zahlen.
-- Die Zahl **Max.** im Fenster ist: pro Durchlauf × Durchläufe pro Jahr × die Boni × die Einstellung **Industrieproduktivität** (`industry_util.tl:310-379`).
+- Eine Regel gibt die verbrauchte und erzeugte Fracht pro Durchlauf an und wie viele Durchläufe pro Jahr: ein Durchlauf dauert ein Jahr ÷ diese Zahl, bei Produktionsregeln um die Boni kürzer (`industry_react_util.tl:51-57`). Der Abschnitt Produktion im Industriefenster zeigt sie als kleine Zahlen.
+- Die Zahl **Max.** im Fenster ist: pro Durchlauf × Durchläufe pro Jahr × Größenfaktor (`rule.consumptionFactor`) × die Boni × die Einstellung **Industrieproduktivität**, die letzten beiden nur bei Produktionsregeln (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
 - **Industrieproduktivität**: 50 %, 75 %, 100 %, 150 % oder 200 %. Voreinstellungen: Einfach 150 %, Normal 100 %, Schwierig 75 %, Sehr schwierig 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
 - Beispiel Stahlwerk: 6 Eisenerz + 6 Kohle → 3 Stahl + 4 Blech, 121,7 Durchläufe pro Jahr: 730 Eisenerz und 730 Kohle → 365 Stahl und 487 Blech (`steel_mill.con.lua:43-71`). Fehlt ein Eingang, steht die Regel.
 - Die Konservenfabrik hat zwei Regeln: Fisch + Blech oder Fleisch + Blech (`food_factory.con.lua:43-74`).
@@ -130,11 +130,11 @@ Die Prüfung läuft alle 100 Updates für jede Industrie (`industries.script.tl:
 
 1. **Kandidat**: keine Fracht in ein Fahrzeug **verladen** und keine **verbraucht** für **5 Jahre** (ab dem Bau, falls nie) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Nur Produzieren zählt nicht.
 2. **Zufall**: Ein Kandidat wird bei jeder Prüfung mit einem Teil der jährlichen Chance der Einstellung **Häufigkeit von Industrieschliessungen** gezogen (Tabelle unten), sodass es übers Jahr diese Chance ergibt (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
-3. **Countdown**: die Meldung **Industrieschliessung** erscheint, mit 2 Jahren (730 Tagen) Frist (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Danach wird die Industrie mit ihren eigenen Straßenstücken entfernt (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
-4. **Gerettet**: ein einziges Verladen oder ein Verbrauch während des Countdowns bricht ihn ab (`industries.script.tl:134-137`). Eine angenommene Subvention **Industrie beliefern** oder **Transportiere Arbeiter** für sie bricht ihn ebenfalls ab (`subvention_util.tl:473-484`).
+3. **Countdown**: die Meldung **Industrieschliessung** erscheint, mit 2 Jahren (730 Tagen) Frist (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Danach wird die Industrie mit ihren eigenen Straßenstücken entfernt (`industries.script.tl:147-155`, `industries.script.tl:193-222`, `industry_util.tl:560-601`).
+4. **Gerettet**: ein einziges Verladen oder ein Verbrauch während des Countdowns bricht ihn ab (`industries.script.tl:134-137`). Eine angenommene Subvention **Industrie beliefern** oder **Transportiere Arbeiter** für sie bricht den Countdown ab, solange die Subvention läuft (`subvention_util.tl:473-484`, `subvention_util.tl:478-483`). Der 5-Jahres-Test wird nicht zurückgesetzt (`industries.script.tl:119`): Wird nichts verladen oder verbraucht, kann die Industrie später erneut markiert werden.
 
 ```tip scripts
-**Meldung Industrieschliessung? Ein einziges Verladen oder eine Lieferung in den 730 Tagen bricht sie ab.** Eine angenommene Subvention Industrie beliefern oder Transportiere Arbeiter für diese Industrie bricht sie ebenfalls ab.
+**Meldung Industrieschliessung? Ein einziges Verladen oder eine Lieferung in den 730 Tagen bricht sie ab.** Eine angenommene Subvention Industrie beliefern oder Transportiere Arbeiter für diese Industrie bricht sie ab, solange die Subvention läuft; verlade trotzdem weiter: Der 5-Jahres-Test wird nicht zurückgesetzt.
 ```
 
 | Häufigkeit von Industrieschliessungen | Chance pro Jahr als Kandidat | Hälfte der Kandidaten markiert nach | Voreinstellung | Quelle |
@@ -153,7 +153,7 @@ Was als „verladen“ und „verbraucht“ zählt (die Logs itemsLoaded und ite
 
 ## Neue Industrien
 
-Die Engine fügt während des Spiels neue Industrien hinzu. Die Meldung heißt **Neue Industrie gegründet**: „Ein visionärer Unternehmer wittert eine Gewinnchance und hat {industry} gegründet.“ (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Kein Spielskript wählt Ort, Typ oder Zeitpunkt, und keines filtert, was die Engine vorschlägt.
+Die Engine fügt während des Spiels neue Industrien hinzu. Die Meldung heißt **Neue Industrie gegründet**: „Ein visionärer Unternehmer wittert eine Gewinnchance und hat {industry} gegründet.“ (`industry_spawn.script.tl:34-36`); ihr Typname lautet im Spiel genauso (`industry_spawn.res.lua:6`). Kein Spielskript wählt Ort, Typ oder Zeitpunkt, und keines filtert, was die Engine vorschlägt.
 
 Was die Skripte der Engine geben (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
 
@@ -163,7 +163,7 @@ Was die Skripte der Engine geben (`mod.script.tl:128-133`, `mod.script.tl:166-16
 | spawnProbabilityExponent | 3,0 | Exponent der Entstehungschance (Formel in der Engine) |
 | spawnIndustries | aus im Karteneditor, an im Spiel | keine neuen Industrien im Karteneditor |
 | industryDensity | 1 × **Industrie-Zieldichte** | die Zielzahl an Industrien |
-| maxNumberPerArea, absoluteMinimum | 0,8 pro km² (0,64 auf Konsolen), 24 | auch vom Kartengenerator genutzt |
+| maxNumberPerArea, absoluteMinimum | 0,8 pro km² (0,64 auf Konsolen), 24 | eine Grenze pro Fläche und ein Minimum (ihre Verwendung liegt in der Engine) |
 
 **Industrie-Zieldichte** („Passe die langfristige Anzahl und Dichte der Industrien auf der Karte an.“): 5 Stufen, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
 

@@ -21,7 +21,7 @@ fact: 100 % | 遅延しても全額支払われる
 計算式全体は 1 つの短いゲームスクリプトである（`cargo_income.script.lua:10-13`）。
 
 1. 貨物の**収入係数**。基本ゲームのすべての貨物は同じ関数と同じ価格（`initialPrice = 4`、`finalPrice = 3.2`）を使うため、**36 種類すべての貨物で 3.8** になる（`cargotype.script.lua:7-13`、`coal.cargo.lua:21-22`）。同じ距離なら、石炭は商品とまったく同じ額を稼ぐ。
-2. **貨物収入** 設定：50 %、75 %、100 %、125 %、150 %（`difficulty_util.tl:38`、`mod.script.tl:211`）。4 つの難易度プリセットはすべて 100 % を使う（`difficulty_util.tl:97`）。
+2. **貨物収入** 設定：50 %、75 %、100 %、125 %、150 %（`difficulty_util.tl:38`、`mod.script.tl:211`）。4 つの難易度プリセットはすべて 100 % を使う（`difficulty_util.tl:97`、`difficulty_util.tl:124`、`difficulty_util.tl:152`、`difficulty_util.tl:179`）。
 3. **距離**。下記を参照。
 
 この関数は移動時間を受け取るが、**使用しない**（`cargotype.script.lua:7-13`）。遅い配送も遅延した配送も同じ額が支払われる。
@@ -32,7 +32,7 @@ fact: 100 % | 遅延しても全額支払われる
 ```
 
 - 距離は 2 地点間の **3D の直線距離**であり、路線の長さではない（`cargo_income.script.lua:3-7`）。
-- 高低差が正のときは **8 × その高さ** が加算される（`cargo_income.script.lua:5`）。100 m 上ると 800 m 長い距離と同じ報酬になる。逆方向では何も差し引かれない。
+- 貨物が出発元より高い場所に配送されると、**8 × その高さ** が加算される（`cargo_income.script.lua:5`）。100 m は 800 m 長い距離と同じ報酬になる。スクリプトはエンジンが渡す高低差を使い、その向きはスクリプトからは見えない。負の差では何も差し引かれない。
 - そのため、曲がりくねった路線もまっすぐな路線と同じだけ稼ぐが、建設した線路や道路は 1 m ごとに維持費がかかる。
 
 ```engine
@@ -65,7 +65,7 @@ fact: 100 % | 遅延しても全額支払われる
 | **達成した助成金** | 契約の産業または町への配送で ×2（契約のために配送した路線のみ） | `deliver_cargo.script.tl:463-469`、`deliver_cargo_town.script.tl:554-565` |
 | **遅延した配送** | 収入には影響なし | `cargotype.script.lua:7-13` |
 
-- ランクの倍率は**すべての**貨物と旅客の支払いに適用される（`company_growth.script.tl:159-170`）。難易度プリセットのインフレは、低い（イージー）、普通（ノーマル）、高い（ハード）、とても高い（ベリーハード）である（`difficulty_util.tl:108`）。
+- ランクの倍率は**すべての**貨物と旅客の支払いに適用される（`company_growth.script.tl:159-170`）。難易度プリセットのインフレは、低い（イージー）、普通（ノーマル）、高い（ハード）、とても高い（ベリーハード）である（`difficulty_util.tl:108`、`difficulty_util.tl:136`、`difficulty_util.tl:163`、`difficulty_util.tl:190`）。
 - 助成金の ×2 は、契約期間中に配送した路線にのみ、期間限定で適用される（公式wiki、助成金）。
 
 ## 旅客
@@ -74,7 +74,7 @@ fact: 100 % | 遅延しても全額支払われる
 
 ## 配送の制限時間
 
-各貨物には独自の制限時間がある（`meat.cargo.lua:30`, `coal.cargo.lua:30`）。生鮮食品が最も短く、重い原料はその 5 倍長い。
+各貨物には独自の制限時間がある（`meat.cargo.lua:30`, `coal.cargo.lua:30`）。生鮮食品が最も短い。肉は 900 秒、石炭は 3,000 秒（3.3 倍）、鉄鉱石・砂・石材・鉄鋼は 4,500 秒。
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ fact: 100 % | 遅延しても全額支払われる
 
 1. ゲームは**直近半年**の町への配送数と、そのうち遅延した数を数える（最低 10 件あるものとみなされるため、最初の数件の配送で大きく振れることはない）。
 2. 定時の割合 → 評価：下限より下なら評価は 0、上限より上なら 1、その間は線形。デフォルトの感度（**標準**）では、**定時 30 % → 0、100 % → 1** なので、定時 90 % で 0.86 になる。
-3. **配送感度** 設定はこの上限・下限を動かす（`difficulty_util.tl:47`）。オフ：常に 1。プリセット：イージーは低い、ノーマルは標準、ハードは高い、ベリーハードは非常に高い（`difficulty_util.tl:113`）。
+3. **配送感度** 設定はこの上限・下限を動かす（`difficulty_util.tl:47`）。オフ：常に 1。プリセット：イージーは低い、ノーマルは標準、ハードは高い、ベリーハードは非常に高い（`difficulty_util.tl:113`、`difficulty_util.tl:141`、`difficulty_util.tl:168`、`difficulty_util.tl:195`）。
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ fact: 100 % | 遅延しても全額支払われる
 |---|---|
 | 平地、路線の長さは任意 | **100 %** |
 | 10 km 離れている | **200 %** |
-| 目的地が 100 m 高い | **116 %** |
+| 出発元より 100 m 高く配送 | **116 %** |
 | 遅延して配送 | **100 %**（配達評価が下がる） |
 | 会社ランク 15、インフレ普通 | **75 %** |
 | 達成した助成金の対象となる配送 | **200 %** |
@@ -117,7 +117,7 @@ fact: 100 % | 遅延しても全額支払われる
 
 - どの貨物も 1 km あたりの報酬が同じなので、価格ではなく**量、距離、制限時間で貨物を選ぶ**とよい。
 - 制限時間が最も重要なのは肉、魚、野菜、飲料である。短い路線にするか、タイマーを止める倉庫を使う。
-- 町の建物に配送された貨物 1 単位ごとに、その町に経験値も入る（`town_growth.script.tl:642`、`town_growth_config.res.lua:5`）。
+- 町の建物に配送された貨物 1 単位ごとに、その町に経験値も入る（カテゴリーに段階がある貨物のみ）（`town_growth.script.tl:641-642`、`town_growth_config.res.lua:5`）。
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

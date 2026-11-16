@@ -19,7 +19,7 @@ fact: 200 万 m³ | の地形工事で評判がすべて失われる
 
 ## 評判を下げるもの
 
-確定した建設はすべて、実行の前に確認される。損失は関係する町に記録される（`towns.script.tl:271-291`、`town_util.tl:1062-1080`）。数えるのはあなた自身の建設だけで、マップエディターでは何も数えない（`town_util.tl:1078-1080`、`towns.script.tl:58`）。
+確定した建設はすべて、実行の前に確認される。損失は関係する町に記録される（`towns.script.tl:271-291`、`town_util.tl:1062-1080`）。数えるのはあなた自身の建設だけで、マップエディターでは何も数えない（`town_util.tl:1078-1080`、`towns.script.tl:233`、`towns.script.tl:271`）。
 
 | 町のウィンドウの理由 | 評判を失うもの | ソース |
 |---|---|---|
@@ -27,7 +27,7 @@ fact: 200 万 m³ | の地形工事で評判がすべて失われる
 | **取り除いた岩** | 1 個につき 0.25 %、× 距離係数 | `town_util.tl:1148-1149`、`town_util.tl:884-885` |
 | **景観** | 地形を上げても**下げても** 1 m³ につき 0.00005 %：200 万 m³ = 100 %。線路、道路、建物が作る地形も数える（10,000 m² から減り始め、50,000 m² 以上で半分）。新しいトンネルの正味の体積も同じ | `town_util.tl:873-886`、`town_util.tl:1245-1269`、`town_util.tl:1403-1436` |
 | **解体した建造物** | 地区の収容量（その町の住宅、店、職場）を 40.5 % 取り除くと 100 % | `town_util.tl:867-869`、`town_util.tl:1165-1184` |
-| **失敗した補助** | 町への供給：10 % からリスクに応じて 60–90 % まで。町の接続：10–100 % × 距離係数、**両方**の町で（[助成金](subsidies.html)を参照） | `deliver_cargo_town.script.tl:202-210`、`deliver_passengers.script.tl:113-114`、`towns.script.tl:331-333` |
+| **失敗した補助** | 町への供給：ランダムに選ばれる 1 つのペナルティ。評判の低下（10 % からリスクに応じて 60–90 % まで）か罰金で、罰金が提示されない場合は常に評判の低下。町の接続：10–100 % × 距離係数、**両方**の町で（[助成金](subsidies.html)を参照） | `deliver_cargo_town.script.tl:202-210`、`deliver_cargo_town.script.tl:209-211`、`deliver_cargo_town.script.tl:225`、`deliver_passengers.script.tl:113-114`、`towns.script.tl:331-333` |
 | **塞がれるメイン接続** | メイン接続が途切れたか長すぎる他の町 1 つにつき **1/3** | `town_util.tl:376-394`、`town_util.tl:1608` |
 
 - 理由ごとの上限は 100 % である（`town_util.tl:1611-1620`）。
@@ -61,7 +61,7 @@ fact: 200 万 m³ | の地形工事で評判がすべて失われる
 - **自然に**：ゲーム時間 3 か月（360 秒）ごとに 1 段階（1/6）、マーケティングキャンペーン中は 1 か月（120 秒）ごと（`towns.script.tl:121-135`）。暦の速度 ×1 では 1 年で約 **67 %**、キャンペーン中は **200 %**。0 % から満タンまで約 1.5 年。町のウィンドウの**年間回復量** 33 % と 100 % は固定の文字で、実際の速さの半分である（`town_react_util.tl:1066`）。テスト用の町での実測：358 秒ごとに 1 段階、キャンペーン中は 120 秒ごと。
 - 回復は増えた分をすべての理由に分ける。まだ途切れている接続の分を超えて戻ることはない（`town_util.tl:1649-1687`）。
 - **イベント**は、町であなたの路線に最初の旅客が乗ると **+50 %**、町に最初の貨物が届くと +50 %、町がレベルアップするたびに +50 %、各産業に最初の貨物が届くと最寄りの町に +20 % を与える（`celebrations.script.tl:181-273`）。そのときメッセージの最後に**集落の評判が上がりました。**または **…の評判が上がりました。**が付く（`celebration_react_util.tl:63-75`）。評判が、切断されたメイン接続がまだ許す値（満点から切断 1 本につき 1/3 を引いた値）より低く、設定「評判」がオンのときだけ数え、キャンペーンのミッションでは数えない（`celebrations.script.tl:79-93`、`celebrations.script.tl:140-142`）。
-- **町への供給**は、受諾時に +5 % から +20 % × リスク係数を与えることがある（`deliver_cargo_town.script.tl:195-199`）。他の増加と同じく、すでにある損失を消すだけである（`towns.script.tl:324-330`）。
+- **町への供給**は、受諾時に現金の前払いか +5 % から +20 % × リスク係数のどちらかをランダムに与える（`deliver_cargo_town.script.tl:197-200`、`deliver_cargo_town.script.tl:220-222`）。他の増加と同じく、すでにある損失を消すだけである（`towns.script.tl:324-330`）。
 
 ## マーケティングキャンペーン
 
@@ -83,7 +83,7 @@ fact: 200 万 m³ | の地形工事で評判がすべて失われる
 - 2 つの町の間のメイン道路を途切れたままにしない。1 本ごとにすぐ −33 %、3 本で町は止まる。
 - 評判が満点のときのマーケティングキャンペーンは路線を助けるだけで、評価は上がらない。大きな工事の直後、回復で取り戻すものがあるときに始めよう。
 - 本社の大きなモジュールの**評判回復**ボーナス（+1 %）は「ボーナス」タブに表示されるが、スクリプトではどの評価も読まない値を変えるだけである（`hq_module_l.module.lua:171`、`towns.script.tl:157`、`town_util.tl:829`、`town_util.tl:857`）。
-- 実績**私のせいじゃない**は、フリーゲームで評判 0 % の町が必要である（`achievements.script.tl:261-267`）。
+- 実績**私のせいじゃない**は、評判が 1 % 未満に下がった町が必要である（`achievements.script.tl:261-267`）。
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

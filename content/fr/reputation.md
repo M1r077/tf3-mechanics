@@ -19,7 +19,7 @@ La **Réputation** est l'une des six notes de la fenêtre de la ville, et l'Auto
 
 ## Ce qui la fait baisser
 
-Chaque construction que tu valides est vérifiée avant d'être appliquée ; le coût est compté à la ville concernée (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Seules tes propres constructions comptent, et rien ne compte dans l'éditeur de cartes (`town_util.tl:1078-1080`, `towns.script.tl:58`).
+Chaque construction que tu valides est vérifiée avant d'être appliquée ; le coût est compté à la ville concernée (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Seules tes propres constructions comptent, et rien ne compte dans l'éditeur de cartes (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
 
 | Raison dans la fenêtre de la ville | Ce qui coûte de la réputation | Source |
 |---|---|---|
@@ -27,7 +27,7 @@ Chaque construction que tu valides est vérifiée avant d'être appliquée ; le 
 | **Roches supprimées** | 0,25 % par roche, × le facteur de distance | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Terrassement** | 0,00005 % par m³ de terrain relevé **ou** abaissé : 2 millions de m³ = 100 %. Le terrain modelé par les voies, routes et bâtiments compte aussi (réduit à partir de 10 000 m², de moitié à 50 000 m² ou plus), ainsi que le volume net des nouveaux tunnels | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Bâtiments démolis** | 100 % pour 40,5 % de la capacité d'un quartier supprimée (logements, commerces ou emplois de cette ville) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Contrat échoué** | Approvisionner la ville : de 10 % jusqu'à 60–90 % (selon le risque) ; Relier des villes : 10–100 % × le facteur de distance, dans les **deux** villes (voir [Contrats](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Contrat échoué** | Approvisionner la ville : une pénalité tirée au hasard, la perte de réputation (de 10 % jusqu'à 60–90 % selon le risque) ou une amende ; toujours la perte de réputation si aucune amende n'est proposée. Relier des villes : 10–100 % × le facteur de distance, dans les **deux** villes (voir [Contrats](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
 | **Connexions principales interrompues** | **1/3** par autre ville dont la connexion principale est coupée ou trop longue | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Chaque raison est plafonnée à 100 % (`town_util.tl:1611-1620`).
@@ -61,7 +61,7 @@ Une connexion principale compte comme coupée quand le jeu affiche **La liaison 
 - **Toute seule** : un niveau (1/6) tous les 3 mois de temps de jeu (360 s), tous les mois (120 s) pendant une campagne marketing (`towns.script.tl:121-135`). Au calendrier ×1, cela fait environ **67 %** par an, **200 %** avec une campagne : de 0 % à plein en 1,5 an environ. La fenêtre de la ville affiche **Récupération annuelle** 33 % et 100 % : des textes fixes, la moitié de la vitesse réelle (`town_react_util.tl:1066`). Mesuré sur une ville de test : un niveau toutes les 358 s, toutes les 120 s avec une campagne.
 - La récupération répartit le gain sur toutes les raisons ; elle ne dépasse jamais les connexions coupées encore ouvertes (`town_util.tl:1649-1687`).
 - Les **célébrations** ajoutent **+50 %** pour le premier passager qui monte dans une de tes lignes dans une ville, +50 % pour le premier fret livré à une ville, +50 % à chaque niveau gagné par la ville, et +20 % à la ville la plus proche pour le premier fret livré à chaque industrie (`celebrations.script.tl:181-273`). Le message se termine alors par **Réputation de la ville améliorée.** ou **Réputation améliorée à …** (`celebration_react_util.tl:63-75`). Elles ne comptent que si la réputation est sous ce que permettent encore les liaisons principales coupées (pleine moins 1/3 par liaison coupée) et si le réglage Réputation est sur Activé, et pas dans les missions de campagne (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Approvisionner la ville** peut donner +5 % à +20 % × le facteur de risque à l'acceptation (`deliver_cargo_town.script.tl:195-199`). Comme tout gain, cela retire seulement des pertes existantes (`towns.script.tl:324-330`).
+- **Approvisionner la ville** donne à l'acceptation soit une avance en argent, soit +5 % à +20 % × le facteur de risque, tiré au hasard (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Comme tout gain, cela retire seulement des pertes existantes (`towns.script.tl:324-330`).
 
 ## Campagne marketing
 
@@ -83,7 +83,7 @@ Le script compte 360 secondes de temps de jeu par niveau (120 avec une campagne)
 - Ne laisse jamais coupée une route principale entre deux villes : chacune fait −33 % tout de suite, et trois coupures arrêtent la ville.
 - Une campagne marketing à réputation pleine aide seulement tes lignes, pas la note. Lance-la juste après de gros travaux, quand la récupération a quelque chose à rattraper.
 - Le bonus **Récupération de réputation** du grand module du siège social (+1 %) s'affiche dans l'onglet Bonus, mais dans les scripts il change seulement une valeur qu'aucune note ne lit (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
-- Le succès **C'est pas moi** demande une ville à 0 % de réputation en partie libre (`achievements.script.tl:261-267`).
+- Le succès **C'est pas moi** demande une ville dont la réputation passe sous 1 % (`achievements.script.tl:261-267`).
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | betaling per eenheid, bij de afnemer, voor de rechte lijn
 fact: 0 | betaald bij een opslagplaats of een overstap
 fact: 100 % | betaald, ook als het te laat is
-fact: ×6 | jaarfactor op het onderhoud van opslagplaatsen, havens en luchthavens in 2020
+fact: ×6 | getoonde jaarfactor op het onderhoud van opslagplaatsen, vliegvelden, luchthavens en havens in 2020
 ---
 
 Een bezorging betaalt voor **één rechte lijn**, van waar de vracht gemaakt is tot waar hij gebruikt wordt, en alleen als hij daar aankomt. Alles wat je bouwt en koopt kost elk jaar geld, een deel steeds meer met het kalenderjaar. Een lijn verliest geld als haar deel van de betalingen kleiner is dan de kosten die ze meebrengt.
@@ -32,7 +32,7 @@ Details: [Vrachtinkomsten en bezorgtijd](income.html).
 
 - **Voertuigen**: de bedrijfskosten volgen gemiddelde snelheid × capaciteit, en de prijs is 6 jaar bedrijfskosten (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Sporen en wegen**: ongeveer een zesde van de bouwprijs per km en per jaar; hogesnelheidsspoor kost 9 keer zoveel als gewoon spoor (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Depots, stations, opslagplaatsen, havens, luchthavens**: varianten uit latere tijdperken kosten ×3 en ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), en het onderhoud van opslagplaatsen, havens en luchthavens volgt ook het jaar, van ×1 in 1900 tot ×6 in 2020 (`mod.script.tl:92-100`).
+- **Depots, stations, opslagplaatsen, havens, luchthavens**: varianten uit latere tijdperken kosten ×3 en ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), en voor opslagplaatsen, vliegvelden, luchthavens en havens toont het gebouwvenster een onderhoud dat het jaar volgt, van ×1 in 1900 tot ×6 in 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). Wat wordt afgeschreven, beslist de engine.
 - **Leningen**: de rente wordt één keer over het bedrag gerekend, verdeeld over de looptijd (`loan_util.tl:102-111`).
 - **Inflatie verhoogt geen enkele kost**. Ze verlaagt alleen de inkomsten.
 

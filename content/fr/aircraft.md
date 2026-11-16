@@ -48,7 +48,7 @@ Prix et entretien de la première variante, coefficient d'époque compris. Le co
 | Aérodrome | 3 600 000 - 9 000 000 | 150 000 - 600 000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | Aéroport | 5 400 000 - 13 500 000 | 900 000 - 2 250 000 | `airport.tl:8`, `airport.tl:30-31` |
 | Module d'aérodrome (bâtiment principal, terminal, hangar) | 600 000 | 100 000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| Module d'aéroport (terminal, hangar, deuxième piste) | 900 000 | 150 000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| Module d'aéroport (bâtiment principal, terminal, hangar, deuxième piste) | 900 000 | 150 000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - L'entretien des aéroports et aérodromes suit aussi l'année du calendrier, ×1 en 1900 jusqu'à ×6 en 2020 ([Coûts, entretien et emprunts](costs.html)).
 - Le prix et les coûts d'exploitation d'un aéronef sont calculés à partir de sa vitesse et de sa capacité, comme pour les navires et les véhicules routiers ([Coûts, entretien et emprunts](costs.html)).

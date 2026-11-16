@@ -21,18 +21,18 @@ fact: 4 | 笔贷款可同时存在
 
 | 设置 | 数值 | 预设 简单 · 正常 · 困难 · 极难 | 来源 |
 |---|---|---|---|
-| **载具成本**、**载具养护** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`，`difficulty_util.tl:98-99`，`difficulty_util.tl:125-126` |
-| **基础设施成本**、**基础设施维护** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:100-101`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
+| **载具成本**、**载具养护** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`，`difficulty_util.tl:98-101`，`difficulty_util.tl:125-128`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
+| **基础设施成本**、**基础设施维护** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`，`difficulty_util.tl:125-128`，`difficulty_util.tl:153-156`，`difficulty_util.tl:180-183` |
 | **载具老化影响** | 无 ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 非常高 ×2 | 低 · 中 · 高 · 非常高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
 | **通货膨胀** | 只影响收入，见 [货物收入与运输时间](income.html) | 低 · 正常 · 高 · 非常高 | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
 
-- **基础设施成本** 决定道路、轨道、桥梁、隧道、道口、建筑和模块的价格，也包括地形改造（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。它也决定建筑的拆除费用（`construction.script.tl:39-44`）。**基础设施维护** 决定它们的维护费（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。
+- **基础设施成本** 决定道路、轨道、桥梁、隧道、道口、建筑和模块的价格，也包括地形改造（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。它也决定建筑的拆除费用（`construction.script.tl:39-44`）。**基础设施维护** 在加载时决定道路、轨道、桥梁、隧道、道口和模块的维护费（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`）。对于建筑，脚本只在建筑窗口中应用它（`entity_window_util.tl:186`）；实际收取多少由引擎决定。
 - **载具成本** 和 **载具养护** 决定每辆载具的购买价格和运营成本（`post_run_util.tl:54-81`）。
 - **载具老化影响** 决定状态差的载具会损失多少速度、功率和舒适度，又会增加多少噪音、污染和运营成本（`mod.script.tl:241-245`）。
 
 ## 随日历年份增长的东西
 
-- **建筑维护费**：1900 年 ×1，1920 年 ×1.5，1940 年 ×2.2，1960 年 ×3.2，1980 年 ×4，2000 年 ×5，2020 年 ×6（`mod.script.tl:92-100`）。建筑窗口和建造菜单会把它用于每个标记为跟随年份的建筑，而建造菜单标记的是：仓库、单跑道机场、双跑道机场和港口（`entity_window_util.tl:186-193`，`construction_react_util.tl:1149`，`warehouse.tl:7`，`harbor_modular.tl:24`）。
+- **建筑维护费**：1900 年 ×1，1920 年 ×1.5，1940 年 ×2.2，1960 年 ×3.2，1980 年 ×4，2000 年 ×5，2020 年 ×6（`mod.script.tl:92-100`）。建筑窗口和建造菜单会把它用于每个标记为跟随年份的建筑，而建造菜单会标记每个元建筑（基础游戏中为：仓库、单跑道机场、双跑道机场和港口）（`entity_window_util.tl:186-193`，`construction_react_util.tl:1149`，`warehouse.tl:7`，`harbor_modular.tl:24`）。
 - 加到这类建筑上的**模块**，价格按建筑建造的年份计算，维护费按当前年份计算（`construction.tl:3720-3727`，`construction.tl:4364-4367`）。
 - **时代版本**：车库、维修站、仓库、车站、港口和机场每个时代有一个版本，后面的版本花费是第一个的 **×3**（时代 B）或 **×9**（时代 C）（`rail_depot.con.lua:7`，`warehouse.tl:48`，`modular_station.con.lua:71`，`harbor_modular.tl:76`，`airport.tl:8`）。
 - **补贴现金**：从 1900 年的 ×1 到 2000 年起的 ×4（`finances_util.tl:87-90`）。**贷款金额**：从 1900 年的 ×0.4 到 2020 年的 ×2.4（`loan_util.tl:7-10`）。
@@ -51,7 +51,7 @@ fact: 4 | 笔贷款可同时存在
 | 简易轨道 | 开局 | 6 万 | 1 万 | `simple.street_template.lua:9`，`simple.street_template.lua:33` |
 | 标准轨道 | 1930 | 18 万 | 3 万 | `standard.street_template.lua:11`，`standard.street_template.lua:35` |
 | 高速轨道 | 1980 | 54 万 | 9 万 | `high_speed.street_template.lua:11`，`high_speed.street_template.lua:35` |
-| 小型旧乡村道路 | 开局 | 6 万 | 1 万 | `country_old_small.street_template.lua:8`，`country_old_small.street_template.lua:58` |
+| 小型旧乡村道路 | 开局 – 1940 | 6 万 | 1 万 | `country_old_small.street_template.lua:4-5`，`country_old_small.street_template.lua:8`，`country_old_small.street_template.lua:58` |
 | 大型新城镇街道 | 1940 | 54 万 | 9 万 | `town_new_large.street_template.lua:11`，`town_new_large.street_template.lua:91` |
 
 - 接触网会增加轨道价格的 **30 %**；公交专用道增加道路价格的 10 %，有轨电车轨道 20 %，电气化有轨电车轨道 40 %（`mod.script.tl:24-28`）。

@@ -25,7 +25,7 @@
 <li>小型码头由小型栈桥组成，只接收小型船只<span class="sr">（<code class="src">small_pier.module.lua:7</code>）</span>。大型码头使用中型栈桥，接收两种尺寸<span class="sr">（<code class="src">medium_pier.module.lua:6</code>，<code class="src">harbor_modular.script.lua:35-39</code>）</span>。</li>
 <li><strong>终点站</strong>：1、2 或 4 个，建造时选择<span class="sr">（<code class="src">harbor_modular.tl:16</code>，<code class="src">harbor_modular.script.lua:33</code>）</span>。</li>
 <li>一个栈桥终点站在小型栈桥上可容纳 100 名候船乘客，在中型栈桥上 50 名<span class="sr">（<code class="src">modules.script.lua:872</code>，<code class="src">modules.script.lua:1004</code>）</span>。</li>
-<li>码头必须沿海岸建在可通航的水面上<span class="sr">（<code class="src">harbor_modular.tl:29</code>）</span>。</li>
+<li>放置码头时，脚本只显示可通航水域图层<span class="sr">（<code class="src">harbor_modular.tl:26-30</code>）</span>。码头能放在哪里由引擎决定。</li>
 <li>每艘船在自己的载具文件中设定尺寸；游戏把它转换为小型或大型船只模式<span class="sr">（<code class="src">model_metadata_util.lua:1411-1412</code>）</span>。</li>
 </ul>
 <h2 id="成本"><span class="n">2</span><span>成本</span></h2>

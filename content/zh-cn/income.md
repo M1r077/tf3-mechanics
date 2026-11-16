@@ -21,7 +21,7 @@ fact: 100 % | 即使迟到也全额支付
 整个公式就是一段很短的游戏脚本（`cargo_income.script.lua:10-13`）：
 
 1. 货物的**收入系数**。每种基础游戏货物都使用同一个函数和同样的价格（`initialPrice = 4`，`finalPrice = 3.2`），因此**全部 36 种货物都是 3.8**（`cargotype.script.lua:7-13`，`coal.cargo.lua:21-22`）。在相同距离上，煤炭和商品赚的钱完全一样。
-2. **货物收入** 设置：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:211`）。四个难度预设都使用 100 %（`difficulty_util.tl:97`）。
+2. **货物收入** 设置：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:211`）。四个难度预设都使用 100 %（`difficulty_util.tl:97`，`difficulty_util.tl:124`，`difficulty_util.tl:152`，`difficulty_util.tl:179`）。
 3. **距离**，见下文。
 
 这个函数会收到行程时间，但**并不使用它**（`cargotype.script.lua:7-13`）：慢的或迟到的交付收入一样。
@@ -32,7 +32,7 @@ fact: 100 % | 即使迟到也全额支付
 ```
 
 - 距离是两点之间的**三维直线**，而不是你线路的长度（`cargo_income.script.lua:3-7`）。
-- 高度差为正时，会加上 **8 × 该高度**（`cargo_income.script.lua:5`）：爬升 100 m 相当于多走 800 m。反方向则什么也不减。
+- 货物交付地点高于来源时，会加上 **8 × 该高度**（`cargo_income.script.lua:5`）：100 m 相当于多走 800 m。脚本使用引擎传入的高度差，其方向在脚本中看不到。差值为负时什么也不减。
 - 所以弯弯曲曲的线路和笔直的线路赚得一样多，但你建的每一米轨道或道路都要付维护费。
 
 ```engine
@@ -65,7 +65,7 @@ fact: 100 % | 即使迟到也全额支付
 | **已完成的补贴** | 交付到合同产业或城镇的货物 ×2，只限为该合同交付过的线路 | `deliver_cargo.script.tl:463-469`，`deliver_cargo_town.script.tl:554-565` |
 | **迟到交付** | 对收入没有影响 | `cargotype.script.lua:7-13` |
 
-- 等级乘数作用于**所有**货物和乘客收入（`company_growth.script.tl:159-170`）。难度预设使用的通货膨胀分别为：低（简单）、正常（正常）、高（困难）、非常高（极难）（`difficulty_util.tl:108`）。
+- 等级乘数作用于**所有**货物和乘客收入（`company_growth.script.tl:159-170`）。难度预设使用的通货膨胀分别为：低（简单）、正常（正常）、高（困难）、非常高（极难）（`difficulty_util.tl:108`，`difficulty_util.tl:136`，`difficulty_util.tl:163`，`difficulty_util.tl:190`）。
 - 补贴的 ×2 只作用于合同期间交付过的线路，并且有时间限制（官方 wiki，补贴）。
 
 ## 乘客
@@ -74,7 +74,7 @@ fact: 100 % | 即使迟到也全额支付
 
 ## 运输时间限制
 
-每种货物都有自己的时间限制（`meat.cargo.lua:30`, `coal.cargo.lua:30`）。生鲜食品最短，重型原料长五倍：
+每种货物都有自己的时间限制（`meat.cargo.lua:30`, `coal.cargo.lua:30`）。生鲜食品最短：肉类 900 秒，煤炭 3000 秒（3.3 倍），铁矿石、沙子、石料和钢材 4500 秒：
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ fact: 100 % | 即使迟到也全额支付
 
 1. 游戏统计**最近半年**交付到该城镇的次数，以及其中迟到的次数（至少按 10 次计算，所以最初几次交付不会让评价大起大落）。
 2. 准时比例 → 评价：低于下限时评价为 0，高于上限时为 1，两者之间为线性。默认敏感度（**正常**）下：**准时 30 % → 0，100 % → 1**，所以准时 90 % 得到 0.86。
-3. **交货敏感度** 设置会移动这两个界限（`difficulty_util.tl:47`）。关：始终为 1。预设：简单为低，正常为正常，困难为高，极难为非常高（`difficulty_util.tl:113`）。
+3. **交货敏感度** 设置会移动这两个界限（`difficulty_util.tl:47`）。关：始终为 1。预设：简单为低，正常为正常，困难为高，极难为非常高（`difficulty_util.tl:113`，`difficulty_util.tl:141`，`difficulty_util.tl:168`，`difficulty_util.tl:195`）。
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ fact: 100 % | 即使迟到也全额支付
 |---|---|
 | 平地，线路长度任意 | **100 %** |
 | 相距 10 km | **200 %** |
-| 目的地高 100 m | **116 %** |
+| 交付地点比来源高 100 m | **116 %** |
 | 迟到交付 | **100 %**（运送评价下降） |
 | 公司等级 15，通货膨胀正常 | **75 %** |
 | 已完成补贴覆盖的交付 | **200 %** |
@@ -117,7 +117,7 @@ fact: 100 % | 即使迟到也全额支付
 
 - 既然每种货物每公里的收入都一样，**按运量、距离和时间限制来选货物**，而不是按价格。
 - 时间限制对肉类、鱼、蔬菜和饮料最重要：用短线路，或用能冻结计时的仓库。
-- 每交付一个单位的货物到城镇建筑，也会给该城镇带来经验（`town_growth.script.tl:642`，`town_growth_config.res.lua:5`）。
+- 每交付一个单位的货物到城镇建筑，也会给该城镇带来经验，仅限类别有等级的货物（`town_growth.script.tl:641-642`，`town_growth_config.res.lua:5`）。
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

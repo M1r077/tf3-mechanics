@@ -32,8 +32,8 @@ fact: 0 1x 2x 4x | ゲーム速度の段階
 
 - **生産**：産業の生産時間は標準の 1 年の決まった割合である（`industry_react_util.tl:51`）。産業ウィンドウは、それを現在のカレンダーの日数で表示する（`industry_react_util.tl:23`）。×0.25 では、同じ速さでも日数は 4 分の 1 と表示される。
 - **融資の支払い**：ゲーム時間の標準の 1 か月ごとに 1 回。カレンダーが止まっていても同じである（`loan.script.tl:83-88`）。
-- **補助金の期限**と ×2 の収入ボーナス（`subvention_util.tl:290-292`）。
-- **町の評判の回復**（`towns.script.tl:121-130`）、**労働者ブースト**（`industry_productivity_util.tl:3`）、何年も輸送がないときの**産業の閉鎖**（`industries.script.tl:119-128`）。
+- **補助金の期限**とボーナスの期間（標準 5 年）（`subvention_util.tl:286`、`subvention_util.tl:290-292`）。
+- **町の評判の回復**（`towns.script.tl:121-130`）、最大で標準 2 年分を数える**労働者の効果**（`industry_productivity_util.tl:3`）、何年も輸送がないときの**産業の閉鎖**（`industries.script.tl:119-128`）。
 - 直近半年の町の**配送評価**（`town_util.tl:840`）。
 - **新しい産業**：カレンダー停止中もゲーム時間 1809 秒で 3 つ、760 秒と 728 秒の間隔で現れた。カレンダーが動いているとき（約 730 秒）と同じリズム。[Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) で計測。[産業](industries.html) を参照。
 

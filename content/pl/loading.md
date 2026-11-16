@@ -31,8 +31,8 @@ Dla gry peron nie jest rzędem modułów, lecz **listą sekcji, po jednej na ka�
 |---|---|---|
 | na sekcji swojej klasy (wagony do towarów sypkich na sekcji do towarów sypkich) | **×2** | `modular_station.script.lua:1042` |
 | na sekcji uniwersalnej | ×1 | `modular_station.script.lua:1042` |
-| na peronie nie ma sekcji ich klasy | **×0,25** | `cargo_react_util.tl:60` |
-| poza długością peronu (za długi pociąg) | **×0,25** | `cargo_react_util.tl:61` |
+| na peronie nie ma sekcji ich klasy | **×0,25** (stała podpowiedzi ładowania; sam mnożnik stosuje silnik) | `cargo_react_util.tl:60` |
+| poza długością peronu (za długi pociąg) | **×0,25** (stała podpowiedzi ładowania; sam mnożnik stosuje silnik) | `cargo_react_util.tl:61` |
 
 - Mnożnik jest **mieszany według udziału w pociągu**: jeśli 3/4 wagonów pasuje, a 1/4 nie, mnożnik wynosi ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`; ten sam podział gra pokazuje jako „Częściowo specjalistyczny terminal”).
 - **Gdzie** wagony stoją na peronie, nie ma znaczenia, liczą się tylko zsumowane długości (zmierzone w grze).
@@ -88,7 +88,7 @@ Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” prz
 
 | Opcja w „Filtr towarów” | Co robi | Źródło |
 |---|---|---|
-| „Wymuś rozładowanie wszystkich towarów po przybyciu” | rozładowuje do pasujących zapasów, nawet gdy są pełne; to, co się nie mieści, jest niszczone. Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Wymuś rozładowanie wszystkich towarów po przybyciu” | podpowiedź: „Rozładuj towary, nawet jeśli zapasy są pełne”; co dzieje się z towarem, który się nie mieści, decyduje silnik. Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | „Przy zmianie konfiguracji zniszcz ładunek po przybyciu” | rozładowuje lub niszczy towar na pokładzie, gdy na tym przystanku czeka towar dla innej konfiguracji załadunku pojazdu; co z tych dwóch, decyduje silnik | `cargofilter_window.tl:767` |
 | „Zastąp nowym ładunkiem, jeśli jest dostępny” | niszczy towar, który wrócił na przystanek, gdzie go załadowano, gdy czeka nowszy towar tego samego rodzaju | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ O tym, w jakiej kolejności ładowanych jest kilka towarów, jak wspólny zapas 
 
 ## Konfiguracja automatyczna
 
-Dopóki nikt nie zapisał zmiany w oknie „Filtr towarów” przystanku, co wyłącza ją na tej linii na stałe (`line_util.tl:495-498`, `cargofilter_window.tl:438`), gra sama wypełnia listy Ładunek za każdym razem, gdy linia jest tworzona, przystanek jest dodawany lub usuwany, kolejność przystanków się zmienia albo dodawany jest punkt trasy (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Przeniesienie przystanku na inną stację lub peron oraz usunięcie lub przesunięcie punktu trasy jej nie uruchamiają (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+Dopóki nikt nie zapisał zmiany w oknie „Filtr towarów” przystanku, co wyłącza ją na tej linii na stałe (`line_util.tl:495-498`, `cargofilter_window.tl:438`), gra sama wypełnia listy Ładunek za każdym razem, gdy linia jest tworzona, przystanek jest dodawany lub usuwany, kolejność przystanków się zmienia albo dodawany jest punkt trasy (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Przeniesienie przystanku na inną stację lub peron oraz usunięcie lub przesunięcie punktu trasy jej nie uruchamiają (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - Zaczyna od pustych list, z pasażerami na stacjach pasażerskich (`line_util.tl:542-588`).
 - Szuka producentów i odbiorców tylko wśród zakładów i budynków miejskich: magazyny się nie liczą (`cargo_util.tl:518-526`).

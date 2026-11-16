@@ -32,8 +32,8 @@ fact: 0 1x 2x 4x | 游戏速度档位
 
 - **生产**：产业的生产时间是标准一年的固定比例（`industry_react_util.tl:51`）。产业窗口按当前日历的天数显示它（`industry_react_util.tl:23`）：在 ×0.25 下，同样的速率显示的天数只有四分之一。
 - **贷款还款**：每个标准月的游戏时间还一次，日历暂停时也一样（`loan.script.tl:83-88`）。
-- **补贴期限**和 ×2 收入奖励（`subvention_util.tl:290-292`）。
-- **城镇声望恢复**（`towns.script.tl:121-130`）、**工人加成**（`industry_productivity_util.tl:3`），以及多年无人服务后的**产业关闭**（`industries.script.tl:119-128`）。
+- **补贴期限**和奖励持续时间，5 个标准年（`subvention_util.tl:286`，`subvention_util.tl:290-292`）。
+- **城镇声望恢复**（`towns.script.tl:121-130`）、最多按 2 个标准年计算的**工人效果**（`industry_productivity_util.tl:3`），以及多年无人服务后的**产业关闭**（`industries.script.tl:119-128`）。
 - 城镇最近半年的**送货评价**（`town_util.tl:840`）。
 - **新产业**：日历暂停时，1809 秒游戏时间内出现了 3 个，间隔 760 秒和 728 秒，与日历运行时的节奏相同（约 730 秒）。用 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 测得；见 [产业](industries.html)。
 

@@ -32,8 +32,8 @@ fact: 0 1x 2x 4x | 게임 속도 단계
 
 - **생산**: 산업의 생산 시간은 표준 1년의 일정한 비율이다(`industry_react_util.tl:51`). 산업 창은 이를 현재 달력의 날짜 수로 보여준다(`industry_react_util.tl:23`). ×0.25에서는 같은 속도라도 날짜 수가 4분의 1로 보인다.
 - **대출 상환**: 게임 시간으로 표준 한 달마다 한 번이며, 달력이 멈춰도 같다(`loan.script.tl:83-88`).
-- **보조금 기한**과 ×2 수입 보너스(`subvention_util.tl:290-292`).
-- **마을 평판 회복**(`towns.script.tl:121-130`), **노동자 부스트**(`industry_productivity_util.tl:3`), 몇 년 동안 운송이 없을 때의 **산업 폐쇄**(`industries.script.tl:119-128`).
+- **보조금 기한**과 보너스 지속 기간, 표준 5년(`subvention_util.tl:286`, `subvention_util.tl:290-292`).
+- **마을 평판 회복**(`towns.script.tl:121-130`), 최대 표준 2년 동안 집계되는 **노동자 효과**(`industry_productivity_util.tl:3`), 몇 년 동안 운송이 없을 때의 **산업 폐쇄**(`industries.script.tl:119-128`).
 - 최근 반년 동안의 마을 **배송 평가**(`town_util.tl:840`).
 - **새 산업**: 달력을 멈춘 상태에서도 게임 시간 1809초 동안 3개가 760초와 728초 간격으로 생겼다. 달력이 흐를 때(약 730초)와 같은 리듬이다. [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)로 측정. [산업](industries.html) 참고.
 

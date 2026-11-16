@@ -21,7 +21,7 @@ Une livraison paie la **distance à vol d'oiseau**, rien d'autre du trajet. La v
 Toute la formule tient dans un court script du jeu (`cargo_income.script.lua:10-13`) :
 
 1. **Facteur de revenu** du fret. Tous les frets du jeu de base utilisent la même fonction et les mêmes prix (`initialPrice = 4`, `finalPrice = 3.2`), ce qui donne **3,8 pour les 36 frets** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Le charbon rapporte exactement autant que les marchandises sur la même distance.
-2. Réglage **Revenu fret** : 50 %, 75 %, 100 %, 125 % ou 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Les quatre préréglages de difficulté utilisent 100 % (`difficulty_util.tl:97`).
+2. Réglage **Revenu fret** : 50 %, 75 %, 100 %, 125 % ou 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Les quatre préréglages de difficulté utilisent 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distance**, voir plus bas.
 
 La fonction reçoit la durée du trajet mais **ne l'utilise pas** (`cargotype.script.lua:7-13`) : une livraison lente ou en retard rapporte autant.
@@ -32,7 +32,7 @@ La fonction reçoit la durée du trajet mais **ne l'utilise pas** (`cargotype.sc
 ```
 
 - La distance est la **ligne droite en 3D** entre les deux points, pas la longueur de ton trajet (`cargo_income.script.lua:3-7`).
-- Quand la différence de hauteur est positive, **8 × cette hauteur** est ajoutée (`cargo_income.script.lua:5`) : 100 m de montée rapportent comme 800 m de plus. Dans l'autre sens, rien n'est retiré.
+- Quand le fret est livré plus haut que sa source, **8 × cette hauteur** est ajoutée (`cargo_income.script.lua:5`) : 100 m rapportent comme 800 m de plus. Les scripts prennent la différence de hauteur que le moteur leur passe ; son sens n'est pas visible dans les scripts. Une différence négative ne retire rien.
 - Une ligne sinueuse rapporte donc autant qu'une ligne droite, mais tu paies l'entretien de chaque mètre de voie ou de route construit.
 
 ```engine
@@ -65,7 +65,7 @@ Les scripts ne calculent que le total (`economy/cargo_income.script.lua`) ; le p
 | **Contrat rempli** | ×2 pour les livraisons à l'industrie ou à la ville du contrat, sur les lignes qui ont livré pour le contrat | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Livraison en retard** | aucun effet sur le revenu | `cargotype.script.lua:7-13` |
 
-- Le multiplicateur de rang s'applique à **tous** les paiements de fret et de passagers (`company_growth.script.tl:159-170`). Les préréglages de difficulté utilisent l'Inflation Faible (Easy), Normale (Moyen), Élevée (Hard), Très élevée (Very Hard) (`difficulty_util.tl:108`).
+- Le multiplicateur de rang s'applique à **tous** les paiements de fret et de passagers (`company_growth.script.tl:159-170`). Les préréglages de difficulté utilisent l'Inflation Faible (Easy), Normale (Moyen), Élevée (Hard), Très élevée (Very Hard) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - Le ×2 des contrats ne s'applique qu'aux lignes qui ont livré pendant le contrat, pour une durée limitée (wiki officiel, Subsidies).
 
 ## Passagers
@@ -74,7 +74,7 @@ Les passagers utilisent la même distance et un facteur de revenu fixe d'environ
 
 ## Délais de livraison
 
-Chaque fret a son propre délai (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Les produits frais ont le plus court, les matières premières lourdes cinq fois plus long :
+Chaque fret a son propre délai (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Les produits frais ont le plus court : viande 900 s, charbon 3 000 s (3,3 × plus long), minerai de fer, sable, pierre et acier 4 500 s :
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ Le fret en retard est payé en entier, mais chaque ville garde une note **Livrai
 
 1. Le jeu compte les livraisons vers la ville sur le **dernier semestre**, et combien étaient en retard (au moins 10 sont supposées, pour que les premières livraisons ne la fassent pas basculer).
 2. Part à l'heure → note : sous une limite basse la note vaut 0, au-dessus d'une limite haute elle vaut 1, linéaire entre les deux. Avec la sensibilité par défaut (**Normale**) : **30 % à l'heure → 0, 100 % → 1**, donc 90 % à l'heure donnent 0,86.
-3. Le réglage **Sensibilité aux livraisons** déplace les limites (`difficulty_util.tl:47`). Désactivé : toujours 1. Préréglages : Easy Faible, Moyen Normale, Hard Élevée, Very Hard Très élevée (`difficulty_util.tl:113`).
+3. Le réglage **Sensibilité aux livraisons** déplace les limites (`difficulty_util.tl:47`). Désactivé : toujours 1. Préréglages : Easy Faible, Moyen Normale, Hard Élevée, Very Hard Très élevée (`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ La même livraison de charbon, à 5 km à vol d'oiseau.
 |---|---|
 | à plat, quelle que soit la longueur du trajet | **100 %** |
 | à 10 km | **200 %** |
-| destination 100 m plus haut | **116 %** |
+| livré 100 m plus haut que sa source | **116 %** |
 | livrée en retard | **100 %** (la note Livraison baisse) |
 | rang d'entreprise 15, Inflation Normale | **75 %** |
 | livraison couverte par un contrat rempli | **200 %** |
@@ -117,7 +117,7 @@ La même livraison de charbon, à 5 km à vol d'oiseau.
 
 - Comme tous les frets paient pareil au kilomètre, **choisis tes frets selon le volume, la distance et le délai**, pas selon le prix.
 - Les délais comptent surtout pour la viande, le poisson, les légumes et les boissons : lignes courtes, ou entrepôts qui gèlent le délai.
-- Chaque unité livrée à un bâtiment de ville donne aussi de l'expérience à cette ville (`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- Chaque unité livrée à un bâtiment de ville donne aussi de l'expérience à cette ville, pour les frets dont la catégorie a un niveau (`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: « The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'. » « While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth. » ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

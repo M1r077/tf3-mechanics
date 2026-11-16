@@ -36,7 +36,7 @@ Un piccolo script del gioco osserva ogni arrivo (`industry_workers.script.tl`):
 
 1. Quando un residente arriva a un'industria e il suo **ultimo spostamento è avvenuto con le tue linee**, l'arrivo viene registrato con l'ora di gioco (`industry_workers.script.tl:86-118`).
 2. Vengono conservati solo gli arrivi degli **ultimi 2 anni di gioco** (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).
-3. Vengono conservati al massimo i **20 arrivi più recenti** (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
+3. Quando ci sono già 20 arrivi conservati, i più vecchi vengono scartati; i nuovi arrivi di uno stesso aggiornamento sono sempre conservati per intero (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`, `industry_workers.script.tl:54-70`).
 4. Quando la stessa persona arriva di nuovo, il nuovo arrivo sostituisce quello vecchio: ogni residente conta **una sola volta** (`industry_workers.script.tl:56-70`).
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ Una miniera di carbone con 20 luoghi di lavoro e "+84%".
 - **Qualsiasi tua linea può portarli**, anche una linea che trasporta merci, purché i suoi veicoli prendano passeggeri e la fermata carichi passeggeri. Lo script non controlla il tipo di veicolo (`industry_workers.script.tl:86-118`). I giocatori segnalano meno problemi con linee passeggeri separate.
 - Alcune industrie (per esempio le piattaforme petrolifere) hanno una fermata integrata, che prende passeggeri e merci (`industryutil.lua:156-165`).
 - La finestra dell'industria mostra, per ogni lavoratore assegnato, se è **In posizione** o **In viaggio** (`entity_window_util.tl:1371-1384`). La sezione Booster elenca i lavoratori contati con il loro **Tempo rimanente** sui 2 anni (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
-- Un'industria senza ancora nessun lavoratore mostra: "Collega questo luogo al trasporto pubblico per consentire ai residenti di lavorare qui." (`entity_window_util.tl:1650-1652`).
+- Quando nessun arrivo è conteggiato (nessuno negli ultimi 2 anni), l'elenco dei lavoratori della sezione Booster mostra: "Collega questo luogo al trasporto pubblico per consentire ai residenti di lavorare qui." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine
 Quale fermata serve un'industria, quanto cammina un lavoratore da una fermata all'ingresso dell'industria, e i residenti di quali città prendono il lavoro sono decisi dal motore (bacini di utenza, ricerca del percorso, scelta del lavoro). Gli script non fissano alcun limite di distanza per i lavoratori. I giocatori segnalano che una stazione il cui bacino copriva l'industria per le merci non portava lavoratori finché un autobus non è andato fino all'ingresso dell'industria (discussione Steam "Problem getting workers to site").
@@ -94,7 +94,7 @@ I posti di lavoro vengono assegnati quando la linea apre: in due prove **tutti i
 
 ## Commessa Trasporto di forza lavoro
 
-- Viene offerta solo per un'industria con posti di lavoro, il cui booster dei lavoratori non è ancora attivo e che ha spedito o ricevuto merci nell'ultimo anno, secondo i dati annuali del motore (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Se basti solo ricevere dipende da come il motore compila le regole di produzione; non è negli script.
+- Viene offerta solo per un'industria con posti di lavoro, il cui booster dei lavoratori non è ancora attivo e che ha spedito merci nell'ultimo anno (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Ogni regola ha una tabella di uscita (le regole booster hanno `output = { }`) e una tabella Lua vuota conta come vera: si raggiunge solo questo ramo (`industry_util.tl:544-551`).
 - Viene completata quando il booster dei lavoratori si attiva: gli stessi 10 arrivi diversi su 20 con le tue linee (`deliver_workers.script.tl:152-156`). Non si conta nient'altro; non c'è una regola nascosta.
 - La barra di avanzamento sulla scheda del contratto è "lavoratori contati ÷ metà dei luoghi di lavoro" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Le frecce sulla mappa del contratto partono dalle **5 città più vicine**. Sono solo un indizio: lo script le disegna per distanza, non in base a chi ha il lavoro (`deliver_workers.script.tl:297-317`).

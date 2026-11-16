@@ -63,8 +63,8 @@
 </table></div>
 <ul>
 <li>点击时间会打开一个数字输入框：大于 600 s 的值可以在那里输入<span class="sr">（<code class="src">cargofilter_window.tl:204-208</code>）</span>。</li>
-<li>三个时间会保持彼此的顺序：把最小时间或额外等待时间调到高于最大时间，最大时间也会随之提高<span class="sr">（<code class="src">cargofilter_window.tl:834-835</code>, <code class="src">cargofilter_window.tl:848-849</code>, <code class="src">cargofilter_window.tl:865-869</code>）</span>。</li>
-<li>修改其中任何一项都会把线路标记为自定义：自动配置不再改动它的载重列表（<span class="sr"><code class="src">cargofilter_window.tl:438</code>，</span>见<a href="loading.html">装载与卸载速度</a>）。自动配置本身从不改变模式或时间<span class="sr">（<code class="src">line_util.tl:495-513</code>）</span>。</li>
+<li>三个时间会保持彼此的顺序：把最小时间或额外等待时间调到高于最大时间，最大时间也会随之提高<span class="sr">（<code class="src">cargofilter_window.tl:834-836</code>, <code class="src">cargofilter_window.tl:848-850</code>）</span>；降低最大时间会同时降低另外两个<span class="sr">（<code class="src">cargofilter_window.tl:865-869</code>）</span>。最大时间为“---”时不做任何调整。</li>
+<li>修改其中任何一项都会把线路标记为自定义：自动配置不再改动它的载重列表（<span class="sr"><code class="src">cargofilter_window.tl:438</code>，</span>见<a href="loading.html">装载与卸载速度</a>）。自动配置本身从不改变模式或时间，但会把每个填充水平重置为 100 %<span class="sr">（<code class="src">line_util.tl:495-719</code>, <code class="src">line_util.tl:511</code>, <code class="src">line_util.tl:543</code>）</span>。</li>
 </ul>
 <h2 id="填充水平每种货物的上限"><span class="n">2</span><span>填充水平：每种货物的上限</span></h2>
 <p>填充水平是载具在本站最多装载该货物的数量，以载具容量的比例表示，四舍五入到最接近的单位（游戏内实测）。</p>
@@ -113,7 +113,7 @@
 <li><strong>满载（任何）</strong>：一种货物装满时载具就离开。一列木材和厚木板列车在 369–380 s 后载着 143 和 144 木材离开；另外两次约 30 s 后载着 57 和 118 木材的发车无法解释。</li>
 <li><strong>最大停靠时间</strong>会结束等待，即使什么都没装上。一列满载（全部）、最大 120 s 的蔬菜列车，要么约 25 s 内装满（64 中的 64），要么在 116–120 s 后载着 26 或 <strong>0</strong> 离开。使用默认的 600 s 时，它在 596–600 s 后载着 64 中的 26 离开。</li>
 <li><strong>最小停靠时间</strong>是整个停靠时间，包括装货，而不是装货之后额外的时间：设为 60 s 时，玻璃列车每次都停靠 55–61 s，无论装了多少。</li>
-<li><strong>最大额外等待时间</strong>：“Maximum wait time after loading to improve vehicle distribution”<span class="sr">（<code class="src">cargofilter_window.tl:828</code>）</span>。等待期间载具窗口显示“确保安全距离”<span class="sr">（<code class="src">entity_window_util.tl:2279-2286</code>）</span>。</li>
+<li><strong>最大额外等待时间</strong>：“Maximum wait time after loading to improve vehicle distribution”<span class="sr">（<code class="src">cargofilter_window.tl:828</code>）</span>。载具等待按计划发车时，载具窗口显示“确保安全距离”<span class="sr">（<code class="src">entity_window_util.tl:2283-2284</code>）</span>，推测就是这段等待期间。</li>
 <li><strong>同一站点的多辆载具同时装货</strong>，无论各自何时到达（游戏内观察）。两辆相隔约 90 s 到达的木材卡车在同一秒离开，各载 8。货物如何在它们之间分配未作测量。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>脚本只保存设置；载具何时离开由引擎决定。</p></div></aside>

@@ -19,7 +19,7 @@ fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 
 ## 什麼會降低聲望
 
-你確認的每次建造都會在執行前檢查；損失記在相關城鎮上（`towns.script.tl:271-291`，`town_util.tl:1062-1080`）。只有你自己的建造才算，地圖編輯器中什麼都不算（`town_util.tl:1078-1080`，`towns.script.tl:58`）。
+你確認的每次建造都會在執行前檢查；損失記在相關城鎮上（`towns.script.tl:271-291`，`town_util.tl:1062-1080`）。只有你自己的建造才算，地圖編輯器中什麼都不算（`town_util.tl:1078-1080`，`towns.script.tl:233`，`towns.script.tl:271`）。
 
 | 城鎮視窗中的原因 | 什麼會損失聲望 | 來源 |
 |---|---|---|
@@ -27,7 +27,7 @@ fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 | **已移除的岩石** | 每塊 0.25 %，× 距離係數 | `town_util.tl:1148-1149`，`town_util.tl:884-885` |
 | **景觀** | 地形抬高**或**降低，每 m³ 0.00005 %：200 萬 m³ = 100 %。軌道、道路與建築塑造的地形也算（從 10,000 m² 起遞減，50,000 m² 以上減半），新隧道的淨體積也算 | `town_util.tl:873-886`，`town_util.tl:1245-1269`，`town_util.tl:1403-1436` |
 | **已拆除的建築** | 拆掉一個區（該城鎮的住宅、商店或工作機會）40.5 % 的容量 = 100 % | `town_util.tl:867-869`，`town_util.tl:1165-1184` |
-| **申請失敗的補助** | 供應城鎮：10 % 起，依風險最高 60–90 %；連接城鎮：10–100 % × 距離係數，**兩座**城鎮都扣（見[補助](subsidies.html)） | `deliver_cargo_town.script.tl:202-210`，`deliver_passengers.script.tl:113-114`，`towns.script.tl:331-333` |
+| **申請失敗的補助** | 供應城鎮：隨機抽出一種懲罰，聲望損失（10 % 起，依風險最高 60–90 %）或罰款；沒有罰款選項時一律為聲望損失。連接城鎮：10–100 % × 距離係數，**兩座**城鎮都扣（見[補助](subsidies.html)） | `deliver_cargo_town.script.tl:202-210`，`deliver_cargo_town.script.tl:209-211`，`deliver_cargo_town.script.tl:225`，`deliver_passengers.script.tl:113-114`，`towns.script.tl:331-333` |
 | **主要連接中斷** | 每有一座主要連接被中斷或過長的其他城鎮，扣 **1/3** | `town_util.tl:376-394`，`town_util.tl:1608` |
 
 - 每個原因最多 100 %（`town_util.tl:1611-1620`）。
@@ -61,7 +61,7 @@ fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 - **自動恢復**：每 3 個月遊戲時間（360 秒）恢復一級（1/6），行銷活動期間每個月（120 秒）一級（`towns.script.tl:121-135`）。日曆速度 ×1 時約為每年 **67 %**，活動期間 **200 %**：從 0 % 回滿約需 1.5 年。城鎮視窗中的**年度恢復量** 33 % 與 100 % 是固定文字，只有實際速度的一半（`town_react_util.tl:1066`）。在測試城鎮實測：每 358 秒一級，活動期間每 120 秒一級。
 - 恢復會把增加量分到所有原因上；不會超過仍未修復的中斷連接（`town_util.tl:1649-1687`）。
 - **慶祝活動**：城鎮裡第一位乘客搭上你的路線 **+50 %**，第一批貨物送到城鎮 +50 %，城鎮每次升級 +50 %，每個產業第一次收到貨物時最近的城鎮 +20 %（`celebrations.script.tl:181-273`）。這時訊息末尾會加上**聚落聲望已提升。**或 **…的聲望提升了。**（`celebration_react_util.tl:63-75`）。只有聲望低於被切斷的主要連線仍允許的上限（滿分減去每條切斷連線 1/3）且聲望設定為開啟時才算，戰役任務中不算（`celebrations.script.tl:79-93`，`celebrations.script.tl:140-142`）。
-- **供應城鎮**接受時可給 +5 % 到 +20 % × 風險係數（`deliver_cargo_town.script.tl:195-199`）。和所有增加一樣，它只抵銷已有的損失（`towns.script.tl:324-330`）。
+- **供應城鎮**接受時隨機給予現金預付或 +5 % 到 +20 % × 風險係數（`deliver_cargo_town.script.tl:197-200`，`deliver_cargo_town.script.tl:220-222`）。和所有增加一樣，它只抵銷已有的損失（`towns.script.tl:324-330`）。
 
 ## 行銷活動
 
@@ -83,7 +83,7 @@ fact: 200 萬 m³ | 的地形工程會耗盡全部聲望
 - 不要讓兩座城鎮之間的主要道路一直斷著：每條立刻 −33 %，三條會讓城鎮停下。
 - 聲望滿分時的行銷活動只幫助你的路線，不提升評價。在大工程剛結束、恢復還有東西可補時再進行。
 - 總部大型模組的**聲望恢復**紅利（+1 %）會顯示在紅利分頁中，但在腳本裡它只改變一個沒有任何評價讀取的數值（`hq_module_l.module.lua:171`，`towns.script.tl:157`，`town_util.tl:829`，`town_util.tl:857`）。
-- 成就**與我無關**需要在自由遊戲模式中讓一座城鎮的聲望降到 0 %（`achievements.script.tl:261-267`）。
+- 成就**與我無關**需要一座城鎮的聲望降到 1 % 以下（`achievements.script.tl:261-267`）。
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

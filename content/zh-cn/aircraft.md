@@ -48,7 +48,7 @@ fact: 5 | 每个机库的航空器数
 | 单跑道机场 | 3,600,000 – 9,000,000 | 150,000 – 600,000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | 双跑道机场 | 5,400,000 – 13,500,000 | 900,000 – 2,250,000 | `airport.tl:8`, `airport.tl:30-31` |
 | 单跑道机场模块（主楼、终点站、机库） | 600,000 | 100,000 | `af_main.module.lua:316-317`，`af_hangar.module.lua:326-327` |
-| 双跑道机场模块（终点站、机库、第二条跑道…） | 900,000 | 150,000 | `ap_main.module.lua:672-673`，`ap_hangar.module.lua:508-509`，`airport_2nd_runway.module.lua:27-28` |
+| 双跑道机场模块（主楼、终点站、机库、第二条跑道） | 900,000 | 150,000 | `ap_main.module.lua:672-673`，`ap_terminal.module.lua:949-950`，`ap_hangar.module.lua:508-509`，`airport_2nd_runway.module.lua:27-28` |
 
 - 机场维护费也随日历年份变化，从 1900 年的 ×1 到 2020 年的 ×6（[成本、维护费与贷款](costs.html)）。
 - 航空器的价格和运营成本由速度与容量计算，与船只和道路载具一样（[成本、维护费与贷款](costs.html)）。

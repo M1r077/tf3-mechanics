@@ -57,7 +57,7 @@ A warehouse is an entrance and a set of **modules**. It stores cargo between two
 | Pollution | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - The warehouse adds its own pollution: **25**, or **50** as soon as one specialised module is built (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- The build menu has one entry per class and era (from 1900, 1940 and 1980) (`warehouses/warehouse.tl:3-5`); later eras show ×3 and ×9, and warehouse upkeep also grows with the year. Details: [Costs, upkeep and loans](costs.html).
+- The build menu has one entry per class and era (from 1900, 1940 and 1980) (`warehouses/warehouse.tl:3-5`); later eras show ×3 and ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), and warehouse upkeep also grows with the year. Details: [Costs, upkeep and loans](costs.html).
 - Bulk, flatbed and goods modules cost the same as liquid ones (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Where unloaded cargo goes, and whether a stored item's delivery timer stops, are
 ## Good to know
 
 - Check the Load list of every stop near a warehouse: what is not in it is unloaded into the warehouse, even halfway along the line.
-- A full stock refuses more cargo unless the stop uses "Force Unload All Cargo On Arrival", which destroys what does not fit (see [Loading speed](loading.html)).
+- A full stock refuses more cargo unless the stop uses "Force Unload All Cargo On Arrival" ("Unload cargo even if stocks are full"); what happens to the cargo that does not fit is decided by the engine (see [Loading speed](loading.html)).
 - To keep a specialised module for one cargo, pin its cargo type in the Stocks section.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) lists, per station, the warehouses in reach with their stocks; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) shows where the unloaded cargo went.
 

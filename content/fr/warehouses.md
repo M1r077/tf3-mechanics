@@ -57,7 +57,7 @@ Un entrepôt, c'est une entrée et un ensemble de **modules**. Il stocke le fret
 | Pollution | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - L'entrepôt ajoute sa propre pollution : **25**, ou **50** dès qu'un module spécialisé est construit (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- Le menu de construction a une entrée par classe et par époque (dès 1900, 1940 et 1980) (`warehouses/warehouse.tl:3-5`) ; les époques suivantes affichent ×3 et ×9, et l'entretien des entrepôts monte aussi avec l'année. Détails : [Coûts, entretien et emprunts](costs.html).
+- Le menu de construction a une entrée par classe et par époque (dès 1900, 1940 et 1980) (`warehouses/warehouse.tl:3-5`) ; les époques suivantes affichent ×3 et ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), et l'entretien des entrepôts monte aussi avec l'année. Détails : [Coûts, entretien et emprunts](costs.html).
 - Les modules vrac, plateau et marchandises coûtent autant que les modules liquides (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Où va le fret déchargé, et si le délai de livraison d'une unité stockée s'
 ## Bon à savoir
 
 - Vérifie la liste Charge de chaque arrêt près d'un entrepôt : ce qui n'y est pas est déchargé dans l'entrepôt, même au milieu de la ligne.
-- Un stock plein refuse le fret en plus, sauf si l'arrêt utilise « Forcer le déchargement de tout le fret à l’arrivée », qui détruit ce qui ne rentre pas (voir [Vitesse de chargement et de déchargement](loading.html)).
+- Un stock plein refuse le fret en plus, sauf si l'arrêt utilise « Forcer le déchargement de tout le fret à l’arrivée » (« Décharger le fret même si les stocks sont pleins ») ; ce que devient le fret qui ne rentre pas est décidé par le moteur (voir [Vitesse de chargement et de déchargement](loading.html)).
 - Pour garder un module spécialisé pour un seul fret, réserve son type de fret dans la section Stocks.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) liste, par gare, les entrepôts à portée avec leurs stocks ; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) montre où est parti le fret déchargé.
 

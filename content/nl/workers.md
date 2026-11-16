@@ -36,7 +36,7 @@ Een klein spelscript houdt elke aankomst bij (`industry_workers.script.tl`):
 
 1. Als een inwoner bij een industriebedrijf aankomt en zijn **laatste verplaatsing met jouw lijnen** was, wordt de aankomst met de speltijd genoteerd (`industry_workers.script.tl:86-118`).
 2. Alleen aankomsten van de **laatste 2 speljaren** worden bewaard (`industry_productivity_util.tl:3`: `2 * getDefaultYearDuration()`).
-3. Hooguit de **laatste 20** aankomsten worden bewaard (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`).
+3. Zodra 20 aankomsten bewaard zijn, vallen de oudste weg; de nieuwe aankomsten van één update worden altijd volledig bewaard (`industry_workers.script.tl:4`, `KeepHistoryCount = 20`, `industry_workers.script.tl:54-70`).
 4. Komt dezelfde persoon opnieuw aan, dan vervangt de nieuwe aankomst de oude: elke inwoner telt **één keer** (`industry_workers.script.tl:56-70`).
 
 ```diagram workers_window
@@ -76,7 +76,7 @@ Een steenkolenmijn met 20 werkplekken en "+84 %".
 - **Elk van jouw lijnen kan ze brengen**, ook een lijn die vracht vervoert, zolang de voertuigen passagiers meenemen en de halte passagiers laadt. Het script controleert het voertuigtype niet (`industry_workers.script.tl:86-118`). Spelers melden minder problemen met aparte passagierslijnen.
 - Sommige bedrijven (bijvoorbeeld olieplatforms) hebben een eigen ingebouwde halte, die passagiers en vracht neemt (`industryutil.lua:156-165`).
 - Het industrievenster toont voor elke toegewezen werknemer of hij **Momenteel hier** of **Onderweg** is (`entity_window_util.tl:1371-1384`). Het onderdeel Booster toont de getelde werknemers met hun **Resterende tijd** van de 2 jaar (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
-- Een bedrijf zonder werknemers toont: "Sluit deze locatie aan op het openbaar vervoer, zodat de inwoners er kunnen gaan werken." (`entity_window_util.tl:1650-1652`).
+- Als er geen aankomst geteld wordt (geen in de laatste 2 jaar), toont de werknemerslijst van het Booster-onderdeel: "Sluit deze locatie aan op het openbaar vervoer, zodat de inwoners er kunnen gaan werken." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine
 Welke halte een bedrijf bedient, hoe ver een werknemer van een halte naar de ingang van het bedrijf loopt, en de inwoners van welke steden de baan nemen, beslist de engine (verzorgingsgebieden, routebepaling, baankeuze). De scripts stellen geen afstandsgrens voor werknemers. Spelers melden dat een station waarvan het verzorgingsgebied het bedrijf voor vracht dekte, geen werknemers bracht tot er een bus naar de ingang van het bedrijf reed (Steam-topic "Problem getting workers to site").
@@ -94,7 +94,7 @@ De banen worden verdeeld wanneer de lijn opent: in twee tests gingen **alle 20 b
 
 ## Subsidie Werknemers vervoeren
 
-- Hij wordt alleen aangeboden voor een bedrijf met arbeidsplaatsen waarvan de werknemersboost nog niet actief is en dat het afgelopen jaar vracht heeft verstuurd of ontvangen, volgens de jaarcijfers van de engine (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Of alleen ontvangen genoeg is, hangt af van hoe de engine de productieregels vult; dat staat niet in de scripts.
+- Hij wordt alleen aangeboden voor een bedrijf met arbeidsplaatsen waarvan de werknemersboost nog niet actief is en dat het afgelopen jaar vracht heeft verstuurd (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Elke regel heeft een uitvoertabel (boosterregels hebben `output = { }`) en een lege Lua-tabel telt als waar: alleen deze tak wordt bereikt (`industry_util.tl:544-551`).
 - Hij is voltooid zodra de werknemersboost actief wordt: dezelfde 10 van 20 verschillende aankomsten met jouw lijnen (`deliver_workers.script.tl:152-156`). Er telt niets anders; er is geen verborgen regel.
 - De voortgangsbalk op de contractkaart is "getelde werknemers ÷ de helft van de werkplekken" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - De pijlen op de contractkaart komen van de **5 dichtstbijzijnde steden**. Ze zijn alleen een hint: het script tekent ze op afstand, niet op wie de baan heeft (`deliver_workers.script.tl:297-317`).

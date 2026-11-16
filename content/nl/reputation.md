@@ -19,7 +19,7 @@ fact: 2 mln. m³ | terreinwerk kost de hele reputatie
 
 ## Wat haar verlaagt
 
-Elke bouw die je bevestigt, wordt gecontroleerd voordat hij wordt uitgevoerd; de kosten gaan naar de betrokken stad (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Alleen je eigen bouwwerken tellen, en in de kaarteditor telt niets (`town_util.tl:1078-1080`, `towns.script.tl:58`).
+Elke bouw die je bevestigt, wordt gecontroleerd voordat hij wordt uitgevoerd; de kosten gaan naar de betrokken stad (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Alleen je eigen bouwwerken tellen, en in de kaarteditor telt niets (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
 
 | Reden in het stadsvenster | Wat reputatie kost | Bron |
 |---|---|---|
@@ -27,7 +27,7 @@ Elke bouw die je bevestigt, wordt gecontroleerd voordat hij wordt uitgevoerd; de
 | **Rotsen verwijderd** | 0,25 % per rots, × de afstandsfactor | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Landschapsverfraaiing** | 0,00005 % per m³ verhoogd **of** verlaagd terrein: 2 miljoen m³ = 100 %. Terrein dat sporen, wegen en gebouwen vormen telt ook (verminderd vanaf 10.000 m², tot de helft vanaf 50.000 m²), net als netto nieuw tunnelvolume | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Gesloopte gebouwen** | 100 % voor 40,5 % verwijderde capaciteit van een wijk (woningen, winkels of banen van die stad) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Mislukte subsidie** | Bevoorraad stad: 10 % tot 60–90 % (naar risico); Steden verbinden: 10–100 % × de afstandsfactor, in **beide** steden (zie [Subsidies](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Mislukte subsidie** | Bevoorraad stad: één willekeurig gekozen straf, het reputatieverlies (10 % tot 60–90 % naar risico) of een geldboete; altijd het reputatieverlies als er geen boete wordt aangeboden. Steden verbinden: 10–100 % × de afstandsfactor, in **beide** steden (zie [Subsidies](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
 | **Onderbroken hoofdaansluitingen** | **1/3** per andere stad waarvan de hoofdaansluiting onderbroken of te lang is | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Elke reden is begrensd op 100 % (`town_util.tl:1611-1620`).
@@ -61,7 +61,7 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 - **Vanzelf**: één niveau (1/6) per 3 maanden speltijd (360 s), elke maand (120 s) tijdens een marketingcampagne (`towns.script.tl:121-135`). Bij kalendersnelheid ×1 is dat ongeveer **67 %** per jaar, **200 %** met een campagne: van 0 % weer vol in ongeveer 1,5 jaar. Het stadsvenster toont **Jaarlijks herstel** 33 % en 100 %: vaste teksten, de helft van de echte snelheid (`town_react_util.tl:1066`). Gemeten bij een teststad: één niveau per 358 s, per 120 s met een campagne.
 - Het herstel verdeelt de winst over alle redenen; het gaat nooit voorbij de onderbroken aansluitingen die nog open zijn (`town_util.tl:1649-1687`).
 - **Feesten** geven **+50 %** voor de eerste passagier die in een stad op een van je lijnen stapt, +50 % voor de eerste vracht aan een stad, +50 % bij elke niveaustijging van de stad, en +20 % voor de dichtstbijzijnde stad bij de eerste vracht aan elke industrie (`celebrations.script.tl:181-273`). Het bericht eindigt dan met **Reputatie in stad verbeterd.** of **Reputatie verbeterd in …** (`celebration_react_util.tl:63-75`). Ze tellen alleen als de reputatie lager is dan wat de verbroken hoofdverbindingen nog toelaten (vol min 1/3 per verbroken verbinding) en de instelling Reputatie op Aan staat, en niet in campagnemissies (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Bevoorraad stad** kan bij aanvaarding +5 % tot +20 % × de risicofactor geven (`deliver_cargo_town.script.tl:195-199`). Zoals elke winst haalt dat alleen bestaande verliezen weg (`towns.script.tl:324-330`).
+- **Bevoorraad stad** geeft bij aanvaarding een voorschot in geld of +5 % tot +20 % × de risicofactor, willekeurig gekozen (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Zoals elke winst haalt dat alleen bestaande verliezen weg (`towns.script.tl:324-330`).
 
 ## Marketingcampagne
 
@@ -83,7 +83,7 @@ Het script rekent 360 seconden speltijd per niveau (120 met een campagne), met e
 - Laat nooit een hoofdweg tussen twee steden onderbroken: elke kost meteen −33 %, en drie onderbrekingen stoppen de stad.
 - Een marketingcampagne bij volle reputatie helpt alleen je lijnen, niet de beoordeling. Start haar direct na groot werk, wanneer het herstel iets in te halen heeft.
 - De bonus **Reputatieherstel** van de grote hoofdkwartiermodule (+1 %) staat in het tabblad Bonussen, maar in de scripts verandert hij alleen een waarde die geen enkele beoordeling leest (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
-- De prestatie **De hatelijke nul** vraagt een stad met 0 % reputatie in vrij spelen (`achievements.script.tl:261-267`).
+- De prestatie **De hatelijke nul** vraagt een stad waarvan de reputatie onder 1 % zakt (`achievements.script.tl:261-267`).
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

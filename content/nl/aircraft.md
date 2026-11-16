@@ -48,7 +48,7 @@ Prijs en onderhoud van de eerste variant, tijdperkfactor inbegrepen. De factor i
 | Vliegveld | 3.600.000 - 9.000.000 | 150.000 - 600.000 | `airfield.tl:8`, `airfield.tl:55-56` |
 | Luchthaven | 5.400.000 - 13.500.000 | 900.000 - 2.250.000 | `airport.tl:8`, `airport.tl:30-31` |
 | Vliegveldmodule (hoofdgebouw, terminal, hangar) | 600.000 | 100.000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
-| Luchthavenmodule (terminal, hangar, tweede landingsbaan) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
+| Luchthavenmodule (hoofdgebouw, terminal, hangar, tweede landingsbaan) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_terminal.module.lua:949-950`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 
 - Het onderhoud van luchthavens en vliegvelden volgt ook het kalenderjaar, ×1 in 1900 tot ×6 in 2020 ([Kosten, onderhoud en leningen](costs.html)).
 - De prijs en gebruikskosten van een luchtvaartuig worden berekend uit zijn snelheid en capaciteit, net als bij schepen en wegvoertuigen ([Kosten, onderhoud en leningen](costs.html)).

@@ -31,8 +31,8 @@ Pour le jeu, un quai n'est pas une rangée de modules : c'est une **liste de sec
 |---|---|---|
 | sur une section de leur classe (wagons vrac, section vrac) | **×2** | `modular_station.script.lua:1042` |
 | sur une section universelle | ×1 | `modular_station.script.lua:1042` |
-| sans aucune section de leur classe sur le quai | **×0,25** | `cargo_react_util.tl:60` |
-| au-delà de la longueur du quai (train trop long) | **×0,25** | `cargo_react_util.tl:61` |
+| sans aucune section de leur classe sur le quai | **×0,25** (constante de l'infobulle de chargement ; le facteur lui-même est appliqué par le moteur) | `cargo_react_util.tl:60` |
+| au-delà de la longueur du quai (train trop long) | **×0,25** (constante de l'infobulle de chargement ; le facteur lui-même est appliqué par le moteur) | `cargo_react_util.tl:61` |
 
 - Le facteur est un **mélange selon la part du train** : si 3/4 des wagons correspondent et 1/4 non, le facteur vaut ¾ × 2 + ¼ × 0,25 ≈ ×1,56 (`cargo_react_util.tl:63-70`, le même découpage que le jeu affiche comme « Terminal partiellement spécialisé »).
 - **L'endroit** où les wagons s'arrêtent sur le quai ne compte pas, seules les longueurs additionnées comptent (mesuré en jeu).
@@ -88,7 +88,7 @@ Chaque arrêt d'une ligne a une liste **Charge**, dans la fenêtre « Filtre de 
 
 | Option de « Filtre de fret » | Effet | Source |
 |---|---|---|
-| « Forcer le déchargement de tout le fret à l’arrivée » | décharge dans les stocks compatibles même pleins ; ce qui ne rentre pas est détruit. Désactivée pour un nouvel arrêt. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| « Forcer le déchargement de tout le fret à l’arrivée » | infobulle : « Décharger le fret même si les stocks sont pleins » ; ce que devient le fret qui ne rentre pas est décidé par le moteur. Désactivée pour un nouvel arrêt. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | « Détruire le fret à l’arrivée lorsque la configuration change » | décharge ou détruit le fret à bord quand du fret pour une autre configuration de chargement du véhicule attend à cet arrêt ; c'est le moteur qui choisit entre les deux | `cargofilter_window.tl:767` |
 | « Remplacer par un fret plus récent si disponible » | détruit le fret revenu à l'arrêt où il a été chargé, quand du fret plus récent du même type attend | `cargofilter_window.tl:778` |
 
@@ -109,7 +109,7 @@ L'ordre dans lequel plusieurs frets sont chargés, la façon dont un stock parta
 
 ## La configuration automatique
 
-Tant que personne n'a enregistré de modification dans la fenêtre « Filtre de fret » d'un arrêt, ce qui la désactive pour de bon sur cette ligne (`line_util.tl:495-498`, `cargofilter_window.tl:438`), le jeu remplit lui-même les listes Charge à chaque création de la ligne, à chaque arrêt ajouté ou retiré, à chaque changement d'ordre des arrêts et à chaque point de passage ajouté (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Déplacer un arrêt vers une autre gare ou un autre quai, et retirer ou déplacer un point de passage, ne la relancent pas (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
+Tant que personne n'a enregistré de modification dans la fenêtre « Filtre de fret » d'un arrêt, ce qui la désactive pour de bon sur cette ligne (`line_util.tl:495-498`, `cargofilter_window.tl:438`), le jeu remplit lui-même les listes Charge à chaque création de la ligne, à chaque arrêt ajouté ou retiré, à chaque changement d'ordre des arrêts et à chaque point de passage ajouté (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Déplacer un arrêt vers une autre gare ou un autre quai, et retirer ou déplacer un point de passage, ne la relancent pas (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
 
 - Elle repart de listes vides, avec les passagers aux gares voyageurs (`line_util.tl:542-588`).
 - Elle cherche producteurs et clients parmi les industries et les bâtiments de ville seulement : les entrepôts ne comptent pas (`cargo_util.tl:518-526`).

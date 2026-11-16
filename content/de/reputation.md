@@ -19,7 +19,7 @@ Der **Ruf** ist eine der sechs Wertungen im Stadtfenster, und die Stadtverwaltun
 
 ## Was ihn senkt
 
-Jeder Bau, den du bestätigst, wird vor dem Ausführen geprüft; die Kosten gehen an die betroffene Stadt (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Nur deine eigenen Bauten zählen, und im Karteneditor zählt nichts (`town_util.tl:1078-1080`, `towns.script.tl:58`).
+Jeder Bau, den du bestätigst, wird vor dem Ausführen geprüft; die Kosten gehen an die betroffene Stadt (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Nur deine eigenen Bauten zählen, und im Karteneditor zählt nichts (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
 
 | Grund im Stadtfenster | Was Ruf kostet | Quelle |
 |---|---|---|
@@ -27,7 +27,7 @@ Jeder Bau, den du bestätigst, wird vor dem Ausführen geprüft; die Kosten gehe
 | **Entfernte Felsen** | 0,25 % pro Fels, × Entfernungsfaktor | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Landschaftsbau** | 0,00005 % pro m³ angehobenes **oder** abgesenktes Gelände: 2 Millionen m³ = 100 %. Gelände, das Gleise, Straßen und Gebäude formen, zählt auch (ab 10.000 m² verringert, auf die Hälfte ab 50.000 m²), ebenso netto neues Tunnelvolumen | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Abgerissene Gebäude** | 100 % für 40,5 % entfernte Kapazität eines Viertels (Wohnungen, Geschäfte oder Arbeitsplätze dieser Stadt) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Gescheiterte Subvention** | Stadt versorgen: 10 % bis 60–90 % (je nach Risiko); Städte verbinden: 10–100 % × Entfernungsfaktor, in **beiden** Städten (siehe [Subventionen](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Gescheiterte Subvention** | Stadt versorgen: eine zufällig gezogene Strafe, der Rufverlust (10 % bis 60–90 % je nach Risiko) oder eine Geldstrafe; immer der Rufverlust, wenn keine Geldstrafe angeboten wird. Städte verbinden: 10–100 % × Entfernungsfaktor, in **beiden** Städten (siehe [Subventionen](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
 | **Unterbrochene Hauptverbindungen** | **1/3** pro andere Stadt, deren Hauptverbindung unterbrochen oder zu lang ist | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Jeder Grund ist auf 100 % begrenzt (`town_util.tl:1611-1620`).
@@ -61,7 +61,7 @@ Eine Hauptverbindung gilt als unterbrochen, wenn das Spiel **Strassenverbindung 
 - **Von selbst**: eine Stufe (1/6) alle 3 Monate Spielzeit (360 s), jeden Monat (120 s) während einer Marketingkampagne (`towns.script.tl:121-135`). Bei Kalendertempo ×1 sind das etwa **67 %** pro Jahr, **200 %** mit Kampagne: von 0 % wieder voll in etwa 1,5 Jahren. Das Stadtfenster zeigt **Jährliche Aufwertung** 33 % und 100 %: feste Texte, die Hälfte des echten Tempos (`town_react_util.tl:1066`). Gemessen an einer Teststadt: eine Stufe alle 358 s, alle 120 s mit Kampagne.
 - Die Erholung verteilt den Gewinn auf alle Gründe; sie geht nie über die noch offenen Unterbrechungen hinaus (`town_util.tl:1649-1687`).
 - **Feierlichkeiten** geben **+50 %** für den ersten Passagier, der in einer Stadt in eine deiner Linien steigt, +50 % für die erste Fracht an eine Stadt, +50 % bei jedem Stufenaufstieg der Stadt und +20 % für die nächste Stadt bei der ersten Fracht an jede Industrie (`celebrations.script.tl:181-273`). Die Meldung endet dann mit **Ruf in Stadt verbessert.** oder **Ruf in … verbessert.** (`celebration_react_util.tl:63-75`). Sie zählen nur, wenn der Ruf unter dem liegt, was die unterbrochenen Hauptverbindungen noch erlauben (voll minus 1/3 pro unterbrochene Verbindung), und die Einstellung Ruf auf Ein steht, und nicht in Kampagnenmissionen (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Stadt versorgen** kann bei Annahme +5 % bis +20 % × Risikofaktor geben (`deliver_cargo_town.script.tl:195-199`). Wie jeder Gewinn entfernt das nur bestehende Verluste (`towns.script.tl:324-330`).
+- **Stadt versorgen** gibt bei Annahme entweder einen Geldvorschuss oder +5 % bis +20 % × Risikofaktor, zufällig gezogen (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Wie jeder Gewinn entfernt das nur bestehende Verluste (`towns.script.tl:324-330`).
 
 ## Marketingkampagne
 
@@ -83,7 +83,7 @@ Das Skript rechnet 360 Sekunden Spielzeit pro Stufe (120 mit Kampagne), mit eine
 - Lass nie eine Hauptstraße zwischen zwei Städten unterbrochen: jede kostet sofort −33 %, und drei stoppen die Stadt.
 - Eine Marketingkampagne bei vollem Ruf hilft nur deinen Linien, nicht der Wertung. Starte sie direkt nach großen Bauarbeiten, wenn die Erholung etwas aufzuholen hat.
 - Der Bonus **Rufwiederherstellung** des großen Hauptquartier-Moduls (+1 %) steht im Reiter Boni, ändert in den Skripten aber nur einen Wert, den keine Wertung liest (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
-- Die Errungenschaft **Ich war es nicht** verlangt eine Stadt mit 0 % Ruf im freien Spiel (`achievements.script.tl:261-267`).
+- Die Errungenschaft **Ich war es nicht** verlangt eine Stadt, deren Ruf unter 1 % fällt (`achievements.script.tl:261-267`).
 
 ```check
 official: "Reputation reflects how the town and surrounding nature are treated. Landscaping, removing town buildings and breaking main connections to other towns can lower it, while celebrations and marketing campaigns can improve it. Reputation lost by removing trees can be recovered by planting new ones." ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

@@ -23,7 +23,7 @@ Chaque navire est **petit** ou **grand**. Un grand navire ne peut accoster qu'à
 - Le petit port est construit avec de petits quais, qui n'acceptent que les petits navires (`small_pier.module.lua:7`). Le grand port utilise des quais moyens, qui acceptent les deux tailles (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminaux** : 1, 2 ou 4, au choix à la construction (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - Un terminal de quai accueille 100 passagers en attente sur un petit quai et 50 sur un quai moyen (`modules.script.lua:872`, `modules.script.lua:1004`).
-- Les ports se placent le long d'une côte, sur une eau navigable (`harbor_modular.tl:29`).
+- Pendant la pose d'un port, le script affiche seulement le calque de l'eau navigable (`harbor_modular.tl:26-30`). Les endroits où un port peut être posé sont décidés par le moteur.
 - Chaque navire définit sa propre taille dans son fichier de véhicule ; le jeu la convertit en mode petit ou grand navire (`model_metadata_util.lua:1411-1412`).
 
 ## Coûts

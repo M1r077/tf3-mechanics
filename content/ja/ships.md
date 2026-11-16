@@ -23,7 +23,7 @@ fact: ×9 | 1990 年版の港の価格と維持費
 - 小型港は小型桟橋でできており、小型船しか受け入れない（`small_pier.module.lua:7`）。大型港は中型桟橋を使い、両方のサイズを受け入れる（`medium_pier.module.lua:6`、`harbor_modular.script.lua:35-39`）。
 - **ターミナル**：1、2 または 4。建設時に選ぶ（`harbor_modular.tl:16`、`harbor_modular.script.lua:33`）。
 - 桟橋のターミナルには、小型桟橋で 100 人、中型桟橋で 50 人の待ち旅客が入る（`modules.script.lua:872`、`modules.script.lua:1004`）。
-- 港は海岸沿いの航行可能な水面に置く必要がある（`harbor_modular.tl:29`）。
+- 港を配置する間、スクリプトは航行可能な水域の表示を出すだけである（`harbor_modular.tl:26-30`）。港を置ける場所はエンジンが決める。
 - 各船は自分の車両ファイルでサイズを決めており、ゲームがそれを小型船または大型船のモードに変換する（`model_metadata_util.lua:1411-1412`）。
 
 ## コスト

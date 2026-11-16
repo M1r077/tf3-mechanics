@@ -44,7 +44,7 @@ The growth rate comes from two ratings of the town window (`town_util.tl:607-633
 - Each rating has six levels: a value of 0–1 is cut into sixths (`town_util.tl:983-985`). **Excellent** needs 5/6 = 83 % or more.
 - With **one** rating at Very Poor, the authority is Very Poor and the growth rate is **0 %**: the town stops, whatever you deliver.
 - 100 % needs Excellent authority with Very Good supplies or better, or Very Good authority with Excellent supplies.
-- Your **headquarters** adds +5 % to the town closest to it, and most of its extensions add another +5 % each (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). This bonus multiplies the rate, so it does nothing at 0 %.
+- Your **headquarters** adds +5 % to the town closest to it, several extensions add +5 %, some less or nothing; the value is in each module file (`headquarter.script.tl:510-515`, `landmark_util.tl:51-70`). This bonus multiplies the rate, so it does nothing at 0 %.
 
 ```tip scripts
 **A town has stopped growing? Fix its worst rating first.** The Town Authority is the lowest of the six ratings, so one Very Poor rating holds the town at 0 % and improving the others changes nothing.
@@ -54,7 +54,7 @@ The growth rate comes from two ratings of the town window (`town_util.tl:607-633
 
 | Rating | What lowers it | Source |
 |---|---|---|
-| **Reputation** | landscaping, demolishing town buildings, removing trees; each cut main connection to another town −1/3 | `town_util.tl:396-404`, `town_util.tl:1608` |
+| **Reputation** | landscaping, demolishing town buildings, removing trees or rocks, failed subsidies; each cut main connection to another town −1/3 | `town_util.tl:396-404`, `town_util.tl:1608`, `town_react_util.tl:30-43` |
 | **Traffic** | congested streets in the town | `town_util.tl:445-456` |
 | **Happiness** | share of unhappy travellers (at least 15 people assumed) | `town_util.tl:479-503` |
 | **Delivery** | share of late cargo deliveries (see [Cargo income](income.html)) | `town_util.tl:505-519` |
@@ -92,12 +92,12 @@ The engine computes line usage, the traffic speed, the noise and pollution maps 
 
 ## Cargo demand and building stocks
 
-- A town's demand is the sum of its **buildings**. Each building has one small input stock per cargo its district asks for: capacity ÷ 4, rounded up, × that cargo's factor in the town's needs (1 unless set otherwise; where the factor comes from is not in the scripts) (`townbuildingutil.lua:226-251`). The game notes that this stock size "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
+- A town's demand is the sum of its **buildings**. Each building has one small input stock per cargo its district asks for: capacity ÷ 4, rounded up, × that cargo's factor in the town's needs (1 unless set otherwise; where the factor comes from is not in the scripts) (`townbuildingutil.lua:226-251`). Each cargo defines a townConsumptionFactor of 1, 0.5 or 0.25 (`placementparamsutil.lua:506-616`); how it reaches the building is engine-side. The game notes that this stock size "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
 - The town window's demand is the total limit of these stocks; the supply counted for the rating is capped at the demand (`town_util.tl:95-99`, `town_util.tl:194-198`). Bigger towns ask for more because they have more buildings.
 - The building window shows a **Consumption Rating**: how fast the building uses its cargo compared with its maximum (`town_building.tl:103-132`).
 - XP and payment come when a unit enters a building's stock (`town_growth.script.tl:620-642`).
 - A stop only reaches the buildings in its catchment area. Their stocks can be full while the town as a whole is still short: then the cargo that does not fit **stays on the vehicle**, unless **Force Unload All Cargo On Arrival** is ticked ("Unload cargo even if stocks are full.") (`cargofilter_window.tl:757-763`), which destroys what does not fit (see [Loading and unloading speed](loading.html)).
-- Cargo left on board raises the notification **Cargo Not Unloaded**: "{cargoCount} cargo of {vehicle} was not unloaded on line." (`cargo_rtc_warning.res.lua:6`, `cargo_rtc_warning.script.tl:28-41`).
+- Cargo left on board raises the notification **Cargo Unload Problem**: "{cargoCount} cargo of {vehicle} was not unloaded on line." (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`); its type label is **Cargo Not Unloaded** (`cargo_rtc_warning.res.lua:6`).
 - **Town Cargo Demands** ("Choose the maximum number of cargo demands per town."): 2, 4 or 6, default 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). The scripts add demands by level (above) and pass this value to the engine.
 
 ```engine
@@ -107,7 +107,7 @@ How fast a building consumes its stock (consumeFrequency), which building in a c
 ## Can I stop a town from growing?
 
 - In a normal game there is **no setting** for a maximum town size (`difficulty_util.tl:90-199`).
-- In **sandbox mode** and the map editor, the town window has a **Target District Capacities** card with **Enable Town Development** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Unticked, the town gets no XP and is not resized; the window shows **Town Development Inactive** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- In **sandbox mode**, the town window has a **Target District Capacities** card with **Enable Town Development** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Unticked, the town gets no XP and is not resized; the window shows **Town Development Inactive** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Without sandbox, the only ways are indirect: a town only grows from your passengers and cargo, and one Very Poor rating stops it (above).
 
 ## Good to know

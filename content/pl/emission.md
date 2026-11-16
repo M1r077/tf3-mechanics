@@ -20,13 +20,13 @@ Skrypt gry co kilka aktualizacji ustawia emisję czterech rodzajów budynków, m
 
 | Budynek | Emituje więcej, gdy | Źródło |
 |---|---|---|
-| **Zakład przemysłowy** | produkuje, i znowu z każdym wzmocnieniem (towar lub pracownicy); mniej, w stronę poziomu bezczynności, gdy jego zapas wyjściowy jest pełny | `emissions.script.tl:152-194` |
+| **Zakład przemysłowy** | produkuje, i znowu z każdym wzmocnieniem (towar lub pracownicy); gdy wszystkie jego zapasy wyjściowe są naraz pełne, poziom spada o połowę: produkcja → bezczynność, wzmocniona dwa razy → produkcja | `emissions.script.tl:152-194` |
 | **Stacja** | jest bardziej zajęta: czekający ludzie i towar względem jej pojemności | `emissions.script.tl:211-222` |
 | **Zajezdnia**, **stacja serwisowa** | więcej pojazdów korzysta z jej serwisu | `emissions.script.tl:223-234` |
 | **Magazyn** | jego zapasy są pełniejsze | `emissions.script.tl:237-250` |
 
 - Każdy zakład ma własne cztery poziomy: bezczynność, produkcja, jedno wzmocnienie, dwa wzmocnienia (`industryutil.lua:464-475`; domyślne 0 / 78 / 84 / 88 dotyczy tylko zakładu bez własnych wartości). Większość emituje trochę nawet w bezczynności: kopalnia węgla przechodzi 2 → 10 → 20 → 30 zanieczyszczenia, jej pola 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, zobacz [Zakłady przemysłowe](industries.html)).
-- Zakład, którego produkcji nikt nie odbiera, wraca do poziomu bezczynności: obsługa podnosi jego zanieczyszczenie.
+- Zakład, którego wszystkie zapasy wyjściowe są pełne, spada do połowy swojego poziomu (`emissions.script.tl:172-182`): obsługa podnosi jego zanieczyszczenie.
 - Pojazdy i tory też emitują; pojazd w złym stanie emituje więcej przy ustawieniu **Wpływ konserwacji pojazdów** (zobacz [Koszty, utrzymanie i pożyczki](costs.html)).
 
 ## Co pokazuje menu budowy
@@ -39,7 +39,7 @@ Skrypt gry co kilka aktualizacji ustawia emisję czterech rodzajów budynków, m
 | Zajezdnia kolejowa | 50 | 100 | `rail_depot.con.lua:32-33` |
 | Zajezdnia drogowa i tramwajowa | 40 | 80 | `road_depot.con.lua:30-31`, `tram_depot.con.lua:32-33` |
 | Stacja metra | 40 | 80 | `underground_station.con.lua:75-76` |
-| Stacja ciężarówek i autobusów | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
+| Stacja ciężarówek i autobusów | 1–10 | 12–76 | `modular_terminal.con.lua:67-68`, `modular_terminal.con.lua:121-122` |
 | Stacje serwisowe | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
 | Magazyn | 20 | 50 (uniwersalny) lub 100 (specjalistyczny) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
@@ -93,6 +93,8 @@ Atut firmy, który usuwa zanieczyszczenie wokół siebie.
 | wzmocniona raz | −20 000 | 160 | `pollution_cleanup_facility.con.lua:86-91` |
 | wzmocniona dwa razy | −40 000 | 200 | `pollution_cleanup_facility.con.lua:92-97` |
 
+Ostatni poziom wymaga reguły wzmacniacza, której Oczyszczalnia nie ma: z pracownikami osiąga −20 000 (`pollution_cleanup_facility.con.lua:51-58`, `emissions.script.tl:158-166`).
+
 - Bez maszyn prawie nic nie robi: trzeba ją zaopatrywać jak zakład przemysłowy.
 - Jest głośna: buduj ją poza dzielnicą mieszkalną, w promieniu 700 m od zanieczyszczonego obszaru.
 - Jej mnożnik wzmocnienia przez pracowników wynosi ×2 (`pollution_cleanup_facility.script.lua:549`). Zobacz [Pracownicy](workers.html).
@@ -100,7 +102,7 @@ Atut firmy, który usuwa zanieczyszczenie wokół siebie.
 ## Warto wiedzieć
 
 - Otwórz okno miasta albo warstwy hałasu i zanieczyszczenia, aby zobaczyć ocenę i gorące punkty.
-- Pełny zapas wyjściowy obniża emisję zakładu w stronę poziomu bezczynności, ale kosztuje cię jego towar: lepiej przenieść miasto, niż głodzić zakład.
+- Gdy wszystkie zapasy wyjściowe zakładu są pełne, jego poziom emisji spada o połowę, ale tracisz jego towar: lepiej przenieść miasto, niż głodzić zakład.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) i [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) pomagają znaleźć najbardziej zajęte stacje.
 
 ```engine
@@ -109,6 +111,6 @@ Silnik oblicza mapy hałasu i zanieczyszczenia, rozchodzenie się wartości, emi
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." Dzielnica mieszkalna "is sensitive to noise"; dzielnica handlowa "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Ocena hałasu 65 → 80 dB, zanieczyszczenie 60 → 74 dB uśredniane z 5–10 km²; wrażliwość dodaje 10·log10 dB; zakłady, stacje, zajezdnie i magazyny emitują więcej, gdy są zajęte; pełny zapas wyjściowy obniża emisję zakładu w stronę poziomu bezczynności; zazielenianie −80 %, raz na zakład; Oczyszczalnia usuwa do 40 000 zanieczyszczenia w promieniu 700 m i potrzebuje maszyn.
+scripts: Ocena hałasu 65 → 80 dB, zanieczyszczenie 60 → 74 dB uśredniane z 5–10 km²; wrażliwość dodaje 10·log10 dB; zakłady, stacje, zajezdnie i magazyny emitują więcej, gdy są zajęte; gdy wszystkie zapasy wyjściowe są pełne, poziom emisji zakładu spada o połowę; zazielenianie −80 %, raz na zakład; Oczyszczalnia usuwa do 20 000 zanieczyszczenia (40 000 jest zdefiniowane, ale wymaga reguły wzmacniacza) w promieniu 700 m i potrzebuje maszyn.
 result: refines
 ```

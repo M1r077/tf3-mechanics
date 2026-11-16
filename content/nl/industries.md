@@ -17,8 +17,8 @@ Elk industriebedrijf werkt met **regels**: „neem dit uit de invoervoorraad, le
 
 ## Productieregels
 
-- Een regel geeft de gebruikte en gemaakte vracht per ronde, en hoeveel rondes per jaar: een ronde duurt een jaar ÷ dat getal (`industry_react_util.tl:51-57`). Het onderdeel Productie van het bedrijfsvenster toont dit met kleine getallen.
-- Het getal **Max.** in het venster is: per ronde × rondes per jaar × de boosts × de instelling **Productiviteit industrie** (`industry_util.tl:310-379`).
+- Een regel geeft de gebruikte en gemaakte vracht per ronde, en hoeveel rondes per jaar: een ronde duurt een jaar ÷ dat getal, korter door de boosts bij productieregels (`industry_react_util.tl:51-57`). Het onderdeel Productie van het bedrijfsvenster toont dit met kleine getallen.
+- Het getal **Max.** in het venster is: per ronde × rondes per jaar × de groottefactor (`rule.consumptionFactor`) × de boosts × de instelling **Productiviteit industrie**, de laatste twee alleen bij productieregels (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
 - **Productiviteit industrie**: 50 %, 75 %, 100 %, 150 % of 200 %. Voorinstellingen: Makkelijk 150 %, Gemiddeld 100 %, Moeilijk 75 %, Heel moeilijk 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
 - Voorbeeld, Staalbedrijf: 6 ijzererts + 6 steenkool → 3 staal + 4 plaatmetaal, 121,7 rondes per jaar: 730 ijzererts en 730 steenkool → 365 staal en 487 plaatmetaal (`steel_mill.con.lua:43-71`). Ontbreekt één invoer, dan staat de regel stil.
 - De Conservenfabriek heeft twee regels: vis + plaatmetaal, of vlees + plaatmetaal (`food_factory.con.lua:43-74`).
@@ -130,11 +130,11 @@ De controle loopt elke 100 updates voor elk bedrijf (`industries.script.tl:84-85
 
 1. **Kandidaat**: geen vracht in een voertuig **geladen** en niets **verbruikt** gedurende **5 jaar** (vanaf de bouw als nooit) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Alleen produceren telt niet.
 2. **Toeval**: een kandidaat wordt bij elke controle getrokken met een deel van de jaarlijkse kans van de instelling **Frequentie van industriesluitingen** (tabel hieronder), zodat het over een jaar die kans oplevert (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
-3. **Aftellen**: de melding **Sluiting van industrie** verschijnt, met 2 jaar (730 dagen) te gaan (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Daarna wordt het bedrijf verwijderd met zijn eigen wegstukken (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
-4. **Gered**: één keer laden of verbruik tijdens het aftellen breekt het af (`industries.script.tl:134-137`). Een aangenomen subsidie **Bevoorraad industriebedrijf** of **Werknemers vervoeren** ervoor breekt het ook af (`subvention_util.tl:473-484`).
+3. **Aftellen**: de melding **Sluiting van industrie** verschijnt, met 2 jaar (730 dagen) te gaan (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Daarna wordt het bedrijf verwijderd met zijn eigen wegstukken (`industries.script.tl:147-155`, `industries.script.tl:193-222`, `industry_util.tl:560-601`).
+4. **Gered**: één keer laden of verbruik tijdens het aftellen breekt het af (`industries.script.tl:134-137`). Een aangenomen subsidie **Bevoorraad industriebedrijf** of **Werknemers vervoeren** ervoor breekt het aftellen af zolang de subsidie loopt (`subvention_util.tl:473-484`, `subvention_util.tl:478-483`). De 5-jaartest wordt niet gereset (`industries.script.tl:119`): als er niets wordt geladen of verbruikt, kan het bedrijf later opnieuw gemarkeerd worden.
 
 ```tip scripts
-**Melding Sluiting van industrie? Eén keer laden of één levering in de 730 dagen breekt het af.** Een aangenomen subsidie Bevoorraad industriebedrijf of Werknemers vervoeren voor dat bedrijf breekt het ook af.
+**Melding Sluiting van industrie? Eén keer laden of één levering in de 730 dagen breekt het af.** Een aangenomen subsidie Bevoorraad industriebedrijf of Werknemers vervoeren voor dat bedrijf breekt het af zolang de subsidie loopt, maar blijf iets laden: de 5-jaartest wordt niet gereset.
 ```
 
 | Frequentie van industriesluitingen | Kans per jaar als kandidaat | Helft van de kandidaten gemarkeerd na | Voorinstelling | Bron |
@@ -153,7 +153,7 @@ Wat telt als „geladen” en „verbruikt” (de logs itemsLoaded en itemsConsu
 
 ## Nieuwe industriebedrijven
 
-De engine voegt tijdens het spel nieuwe bedrijven toe. De melding is **Nieuw industriebedrijf opgericht**: „Een ondernemer met een neusje voor winstgevende bedrijven heeft {industry} opgericht.” (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Geen spelscript kiest de plek, het type of het moment, en geen enkel script filtert wat de engine voorstelt.
+De engine voegt tijdens het spel nieuwe bedrijven toe. De melding is **Nieuw industriebedrijf opgericht**: „Een ondernemer met een neusje voor winstgevende bedrijven heeft {industry} opgericht.” (`industry_spawn.script.tl:34-36`); het typelabel is **Industriebedrijf opgericht** (`industry_spawn.res.lua:6`). Geen spelscript kiest de plek, het type of het moment, en geen enkel script filtert wat de engine voorstelt.
 
 Wat de scripts de engine geven (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
 
@@ -163,7 +163,7 @@ Wat de scripts de engine geven (`mod.script.tl:128-133`, `mod.script.tl:166-168`
 | spawnProbabilityExponent | 3,0 | exponent van de verschijningskans (formule in de engine) |
 | spawnIndustries | uit in de kaarteditor, aan in een spel | geen nieuwe bedrijven in de kaarteditor |
 | industryDensity | 1 × **Doeldichtheid industriebedrijven** | het doelaantal bedrijven |
-| maxNumberPerArea, absoluteMinimum | 0,8 per km² (0,64 op consoles), 24 | ook gebruikt door de kaartgenerator |
+| maxNumberPerArea, absoluteMinimum | 0,8 per km² (0,64 op consoles), 24 | een grens per oppervlakte en een minimum (het gebruik ervan zit in de engine) |
 
 **Doeldichtheid industriebedrijven** („Bepaal de doeldichtheid voor het aantal industriebedrijven op de kaart.”): 5 stappen, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
 

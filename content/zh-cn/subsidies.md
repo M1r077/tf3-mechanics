@@ -24,15 +24,15 @@ fact: 0 | 拒绝报价的惩罚
 
 | 合同 | 目标 | 怎样完成 | 来源 |
 |---|---|---|---|
-| **供应产业** | 一个从未生产过任何东西的产业 | 向它交付规定的次数，**它的任何一种原料**都算 | `deliver_cargo.script.tl:54-61`，`deliver_cargo.script.tl:230-234`，`deliver_cargo.script.tl:470-479` |
+| **供应产业** | 一个从未生产过任何东西、且需要一种地图上已有生产的货物的产业（`deliver_cargo.script.tl:157`） | 向它交付规定的次数，**它的任何一种原料**都算 | `deliver_cargo.script.tl:54-61`，`deliver_cargo.script.tl:230-234`，`deliver_cargo.script.tl:470-479` |
 | **供给城镇** | 城镇需要、但完全没有得到的一种货物 | 向城镇的建筑交付规定数量的**这种货物** | `deliver_cargo_town.script.tl:566-581` |
 | **连接城镇** | 两个城镇 | **一名**乘客在一条同时停靠两个城镇的线路上，开始一次两城之间的行程 | `deliver_passengers.script.tl:263-280`，`subvention_util.tl:561-592` |
 | **运输工人** | 一个已经在发货或收货、尚未获得加成的产业 | 它的工人加成生效（工作岗位的一半） | `deliver_workers.script.tl:121-131`，`deliver_workers.script.tl:152-156` |
 
 - 每个新报价从当前能够出现的类型中抽取一种，机会均等（`subventions.script.tl:147-169`）。
 - **供应产业**和**供给城镇**统计的是交付，不是行程：每个到达目标并获得报酬的单位加 1。允许换乘（`deliver_cargo.script.tl:470-479`）。
-- **连接城镇**不要求乘客人数：第一名在两城之间登上你的线路的乘客就能完成它。“无需换乘”是指这段行程由一条服务两个城镇的线路完成。如果已有线路在两城之间运送乘客，就不会出现这个报价（`deliver_passengers.script.tl:72-78`）。
-- 距离近的城镇出现的概率高得多：一对城镇的权重 = 距离系数（1 km 以内为 1，20 km 时为 0.01）的 7 次方 × 100，再加上引擎在城镇位置从其玩家基础设施网格读出的每个城镇的值（至少 1）（`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`）。超过约 10 km 后，距离部分几乎为零，只剩下这个引擎值。
+- **连接城镇**不要求乘客人数：第一名在两城之间登上你的线路的乘客就能完成它。“无需换乘”是指这段行程由一条服务两个城镇的线路完成。如果已有线路在两座城镇都装载乘客，并且有能运送乘客的车辆，就不会出现这个报价（`deliver_passengers.script.tl:72-78`）。
+- 距离近的城镇出现的概率高得多：一对城镇的权重 = （距离权重）的 7 次方 × 100，再加上引擎在城镇位置从其玩家基础设施网格读出的两个城镇值（各至少 1）的**平均值**（`deliver_passengers.script.tl:156`, `deliver_passengers.script.tl:186`, `deliver_passengers.script.tl:191`）。距离权重在 1 km 时为 1，均匀下降到 20 km 时的 0.01（`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`）。因此距离部分在 5 km 时约为 19，10 km 时约为 1，超过约 15 km 后几乎为零，只剩下城镇的值。
 - **供给城镇**偏好地图上已经有人生产的货物：概率是其他货物的 16 倍（`deliver_cargo_town.script.tl:277-280`）。
 - 需要交付的数量取决于**补贴风险**设置：
 
@@ -59,7 +59,7 @@ fact: 0 | 拒绝报价的惩罚
 
 ## 奖励与惩罚
 
-每份合同保存三张列表，在合同卡片上显示为**接受时**、**完成时**和**失败时**（`subvention_util.tl:449-471`）。失败时，接受时给出的一切都会被收回，另外再加一项惩罚；连接城镇是两项，两座城镇各失去声誉（`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`）。
+每份合同保存三张列表，在合同卡片上显示为**接受时**、**完成时**和**失败时**；脚本在接受、完成和失败时应用它们（`subvention_util.tl:449-471`）。失败时，接受时给出的一切都会被收回，另外再加一项惩罚；连接城镇是两项，两座城镇各失去声誉（`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`）。
 
 | 合同 | 接受时 | 完成时 | 失败时 | 来源 |
 |---|---|---|---|---|
@@ -68,7 +68,7 @@ fact: 0 | 拒绝报价的惩罚
 | 连接城镇 | 现金，城镇相距越远越多 | **两个**城镇的城镇经验，外加两倍收入 | 退还预付款 + **两个**城镇的声誉损失 | `deliver_passengers.script.tl:105-119` |
 | 运输工人 | 现金 | 现金 | 退还预付款 + 罚款 | `deliver_workers.script.tl:92-116` |
 
-- **现金**，未按年份缩放前：预付款 150 万到 375 万 × 风险系数（无 ×2，公平 ×1，有风险 ×0.75，风险极大 ×0.5；连接城镇和运输工人为 ×0.625），连接城镇还要 × 距离系数（0.3 到 3.0）；罚款 300 万到 600 万；完成奖励 375 万到 1,125 万（`deliver_cargo.script.tl:100-128`，`deliver_passengers.script.tl:82-106`，`deliver_workers.script.tl:64-104`）。
+- **现金**，未按年份缩放前：预付款 150 万到 375 万 × 风险系数（无 ×2，公平 ×1，有风险 ×0.75，风险极大 ×0.5；连接城镇和运输工人为 ×0.625），连接城镇还要 × 距离系数（0.3 到 3.0）；罚款 300 万到 600 万；完成奖励 375 万到 1,125 万（`deliver_cargo.script.tl:100-128`，`deliver_passengers.script.tl:82-106`，`deliver_workers.script.tl:64-104`）。所有现金金额还要乘以一个基础配置系数 `subventionFinancialRewardMultiplier`（`deliver_cargo.script.tl:120`），其值不在脚本中设定。
 - 金额随**日历年份**增长，与通货膨胀设置无关：1900 年 ×1，均匀上升到 2000 年及以后的 ×4，向上取整到 1 万（`finances_util.tl:87-90`）。在资金中记为**补贴**（`subvention_util.tl:126-135`）。
 - **供给城镇**只有在报价生成时你的账户余额低于 1 亿，才可能有现金完成奖励和现金罚款；高于 1 亿时，只有十分之一的报价仍会这样，其余的改为给城镇经验并扣声誉。预付款不受影响（`deliver_cargo_town.script.tl:194-229`）。
 - **城镇经验**是城镇当前等级的一定比例：当前等级到下一级之间所需经验的 20 % 到 100 %（`deliver_cargo_town.script.tl:216`，`town_growth.script.tl:605-608`）。对于**连接城镇**，还要乘以距离系数，从 1 km 时的 0.3 到 20 km 时的 3.0：相距很远的城镇可以连升好几级（`deliver_passengers.script.tl:94-96`，`deliver_passengers.script.tl:116-118`）。
@@ -80,7 +80,7 @@ fact: 0 | 拒绝报价的惩罚
 - **供应产业**：在合同期间向该产业交付过的线路上，向该产业的交付（`deliver_cargo.script.tl:463-469`）。
 - **供给城镇**：在交付过合同货物的线路上，向该城镇任何建筑的交付，**任何货物**都算（`deliver_cargo_town.script.tl:554-565`）。
 - **连接城镇**：两城之间的乘客，只限 **一条** 直达线路：两城之间的乘客最后搭乘的那条直达线路。合同完成后仍会继续更新，所以有两条直达线路时，双倍可能从一条转到另一条（`deliver_passengers.script.tl:263-296`）。
-- **运输工人**没有收入效果（`deliver_workers.script.tl:90`）。
+- **运输工人**没有收入效果（`deliver_workers.script.tl:189-190`）。
 - 对供应产业和供给城镇来说，合同完成后才开始交付的线路什么也得不到：线路列表只在合同期间填写。
 - 两份合同不会把同一笔收入翻倍两次：多份合同同时符合时，只采用最后一个结果（`subventions.script.tl:570-583`）。
 
@@ -118,7 +118,7 @@ E 是一列以当时最高速度行驶的列车（1900 年起 120 km/h，到 198
 - **补贴可用性**：很少、有时（默认）、经常、极频繁分别每 12、6、3、1 个月出现一个新报价；**从不**则关闭补贴（`subvention_util.tl:13-38`，`mod.script.tl:247-248`）。
 - 间隔随**公司等级**变长：等级 1 时 ×1，到等级 15 时 ×2（`subvention_util.tl:19-22`）。
 - **拒绝**报价会让下一次间隔减半；接受报价或出现新报价会将其重置（`subventions.script.tl:429`，`subventions.script.tl:395`，`subventions.script.tl:118`）。
-- 已接受并在进行中的合同达到 **5 份**时，不会再出现新报价（`subventions.script.tl:23`，`subventions.script.tl:256-262`）。第一个报价在半个月后出现。
+- 已接受并在进行中的合同达到 **5 份**时，不会再出现新报价（`subventions.script.tl:23`，`subventions.script.tl:256-262`）。第一个报价在半个月后出现（`subventions.script.tl:25`）。
 - 同一个目标（产业、城镇加货物、一对城镇）**每局游戏只提供一次**，即使合同被错过或失败也一样（`subventions.script.tl:107-113`，`subventions.script.tl:186`）。
 - 难度预设的可用性 / 风险（`difficulty_util.tl:104-105`，`difficulty_util.tl:132-133`，`difficulty_util.tl:159-160`，`difficulty_util.tl:186-187`）：简单 经常 / 无，正常 有时 / 公平，困难 很少 / 有风险，**极难 从不**：完全没有补贴。
 - 只允许在评价为非常好的城镇出现补贴的检查确实存在，但已被关闭（`town_util.tl:1574-1580`，`deliver_cargo_town.script.tl:272-275`）。

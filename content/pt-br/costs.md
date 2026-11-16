@@ -21,18 +21,18 @@ A configuração **Inflação** não aumenta nenhum custo: ela só baixa a sua r
 
 | Configuração | Valores | Predefinições Fácil · Normal · Difícil · Muito Difícil | Fonte |
 |---|---|---|---|
-| **Custos de Veículo**, **Manutenção de Veículos** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:39`, `difficulty_util.tl:98-99`, `difficulty_util.tl:125-126` |
-| **Custos de Infraestrutura**, **Manutenção de Infraestrutura** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:100-101`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Custos de Veículo**, **Manutenção de Veículos** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
+| **Custos de Infraestrutura**, **Manutenção de Infraestrutura** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Efeito da Manutenção do Veículo** | Nenhum ×0 · Baixo ×0,5 · Médio ×1 · Alto ×1,5 · Muito Alto ×2 | Baixo · Médio · Alto · Muito Alto | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflação** | só a renda, veja [Renda por carga](income.html) | Baixa · Normal · Alta · Muito Alta | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Custos de Infraestrutura** escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Também escala o custo de demolição dos prédios (`construction.script.tl:39-44`). **Manutenção de Infraestrutura** escala a manutenção deles (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Custos de Infraestrutura** escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Também escala o custo de demolição dos prédios (`construction.script.tl:39-44`). **Manutenção de Infraestrutura** escala ao carregar a manutenção de ruas, trilhos, pontes, túneis, cruzamentos e módulos (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Nos prédios, os scripts só a aplicam na janela do prédio (`entity_window_util.tl:186`); o que é cobrado é decidido pelo motor.
 - **Custos de Veículo** e **Manutenção de Veículos** escalam o preço de compra e os custos operacionais de cada veículo (`post_run_util.tl:54-81`).
 - **Efeito da Manutenção do Veículo** define o quanto um veículo em mau estado perde velocidade, potência e conforto e ganha ruído, poluição e custos operacionais (`mod.script.tl:241-245`).
 
 ## O que cresce com o ano do calendário
 
-- **Manutenção de prédios**: ×1 em 1900, ×1,5 em 1920, ×2,2 em 1940, ×3,2 em 1960, ×4 em 1980, ×5 em 2000, ×6 em 2020 (`mod.script.tl:92-100`). A janela do prédio e o menu de construção aplicam isso a cada prédio marcado para seguir o ano, e o menu de construção marca estes: armazéns, aeródromos, aeroportos e portos (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Manutenção de prédios**: ×1 em 1900, ×1,5 em 1920, ×2,2 em 1940, ×3,2 em 1960, ×4 em 1980, ×5 em 2000, ×6 em 2020 (`mod.script.tl:92-100`). A janela do prédio e o menu de construção aplicam isso a cada prédio marcado para seguir o ano, e o menu de construção marca toda metaconstrução (no jogo base: armazéns, aeródromos, aeroportos e portos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
 - Os **módulos** adicionados a um prédio assim custam o preço do ano em que o prédio foi construído, e a manutenção deles segue o ano atual (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
 - **Variantes por era**: pátios, edifícios de manutenção, armazéns, estações, portos e aeroportos têm uma variante por era, e cada variante seguinte custa **×3** (era B) ou **×9** (era C) da primeira (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Dinheiro dos subsídios**: ×1 em 1900 até ×4 a partir de 2000 (`finances_util.tl:87-90`). **Valor dos empréstimos**: ×0,4 em 1900 até ×2,4 em 2020 (`loan_util.tl:7-10`).
@@ -51,7 +51,7 @@ Os arquivos de ruas e trilhos dão o preço e a manutenção anual por metro; o 
 | Trilho simples | início | 60.000 | 10.000 | `simple.street_template.lua:9`, `simple.street_template.lua:33` |
 | Trilho padrão | 1930 | 180.000 | 30.000 | `standard.street_template.lua:11`, `standard.street_template.lua:35` |
 | Trilho de alta velocidade | 1980 | 540.000 | 90.000 | `high_speed.street_template.lua:11`, `high_speed.street_template.lua:35` |
-| Estrada rural antiga pequena | início | 60.000 | 10.000 | `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
+| Estrada rural antiga pequena | início – 1940 | 60.000 | 10.000 | `country_old_small.street_template.lua:4-5`, `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |
 | Rua urbana moderna grande | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - A catenária soma **30%** do preço do trilho; uma faixa de ônibus, 10%; um trilho de bonde, 20%; um trilho de bonde elétrico, 40% do preço da rua (`mod.script.tl:24-28`).

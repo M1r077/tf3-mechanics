@@ -23,7 +23,7 @@ fact: ×9 | 1990 年港口版本的價格與維護費
 - 小型港口由小型碼頭組成，只接收小型船舶（`small_pier.module.lua:7`）。大型港口使用中型碼頭，接收兩種尺寸（`medium_pier.module.lua:6`，`harbor_modular.script.lua:35-39`）。
 - **總站**：1、2 或 4 個，建造時選擇（`harbor_modular.tl:16`，`harbor_modular.script.lua:33`）。
 - 一個碼頭總站在小型碼頭上可容納 100 名候船乘客，在中型碼頭上 50 名（`modules.script.lua:872`，`modules.script.lua:1004`）。
-- 港口必須沿海岸建在可通航的水面上（`harbor_modular.tl:29`）。
+- 放置港口時，腳本只顯示可通航水域圖層（`harbor_modular.tl:26-30`）。港口能放在哪裡由引擎決定。
 - 每艘船在自己的車輛檔案中設定尺寸；遊戲把它轉換為小型或大型船舶模式（`model_metadata_util.lua:1411-1412`）。
 
 ## 成本

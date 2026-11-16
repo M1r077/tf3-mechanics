@@ -34,13 +34,13 @@
 <td><strong>車両コスト</strong>、<strong>車両整備</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:39</code>、<code class="src">difficulty_util.tl:98-99</code>、<code class="src">difficulty_util.tl:125-126</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:39</code>、<code class="src">difficulty_util.tl:98-101</code>、<code class="src">difficulty_util.tl:125-128</code>、<code class="src">difficulty_util.tl:153-156</code>、<code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>インフラコスト</strong>、<strong>インフラ維持費</strong></td>
 <td>50 % · 75 % · 100 % · 125 % · 150 %</td>
 <td>50 % · 100 % · 125 % · 150 %</td>
-<td class="sc"><code class="src">difficulty_util.tl:100-101</code>、<code class="src">difficulty_util.tl:153-156</code>、<code class="src">difficulty_util.tl:180-183</code></td>
+<td class="sc"><code class="src">difficulty_util.tl:98-101</code>、<code class="src">difficulty_util.tl:125-128</code>、<code class="src">difficulty_util.tl:153-156</code>、<code class="src">difficulty_util.tl:180-183</code></td>
 </tr>
 <tr>
 <td><strong>車両整備エフェクト</strong></td>
@@ -57,13 +57,13 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>インフラコスト</strong> は道路、線路、橋、トンネル、踏切、建物、モジュールの価格と、地形の造成にかかる費用を変える<span class="sr">（<code class="src">post_run_util.tl:23-52</code>、<code class="src">post_run_util.tl:83-120</code>、<code class="src">construction.script.tl:31-35</code>、<code class="src">mod.script.tl:223-226</code>）</span>。建物の撤去費用も変える<span class="sr">（<code class="src">construction.script.tl:39-44</code>）</span>。<strong>インフラ維持費</strong> はそれらの維持費を変える<span class="sr">（<code class="src">post_run_util.tl:43-45</code>、<code class="src">post_run_util.tl:105-112</code>、<code class="src">entity_window_util.tl:186</code>）</span>。</li>
+<li><strong>インフラコスト</strong> は道路、線路、橋、トンネル、踏切、建物、モジュールの価格と、地形の造成にかかる費用を変える<span class="sr">（<code class="src">post_run_util.tl:23-52</code>、<code class="src">post_run_util.tl:83-120</code>、<code class="src">construction.script.tl:31-35</code>、<code class="src">mod.script.tl:223-226</code>）</span>。建物の撤去費用も変える<span class="sr">（<code class="src">construction.script.tl:39-44</code>）</span>。<strong>インフラ維持費</strong> は読み込み時に道路、線路、橋、トンネル、踏切、モジュールの維持費を変える<span class="sr">（<code class="src">post_run_util.tl:43-45</code>、<code class="src">post_run_util.tl:105-112</code>）</span>。建物については、スクリプトは建物ウィンドウでのみこれを適用する<span class="sr">（<code class="src">entity_window_util.tl:186</code>）</span>。実際に請求される額はエンジンが決める。</li>
 <li><strong>車両コスト</strong> と <strong>車両整備</strong> は、すべての車両の購入価格とランニングコストを変える<span class="sr">（<code class="src">post_run_util.tl:54-81</code>）</span>。</li>
 <li><strong>車両整備エフェクト</strong> は、状態の悪い車両がどれだけ速度、出力、快適性を失い、騒音、汚染、ランニングコストが増えるかを決める<span class="sr">（<code class="src">mod.script.tl:241-245</code>）</span>。</li>
 </ul>
 <h2 id="暦年とともに増えるもの"><span class="n">2</span><span>暦年とともに増えるもの</span></h2>
 <ul>
-<li><strong>建物の維持費</strong>：1900 年は ×1、1920 年は ×1.5、1940 年は ×2.2、1960 年は ×3.2、1980 年は ×4、2000 年は ×5、2020 年は ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建物ウィンドウと建設メニューは、年に従うと指定されたすべての建物にこれを適用する。建設メニューがこの指定をするのは貨物倉庫、飛行場、空港、港である<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>、<code class="src">construction_react_util.tl:1149</code>、<code class="src">warehouse.tl:7</code>、<code class="src">harbor_modular.tl:24</code>）</span>。</li>
+<li><strong>建物の維持費</strong>：1900 年は ×1、1920 年は ×1.5、1940 年は ×2.2、1960 年は ×3.2、1980 年は ×4、2000 年は ×5、2020 年は ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建物ウィンドウと建設メニューは、年に従うと指定されたすべての建物にこれを適用する。建設メニューはすべてのメタ建設物にこの指定をする（ベースゲームでは貨物倉庫、飛行場、空港、港）<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>、<code class="src">construction_react_util.tl:1149</code>、<code class="src">warehouse.tl:7</code>、<code class="src">harbor_modular.tl:24</code>）</span>。</li>
 <li>そうした建物に追加した<strong>モジュール</strong>は、価格は建物を建てた年、維持費は現在の年で決まる<span class="sr">（<code class="src">construction.tl:3720-3727</code>、<code class="src">construction.tl:4364-4367</code>）</span>。</li>
 <li><strong>時代ごとの種類</strong>：デポ、整備施設、貨物倉庫、駅、港、空港には時代ごとに 1 つの種類があり、後の種類は最初の種類の <strong>×3</strong>（時代 B）または <strong>×9</strong>（時代 C）のコストがかかる<span class="sr">（<code class="src">rail_depot.con.lua:7</code>、<code class="src">warehouse.tl:48</code>、<code class="src">modular_station.con.lua:71</code>、<code class="src">harbor_modular.tl:76</code>、<code class="src">airport.tl:8</code>）</span>。</li>
 <li><strong>助成金の資金</strong>：1900 年の ×1 から 2000 年以降の ×4 まで<span class="sr">（<code class="src">finances_util.tl:87-90</code>）</span>。<strong>融資の金額</strong>：1900 年の ×0.4 から 2020 年の ×2.4 まで<span class="sr">（<code class="src">loan_util.tl:7-10</code>）</span>。</li>
@@ -106,10 +106,10 @@
 </tr>
 <tr>
 <td>古い小さな田舎道</td>
-<td>開始時</td>
+<td>開始時 – 1940</td>
 <td>6万</td>
 <td>1万</td>
-<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>、<code class="src">country_old_small.street_template.lua:58</code></td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:4-5</code>、<code class="src">country_old_small.street_template.lua:8</code>、<code class="src">country_old_small.street_template.lua:58</code></td>
 </tr>
 <tr>
 <td>新しい大きな町の通り</td>

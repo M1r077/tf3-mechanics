@@ -17,8 +17,8 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 
 ## 生產規則
 
-- 規則給出每輪使用和產出的貨物，以及每年的輪數：一輪持續一年 ÷ 該數（`industry_react_util.tl:51-57`）。產業視窗的「生產」部分以小數字顯示。
-- 視窗中的**上限**數值是：每輪 × 每年輪數 × 加速 × 設定**產業產能**（`industry_util.tl:310-379`）。
+- 規則給出每輪使用和產出的貨物，以及每年的輪數：一輪持續一年 ÷ 該數，生產規則會因加速而縮短（`industry_react_util.tl:51-57`）。產業視窗的「生產」部分以小數字顯示。
+- 視窗中的**上限**數值是：每輪 × 每年輪數 × 規模係數（`rule.consumptionFactor`）× 加速 × 設定**產業產能**，後兩項僅用於生產規則（`industry_util.tl:310-379`、`industry_util.tl:357-362`）。
 - **產業產能**：50 %、75 %、100 %、150 % 或 200 %。預設組合：簡單 150 %，普通 100 %，困難 75 %，極度困難 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:196-197`）。
 - 例如煉鋼廠：6 鐵礦 + 6 煤 → 3 鋼 + 4 板金屬，每年 121.7 輪：730 鐵礦和 730 煤 → 365 鋼和 487 板金屬（`steel_mill.con.lua:43-71`）。缺一種投入，規則就停。
 - 罐頭工廠有兩條規則：漁獲 + 板金屬，或肉品 + 板金屬（`food_factory.con.lua:43-74`）。
@@ -130,11 +130,11 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 
 1. **候選**：**5 年**內沒有貨物**裝載**上車，也沒有**消耗**（從未有過則從建成時算起）（`industries.script.tl:104-119`、`industries_config.res.lua:6`）。只生產不算。
 2. **機率**：每次檢查時，候選依設定**工業關閉頻率**年機率的一部分抽籤，一年累計起來就是該機率（下表）（`industries.script.tl:84-85`, `industries.script.tl:120-131`）。
-3. **倒數**：出現通知**工業關閉**，剩 2 年（730 天）（`industries_config.res.lua:7`、`industry_close.script.tl:53-67`）。之後產業連同它自己的道路段一起被移除（`industries.script.tl:147-155`、`industry_util.tl:560-601`）。
-4. **挽救**：倒數期間只要有一次裝載或消耗就會取消（`industries.script.tl:134-137`）。為它接受**供應產業**或**運送工人**補助也會取消（`subvention_util.tl:473-484`）。
+3. **倒數**：出現通知**工業關閉**，剩 2 年（730 天）（`industries_config.res.lua:7`、`industry_close.script.tl:53-67`）。之後產業連同它自己的道路段一起被移除（`industries.script.tl:147-155`、`industries.script.tl:193-222`、`industry_util.tl:560-601`）。
+4. **挽救**：倒數期間只要有一次裝載或消耗就會取消（`industries.script.tl:134-137`）。為它接受**供應產業**或**運送工人**補助，在補助期間倒數被取消（`subvention_util.tl:473-484`、`subvention_util.tl:478-483`）。它不會重設 5 年檢測（`industries.script.tl:119`）：如果沒有裝載或消耗，產業之後仍可能再次被標記。
 
 ```tip scripts
-**收到工業關閉通知？在 730 天內裝載或配送一次就能取消。** 為這個產業接受供應產業或運送工人補助也會取消。
+**收到工業關閉通知？在 730 天內裝載或配送一次就能取消。** 為這個產業接受供應產業或運送工人補助，在補助期間會取消，但要繼續裝載：5 年檢測不會重設。
 ```
 
 | 工業關閉頻率 | 作為候選每年的機率 | 一半候選被標記所需時間 | 預設組合 | 來源 |
@@ -153,7 +153,7 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 
 ## 新產業
 
-引擎會在遊戲中增加新產業。通知為**新產業已建立**：「一位有遠見的企業家嗅到商機，於是建立了{industry}。」（`industry_spawn.script.tl:34-36`、`industry_spawn.res.lua:6`）。沒有遊戲腳本選擇地點、類型或時間，也沒有腳本過濾引擎的提議。
+引擎會在遊戲中增加新產業。通知為**新產業已建立**：「一位有遠見的企業家嗅到商機，於是建立了{industry}。」（`industry_spawn.script.tl:34-36`）；其類型標籤為**產業已建立**（`industry_spawn.res.lua:6`）。沒有遊戲腳本選擇地點、類型或時間，也沒有腳本過濾引擎的提議。
 
 腳本交給引擎的值（`mod.script.tl:128-133`、`mod.script.tl:166-168`、`mod.script.tl:194-195`）：
 
@@ -163,7 +163,7 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 | spawnProbabilityExponent | 3.0 | 產生機率的指數（公式在引擎中） |
 | spawnIndustries | 地圖編輯器中關閉，遊戲中開啟 | 地圖編輯器中沒有新產業 |
 | industryDensity | 1 × **產業密度目標** | 產業的目標數量 |
-| maxNumberPerArea, absoluteMinimum | 每 km² 0.8（主機 0.64），24 | 地圖產生器也使用 |
+| maxNumberPerArea, absoluteMinimum | 每 km² 0.8（主機 0.64），24 | 每面積上限和最小數量（用法在引擎端） |
 
 **產業密度目標**（「設定地圖上的產業密度目標。」）：5 段，×2/3、×5/6、×1、×1.2、×1.5（`difficulty_util.tl:55`、`difficulty_util.tl:85`）。
 

@@ -8,7 +8,7 @@ updated: 2026-11-16
 game: 40425
 fact: 5 | livelli di condizione, da Pessima a Ottima, 20 % ciascuno
 fact: 20 % | condizione che attiva l'avviso Condizione veicolo
-fact: 6 anni | di costi di esercizio: il prezzo di un veicolo
+fact: 6 × | il costo di esercizio annuo di base: il prezzo di un veicolo
 fact: da 4 a 16 | veicoli nel fondo manutenzione di un deposito o di una stazione di manutenzione
 ---
 
@@ -16,7 +16,7 @@ Ogni veicolo ha statistiche fisse (velocità, capacità, velocità di carico, pr
 
 ## Le statistiche nel negozio dei veicoli
 
-- Il negozio mostra ogni statistica come una barra. La barra confronta il veicolo con gli altri dello stesso mezzo di trasporto e della stessa epoca, non con una scala fissa (`vehicle_util.tl:210-245`, `vehicle_util.tl:248-270`).
+- Il negozio mostra ogni statistica come una barra. La barra usa una scala fissa per mezzo di trasporto, che cambia con l'anno (per esempio velocità di carico delle navi: da 10 a 45 dal 2003). Non confronta il veicolo con altri veicoli (`vehicle_util.tl:210-245`, `vehicle_util.tl:259-268`).
 - Per un treno, il negozio mostra la velocità di carico **più alta** fra tutte le sue parti (`vehicle_store_util.tl:333`).
 - Un veicolo il cui file non imposta velocità di carico, rumore, inquinamento o comfort riceve un valore calcolato dalle sue altre statistiche (anno, velocità, potenza, peso, dimensioni) (`model_metadata_util.lua:395-417`, `vehicle_metadata_util.lua:233-256`). La velocità di carico calcolata è arrotondata a 0,5 e mai inferiore a 1 (`vehicle_metadata_util.lua:267-269`).
 
@@ -50,8 +50,8 @@ Come la velocità di carico del veicolo, il fattore di carico del carico e i fat
 | fino al 20 % | **Pessima** | `vehicle_util.tl:159-172` |
 
 - La condizione di un treno è la **media** di tutti i suoi vagoni e locomotive (`vehicle_util.tl:285-295`).
-- Sotto l'80 % un veicolo comincia a perdere velocità massima, potenza e comfort, e ad aumentare rumore, inquinamento e costi di esercizio (`vehicle_store_util.tl:230-259`). La finestra del veicolo elenca queste penalità sotto **Condizione**.
-- L'intensità di queste penalità è impostata da **Effetto manutenzione veicoli** (Nessuno, Ridotto, Medio, Elevato, Molto elevato); con Nessuno la condizione non ha effetto (`mod.script.tl:241-245`, `vehicle_store_util.tl:211-228`). Dettagli: [Costi, manutenzione e prestiti](costs.html).
+- Un veicolo usurato perde velocità massima, potenza e comfort, e aumenta rumore, inquinamento e costi di esercizio (`vehicle_store_util.tl:236-258`). Di quanto, e da quale condizione, sono valori del motore di gioco. La finestra del veicolo elenca queste penalità sotto **Condizione**.
+- L'intensità di queste penalità è impostata da **Effetto manutenzione veicoli** (Nessuno, Ridotto, Medio, Elevato, Molto elevato); con Nessuno la condizione non ha effetto (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Dettagli: [Costi, manutenzione e prestiti](costs.html).
 - Al **20 %** o meno ricevi l'avviso **Condizione veicolo**. Resta finché il veicolo non torna sopra il **30 %** (`notifications.script.tl:310-318`).
 - Un veicolo clonato è un nuovo acquisto: condizione 100 %, nuova data di acquisto (`manager_window.tl:8502-8506`).
 
@@ -77,7 +77,7 @@ I veicoli ricevono manutenzione da un deposito o da una stazione di manutenzione
 - La finestra dell'edificio mostra "usati / fondo" (per esempio 14 / 12) e l'elenco dei veicoli che serve, con la loro condizione (`entity_window_util.tl:2010-2039`, `maintenance_station_eow.script.tl:188-215`).
 - Un fondo più pieno rende l'edificio più rumoroso e più inquinante: le emissioni salgono con la quota del fondo in uso (`emissions.script.tl:223-234`).
 - Una stazione di manutenzione treni serve il doppio dei treni di un deposito treni: 12 contro 6.
-- Le stazioni di manutenzione non comprano né ospitano veicoli, ma il loro raggio è spesso più grande di quello del deposito: 600 m contro 400 m su strada, 1400 m contro 1000 m per le navi. Solo la stazione di manutenzione stradale fa manutenzione anche ai tram.
+- Le stazioni di manutenzione non comprano né ospitano veicoli, ma il loro raggio è spesso più grande di quello del deposito: 600 m contro 400 m su strada, 1400 m contro 1000 m per le navi. I tram sono mantenuti dal deposito tram e dalla stazione di manutenzione stradale; il deposito stradale non fa manutenzione ai tram (`tram_depot.script.lua:209`, `tram_depot.script.lua:226`).
 - Il wiki ufficiale suggerisce dei waypoint per far passare i veicoli da un edificio di manutenzione.
 
 ```engine
@@ -86,13 +86,13 @@ A quale stazione viene assegnato un veicolo, cosa succede quando una stazione è
 
 ## Prezzo e costi di esercizio
 
-- I veicoli del gioco base non hanno un prezzo fisso: i costi di esercizio derivano da velocità e capacità, e il prezzo è pari a **6 anni** di costi di esercizio (`model_metadata_util.lua:548-549`). Formula completa: [Costi, manutenzione e prestiti](costs.html).
-- **Costo veicoli** e **Manutenzione veicolo** li scalano entrambi dal 50 % al 150 % (`post_run_util.tl:54-81`).
+- I veicoli del gioco base non hanno un prezzo fisso: i costi di esercizio derivano da velocità e capacità, e il prezzo è **6 ×** il costo di esercizio annuo di base, prima delle impostazioni Costo veicoli e Manutenzione veicolo (`model_metadata_util.lua:548-549`). Corrisponde esattamente a 6 anni di costi di esercizio solo se le due impostazioni sono uguali. Formula completa: [Costi, manutenzione e prestiti](costs.html).
+- **Costo veicoli** scala i prezzi dal 50 % al 150 % (`post_run_util.tl:54-81`). Per **Manutenzione veicolo**, lo script arrotonda il fattore a un numero intero quando il costo di esercizio non è ancora fissato (`post_run_util.tl:71-72`). Questo darebbe 100 % a ogni livello tranne Molto elevato (200 %). Da confermare in gioco.
 - Un veicolo in cattive condizioni paga costi di esercizio maggiori, oltre al valore base (`vehicle_store_util.tl:256-259`).
 
 ## Età e durata
 
-- Ogni modello ha una **durata** in anni (`vehicle_metadata_util.lua:79-83`). La colonna **Età** della finestra della linea mostra l'età; il suo tooltip mostra il tempo rimanente, oppure **Durata massima raggiunta** (`line_eow.script.tl:133-147`). La quota di durata in quel tooltip indica **0%** finché la durata non è raggiunta: lo script arrotonda la frazione per difetto prima di mostrarla (`line_eow.script.tl:139`), mentre la stessa quota è calcolata per intero altrove (`vehicle_util.tl:311`). Usa invece il tempo rimanente.
+- Ogni modello ha una **durata** (`vehicle_util.tl:31-34`). La colonna **Età** della finestra della linea mostra l'età; il suo tooltip mostra il tempo rimanente, oppure **Durata massima raggiunta** (`line_eow.script.tl:133-147`). La quota di durata in quel tooltip indica **0%** finché la durata non è raggiunta: lo script arrotonda la frazione per difetto prima di mostrarla (`line_eow.script.tl:139`), mentre la stessa quota è calcolata per intero altrove (`vehicle_util.tl:311`). Usa invece il tempo rimanente.
 - Per un treno conta la parte **più vecchia** (`vehicle_util.tl:36-52`). Un solo vagone vecchio fa apparire vecchio l'intero treno.
 
 ```engine

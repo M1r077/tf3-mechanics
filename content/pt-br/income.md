@@ -21,7 +21,7 @@ Uma entrega paga pela **distância em linha reta**, e nada mais da viagem. A vel
 A fórmula inteira é um script curto do jogo (`cargo_income.script.lua:10-13`):
 
 1. **Fator de renda** da carga. Todas as cargas do jogo base usam a mesma função e os mesmos preços (`initialPrice = 4`, `finalPrice = 3.2`), o que dá **3,8 para as 36 cargas** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). O carvão paga exatamente o mesmo que as mercadorias na mesma distância.
-2. Configuração **Renda por Carga**: 50%, 75%, 100%, 125% ou 150% (`difficulty_util.tl:38`, `mod.script.tl:211`). As quatro predefinições de dificuldade usam 100% (`difficulty_util.tl:97`).
+2. Configuração **Renda por Carga**: 50%, 75%, 100%, 125% ou 150% (`difficulty_util.tl:38`, `mod.script.tl:211`). As quatro predefinições de dificuldade usam 100% (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distância**, veja abaixo.
 
 A função recebe o tempo de viagem, mas **não o usa** (`cargotype.script.lua:7-13`): uma entrega lenta ou atrasada paga o mesmo.
@@ -32,7 +32,7 @@ A função recebe o tempo de viagem, mas **não o usa** (`cargotype.script.lua:7
 ```
 
 - A distância é a **linha reta em 3D** entre os dois pontos, não o comprimento da sua rota (`cargo_income.script.lua:3-7`).
-- Quando a diferença de altura é positiva, **8 × essa altura** é somado (`cargo_income.script.lua:5`): 100 m de subida pagam como 800 m a mais. No sentido contrário, nada é descontado.
+- Quando a carga é entregue mais alto que sua origem, **8 × essa altura** é somado (`cargo_income.script.lua:5`): 100 m pagam como 800 m a mais. Os scripts usam a diferença de altura que o motor passa; o sentido dela não é visível nos scripts. Uma diferença negativa não desconta nada.
 - Então uma linha cheia de curvas rende o mesmo que uma reta, mas você paga a manutenção de cada metro de trilho ou estrada que construiu.
 
 ```engine
@@ -65,7 +65,7 @@ Os scripts só calculam o total (`economy/cargo_income.script.lua`); a divisão 
 | **Subsídio cumprido** | ×2 para entregas à indústria ou ao município do contrato, nas linhas que entregaram para o contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Entrega atrasada** | nenhum efeito na renda | `cargotype.script.lua:7-13` |
 
-- O multiplicador de ranque vale para **todos** os pagamentos de carga e de passageiros (`company_growth.script.tl:159-170`). As predefinições de dificuldade usam Inflação Baixa (Fácil), Normal (Normal), Alta (Difícil), Muito Alta (Muito Difícil) (`difficulty_util.tl:108`).
+- O multiplicador de ranque vale para **todos** os pagamentos de carga e de passageiros (`company_growth.script.tl:159-170`). As predefinições de dificuldade usam Inflação Baixa (Fácil), Normal (Normal), Alta (Difícil), Muito Alta (Muito Difícil) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - O ×2 dos subsídios vale só para as linhas que entregaram durante o contrato, por um tempo limitado (wiki oficial, Subsidies).
 
 ## Passageiros
@@ -74,7 +74,7 @@ Os passageiros usam a mesma distância e um fator de renda fixo de cerca de 3,61
 
 ## Prazos de entrega
 
-Cada carga tem o seu próprio prazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Os alimentos frescos têm o mais curto, e as matérias-primas pesadas, um cinco vezes mais longo:
+Cada carga tem o seu próprio prazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Os alimentos frescos têm o mais curto: carne 900 s, carvão 3.000 s (3,3 × mais longo), minério de ferro, areia, pedra e aço 4.500 s:
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ A carga atrasada é paga por inteiro, mas cada município mantém uma classifica
 
 1. O jogo conta as entregas ao município no **último meio ano**, e quantas atrasaram (no mínimo 10 são consideradas, para que as primeiras entregas não a façam oscilar demais).
 2. Fração no prazo → classificação: abaixo de um limite inferior a classificação é 0, acima de um limite superior é 1, linear entre os dois. Com a sensibilidade padrão (**Normal**): **30% no prazo → 0, 100% → 1**, então 90% no prazo dá 0,86.
-3. A configuração **Sensibilidade de Entrega** move os limites (`difficulty_util.tl:47`). Desligado: sempre 1. Predefinições: Fácil Baixo, Normal Normal, Difícil Alto, Muito Difícil Muito Alto (`difficulty_util.tl:113`).
+3. A configuração **Sensibilidade de Entrega** move os limites (`difficulty_util.tl:47`). Desligado: sempre 1. Predefinições: Fácil Baixo, Normal Normal, Difícil Alto, Muito Difícil Muito Alto (`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ A mesma entrega de carvão, a 5 km em linha reta.
 |---|---|
 | terreno plano, qualquer comprimento de rota | **100%** |
 | a 10 km | **200%** |
-| destino 100 m mais alto | **116%** |
+| entregue 100 m mais alto que a origem | **116%** |
 | entregue com atraso | **100%** (a classificação Entrega cai) |
 | ranque da empresa 15, Inflação Normal | **75%** |
 | entrega coberta por um subsídio cumprido | **200%** |
@@ -117,7 +117,7 @@ A mesma entrega de carvão, a 5 km em linha reta.
 
 - Como todas as cargas pagam o mesmo por quilômetro, **escolha as cargas pelo volume, pela distância e pelo prazo**, não pelo preço.
 - Os prazos pesam mais para carne, peixes, vegetais e bebidas: linhas curtas, ou armazéns que congelam o prazo.
-- Cada unidade entregue a um prédio do município também dá experiência a esse município (`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- Cada unidade entregue a um prédio do município também dá experiência a esse município, para cargas cuja categoria tem um nível (`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>仓库本身也会增加污染：<strong>25</strong>，只要建了一个专用模块就是 <strong>50</strong><span class="sr">（<code class="src">warehouse.script.lua:327</code>，<code class="src">warehouse.script.lua:338-345</code>）</span>。</li>
-<li>建造菜单中每个类别和时代（从 1900、1940 和 1980 年起）各有一项<span class="sr">（<code class="src">warehouses/warehouse.tl:3-5</code>）</span>；后面的时代显示 ×3 和 ×9，仓库维护费也随年份增长。详见：<a href="costs.html">成本、维护费与贷款</a>。</li>
+<li>建造菜单中每个类别和时代（从 1900、1940 和 1980 年起）各有一项<span class="sr">（<code class="src">warehouses/warehouse.tl:3-5</code>）</span>；后面的时代显示 ×3 和 ×9<span class="sr">（<code class="src">warehouses/warehouse.tl:48</code>，<code class="src">warehouses/warehouse.tl:75-76</code>）</span>，仓库维护费也随年份增长。详见：<a href="costs.html">成本、维护费与贷款</a>。</li>
 <li>散货、拖车和商品模块的花费与液体模块相同<span class="sr">（<code class="src">wh_bulk.module.lua:22-23</code>，<code class="src">wh_flatbed.module.lua:22-23</code>，<code class="src">wh_goods.module.lua:18-19</code>）</span>。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>脚本给出两个排放等级，第二个是第一个的两倍<span class="sr">（<code class="src">warehouse.script.lua:342-343</code>）</span>；仓库随着库存填满从第一个过渡到第二个，库存满时为两倍<span class="sr">（<code class="src">emissions.script.tl:237-249</code>）</span>。模块实际收取的价格由引擎计算。</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="须知"><span class="n">7</span><span>须知</span></h2>
 <ul>
 <li>检查仓库附近每个站点的载重列表：不在列表里的货物会卸进仓库，即使在线路半途。</li>
-<li>库存满了就不再接收货物，除非站点使用“到达时强制卸下所有货品”，那样放不下的会被销毁（见 <a href="loading.html">装载与卸载速度</a>）。</li>
+<li>库存满了就不再接收货物，除非站点使用“到达时强制卸下所有货品”（“即使库存已满也卸下货物”）；放不下的货物如何处理由引擎决定（见 <a href="loading.html">装载与卸载速度</a>）。</li>
 <li>要让一个专用模块只存一种货物，就在库存部分固定它的货物类型。</li>
 <li><a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> 会按车站列出范围内的仓库及其库存；<a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> 会显示卸下的货物去了哪里。</li>
 </ul>

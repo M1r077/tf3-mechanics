@@ -23,7 +23,7 @@ Elk schip is **klein** of **groot**. Een groot schip kan alleen aanmeren in een 
 - De kleine haven bestaat uit kleine pieren, die alleen kleine schepen aannemen (`small_pier.module.lua:7`). De grote haven gebruikt middelgrote pieren, die beide groottes aannemen (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminals**: 1, 2 of 4, te kiezen bij het bouwen (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - Een pierterminal biedt plaats aan 100 wachtende passagiers op een kleine pier en 50 op een middelgrote pier (`modules.script.lua:872`, `modules.script.lua:1004`).
-- Havens moeten langs een kust worden geplaatst, op bevaarbaar water (`harbor_modular.tl:29`).
+- Tijdens het plaatsen van een haven toont het script alleen de laag met bevaarbaar water (`harbor_modular.tl:26-30`). Waar een haven mag staan, bepaalt de engine.
 - Elk schip legt zijn eigen grootte vast in zijn voertuigbestand; het spel maakt daar de modus klein of groot schip van (`model_metadata_util.lua:1411-1412`).
 
 ## Kosten

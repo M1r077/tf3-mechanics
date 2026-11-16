@@ -32,8 +32,8 @@ Te rzeczy liczą się w czasie gry, więc wolniejszy lub wstrzymany kalendarz ic
 
 - **Produkcja**: czas produkcji zakładu to stała część standardowego roku (`industry_react_util.tl:51`). Okno zakładu pokazuje go w dniach bieżącego kalendarza (`industry_react_util.tl:23`): przy ×0.25 to samo tempo pokazuje ćwierć dni.
 - **Raty kredytu**: jedna co standardowy miesiąc czasu gry, także przy wstrzymanym kalendarzu (`loan.script.tl:83-88`).
-- **Terminy dotacji** i premia ×2 do przychodu (`subvention_util.tl:290-292`).
-- **Odbudowa reputacji miast** (`towns.script.tl:121-130`), **premie od pracowników** (`industry_productivity_util.tl:3`) i **zamknięcie zakładu** po latach bez obsługi (`industries.script.tl:119-128`).
+- **Terminy dotacji** i czas trwania premii, 5 standardowych lat (`subvention_util.tl:286`, `subvention_util.tl:290-292`).
+- **Odbudowa reputacji miast** (`towns.script.tl:121-130`), **efekty pracowników**, liczone z najwyżej 2 standardowych lat (`industry_productivity_util.tl:3`), i **zamknięcie zakładu** po latach bez obsługi (`industries.script.tl:119-128`).
 - **Oceny dostaw** miast, z ostatniego półrocza (`town_util.tl:840`).
 - **Nowe zakłady**: przy wstrzymanym kalendarzu pojawiły się 3 w 1809 s czasu gry, co 760 s i 728 s, w tym samym rytmie co przy działającym kalendarzu (około 730 s). Zmierzone za pomocą [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); zobacz [Zakłady](industries.html).
 

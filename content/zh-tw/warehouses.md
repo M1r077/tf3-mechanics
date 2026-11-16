@@ -57,7 +57,7 @@ fact: 0 | 在貨物倉庫卸下的貨物帶來的收益
 | 污染 | 25 | 50 | `wh_universal.module.lua:34`，`wh_liquid.module.lua:38` |
 
 - 貨物倉庫本身也會增加污染：**25**，只要蓋了一個專用模組就是 **50**（`warehouse.script.lua:327`，`warehouse.script.lua:338-345`）。
-- 建造選單中每個類別與時代（從 1900、1940 與 1980 年起）各有一項（`warehouses/warehouse.tl:3-5`）；後面的時代顯示 ×3 與 ×9，貨物倉庫維護費也會隨年份成長。詳見：[成本、維護費與貸款](costs.html)。
+- 建造選單中每個類別與時代（從 1900、1940 與 1980 年起）各有一項（`warehouses/warehouse.tl:3-5`）；後面的時代顯示 ×3 與 ×9（`warehouses/warehouse.tl:48`，`warehouses/warehouse.tl:75-76`），貨物倉庫維護費也會隨年份成長。詳見：[成本、維護費與貸款](costs.html)。
 - 散裝、平板與一般貨物模組的花費與液體模組相同（`wh_bulk.module.lua:22-23`，`wh_flatbed.module.lua:22-23`，`wh_goods.module.lua:18-19`）。
 
 ```engine
@@ -78,7 +78,7 @@ fact: 0 | 在貨物倉庫卸下的貨物帶來的收益
 ## 小知識
 
 - 檢查貨物倉庫附近每個站點的裝載清單：不在清單裡的貨物會卸進貨物倉庫，即使在路線半途。
-- 庫存滿了就不再接收貨物，除非站點使用「抵達時強制卸載所有貨物」，那樣放不下的會被銷毀（見 [裝載與卸貨速度](loading.html)）。
+- 庫存滿了就不再接收貨物，除非站點使用「抵達時強制卸載所有貨物」（「即使庫存已滿也卸下貨物」）；放不下的貨物如何處理由引擎決定（見 [裝載與卸貨速度](loading.html)）。
 - 要讓一個專用模組只存一種貨物，就在「庫存」區塊固定它的貨物類型。
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 會依車站列出範圍內的貨物倉庫及其庫存；[Platform Details](https://mod.io/g/transportfever3/m/platform-details) 會顯示卸下的貨物去了哪裡。
 

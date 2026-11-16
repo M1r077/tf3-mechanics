@@ -9,7 +9,7 @@ game: 40425
 fact: 1 | zapłata za sztukę, u odbiorcy, za linię prostą
 fact: 0 | zapłaty w magazynie lub przy przeładunku
 fact: 100 % | zapłaty nawet przy spóźnieniu
-fact: ×6 | mnożnik roku dla utrzymania magazynów, portów i lotnisk w 2020
+fact: ×6 | pokazywany mnożnik roku dla utrzymania magazynów, lądowisk, lotnisk i portów w 2020
 ---
 
 Dostawa płaci za **jedną linię prostą**, od miejsca, gdzie towar powstał, do miejsca, gdzie jest używany, i tylko wtedy, gdy tam dotrze. Wszystko, co budujesz i kupujesz, kosztuje co roku, a część coraz więcej wraz z rokiem kalendarzowym. Linia traci pieniądze, gdy jej część zapłat jest mniejsza niż koszty, które przynosi.
@@ -32,7 +32,7 @@ Szczegóły: [Przychód z towarów i czas dostawy](income.html).
 
 - **Pojazdy**: koszty eksploatacji idą za średnią prędkością × pojemność, a cena to 6 lat kosztów eksploatacji (`model_metadata_util.lua:499-518`, `model_metadata_util.lua:548-549`).
 - **Tory i drogi**: około jednej szóstej ceny budowy na km i rok; tor dużych prędkości kosztuje 9 razy więcej niż zwykły tor (`simple.street_template.lua:33`, `high_speed.street_template.lua:35`).
-- **Zajezdnie, stacje, magazyny, porty, lotniska**: warianty z późniejszych epok kosztują ×3 i ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), a utrzymanie magazynów, portów i lotnisk idzie też za rokiem, od ×1 w 1900 do ×6 w 2020 (`mod.script.tl:92-100`).
+- **Zajezdnie, stacje, magazyny, porty, lotniska**: warianty z późniejszych epok kosztują ×3 i ×9 (`rail_depot.con.lua:7`, `warehouse.tl:48`), a dla magazynów, lądowisk, lotnisk i portów okno budynku pokazuje utrzymanie zależne od roku, od ×1 w 1900 do ×6 w 2020 (`mod.script.tl:92-100`, `entity_window_util.tl:188-192`). O tym, co jest pobierane, decyduje silnik.
 - **Kredyty**: odsetki są liczone raz od kwoty i rozłożone na okres spłaty (`loan_util.tl:102-111`).
 - **„Inflacja” nie podnosi żadnych kosztów**. Obniża tylko przychód.
 

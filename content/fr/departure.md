@@ -24,8 +24,8 @@ Chaque arrêt d'une ligne a ses propres réglages de départ, dans la fenêtre �
 | « Niveau de remplissage », par fret chargé | 0–100 %, par pas de 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Cliquer sur un temps ouvre une case de saisie : on peut y taper des valeurs au-dessus de 600 s (`cargofilter_window.tl:204-208`).
-- Les trois temps restent dans l'ordre : monter le minimum ou l'attente supplémentaire au-dessus du maximum monte aussi le maximum (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).
-- Changer l'un d'eux marque la ligne comme personnalisée : la configuration automatique ne touche plus ses listes Charge (`cargofilter_window.tl:438`, voir [Vitesse de chargement et de déchargement](loading.html)). La configuration automatique elle-même ne change jamais le mode ni les temps (`line_util.tl:495-513`).
+- Les trois temps restent dans l'ordre : monter le minimum ou l'attente supplémentaire au-dessus du maximum monte aussi le maximum (`cargofilter_window.tl:834-836`, `cargofilter_window.tl:848-850`) ; baisser le maximum baisse les deux autres (`cargofilter_window.tl:865-869`). Rien n'est ajusté tant que le maximum est « --- ».
+- Changer l'un d'eux marque la ligne comme personnalisée : la configuration automatique ne touche plus ses listes Charge (`cargofilter_window.tl:438`, voir [Vitesse de chargement et de déchargement](loading.html)). La configuration automatique elle-même ne change jamais le mode ni les temps, mais elle remet chaque Niveau de remplissage à 100 % (`line_util.tl:495-719`, `line_util.tl:511`, `line_util.tl:543`).
 
 ## Niveau de remplissage : un plafond par fret
 
@@ -51,7 +51,7 @@ Le niveau de remplissage est le maximum de ce fret que le véhicule prend à cet
 - **Chargement complet (n’importe lequel)** : le véhicule part quand un fret est plein. Un train de bois et de planches est parti avec 143 et 144 unités de bois après 369–380 s ; deux autres départs après environ 30 s avec 57 et 118 unités ne sont pas expliqués.
 - **Temps d’arrêt max.** met fin à l'attente, même sans rien de chargé. Un train de légumes en Chargement complet (tout) avec un maximum de 120 s s'est soit rempli (64 sur 64) en environ 25 s, soit est parti après 116–120 s avec 26 ou **0**. Avec les 600 s par défaut, il est parti avec 26 sur 64 après 596–600 s.
 - **Temps d’arrêt min.** est l'arrêt entier, chargement compris, pas un temps en plus après : avec 60 s, des trains de verre se sont arrêtés 55–61 s à chaque fois, quoi qu'ils aient chargé.
-- **Attente supplémentaire max.** : « Maximum wait time after loading to improve vehicle distribution » (`cargofilter_window.tl:828`). La fenêtre du véhicule affiche « Maintien d’une distance de sécurité » pendant qu'il attend (`entity_window_util.tl:2279-2286`).
+- **Attente supplémentaire max.** : « Maximum wait time after loading to improve vehicle distribution » (`cargofilter_window.tl:828`). La fenêtre du véhicule affiche « Maintien d’une distance de sécurité » pendant qu'il attend son départ prévu (`entity_window_util.tl:2283-2284`), donc probablement pendant cette attente.
 - **Plusieurs véhicules au même arrêt chargent en même temps**, quel que soit leur moment d'arrivée (vu en jeu). Deux camions de bois arrivés à environ 90 s d'écart sont partis à la même seconde, chacun avec 8. La façon dont le fret est partagé entre eux n'a pas été mesurée.
 
 ```engine

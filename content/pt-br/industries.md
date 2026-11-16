@@ -17,8 +17,8 @@ Cada indústria funciona por **regras**: “pegue isto da entrada dos estoques, 
 
 ## Regras de produção
 
-- Uma regra dá a carga usada e produzida por ciclo, e quantos ciclos por ano: um ciclo dura um ano ÷ esse número (`industry_react_util.tl:51-57`). A seção Produção da janela da indústria mostra isso em números pequenos.
-- O número **Máx.** da janela é: por ciclo × ciclos por ano × os reforços × a configuração **Produtividade da Indústria** (`industry_util.tl:310-379`).
+- Uma regra dá a carga usada e produzida por ciclo, e quantos ciclos por ano: um ciclo dura um ano ÷ esse número, menos com os reforços nas regras de produção (`industry_react_util.tl:51-57`). A seção Produção da janela da indústria mostra isso em números pequenos.
+- O número **Máx.** da janela é: por ciclo × ciclos por ano × o fator de tamanho (`rule.consumptionFactor`) × os reforços × a configuração **Produtividade da Indústria**, os dois últimos só nas regras de produção (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
 - **Produtividade da Indústria**: 50 %, 75 %, 100 %, 150 % ou 200 %. Predefinições: Fácil 150 %, Normal 100 %, Difícil 75 %, Muito Difícil 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
 - Exemplo, Usina Siderúrgica: 6 minério de ferro + 6 carvão → 3 aço + 4 chapas metálicas, 121,7 ciclos por ano: 730 minério de ferro e 730 carvão → 365 aço e 487 chapas metálicas (`steel_mill.con.lua:43-71`). Faltando uma entrada, a regra para.
 - A Fábrica de Conservas tem duas regras: peixes + chapas metálicas, ou carne + chapas metálicas (`food_factory.con.lua:43-74`).
@@ -130,11 +130,11 @@ A verificação roda a cada 100 atualizações para cada indústria (`industries
 
 1. **Candidata**: nenhuma carga **carregada** num veículo e nenhuma **consumida** por **5 anos** (desde a construção, se nunca) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Só produzir não conta.
 2. **Sorte**: uma candidata é sorteada a cada verificação com uma parte da chance anual da configuração **Frequência de fechamento de indústrias** (tabela abaixo), de modo que em um ano soma essa chance (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
-3. **Contagem regressiva**: aparece a notificação **Fechamento da indústria**, com 2 anos (730 dias) de prazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Depois a indústria é removida com seus próprios trechos de estrada (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
-4. **Salva**: um único carregamento ou consumo durante a contagem a cancela (`industries.script.tl:134-137`). Aceitar um subsídio **Abastecer Indústria** ou **Transportar Trabalhadores** para ela também cancela (`subvention_util.tl:473-484`).
+3. **Contagem regressiva**: aparece a notificação **Fechamento da indústria**, com 2 anos (730 dias) de prazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Depois a indústria é removida com seus próprios trechos de estrada (`industries.script.tl:147-155`, `industries.script.tl:193-222`, `industry_util.tl:560-601`).
+4. **Salva**: um único carregamento ou consumo durante a contagem a cancela (`industries.script.tl:134-137`). Aceitar um subsídio **Abastecer Indústria** ou **Transportar Trabalhadores** para ela cancela a contagem enquanto o subsídio durar (`subvention_util.tl:473-484`, `subvention_util.tl:478-483`). Isso não zera o teste de 5 anos (`industries.script.tl:119`): se nada for carregado nem consumido, a indústria pode ser marcada de novo mais tarde.
 
 ```tip scripts
-**Notificação Fechamento da indústria? Um único carregamento ou entrega durante os 730 dias a cancela.** Aceitar um subsídio Abastecer Indústria ou Transportar Trabalhadores para essa indústria também cancela.
+**Notificação Fechamento da indústria? Um único carregamento ou entrega durante os 730 dias a cancela.** Aceitar um subsídio Abastecer Indústria ou Transportar Trabalhadores para essa indústria cancela enquanto o subsídio durar, mas continue carregando algo: o teste de 5 anos não é zerado.
 ```
 
 | Frequência de fechamento de indústrias | Chance por ano como candidata | Metade das candidatas marcadas após | Predefinição | Fonte |
@@ -153,7 +153,7 @@ O que conta como “carregado” e “consumido” (os registros itemsLoaded e i
 
 ## Novas indústrias
 
-O motor adiciona novas indústrias durante o jogo. A notificação é **Nova Indústria Fundada**: “Um empreendedor visionário identificou uma possibilidade de lucro e fundou: {industry}.” (`industry_spawn.script.tl:34-36`, `industry_spawn.res.lua:6`). Nenhum script do jogo escolhe o lugar, o tipo ou o momento, e nenhum filtra o que o motor propõe.
+O motor adiciona novas indústrias durante o jogo. A notificação é **Nova Indústria Fundada**: “Um empreendedor visionário identificou uma possibilidade de lucro e fundou: {industry}.” (`industry_spawn.script.tl:34-36`); seu rótulo de tipo é **Indústria Fundada** (`industry_spawn.res.lua:6`). Nenhum script do jogo escolhe o lugar, o tipo ou o momento, e nenhum filtra o que o motor propõe.
 
 O que os scripts dão ao motor (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
 
@@ -163,7 +163,7 @@ O que os scripts dão ao motor (`mod.script.tl:128-133`, `mod.script.tl:166-168`
 | spawnProbabilityExponent | 3,0 | expoente da chance de surgimento (fórmula no motor) |
 | spawnIndustries | desligado no editor de mapas, ligado num jogo | nenhuma indústria nova no editor de mapas |
 | industryDensity | 1 × **Densidade-Alvo da Indústria** | o número-alvo de indústrias |
-| maxNumberPerArea, absoluteMinimum | 0,8 por km² (0,64 em consoles), 24 | também usados pelo gerador de mapas |
+| maxNumberPerArea, absoluteMinimum | 0,8 por km² (0,64 em consoles), 24 | um limite por área e um mínimo (seu uso fica no motor) |
 
 **Densidade-Alvo da Indústria** (“Ajusta a densidade-alvo das indústrias no mapa.”): 5 níveis, ×2/3, ×5/6, ×1, ×1,2, ×1,5 (`difficulty_util.tl:55`, `difficulty_util.tl:85`).
 

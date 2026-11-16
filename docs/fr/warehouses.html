@@ -112,7 +112,7 @@
 </table></div>
 <ul>
 <li>L'entrepôt ajoute sa propre pollution : <strong>25</strong>, ou <strong>50</strong> dès qu'un module spécialisé est construit<span class="sr"> (<code class="src">warehouse.script.lua:327</code>, <code class="src">warehouse.script.lua:338-345</code>)</span>.</li>
-<li>Le menu de construction a une entrée par classe et par époque (dès 1900, 1940 et 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span> ; les époques suivantes affichent ×3 et ×9, et l'entretien des entrepôts monte aussi avec l'année. Détails : <a href="costs.html">Coûts, entretien et emprunts</a>.</li>
+<li>Le menu de construction a une entrée par classe et par époque (dès 1900, 1940 et 1980)<span class="sr"> (<code class="src">warehouses/warehouse.tl:3-5</code>)</span> ; les époques suivantes affichent ×3 et ×9<span class="sr"> (<code class="src">warehouses/warehouse.tl:48</code>, <code class="src">warehouses/warehouse.tl:75-76</code>)</span>, et l'entretien des entrepôts monte aussi avec l'année. Détails : <a href="costs.html">Coûts, entretien et emprunts</a>.</li>
 <li>Les modules vrac, plateau et marchandises coûtent autant que les modules liquides<span class="sr"> (<code class="src">wh_bulk.module.lua:22-23</code>, <code class="src">wh_flatbed.module.lua:22-23</code>, <code class="src">wh_goods.module.lua:18-19</code>)</span>.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Décidé par le moteur du jeu<small>C++, non visible dans les scripts</small></h4><p>Les scripts donnent deux niveaux d'émission, le second deux fois le premier<span class="sr"> (<code class="src">warehouse.script.lua:342-343</code>)</span> ; l'entrepôt passe du premier au second à mesure que ses stocks se remplissent, stocks pleins = deux fois<span class="sr"> (<code class="src">emissions.script.tl:237-249</code>)</span>. Le prix réellement facturé pour les modules est calculé par le moteur.</p></div></aside>
@@ -127,7 +127,7 @@
 <h2 id="bon-a-savoir"><span class="n">7</span><span>Bon à savoir</span></h2>
 <ul>
 <li>Vérifie la liste Charge de chaque arrêt près d'un entrepôt : ce qui n'y est pas est déchargé dans l'entrepôt, même au milieu de la ligne.</li>
-<li>Un stock plein refuse le fret en plus, sauf si l'arrêt utilise « Forcer le déchargement de tout le fret à l’arrivée », qui détruit ce qui ne rentre pas (voir <a href="loading.html">Vitesse de chargement et de déchargement</a>).</li>
+<li>Un stock plein refuse le fret en plus, sauf si l'arrêt utilise « Forcer le déchargement de tout le fret à l’arrivée » (« Décharger le fret même si les stocks sont pleins ») ; ce que devient le fret qui ne rentre pas est décidé par le moteur (voir <a href="loading.html">Vitesse de chargement et de déchargement</a>).</li>
 <li>Pour garder un module spécialisé pour un seul fret, réserve son type de fret dans la section Stocks.</li>
 <li><a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> liste, par gare, les entrepôts à portée avec leurs stocks ; <a href="https://mod.io/g/transportfever3/m/platform-details">Platform Details</a> montre où est parti le fret déchargé.</li>
 </ul>

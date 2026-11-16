@@ -57,7 +57,7 @@ Magazyn to wejście i zestaw **modułów**. Przechowuje towar między dwiema lin
 | Zanieczyszczenie | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - Magazyn dodaje własne zanieczyszczenie: **25** lub **50**, gdy tylko zostanie zbudowany jeden moduł specjalistyczny (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- Menu budowy ma jedną pozycję na klasę i epokę (od 1900, 1940 i 1980) (`warehouses/warehouse.tl:3-5`); późniejsze epoki pokazują ×3 i ×9, a utrzymanie magazynów rośnie też z rokiem. Szczegóły: [Koszty, utrzymanie i kredyty](costs.html).
+- Menu budowy ma jedną pozycję na klasę i epokę (od 1900, 1940 i 1980) (`warehouses/warehouse.tl:3-5`); późniejsze epoki pokazują ×3 i ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), a utrzymanie magazynów rośnie też z rokiem. Szczegóły: [Koszty, utrzymanie i kredyty](costs.html).
 - Moduły towarów sypkich, towarów niewymiarowych i produktów kosztują tyle samo co moduły płynów (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Dokąd trafia rozładowany towar i czy licznik czasu dostawy przechowywanego tow
 ## Warto wiedzieć
 
 - Sprawdź listę Ładunek każdego przystanku w pobliżu magazynu: to, czego na niej nie ma, jest rozładowywane do magazynu, nawet w połowie linii.
-- Pełny zapas odmawia przyjęcia kolejnego towaru, chyba że przystanek używa „Wymuś rozładowanie wszystkich towarów po przybyciu”, co niszczy to, co się nie mieści (patrz [Szybkość załadunku i rozładunku](loading.html)).
+- Pełny zapas odmawia przyjęcia kolejnego towaru, chyba że przystanek używa „Wymuś rozładowanie wszystkich towarów po przybyciu” („Rozładuj towary, nawet jeśli zapasy są pełne”); co dzieje się z towarem, który się nie mieści, decyduje silnik (patrz [Szybkość załadunku i rozładunku](loading.html)).
 - Aby zachować moduł specjalistyczny dla jednego towaru, przypnij jego rodzaj towaru w sekcji Zapasy.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) pokazuje dla każdej stacji magazyny w zasięgu wraz z ich zapasami; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) pokazuje, dokąd trafił rozładowany towar.
 

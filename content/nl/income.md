@@ -21,7 +21,7 @@ Een bezorging betaalt voor de **afstand in vogelvlucht**, en verder niets van de
 De hele formule staat in één kort spelscript (`cargo_income.script.lua:10-13`):
 
 1. **Inkomstenfactor** van de vracht. Elke vracht uit het basisspel gebruikt dezelfde functie en dezelfde prijzen (`initialPrice = 4`, `finalPrice = 3.2`), wat **3,8 voor alle 36 vrachten** oplevert (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Steenkool betaalt over dezelfde afstand precies evenveel als goederen.
-2. Instelling **Inkomsten vracht**: 50 %, 75 %, 100 %, 125 % of 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Alle vier de niveaupresets gebruiken 100 % (`difficulty_util.tl:97`).
+2. Instelling **Inkomsten vracht**: 50 %, 75 %, 100 %, 125 % of 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Alle vier de niveaupresets gebruiken 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Afstand**, zie hieronder.
 
 De functie krijgt de reistijd mee, maar **gebruikt die niet** (`cargotype.script.lua:7-13`): een trage of te late bezorging betaalt hetzelfde.
@@ -32,7 +32,7 @@ De functie krijgt de reistijd mee, maar **gebruikt die niet** (`cargotype.script
 ```
 
 - De afstand is de **rechte lijn in 3D** tussen de twee punten, niet de lengte van je route (`cargo_income.script.lua:3-7`).
-- Als het hoogteverschil positief is, wordt **8 × die hoogte** opgeteld (`cargo_income.script.lua:5`): 100 m stijging betaalt als 800 m extra. In de andere richting wordt niets afgetrokken.
+- Als de vracht hoger wordt bezorgd dan haar bron, wordt **8 × die hoogte** opgeteld (`cargo_income.script.lua:5`): 100 m betaalt als 800 m extra. De scripts nemen het hoogteverschil dat de engine doorgeeft; de richting ervan is in de scripts niet zichtbaar. Een negatief verschil trekt niets af.
 - Een kronkelende lijn verdient dus evenveel als een rechte, maar je betaalt onderhoud voor elke meter spoor of weg die je hebt gebouwd.
 
 ```engine
@@ -65,7 +65,7 @@ De scripts berekenen alleen het totaal (`economy/cargo_income.script.lua`); de v
 | **Voltooide subsidie** | ×2 voor leveringen aan het industriebedrijf of de stad van het contract, op de lijnen die voor het contract hebben geleverd | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Te late bezorging** | geen effect op de inkomsten | `cargotype.script.lua:7-13` |
 
-- De rangvermenigvuldiger geldt voor **elke** betaling voor vracht en reizigers (`company_growth.script.tl:159-170`). De niveaupresets gebruiken Inflatie Laag (Makkelijk), Gemiddeld (Gemiddeld), Hoog (Moeilijk), Zeer hoog (Heel moeilijk) (`difficulty_util.tl:108`).
+- De rangvermenigvuldiger geldt voor **elke** betaling voor vracht en reizigers (`company_growth.script.tl:159-170`). De niveaupresets gebruiken Inflatie Laag (Makkelijk), Gemiddeld (Gemiddeld), Hoog (Moeilijk), Zeer hoog (Heel moeilijk) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
 - De ×2 van subsidies geldt alleen voor de lijnen die tijdens het contract hebben geleverd, en voor beperkte tijd (officiële wiki, Subsidies).
 
 ## Reizigers
@@ -74,7 +74,7 @@ Reizigers gebruiken dezelfde afstand en een vaste inkomstenfactor van ongeveer 3
 
 ## Tijdslimieten voor bezorging
 
-Elke vracht heeft haar eigen tijdslimiet (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Vers voedsel heeft de kortste, zware grondstoffen een vijf keer langere:
+Elke vracht heeft haar eigen tijdslimiet (`meat.cargo.lua:30`, `coal.cargo.lua:30`). Vers voedsel heeft de kortste: vlees 900 s, steenkool 3.000 s (3,3 × langer), ijzererts, zand, steen en staal 4.500 s:
 
 ```diagram delivery_times
 ```
@@ -93,7 +93,7 @@ Te late vracht wordt volledig betaald, maar elke stad houdt een beoordeling **Be
 
 1. Het spel telt de bezorgingen aan de stad in het **afgelopen halfjaar**, en hoeveel daarvan te laat waren (er worden er minstens 10 aangenomen, zodat de eerste bezorgingen de score niet laten omslaan).
 2. Aandeel op tijd → beoordeling: onder een ondergrens is de beoordeling 0, boven een bovengrens 1, daartussen lineair. Met de standaardgevoeligheid (**Gemiddeld**): **30 % op tijd → 0, 100 % → 1**, dus 90 % op tijd geeft 0,86.
-3. De instelling **Gevoeligheid bezorging** verschuift de grenzen (`difficulty_util.tl:47`). Uit: altijd 1. Presets: Makkelijk Laag, Gemiddeld Gemiddeld, Moeilijk Hoog, Heel moeilijk Zeer hoog (`difficulty_util.tl:113`).
+3. De instelling **Gevoeligheid bezorging** verschuift de grenzen (`difficulty_util.tl:47`). Uit: altijd 1. Presets: Makkelijk Laag, Gemiddeld Gemiddeld, Moeilijk Hoog, Heel moeilijk Zeer hoog (`difficulty_util.tl:113`, `difficulty_util.tl:141`, `difficulty_util.tl:168`, `difficulty_util.tl:195`).
 
 ```diagram delivery_rating
 ```
@@ -108,7 +108,7 @@ Dezelfde steenkoolbezorging, 5 km in vogelvlucht.
 |---|---|
 | vlak, elke routelengte | **100 %** |
 | 10 km uit elkaar | **200 %** |
-| bestemming 100 m hoger | **116 %** |
+| 100 m hoger bezorgd dan de bron | **116 %** |
 | te laat bezorgd | **100 %** (beoordeling Bezorging daalt) |
 | bedrijfsrang 15, Inflatie Gemiddeld | **75 %** |
 | levering gedekt door een voltooide subsidie | **200 %** |
@@ -117,7 +117,7 @@ Dezelfde steenkoolbezorging, 5 km in vogelvlucht.
 
 - Omdat elke vracht per kilometer hetzelfde betaalt, **kies je vrachten op volume, afstand en tijdslimiet**, niet op prijs.
 - Tijdslimieten tellen het zwaarst bij vlees, vis, groente en drank: korte lijnen of opslagplaatsen die de timer bevriezen.
-- Elke eenheid die aan een stadsgebouw wordt bezorgd, geeft die stad ook ervaring (`town_growth.script.tl:642`, `town_growth_config.res.lua:5`).
+- Elke eenheid die aan een stadsgebouw wordt bezorgd, geeft die stad ook ervaring, voor vracht waarvan de categorie een niveau heeft (`town_growth.script.tl:641-642`, `town_growth_config.res.lua:5`).
 
 ```check
 official: "The farther people and cargo travel, the higher the revenue … distances are measured 'as the crow flies'." "While delayed cargo still provides the full income, the on time delivery rating drops, hindering town growth." ([Tips & Tricks](https://wiki.transportfever3.com/doku.php?id=gamemanual:gettingstarted:tipstricks), [Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))

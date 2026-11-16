@@ -57,7 +57,7 @@ Um armazém é uma entrada e um conjunto de **módulos**. Ele guarda carga entre
 | Poluição | 25 | 50 | `wh_universal.module.lua:34`, `wh_liquid.module.lua:38` |
 
 - O armazém soma a sua própria poluição: **25**, ou **50** assim que um módulo especializado é construído (`warehouse.script.lua:327`, `warehouse.script.lua:338-345`).
-- O menu de construção tem uma entrada por classe e era (a partir de 1900, 1940 e 1980) (`warehouses/warehouse.tl:3-5`); as eras seguintes mostram ×3 e ×9, e a manutenção dos armazéns também cresce com o ano. Detalhes: [Custos, manutenção e empréstimos](costs.html).
+- O menu de construção tem uma entrada por classe e era (a partir de 1900, 1940 e 1980) (`warehouses/warehouse.tl:3-5`); as eras seguintes mostram ×3 e ×9 (`warehouses/warehouse.tl:48`, `warehouses/warehouse.tl:75-76`), e a manutenção dos armazéns também cresce com o ano. Detalhes: [Custos, manutenção e empréstimos](costs.html).
 - Módulos a granel, de plataforma e de mercadorias custam o mesmo que os de líquidos (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
@@ -78,7 +78,7 @@ Para onde vai a carga descarregada, e se o prazo de entrega de uma carga armazen
 ## Bom saber
 
 - Confira a lista Volume de cada parada perto de um armazém: o que não está nela é descarregado no armazém, mesmo no meio da linha.
-- Um estoque cheio recusa mais carga, a menos que a parada use "Forçar descarregamento de todas as cargas na chegada", que destrói o que não cabe (veja [Velocidade de carga e descarga](loading.html)).
+- Um estoque cheio recusa mais carga, a menos que a parada use "Forçar descarregamento de todas as cargas na chegada" ("Descarregar a carga mesmo se os estoques estiverem cheios"); o que acontece com a carga que não cabe é decidido pelo motor (veja [Velocidade de carga e descarga](loading.html)).
 - Para manter um módulo especializado para uma carga, fixe o tipo de carga dele na seção Estoques.
 - O [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) lista, por estação, os armazéns ao alcance com os seus estoques; o [Detalhes das plataformas (Platform Details)](https://mod.io/g/transportfever3/m/platform-details) mostra para onde foi a carga descarregada.
 

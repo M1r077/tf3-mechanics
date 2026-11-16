@@ -24,8 +24,8 @@ Cada parada de uma linha tem as suas próprias configurações de partida, na ja
 | "Nível de Preenchimento", por carga carregada | 0–100 %, passo 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
 
 - Clicar em um tempo abre uma caixa numérica: valores acima de 600 s podem ser digitados ali (`cargofilter_window.tl:204-208`).
-- Os três tempos se mantêm em ordem: subir o mínimo ou a espera adicional acima do máximo também sobe o máximo (`cargofilter_window.tl:834-835`, `cargofilter_window.tl:848-849`, `cargofilter_window.tl:865-869`).
-- Mudar qualquer um deles marca a linha como personalizada: a configuração automática não mexe mais nas suas listas Volume (`cargofilter_window.tl:438`, veja [Velocidade de carga e descarga](loading.html)). A própria configuração automática nunca muda o modo nem os tempos (`line_util.tl:495-513`).
+- Os três tempos se mantêm em ordem: subir o mínimo ou a espera adicional acima do máximo também sobe o máximo (`cargofilter_window.tl:834-836`, `cargofilter_window.tl:848-850`); baixar o máximo baixa os outros dois (`cargofilter_window.tl:865-869`). Nada é ajustado enquanto o máximo está em "---".
+- Mudar qualquer um deles marca a linha como personalizada: a configuração automática não mexe mais nas suas listas Volume (`cargofilter_window.tl:438`, veja [Velocidade de carga e descarga](loading.html)). A própria configuração automática nunca muda o modo nem os tempos, mas volta cada Nível de Preenchimento para 100 % (`line_util.tl:495-719`, `line_util.tl:511`, `line_util.tl:543`).
 
 ## Nível de Preenchimento: um limite por carga
 
@@ -51,7 +51,7 @@ O Nível de Preenchimento é o máximo daquela carga que o veículo pega nesta p
 - **Carga Completa (Qualquer)**: o veículo sai quando uma carga está cheia. Um trem de troncos e tábuas saiu com 143 e 144 troncos após 369–380 s; duas outras partidas após cerca de 30 s, com 57 e 118 troncos, não têm explicação.
 - **Tempo de Parada Máx.** encerra a espera, mesmo sem nada carregado. Um trem de vegetais em Carga Completa (Tudo) com máximo de 120 s ou encheu (64 de 64) em cerca de 25 s, ou saiu após 116–120 s com 26 ou **0**. Com o padrão de 600 s ele saiu com 26 de 64 após 596–600 s.
 - **Tempo de Parada Mín.** é a parada inteira, carregamento incluído, não tempo extra depois dele: com 60 s, trens de vidro pararam 55–61 s todas as vezes, independentemente do que carregaram.
-- **Tempo Máximo de Espera Adicional**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). A janela do veículo mostra "Garantindo distância segura" enquanto ele espera (`entity_window_util.tl:2279-2286`).
+- **Tempo Máximo de Espera Adicional**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). A janela do veículo mostra "Garantindo distância segura" enquanto ele espera a partida programada (`entity_window_util.tl:2283-2284`), presumivelmente durante essa espera.
 - **Vários veículos em uma parada carregam ao mesmo tempo**, não importa quando cada um chegou (visto no jogo). Dois caminhões de troncos que chegaram com cerca de 90 s de diferença saíram no mesmo segundo, cada um com 8. Como a carga é dividida entre eles não foi medido.
 
 ```engine

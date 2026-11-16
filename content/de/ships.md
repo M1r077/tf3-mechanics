@@ -23,7 +23,7 @@ Jedes Schiff ist **klein** oder **groß**. Ein großes Schiff kann nur an einem 
 - Der kleine Hafen besteht aus kleinen Anlegestellen, die nur kleine Schiffe annehmen (`small_pier.module.lua:7`). Der große Hafen nutzt mittlere Anlegestellen, die beide Größen annehmen (`medium_pier.module.lua:6`, `harbor_modular.script.lua:35-39`).
 - **Terminals**: 1, 2 oder 4, beim Bau gewählt (`harbor_modular.tl:16`, `harbor_modular.script.lua:33`).
 - Ein Anlegestellen-Terminal fasst 100 wartende Passagiere an einer kleinen und 50 an einer mittleren Anlegestelle (`modules.script.lua:872`, `modules.script.lua:1004`).
-- Häfen müssen an einer Küste auf schiffbarem Wasser platziert werden (`harbor_modular.tl:29`).
+- Beim Platzieren eines Hafens blendet das Skript nur die Ebene für schiffbares Wasser ein (`harbor_modular.tl:26-30`). Wo ein Hafen stehen darf, entscheidet die Engine.
 - Jedes Schiff legt seine Größe in seiner Fahrzeugdatei fest; das Spiel macht daraus den Modus kleines oder großes Schiff (`model_metadata_util.lua:1411-1412`).
 
 ## Kosten
