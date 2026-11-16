@@ -43,7 +43,7 @@ fact: 0 | 倉庫で積み下ろした貨物の収入
 - 在庫ごとに 1 行：受け取る貨物、量、そしてカーソルを合わせると表示される**平均残り配送時間**（`entity_window_util.tl:408-410`）。
 - **貨物の種類を固定する**：専門モジュールで貨物アイコンをクリックする。ゲームはそのモジュールをこの貨物専用にして倉庫を作り直す（`entity_window_util.tl:339-367`、`warehouse.script.lua:308`）。モジュールを撤去または置き換えると、固定は解除される（`warehouse.script.lua:403-405`）。
 - **すべての貨物を捨てる**：その行をすぐに空にする（`entity_window_util.tl:423-434`）。貨物は失われる。
-- どちらのボタンも自分の倉庫にしかない（`warehouse_eow.script.tl:127-137`、`gui/entity_window/warehouse/warehouse.tl:38`）。
+- どちらのボタンも、ほかのプレイヤーが所有する倉庫にだけない。自分の倉庫と所有者のいない倉庫にはある（`warehouse_eow.script.tl:127-137`、`gui/entity_window/warehouse/warehouse.tl:38`、`entity_util.tl:83-86`）。
 - **統計**のグラフは、年ごとの**入庫**（積み下ろした分）と**出庫**（積み込んだ分）を示す（`warehouse_eow.script.tl:159-160`）。
 
 ## コストと汚染

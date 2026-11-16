@@ -50,7 +50,7 @@ Le niveau de remplissage est le maximum de ce fret que le véhicule prend à cet
 - **Chargement complet (n’importe lequel)** : le véhicule part quand un fret est plein. Un train de bois et de planches est parti avec 143 et 144 unités de bois après 369–380 s ; deux autres départs après environ 30 s avec 57 et 118 unités ne sont pas expliqués.
 - **Temps d’arrêt max.** met fin à l'attente, même sans rien de chargé. Un train de légumes en Chargement complet (tout) avec un maximum de 120 s s'est soit rempli (64 sur 64) en environ 25 s, soit est parti après 116–120 s avec 26 ou **0**. Avec les 600 s par défaut, il est parti avec 26 sur 64 après 596–600 s.
 - **Temps d’arrêt min.** est l'arrêt entier, chargement compris, pas un temps en plus après : avec 60 s, des trains de verre se sont arrêtés 55–61 s à chaque fois, quoi qu'ils aient chargé.
-- **Attente supplémentaire max.** : « Maximum wait time after loading to improve vehicle distribution » (`cargofilter_window.tl:827`). La fenêtre du véhicule affiche « Maintien d’une distance de sécurité » pendant qu'il attend (`entity_window_util.tl:2279-2286`).
+- **Attente supplémentaire max.** : « Maximum wait time after loading to improve vehicle distribution » (`cargofilter_window.tl:828`). La fenêtre du véhicule affiche « Maintien d’une distance de sécurité » pendant qu'il attend (`entity_window_util.tl:2279-2286`).
 - **Plusieurs véhicules au même arrêt chargent en même temps**, quel que soit leur moment d'arrivée (vu en jeu). Deux camions de bois arrivés à environ 90 s d'écart sont partis à la même seconde, chacun avec 8. La façon dont le fret est partagé entre eux n'a pas été mesurée.
 
 ```engine

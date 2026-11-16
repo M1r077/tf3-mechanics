@@ -43,7 +43,7 @@ Um armazém é uma entrada e um conjunto de **módulos**. Ele guarda carga entre
 - Uma linha por estoque: a carga que ele aceita, a quantidade e, ao passar o mouse, o **Tempo médio restante de entrega** (`entity_window_util.tl:408-410`).
 - **Fixar um tipo de carga**: num módulo especializado, clique num ícone de carga. O jogo reconstrói o armazém com esse módulo reservado a essa carga (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). Remover ou substituir o módulo apaga a fixação (`warehouse.script.lua:403-405`).
 - **Descartar Toda a Carga**: esvazia essa linha de uma vez (`entity_window_util.tl:423-434`). A carga é perdida.
-- Os dois botões só existem nos seus próprios armazéns (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Os dois botões só faltam num armazém de outro jogador; os seus e os armazéns sem dono têm os botões (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - O gráfico **Estatísticas** mostra **Entrada** (descarregado) e **Saída** (carregado) por ano (`warehouse_eow.script.tl:159-160`).
 
 ## Custos e poluição

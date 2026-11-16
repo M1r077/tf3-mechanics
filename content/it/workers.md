@@ -93,7 +93,7 @@ I posti di lavoro vengono assegnati quando la linea apre: in due prove **tutti i
 
 ## Commessa Trasporto di forza lavoro
 
-- Viene offerta solo per un'industria che spedisce o riceve merci e non ha ancora il booster (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Viene offerta solo per un'industria con posti di lavoro, il cui booster dei lavoratori non è ancora attivo e che ha spedito o ricevuto merci nell'ultimo anno, secondo i dati annuali del motore (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Se basti solo ricevere dipende da come il motore compila le regole di produzione; non è negli script.
 - Viene completata quando il booster dei lavoratori si attiva: gli stessi 10 arrivi diversi su 20 con le tue linee (`deliver_workers.script.tl:152-156`). Non si conta nient'altro; non c'è una regola nascosta.
 - La barra di avanzamento sulla scheda del contratto è "lavoratori contati ÷ metà dei luoghi di lavoro" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Le frecce sulla mappa del contratto partono dalle **5 città più vicine**. Sono solo un indizio: lo script le disegna per distanza, non in base a chi ha il lavoro (`deliver_workers.script.tl:297-317`).

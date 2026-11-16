@@ -88,7 +88,7 @@ Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico
 | Opzione di "Filtro carico" | Che cosa fa | Fonte |
 |---|---|---|
 | "Forza scarico di tutte le merci all'arrivo" | scarica nelle scorte compatibili anche se sono piene; ciò che non entra viene distrutto. Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| "Distrugge il carico all'arrivo se la configurazione cambia" | distrugge il carico a bordo quando a questa fermata aspetta di essere caricata un'altra merce | `cargofilter_window.tl:767` |
+| "Distrugge il carico all'arrivo se la configurazione cambia" | scarica o distrugge il carico a bordo quando a questa fermata aspetta merce per un'altra configurazione di carico del veicolo; quale delle due lo decide il motore | `cargofilter_window.tl:767` |
 | "Sostituisci con nuovo carico se disponibile" | distrugge il carico tornato alla fermata dove era stato caricato, quando aspetta un carico più recente dello stesso tipo | `cargofilter_window.tl:778` |
 
 - Con la prima opzione disattivata, l'icona della merce mostra "≤" e il tooltip "Scarica solo se scorte hanno capacità" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Infrastrukturkosten</strong> skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Unterhalt der Infrastruktur</strong> skaliert deren Unterhalt<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Infrastrukturkosten</strong> skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Sie skaliert auch die Abrisskosten von Gebäuden<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Unterhalt der Infrastruktur</strong> skaliert deren Unterhalt<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
 <li><strong>Fahrzeugkosten</strong> und <strong>Fahrzeugwartung</strong> skalieren Kaufpreis und Betriebskosten jedes Fahrzeugs<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Fahrzeugwartungseffekt</strong> legt fest, wie stark ein Fahrzeug in schlechtem Zustand Geschwindigkeit, Leistung und Komfort verliert und Lärm, Verschmutzung und Betriebskosten gewinnt<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>Eine Oberleitung kostet zusätzlich <strong>30 %</strong> des Gleispreises; eine Busspur 10 %, ein Straßenbahngleis 20 %, ein elektrisches Straßenbahngleis 40 % des Straßenpreises<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
-<li>Gelände anheben kostet 4,5 pro m³, absenken 5,25 pro m³, ein Feld entfernen 200.000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
-<li>Ein Gebäude ohne eigenen Unterhalt zahlt <strong>ein Sechstel seines Preises</strong> pro Jahr<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Gelände anheben kostet 4,5 pro m³, absenken 5,25 pro m³, beides × Infrastrukturkosten; ein Feld entfernen 200.000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>, <code class="src">mod.script.tl:225-226</code>)</span>.</li>
+<li>Ein Gebäude ohne eigenen Unterhalt zahlt <strong>ein Sechstel seines Preises</strong> pro Jahr, berechnet aus dem Preis vor der Einstellung Infrastrukturkosten<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
 <li>Die Grundkonfiguration setzt einen Rückerstattungsfaktor beim Abriss von 0,75 und eine Frist von 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span>: Was du gerade gebaut hast, bringt beim Abriss den Großteil des Geldes zurück. Die Engine wendet das an.</li>
 </ul>
 <p>Jährlicher Unterhalt laut Dateien, für die erste Variante (vor 1940) und die späteren; Lager bekommen zusätzlich den Jahresfaktor oben:</p>
@@ -197,7 +197,7 @@
 <p>Kein Fahrzeug des Grundspiels hat einen festen Preis: Das Spiel berechnet ihn aus Geschwindigkeit und Kapazität, wenn es das Modell lädt<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span>:</p>
 <ol>
 <li><strong>Betriebskosten pro Jahr</strong> = etwa 675 × Durchschnittsgeschwindigkeit (m/s) × Kapazität / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. Die 675 kommen aus der durchschnittlichen Einnahme pro km, verringert, um Leerfahrten, den Kauf und die sinkenden Ticketpreise zu berücksichtigen<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
-<li>Die <strong>Durchschnittsgeschwindigkeit</strong> liegt unter der Höchstgeschwindigkeit: für Straßenfahrzeuge (Höchstgeschwindigkeit in km/h)^0,78 + 4, für Züge ^0,86 + 10, Schiffe 65 % der Höchstgeschwindigkeit<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li>Die <strong>Durchschnittsgeschwindigkeit</strong> liegt unter der Höchstgeschwindigkeit (v in km/h): Straßenfahrzeuge und Trams v^0,78 + 4, Züge v^0,86 + 10, Flugzeuge −0,0000203 × v² + 0,17 × v + 28,36 (v höchstens 4.000), Schiffe 65 % der Höchstgeschwindigkeit<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
 <li><strong>Züge</strong>: Ein Wagen zählt die Hälfte seiner Kapazität; eine Lok zählt zusätzlich Leistung ÷ Höchstgeschwindigkeit (km/h) × 12,5 als Kapazität, ebenfalls halbiert<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. Eine starke, langsame Lok ist teuer.</li>
 <li><strong>Preis</strong> = <strong>6 ×</strong> die jährlichen Betriebskosten<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
 </ol>

@@ -88,7 +88,7 @@ Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" 
 | Opção de "Filtro de Cargas" | O que faz | Fonte |
 |---|---|---|
 | "Forçar descarregamento de todas as cargas na chegada" | descarrega nos estoques compatíveis mesmo cheios; o que não cabe é destruído. Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| "Destruir cargas na chegada quando a configuração mudar" | destrói a carga a bordo quando outra carga espera para ser carregada nesta parada | `cargofilter_window.tl:767` |
+| "Destruir cargas na chegada quando a configuração mudar" | descarrega ou destrói a carga a bordo quando há carga esperando nesta parada para outra configuração de carregamento do veículo; qual das duas coisas acontece é o motor que decide | `cargofilter_window.tl:767` |
 | "Substituir com carga mais nova, se disponível" | destrói a carga que voltou à parada onde foi carregada, quando há carga mais nova do mesmo tipo esperando | `cargofilter_window.tl:778` |
 
 - Com a primeira opção desligada, o ícone da carga mostra "≤" e a dica "Descarregar somente se os estoques tiverem capacidade" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

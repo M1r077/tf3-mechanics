@@ -50,7 +50,7 @@ Der Füllstand ist das Höchste, was das Fahrzeug von dieser Fracht an diesem Ha
 - **Vollladen einer Güterart**: Das Fahrzeug fährt ab, wenn eine Fracht voll ist. Ein Zug für Holz und Bretter fuhr nach 369–380 s mit 143 und 144 Holz ab; zwei andere Abfahrten nach etwa 30 s mit 57 und 118 Holz sind nicht erklärt.
 - **Max. Haltezeit** beendet das Warten, auch wenn nichts geladen wurde. Ein Gemüsezug mit Vollladen jeder Güterart und 120 s Maximum war entweder in etwa 25 s voll (64 von 64) oder fuhr nach 116–120 s mit 26 oder **0** ab. Mit den standardmäßigen 600 s fuhr er nach 596–600 s mit 26 von 64 ab.
 - **Min. Haltezeit** ist der ganze Halt, Laden inklusive, keine zusätzliche Zeit danach: Mit 60 s hielten Glaszüge jedes Mal 55–61 s, egal was sie luden.
-- **Max. zusätzlicher Aufenthalt**: „Maximum wait time after loading to improve vehicle distribution“ (`cargofilter_window.tl:827`). Das Fahrzeugfenster zeigt „Sicheren Abstand garantieren“, während es wartet (`entity_window_util.tl:2279-2286`).
+- **Max. zusätzlicher Aufenthalt**: „Maximum wait time after loading to improve vehicle distribution“ (`cargofilter_window.tl:828`). Das Fahrzeugfenster zeigt „Sicheren Abstand garantieren“, während es wartet (`entity_window_util.tl:2279-2286`).
 - **Mehrere Fahrzeuge an einem Halt laden gleichzeitig**, egal wann jedes ankam (im Spiel gesehen). Zwei Holz-LKW, die etwa 90 s nacheinander ankamen, fuhren in derselben Sekunde ab, jeder mit 8. Wie die Fracht zwischen ihnen aufgeteilt wird, wurde nicht gemessen.
 
 ```engine

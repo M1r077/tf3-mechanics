@@ -43,7 +43,7 @@ Ein Lager ist ein Eingang und eine Reihe von **Modulen**. Es lagert Fracht zwisc
 - Eine Zeile pro Bestand: die Fracht, die er nimmt, die Menge, und beim Darüberfahren die **Durchschnittliche verbleibende Lieferzeit** (`entity_window_util.tl:408-410`).
 - **Eine Frachtart festlegen**: Klicke an einem spezialisierten Modul auf ein Frachtsymbol. Das Spiel baut das Lager neu, mit diesem Modul für diese Fracht reserviert (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). Entfernen oder Ersetzen des Moduls hebt die Festlegung auf (`warehouse.script.lua:403-405`).
 - **Alle Güter entsorgen**: leert diese Zeile auf einmal (`entity_window_util.tl:423-434`). Die Fracht ist verloren.
-- Beide Knöpfe gibt es nur an deinen eigenen Lagern (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Beide Knöpfe fehlen nur an einem Lager, das einem anderen Spieler gehört; deine Lager und Lager ohne Besitzer haben sie (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - Das Diagramm **Statistiken** zeigt **Eingehend** (entladen) und **Ausgehend** (geladen) pro Jahr (`warehouse_eow.script.tl:159-160`).
 
 ## Kosten und Verschmutzung

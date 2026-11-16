@@ -43,7 +43,7 @@ fact: 0 | 창고에 하차한 화물의 수입
 - 재고마다 한 줄: 받는 화물, 양, 그리고 마우스를 올리면 **남은 배송 시간 평균**(`entity_window_util.tl:408-410`).
 - **화물 종류 고정**: 특화된 모듈에서 화물 아이콘을 클릭한다. 게임은 그 모듈을 이 화물 전용으로 하여 창고를 다시 짓는다(`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). 모듈을 제거하거나 교체하면 고정이 풀린다(`warehouse.script.lua:403-405`).
 - **모든 화물 버리기**: 그 줄을 즉시 비운다(`entity_window_util.tl:423-434`). 화물은 사라진다.
-- 두 버튼 모두 자신의 창고에만 있다(`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- 두 버튼은 다른 플레이어가 소유한 창고에만 없다. 자신의 창고와 소유자가 없는 창고에는 있다(`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - **통계** 차트는 연도별 **수신**(하차한 양)과 **발신**(상차한 양)을 보여준다(`warehouse_eow.script.tl:159-160`).
 
 ## 비용과 오염

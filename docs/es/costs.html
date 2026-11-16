@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Gastos de infraestructura</strong> escala el precio de calles, vías, puentes, túneles, cruces, edificios y módulos, y también de los trabajos de terreno<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Conservación de infraestructura</strong> escala su conservación<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Gastos de infraestructura</strong> escala el precio de calles, vías, puentes, túneles, cruces, edificios y módulos, y también de los trabajos de terreno<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. También escala el coste de demolición de los edificios<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Conservación de infraestructura</strong> escala su conservación<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
 <li><strong>Gastos de vehículos</strong> y <strong>Mantenimiento de vehículos</strong> escalan el precio de compra y los gastos de mantenimiento de cada vehículo<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Efecto del mantenimiento de vehículos</strong> fija cuánto pierde un vehículo en mal estado en velocidad, potencia y comodidad, y cuánto gana en ruido, contaminación y gastos de mantenimiento<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>La catenaria suma un <strong>30 %</strong> del precio de la vía; un carril bus, un 10 %; una vía de tranvía, un 20 %; una vía de tranvía eléctrico, un 40 % del precio de la calle<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
-<li>Subir el terreno cuesta 4,5 por m³, bajarlo 5,25 por m³, y quitar un campo 200.000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
-<li>Un edificio que no fija conservación paga <strong>un sexto de su precio</strong> al año<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Subir el terreno cuesta 4,5 por m³, bajarlo 5,25 por m³, ambos × Gastos de infraestructura; y quitar un campo 200.000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>, <code class="src">mod.script.tl:225-226</code>)</span>.</li>
+<li>Un edificio que no fija conservación paga <strong>un sexto de su precio</strong> al año, calculado sobre el precio antes del ajuste Gastos de infraestructura<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
 <li>La configuración base fija un factor de reembolso al demoler de 0,75 y un tiempo de reembolso de 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span>: si demueles lo que acabas de construir, recuperas la mayor parte del dinero. Lo aplica el motor.</li>
 </ul>
 <p>Conservación anual escrita en los archivos, para la primera variante (antes de 1940) y las siguientes; los almacenes reciben además el factor de año de arriba:</p>
@@ -197,7 +197,7 @@
 <p>Ningún vehículo del juego base tiene un precio fijo: el juego lo calcula a partir de la velocidad y la capacidad del vehículo al cargar el modelo<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span>:</p>
 <ol>
 <li><strong>Gastos de mantenimiento al año</strong> = unos 675 × velocidad media (m/s) × capacidad / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. El 675 sale de los ingresos medios por km, reducidos para dejar margen a los viajes de vuelta vacíos, la compra y la bajada del precio de los billetes<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
-<li>La <strong>velocidad media</strong> es menor que la velocidad máxima: para vehículos de carretera (velocidad máxima en km/h)^0,78 + 4, para trenes ^0,86 + 10, para barcos el 65 % de la velocidad máxima<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li>La <strong>velocidad media</strong> es menor que la velocidad máxima (v en km/h): vehículos de carretera y tranvías v^0,78 + 4, trenes v^0,86 + 10, aeronaves −0,0000203 × v² + 0,17 × v + 28,36 (v como máximo 4.000), barcos el 65 % de la velocidad máxima<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
 <li><strong>Trenes</strong>: un vagón cuenta la mitad de su capacidad; una locomotora cuenta además potencia ÷ velocidad máxima (km/h) × 12,5 como capacidad, también a la mitad<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. Una locomotora potente y lenta es cara.</li>
 <li><strong>Precio</strong> = <strong>6 ×</strong> los gastos de mantenimiento anuales<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
 </ol>

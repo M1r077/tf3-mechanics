@@ -88,7 +88,7 @@ Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter
 | Optie in "Vrachtfilter" | Wat het doet | Bron |
 |---|---|---|
 | "Alle vracht bij aankomst verplicht lossen" | lost in passende voorraden, ook als ze vol zijn; wat niet past, wordt vernietigd. Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| "Vracht bij aankomst vernietigen na wijziging configuratie" | vernietigt de vracht aan boord als er bij deze halte andere vracht wacht om geladen te worden | `cargofilter_window.tl:767` |
+| "Vracht bij aankomst vernietigen na wijziging configuratie" | lost of vernietigt de vracht aan boord als er bij deze halte vracht wacht voor een andere laadconfiguratie van het voertuig; welke van de twee bepaalt de engine | `cargofilter_window.tl:767` |
 | "Vervangen door nieuwere vracht indien beschikbaar" | vernietigt vracht die terug is bij de halte waar hij geladen werd, als er nieuwere vracht van hetzelfde type wacht | `cargofilter_window.tl:778` |
 
 - Staat de eerste optie uit, dan toont het vrachtpictogram "≤" en de tooltip "Alleen lossen als er ruimte is" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

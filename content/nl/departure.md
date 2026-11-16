@@ -50,7 +50,7 @@ Het vulniveau is het maximum van die vracht dat het voertuig bij deze halte meen
 - **Volledige belading (willekeurig)**: het voertuig vertrekt als één vracht vol is. Een trein voor boomstammen en planken vertrok na 369–380 s met 143 en 144 boomstammen; twee andere vertrekken na ongeveer 30 s met 57 en 118 boomstammen zijn niet verklaard.
 - **Max. stoptijd** beëindigt het wachten, ook als er niets geladen is. Een groentetrein in Volledige belading (alle) met een maximum van 120 s werd ofwel in ongeveer 25 s vol (64 van 64), ofwel vertrok na 116–120 s met 26 of **0**. Met de standaard 600 s vertrok hij na 596–600 s met 26 van 64.
 - **Min. stoptijd** is de hele stop, laden inbegrepen, geen extra tijd erna: met 60 s stonden glastreinen elke keer 55–61 s stil, wat ze ook laadden.
-- **Maximale extra wachttijd**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:827`). Het voertuigvenster toont "Veilige afstand bewaren" terwijl het wacht (`entity_window_util.tl:2279-2286`).
+- **Maximale extra wachttijd**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). Het voertuigvenster toont "Veilige afstand bewaren" terwijl het wacht (`entity_window_util.tl:2279-2286`).
 - **Meerdere voertuigen bij één halte laden tegelijk**, ongeacht wanneer elk aankwam (gezien in het spel). Twee vrachtwagens met boomstammen die ongeveer 90 s na elkaar aankwamen, vertrokken in dezelfde seconde, elk met 8. Hoe de vracht tussen hen verdeeld wordt, is niet gemeten.
 
 ```engine

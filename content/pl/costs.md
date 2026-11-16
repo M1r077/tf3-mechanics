@@ -25,7 +25,7 @@ Ustawienie **Inflacja** nie podnosi żadnych kosztów: obniża tylko twój przyc
 | **Wpływ konserwacji pojazdów** | „Brak” ×0 · „Niski” ×0,5 · „Średni” ×1 · „Wysoki” ×1,5 · „Bardzo wysoki” ×2 | „Niski” · „Średni” · „Wysoki” · „Bardzo wysoki” | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflacja** | tylko przychód, patrz [Przychód z towarów](income.html) | „Niska” · „Normalna” · „Wysoka” · „Bardzo wysoka” | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Koszty infrastruktury** skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Utrzymanie infrastruktury** skaluje ich utrzymanie (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Koszty infrastruktury** skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Skalują też koszt rozbiórki budynków (`construction.script.tl:39-44`). **Utrzymanie infrastruktury** skaluje ich utrzymanie (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
 - **Koszty pojazdów** i **Konserwacja pojazdów** skalują cenę zakupu i koszty bieżące każdego pojazdu (`post_run_util.tl:54-81`).
 - **Wpływ konserwacji pojazdów** ustala, jak mocno pojazd w złym stanie traci prędkość, moc i komfort oraz zyskuje hałas, zanieczyszczenie i koszty bieżące (`mod.script.tl:241-245`).
 
@@ -54,8 +54,8 @@ Pliki ulic i torów podają cenę i roczne utrzymanie na metr; menu budowy pokaz
 | Duża nowa ulica miejska | 1940 | 540 000 | 90 000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Sieć trakcyjna dodaje **30 %** ceny toru; buspas 10 %, tor tramwajowy 20 %, elektryczny tor tramwajowy 40 % ceny ulicy (`mod.script.tl:24-28`).
-- Podniesienie terenu kosztuje 4,5 za m³, obniżenie 5,25 za m³, usunięcie pola 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`).
-- Budynek bez własnego utrzymania płaci rocznie **jedną szóstą swojej ceny** (`construction.script.tl:25-27`).
+- Podniesienie terenu kosztuje 4,5 za m³, obniżenie 5,25 za m³, oba × Koszty infrastruktury; usunięcie pola 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Budynek bez własnego utrzymania płaci rocznie **jedną szóstą swojej ceny**, liczoną od ceny przed ustawieniem Koszty infrastruktury (`construction.script.tl:25-27`).
 - Podstawowa konfiguracja ustawia współczynnik zwrotu przy wyburzeniu 0,75 i czas zwrotu 60 (`mod.script.tl:30-31`): wyburzenie tego, co właśnie zbudowałeś, oddaje większość pieniędzy. Stosuje to silnik.
 
 Roczne utrzymanie zapisane w plikach, dla pierwszego wariantu (przed 1940) i późniejszych; magazyny dostają dodatkowo mnożnik roku opisany wyżej:
@@ -79,7 +79,7 @@ Budowa każdego z tych budynków kosztuje **6 ×** jego utrzymanie (`rail_depot.
 Żaden pojazd z podstawowej gry nie ma stałej ceny: gra liczy ją z prędkości i pojemności pojazdu przy wczytywaniu modelu (`model_metadata_util.lua:488-552`):
 
 1. **Koszty bieżące na rok** = około 675 × średnia prędkość (m/s) × pojemność / 4 (`model_metadata_util.lua:499-518`). Liczba 675 pochodzi ze średniego przychodu na km, zmniejszonego, by zostawić miejsce na puste kursy powrotne, zakup i spadające ceny biletów (`model_metadata_util.lua:500-508`).
-2. **Średnia prędkość** jest niższa od maksymalnej: dla pojazdów drogowych (prędkość maksymalna w km/h)^0,78 + 4, dla pociągów ^0,86 + 10, statki 65 % prędkości maksymalnej (`model_metadata_util.lua:448-474`).
+2. **Średnia prędkość** jest niższa od maksymalnej (v w km/h): pojazdy drogowe i tramwaje v^0,78 + 4, pociągi v^0,86 + 10, samoloty −0,0000203 × v² + 0,17 × v + 28,36 (v najwyżej 4000), statki 65 % prędkości maksymalnej (`model_metadata_util.lua:448-474`).
 3. **Pociągi**: wagon liczy się jako połowa swojej pojemności; lokomotywa liczy też moc ÷ prędkość maksymalną (km/h) × 12,5 jako pojemność, również o połowę (`model_metadata_util.lua:511-512`, `model_metadata_util.lua:526-540`). Mocna, wolna lokomotywa jest droga.
 4. **Cena** = **6 ×** roczne koszty bieżące (`model_metadata_util.lua:548-549`).
 

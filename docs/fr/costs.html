@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Coût des infrastructures</strong> règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Entretien des infrastructures</strong> règle leur entretien<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Coût des infrastructures</strong> règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Il règle aussi le coût de démolition des bâtiments<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Entretien des infrastructures</strong> règle leur entretien<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
 <li><strong>Coût des véhicules</strong> et <strong>Entretien des véhicules</strong> règlent le prix d'achat et les coûts d'exploitation de chaque véhicule<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Effet de la maintenance des véhicules</strong> règle à quel point un véhicule en mauvais état perd vitesse, puissance et confort et gagne bruit, pollution et coûts d'exploitation<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>La caténaire ajoute <strong>30 %</strong> du prix de la voie ; une voie de bus 10 %, une voie de tram 20 %, une voie de tram électrique 40 % du prix de la rue<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
-<li>Relever le terrain coûte 4,5 par m³, l'abaisser 5,25 par m³, supprimer un champ 200 000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
-<li>Un bâtiment qui ne fixe pas d'entretien paie <strong>un sixième de son prix</strong> par an<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Relever le terrain coûte 4,5 par m³, l'abaisser 5,25 par m³, les deux × Coût des infrastructures ; supprimer un champ 200 000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>, <code class="src">mod.script.tl:225-226</code>)</span>.</li>
+<li>Un bâtiment qui ne fixe pas d'entretien paie <strong>un sixième de son prix</strong> par an, calculé sur le prix avant le réglage Coût des infrastructures<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
 <li>La config de base fixe un facteur de remboursement à la démolition de 0,75 et un délai de 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span> : démolir ce que tu viens de construire rend la plus grande partie de l'argent. C'est le moteur qui l'applique.</li>
 </ul>
 <p>Entretien annuel écrit dans les fichiers, pour la première variante (avant 1940) et les suivantes ; les entrepôts reçoivent en plus le facteur d'année ci-dessus :</p>
@@ -197,7 +197,7 @@
 <p>Aucun véhicule du jeu de base n'a de prix fixe : le jeu le calcule à partir de la vitesse et de la capacité du véhicule quand il charge le modèle<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span> :</p>
 <ol>
 <li><strong>Coûts d'exploitation par an</strong> = environ 675 × vitesse moyenne (m/s) × capacité / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. Le 675 vient du revenu moyen par km, réduit pour laisser de la marge aux retours à vide, à l'achat et à la baisse du prix des billets<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
-<li>La <strong>vitesse moyenne</strong> est inférieure à la vitesse maximale : pour les véhicules routiers (vitesse max en km/h)^0,78 + 4, pour les trains ^0,86 + 10, les bateaux 65 % de la vitesse max<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li>La <strong>vitesse moyenne</strong> est inférieure à la vitesse maximale (v en km/h) : véhicules routiers et trams v^0,78 + 4, trains v^0,86 + 10, avions −0,0000203 × v² + 0,17 × v + 28,36 (v au plus 4 000), bateaux 65 % de la vitesse max<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
 <li><strong>Trains</strong> : un wagon compte la moitié de sa capacité ; une locomotive compte en plus puissance ÷ vitesse max (km/h) × 12,5 comme capacité, divisée par deux aussi<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. Une locomotive puissante et lente coûte cher.</li>
 <li><strong>Prix</strong> = <strong>6 ×</strong> les coûts d'exploitation annuels<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
 </ol>

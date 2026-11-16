@@ -25,7 +25,7 @@ El ajuste **Inflación** no sube ningún coste: solo baja tus ingresos a medida 
 | **Efecto del mantenimiento de vehículos** | Ninguno ×0 · Bajo ×0,5 · Medio ×1 · Alto ×1,5 · Muy alto ×2 | Bajo · Medio · Alto · Muy alto | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflación** | solo ingresos, ver [Ingresos por cargamento](income.html) | Baja · Normal · Alta · Muy alta | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Gastos de infraestructura** escala el precio de calles, vías, puentes, túneles, cruces, edificios y módulos, y también de los trabajos de terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Conservación de infraestructura** escala su conservación (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Gastos de infraestructura** escala el precio de calles, vías, puentes, túneles, cruces, edificios y módulos, y también de los trabajos de terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). También escala el coste de demolición de los edificios (`construction.script.tl:39-44`). **Conservación de infraestructura** escala su conservación (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
 - **Gastos de vehículos** y **Mantenimiento de vehículos** escalan el precio de compra y los gastos de mantenimiento de cada vehículo (`post_run_util.tl:54-81`).
 - **Efecto del mantenimiento de vehículos** fija cuánto pierde un vehículo en mal estado en velocidad, potencia y comodidad, y cuánto gana en ruido, contaminación y gastos de mantenimiento (`mod.script.tl:241-245`).
 
@@ -54,8 +54,8 @@ Los archivos de calles y vías dan el precio y la conservación anual por metro;
 | Calle urbana moderna grande | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - La catenaria suma un **30 %** del precio de la vía; un carril bus, un 10 %; una vía de tranvía, un 20 %; una vía de tranvía eléctrico, un 40 % del precio de la calle (`mod.script.tl:24-28`).
-- Subir el terreno cuesta 4,5 por m³, bajarlo 5,25 por m³, y quitar un campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`).
-- Un edificio que no fija conservación paga **un sexto de su precio** al año (`construction.script.tl:25-27`).
+- Subir el terreno cuesta 4,5 por m³, bajarlo 5,25 por m³, ambos × Gastos de infraestructura; y quitar un campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Un edificio que no fija conservación paga **un sexto de su precio** al año, calculado sobre el precio antes del ajuste Gastos de infraestructura (`construction.script.tl:25-27`).
 - La configuración base fija un factor de reembolso al demoler de 0,75 y un tiempo de reembolso de 60 (`mod.script.tl:30-31`): si demueles lo que acabas de construir, recuperas la mayor parte del dinero. Lo aplica el motor.
 
 Conservación anual escrita en los archivos, para la primera variante (antes de 1940) y las siguientes; los almacenes reciben además el factor de año de arriba:
@@ -79,7 +79,7 @@ Construir cada uno de estos edificios cuesta **6 ×** su conservación (`rail_de
 Ningún vehículo del juego base tiene un precio fijo: el juego lo calcula a partir de la velocidad y la capacidad del vehículo al cargar el modelo (`model_metadata_util.lua:488-552`):
 
 1. **Gastos de mantenimiento al año** = unos 675 × velocidad media (m/s) × capacidad / 4 (`model_metadata_util.lua:499-518`). El 675 sale de los ingresos medios por km, reducidos para dejar margen a los viajes de vuelta vacíos, la compra y la bajada del precio de los billetes (`model_metadata_util.lua:500-508`).
-2. La **velocidad media** es menor que la velocidad máxima: para vehículos de carretera (velocidad máxima en km/h)^0,78 + 4, para trenes ^0,86 + 10, para barcos el 65 % de la velocidad máxima (`model_metadata_util.lua:448-474`).
+2. La **velocidad media** es menor que la velocidad máxima (v en km/h): vehículos de carretera y tranvías v^0,78 + 4, trenes v^0,86 + 10, aeronaves −0,0000203 × v² + 0,17 × v + 28,36 (v como máximo 4.000), barcos el 65 % de la velocidad máxima (`model_metadata_util.lua:448-474`).
 3. **Trenes**: un vagón cuenta la mitad de su capacidad; una locomotora cuenta además potencia ÷ velocidad máxima (km/h) × 12,5 como capacidad, también a la mitad (`model_metadata_util.lua:511-512`, `model_metadata_util.lua:526-540`). Una locomotora potente y lenta es cara.
 4. **Precio** = **6 ×** los gastos de mantenimiento anuales (`model_metadata_util.lua:548-549`).
 

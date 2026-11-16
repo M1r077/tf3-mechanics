@@ -93,7 +93,7 @@ The jobs are given when the line opens: in two tests all **20 jobs went to that 
 
 ## Transport Workers subsidy
 
-- It is offered only for an industry that ships or receives cargo and is not boosted yet (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- It is offered only for an industry with workplaces whose workers boost is not active yet and that shipped or received cargo over the last year, by the engine's yearly figures (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Whether receiving alone is enough depends on how the engine fills the production rules; it is not in the scripts.
 - It is completed when the workers boost becomes active: the same 10 of 20 different arrivals by your lines (`deliver_workers.script.tl:152-156`). Nothing else is counted; there is no hidden rule.
 - The progress bar on the contract card is "counted workers ÷ half the workplaces" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - The arrows on the contract map come from the **5 nearest towns**. They are only a hint: the script draws them by distance, not by who has the job (`deliver_workers.script.tl:297-317`).

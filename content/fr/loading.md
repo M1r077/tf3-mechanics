@@ -88,7 +88,7 @@ Chaque arrêt d'une ligne a une liste **Charge**, dans la fenêtre « Filtre de 
 | Option de « Filtre de fret » | Effet | Source |
 |---|---|---|
 | « Forcer le déchargement de tout le fret à l’arrivée » | décharge dans les stocks compatibles même pleins ; ce qui ne rentre pas est détruit. Désactivée pour un nouvel arrêt. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| « Détruire le fret à l’arrivée lorsque la configuration change » | détruit le fret à bord quand un autre fret attend d'être chargé à cet arrêt | `cargofilter_window.tl:767` |
+| « Détruire le fret à l’arrivée lorsque la configuration change » | décharge ou détruit le fret à bord quand du fret pour une autre configuration de chargement du véhicule attend à cet arrêt ; c'est le moteur qui choisit entre les deux | `cargofilter_window.tl:767` |
 | « Remplacer par un fret plus récent si disponible » | détruit le fret revenu à l'arrêt où il a été chargé, quand du fret plus récent du même type attend | `cargofilter_window.tl:778` |
 
 - Quand la première option est désactivée, l'icône du fret affiche « ≤ » et l'info-bulle « Décharger uniquement si les stocks ont de la capacité » (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

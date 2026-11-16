@@ -88,7 +88,7 @@ Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At
 | Option in "Cargo Filter" | What it does | Source |
 |---|---|---|
 | "Force Unload All Cargo On Arrival" | unloads into compatible stocks even when they are full; what does not fit is destroyed. Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| "Destroy Cargo On Arrival When Config Changes" | destroys the cargo on board when another cargo is waiting to be loaded at this stop | `cargofilter_window.tl:767` |
+| "Destroy Cargo On Arrival When Config Changes" | unloads or destroys the cargo on board when cargo for another load configuration of the vehicle is waiting at this stop; which of the two is up to the engine | `cargofilter_window.tl:767` |
 | "Replace with Newer Cargo if Available" | destroys cargo that came back to the stop where it was loaded, when newer cargo of the same type is waiting | `cargofilter_window.tl:778` |
 
 - With the first option off, the cargo icon shows "≤" and the tooltip "Unload Only if Stocks Have Capacity" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

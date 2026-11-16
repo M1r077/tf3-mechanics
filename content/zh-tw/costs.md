@@ -25,7 +25,7 @@ fact: 4 | 筆貸款可以同時存在
 | **車輛維修效果** | 無 ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 極高 ×2 | 低 · 中 · 高 · 極高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
 | **通貨膨脹** | 只影響收益，見 [貨運收益與配送時間](income.html) | 低 · 普通 · 高 · 極高 | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
 
-- **基礎設施成本** 決定道路、軌道、橋梁、隧道、平交道、建築與模組的價格，也包括地形工程（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。**基礎設施維護** 決定它們的維護費（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。
+- **基礎設施成本** 決定道路、軌道、橋梁、隧道、平交道、建築與模組的價格，也包括地形工程（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。它也決定建築的拆除費用（`construction.script.tl:39-44`）。**基礎設施維護** 決定它們的維護費（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。
 - **車輛成本** 與 **車輛維修** 決定每輛車輛的購買價格與運行成本（`post_run_util.tl:54-81`）。
 - **車輛維修效果** 決定狀況差的車輛會損失多少速度、功率與舒適度，又會增加多少噪音、污染與運行成本（`mod.script.tl:241-245`）。
 
@@ -54,8 +54,8 @@ fact: 4 | 筆貸款可以同時存在
 | 大型新城鎮街道 | 1940 | 54 萬 | 9 萬 | `town_new_large.street_template.lua:11`，`town_new_large.street_template.lua:91` |
 
 - 電纜會增加軌道價格的 **30 %**；公車專用道增加道路價格的 10 %，輕軌軌道 20 %，電氣化輕軌軌道 40 %（`mod.script.tl:24-28`）。
-- 抬高地形每立方公尺 4.5，降低地形每立方公尺 5.25，清除一塊農田 20 萬（`mod.script.tl:20-22`，`mod.script.tl:33`）。
-- 沒有設定維護費的建築，每年支付**價格的六分之一**（`construction.script.tl:25-27`）。
+- 抬高地形每立方公尺 4.5，降低地形每立方公尺 5.25（兩者都 × 基礎設施成本），清除一塊農田 20 萬（`mod.script.tl:20-22`，`mod.script.tl:33`，`mod.script.tl:225-226`）。
+- 沒有設定維護費的建築，每年支付**價格的六分之一**（依基礎設施成本設定之前的價格計算，`construction.script.tl:25-27`）。
 - 基本設定把拆除退款係數設為 0.75，退款時間設為 60（`mod.script.tl:30-31`）：拆掉剛蓋好的東西能拿回大部分的錢。由引擎套用。
 
 檔案中寫的每年維護費，第一個版本（1940 年以前）與之後的版本；貨物倉庫還要再乘上上面的年份係數：
@@ -79,7 +79,7 @@ fact: 4 | 筆貸款可以同時存在
 基本遊戲的車輛都沒有固定價格：遊戲在載入模型時，依車輛的速度與容量計算價格（`model_metadata_util.lua:488-552`）：
 
 1. **每年運行成本** = 約 675 × 平均速度（m/s）× 容量 ÷ 4（`model_metadata_util.lua:499-518`）。675 來自每公里的平均收益，並為空車回程、購買費用與下降的票價保留空間而調低（`model_metadata_util.lua:500-508`）。
-2. **平均速度**低於最高速度：道路車輛為（最高速度 km/h）^0.78 + 4，列車為 ^0.86 + 10，船舶為最高速度的 65 %（`model_metadata_util.lua:448-474`）。
+2. **平均速度**低於最高速度（v 為 km/h）：道路車輛與輕軌為 v^0.78 + 4，列車為 v^0.86 + 10，飛機為 −0.0000203 × v² + 0.17 × v + 28.36（v 最多 4,000），船舶為最高速度的 65 %（`model_metadata_util.lua:448-474`）。
 3. **列車**：車廂以容量的一半計算；機車還會把 功率 ÷ 最高速度（km/h）× 12.5 當作容量，同樣減半（`model_metadata_util.lua:511-512`，`model_metadata_util.lua:526-540`）。強勁而慢的機車很貴。
 4. **價格** = 每年運行成本的 **6 倍**（`model_metadata_util.lua:548-549`）。
 

@@ -103,7 +103,7 @@
 <p>工作岗位在线路开通时分配：两次测试中<strong>全部 20 个岗位都给了这个城镇</strong>，加成分别在游戏时间 <strong>346 秒和 925 秒</strong>后开始（其中一次只有 1 辆车）。当城镇站点碰到网络中车站的覆盖范围时，部分岗位给了远处的城镇，最后的工人到达所需时间长得多（964 秒）。使用 <a href="https://mod.io/g/transportfever3/m/worker-origins">Worker Origins</a> 和 <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> 测得；谁得到岗位仍由引擎决定。</p></div></aside>
 <h2 id="运输工人补贴"><span class="n">8</span><span>运输工人补贴</span></h2>
 <ul>
-<li>只会为运出或接收货物、且尚未获得加成的产业提供<span class="sr">（<code class="src">deliver_workers.script.tl:121-131</code>、<code class="src">industry_util.tl:541-553</code>）</span>。</li>
+<li>只会为有工作岗位、工人加成尚未生效、并且按引擎的年度数据在过去一年运出或接收过货物的产业提供<span class="sr">（<code class="src">deliver_workers.script.tl:121-131</code>、<code class="src">industry_util.tl:541-558</code>）</span>。只接收货物是否足够，取决于引擎如何填写生产规则，脚本中没有。</li>
 <li>工人加成激活时完成：同样是 20 个中有 10 个不同的人乘你的线路到达<span class="sr">（<code class="src">deliver_workers.script.tl:152-156</code>）</span>。不计其他东西；没有隐藏规则。</li>
 <li>合同卡上的进度条是“计入的工人 ÷ 工作岗位的一半”<span class="sr">（<code class="src">deliver_workers.script.tl:267-272</code>、<code class="src">industry_util.tl:11-18</code>）</span>。</li>
 <li>合同地图上的箭头来自<strong>最近的 5 个城镇</strong>。它们只是提示：脚本按距离画出，而不是按谁有这份工作<span class="sr">（<code class="src">deliver_workers.script.tl:297-317</code>）</span>。</li>

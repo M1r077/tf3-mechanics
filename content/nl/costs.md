@@ -25,7 +25,7 @@ De instelling **Inflatie** verhoogt geen enkele kost: ze verlaagt alleen je inko
 | **Effect voertuigonderhoud** | Geen ×0 · Laag ×0,5 · Gemiddeld ×1 · Hoog ×1,5 · Zeer hoog ×2 | Laag · Gemiddeld · Hoog · Zeer hoog | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflatie** | alleen inkomsten, zie [Vrachtinkomsten](income.html) | Laag · Gemiddeld · Hoog · Zeer hoog | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Kosten infrastructuur** schaalt de prijs van straten, sporen, bruggen, tunnels, overwegen, gebouwen en modules, en ook terreinwerk (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Onderhoud infrastructuur** schaalt hun onderhoud (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Kosten infrastructuur** schaalt de prijs van straten, sporen, bruggen, tunnels, overwegen, gebouwen en modules, en ook terreinwerk (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Het schaalt ook de sloopkosten van gebouwen (`construction.script.tl:39-44`). **Onderhoud infrastructuur** schaalt hun onderhoud (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
 - **Kosten voertuigen** en **Voertuigonderhoud** schalen de aankoopprijs en de gebruikskosten van elk voertuig (`post_run_util.tl:54-81`).
 - **Effect voertuigonderhoud** bepaalt hoe sterk een voertuig in slechte staat snelheid, vermogen en comfort verliest en meer geluid, vervuiling en gebruikskosten krijgt (`mod.script.tl:241-245`).
 
@@ -54,8 +54,8 @@ Straat- en spoorbestanden geven de prijs en het jaarlijkse onderhoud per meter; 
 | Grote nieuwe stadsstraat | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Een bovenleiding kost **30 %** van de spoorprijs extra; een busbaan 10 %, een tramspoor 20 %, een elektrisch tramspoor 40 % van de straatprijs (`mod.script.tl:24-28`).
-- Terrein ophogen kost 4,5 per m³, verlagen 5,25 per m³, een akker weghalen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`).
-- Een gebouw zonder eigen onderhoud betaalt **een zesde van zijn prijs** per jaar (`construction.script.tl:25-27`).
+- Terrein ophogen kost 4,5 per m³, verlagen 5,25 per m³, beide × Kosten infrastructuur; een akker weghalen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Een gebouw zonder eigen onderhoud betaalt **een zesde van zijn prijs** per jaar, berekend op de prijs vóór de instelling Kosten infrastructuur (`construction.script.tl:25-27`).
 - De basisconfiguratie zet een sloopvergoeding van 0,75 en een termijn van 60 (`mod.script.tl:30-31`): wat je net hebt gebouwd, levert bij slopen het meeste geld terug. De engine past dit toe.
 
 Jaarlijks onderhoud volgens de bestanden, voor de eerste variant (vóór 1940) en de latere; opslagplaatsen krijgen daar ook nog de jaarfactor hierboven bovenop:
@@ -79,7 +79,7 @@ Elk van deze gebouwen kost **6 ×** zijn onderhoud om te bouwen (`rail_depot.con
 Geen voertuig uit het basisspel heeft een vaste prijs: het spel berekent die uit de snelheid en de capaciteit van het voertuig als het model wordt geladen (`model_metadata_util.lua:488-552`):
 
 1. **Gebruikskosten per jaar** = ongeveer 675 × gemiddelde snelheid (m/s) × capaciteit / 4 (`model_metadata_util.lua:499-518`). De 675 komt van de gemiddelde inkomsten per km, verlaagd om ruimte te laten voor lege terugritten, de aankoop en de dalende ticketprijzen (`model_metadata_util.lua:500-508`).
-2. De **gemiddelde snelheid** ligt onder de topsnelheid: voor wegvoertuigen (topsnelheid in km/h)^0,78 + 4, voor treinen ^0,86 + 10, schepen 65 % van de topsnelheid (`model_metadata_util.lua:448-474`).
+2. De **gemiddelde snelheid** ligt onder de topsnelheid (v in km/h): wegvoertuigen en trams v^0,78 + 4, treinen v^0,86 + 10, vliegtuigen −0,0000203 × v² + 0,17 × v + 28,36 (v hoogstens 4.000), schepen 65 % van de topsnelheid (`model_metadata_util.lua:448-474`).
 3. **Treinen**: een wagon telt de helft van zijn capaciteit; een locomotief telt ook vermogen ÷ topsnelheid (km/h) × 12,5 als capaciteit, ook gehalveerd (`model_metadata_util.lua:511-512`, `model_metadata_util.lua:526-540`). Een sterke, trage locomotief is duur.
 4. **Prijs** = **6 ×** de jaarlijkse gebruikskosten (`model_metadata_util.lua:548-549`).
 

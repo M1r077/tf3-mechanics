@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>インフラコスト</strong> は道路、線路、橋、トンネル、踏切、建物、モジュールの価格と、地形の造成にかかる費用を変える<span class="sr">（<code class="src">post_run_util.tl:23-52</code>、<code class="src">post_run_util.tl:83-120</code>、<code class="src">construction.script.tl:31-35</code>、<code class="src">mod.script.tl:223-226</code>）</span>。<strong>インフラ維持費</strong> はそれらの維持費を変える<span class="sr">（<code class="src">post_run_util.tl:43-45</code>、<code class="src">post_run_util.tl:105-112</code>、<code class="src">entity_window_util.tl:186</code>）</span>。</li>
+<li><strong>インフラコスト</strong> は道路、線路、橋、トンネル、踏切、建物、モジュールの価格と、地形の造成にかかる費用を変える<span class="sr">（<code class="src">post_run_util.tl:23-52</code>、<code class="src">post_run_util.tl:83-120</code>、<code class="src">construction.script.tl:31-35</code>、<code class="src">mod.script.tl:223-226</code>）</span>。建物の撤去費用も変える<span class="sr">（<code class="src">construction.script.tl:39-44</code>）</span>。<strong>インフラ維持費</strong> はそれらの維持費を変える<span class="sr">（<code class="src">post_run_util.tl:43-45</code>、<code class="src">post_run_util.tl:105-112</code>、<code class="src">entity_window_util.tl:186</code>）</span>。</li>
 <li><strong>車両コスト</strong> と <strong>車両整備</strong> は、すべての車両の購入価格とランニングコストを変える<span class="sr">（<code class="src">post_run_util.tl:54-81</code>）</span>。</li>
 <li><strong>車両整備エフェクト</strong> は、状態の悪い車両がどれだけ速度、出力、快適性を失い、騒音、汚染、ランニングコストが増えるかを決める<span class="sr">（<code class="src">mod.script.tl:241-245</code>）</span>。</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>懸垂線は線路の価格の <strong>30 %</strong> を加える。バスレーンは道路の価格の 10 %、路面電車の線路は 20 %、電化された路面電車の線路は 40 % を加える<span class="sr">（<code class="src">mod.script.tl:24-28</code>）</span>。</li>
-<li>地形を盛るのは 1 m³ あたり 4.5、削るのは 1 m³ あたり 5.25、畑を取り除くのは 20万 かかる<span class="sr">（<code class="src">mod.script.tl:20-22</code>、<code class="src">mod.script.tl:33</code>）</span>。</li>
-<li>維持費を指定していない建物は、毎年<strong>価格の 6 分の 1</strong> を払う<span class="sr">（<code class="src">construction.script.tl:25-27</code>）</span>。</li>
+<li>地形を盛るのは 1 m³ あたり 4.5、削るのは 1 m³ あたり 5.25（どちらもインフラコストを掛ける）、畑を取り除くのは 20万 かかる<span class="sr">（<code class="src">mod.script.tl:20-22</code>、<code class="src">mod.script.tl:33</code>、<code class="src">mod.script.tl:225-226</code>）</span>。</li>
+<li>維持費を指定していない建物は、毎年<strong>価格の 6 分の 1</strong> を払う（インフラコストの設定を掛ける前の価格から計算<span class="sr">、<code class="src">construction.script.tl:25-27</code></span>）。</li>
 <li>基本設定は撤去の払い戻し係数を 0.75、払い戻し時間を 60 にしている<span class="sr">（<code class="src">mod.script.tl:30-31</code>）</span>。建てたばかりのものを取り壊すと、ほとんどのお金が戻る。これを適用するのはエンジンである。</li>
 </ul>
 <p>ファイルに書かれた年間の維持費。最初の種類（1940 年より前）と後の種類。貨物倉庫にはさらに上の年係数がかかる。</p>
@@ -197,7 +197,7 @@
 <p>基本ゲームの車両には固定の価格がない。ゲームはモデルを読み込むときに、車両の速度と容量から価格を計算する<span class="sr">（<code class="src">model_metadata_util.lua:488-552</code>）</span>。</p>
 <ol>
 <li><strong>年間のランニングコスト</strong> = 約 675 × 平均速度（m/s）× 容量 ÷ 4<span class="sr">（<code class="src">model_metadata_util.lua:499-518</code>）</span>。675 は 1 km あたりの平均収入から来ていて、空の帰り便、購入費、運賃の下落の分を残すために減らしてある<span class="sr">（<code class="src">model_metadata_util.lua:500-508</code>）</span>。</li>
-<li><strong>平均速度</strong>は最高速度より低い。道路車両は（最高速度 km/h）^0.78 + 4、列車は ^0.86 + 10、船舶は最高速度の 65 % である<span class="sr">（<code class="src">model_metadata_util.lua:448-474</code>）</span>。</li>
+<li><strong>平均速度</strong>は最高速度より低い（v は km/h）。道路車両と路面電車は v^0.78 + 4、列車は v^0.86 + 10、航空機は −0.0000203 × v² + 0.17 × v + 28.36（v は最大 4,000）、船舶は最高速度の 65 % である<span class="sr">（<code class="src">model_metadata_util.lua:448-474</code>）</span>。</li>
 <li><strong>列車</strong>：貨車は容量の半分で数える。機関車は出力 ÷ 最高速度（km/h）× 12.5 も容量として数え、これも半分にする<span class="sr">（<code class="src">model_metadata_util.lua:511-512</code>、<code class="src">model_metadata_util.lua:526-540</code>）</span>。強力で遅い機関車は高い。</li>
 <li><strong>価格</strong> = 年間のランニングコストの <strong>6 倍</strong><span class="sr">（<code class="src">model_metadata_util.lua:548-549</code>）</span>。</li>
 </ol>

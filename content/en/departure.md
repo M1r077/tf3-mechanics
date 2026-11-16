@@ -50,7 +50,7 @@ The Fill Level is the most of that cargo the vehicle takes at this stop, as a sh
 - **Full Load (Any)**: the vehicle leaves when one cargo is full. A timber and planks train left with 143 and 144 logs after 369–380 s; two other departures after about 30 s with 57 and 118 logs are not explained.
 - **Max. Stop Time** ends the wait, even with nothing loaded. A vegetables train in Full Load (All) with a 120 s maximum either filled up (64 of 64) in about 25 s, or left after 116–120 s with 26 or **0**. With the default 600 s it left with 26 of 64 after 596–600 s.
 - **Min. Stop Time** is the whole stop, loading included, not extra time after it: with 60 s, glass trains stopped 55–61 s every time, whatever they loaded.
-- **Max. Additional Wait**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:827`). The vehicle window shows "Ensuring safe distance" while it waits (`entity_window_util.tl:2279-2286`).
+- **Max. Additional Wait**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). The vehicle window shows "Ensuring safe distance" while it waits (`entity_window_util.tl:2279-2286`).
 - **Several vehicles at one stop load at the same time**, whenever each one arrived (seen in game). Two timber trucks that arrived about 90 s apart left at the same second, each with 8. How the cargo is shared between them was not measured.
 
 ```engine

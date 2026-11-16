@@ -88,7 +88,7 @@ Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ 
 | Option im „Güterfilter“ | Wirkung | Quelle |
 |---|---|---|
 | „Entladen aller Güter nach Ankunft erzwingen“ | entlädt in passende Bestände, auch wenn sie voll sind; was nicht hineinpasst, wird zerstört. Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| „Bei Konfigurationsänderung Güter nach Ankunft zerstören“ | zerstört die Fracht an Bord, wenn an diesem Halt eine andere Fracht zum Laden wartet | `cargofilter_window.tl:767` |
+| „Bei Konfigurationsänderung Güter nach Ankunft zerstören“ | entlädt oder zerstört die Fracht an Bord, wenn an diesem Halt Fracht für eine andere Ladekonfiguration des Fahrzeugs wartet; was davon geschieht, entscheidet die Engine | `cargofilter_window.tl:767` |
 | „Durch neuere Güter ersetzen, falls verfügbar“ | zerstört Fracht, die zu dem Halt zurückgekommen ist, an dem sie geladen wurde, wenn neuere Fracht derselben Art wartet | `cargofilter_window.tl:778` |
 
 - Ist die erste Option aus, zeigt das Frachtsymbol „≤“ und der Tooltip „Entladen nur, wenn Lagerkapazität vorhanden“ (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

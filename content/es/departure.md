@@ -50,7 +50,7 @@ El nivel de llenado es lo máximo de ese cargamento que el vehículo toma en est
 - **Capacidad máxima (cualquiera)**: el vehículo sale cuando un cargamento está lleno. Un tren de troncos y tablones salió con 143 y 144 troncos tras 369–380 s; otras dos salidas tras unos 30 s con 57 y 118 troncos no tienen explicación.
 - **Tiempo de parada máx.** termina la espera, aunque no se haya cargado nada. Un tren de vegetales en Capacidad máxima (todo) con un máximo de 120 s o bien se llenó (64 de 64) en unos 25 s, o bien salió tras 116–120 s con 26 o **0**. Con los 600 s por defecto salió con 26 de 64 tras 596–600 s.
 - **Tiempo de parada mín.** es la parada entera, carga incluida, no tiempo extra después: con 60 s, los trenes de vidrio pararon 55–61 s cada vez, cargaran lo que cargaran.
-- **Espera adicional máxima**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:827`). La ventana del vehículo muestra "Garantizando una distancia segura" mientras espera (`entity_window_util.tl:2279-2286`).
+- **Espera adicional máxima**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). La ventana del vehículo muestra "Garantizando una distancia segura" mientras espera (`entity_window_util.tl:2279-2286`).
 - **Varios vehículos en una misma parada cargan a la vez**, llegara cuando llegara cada uno (visto en el juego). Dos camiones de troncos que llegaron con unos 90 s de diferencia salieron en el mismo segundo, cada uno con 8. No se midió cómo se reparte el cargamento entre ellos.
 
 ```engine

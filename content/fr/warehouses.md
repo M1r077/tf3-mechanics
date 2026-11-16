@@ -43,7 +43,7 @@ Un entrepôt, c'est une entrée et un ensemble de **modules**. Il stocke le fret
 - Une ligne par stock : le fret qu'il prend, la quantité, et le **Délai de livraison moyen restant** au survol (`entity_window_util.tl:408-410`).
 - **Réserver un type de fret** : sur un module spécialisé, clique sur une icône de fret. Le jeu reconstruit l'entrepôt avec ce module réservé à ce fret (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). Retirer ou remplacer le module supprime sa réservation (`warehouse.script.lua:403-405`).
 - **Décharger tout le fret** : vide cette ligne d'un coup (`entity_window_util.tl:423-434`). Le fret est perdu.
-- Les deux boutons n'existent que sur tes propres entrepôts (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Les deux boutons ne manquent que sur un entrepôt qui appartient à un autre joueur ; les tiens et les entrepôts sans propriétaire les ont (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - Le graphique **Statistiques** montre **Entrant** (déchargé) et **Sortant** (chargé) par an (`warehouse_eow.script.tl:159-160`).
 
 ## Coûts et pollution

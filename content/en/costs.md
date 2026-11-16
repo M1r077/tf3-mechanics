@@ -25,7 +25,7 @@ The **Inflation** setting does not raise any cost: it only lowers your income as
 | **Vehicle Maintenance Effect** | None ×0 · Low ×0.5 · Medium ×1 · High ×1.5 · Very High ×2 | Low · Medium · High · Very High | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflation** | income only, see [Cargo income](income.html) | Low · Normal · High · Very High | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Infrastructure Costs** scales the price of streets, tracks, bridges, tunnels, crossings, buildings and modules, and also terrain work (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Infrastructure Upkeep** scales their upkeep (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Infrastructure Costs** scales the price of streets, tracks, bridges, tunnels, crossings, buildings and modules, and also terrain work (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). It also scales the bulldoze cost of buildings (`construction.script.tl:39-44`). **Infrastructure Upkeep** scales their upkeep (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
 - **Vehicle Costs** and **Vehicle Maintenance** scale the purchase price and the running costs of every vehicle (`post_run_util.tl:54-81`).
 - **Vehicle Maintenance Effect** sets how strongly a vehicle in bad condition loses speed, power and comfort and gains noise, pollution and running costs (`mod.script.tl:241-245`).
 
@@ -54,8 +54,8 @@ Street and track files give the price and the yearly upkeep per metre; the build
 | Large new town street | 1940 | 540,000 | 90,000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Catenary adds **30 %** of the track price; a bus lane 10 %, a tram track 20 %, an electric tram track 40 % of the street price (`mod.script.tl:24-28`).
-- Raising terrain costs 4.5 per m³, lowering it 5.25 per m³, removing a field 200,000 (`mod.script.tl:20-22`, `mod.script.tl:33`).
-- A building that sets no upkeep pays **one sixth of its price** per year (`construction.script.tl:25-27`).
+- Raising terrain costs 4.5 per m³, lowering it 5.25 per m³, both × Infrastructure Costs; removing a field 200,000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- A building that sets no upkeep pays **one sixth of its price** per year, taken from the price before the Infrastructure Costs setting (`construction.script.tl:25-27`).
 - The base config sets a bulldoze refund factor of 0.75 and a refund time of 60 (`mod.script.tl:30-31`): removing what you just built gives most of the money back. The engine applies it.
 
 Yearly upkeep written in the files, for the first variant (before 1940) and the later ones; warehouses also get the year factor above on top:
@@ -79,7 +79,7 @@ Each of these buildings costs **6 ×** its upkeep to build (`rail_depot.con.lua:
 No base-game vehicle has a fixed price: the game computes it from the vehicle's speed and capacity when it loads the model (`model_metadata_util.lua:488-552`):
 
 1. **Running costs per year** = about 675 × average speed (m/s) × capacity / 4 (`model_metadata_util.lua:499-518`). The 675 comes from the average income per km, reduced to leave room for empty return trips, the purchase and the falling ticket prices (`model_metadata_util.lua:500-508`).
-2. The **average speed** is below the top speed: for road vehicles (top speed in km/h)^0.78 + 4, for trains ^0.86 + 10, ships 65 % of the top speed (`model_metadata_util.lua:448-474`).
+2. The **average speed** is below the top speed (v in km/h): road vehicles and trams v^0.78 + 4, trains v^0.86 + 10, aircraft −0.0000203 × v² + 0.17 × v + 28.36 (v at most 4,000), ships 65 % of the top speed (`model_metadata_util.lua:448-474`).
 3. **Trains**: a wagon counts half its capacity; a locomotive also counts power ÷ top speed (km/h) × 12.5 as capacity, halved too (`model_metadata_util.lua:511-512`, `model_metadata_util.lua:526-540`). A strong, slow locomotive is expensive.
 4. **Price** = **6 ×** the yearly running costs (`model_metadata_util.lua:548-549`).
 

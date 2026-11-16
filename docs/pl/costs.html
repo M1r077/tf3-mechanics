@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Koszty infrastruktury</strong> skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Utrzymanie infrastruktury</strong> skaluje ich utrzymanie<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Koszty infrastruktury</strong> skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Skalują też koszt rozbiórki budynków<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Utrzymanie infrastruktury</strong> skaluje ich utrzymanie<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
 <li><strong>Koszty pojazdów</strong> i <strong>Konserwacja pojazdów</strong> skalują cenę zakupu i koszty bieżące każdego pojazdu<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Wpływ konserwacji pojazdów</strong> ustala, jak mocno pojazd w złym stanie traci prędkość, moc i komfort oraz zyskuje hałas, zanieczyszczenie i koszty bieżące<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>Sieć trakcyjna dodaje <strong>30 %</strong> ceny toru; buspas 10 %, tor tramwajowy 20 %, elektryczny tor tramwajowy 40 % ceny ulicy<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
-<li>Podniesienie terenu kosztuje 4,5 za m³, obniżenie 5,25 za m³, usunięcie pola 200 000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
-<li>Budynek bez własnego utrzymania płaci rocznie <strong>jedną szóstą swojej ceny</strong><span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Podniesienie terenu kosztuje 4,5 za m³, obniżenie 5,25 za m³, oba × Koszty infrastruktury; usunięcie pola 200 000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>, <code class="src">mod.script.tl:225-226</code>)</span>.</li>
+<li>Budynek bez własnego utrzymania płaci rocznie <strong>jedną szóstą swojej ceny</strong>, liczoną od ceny przed ustawieniem Koszty infrastruktury<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
 <li>Podstawowa konfiguracja ustawia współczynnik zwrotu przy wyburzeniu 0,75 i czas zwrotu 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span>: wyburzenie tego, co właśnie zbudowałeś, oddaje większość pieniędzy. Stosuje to silnik.</li>
 </ul>
 <p>Roczne utrzymanie zapisane w plikach, dla pierwszego wariantu (przed 1940) i późniejszych; magazyny dostają dodatkowo mnożnik roku opisany wyżej:</p>
@@ -197,7 +197,7 @@
 <p>Żaden pojazd z podstawowej gry nie ma stałej ceny: gra liczy ją z prędkości i pojemności pojazdu przy wczytywaniu modelu<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span>:</p>
 <ol>
 <li><strong>Koszty bieżące na rok</strong> = około 675 × średnia prędkość (m/s) × pojemność / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. Liczba 675 pochodzi ze średniego przychodu na km, zmniejszonego, by zostawić miejsce na puste kursy powrotne, zakup i spadające ceny biletów<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
-<li><strong>Średnia prędkość</strong> jest niższa od maksymalnej: dla pojazdów drogowych (prędkość maksymalna w km/h)^0,78 + 4, dla pociągów ^0,86 + 10, statki 65 % prędkości maksymalnej<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li><strong>Średnia prędkość</strong> jest niższa od maksymalnej (v w km/h): pojazdy drogowe i tramwaje v^0,78 + 4, pociągi v^0,86 + 10, samoloty −0,0000203 × v² + 0,17 × v + 28,36 (v najwyżej 4000), statki 65 % prędkości maksymalnej<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
 <li><strong>Pociągi</strong>: wagon liczy się jako połowa swojej pojemności; lokomotywa liczy też moc ÷ prędkość maksymalną (km/h) × 12,5 jako pojemność, również o połowę<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. Mocna, wolna lokomotywa jest droga.</li>
 <li><strong>Cena</strong> = <strong>6 ×</strong> roczne koszty bieżące<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
 </ol>

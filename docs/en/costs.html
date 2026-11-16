@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Infrastructure Costs</strong> scales the price of streets, tracks, bridges, tunnels, crossings, buildings and modules, and also terrain work<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Infrastructure Upkeep</strong> scales their upkeep<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Infrastructure Costs</strong> scales the price of streets, tracks, bridges, tunnels, crossings, buildings and modules, and also terrain work<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. It also scales the bulldoze cost of buildings<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Infrastructure Upkeep</strong> scales their upkeep<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
 <li><strong>Vehicle Costs</strong> and <strong>Vehicle Maintenance</strong> scale the purchase price and the running costs of every vehicle<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Vehicle Maintenance Effect</strong> sets how strongly a vehicle in bad condition loses speed, power and comfort and gains noise, pollution and running costs<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>Catenary adds <strong>30 %</strong> of the track price; a bus lane 10 %, a tram track 20 %, an electric tram track 40 % of the street price<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
-<li>Raising terrain costs 4.5 per m³, lowering it 5.25 per m³, removing a field 200,000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
-<li>A building that sets no upkeep pays <strong>one sixth of its price</strong> per year<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Raising terrain costs 4.5 per m³, lowering it 5.25 per m³, both × Infrastructure Costs; removing a field 200,000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>, <code class="src">mod.script.tl:225-226</code>)</span>.</li>
+<li>A building that sets no upkeep pays <strong>one sixth of its price</strong> per year, taken from the price before the Infrastructure Costs setting<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
 <li>The base config sets a bulldoze refund factor of 0.75 and a refund time of 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span>: removing what you just built gives most of the money back. The engine applies it.</li>
 </ul>
 <p>Yearly upkeep written in the files, for the first variant (before 1940) and the later ones; warehouses also get the year factor above on top:</p>
@@ -197,7 +197,7 @@
 <p>No base-game vehicle has a fixed price: the game computes it from the vehicle's speed and capacity when it loads the model<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span>:</p>
 <ol>
 <li><strong>Running costs per year</strong> = about 675 × average speed (m/s) × capacity / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. The 675 comes from the average income per km, reduced to leave room for empty return trips, the purchase and the falling ticket prices<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
-<li>The <strong>average speed</strong> is below the top speed: for road vehicles (top speed in km/h)^0.78 + 4, for trains ^0.86 + 10, ships 65 % of the top speed<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li>The <strong>average speed</strong> is below the top speed (v in km/h): road vehicles and trams v^0.78 + 4, trains v^0.86 + 10, aircraft −0.0000203 × v² + 0.17 × v + 28.36 (v at most 4,000), ships 65 % of the top speed<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
 <li><strong>Trains</strong>: a wagon counts half its capacity; a locomotive also counts power ÷ top speed (km/h) × 12.5 as capacity, halved too<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. A strong, slow locomotive is expensive.</li>
 <li><strong>Price</strong> = <strong>6 ×</strong> the yearly running costs<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
 </ol>

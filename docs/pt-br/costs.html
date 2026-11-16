@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Custos de Infraestrutura</strong> escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Manutenção de Infraestrutura</strong> escala a manutenção deles<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Custos de Infraestrutura</strong> escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Também escala o custo de demolição dos prédios<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Manutenção de Infraestrutura</strong> escala a manutenção deles<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
 <li><strong>Custos de Veículo</strong> e <strong>Manutenção de Veículos</strong> escalam o preço de compra e os custos operacionais de cada veículo<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Efeito da Manutenção do Veículo</strong> define o quanto um veículo em mau estado perde velocidade, potência e conforto e ganha ruído, poluição e custos operacionais<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>A catenária soma <strong>30%</strong> do preço do trilho; uma faixa de ônibus, 10%; um trilho de bonde, 20%; um trilho de bonde elétrico, 40% do preço da rua<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
-<li>Subir o terreno custa 4,5 por m³, baixá-lo 5,25 por m³, remover um campo 200.000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
-<li>Um prédio que não define manutenção paga <strong>um sexto do seu preço</strong> por ano<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Subir o terreno custa 4,5 por m³, baixá-lo 5,25 por m³, ambos × Custos de Infraestrutura; remover um campo 200.000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>, <code class="src">mod.script.tl:225-226</code>)</span>.</li>
+<li>Um prédio que não define manutenção paga <strong>um sexto do seu preço</strong> por ano, calculado sobre o preço antes da configuração Custos de Infraestrutura<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
 <li>A configuração base define um fator de reembolso na demolição de 0,75 e um tempo de reembolso de 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span>: demolir o que você acabou de construir devolve a maior parte do dinheiro. Quem aplica isso é o motor.</li>
 </ul>
 <p>Manutenção anual escrita nos arquivos, para a primeira variante (antes de 1940) e as seguintes; os armazéns recebem ainda o fator de ano acima:</p>
@@ -197,7 +197,7 @@
 <p>Nenhum veículo do jogo base tem preço fixo: o jogo o calcula a partir da velocidade e da capacidade do veículo quando carrega o modelo<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span>:</p>
 <ol>
 <li><strong>Custos operacionais por ano</strong> = cerca de 675 × velocidade média (m/s) × capacidade / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. O 675 vem da renda média por km, reduzida para deixar margem às viagens de volta vazias, à compra e à queda do preço das passagens<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
-<li>A <strong>velocidade média</strong> é menor que a velocidade máxima: para veículos viários (velocidade máxima em km/h)^0,78 + 4, para trens ^0,86 + 10, para navios 65% da velocidade máxima<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li>A <strong>velocidade média</strong> é menor que a velocidade máxima (v em km/h): veículos viários e bondes v^0,78 + 4, trens v^0,86 + 10, aeronaves −0,0000203 × v² + 0,17 × v + 28,36 (v no máximo 4.000), navios 65% da velocidade máxima<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
 <li><strong>Trens</strong>: um vagão conta metade da sua capacidade; uma locomotiva conta também potência ÷ velocidade máxima (km/h) × 12,5 como capacidade, também pela metade<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. Uma locomotiva forte e lenta é cara.</li>
 <li><strong>Preço</strong> = <strong>6 ×</strong> os custos operacionais anuais<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
 </ol>

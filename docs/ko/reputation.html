@@ -42,7 +42,7 @@
 </tr>
 <tr>
 <td><strong>조경</strong></td>
-<td>지형을 올리든 <strong>내리든</strong> m³당 0.00005 %: 200만 m³ = 100 %. 선로, 도로, 건물이 만드는 지형도 센다(50,000 m²가 넘는 건설은 최대 절반까지 줄어든다). 새 터널의 부피도 마찬가지다</td>
+<td>지형을 올리든 <strong>내리든</strong> m³당 0.00005 %: 200만 m³ = 100 %. 선로, 도로, 건물이 만드는 지형도 센다(10,000 m²부터 줄기 시작해 50,000 m² 이상에서 절반). 새 터널의 순 부피도 마찬가지다</td>
 <td class="sc"><code class="src">town_util.tl:873-886</code>, <code class="src">town_util.tl:1245-1269</code>, <code class="src">town_util.tl:1403-1436</code></td>
 </tr>
 <tr>
@@ -110,7 +110,7 @@
 <ul>
 <li><strong>저절로</strong>: 게임 시간 3개월(360초)마다 한 단계(1/6), 마케팅 캠페인 중에는 1개월(120초)마다<span class="sr">(<code class="src">towns.script.tl:121-135</code>)</span>. 달력 속도 ×1에서 1년에 약 <strong>67 %</strong>, 캠페인 중에는 <strong>200 %</strong>로, 0 %에서 가득 차기까지 약 1.5년이다. 마을 창의 <strong>연간 복구</strong> 33 %와 100 %는 고정된 문구이며 실제 속도의 절반이다<span class="sr">(<code class="src">town_react_util.tl:1066</code>)</span>. 테스트 마을에서 측정: 358초마다 한 단계, 캠페인 중에는 120초마다.</li>
 <li>복구는 늘어난 양을 모든 사유에 나눈다. 아직 끊긴 연결의 몫을 넘어서 돌아오지는 않는다<span class="sr">(<code class="src">town_util.tl:1649-1687</code>)</span>.</li>
-<li><strong>기념 행사</strong>는 마을에서 플레이어 노선에 첫 승객이 타면 <strong>+50 %</strong>, 마을에 첫 화물이 배송되면 +50 %, 마을이 레벨업할 때마다 +50 %, 각 산업에 첫 화물이 배송되면 가장 가까운 마을에 +20 %를 준다<span class="sr">(<code class="src">celebrations.script.tl:181-273</code>)</span>. 이때 메시지 끝에 <strong>정착지 평판이 향상되었습니다.</strong> 또는 <strong>… 마을의 평판이 향상되었습니다.</strong>가 붙는다<span class="sr">(<code class="src">celebration_react_util.tl:63-75</code>)</span>. 평판이 만점이 아닐 때만 세고, 캠페인 미션에서는 세지 않는다<span class="sr">(<code class="src">celebrations.script.tl:79-93</code>, <code class="src">celebrations.script.tl:140-142</code>)</span>.</li>
+<li><strong>기념 행사</strong>는 마을에서 플레이어 노선에 첫 승객이 타면 <strong>+50 %</strong>, 마을에 첫 화물이 배송되면 +50 %, 마을이 레벨업할 때마다 +50 %, 각 산업에 첫 화물이 배송되면 가장 가까운 마을에 +20 %를 준다<span class="sr">(<code class="src">celebrations.script.tl:181-273</code>)</span>. 이때 메시지 끝에 <strong>정착지 평판이 향상되었습니다.</strong> 또는 <strong>… 마을의 평판이 향상되었습니다.</strong>가 붙는다<span class="sr">(<code class="src">celebration_react_util.tl:63-75</code>)</span>. 평판이 끊긴 주요 연결이 아직 허용하는 값(만점에서 끊긴 연결마다 1/3을 뺀 값)보다 낮고 설정 평판이 켜기일 때만 세고, 캠페인 미션에서는 세지 않는다<span class="sr">(<code class="src">celebrations.script.tl:79-93</code>, <code class="src">celebrations.script.tl:140-142</code>)</span>.</li>
 <li><strong>마을 공급</strong>은 수락할 때 +5 %에서 +20 % × 위험 계수를 줄 수 있다<span class="sr">(<code class="src">deliver_cargo_town.script.tl:195-199</code>)</span>. 다른 증가와 마찬가지로 이미 있는 손실만 지운다<span class="sr">(<code class="src">towns.script.tl:324-330</code>)</span>.</li>
 </ul>
 <h2 id="마케팅-캠페인"><span class="n">4</span><span>마케팅 캠페인</span></h2>

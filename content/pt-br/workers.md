@@ -93,7 +93,7 @@ Os empregos são distribuídos quando a linha abre: em dois testes **os 20 empre
 
 ## Subsídio Transportar Trabalhadores
 
-- Só é oferecido para uma indústria que envia ou recebe carga e ainda não tem reforço (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Só é oferecido para uma indústria com postos de trabalho, cujo reforço de trabalhadores ainda não está ativo e que enviou ou recebeu carga no último ano, pelos números anuais do motor (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Se só receber basta depende de como o motor preenche as regras de produção; isso não está nos scripts.
 - É cumprido quando o reforço de trabalhadores fica ativo: as mesmas 10 de 20 chegadas diferentes pelas suas linhas (`deliver_workers.script.tl:152-156`). Nada mais é contado; não há regra escondida.
 - A barra de progresso no cartão do contrato é "trabalhadores contados ÷ metade dos locais de trabalho" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - As setas no mapa do contrato vêm dos **5 municípios mais próximos**. São só uma dica: o script as desenha pela distância, não por quem tem o emprego (`deliver_workers.script.tl:297-317`).

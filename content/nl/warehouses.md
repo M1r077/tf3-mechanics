@@ -43,7 +43,7 @@ Een opslagplaats is een ingang met een aantal **modules**. Ze bewaart vracht tus
 - Eén rij per voorraad: de vracht die ze aanneemt, de hoeveelheid, en bij aanwijzen de **Gemiddelde resterende bezorgtijd** (`entity_window_util.tl:408-410`).
 - **Een vrachttype vastzetten**: klik bij een gespecialiseerde module op een vrachtpictogram. Het spel bouwt de opslagplaats opnieuw, met die module gereserveerd voor deze vracht (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). De module verwijderen of vervangen wist de vastzetting (`warehouse.script.lua:403-405`).
 - **Alle vracht annuleren**: leegt die rij in één keer (`entity_window_util.tl:423-434`). De vracht gaat verloren.
-- Beide knoppen bestaan alleen bij je eigen opslagplaatsen (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Beide knoppen ontbreken alleen bij een opslagplaats van een andere speler; die van jou en opslagplaatsen zonder eigenaar hebben ze (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - De grafiek **Statistieken** toont **Inkomend** (gelost) en **Uitgaand** (geladen) per jaar (`warehouse_eow.script.tl:159-160`).
 
 ## Kosten en vervuiling

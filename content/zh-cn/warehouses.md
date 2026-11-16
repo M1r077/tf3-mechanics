@@ -43,7 +43,7 @@ fact: 0 | 在仓库卸下的货物带来的收入
 - 每个库存一行：它接收的货物、数量，以及悬停时显示的**平均剩余运输时间**（`entity_window_util.tl:408-410`）。
 - **固定货物类型**：在专用模块上点击一个货物图标。游戏会重建仓库，把该模块留给这种货物（`entity_window_util.tl:339-367`，`warehouse.script.lua:308`）。移除或替换模块会清除固定（`warehouse.script.lua:403-405`）。
 - **丢弃全部货物**：立即清空这一行（`entity_window_util.tl:423-434`）。货物会丢失。
-- 这两个按钮只出现在你自己的仓库上（`warehouse_eow.script.tl:127-137`，`gui/entity_window/warehouse/warehouse.tl:38`）。
+- 只有属于其他玩家的仓库没有这两个按钮；你自己的仓库和没有所有者的仓库都有（`warehouse_eow.script.tl:127-137`，`gui/entity_window/warehouse/warehouse.tl:38`，`entity_util.tl:83-86`）。
 - **数据**图表按年显示**即将抵达**（卸下的）和**即将出发**（装上的）（`warehouse_eow.script.tl:159-160`）。
 
 ## 成本与污染

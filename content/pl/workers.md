@@ -93,7 +93,7 @@ Miejsca pracy są rozdzielane, gdy linia rusza: w dwóch testach **wszystkie 20 
 
 ## Subsydium Przewieź pracowników
 
-- Jest oferowane tylko dla zakładu, który wysyła lub przyjmuje towary i nie ma jeszcze premii (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Jest oferowane tylko dla zakładu z miejscami pracy, którego premia za pracowników nie jest jeszcze aktywna i który w ostatnim roku wysłał lub przyjął towary, według rocznych danych silnika (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Czy wystarczy samo przyjmowanie, zależy od tego, jak silnik wypełnia reguły produkcji; nie ma tego w skryptach.
 - Jest wykonane, gdy premia za pracowników się włącza: te same 10 z 20 różnych przyjazdów twoimi liniami (`deliver_workers.script.tl:152-156`). Nic innego się nie liczy; nie ma ukrytej reguły.
 - Pasek postępu na karcie kontraktu to „zaliczeni pracownicy ÷ połowa miejsc pracy” (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Strzałki na mapie kontraktu wychodzą z **5 najbliższych miast**. To tylko wskazówka: skrypt rysuje je według odległości, a nie według tego, kto ma pracę (`deliver_workers.script.tl:297-317`).

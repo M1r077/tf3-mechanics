@@ -88,7 +88,7 @@ Cada parada de una línea tiene una lista **Carga**, en la ventana "Filtro de ca
 | Opción de "Filtro de cargamento" | Qué hace | Fuente |
 |---|---|---|
 | "Forzar la descarga de todo el cargamento al llegar" | descarga en las existencias compatibles aunque estén llenas; lo que no cabe se destruye. Desactivada en una parada nueva. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| "Destruir el cargamento al llegar cuando cambie la configuración" | destruye el cargamento a bordo cuando otro cargamento espera para cargarse en esta parada | `cargofilter_window.tl:767` |
+| "Destruir el cargamento al llegar cuando cambie la configuración" | descarga o destruye el cargamento a bordo cuando en esta parada espera carga para otra configuración de carga del vehículo; cuál de las dos cosas pasa lo decide el motor | `cargofilter_window.tl:767` |
 | "Sustituir por cargamento nuevo si hay disponibilidad" | destruye el cargamento que volvió a la parada donde se cargó, cuando espera cargamento más nuevo del mismo tipo | `cargofilter_window.tl:778` |
 
 - Con la primera opción desactivada, el icono del cargamento muestra "≤" y la descripción emergente "Descargar si no se ha alcanzado el límite de existencias" (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

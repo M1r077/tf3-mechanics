@@ -25,7 +25,7 @@ fact: 4 | 笔贷款可同时存在
 | **载具老化影响** | 无 ×0 · 低 ×0.5 · 中 ×1 · 高 ×1.5 · 非常高 ×2 | 低 · 中 · 高 · 非常高 | `difficulty_util.tl:42`，`difficulty_util.tl:103`，`difficulty_util.tl:185` |
 | **通货膨胀** | 只影响收入，见 [货物收入与运输时间](income.html) | 低 · 正常 · 高 · 非常高 | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
 
-- **基础设施成本** 决定道路、轨道、桥梁、隧道、道口、建筑和模块的价格，也包括地形改造（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。**基础设施维护** 决定它们的维护费（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。
+- **基础设施成本** 决定道路、轨道、桥梁、隧道、道口、建筑和模块的价格，也包括地形改造（`post_run_util.tl:23-52`，`post_run_util.tl:83-120`，`construction.script.tl:31-35`，`mod.script.tl:223-226`）。它也决定建筑的拆除费用（`construction.script.tl:39-44`）。**基础设施维护** 决定它们的维护费（`post_run_util.tl:43-45`，`post_run_util.tl:105-112`，`entity_window_util.tl:186`）。
 - **载具成本** 和 **载具养护** 决定每辆载具的购买价格和运营成本（`post_run_util.tl:54-81`）。
 - **载具老化影响** 决定状态差的载具会损失多少速度、功率和舒适度，又会增加多少噪音、污染和运营成本（`mod.script.tl:241-245`）。
 
@@ -54,8 +54,8 @@ fact: 4 | 笔贷款可同时存在
 | 大型新城镇街道 | 1940 | 54 万 | 9 万 | `town_new_large.street_template.lua:11`，`town_new_large.street_template.lua:91` |
 
 - 接触网会增加轨道价格的 **30 %**；公交专用道增加道路价格的 10 %，有轨电车轨道 20 %，电气化有轨电车轨道 40 %（`mod.script.tl:24-28`）。
-- 抬高地形每立方米 4.5，降低地形每立方米 5.25，清除一块农田 20 万（`mod.script.tl:20-22`，`mod.script.tl:33`）。
-- 没有设置维护费的建筑，每年支付**价格的六分之一**（`construction.script.tl:25-27`）。
+- 抬高地形每立方米 4.5，降低地形每立方米 5.25（两者都 × 基础设施成本），清除一块农田 20 万（`mod.script.tl:20-22`，`mod.script.tl:33`，`mod.script.tl:225-226`）。
+- 没有设置维护费的建筑，每年支付**价格的六分之一**（按基础设施成本设置之前的价格计算，`construction.script.tl:25-27`）。
 - 基础配置把拆除返还系数设为 0.75，返还时间设为 60（`mod.script.tl:30-31`）：拆掉刚建好的东西能拿回大部分钱。由引擎执行。
 
 文件中写的每年维护费，第一个版本（1940 年以前）和之后的版本；仓库还要再乘上上面的年份系数：
@@ -79,7 +79,7 @@ fact: 4 | 笔贷款可同时存在
 基础游戏的载具都没有固定价格：游戏在加载模型时，根据载具的速度和容量计算价格（`model_metadata_util.lua:488-552`）：
 
 1. **每年运营成本** = 约 675 × 平均速度（m/s）× 容量 ÷ 4（`model_metadata_util.lua:499-518`）。675 来自每公里的平均收入，并为空车返程、购买费用和下降的票价留出余地而调低（`model_metadata_util.lua:500-508`）。
-2. **平均速度**低于最高速度：道路载具为（最高速度 km/h）^0.78 + 4，列车为 ^0.86 + 10，船只为最高速度的 65 %（`model_metadata_util.lua:448-474`）。
+2. **平均速度**低于最高速度（v 为 km/h）：道路载具和有轨电车为 v^0.78 + 4，列车为 v^0.86 + 10，飞机为 −0.0000203 × v² + 0.17 × v + 28.36（v 最多 4,000），船只为最高速度的 65 %（`model_metadata_util.lua:448-474`）。
 3. **列车**：车厢按容量的一半计算；机车还把 功率 ÷ 最高速度（km/h）× 12.5 当作容量，同样减半（`model_metadata_util.lua:511-512`，`model_metadata_util.lua:526-540`）。强劲而慢的机车很贵。
 4. **价格** = 每年运营成本的 **6 倍**（`model_metadata_util.lua:548-549`）。
 

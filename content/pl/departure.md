@@ -50,7 +50,7 @@ Poziom napełnienia to największa ilość danego towaru, jaką pojazd zabiera n
 - **Do pełna (dowolny)**: pojazd odjeżdża, gdy jeden towar jest pełny. Pociąg na drewno i deski odjechał ze 143 i 144 drewna po 369–380 s; dwa inne odjazdy po około 30 s z 57 i 118 drewna nie są wyjaśnione.
 - **Max. czas postoju** kończy oczekiwanie, nawet gdy nic nie załadowano. Pociąg z warzywami w trybie Do pełna (wszystkie) z maksimum 120 s albo zapełnił się (64 z 64) w około 25 s, albo odjechał po 116–120 s z 26 lub **0**. Z domyślnymi 600 s odjechał z 26 z 64 po 596–600 s.
 - **Min. czas postoju** to cały postój, łącznie z załadunkiem, a nie dodatkowy czas po nim: przy 60 s pociągi ze szkłem stały za każdym razem 55–61 s, niezależnie od tego, co ładowały.
-- **Maks. dodatkowe oczekiwanie**: „Maximum wait time after loading to improve vehicle distribution” (`cargofilter_window.tl:827`). Okno pojazdu pokazuje podczas oczekiwania „Utrzymuje bezpieczną odległość” (`entity_window_util.tl:2279-2286`).
+- **Maks. dodatkowe oczekiwanie**: „Maximum wait time after loading to improve vehicle distribution” (`cargofilter_window.tl:828`). Okno pojazdu pokazuje podczas oczekiwania „Utrzymuje bezpieczną odległość” (`entity_window_util.tl:2279-2286`).
 - **Kilka pojazdów na jednym przystanku ładuje się jednocześnie**, niezależnie od tego, kiedy każdy przyjechał (widziane w grze). Dwie ciężarówki z drewnem, które przyjechały w odstępie około 90 s, odjechały w tej samej sekundzie, każda z 8. Jak towar jest między nie dzielony, nie zmierzono.
 
 ```engine

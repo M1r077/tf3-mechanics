@@ -93,7 +93,7 @@ Die Arbeitsplätze werden vergeben, wenn die Linie öffnet: In zwei Tests gingen
 
 ## Subvention Transportiere Arbeiter
 
-- Sie wird nur für eine Industrie angeboten, die Fracht versendet oder empfängt und noch nicht geboostet ist (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Sie wird nur für eine Industrie mit Arbeitsplätzen angeboten, deren Arbeiterbonus noch nicht aktiv ist und die im letzten Jahr Fracht versendet oder empfangen hat, nach den Jahreszahlen der Engine (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Ob Empfangen allein reicht, hängt davon ab, wie die Engine die Produktionsregeln füllt; das steht nicht in den Skripten.
 - Sie ist erfüllt, wenn der Arbeiterbonus aktiv wird: dieselben 10 von 20 verschiedenen Ankünften mit deinen Linien (`deliver_workers.script.tl:152-156`). Sonst wird nichts gezählt; es gibt keine versteckte Regel.
 - Der Fortschrittsbalken auf der Vertragskarte ist „gezählte Arbeiter ÷ Hälfte der Arbeitsplätze“ (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Die Pfeile auf der Vertragskarte kommen von den **5 nächsten Städten**. Sie sind nur ein Hinweis: das Skript zeichnet sie nach Entfernung, nicht danach, wer den Arbeitsplatz hat (`deliver_workers.script.tl:297-317`).

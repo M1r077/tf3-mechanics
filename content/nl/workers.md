@@ -93,7 +93,7 @@ De banen worden verdeeld wanneer de lijn opent: in twee tests gingen **alle 20 b
 
 ## Subsidie Werknemers vervoeren
 
-- Hij wordt alleen aangeboden voor een bedrijf dat vracht verstuurt of ontvangt en nog geen boost heeft (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Hij wordt alleen aangeboden voor een bedrijf met arbeidsplaatsen waarvan de werknemersboost nog niet actief is en dat het afgelopen jaar vracht heeft verstuurd of ontvangen, volgens de jaarcijfers van de engine (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Of alleen ontvangen genoeg is, hangt af van hoe de engine de productieregels vult; dat staat niet in de scripts.
 - Hij is voltooid zodra de werknemersboost actief wordt: dezelfde 10 van 20 verschillende aankomsten met jouw lijnen (`deliver_workers.script.tl:152-156`). Er telt niets anders; er is geen verborgen regel.
 - De voortgangsbalk op de contractkaart is "getelde werknemers ÷ de helft van de werkplekken" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - De pijlen op de contractkaart komen van de **5 dichtstbijzijnde steden**. Ze zijn alleen een hint: het script tekent ze op afstand, niet op wie de baan heeft (`deliver_workers.script.tl:297-317`).

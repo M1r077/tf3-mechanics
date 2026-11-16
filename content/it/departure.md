@@ -50,7 +50,7 @@ Riempi livello è la quantità massima di quel carico che il veicolo prende a qu
 - **Carico completo (qualsiasi)**: il veicolo parte quando un carico è pieno. Un treno per tronchi e assi è partito con 143 e 144 tronchi dopo 369–380 s; altre due partenze dopo circa 30 s con 57 e 118 tronchi non sono spiegate.
 - **Tempo arresto massimo** termina l'attesa, anche senza niente caricato. Un treno di verdure in Carico completo (tutto) con un massimo di 120 s si è riempito (64 su 64) in circa 25 s, oppure è partito dopo 116–120 s con 26 o **0**. Con i 600 s predefiniti è partito con 26 su 64 dopo 596–600 s.
 - **Tempo arresto minimo** è l'intera sosta, carico compreso, non tempo extra dopo di esso: con 60 s, i treni del vetro si sono fermati 55–61 s ogni volta, qualunque cosa caricassero.
-- **Attesa aggiuntiva massima**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:827`). La finestra del veicolo mostra "Mantenimento distanza di sicurezza" mentre aspetta (`entity_window_util.tl:2279-2286`).
+- **Attesa aggiuntiva massima**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). La finestra del veicolo mostra "Mantenimento distanza di sicurezza" mentre aspetta (`entity_window_util.tl:2279-2286`).
 - **Più veicoli a una stessa fermata caricano contemporaneamente**, indipendentemente da quando è arrivato ciascuno (visto in gioco). Due camion di tronchi arrivati a circa 90 s di distanza sono partiti nello stesso secondo, ciascuno con 8. Come il carico venga diviso tra loro non è stato misurato.
 
 ```engine

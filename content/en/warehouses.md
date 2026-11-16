@@ -43,7 +43,7 @@ A warehouse is an entrance and a set of **modules**. It stores cargo between two
 - One row per stock: the cargo it takes, the amount, and the **Average Remaining Delivery Time** on hover (`entity_window_util.tl:408-410`).
 - **Pin a cargo type**: on a specialised module, click a cargo icon. The game rebuilds the warehouse with that module reserved to this cargo (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). Removing or replacing the module clears its pin (`warehouse.script.lua:403-405`).
 - **Discard All Cargo**: empties that row at once (`entity_window_util.tl:423-434`). The cargo is lost.
-- Both buttons only exist on your own warehouses (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Both buttons are missing only on a warehouse owned by another player; yours and warehouses with no owner have them (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - The **Statistics** chart shows **Incoming** (unloaded) and **Outgoing** (loaded) per year (`warehouse_eow.script.tl:159-160`).
 
 ## Costs and pollution

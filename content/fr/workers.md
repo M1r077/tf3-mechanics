@@ -93,7 +93,7 @@ Les emplois sont attribués à l'ouverture de la ligne : lors de deux tests, les
 
 ## Contrat Transporter des travailleurs
 
-- Il n'est proposé que pour une industrie qui expédie ou reçoit du fret et n'est pas encore boostée (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Il n'est proposé que pour une industrie avec des emplois, dont le bonus des travailleurs n'est pas encore actif et qui a expédié ou reçu du fret sur la dernière année, d'après les chiffres annuels du moteur (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Savoir si recevoir seulement suffit dépend de la façon dont le moteur remplit les règles de production ; ce n'est pas dans les scripts.
 - Il est rempli quand le bonus des travailleurs devient actif : les mêmes 10 arrivées différentes sur 20 par tes lignes (`deliver_workers.script.tl:152-156`). Rien d'autre n'est compté ; il n'y a pas de règle cachée.
 - La barre de progression de la carte du contrat vaut « travailleurs comptés ÷ la moitié des emplois » (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Les flèches sur la carte du contrat partent des **5 villes les plus proches**. Ce n'est qu'une indication : le script les trace selon la distance, pas selon qui a l'emploi (`deliver_workers.script.tl:297-317`).

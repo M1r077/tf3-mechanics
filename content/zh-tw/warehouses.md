@@ -43,7 +43,7 @@ fact: 0 | 在貨物倉庫卸下的貨物帶來的收益
 - 每個庫存一行：它接收的貨物、數量，以及滑鼠停在上面時顯示的**平均剩餘配送時間**（`entity_window_util.tl:408-410`）。
 - **固定貨物類型**：在專用模組上點擊一個貨物圖示。遊戲會重建貨物倉庫，把該模組保留給這種貨物（`entity_window_util.tl:339-367`，`warehouse.script.lua:308`）。移除或替換模組會清除固定（`warehouse.script.lua:403-405`）。
 - **丟棄所有貨物**：立即清空這一行（`entity_window_util.tl:423-434`）。貨物會遺失。
-- 這兩個按鈕只出現在你自己的貨物倉庫上（`warehouse_eow.script.tl:127-137`，`gui/entity_window/warehouse/warehouse.tl:38`）。
+- 只有屬於其他玩家的貨物倉庫沒有這兩個按鈕；你自己的貨物倉庫和沒有擁有者的貨物倉庫都有（`warehouse_eow.script.tl:127-137`，`gui/entity_window/warehouse/warehouse.tl:38`，`entity_util.tl:83-86`）。
 - **統計數據**圖表依年份顯示**進貨**（卸下的）與**出貨**（裝上的）（`warehouse_eow.script.tl:159-160`）。
 
 ## 成本與污染

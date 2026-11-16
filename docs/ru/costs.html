@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>Стоимость инфраструктуры</strong> масштабирует цену улиц, путей, мостов, тоннелей, переездов, зданий и модулей, а также работ с ландшафтом<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. <strong>Обслуживание инфраструктуры</strong> масштабирует их содержание<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
+<li><strong>Стоимость инфраструктуры</strong> масштабирует цену улиц, путей, мостов, тоннелей, переездов, зданий и модулей, а также работ с ландшафтом<span class="sr"> (<code class="src">post_run_util.tl:23-52</code>, <code class="src">post_run_util.tl:83-120</code>, <code class="src">construction.script.tl:31-35</code>, <code class="src">mod.script.tl:223-226</code>)</span>. Она масштабирует и стоимость сноса зданий<span class="sr"> (<code class="src">construction.script.tl:39-44</code>)</span>. <strong>Обслуживание инфраструктуры</strong> масштабирует их содержание<span class="sr"> (<code class="src">post_run_util.tl:43-45</code>, <code class="src">post_run_util.tl:105-112</code>, <code class="src">entity_window_util.tl:186</code>)</span>.</li>
 <li><strong>Стоимость транспорта</strong> и <strong>Техобслуживание транспорта</strong> масштабируют цену покупки и эксплуатационные расходы каждого транспортного средства<span class="sr"> (<code class="src">post_run_util.tl:54-81</code>)</span>.</li>
 <li><strong>Эффект техобслуживания транспорта</strong> задаёт, насколько сильно транспорт в плохом состоянии теряет скорость, мощность и комфорт и получает больше шума, загрязнения и эксплуатационных расходов<span class="sr"> (<code class="src">mod.script.tl:241-245</code>)</span>.</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>Контактная сеть добавляет <strong>30 %</strong> цены пути; автобусная полоса 10 %, трамвайный путь 20 %, электрический трамвайный путь 40 % цены улицы<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
-<li>Поднять ландшафт стоит 4,5 за м³, опустить 5,25 за м³, убрать поле 200 000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>)</span>.</li>
-<li>Здание без своего обслуживания платит в год <strong>одну шестую своей цены</strong><span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
+<li>Поднять ландшафт стоит 4,5 за м³, опустить 5,25 за м³, оба × «Стоимость инфраструктуры»; убрать поле 200 000<span class="sr"> (<code class="src">mod.script.tl:20-22</code>, <code class="src">mod.script.tl:33</code>, <code class="src">mod.script.tl:225-226</code>)</span>.</li>
+<li>Здание без своего обслуживания платит в год <strong>одну шестую своей цены</strong>, считается от цены до настройки «Стоимость инфраструктуры»<span class="sr"> (<code class="src">construction.script.tl:25-27</code>)</span>.</li>
 <li>Базовая конфигурация задаёт коэффициент возврата при сносе 0,75 и время возврата 60<span class="sr"> (<code class="src">mod.script.tl:30-31</code>)</span>: снос только что построенного возвращает бо́льшую часть денег. Применяет это движок.</li>
 </ul>
 <p>Годовое обслуживание из файлов, для первого варианта (до 1940 года) и последующих; склады получают сверху ещё и множитель года, описанный выше:</p>
@@ -197,7 +197,7 @@
 <p>Ни у одного транспортного средства базовой игры нет фиксированной цены: игра считает её из скорости и вместимости при загрузке модели<span class="sr"> (<code class="src">model_metadata_util.lua:488-552</code>)</span>:</p>
 <ol>
 <li><strong>Эксплуатационные расходы в год</strong> = примерно 675 × средняя скорость (м/с) × вместимость / 4<span class="sr"> (<code class="src">model_metadata_util.lua:499-518</code>)</span>. Число 675 взято из среднего дохода за км, уменьшенного с запасом на пустые обратные рейсы, покупку и падающие цены билетов<span class="sr"> (<code class="src">model_metadata_util.lua:500-508</code>)</span>.</li>
-<li><strong>Средняя скорость</strong> ниже максимальной: для дорожного транспорта (максимальная скорость в км/ч)^0,78 + 4, для поездов ^0,86 + 10, для судов 65 % максимальной скорости<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
+<li><strong>Средняя скорость</strong> ниже максимальной (v в км/ч): дорожный транспорт и трамваи v^0,78 + 4, поезда v^0,86 + 10, самолёты −0,0000203 × v² + 0,17 × v + 28,36 (v не больше 4000), суда 65 % максимальной скорости<span class="sr"> (<code class="src">model_metadata_util.lua:448-474</code>)</span>.</li>
 <li><strong>Поезда</strong>: вагон считается за половину своей вместимости; локомотив дополнительно считает мощность ÷ максимальную скорость (км/ч) × 12,5 как вместимость, тоже пополам<span class="sr"> (<code class="src">model_metadata_util.lua:511-512</code>, <code class="src">model_metadata_util.lua:526-540</code>)</span>. Мощный медленный локомотив стоит дорого.</li>
 <li><strong>Цена</strong> = <strong>6 ×</strong> годовые эксплуатационные расходы<span class="sr"> (<code class="src">model_metadata_util.lua:548-549</code>)</span>.</li>
 </ol>

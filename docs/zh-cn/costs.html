@@ -57,7 +57,7 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>基础设施成本</strong> 决定道路、轨道、桥梁、隧道、道口、建筑和模块的价格，也包括地形改造<span class="sr">（<code class="src">post_run_util.tl:23-52</code>，<code class="src">post_run_util.tl:83-120</code>，<code class="src">construction.script.tl:31-35</code>，<code class="src">mod.script.tl:223-226</code>）</span>。<strong>基础设施维护</strong> 决定它们的维护费<span class="sr">（<code class="src">post_run_util.tl:43-45</code>，<code class="src">post_run_util.tl:105-112</code>，<code class="src">entity_window_util.tl:186</code>）</span>。</li>
+<li><strong>基础设施成本</strong> 决定道路、轨道、桥梁、隧道、道口、建筑和模块的价格，也包括地形改造<span class="sr">（<code class="src">post_run_util.tl:23-52</code>，<code class="src">post_run_util.tl:83-120</code>，<code class="src">construction.script.tl:31-35</code>，<code class="src">mod.script.tl:223-226</code>）</span>。它也决定建筑的拆除费用<span class="sr">（<code class="src">construction.script.tl:39-44</code>）</span>。<strong>基础设施维护</strong> 决定它们的维护费<span class="sr">（<code class="src">post_run_util.tl:43-45</code>，<code class="src">post_run_util.tl:105-112</code>，<code class="src">entity_window_util.tl:186</code>）</span>。</li>
 <li><strong>载具成本</strong> 和 <strong>载具养护</strong> 决定每辆载具的购买价格和运营成本<span class="sr">（<code class="src">post_run_util.tl:54-81</code>）</span>。</li>
 <li><strong>载具老化影响</strong> 决定状态差的载具会损失多少速度、功率和舒适度，又会增加多少噪音、污染和运营成本<span class="sr">（<code class="src">mod.script.tl:241-245</code>）</span>。</li>
 </ul>
@@ -122,8 +122,8 @@
 </table></div>
 <ul>
 <li>接触网会增加轨道价格的 <strong>30 %</strong>；公交专用道增加道路价格的 10 %，有轨电车轨道 20 %，电气化有轨电车轨道 40 %<span class="sr">（<code class="src">mod.script.tl:24-28</code>）</span>。</li>
-<li>抬高地形每立方米 4.5，降低地形每立方米 5.25，清除一块农田 20 万<span class="sr">（<code class="src">mod.script.tl:20-22</code>，<code class="src">mod.script.tl:33</code>）</span>。</li>
-<li>没有设置维护费的建筑，每年支付<strong>价格的六分之一</strong><span class="sr">（<code class="src">construction.script.tl:25-27</code>）</span>。</li>
+<li>抬高地形每立方米 4.5，降低地形每立方米 5.25（两者都 × 基础设施成本），清除一块农田 20 万<span class="sr">（<code class="src">mod.script.tl:20-22</code>，<code class="src">mod.script.tl:33</code>，<code class="src">mod.script.tl:225-226</code>）</span>。</li>
+<li>没有设置维护费的建筑，每年支付<strong>价格的六分之一</strong>（按基础设施成本设置之前的价格计算<span class="sr">，<code class="src">construction.script.tl:25-27</code></span>）。</li>
 <li>基础配置把拆除返还系数设为 0.75，返还时间设为 60<span class="sr">（<code class="src">mod.script.tl:30-31</code>）</span>：拆掉刚建好的东西能拿回大部分钱。由引擎执行。</li>
 </ul>
 <p>文件中写的每年维护费，第一个版本（1940 年以前）和之后的版本；仓库还要再乘上上面的年份系数：</p>
@@ -197,7 +197,7 @@
 <p>基础游戏的载具都没有固定价格：游戏在加载模型时，根据载具的速度和容量计算价格<span class="sr">（<code class="src">model_metadata_util.lua:488-552</code>）</span>：</p>
 <ol>
 <li><strong>每年运营成本</strong> = 约 675 × 平均速度（m/s）× 容量 ÷ 4<span class="sr">（<code class="src">model_metadata_util.lua:499-518</code>）</span>。675 来自每公里的平均收入，并为空车返程、购买费用和下降的票价留出余地而调低<span class="sr">（<code class="src">model_metadata_util.lua:500-508</code>）</span>。</li>
-<li><strong>平均速度</strong>低于最高速度：道路载具为（最高速度 km/h）^0.78 + 4，列车为 ^0.86 + 10，船只为最高速度的 65 %<span class="sr">（<code class="src">model_metadata_util.lua:448-474</code>）</span>。</li>
+<li><strong>平均速度</strong>低于最高速度（v 为 km/h）：道路载具和有轨电车为 v^0.78 + 4，列车为 v^0.86 + 10，飞机为 −0.0000203 × v² + 0.17 × v + 28.36（v 最多 4,000），船只为最高速度的 65 %<span class="sr">（<code class="src">model_metadata_util.lua:448-474</code>）</span>。</li>
 <li><strong>列车</strong>：车厢按容量的一半计算；机车还把 功率 ÷ 最高速度（km/h）× 12.5 当作容量，同样减半<span class="sr">（<code class="src">model_metadata_util.lua:511-512</code>，<code class="src">model_metadata_util.lua:526-540</code>）</span>。强劲而慢的机车很贵。</li>
 <li><strong>价格</strong> = 每年运营成本的 <strong>6 倍</strong><span class="sr">（<code class="src">model_metadata_util.lua:548-549</code>）</span>。</li>
 </ol>

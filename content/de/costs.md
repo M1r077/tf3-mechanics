@@ -25,7 +25,7 @@ Die Einstellung **Inflation** erhöht keine Kosten: Sie senkt nur deine Einnahme
 | **Fahrzeugwartungseffekt** | Keine ×0 · Niedrig ×0,5 · Mittel ×1 · Hoch ×1,5 · Sehr hoch ×2 | Niedrig · Mittel · Hoch · Sehr hoch | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflation** | nur Einnahmen, siehe [Fracht-Einnahmen](income.html) | Niedrig · Normal · Hoch · Sehr hoch | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Infrastrukturkosten** skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Unterhalt der Infrastruktur** skaliert deren Unterhalt (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Infrastrukturkosten** skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Sie skaliert auch die Abrisskosten von Gebäuden (`construction.script.tl:39-44`). **Unterhalt der Infrastruktur** skaliert deren Unterhalt (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
 - **Fahrzeugkosten** und **Fahrzeugwartung** skalieren Kaufpreis und Betriebskosten jedes Fahrzeugs (`post_run_util.tl:54-81`).
 - **Fahrzeugwartungseffekt** legt fest, wie stark ein Fahrzeug in schlechtem Zustand Geschwindigkeit, Leistung und Komfort verliert und Lärm, Verschmutzung und Betriebskosten gewinnt (`mod.script.tl:241-245`).
 
@@ -54,8 +54,8 @@ Straßen- und Gleisdateien geben Preis und jährlichen Unterhalt pro Meter an; d
 | Große neue Stadtstraße | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Eine Oberleitung kostet zusätzlich **30 %** des Gleispreises; eine Busspur 10 %, ein Straßenbahngleis 20 %, ein elektrisches Straßenbahngleis 40 % des Straßenpreises (`mod.script.tl:24-28`).
-- Gelände anheben kostet 4,5 pro m³, absenken 5,25 pro m³, ein Feld entfernen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`).
-- Ein Gebäude ohne eigenen Unterhalt zahlt **ein Sechstel seines Preises** pro Jahr (`construction.script.tl:25-27`).
+- Gelände anheben kostet 4,5 pro m³, absenken 5,25 pro m³, beides × Infrastrukturkosten; ein Feld entfernen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Ein Gebäude ohne eigenen Unterhalt zahlt **ein Sechstel seines Preises** pro Jahr, berechnet aus dem Preis vor der Einstellung Infrastrukturkosten (`construction.script.tl:25-27`).
 - Die Grundkonfiguration setzt einen Rückerstattungsfaktor beim Abriss von 0,75 und eine Frist von 60 (`mod.script.tl:30-31`): Was du gerade gebaut hast, bringt beim Abriss den Großteil des Geldes zurück. Die Engine wendet das an.
 
 Jährlicher Unterhalt laut Dateien, für die erste Variante (vor 1940) und die späteren; Lager bekommen zusätzlich den Jahresfaktor oben:
@@ -79,7 +79,7 @@ Jedes dieser Gebäude kostet **6 ×** seinen Unterhalt im Bau (`rail_depot.con.l
 Kein Fahrzeug des Grundspiels hat einen festen Preis: Das Spiel berechnet ihn aus Geschwindigkeit und Kapazität, wenn es das Modell lädt (`model_metadata_util.lua:488-552`):
 
 1. **Betriebskosten pro Jahr** = etwa 675 × Durchschnittsgeschwindigkeit (m/s) × Kapazität / 4 (`model_metadata_util.lua:499-518`). Die 675 kommen aus der durchschnittlichen Einnahme pro km, verringert, um Leerfahrten, den Kauf und die sinkenden Ticketpreise zu berücksichtigen (`model_metadata_util.lua:500-508`).
-2. Die **Durchschnittsgeschwindigkeit** liegt unter der Höchstgeschwindigkeit: für Straßenfahrzeuge (Höchstgeschwindigkeit in km/h)^0,78 + 4, für Züge ^0,86 + 10, Schiffe 65 % der Höchstgeschwindigkeit (`model_metadata_util.lua:448-474`).
+2. Die **Durchschnittsgeschwindigkeit** liegt unter der Höchstgeschwindigkeit (v in km/h): Straßenfahrzeuge und Trams v^0,78 + 4, Züge v^0,86 + 10, Flugzeuge −0,0000203 × v² + 0,17 × v + 28,36 (v höchstens 4.000), Schiffe 65 % der Höchstgeschwindigkeit (`model_metadata_util.lua:448-474`).
 3. **Züge**: Ein Wagen zählt die Hälfte seiner Kapazität; eine Lok zählt zusätzlich Leistung ÷ Höchstgeschwindigkeit (km/h) × 12,5 als Kapazität, ebenfalls halbiert (`model_metadata_util.lua:511-512`, `model_metadata_util.lua:526-540`). Eine starke, langsame Lok ist teuer.
 4. **Preis** = **6 ×** die jährlichen Betriebskosten (`model_metadata_util.lua:548-549`).
 

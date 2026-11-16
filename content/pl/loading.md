@@ -88,7 +88,7 @@ Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” prz
 | Opcja w „Filtr towarów” | Co robi | Źródło |
 |---|---|---|
 | „Wymuś rozładowanie wszystkich towarów po przybyciu” | rozładowuje do pasujących zapasów, nawet gdy są pełne; to, co się nie mieści, jest niszczone. Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
-| „Przy zmianie konfiguracji zniszcz ładunek po przybyciu” | niszczy towar na pokładzie, gdy na tym przystanku czeka inny towar do załadunku | `cargofilter_window.tl:767` |
+| „Przy zmianie konfiguracji zniszcz ładunek po przybyciu” | rozładowuje lub niszczy towar na pokładzie, gdy na tym przystanku czeka towar dla innej konfiguracji załadunku pojazdu; co z tych dwóch, decyduje silnik | `cargofilter_window.tl:767` |
 | „Zastąp nowym ładunkiem, jeśli jest dostępny” | niszczy towar, który wrócił na przystanek, gdzie go załadowano, gdy czeka nowszy towar tego samego rodzaju | `cargofilter_window.tl:778` |
 
 - Gdy pierwsza opcja jest wyłączona, ikona towaru pokazuje „≤”, a podpowiedź „Rozładuj tylko, jeśli jest miejsce” (`cargofilter_window.tl:124`, `cargofilter_window.tl:158`).

@@ -25,7 +25,7 @@ A configuração **Inflação** não aumenta nenhum custo: ela só baixa a sua r
 | **Efeito da Manutenção do Veículo** | Nenhum ×0 · Baixo ×0,5 · Médio ×1 · Alto ×1,5 · Muito Alto ×2 | Baixo · Médio · Alto · Muito Alto | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflação** | só a renda, veja [Renda por carga](income.html) | Baixa · Normal · Alta · Muito Alta | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Custos de Infraestrutura** escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Manutenção de Infraestrutura** escala a manutenção deles (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Custos de Infraestrutura** escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Também escala o custo de demolição dos prédios (`construction.script.tl:39-44`). **Manutenção de Infraestrutura** escala a manutenção deles (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
 - **Custos de Veículo** e **Manutenção de Veículos** escalam o preço de compra e os custos operacionais de cada veículo (`post_run_util.tl:54-81`).
 - **Efeito da Manutenção do Veículo** define o quanto um veículo em mau estado perde velocidade, potência e conforto e ganha ruído, poluição e custos operacionais (`mod.script.tl:241-245`).
 
@@ -54,8 +54,8 @@ Os arquivos de ruas e trilhos dão o preço e a manutenção anual por metro; o 
 | Rua urbana moderna grande | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - A catenária soma **30%** do preço do trilho; uma faixa de ônibus, 10%; um trilho de bonde, 20%; um trilho de bonde elétrico, 40% do preço da rua (`mod.script.tl:24-28`).
-- Subir o terreno custa 4,5 por m³, baixá-lo 5,25 por m³, remover um campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`).
-- Um prédio que não define manutenção paga **um sexto do seu preço** por ano (`construction.script.tl:25-27`).
+- Subir o terreno custa 4,5 por m³, baixá-lo 5,25 por m³, ambos × Custos de Infraestrutura; remover um campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Um prédio que não define manutenção paga **um sexto do seu preço** por ano, calculado sobre o preço antes da configuração Custos de Infraestrutura (`construction.script.tl:25-27`).
 - A configuração base define um fator de reembolso na demolição de 0,75 e um tempo de reembolso de 60 (`mod.script.tl:30-31`): demolir o que você acabou de construir devolve a maior parte do dinheiro. Quem aplica isso é o motor.
 
 Manutenção anual escrita nos arquivos, para a primeira variante (antes de 1940) e as seguintes; os armazéns recebem ainda o fator de ano acima:
@@ -79,7 +79,7 @@ Construir cada um desses prédios custa **6 ×** a sua manutenção (`rail_depot
 Nenhum veículo do jogo base tem preço fixo: o jogo o calcula a partir da velocidade e da capacidade do veículo quando carrega o modelo (`model_metadata_util.lua:488-552`):
 
 1. **Custos operacionais por ano** = cerca de 675 × velocidade média (m/s) × capacidade / 4 (`model_metadata_util.lua:499-518`). O 675 vem da renda média por km, reduzida para deixar margem às viagens de volta vazias, à compra e à queda do preço das passagens (`model_metadata_util.lua:500-508`).
-2. A **velocidade média** é menor que a velocidade máxima: para veículos viários (velocidade máxima em km/h)^0,78 + 4, para trens ^0,86 + 10, para navios 65% da velocidade máxima (`model_metadata_util.lua:448-474`).
+2. A **velocidade média** é menor que a velocidade máxima (v em km/h): veículos viários e bondes v^0,78 + 4, trens v^0,86 + 10, aeronaves −0,0000203 × v² + 0,17 × v + 28,36 (v no máximo 4.000), navios 65% da velocidade máxima (`model_metadata_util.lua:448-474`).
 3. **Trens**: um vagão conta metade da sua capacidade; uma locomotiva conta também potência ÷ velocidade máxima (km/h) × 12,5 como capacidade, também pela metade (`model_metadata_util.lua:511-512`, `model_metadata_util.lua:526-540`). Uma locomotiva forte e lenta é cara.
 4. **Preço** = **6 ×** os custos operacionais anuais (`model_metadata_util.lua:548-549`).
 

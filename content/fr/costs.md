@@ -25,7 +25,7 @@ Le réglage **Inflation** n'augmente aucun coût : il baisse seulement tes reven
 | **Effet de la maintenance des véhicules** | Aucun(e) ×0 · Bas ×0,5 · Moyen ×1 · Élevée ×1,5 · Très élevée ×2 | Bas · Moyen · Élevée · Très élevée | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
 | **Inflation** | revenus seulement, voir [Revenus du fret](income.html) | Faible · Normale · Élevée · Très élevée | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
 
-- **Coût des infrastructures** règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). **Entretien des infrastructures** règle leur entretien (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
+- **Coût des infrastructures** règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Il règle aussi le coût de démolition des bâtiments (`construction.script.tl:39-44`). **Entretien des infrastructures** règle leur entretien (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`, `entity_window_util.tl:186`).
 - **Coût des véhicules** et **Entretien des véhicules** règlent le prix d'achat et les coûts d'exploitation de chaque véhicule (`post_run_util.tl:54-81`).
 - **Effet de la maintenance des véhicules** règle à quel point un véhicule en mauvais état perd vitesse, puissance et confort et gagne bruit, pollution et coûts d'exploitation (`mod.script.tl:241-245`).
 
@@ -54,8 +54,8 @@ Les fichiers des routes et des voies donnent le prix et l'entretien annuel par m
 | Grande rue moderne | 1940 | 540 000 | 90 000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - La caténaire ajoute **30 %** du prix de la voie ; une voie de bus 10 %, une voie de tram 20 %, une voie de tram électrique 40 % du prix de la rue (`mod.script.tl:24-28`).
-- Relever le terrain coûte 4,5 par m³, l'abaisser 5,25 par m³, supprimer un champ 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`).
-- Un bâtiment qui ne fixe pas d'entretien paie **un sixième de son prix** par an (`construction.script.tl:25-27`).
+- Relever le terrain coûte 4,5 par m³, l'abaisser 5,25 par m³, les deux × Coût des infrastructures ; supprimer un champ 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Un bâtiment qui ne fixe pas d'entretien paie **un sixième de son prix** par an, calculé sur le prix avant le réglage Coût des infrastructures (`construction.script.tl:25-27`).
 - La config de base fixe un facteur de remboursement à la démolition de 0,75 et un délai de 60 (`mod.script.tl:30-31`) : démolir ce que tu viens de construire rend la plus grande partie de l'argent. C'est le moteur qui l'applique.
 
 Entretien annuel écrit dans les fichiers, pour la première variante (avant 1940) et les suivantes ; les entrepôts reçoivent en plus le facteur d'année ci-dessus :
@@ -79,7 +79,7 @@ Chacun de ces bâtiments coûte **6 ×** son entretien à construire (`rail_depo
 Aucun véhicule du jeu de base n'a de prix fixe : le jeu le calcule à partir de la vitesse et de la capacité du véhicule quand il charge le modèle (`model_metadata_util.lua:488-552`) :
 
 1. **Coûts d'exploitation par an** = environ 675 × vitesse moyenne (m/s) × capacité / 4 (`model_metadata_util.lua:499-518`). Le 675 vient du revenu moyen par km, réduit pour laisser de la marge aux retours à vide, à l'achat et à la baisse du prix des billets (`model_metadata_util.lua:500-508`).
-2. La **vitesse moyenne** est inférieure à la vitesse maximale : pour les véhicules routiers (vitesse max en km/h)^0,78 + 4, pour les trains ^0,86 + 10, les bateaux 65 % de la vitesse max (`model_metadata_util.lua:448-474`).
+2. La **vitesse moyenne** est inférieure à la vitesse maximale (v en km/h) : véhicules routiers et trams v^0,78 + 4, trains v^0,86 + 10, avions −0,0000203 × v² + 0,17 × v + 28,36 (v au plus 4 000), bateaux 65 % de la vitesse max (`model_metadata_util.lua:448-474`).
 3. **Trains** : un wagon compte la moitié de sa capacité ; une locomotive compte en plus puissance ÷ vitesse max (km/h) × 12,5 comme capacité, divisée par deux aussi (`model_metadata_util.lua:511-512`, `model_metadata_util.lua:526-540`). Une locomotive puissante et lente coûte cher.
 4. **Prix** = **6 ×** les coûts d'exploitation annuels (`model_metadata_util.lua:548-549`).
 

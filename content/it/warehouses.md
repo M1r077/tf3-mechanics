@@ -43,7 +43,7 @@ Un magazzino è un ingresso e un insieme di **moduli**. Conserva il carico tra d
 - Una riga per scorta: il carico che accetta, la quantità e, passandoci sopra con il mouse, il **Tempo consegna rimanente medio** (`entity_window_util.tl:408-410`).
 - **Fissare un tipo di carico**: su un modulo specializzato, fai clic su un'icona di carico. Il gioco ricostruisce il magazzino con quel modulo riservato a quel carico (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). Rimuovere o sostituire il modulo cancella la sua scelta (`warehouse.script.lua:403-405`).
 - **Scarta tutti i carichi**: svuota subito quella riga (`entity_window_util.tl:423-434`). Il carico va perso.
-- Entrambi i pulsanti esistono solo nei tuoi magazzini (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Entrambi i pulsanti mancano solo in un magazzino che appartiene a un altro giocatore; i tuoi e i magazzini senza proprietario li hanno (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - Il grafico **Statistiche** mostra **In entrata** (scaricato) e **In uscita** (caricato) per anno (`warehouse_eow.script.tl:159-160`).
 
 ## Costi e inquinamento

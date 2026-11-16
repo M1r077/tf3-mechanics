@@ -43,7 +43,7 @@ Magazyn to wejście i zestaw **modułów**. Przechowuje towar między dwiema lin
 - Jeden wiersz na zapas: przyjmowany towar, ilość i po najechaniu kursorem **Średni pozostały czas dostawy** (`entity_window_util.tl:408-410`).
 - **Przypnij rodzaj towaru**: przy module specjalistycznym kliknij ikonę towaru. Gra przebudowuje magazyn z tym modułem zarezerwowanym dla tego towaru (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). Usunięcie lub zastąpienie modułu kasuje przypięcie (`warehouse.script.lua:403-405`).
 - **Porzuć cały ładunek**: od razu opróżnia ten wiersz (`entity_window_util.tl:423-434`). Towar przepada.
-- Oba przyciski istnieją tylko w twoich własnych magazynach (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Obu przycisków brakuje tylko w magazynie należącym do innego gracza; twoje magazyny i magazyny bez właściciela je mają (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - Wykres **Statystyki** pokazuje **Przybywa** (rozładowane) i **Wyjeżdża** (załadowane) na rok (`warehouse_eow.script.tl:159-160`).
 
 ## Koszty i zanieczyszczenie

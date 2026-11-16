@@ -103,7 +103,7 @@
 <p>職は路線の開通時に割り当てられる。2回のテストで<strong>20の職すべてがその町に行き</strong>、ブーストはゲーム時間 <strong>346秒と925秒</strong> で始まった（うち1回は車両1台）。町の停留所が既存網の駅の集客範囲に触れていたときは、一部の職が遠い町に行き、最後の労働者の到着にずっと時間がかかった（964秒）。<a href="https://mod.io/g/transportfever3/m/worker-origins">Worker Origins</a> と <a href="https://mod.io/g/transportfever3/m/second-screen-dashboard">Second Screen Dashboard</a> で測定。誰が職に就くかは引き続きエンジンが決める。</p></div></aside>
 <h2 id="労働者の移送の助成金"><span class="n">8</span><span>労働者の移送の助成金</span></h2>
 <ul>
-<li>貨物を出荷または受け取っていて、まだブーストされていない産業にだけ提案される<span class="sr">（<code class="src">deliver_workers.script.tl:121-131</code>、<code class="src">industry_util.tl:541-553</code>）</span>。</li>
+<li>職場があり、労働者ブーストがまだ有効でなく、エンジンの年間の数値で過去 1 年に貨物を出荷または受け取った産業にだけ提案される<span class="sr">（<code class="src">deliver_workers.script.tl:121-131</code>、<code class="src">industry_util.tl:541-558</code>）</span>。受け取るだけで足りるかは、エンジンが生産ルールをどう埋めるかによる。スクリプトにはない。</li>
 <li>労働者ブーストが有効になると達成となる：あなたの路線による、同じく 20 のうち 10 の異なる到着<span class="sr">（<code class="src">deliver_workers.script.tl:152-156</code>）</span>。ほかには何も数えない。隠れたルールはない。</li>
 <li>契約カードの進行バーは「数えられた労働者 ÷ 職場数の半分」<span class="sr">（<code class="src">deliver_workers.script.tl:267-272</code>、<code class="src">industry_util.tl:11-18</code>）</span>。</li>
 <li>契約マップの矢印は <strong>最も近い 5 つの町</strong> から出ている。これはヒントにすぎない。スクリプトは距離で描いており、誰がその職に就いているかでは描いていない<span class="sr">（<code class="src">deliver_workers.script.tl:297-317</code>）</span>。</li>

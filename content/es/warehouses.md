@@ -43,7 +43,7 @@ Un almacén es una entrada y un conjunto de **módulos**. Guarda cargamento entr
 - Una fila por existencia: el cargamento que acepta, la cantidad y, al pasar el ratón, la **Media de tiempo de entrega restante** (`entity_window_util.tl:408-410`).
 - **Fijar un tipo de cargamento**: en un módulo especializado, haz clic en un icono de cargamento. El juego reconstruye el almacén con ese módulo reservado a ese cargamento (`entity_window_util.tl:339-367`, `warehouse.script.lua:308`). Quitar o sustituir el módulo borra su fijación (`warehouse.script.lua:403-405`).
 - **Descartar todo el cargamento**: vacía esa fila de una vez (`entity_window_util.tl:423-434`). El cargamento se pierde.
-- Ambos botones solo existen en tus propios almacenes (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`).
+- Ambos botones solo faltan en un almacén que pertenece a otro jugador; los tuyos y los almacenes sin dueño los tienen (`warehouse_eow.script.tl:127-137`, `gui/entity_window/warehouse/warehouse.tl:38`, `entity_util.tl:83-86`).
 - El gráfico **Estadísticas** muestra **Entrante** (descargado) y **Saliente** (cargado) por año (`warehouse_eow.script.tl:159-160`).
 
 ## Costes y contaminación

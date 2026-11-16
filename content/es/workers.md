@@ -93,7 +93,7 @@ Los empleos se reparten cuando abre la línea: en dos pruebas los **20 empleos f
 
 ## Subsidio Transportar trabajadores
 
-- Solo se ofrece para una industria que envía o recibe carga y que aún no tiene refuerzo (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-553`).
+- Solo se ofrece para una industria con puestos de trabajo cuyo refuerzo de trabajadores aún no está activo y que envió o recibió carga en el último año, según las cifras anuales del motor (`deliver_workers.script.tl:121-131`, `industry_util.tl:541-558`). Si basta con recibir depende de cómo el motor rellena las reglas de producción; no está en los scripts.
 - Se cumple cuando se activa el refuerzo de trabajadores: las mismas 10 de 20 llegadas distintas con tus líneas (`deliver_workers.script.tl:152-156`). No se cuenta nada más; no hay ninguna regla oculta.
 - La barra de progreso de la tarjeta del contrato es "trabajadores contados ÷ la mitad de los puestos" (`deliver_workers.script.tl:267-272`, `industry_util.tl:11-18`).
 - Las flechas del mapa del contrato salen de las **5 localidades más cercanas**. Son solo una pista: el script las dibuja por distancia, no según quién tiene el empleo (`deliver_workers.script.tl:297-317`).
