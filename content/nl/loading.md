@@ -108,7 +108,7 @@ In welke volgorde meerdere soorten vracht geladen worden, hoe een gedeelde voorr
 
 ## De automatische configuratie
 
-Zolang niemand de vrachtfilters van een lijn heeft gewijzigd, vult het spel de lijsten Lading zelf, telkens als de lijn wordt aangemaakt of een halte of waypoint wordt toegevoegd, verwijderd of verplaatst (`manager_window.tl:6712-6963`). Het perron van een halte wijzigen start haar niet opnieuw (`manager_window.tl:6860`).
+Zolang niemand een wijziging heeft opgeslagen in het venster "Vrachtfilter" van een halte, wat haar op die lijn voorgoed uitschakelt (`line_util.tl:495-498`, `cargofilter_window.tl:438`), vult het spel de lijsten Lading zelf telkens als de lijn wordt aangemaakt, een halte wordt toegevoegd of verwijderd, de haltes worden herschikt of een waypoint wordt toegevoegd (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Een halte naar een ander station of perron verplaatsen, en een waypoint verwijderen of verplaatsen, start haar niet (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - Ze begint opnieuw met lege lijsten, met passagiers bij passagiersstations (`line_util.tl:542-588`).
 - Ze zoekt producenten en afnemers alleen onder industriebedrijven en stadsgebouwen: opslagplaatsen tellen niet mee (`cargo_util.tl:518-526`).

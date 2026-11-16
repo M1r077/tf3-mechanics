@@ -41,17 +41,17 @@ There is one port variant per era: 1900, 1950 and 1990 (`harbor_modular.tl:71-73
 
 ## All ships
 
-Speed in km/h, rounded. "Cargo" lists the cargo classes of the vehicle file; "any cargo" means every cargo type.
+Speed in km/h, rounded. "Cargo" lists the cargo classes of the vehicle file; "any cargo" means every cargo type. Capacity is the total the vehicle store shows: the sum of the compartments, each counted at its largest load configuration (`vehicle_store_util.tl:70-95`).
 
 | Ship | Years | Size | Cargo | Capacity | Speed | Load speed |
 |---|---|---|---|---|---|---|
-| Dunara Castle | 1875–1930 | large | passengers, any cargo | 80 | 20 | 20 |
+| Dunara Castle | 1875–1930 | large | passengers, any cargo | **160** (2 × 80) | 20 | 20 |
 | Canadian Trawler | 1884–1948 | small | any cargo | 40 | 35 | 10 |
 | Waimarie | 1889–1940 | small | passengers | 80 | 30 | 15 |
 | Sydfart | 1900–1930 | small | liquid, flatbed, goods, bulk | 80 | 30 | 20 |
 | PS Trillium | 1910–1955 | large | passengers | 200 | 35 | 15 |
-| Sternwheeler | 1915–1960 | small | passengers, any cargo | 60 | 40 | 10 |
-| Terra Nova | 1925–1975 | large | bulk, flatbed, goods | 100 | 45 | 30 |
+| Sternwheeler | 1915–1960 | small | passengers, any cargo | **120** (2 × 60) | 40 | 10 |
+| Terra Nova | 1925–1975 | large | bulk, flatbed, goods | **200** (2 × 100) | 45 | 30 |
 | Votrans Towboat Tanker | 1935–1990 | small | liquid | 120 | 33 | 20 |
 | Votrans Towboat Cargo | 1935–1990 | small | bulk, flatbed, goods | 120 | 33 | 20 |
 | MS Stadt Kiel | 1943–1990 | small | passengers | 80 | 30 | 20 |
@@ -61,14 +61,14 @@ Speed in km/h, rounded. "Cargo" lists the cargo classes of the vehicle file; "an
 | Cap Arkona | 1965–2010 | large | passengers | 200 | 40 | 20 |
 | Tora Coaster Ship | 1970–2020 | large | liquid, flatbed, goods, bulk | 320 | 40 | 25 |
 | AP1-88 Hovercraft | 1980– | small | passengers | 240 | 90 | 15 |
-| Hercules XI Towboat | 1990– | large | flatbed, goods, bulk | 120 | 32 | 20 |
+| Hercules XI Towboat | 1990– | large | flatbed, goods, bulk | **240** (2 × 120) | 32 | 20 |
 | Baltica | 1994– | small | any cargo | 80 | 40 | 20 |
 | HADAG Type 2000 | 1995– | small | passengers | 100 | 35 | 25 |
-| Damen Tanker 800 | 1996– | small | liquid | 160 | 28 | 30 |
+| Damen Tanker 800 | 1996– | small | liquid | **320** (2 × 160) | 28 | 30 |
 | Damen Fast Ferry | 2003– | large | passengers | 220 | 75 | 20 |
-| Luise Deymann | 2013– | large | liquid | 240 | 30 | 35 |
+| Luise Deymann | 2013– | large | liquid | **480** (2 × 240) | 30 | 35 |
 | MS Diamant | 2013– | large | passengers | 280 | 45 | 35 |
-| Virgo Towboat | 2015– | large | flatbed, goods, bulk | 160 | 40 | 15 |
+| Virgo Towboat | 2015– | large | flatbed, goods, bulk | **320** (2 × 160) | 40 | 15 |
 | GHL Oita Hovercraft | 2023– | small | passengers | 320 | 100 | 20 |
 | Yara Birkeland | 2030– | large | flatbed, goods, bulk | 480 | 42 | 10 |
 | Solar Shuttle | 2035– | small | passengers | 80 | 30 | 30 |

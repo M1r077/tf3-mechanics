@@ -54,36 +54,36 @@ Prijs en onderhoud van de eerste variant. Latere varianten kosten ×3 of ×9 ([K
 
 ## Alle vliegtuigen
 
-Snelheid in km/u, afgerond. "Alle vracht" betekent elk vrachttype.
+Snelheid in km/u, afgerond. "Alle vracht" betekent elk vrachttype. De capaciteit is het totaal dat de voertuigwinkel toont: de som van de compartimenten, elk met zijn grootste laadconfiguratie (`vehicle_store_util.tl:70-95`).
 
 | Vliegtuig | Jaren | Grootte | Vracht | Capaciteit | Snelheid | Laadsnelheid |
 |---|---|---|---|---|---|---|
 | Junkers F 13 Herta | 1920-1950 | klein | passagiers | 16 | 135 | - |
 | Vickers J6860 Victoria | 1922-1960 | klein | alle vracht | 32 | 150 | 2,5 |
 | Fokker F VII A | 1925-1960 | klein | passagiers | 32 | 175 | 2 |
-| Junkers JU-52 Iron Annie | 1933-1982 | klein | passagiers, alle vracht | 24 | 200 | 3 |
+| Junkers JU-52 Iron Annie | 1933-1982 | klein | passagiers, alle vracht | **48** (2 × 24) | 200 | 3 |
 | Douglas DC-3 | 1935-1995 | klein | passagiers | 56 | 300 | 2,5 |
 | Curtiss C-46 Commando | 1942-1980 | klein | alle vracht | 80 | 280 | - |
 | Douglas DC-4 | 1944-1998 | klein | passagiers | 100 | 365 | 3 |
-| Bristol Type 170 (vracht) | 1949-2005 | klein | passagiers, alle vracht | 40 | 350 | 1,5 |
+| Bristol Type 170 (vracht) | 1949-2005 | klein | passagiers, alle vracht | **80** (2 × 40) | 350 | 1,5 |
 | Lockheed L-1049 Super Connie | 1952-1986 | groot | passagiers | 120 | 486 | 3 |
-| Lockheed L-1049D/H Super Connie | 1959-2000 | groot | alle vracht | 60 | 486 | 2,5 |
+| Lockheed L-1049D/H Super Connie | 1959-2000 | groot | alle vracht | **120** (2 × 60) | 486 | 2,5 |
 | De Havilland DH.106 Comet | 1960-2000 | groot | passagiers | 160 | 724 | 3 |
-| Canadair CL-44 (vracht) | 1962-2005 | groot | alle vracht | 48 | 645 | 2 |
+| Canadair CL-44 (vracht) | 1962-2005 | groot | alle vracht | **144** (3 × 48) | 645 | 2 |
 | Convair CV 990 Coronado | 1962-2020 | groot | passagiers | 200 | 917 | 2 |
-| Lockheed L-100 Hercules | 1976-2000 | klein | alle vracht | 44 | 400 | 3 |
+| Lockheed L-100 Hercules | 1976-2000 | klein | alle vracht | **132** (3 × 44) | 400 | 3 |
 | McDonnell Douglas DC-10-30 | 1978- | groot | passagiers | 400 | 960 | 2,5 |
-| McDonnell Douglas DC-10-30CF | 1978- | groot | alle vracht | 132 | 960 | 4 |
+| McDonnell Douglas DC-10-30CF | 1978- | groot | alle vracht | **396** (3 × 132) | 960 | 4 |
 | Airbus A310 300F (vracht) | 1982- | groot | alle vracht | 160 | 850 | 3 |
-| Short 330 Sherpa | 1984- | klein | passagiers, alle vracht | 40 | 455 | 2,5 |
+| Short 330 Sherpa | 1984- | klein | passagiers, alle vracht | **80** (2 × 40) | 455 | 2,5 |
 | Airbus A320 | 1985- | groot | passagiers | 180 | 753 | 3 |
 | Br. Aerospace 146 | 1985- | klein | passagiers | 112 | 753 | 3 |
-| Br. Aerospace 146 (vracht) | 1985- | klein | alle vracht | 48 | 753 | 2 |
+| Br. Aerospace 146 (vracht) | 1985- | klein | alle vracht | **96** (2 × 48) | 753 | 2 |
 | Fokker 100 | 1988- | groot | passagiers | 160 | 845 | 3,5 |
 | Toepolev Tu-204 | 1995- | groot | passagiers | 280 | 850 | 4 |
-| Toepolev Tu-204C (vracht) | 1995- | groot | alle vracht | 68 | 850 | 2 |
+| Toepolev Tu-204C (vracht) | 1995- | groot | alle vracht | **204** (3 × 68) | 850 | 2 |
 | Boeing 737-700 | 1998- | groot | passagiers | 200 | 974 | 2,5 |
-| Boeing 737-700-C (vracht) | 1998- | groot | alle vracht | 80 | 974 | 3 |
+| Boeing 737-700-C (vracht) | 1998- | groot | alle vracht | **160** (2 × 80) | 974 | 3 |
 | Bombardier DHC-8 | 2000- | klein | passagiers | 120 | 648 | 3 |
 | Bombardier DHC-8 (vracht) | 2008- | klein | alle vracht | 120 | 648 | 2 |
 | Soechoj Superjet 100 | 2011- | klein | passagiers | 160 | 870 | 3 |
@@ -94,7 +94,7 @@ Snelheid in km/u, afgerond. "Alle vracht" betekent elk vrachttype.
 | Helikopter | Jaren | Vracht | Capaciteit | Snelheid | Laadsnelheid |
 |---|---|---|---|---|---|
 | Bell 47 | 1950-1990 | passagiers, alle vracht | 8 | 150 | 2 |
-| Piasecki H-21 Workhorse | 1952-1985 | passagiers, alle vracht | 80 | 210 | 3 |
+| Piasecki H-21 Workhorse | 1952-1985 | passagiers, alle vracht | 80 (48 vracht) | 210 | 3 |
 | Sikorsky S-64 Skycrane | 1962-2017 | alle vracht | 40 | 213 | 4 |
 | Bell 206 Long Ranger | 1965-2025 | passagiers | 32 | 241 | 2,5 |
 | Boeing Vertol 234 Chinook | 1980- | passagiers, alle vracht | 80 | 269 | 2 |

@@ -166,12 +166,12 @@
 <li>契約の達成後 <strong>60 か月</strong>（5 年）続く<span class="sr">（<code class="src">subvention_util.tl:286</code>、<code class="src">subvention_util.tl:292</code>）</span>。</li>
 <li><strong>産業への供給</strong>：契約期間中にその産業へ配送した路線による、その産業への配送<span class="sr">（<code class="src">deliver_cargo.script.tl:463-469</code>）</span>。</li>
 <li><strong>町への供給</strong>：契約の貨物を配送した路線による、その町のどの建物への配送も対象で、<strong>貨物の種類は問わない</strong><span class="sr">（<code class="src">deliver_cargo_town.script.tl:554-565</code>）</span>。</li>
-<li><strong>町の接続</strong>：達成した路線による、2 つの町の間の旅客<span class="sr">（<code class="src">deliver_passengers.script.tl:281-304</code>）</span>。</li>
+<li><strong>町の接続</strong>：2 つの町の間の旅客で、直通路線 <strong>1 本</strong> だけが対象。2 つの町の間の旅客が最後に乗った直通路線である。これは契約後も更新され続けるので、直通路線が 2 本あると 2 倍が一方から他方へ移ることがある<span class="sr">（<code class="src">deliver_passengers.script.tl:263-296</code>）</span>。</li>
 <li><strong>労働者の移送</strong>には収入への効果がない<span class="sr">（<code class="src">deliver_workers.script.tl:90</code>）</span>。</li>
-<li>契約の達成後に配送を始めた路線には何もない。路線のリストは契約期間中にしか記録されない。</li>
+<li>「産業への供給」と「町への供給」では、契約の達成後に配送を始めた路線には何もない。路線のリストは契約期間中にしか記録されない。</li>
 <li>2 つの契約が同じ支払いを二重に 2 倍にすることはない。複数が該当する場合、最後の応答だけが使われる<span class="sr">（<code class="src">subventions.script.tl:570-583</code>）</span>。</li>
 </ul>
-<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>ヒント</h4><p><strong>「産業への供給」や「町への供給」の収入 2 倍を複数の路線で受けたいなら、契約の達成前に全部の路線で配送しておく。</strong> 後から加えた路線には何もない。「町の接続」は 1 路線だけが 2 倍になる。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>ヒント</h4><p><strong>「産業への供給」や「町への供給」の収入 2 倍を複数の路線で受けたいなら、契約の達成前に全部の路線で配送しておく。</strong> 後から加えた路線には何もない。「町の接続」は 1 路線だけ、旅客が最後に乗った直通路線が 2 倍になる。2 つの町の間の直通路線は 1 本だけにすること。</p></div></aside>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>助成金の ×2 が会社ランクの倍率（インフレ設定）とどう組み合わさるかはエンジンが決める。どちらのスクリプトも支払いごとに倍率を返すだけである。支払い 1 件が何に当たるか（おそらく貨物 1 単位または旅客 1 人）もエンジンが決める。</p></div></aside>
 <h2 id="期限"><span class="n">5</span><span>期限</span></h2>
 <p>期限は受諾した時点で始まる。貨物の移動距離が長いほど長く、リスクが高いほど短い（リスク係数：なし ×2、適正 ×1、高リスク ×0.75、非常に高リスク ×0.5。旅客と労働者の契約では ×0.625）。</p>

@@ -108,7 +108,7 @@ L'ordine in cui vengono caricate più merci, come una scorta condivisa viene rip
 
 ## La configurazione automatica
 
-Finché nessuno ha cambiato i filtri carico di una linea, il gioco riempie da solo le liste Carico, ogni volta che la linea viene creata o che una fermata o un punto di passaggio viene aggiunto, tolto o spostato (`manager_window.tl:6712-6963`). Cambiare la piattaforma di una fermata non la riavvia (`manager_window.tl:6860`).
+Finché nessuno ha salvato una modifica nella finestra "Filtro carico" di una fermata, cosa che la disattiva per sempre su quella linea (`line_util.tl:495-498`, `cargofilter_window.tl:438`), il gioco riempie da solo le liste Carico ogni volta che la linea viene creata, una fermata viene aggiunta o tolta, le fermate vengono riordinate o viene aggiunto un punto di passaggio (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Spostare una fermata su un'altra stazione o piattaforma, e togliere o spostare un punto di passaggio, non la riavviano (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - Riparte da liste vuote, con i passeggeri nelle stazioni passeggeri (`line_util.tl:542-588`).
 - Cerca produttori e consumatori solo tra industrie ed edifici della città: i magazzini non contano (`cargo_util.tl:518-526`).

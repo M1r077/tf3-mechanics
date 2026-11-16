@@ -23,7 +23,7 @@ Una consegna paga per **una sola linea d'aria**, da dove la merce è stata prodo
 - **Una volta, al consumatore.** Scaricare in un magazzino o in una stazione di trasbordo non paga nulla. Il pagamento viene poi diviso tra le linee della catena in base alla lunghezza in linea d'aria di ogni tratta (misurato in gioco).
 - **La merce in ritardo è pagata per intero**: il tempo di viaggio non viene usato (`cargotype.script.lua:7-13`). Il ritardo abbassa invece la valutazione **Consegna** della cittadina.
 - **Il grado azienda** abbassa tutte le entrate con l'impostazione **Inflazione**: al grado 15, ×0,75 a Normale (`company_progression_util.tl:25-40`).
-- Una **commessa completata** raddoppia le entrate delle linee che hanno consegnato, per 5 anni (`subvention_util.tl:286`).
+- Una **commessa completata** raddoppia, per 5 anni, le entrate delle consegne che copre: alla sua industria, alla sua cittadina o i passeggeri tra le sue due cittadine, solo sulle sue linee (`subvention_util.tl:286`). Vedi [Commesse: offerte, scadenze e ricompense](subsidies.html).
 
 Dettagli: [Entrate dalle merci e tempi di consegna](income.html).
 

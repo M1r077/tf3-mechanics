@@ -108,7 +108,7 @@ El orden en que se cargan varios cargamentos, cómo se reparten unas existencias
 
 ## La configuración automática
 
-Mientras nadie haya cambiado los filtros de cargamento de una línea, el juego rellena él mismo las listas Carga, cada vez que se crea la línea o se añade, quita o mueve una parada o un punto de paso (`manager_window.tl:6712-6963`). Cambiar el andén de una parada no la vuelve a ejecutar (`manager_window.tl:6860`).
+Mientras nadie haya guardado un cambio en la ventana "Filtro de cargamento" de una parada, lo que la desactiva para siempre en esa línea (`line_util.tl:495-498`, `cargofilter_window.tl:438`), el juego rellena él mismo las listas Carga cada vez que se crea la línea, se añade o quita una parada, se reordenan las paradas o se añade un punto de paso (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Mover una parada a otra estación o andén, y quitar o mover un punto de paso, no la ejecutan (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - Empieza de nuevo con listas vacías, con pasajeros en las estaciones de pasajeros (`line_util.tl:542-588`).
 - Busca productores y consumidores solo entre industrias y edificios de la ciudad: los almacenes no cuentan (`cargo_util.tl:518-526`).

@@ -78,13 +78,13 @@ Ogni contratto tiene tre elenchi, mostrati sulla sua scheda come **In accettazio
 - Dura **60 mesi** (5 anni) dopo l'adempimento del contratto (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Fornitura industriale**: le consegne a quell'industria, sulle linee che l'hanno rifornita durante il contratto (`deliver_cargo.script.tl:463-469`).
 - **Fornitura urbana**: le consegne a qualsiasi edificio di quella cittadina, **qualsiasi merce**, sulle linee che hanno consegnato la merce del contratto (`deliver_cargo_town.script.tl:554-565`).
-- **Collegamento urbano**: i passeggeri tra le due cittadine sulla linea che l'ha completato (`deliver_passengers.script.tl:281-304`).
+- **Collegamento urbano**: i passeggeri tra le due cittadine, su **una** sola linea diretta: l'ultima linea diretta su cui è salito un passeggero tra di esse. Continua ad aggiornarsi dopo il contratto, quindi con due linee dirette il ×2 può passare dall'una all'altra (`deliver_passengers.script.tl:263-296`).
 - **Trasporto di forza lavoro** non ha effetto sulle entrate (`deliver_workers.script.tl:90`).
-- Una linea che ha iniziato a consegnare solo dopo l'adempimento del contratto non ottiene nulla: l'elenco delle linee viene riempito solo durante il contratto.
+- Per Fornitura industriale e Fornitura urbana, una linea che ha iniziato a consegnare solo dopo l'adempimento del contratto non ottiene nulla: l'elenco delle linee viene riempito solo durante il contratto.
 - Due contratti non raddoppiano mai due volte lo stesso pagamento: quando ne corrispondono diversi, viene usata solo l'ultima risposta (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Vuoi il reddito doppio di Fornitura industriale o Fornitura urbana su più linee? Falle consegnare tutte prima che il contratto sia adempiuto.** Una linea aggiunta dopo non ottiene nulla. Collega cittadine raddoppia una sola linea.
+**Vuoi il reddito doppio di Fornitura industriale o Fornitura urbana su più linee? Falle consegnare tutte prima che il contratto sia adempiuto.** Una linea aggiunta dopo non ottiene nulla. Collegamento urbano raddoppia una sola linea, l'ultima diretta su cui sono saliti passeggeri: tieni una sola linea diretta tra le due cittadine.
 ```
 
 ```engine

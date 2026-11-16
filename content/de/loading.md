@@ -108,7 +108,7 @@ In welcher Reihenfolge mehrere Frachten geladen werden, wie ein gemeinsamer Best
 
 ## Die automatische Konfiguration
 
-Solange niemand die Güterfilter einer Linie geändert hat, füllt das Spiel die Listen Ladung selbst, jedes Mal wenn die Linie erstellt oder ein Halt oder Wegpunkt hinzugefügt, entfernt oder verschoben wird (`manager_window.tl:6712-6963`). Den Bahnsteig eines Halts zu ändern, startet sie nicht (`manager_window.tl:6860`).
+Solange niemand eine Änderung im Fenster „Güterfilter“ eines Halts gespeichert hat, was sie auf dieser Linie für immer abschaltet (`line_util.tl:495-498`, `cargofilter_window.tl:438`), füllt das Spiel die Listen Ladung selbst, jedes Mal wenn die Linie erstellt, ein Halt hinzugefügt oder entfernt, die Halte umsortiert oder ein Wegpunkt hinzugefügt wird (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Einen Halt an einen anderen Bahnhof oder Bahnsteig zu verschieben sowie einen Wegpunkt zu entfernen oder zu verschieben, startet sie nicht (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - Sie beginnt wieder mit leeren Listen, mit Passagieren an Personenbahnhöfen (`line_util.tl:542-588`).
 - Sie sucht Erzeuger und Abnehmer nur unter Industrien und Stadtgebäuden: Lager zählen nicht (`cargo_util.tl:518-526`).

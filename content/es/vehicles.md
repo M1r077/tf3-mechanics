@@ -91,7 +91,7 @@ A qué estación se asigna un vehículo, qué pasa cuando más vehículos usan u
 
 ## Edad y vida útil
 
-- Cada modelo tiene una **vida útil** en años (`vehicle_metadata_util.lua:79-83`). La columna **Edad** de la ventana de la línea muestra la edad; su descripción emergente muestra la parte de la vida útil consumida y el tiempo restante, o **Vida útil cumplida** (`line_eow.script.tl:133-147`).
+- Cada modelo tiene una **vida útil** en años (`vehicle_metadata_util.lua:79-83`). La columna **Edad** de la ventana de la línea muestra la edad; su descripción emergente muestra el tiempo restante, o **Vida útil cumplida** (`line_eow.script.tl:133-147`). La parte de la vida útil en esa descripción marca **0 %** hasta que se cumple la vida útil: el script redondea la fracción hacia abajo antes de mostrarla (`line_eow.script.tl:139`), mientras que la misma parte se calcula completa en otro lugar (`vehicle_util.tl:311`). Usa el tiempo restante.
 - Para un tren, cuenta la parte **más antigua** (`vehicle_util.tl:36-52`). Un solo vagón viejo hace que todo el tren aparezca como viejo.
 
 ```engine

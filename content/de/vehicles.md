@@ -91,7 +91,7 @@ Welcher Station ein Fahrzeug zugeordnet wird, was passiert, wenn mehr Fahrzeuge 
 
 ## Alter und Lebensdauer
 
-- Jedes Modell hat eine **Lebensdauer** in Jahren (`vehicle_metadata_util.lua:79-83`). Die Spalte **Alter** im Linienfenster zeigt das Alter; ihr Tooltip zeigt den verbrauchten Anteil der Lebensdauer und die verbleibende Zeit oder **Lebensdauer erreicht** (`line_eow.script.tl:133-147`).
+- Jedes Modell hat eine **Lebensdauer** in Jahren (`vehicle_metadata_util.lua:79-83`). Die Spalte **Alter** im Linienfenster zeigt das Alter; ihr Tooltip zeigt die verbleibende Zeit oder **Lebensdauer erreicht** (`line_eow.script.tl:133-147`). Der Anteil der Lebensdauer in diesem Tooltip steht auf **0 %**, bis die Lebensdauer erreicht ist: Das Skript rundet den Bruch vor der Anzeige ab (`line_eow.script.tl:139`), während derselbe Anteil an anderer Stelle vollständig berechnet wird (`vehicle_util.tl:311`). Nimm stattdessen die verbleibende Zeit.
 - Bei einem Zug zählt der **älteste** Teil (`vehicle_util.tl:36-52`). Ein einziger alter Wagen lässt den ganzen Zug alt erscheinen.
 
 ```engine

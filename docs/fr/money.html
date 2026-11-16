@@ -26,7 +26,7 @@
 <li><strong>Une seule fois, au consommateur.</strong> Décharger dans un entrepôt ou une gare de correspondance ne rapporte rien. Le paiement est ensuite partagé entre les lignes de la chaîne selon la longueur à vol d'oiseau de chaque étape (mesuré en jeu).</li>
 <li><strong>Le fret en retard est payé en entier</strong> : le temps de trajet n'est pas utilisé<span class="sr"> (<code class="src">cargotype.script.lua:7-13</code>)</span>. Le retard fait baisser à la place la note <strong>Livraison</strong> de la ville.</li>
 <li><strong>Le rang d'entreprise</strong> baisse tous les revenus avec le réglage <strong>Inflation</strong> : au rang 15, ×0,75 en Normale<span class="sr"> (<code class="src">company_progression_util.tl:25-40</code>)</span>.</li>
-<li>Un <strong>contrat rempli</strong> double les revenus des lignes qui ont livré, pendant 5 ans<span class="sr"> (<code class="src">subvention_util.tl:286</code>)</span>.</li>
+<li>Un <strong>contrat rempli</strong> double, pendant 5 ans, le revenu des livraisons qu'il couvre : vers son industrie, vers sa ville, ou les passagers entre ses deux villes, sur ses lignes seulement<span class="sr"> (<code class="src">subvention_util.tl:286</code>)</span>. Voir <a href="subsidies.html">Contrats : offres, délais et récompenses</a>.</li>
 </ul>
 <p>Détails : <a href="income.html">Revenus du fret et délai de livraison</a>.</p>
 <h2 id="ce-qui-coute"><span class="n">2</span><span>Ce qui coûte</span></h2>

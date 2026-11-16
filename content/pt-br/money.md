@@ -23,7 +23,7 @@ Uma entrega paga por **uma única linha reta**, de onde a carga foi produzida at
 - **Uma vez, no consumidor.** Descarregar num armazém ou numa estação de transferência não paga nada. O pagamento é depois dividido entre as linhas da cadeia pelo comprimento em linha reta de cada trecho (medido no jogo).
 - **Carga atrasada é paga por inteiro**: o tempo de viagem não é usado (`cargotype.script.lua:7-13`). O atraso baixa em vez disso a classificação **Entrega** do município.
 - **O ranque da empresa** baixa toda a renda com a configuração **Inflação**: no ranque 15, ×0,75 em Normal (`company_progression_util.tl:25-40`).
-- Um **subsídio cumprido** dobra a renda das linhas que entregaram, por 5 anos (`subvention_util.tl:286`).
+- Um **subsídio cumprido** dobra, por 5 anos, a renda das entregas que cobre: para a sua indústria, para o seu município ou passageiros entre os seus dois municípios, só nas suas linhas (`subvention_util.tl:286`). Veja [Subsídios: ofertas, prazos e recompensas](subsidies.html).
 
 Detalhes: [Renda por carga e tempo de entrega](income.html).
 

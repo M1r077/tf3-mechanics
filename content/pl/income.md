@@ -61,7 +61,7 @@ Skrypty liczą tylko sumę (`economy/cargo_income.script.lua`); podział wykonuj
 | Co | Efekt | Źródło |
 |---|---|---|
 | **Ranga firmy** z ustawieniem „Inflacja” | ranga 1: ×1, równomiernie malejąco do rangi 15: ×0,9 („Niska”), **×0,75 („Normalna”)**, ×0,6 („Wysoka”), ×0,5 („Bardzo wysoka”); „Brak”: zawsze ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Wykonane subsydium** | ×2 na liniach, które dostarczały towar w ramach kontraktu | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Wykonane subsydium** | ×2 za dostawy do zakładu lub miasta z kontraktu, na liniach, które dostarczały towar w ramach kontraktu | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Spóźniona dostawa** | brak wpływu na przychód | `cargotype.script.lua:7-13` |
 
 - Mnożnik rangi dotyczy **wszystkich** płatności za towary i pasażerów (`company_growth.script.tl:159-170`). Gotowe poziomy trudności używają inflacji „Niska” („Niski”), „Normalna” („Normalny”), „Wysoka” („Wysoki”), „Bardzo wysoka” („Bardzo wysoki”) (`difficulty_util.tl:108`).
@@ -69,7 +69,7 @@ Skrypty liczą tylko sumę (`economy/cargo_income.script.lua`); podział wykonuj
 
 ## Pasażerowie
 
-Pasażerowie używają tej samej odległości i stałego mnożnika przychodu około 3,61 (`cargotype.script.lua:50-53`), pomnożonego przez **0,5 + mnożnik ceny biletu pojazdu** (`cargo_income.script.lua:14-17`). Gdy model pojazdu nie ustawia własnego mnożnika komfortu, gra ustawia mnożnik ceny na 0,3 dla autobusów i tramwajów, 0,9 dla samolotów, 0,1 dla statków i 0,5 dla pociągów (`base_mod.lua:46-61`); dla pozostałych modeli to wartość silnika, niewidoczna w skryptach. Subsydium pasażerskie również podwaja przychód na swojej linii (`deliver_passengers.script.tl:284-298`).
+Pasażerowie używają tej samej odległości i stałego mnożnika przychodu około 3,61 (`cargotype.script.lua:50-53`), pomnożonego przez **0,5 + mnożnik ceny biletu pojazdu** (`cargo_income.script.lua:14-17`). Gdy model pojazdu nie ustawia własnego mnożnika komfortu, gra ustawia mnożnik ceny na 0,3 dla autobusów i tramwajów, 0,9 dla samolotów, 0,1 dla statków i 0,5 dla pociągów (`base_mod.lua:46-61`); dla pozostałych modeli to wartość silnika, niewidoczna w skryptach. Subsydium pasażerskie podwaja tylko pasażerów jadących między jego dwoma miastami, na jego jednej linii (`deliver_passengers.script.tl:292-296`).
 
 ## Limity czasu dostawy
 
@@ -110,7 +110,7 @@ Ta sama dostawa węgla, 5 km w linii prostej.
 | cel 100 m wyżej | **116 %** |
 | dostarczone z opóźnieniem | **100 %** (ocena „Dostawa” spada) |
 | ranga firmy 15, inflacja „Normalna” | **75 %** |
-| linia wykonanego subsydium | **200 %** |
+| dostawa objęta wykonanym subsydium | **200 %** |
 
 ## Warto wiedzieć
 

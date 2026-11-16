@@ -26,7 +26,7 @@
 <li><strong>Einmal, beim Verbraucher.</strong> Entladen in ein Lager oder an einem Umsteigebahnhof bringt nichts. Die Zahlung wird dann nach der Luftlinienlänge jeder Etappe auf die Linien der Kette verteilt (im Spiel gemessen).</li>
 <li><strong>Verspätete Fracht wird voll bezahlt</strong>: Die Fahrzeit wird nicht verwendet<span class="sr"> (<code class="src">cargotype.script.lua:7-13</code>)</span>. Verspätung senkt stattdessen die <strong>Lieferungs</strong>-Bewertung der Stadt.</li>
 <li><strong>Der Unternehmensrang</strong> senkt alle Einnahmen mit der Einstellung <strong>Inflation</strong>: auf Rang 15 ×0,75 bei Normal<span class="sr"> (<code class="src">company_progression_util.tl:25-40</code>)</span>.</li>
-<li>Eine <strong>erfüllte Subvention</strong> verdoppelt die Einnahmen der Linien, die geliefert haben, für 5 Jahre<span class="sr"> (<code class="src">subvention_util.tl:286</code>)</span>.</li>
+<li>Eine <strong>erfüllte Subvention</strong> verdoppelt für 5 Jahre die Einnahmen der Lieferungen, die sie abdeckt: an ihre Industrie, an ihre Stadt oder Passagiere zwischen ihren beiden Städten, nur auf ihren Linien<span class="sr"> (<code class="src">subvention_util.tl:286</code>)</span>. Siehe <a href="subsidies.html">Subventionen: Angebote, Fristen und Belohnungen</a>.</li>
 </ul>
 <p>Details: <a href="income.html">Gütereinnahmen und Lieferzeit</a>.</p>
 <h2 id="was-kostet"><span class="n">2</span><span>Was kostet</span></h2>

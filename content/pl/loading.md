@@ -108,7 +108,7 @@ O tym, w jakiej kolejności ładowanych jest kilka towarów, jak wspólny zapas 
 
 ## Konfiguracja automatyczna
 
-Dopóki nikt nie zmienił filtrów towarów linii, gra sama wypełnia listy Ładunek, za każdym razem, gdy linia jest tworzona albo gdy przystanek lub punkt trasy jest dodawany, usuwany lub przesuwany (`manager_window.tl:6712-6963`). Zmiana peronu przystanku jej nie uruchamia (`manager_window.tl:6860`).
+Dopóki nikt nie zapisał zmiany w oknie „Filtr towarów” przystanku, co wyłącza ją na tej linii na stałe (`line_util.tl:495-498`, `cargofilter_window.tl:438`), gra sama wypełnia listy Ładunek za każdym razem, gdy linia jest tworzona, przystanek jest dodawany lub usuwany, kolejność przystanków się zmienia albo dodawany jest punkt trasy (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Przeniesienie przystanku na inną stację lub peron oraz usunięcie lub przesunięcie punktu trasy jej nie uruchamiają (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - Zaczyna od pustych list, z pasażerami na stacjach pasażerskich (`line_util.tl:542-588`).
 - Szuka producentów i odbiorców tylko wśród zakładów i budynków miejskich: magazyny się nie liczą (`cargo_util.tl:518-526`).

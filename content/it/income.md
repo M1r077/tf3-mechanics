@@ -61,7 +61,7 @@ Gli script calcolano solo il totale (`economy/cargo_income.script.lua`); la ripa
 | Che cosa | Effetto | Fonte |
 |---|---|---|
 | **Grado azienda** con l'impostazione Inflazione | grado 1: ×1, in calo uniforme fino al grado 15: ×0,9 (Ridotta), **×0,75 (Normale)**, ×0,6 (Elevata), ×0,5 (Molto elevata); Nessuna: sempre ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Commessa completata** | ×2 sulle linee che hanno consegnato per il contratto | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Commessa completata** | ×2 per le consegne all'industria o alla cittadina del contratto, sulle linee che hanno consegnato per il contratto | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Consegna in ritardo** | nessun effetto sulle entrate | `cargotype.script.lua:7-13` |
 
 - Il moltiplicatore del grado si applica a **tutti** i pagamenti di merci e passeggeri (`company_growth.script.tl:159-170`). I livelli di difficoltà predefiniti usano Inflazione Ridotta (Facile), Normale (Normale), Elevata (Difficile), Molto elevata (Molto difficile) (`difficulty_util.tl:108`).
@@ -69,7 +69,7 @@ Gli script calcolano solo il totale (`economy/cargo_income.script.lua`); la ripa
 
 ## Passeggeri
 
-I passeggeri usano la stessa distanza e un fattore di entrata fisso di circa 3,61 (`cargotype.script.lua:50-53`), moltiplicato per **0,5 + il fattore di prezzo del biglietto del veicolo** (`cargo_income.script.lua:14-17`). Quando un modello di veicolo non imposta il suo fattore di comfort, il gioco imposta il fattore di prezzo a 0,3 per autobus e tram, 0,9 per gli aerei, 0,1 per le navi e 0,5 per i treni (`base_mod.lua:46-61`); per gli altri modelli è un valore del motore, non visibile negli script. Anche una commessa passeggeri raddoppia le entrate sulla sua linea (`deliver_passengers.script.tl:284-298`).
+I passeggeri usano la stessa distanza e un fattore di entrata fisso di circa 3,61 (`cargotype.script.lua:50-53`), moltiplicato per **0,5 + il fattore di prezzo del biglietto del veicolo** (`cargo_income.script.lua:14-17`). Quando un modello di veicolo non imposta il suo fattore di comfort, il gioco imposta il fattore di prezzo a 0,3 per autobus e tram, 0,9 per gli aerei, 0,1 per le navi e 0,5 per i treni (`base_mod.lua:46-61`); per gli altri modelli è un valore del motore, non visibile negli script. Una commessa passeggeri raddoppia solo i passeggeri che viaggiano tra le sue due cittadine, sulla sua unica linea (`deliver_passengers.script.tl:292-296`).
 
 ## Tempi limite di consegna
 
@@ -110,7 +110,7 @@ La stessa consegna di carbone, a 5 km in linea d'aria.
 | destinazione 100 m più in alto | **116%** |
 | consegnata in ritardo | **100%** (la valutazione Consegna scende) |
 | grado azienda 15, Inflazione Normale | **75%** |
-| linea di una commessa completata | **200%** |
+| consegna coperta da una commessa completata | **200%** |
 
 ## Da sapere
 

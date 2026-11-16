@@ -41,17 +41,17 @@ Há uma variante de porto por era: 1900, 1950 e 1990 (`harbor_modular.tl:71-73`)
 
 ## Todos os navios
 
-Velocidade em km/h, arredondada. "Carga" lista as classes de carga do arquivo de veículo; "qualquer carga" significa todo tipo de carga.
+Velocidade em km/h, arredondada. "Carga" lista as classes de carga do arquivo de veículo; "qualquer carga" significa todo tipo de carga. A capacidade é o total mostrado na loja de veículos: a soma dos compartimentos, cada um com sua maior configuração de carga (`vehicle_store_util.tl:70-95`).
 
 | Navio | Anos | Tamanho | Carga | Capacidade | Velocidade | Velocidade de carga |
 |---|---|---|---|---|---|---|
-| Dunara Castle | 1875-1930 | grande | passageiros, qualquer carga | 80 | 20 | 20 |
+| Dunara Castle | 1875-1930 | grande | passageiros, qualquer carga | **160** (2 × 80) | 20 | 20 |
 | Barco Canadense | 1884-1948 | pequeno | qualquer carga | 40 | 35 | 10 |
 | Waimarie | 1889-1940 | pequeno | passageiros | 80 | 30 | 15 |
 | Sydfart | 1900-1930 | pequeno | líquido, plataforma, mercadorias, granel | 80 | 30 | 20 |
 | PS Trillium | 1910-1955 | grande | passageiros | 200 | 35 | 15 |
-| Barco a Vapor com Rodas de Pás | 1915-1960 | pequeno | passageiros, qualquer carga | 60 | 40 | 10 |
-| Terra Nova | 1925-1975 | grande | granel, plataforma, mercadorias | 100 | 45 | 30 |
+| Barco a Vapor com Rodas de Pás | 1915-1960 | pequeno | passageiros, qualquer carga | **120** (2 × 60) | 40 | 10 |
+| Terra Nova | 1925-1975 | grande | granel, plataforma, mercadorias | **200** (2 × 100) | 45 | 30 |
 | Rebocador de Petroleiro Votrans | 1935-1990 | pequeno | líquido | 120 | 33 | 20 |
 | Rebocador Votrans | 1935-1990 | pequeno | granel, plataforma, mercadorias | 120 | 33 | 20 |
 | MS Stadt Kiel | 1943-1990 | pequeno | passageiros | 80 | 30 | 20 |
@@ -61,14 +61,14 @@ Velocidade em km/h, arredondada. "Carga" lista as classes de carga do arquivo de
 | Cap Arcona | 1965-2010 | grande | passageiros | 200 | 40 | 20 |
 | Navio Costeiro Tora | 1970-2020 | grande | líquido, plataforma, mercadorias, granel | 320 | 40 | 25 |
 | Aerodeslizador AP1-88 | 1980- | pequeno | passageiros | 240 | 90 | 15 |
-| Rebocador Hercules XI | 1990- | grande | plataforma, mercadorias, granel | 120 | 32 | 20 |
+| Rebocador Hercules XI | 1990- | grande | plataforma, mercadorias, granel | **240** (2 × 120) | 32 | 20 |
 | Baltica | 1994- | pequeno | qualquer carga | 80 | 40 | 20 |
 | Type 2000 da HADAG | 1995- | pequeno | passageiros | 100 | 35 | 25 |
-| Tanker 800 da Damen | 1996- | pequeno | líquido | 160 | 28 | 30 |
+| Tanker 800 da Damen | 1996- | pequeno | líquido | **320** (2 × 160) | 28 | 30 |
 | Balsa Rápida da Damen | 2003- | grande | passageiros | 220 | 75 | 20 |
-| Luise Deymann | 2013- | grande | líquido | 240 | 30 | 35 |
+| Luise Deymann | 2013- | grande | líquido | **480** (2 × 240) | 30 | 35 |
 | MS Diamant | 2013- | grande | passageiros | 280 | 45 | 35 |
-| Rebocador Virgo | 2015- | grande | plataforma, mercadorias, granel | 160 | 40 | 15 |
+| Rebocador Virgo | 2015- | grande | plataforma, mercadorias, granel | **320** (2 × 160) | 40 | 15 |
 | Aerodeslizador GHL Oita | 2023- | pequeno | passageiros | 320 | 100 | 20 |
 | Yara Birkeland | 2030- | grande | plataforma, mercadorias, granel | 480 | 42 | 10 |
 | Transporte Naval Solar | 2035- | pequeno | passageiros | 80 | 30 | 30 |

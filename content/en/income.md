@@ -61,7 +61,7 @@ The scripts only compute the total (`economy/cargo_income.script.lua`); the spli
 | What | Effect | Source |
 |---|---|---|
 | **Company rank** with the Inflation setting | rank 1: ×1, falling evenly to rank 15: ×0.9 (Low), **×0.75 (Normal)**, ×0.6 (High), ×0.5 (Very High); None: always ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Completed subsidy** | ×2 on the lines that delivered for the contract | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Completed subsidy** | ×2 for deliveries to the contract's industry or town, on the lines that delivered for the contract | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Late delivery** | no effect on the income | `cargotype.script.lua:7-13` |
 
 - The rank multiplier applies to **every** cargo and passenger payment (`company_growth.script.tl:159-170`). The difficulty presets use Inflation Low (Easy), Normal (Medium), High (Hard), Very High (Very Hard) (`difficulty_util.tl:108`).
@@ -69,7 +69,7 @@ The scripts only compute the total (`economy/cargo_income.script.lua`); the spli
 
 ## Passengers
 
-Passengers use the same distance and a fixed income factor of about 3.61 (`cargotype.script.lua:50-53`), multiplied by **0.5 + the vehicle's ticket price factor** (`cargo_income.script.lua:14-17`). When a vehicle model does not set its comfort factor, the game sets the price factor to 0.3 for buses and trams, 0.9 for aircraft, 0.1 for ships and 0.5 for trains (`base_mod.lua:46-61`); for the other models it is an engine value, not visible in the scripts. A passenger subsidy also doubles the income on its line (`deliver_passengers.script.tl:284-298`).
+Passengers use the same distance and a fixed income factor of about 3.61 (`cargotype.script.lua:50-53`), multiplied by **0.5 + the vehicle's ticket price factor** (`cargo_income.script.lua:14-17`). When a vehicle model does not set its comfort factor, the game sets the price factor to 0.3 for buses and trams, 0.9 for aircraft, 0.1 for ships and 0.5 for trains (`base_mod.lua:46-61`); for the other models it is an engine value, not visible in the scripts. A passenger subsidy doubles only the passengers travelling between its two towns, on its one line (`deliver_passengers.script.tl:292-296`).
 
 ## Delivery time limits
 
@@ -110,7 +110,7 @@ The same coal delivery, 5 km apart as the crow flies.
 | destination 100 m higher | **116 %** |
 | delivered late | **100 %** (Delivery rating drops) |
 | company rank 15, Inflation Normal | **75 %** |
-| line of a completed subsidy | **200 %** |
+| delivery covered by a completed subsidy | **200 %** |
 
 ## Good to know
 

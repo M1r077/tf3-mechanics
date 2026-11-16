@@ -166,12 +166,12 @@
 <li>계약 이행 후 <strong>60개월</strong>(5년) 동안 지속된다<span class="sr">(<code class="src">subvention_util.tl:286</code>, <code class="src">subvention_util.tl:292</code>)</span>.</li>
 <li><strong>산업 공급</strong>: 계약 기간 동안 그 산업에 배송한 노선으로 그 산업에 하는 배송<span class="sr">(<code class="src">deliver_cargo.script.tl:463-469</code>)</span>.</li>
 <li><strong>마을 공급</strong>: 계약 화물을 배송한 노선으로 그 마을의 어느 건물에든 하는 배송, <strong>화물 종류 무관</strong><span class="sr">(<code class="src">deliver_cargo_town.script.tl:554-565</code>)</span>.</li>
-<li><strong>마을 연결</strong>: 계약을 완료한 노선의 두 마을 사이 승객<span class="sr">(<code class="src">deliver_passengers.script.tl:281-304</code>)</span>.</li>
+<li><strong>마을 연결</strong>: 두 마을 사이 승객, 직통 노선 <strong>하나</strong>에서만: 두 마을 사이 승객이 마지막으로 탄 직통 노선이다. 이는 계약 후에도 계속 갱신되므로, 직통 노선이 둘이면 2배가 한쪽에서 다른 쪽으로 옮겨갈 수 있다<span class="sr">(<code class="src">deliver_passengers.script.tl:263-296</code>)</span>.</li>
 <li><strong>근로자 운송</strong>은 수입 효과가 없다<span class="sr">(<code class="src">deliver_workers.script.tl:90</code>)</span>.</li>
-<li>계약 이행 후에야 배송을 시작한 노선은 아무것도 받지 못한다. 노선 목록은 계약 기간 동안에만 채워진다.</li>
+<li>산업 공급과 마을 공급에서는, 계약 이행 후에야 배송을 시작한 노선은 아무것도 받지 못한다. 노선 목록은 계약 기간 동안에만 채워진다.</li>
 <li>두 계약이 같은 지급을 두 번 두 배로 만들지는 않는다. 여러 계약이 해당하면 마지막 응답만 쓰인다<span class="sr">(<code class="src">subventions.script.tl:570-583</code>)</span>.</li>
 </ul>
-<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>팁</h4><p><strong>산업 공급이나 마을 공급의 2배 수입을 여러 노선에서 받고 싶다면, 계약이 이행되기 전에 모든 노선이 배송하게 한다.</strong> 나중에 추가한 노선은 아무것도 받지 못한다. 마을 연결은 한 노선만 2배가 된다.</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>팁</h4><p><strong>산업 공급이나 마을 공급의 2배 수입을 여러 노선에서 받고 싶다면, 계약이 이행되기 전에 모든 노선이 배송하게 한다.</strong> 나중에 추가한 노선은 아무것도 받지 못한다. 마을 연결은 한 노선만, 승객이 마지막으로 탄 직통 노선만 2배가 된다. 두 마을 사이 직통 노선은 하나만 둔다.</p></div></aside>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>보조금의 ×2가 회사 랭크 배수(인플레이션 설정)와 어떻게 결합되는지는 엔진이 정한다. 두 스크립트는 지급마다 배수만 돌려준다. 지급 항목 하나가 무엇인지(아마 화물 한 단위 또는 승객 한 명)도 엔진이 정한다.</p></div></aside>
 <h2 id="기한"><span class="n">5</span><span>기한</span></h2>
 <p>기한은 수락할 때 시작된다. 화물이 멀리 이동해야 할수록 길고, 위험이 높을수록 짧다(위험 계수: 없음 ×2, 타당함 ×1, 위험함 ×0.75, 아주 위험함 ×0.5, 승객 및 근로자 계약은 ×0.625).</p>

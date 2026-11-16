@@ -54,36 +54,36 @@ Prix et entretien de la première variante. Les variantes suivantes coûtent ×3
 
 ## Tous les avions
 
-Vitesse en km/h, arrondie. « Tout fret » signifie tous les types de fret.
+Vitesse en km/h, arrondie. « Tout fret » signifie tous les types de fret. La capacité est le total affiché par le magasin de véhicules : la somme des compartiments, chacun compté à sa plus grande configuration de chargement (`vehicle_store_util.tl:70-95`).
 
 | Avion | Années | Taille | Fret | Capacité | Vitesse | Vitesse de chargement |
 |---|---|---|---|---|---|---|
 | Junkers F 13 Herta | 1920-1950 | petit | passagers | 16 | 135 | - |
 | Vickers J6860 Victoria | 1922-1960 | petit | tout fret | 32 | 150 | 2,5 |
 | Fokker F VII A | 1925-1960 | petit | passagers | 32 | 175 | 2 |
-| Junkers JU-52 Iron Annie | 1933-1982 | petit | passagers, tout fret | 24 | 200 | 3 |
+| Junkers JU-52 Iron Annie | 1933-1982 | petit | passagers, tout fret | **48** (2 × 24) | 200 | 3 |
 | Douglas DC-3 | 1935-1995 | petit | passagers | 56 | 300 | 2,5 |
 | Curtiss C-46 Commando | 1942-1980 | petit | tout fret | 80 | 280 | - |
 | Douglas DC-4 | 1944-1998 | petit | passagers | 100 | 365 | 3 |
-| Avion-cargo Bristol Type 170 | 1949-2005 | petit | passagers, tout fret | 40 | 350 | 1,5 |
+| Avion-cargo Bristol Type 170 | 1949-2005 | petit | passagers, tout fret | **80** (2 × 40) | 350 | 1,5 |
 | Lockheed L-1049 Super Connie | 1952-1986 | grand | passagers | 120 | 486 | 3 |
-| Lockheed L-1049D/H Super Connie | 1959-2000 | grand | tout fret | 60 | 486 | 2,5 |
+| Lockheed L-1049D/H Super Connie | 1959-2000 | grand | tout fret | **120** (2 × 60) | 486 | 2,5 |
 | De Havilland DH.106 Comet | 1960-2000 | grand | passagers | 160 | 724 | 3 |
-| Avion-cargo Canadair CL-44 | 1962-2005 | grand | tout fret | 48 | 645 | 2 |
+| Avion-cargo Canadair CL-44 | 1962-2005 | grand | tout fret | **144** (3 × 48) | 645 | 2 |
 | Convair CV 990 Coronado | 1962-2020 | grand | passagers | 200 | 917 | 2 |
-| Lockheed L-100 Hercules | 1976-2000 | petit | tout fret | 44 | 400 | 3 |
+| Lockheed L-100 Hercules | 1976-2000 | petit | tout fret | **132** (3 × 44) | 400 | 3 |
 | McDonnell Douglas DC-10-30 | 1978- | grand | passagers | 400 | 960 | 2,5 |
-| McDonnell Douglas DC-10-30CF | 1978- | grand | tout fret | 132 | 960 | 4 |
+| McDonnell Douglas DC-10-30CF | 1978- | grand | tout fret | **396** (3 × 132) | 960 | 4 |
 | Avion-cargo Airbus A310 300F | 1982- | grand | tout fret | 160 | 850 | 3 |
-| Short 330 Sherpa | 1984- | petit | passagers, tout fret | 40 | 455 | 2,5 |
+| Short 330 Sherpa | 1984- | petit | passagers, tout fret | **80** (2 × 40) | 455 | 2,5 |
 | Airbus A320 | 1985- | grand | passagers | 180 | 753 | 3 |
 | Br. Aerospace 146 | 1985- | petit | passagers | 112 | 753 | 3 |
-| Avion-cargo Br. Aerospace 146 | 1985- | petit | tout fret | 48 | 753 | 2 |
+| Avion-cargo Br. Aerospace 146 | 1985- | petit | tout fret | **96** (2 × 48) | 753 | 2 |
 | Fokker 100 | 1988- | grand | passagers | 160 | 845 | 3,5 |
 | Tupolev Tu-204 | 1995- | grand | passagers | 280 | 850 | 4 |
-| Avion-cargo Tupolev Tu-204C | 1995- | grand | tout fret | 68 | 850 | 2 |
+| Avion-cargo Tupolev Tu-204C | 1995- | grand | tout fret | **204** (3 × 68) | 850 | 2 |
 | Boeing 737-700 | 1998- | grand | passagers | 200 | 974 | 2,5 |
-| Avion-cargo Boeing 737-700-C | 1998- | grand | tout fret | 80 | 974 | 3 |
+| Avion-cargo Boeing 737-700-C | 1998- | grand | tout fret | **160** (2 × 80) | 974 | 3 |
 | Bombardier DHC-8 | 2000- | petit | passagers | 120 | 648 | 3 |
 | Avion-cargo bombardier DHC-8 | 2008- | petit | tout fret | 120 | 648 | 2 |
 | Sukhoi Superjet 100 | 2011- | petit | passagers | 160 | 870 | 3 |
@@ -94,7 +94,7 @@ Vitesse en km/h, arrondie. « Tout fret » signifie tous les types de fret.
 | Hélicoptère | Années | Fret | Capacité | Vitesse | Vitesse de chargement |
 |---|---|---|---|---|---|
 | Bell 47 | 1950-1990 | passagers, tout fret | 8 | 150 | 2 |
-| Piasecki H-21 Workhorse | 1952-1985 | passagers, tout fret | 80 | 210 | 3 |
+| Piasecki H-21 Workhorse | 1952-1985 | passagers, tout fret | 80 (48 fret) | 210 | 3 |
 | Sikorsky S-64 Skycrane | 1962-2017 | tout fret | 40 | 213 | 4 |
 | Bell 206 Long Ranger | 1965-2025 | passagers | 32 | 241 | 2,5 |
 | Boeing Vertol 234 Chinook | 1980- | passagers, tout fret | 80 | 269 | 2 |

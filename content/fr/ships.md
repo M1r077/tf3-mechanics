@@ -41,17 +41,17 @@ Il y a une variante de port par époque : 1900, 1950 et 1990 (`harbor_modular.tl
 
 ## Tous les navires
 
-Vitesse en km/h, arrondie. « Fret » liste les classes de fret du fichier de véhicule ; « tout fret » signifie tous les types de fret.
+Vitesse en km/h, arrondie. « Fret » liste les classes de fret du fichier de véhicule ; « tout fret » signifie tous les types de fret. La capacité est le total affiché par le magasin de véhicules : la somme des compartiments, chacun compté à sa plus grande configuration de chargement (`vehicle_store_util.tl:70-95`).
 
 | Navire | Années | Taille | Fret | Capacité | Vitesse | Vitesse de chargement |
 |---|---|---|---|---|---|---|
-| Dunara Castle | 1875-1930 | grand | passagers, tout fret | 80 | 20 | 20 |
+| Dunara Castle | 1875-1930 | grand | passagers, tout fret | **160** (2 × 80) | 20 | 20 |
 | Chalutier canadien | 1884-1948 | petit | tout fret | 40 | 35 | 10 |
 | Waimarie | 1889-1940 | petit | passagers | 80 | 30 | 15 |
 | Sydfart | 1900-1930 | petit | liquide, plateau, marchandises, vrac | 80 | 30 | 20 |
 | PS Trillium | 1910-1955 | grand | passagers | 200 | 35 | 15 |
-| Bateau à roue arrière | 1915-1960 | petit | passagers, tout fret | 60 | 40 | 10 |
-| Terra Nova | 1925-1975 | grand | vrac, plateau, marchandises | 100 | 45 | 30 |
+| Bateau à roue arrière | 1915-1960 | petit | passagers, tout fret | **120** (2 × 60) | 40 | 10 |
+| Terra Nova | 1925-1975 | grand | vrac, plateau, marchandises | **200** (2 × 100) | 45 | 30 |
 | Remorqueur-citerne Votrans | 1935-1990 | petit | liquide | 120 | 33 | 20 |
 | Remorqueur-cargo Votrans | 1935-1990 | petit | vrac, plateau, marchandises | 120 | 33 | 20 |
 | MS Stadt Kiel | 1943-1990 | petit | passagers | 80 | 30 | 20 |
@@ -61,14 +61,14 @@ Vitesse en km/h, arrondie. « Fret » liste les classes de fret du fichier de v�
 | Cap Arkona | 1965-2010 | grand | passagers | 200 | 40 | 20 |
 | Tora Coaster Ship | 1970-2020 | grand | liquide, plateau, marchandises, vrac | 320 | 40 | 25 |
 | Aéroglisseur AP1-8 | 1980- | petit | passagers | 240 | 90 | 15 |
-| Hercules XI Towboat | 1990- | grand | plateau, marchandises, vrac | 120 | 32 | 20 |
+| Hercules XI Towboat | 1990- | grand | plateau, marchandises, vrac | **240** (2 × 120) | 32 | 20 |
 | Baltica | 1994- | petit | tout fret | 80 | 40 | 20 |
 | HADAG Type 2000 | 1995- | petit | passagers | 100 | 35 | 25 |
-| Damen Tanker 800 | 1996- | petit | liquide | 160 | 28 | 30 |
+| Damen Tanker 800 | 1996- | petit | liquide | **320** (2 × 160) | 28 | 30 |
 | Damen Fast Ferry | 2003- | grand | passagers | 220 | 75 | 20 |
-| Luise Deymann | 2013- | grand | liquide | 240 | 30 | 35 |
+| Luise Deymann | 2013- | grand | liquide | **480** (2 × 240) | 30 | 35 |
 | MS Diamant | 2013- | grand | passagers | 280 | 45 | 35 |
-| Virgo Towboat | 2015- | grand | plateau, marchandises, vrac | 160 | 40 | 15 |
+| Virgo Towboat | 2015- | grand | plateau, marchandises, vrac | **320** (2 × 160) | 40 | 15 |
 | Aéroglisseur GHL Oita | 2023- | petit | passagers | 320 | 100 | 20 |
 | Yara Birkeland | 2030- | grand | plateau, marchandises, vrac | 480 | 42 | 10 |
 | Solar Shuttle | 2035- | petit | passagers | 80 | 30 | 30 |

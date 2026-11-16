@@ -78,13 +78,13 @@ Elk contract heeft drie lijsten, op zijn kaart getoond als **Bij aanvaarding**, 
 - Het duurt **60 maanden** (5 jaar) na de voltooiing van het contract (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Bevoorraad industriebedrijf**: bezorgingen aan dat industriebedrijf, op de lijnen die er tijdens het contract aan hebben geleverd (`deliver_cargo.script.tl:463-469`).
 - **Bevoorraad stad**: bezorgingen aan elk gebouw van die stad, **elke vracht**, op de lijnen die de contractvracht hebben geleverd (`deliver_cargo_town.script.tl:554-565`).
-- **Steden verbinden**: reizigers tussen de twee steden op de lijn die het heeft voltooid (`deliver_passengers.script.tl:281-304`).
+- **Steden verbinden**: reizigers tussen de twee steden, op maar **één** directe lijn: de laatste directe lijn waarop een reiziger tussen die steden is ingestapt. Dit wordt ook na het contract bijgewerkt, dus met twee directe lijnen kan de ×2 van de ene naar de andere gaan (`deliver_passengers.script.tl:263-296`).
 - **Werknemers vervoeren** heeft geen effect op de inkomsten (`deliver_workers.script.tl:90`).
-- Een lijn die pas na de voltooiing begint te leveren, krijgt niets: de lijst met lijnen wordt alleen tijdens het contract gevuld.
+- Bij Bevoorraad industriebedrijf en Bevoorraad stad geldt: een lijn die pas na de voltooiing begint te leveren, krijgt niets: de lijst met lijnen wordt alleen tijdens het contract gevuld.
 - Twee contracten verdubbelen dezelfde betaling nooit twee keer: als er meerdere passen, telt alleen het laatste antwoord (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Dubbel inkomen van Bevoorraad industriebedrijf of Bevoorraad stad op meerdere lijnen? Laat ze allemaal leveren voordat het contract voltooid is.** Een lijn die daarna komt, krijgt niets. Steden verbinden verdubbelt maar één lijn.
+**Dubbel inkomen van Bevoorraad industriebedrijf of Bevoorraad stad op meerdere lijnen? Laat ze allemaal leveren voordat het contract voltooid is.** Een lijn die daarna komt, krijgt niets. Steden verbinden verdubbelt maar één lijn, de laatste directe waarop reizigers zijn ingestapt: houd één directe lijn tussen de twee steden.
 ```
 
 ```engine

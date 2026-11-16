@@ -54,36 +54,36 @@ Cena i utrzymanie pierwszego wariantu. Późniejsze warianty kosztują ×3 lub �
 
 ## Wszystkie samoloty
 
-Prędkość w km/h, zaokrąglona. "Każdy ładunek" oznacza każdy typ ładunku.
+Prędkość w km/h, zaokrąglona. "Każdy ładunek" oznacza każdy typ ładunku. Pojemność to suma pokazywana w sklepie pojazdów: wszystkie przedziały razem, każdy liczony według największej konfiguracji ładunku (`vehicle_store_util.tl:70-95`).
 
 | Samolot | Lata | Rozmiar | Ładunek | Pojemność | Prędkość | Szybkość załadunku |
 |---|---|---|---|---|---|---|
 | Junkers F 13 Herta | 1920-1950 | mały | pasażerowie | 16 | 135 | - |
 | Vickers J6860 Victoria | 1922-1960 | mały | każdy ładunek | 32 | 150 | 2,5 |
 | Fokker F VII A | 1925-1960 | mały | pasażerowie | 32 | 175 | 2 |
-| Junkers JU-52 „Żelazna Anka” | 1933-1982 | mały | pasażerowie, każdy ładunek | 24 | 200 | 3 |
+| Junkers JU-52 „Żelazna Anka” | 1933-1982 | mały | pasażerowie, każdy ładunek | **48** (2 × 24) | 200 | 3 |
 | Douglas DC-3 | 1935-1995 | mały | pasażerowie | 56 | 300 | 2,5 |
 | Curtiss C-46 Commando | 1942-1980 | mały | każdy ładunek | 80 | 280 | - |
 | Douglas DC-4 | 1944-1998 | mały | pasażerowie | 100 | 365 | 3 |
-| Bristol Type 170 towarowy | 1949-2005 | mały | pasażerowie, każdy ładunek | 40 | 350 | 1,5 |
+| Bristol Type 170 towarowy | 1949-2005 | mały | pasażerowie, każdy ładunek | **80** (2 × 40) | 350 | 1,5 |
 | Lockheed L-1049 „Super Connie” | 1952-1986 | duży | pasażerowie | 120 | 486 | 3 |
-| Lockheed L-1049D/H „Super Connie” | 1959-2000 | duży | każdy ładunek | 60 | 486 | 2,5 |
+| Lockheed L-1049D/H „Super Connie” | 1959-2000 | duży | każdy ładunek | **120** (2 × 60) | 486 | 2,5 |
 | De Havilland DH.106 Comet | 1960-2000 | duży | pasażerowie | 160 | 724 | 3 |
-| Canadair CL-44 towarowy | 1962-2005 | duży | każdy ładunek | 48 | 645 | 2 |
+| Canadair CL-44 towarowy | 1962-2005 | duży | każdy ładunek | **144** (3 × 48) | 645 | 2 |
 | Convair CV 990 Coronado | 1962-2020 | duży | pasażerowie | 200 | 917 | 2 |
-| Lockheed L-100 Hercules | 1976-2000 | mały | każdy ładunek | 44 | 400 | 3 |
+| Lockheed L-100 Hercules | 1976-2000 | mały | każdy ładunek | **132** (3 × 44) | 400 | 3 |
 | McDonnell Douglas DC-10-30 | 1978- | duży | pasażerowie | 400 | 960 | 2,5 |
-| McDonnell Douglas DC-10-30CF | 1978- | duży | każdy ładunek | 132 | 960 | 4 |
+| McDonnell Douglas DC-10-30CF | 1978- | duży | każdy ładunek | **396** (3 × 132) | 960 | 4 |
 | Airbus A310 300F towarowy | 1982- | duży | każdy ładunek | 160 | 850 | 3 |
-| Short 330 Sherpa | 1984- | mały | pasażerowie, każdy ładunek | 40 | 455 | 2,5 |
+| Short 330 Sherpa | 1984- | mały | pasażerowie, każdy ładunek | **80** (2 × 40) | 455 | 2,5 |
 | Airbus A320 | 1985- | duży | pasażerowie | 180 | 753 | 3 |
 | Br. Aerospace 146 | 1985- | mały | pasażerowie | 112 | 753 | 3 |
-| Br. Aerospace 146 towarowy | 1985- | mały | każdy ładunek | 48 | 753 | 2 |
+| Br. Aerospace 146 towarowy | 1985- | mały | każdy ładunek | **96** (2 × 48) | 753 | 2 |
 | Fokker 100 | 1988- | duży | pasażerowie | 160 | 845 | 3,5 |
 | Tupolew Tu-204 | 1995- | duży | pasażerowie | 280 | 850 | 4 |
-| Tupolew Tu-204C towarowy | 1995- | duży | każdy ładunek | 68 | 850 | 2 |
+| Tupolew Tu-204C towarowy | 1995- | duży | każdy ładunek | **204** (3 × 68) | 850 | 2 |
 | Boeing 737-700 | 1998- | duży | pasażerowie | 200 | 974 | 2,5 |
-| Boeing 737-700-C towarowy | 1998- | duży | każdy ładunek | 80 | 974 | 3 |
+| Boeing 737-700-C towarowy | 1998- | duży | każdy ładunek | **160** (2 × 80) | 974 | 3 |
 | Bombardier DHC-8 | 2000- | mały | pasażerowie | 120 | 648 | 3 |
 | Bombardier DHC-8 towarowy | 2008- | mały | każdy ładunek | 120 | 648 | 2 |
 | Suchoj Superjet 100 | 2011- | mały | pasażerowie | 160 | 870 | 3 |
@@ -94,7 +94,7 @@ Prędkość w km/h, zaokrąglona. "Każdy ładunek" oznacza każdy typ ładunku.
 | Helikopter | Lata | Ładunek | Pojemność | Prędkość | Szybkość załadunku |
 |---|---|---|---|---|---|
 | Bell 47 | 1950-1990 | pasażerowie, każdy ładunek | 8 | 150 | 2 |
-| Piasecki H-21 Workhorse | 1952-1985 | pasażerowie, każdy ładunek | 80 | 210 | 3 |
+| Piasecki H-21 Workhorse | 1952-1985 | pasażerowie, każdy ładunek | 80 (48 ładunek) | 210 | 3 |
 | Sikorsky S-64 Skycrane | 1962-2017 | każdy ładunek | 40 | 213 | 4 |
 | Bell 206 Long Ranger | 1965-2025 | pasażerowie | 32 | 241 | 2,5 |
 | Boeing Vertol 234 Chinook | 1980- | pasażerowie, każdy ładunek | 80 | 269 | 2 |

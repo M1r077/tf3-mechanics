@@ -78,13 +78,13 @@ Jeder Vertrag hat drei Listen, auf seiner Karte als **Bei Annahme**, **Bei Erfü
 - Er dauert **60 Monate** (5 Jahre) nach der Erfüllung des Vertrags (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Industrie beliefern**: Lieferungen an diese Industrie, auf den Linien, die sie während des Vertrags beliefert haben (`deliver_cargo.script.tl:463-469`).
 - **Stadt versorgen**: Lieferungen an jedes Gebäude der Stadt, **jede Fracht**, auf den Linien, die die Vertragsfracht geliefert haben (`deliver_cargo_town.script.tl:554-565`).
-- **Städte verbinden**: Passagiere zwischen den beiden Städten auf der Linie, die ihn erfüllt hat (`deliver_passengers.script.tl:281-304`).
+- **Städte verbinden**: Passagiere zwischen den beiden Städten, auf nur **einer** direkten Linie: der letzten direkten Linie, in die ein Passagier zwischen ihnen eingestiegen ist. Das wird auch nach dem Vertrag weiter aktualisiert, mit zwei direkten Linien kann das ×2 also von einer zur anderen wechseln (`deliver_passengers.script.tl:263-296`).
 - **Transportiere Arbeiter** hat keinen Einkommenseffekt (`deliver_workers.script.tl:90`).
-- Eine Linie, die erst nach der Erfüllung zu liefern beginnt, bekommt nichts: Die Liste der Linien wird nur während des Vertrags gefüllt.
+- Bei Industrie beliefern und Stadt versorgen gilt: Eine Linie, die erst nach der Erfüllung zu liefern beginnt, bekommt nichts: Die Liste der Linien wird nur während des Vertrags gefüllt.
 - Zwei Verträge verdoppeln dieselbe Zahlung nie zweimal: Passen mehrere, zählt nur die letzte Antwort (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Doppeltes Einkommen von Industrie beliefern oder Stadt versorgen auf mehreren Linien? Lass alle liefern, bevor der Vertrag erfüllt ist.** Eine danach hinzugefügte Linie bekommt nichts. Städte verbinden verdoppelt nur eine Linie.
+**Doppeltes Einkommen von Industrie beliefern oder Stadt versorgen auf mehreren Linien? Lass alle liefern, bevor der Vertrag erfüllt ist.** Eine danach hinzugefügte Linie bekommt nichts. Städte verbinden verdoppelt nur eine Linie, die letzte direkte, in die Passagiere eingestiegen sind: Halte nur eine direkte Linie zwischen den beiden Städten.
 ```
 
 ```engine

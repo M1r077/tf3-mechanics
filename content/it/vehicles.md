@@ -91,7 +91,7 @@ A quale stazione viene assegnato un veicolo, cosa succede quando una stazione è
 
 ## Età e durata
 
-- Ogni modello ha una **durata** in anni (`vehicle_metadata_util.lua:79-83`). La colonna **Età** della finestra della linea mostra l'età; il suo tooltip mostra la quota di durata già consumata e il tempo rimanente, oppure **Durata massima raggiunta** (`line_eow.script.tl:133-147`).
+- Ogni modello ha una **durata** in anni (`vehicle_metadata_util.lua:79-83`). La colonna **Età** della finestra della linea mostra l'età; il suo tooltip mostra il tempo rimanente, oppure **Durata massima raggiunta** (`line_eow.script.tl:133-147`). La quota di durata in quel tooltip indica **0%** finché la durata non è raggiunta: lo script arrotonda la frazione per difetto prima di mostrarla (`line_eow.script.tl:139`), mentre la stessa quota è calcolata per intero altrove (`vehicle_util.tl:311`). Usa invece il tempo rimanente.
 - Per un treno conta la parte **più vecchia** (`vehicle_util.tl:36-52`). Un solo vagone vecchio fa apparire vecchio l'intero treno.
 
 ```engine

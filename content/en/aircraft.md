@@ -54,36 +54,36 @@ Price and upkeep of the first variant. Later variants cost ×3 or ×9 ([Costs, u
 
 ## All airplanes
 
-Speed in km/h, rounded. "Any cargo" means every cargo type.
+Speed in km/h, rounded. "Any cargo" means every cargo type. Capacity is the total the vehicle store shows: the sum of the compartments, each counted at its largest load configuration (`vehicle_store_util.tl:70-95`).
 
 | Airplane | Years | Size | Cargo | Capacity | Speed | Load speed |
 |---|---|---|---|---|---|---|
 | Junkers F 13 Herta | 1920–1950 | small | passengers | 16 | 135 | – |
 | Vickers J6860 Victoria | 1922–1960 | small | any cargo | 32 | 150 | 2.5 |
 | Fokker F VII A | 1925–1960 | small | passengers | 32 | 175 | 2 |
-| Junkers JU-52 Iron Annie | 1933–1982 | small | passengers, any cargo | 24 | 200 | 3 |
+| Junkers JU-52 Iron Annie | 1933–1982 | small | passengers, any cargo | **48** (2 × 24) | 200 | 3 |
 | Douglas DC-3 | 1935–1995 | small | passengers | 56 | 300 | 2.5 |
 | Curtiss C-46 Commando | 1942–1980 | small | any cargo | 80 | 280 | – |
 | Douglas DC-4 | 1944–1998 | small | passengers | 100 | 365 | 3 |
-| Bristol Type 170 Freighter | 1949–2005 | small | passengers, any cargo | 40 | 350 | 1.5 |
+| Bristol Type 170 Freighter | 1949–2005 | small | passengers, any cargo | **80** (2 × 40) | 350 | 1.5 |
 | Lockheed L-1049 Super Connie | 1952–1986 | large | passengers | 120 | 486 | 3 |
-| Lockheed L-1049D/H Super Connie | 1959–2000 | large | any cargo | 60 | 486 | 2.5 |
+| Lockheed L-1049D/H Super Connie | 1959–2000 | large | any cargo | **120** (2 × 60) | 486 | 2.5 |
 | De Havilland DH.106 Comet | 1960–2000 | large | passengers | 160 | 724 | 3 |
-| Canadair CL-44 Freighter | 1962–2005 | large | any cargo | 48 | 645 | 2 |
+| Canadair CL-44 Freighter | 1962–2005 | large | any cargo | **144** (3 × 48) | 645 | 2 |
 | Convair CV 990 Coronado | 1962–2020 | large | passengers | 200 | 917 | 2 |
-| Lockheed L-100 Hercules | 1976–2000 | small | any cargo | 44 | 400 | 3 |
+| Lockheed L-100 Hercules | 1976–2000 | small | any cargo | **132** (3 × 44) | 400 | 3 |
 | McDonnell Douglas DC-10-30 | 1978– | large | passengers | 400 | 960 | 2.5 |
-| McDonnell Douglas DC-10-30CF | 1978– | large | any cargo | 132 | 960 | 4 |
+| McDonnell Douglas DC-10-30CF | 1978– | large | any cargo | **396** (3 × 132) | 960 | 4 |
 | Airbus A310 300F Freighter | 1982– | large | any cargo | 160 | 850 | 3 |
-| Short 330 Sherpa | 1984– | small | passengers, any cargo | 40 | 455 | 2.5 |
+| Short 330 Sherpa | 1984– | small | passengers, any cargo | **80** (2 × 40) | 455 | 2.5 |
 | Airbus A320 | 1985– | large | passengers | 180 | 753 | 3 |
 | Br. Aerospace 146 | 1985– | small | passengers | 112 | 753 | 3 |
-| Br. Aerospace 146 Freighter | 1985– | small | any cargo | 48 | 753 | 2 |
+| Br. Aerospace 146 Freighter | 1985– | small | any cargo | **96** (2 × 48) | 753 | 2 |
 | Fokker 100 | 1988– | large | passengers | 160 | 845 | 3.5 |
 | Tupolev Tu-204 | 1995– | large | passengers | 280 | 850 | 4 |
-| Tupolev Tu-204C Freighter | 1995– | large | any cargo | 68 | 850 | 2 |
+| Tupolev Tu-204C Freighter | 1995– | large | any cargo | **204** (3 × 68) | 850 | 2 |
 | Boeing 737-700 | 1998– | large | passengers | 200 | 974 | 2.5 |
-| Boeing 737-700-C Freighter | 1998– | large | any cargo | 80 | 974 | 3 |
+| Boeing 737-700-C Freighter | 1998– | large | any cargo | **160** (2 × 80) | 974 | 3 |
 | Bombardier DHC-8 | 2000– | small | passengers | 120 | 648 | 3 |
 | Bombardier DHC-8 Freighter | 2008– | small | any cargo | 120 | 648 | 2 |
 | Sukhoi Superjet 100 | 2011– | small | passengers | 160 | 870 | 3 |
@@ -94,7 +94,7 @@ Speed in km/h, rounded. "Any cargo" means every cargo type.
 | Helicopter | Years | Cargo | Capacity | Speed | Load speed |
 |---|---|---|---|---|---|
 | Bell 47 | 1950–1990 | passengers, any cargo | 8 | 150 | 2 |
-| Piasecki H-21 Workhorse | 1952–1985 | passengers, any cargo | 80 | 210 | 3 |
+| Piasecki H-21 Workhorse | 1952–1985 | passengers, any cargo | 80 (48 cargo) | 210 | 3 |
 | Sikorsky S-64 Skycrane | 1962–2017 | any cargo | 40 | 213 | 4 |
 | Bell 206 Long Ranger | 1965–2025 | passengers | 32 | 241 | 2.5 |
 | Boeing Vertol 234 Chinook | 1980– | passengers, any cargo | 80 | 269 | 2 |

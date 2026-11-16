@@ -23,7 +23,7 @@ Une livraison paie pour **une seule ligne droite**, du lieu où le fret a été 
 - **Une seule fois, au consommateur.** Décharger dans un entrepôt ou une gare de correspondance ne rapporte rien. Le paiement est ensuite partagé entre les lignes de la chaîne selon la longueur à vol d'oiseau de chaque étape (mesuré en jeu).
 - **Le fret en retard est payé en entier** : le temps de trajet n'est pas utilisé (`cargotype.script.lua:7-13`). Le retard fait baisser à la place la note **Livraison** de la ville.
 - **Le rang d'entreprise** baisse tous les revenus avec le réglage **Inflation** : au rang 15, ×0,75 en Normale (`company_progression_util.tl:25-40`).
-- Un **contrat rempli** double les revenus des lignes qui ont livré, pendant 5 ans (`subvention_util.tl:286`).
+- Un **contrat rempli** double, pendant 5 ans, le revenu des livraisons qu'il couvre : vers son industrie, vers sa ville, ou les passagers entre ses deux villes, sur ses lignes seulement (`subvention_util.tl:286`). Voir [Contrats : offres, délais et récompenses](subsidies.html).
 
 Détails : [Revenus du fret et délai de livraison](income.html).
 

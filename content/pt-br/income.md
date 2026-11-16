@@ -61,7 +61,7 @@ Os scripts só calculam o total (`economy/cargo_income.script.lua`); a divisão 
 | O quê | Efeito | Fonte |
 |---|---|---|
 | **Ranque da Empresa** com a configuração Inflação | ranque 1: ×1, caindo de forma regular até o ranque 15: ×0,9 (Baixa), **×0,75 (Normal)**, ×0,6 (Alta), ×0,5 (Muito Alta); Nenhuma: sempre ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Subsídio cumprido** | ×2 nas linhas que entregaram para o contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Subsídio cumprido** | ×2 para entregas à indústria ou ao município do contrato, nas linhas que entregaram para o contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Entrega atrasada** | nenhum efeito na renda | `cargotype.script.lua:7-13` |
 
 - O multiplicador de ranque vale para **todos** os pagamentos de carga e de passageiros (`company_growth.script.tl:159-170`). As predefinições de dificuldade usam Inflação Baixa (Fácil), Normal (Normal), Alta (Difícil), Muito Alta (Muito Difícil) (`difficulty_util.tl:108`).
@@ -69,7 +69,7 @@ Os scripts só calculam o total (`economy/cargo_income.script.lua`); a divisão 
 
 ## Passageiros
 
-Os passageiros usam a mesma distância e um fator de renda fixo de cerca de 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + o fator de preço da passagem do veículo** (`cargo_income.script.lua:14-17`). Quando um modelo de veículo não define o seu fator de conforto, o jogo define o fator de preço como 0,3 para ônibus e bondes, 0,9 para aeronaves, 0,1 para navios e 0,5 para trens (`base_mod.lua:46-61`); para os outros modelos é um valor do motor, não visível nos scripts. Um subsídio de passageiros também dobra a renda na sua linha (`deliver_passengers.script.tl:284-298`).
+Os passageiros usam a mesma distância e um fator de renda fixo de cerca de 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + o fator de preço da passagem do veículo** (`cargo_income.script.lua:14-17`). Quando um modelo de veículo não define o seu fator de conforto, o jogo define o fator de preço como 0,3 para ônibus e bondes, 0,9 para aeronaves, 0,1 para navios e 0,5 para trens (`base_mod.lua:46-61`); para os outros modelos é um valor do motor, não visível nos scripts. Um subsídio de passageiros dobra só os passageiros que viajam entre os seus dois municípios, na sua única linha (`deliver_passengers.script.tl:292-296`).
 
 ## Prazos de entrega
 
@@ -110,7 +110,7 @@ A mesma entrega de carvão, a 5 km em linha reta.
 | destino 100 m mais alto | **116%** |
 | entregue com atraso | **100%** (a classificação Entrega cai) |
 | ranque da empresa 15, Inflação Normal | **75%** |
-| linha de um subsídio cumprido | **200%** |
+| entrega coberta por um subsídio cumprido | **200%** |
 
 ## Bom saber
 

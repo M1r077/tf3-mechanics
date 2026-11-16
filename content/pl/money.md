@@ -23,7 +23,7 @@ Dostawa płaci za **jedną linię prostą**, od miejsca, gdzie towar powstał, d
 - **Raz, u odbiorcy.** Rozładunek w magazynie lub na stacji przeładunkowej nic nie daje. Zapłata jest potem dzielona między linie łańcucha według długości w linii prostej każdego odcinka (zmierzone w grze).
 - **Spóźniony towar jest opłacany w całości**: czas podróży nie jest używany (`cargotype.script.lua:7-13`). Spóźnienie obniża za to ocenę „Dostawa” miasta.
 - **Ranga firmy** obniża cały przychód z ustawieniem „Inflacja”: na randze 15 ×0,75 przy „Normalna” (`company_progression_util.tl:25-40`).
-- **Wykonane subsydium** podwaja przychód linii, które dostarczały, przez 5 lat (`subvention_util.tl:286`).
+- **Wykonane subsydium** podwaja przez 5 lat przychód z dostaw, które obejmuje: do jego zakładu, do jego miasta lub pasażerów między jego dwoma miastami, tylko na jego liniach (`subvention_util.tl:286`). Zobacz [Subsydia: oferty, terminy i nagrody](subsidies.html).
 
 Szczegóły: [Przychód z towarów i czas dostawy](income.html).
 

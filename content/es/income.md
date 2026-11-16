@@ -61,7 +61,7 @@ Los scripts solo calculan el total (`economy/cargo_income.script.lua`); el repar
 | Qué | Efecto | Fuente |
 |---|---|---|
 | **Rango de la empresa** con el ajuste Inflación | rango 1: ×1, bajando de forma regular hasta el rango 15: ×0,9 (Baja), **×0,75 (Normal)**, ×0,6 (Alta), ×0,5 (Muy alta); Ninguna: siempre ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Subvención cumplida** | ×2 en las líneas que entregaron para el contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Subvención cumplida** | ×2 para entregas a la industria o localidad del contrato, en las líneas que entregaron para el contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Entrega con retraso** | ningún efecto en los ingresos | `cargotype.script.lua:7-13` |
 
 - El multiplicador de rango se aplica a **todos** los pagos de cargamento y de pasajeros (`company_growth.script.tl:159-170`). Los niveles de dificultad usan Inflación Baja (Fácil), Normal (Normal), Alta (Difícil), Muy alta (Muy difícil) (`difficulty_util.tl:108`).
@@ -69,7 +69,7 @@ Los scripts solo calculan el total (`economy/cargo_income.script.lua`); el repar
 
 ## Pasajeros
 
-Los pasajeros usan la misma distancia y un factor de ingresos fijo de unos 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + el factor de precio del billete del vehículo** (`cargo_income.script.lua:14-17`). Cuando un modelo de vehículo no define su factor de comodidad, el juego fija el factor de precio en 0,3 para autobuses y tranvías, 0,9 para aeronaves, 0,1 para barcos y 0,5 para trenes (`base_mod.lua:46-61`); para los demás modelos es un valor del motor, no visible en los scripts. Una subvención de pasajeros también duplica los ingresos en su línea (`deliver_passengers.script.tl:284-298`).
+Los pasajeros usan la misma distancia y un factor de ingresos fijo de unos 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + el factor de precio del billete del vehículo** (`cargo_income.script.lua:14-17`). Cuando un modelo de vehículo no define su factor de comodidad, el juego fija el factor de precio en 0,3 para autobuses y tranvías, 0,9 para aeronaves, 0,1 para barcos y 0,5 para trenes (`base_mod.lua:46-61`); para los demás modelos es un valor del motor, no visible en los scripts. Una subvención de pasajeros solo duplica los pasajeros que viajan entre sus dos localidades, en su única línea (`deliver_passengers.script.tl:292-296`).
 
 ## Plazos de entrega
 
@@ -110,7 +110,7 @@ La misma entrega de carbón, a 5 km en línea recta.
 | destino 100 m más alto | **116 %** |
 | entregado con retraso | **100 %** (baja la calificación Entrega) |
 | rango de la empresa 15, Inflación Normal | **75 %** |
-| línea de una subvención cumplida | **200 %** |
+| entrega cubierta por una subvención cumplida | **200 %** |
 
 ## Conviene saber
 

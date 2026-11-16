@@ -166,12 +166,12 @@
 <li>合同完成后持续 <strong>60 个月</strong>（5 年）<span class="sr">（<code class="src">subvention_util.tl:286</code>，<code class="src">subvention_util.tl:292</code>）</span>。</li>
 <li><strong>供应产业</strong>：在合同期间向该产业交付过的线路上，向该产业的交付<span class="sr">（<code class="src">deliver_cargo.script.tl:463-469</code>）</span>。</li>
 <li><strong>供给城镇</strong>：在交付过合同货物的线路上，向该城镇任何建筑的交付，<strong>任何货物</strong>都算<span class="sr">（<code class="src">deliver_cargo_town.script.tl:554-565</code>）</span>。</li>
-<li><strong>连接城镇</strong>：完成合同的那条线路上两城之间的乘客<span class="sr">（<code class="src">deliver_passengers.script.tl:281-304</code>）</span>。</li>
+<li><strong>连接城镇</strong>：两城之间的乘客，只限 <strong>一条</strong> 直达线路：两城之间的乘客最后搭乘的那条直达线路。合同完成后仍会继续更新，所以有两条直达线路时，双倍可能从一条转到另一条<span class="sr">（<code class="src">deliver_passengers.script.tl:263-296</code>）</span>。</li>
 <li><strong>运输工人</strong>没有收入效果<span class="sr">（<code class="src">deliver_workers.script.tl:90</code>）</span>。</li>
-<li>合同完成后才开始交付的线路什么也得不到：线路列表只在合同期间填写。</li>
+<li>对供应产业和供给城镇来说，合同完成后才开始交付的线路什么也得不到：线路列表只在合同期间填写。</li>
 <li>两份合同不会把同一笔收入翻倍两次：多份合同同时符合时，只采用最后一个结果<span class="sr">（<code class="src">subventions.script.tl:570-583</code>）</span>。</li>
 </ul>
-<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p><strong>想让供应产业或供给城镇的双倍收入覆盖多条线路？在合同完成前让它们都交付。</strong> 之后才加入的线路什么也得不到。连接城镇只让一条线路翻倍。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p><strong>想让供应产业或供给城镇的双倍收入覆盖多条线路？在合同完成前让它们都交付。</strong> 之后才加入的线路什么也得不到。连接城镇只让一条线路翻倍，即乘客最后搭乘的直达线路：两城之间只保留一条直达线路。</p></div></aside>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>补贴的 ×2 与公司等级乘数（通货膨胀设置）如何组合，由引擎决定：两个脚本都只为每笔收入返回一个乘数。一笔收入条目是什么（大概是一个货物单位或一名乘客）也由引擎决定。</p></div></aside>
 <h2 id="期限"><span class="n">5</span><span>期限</span></h2>
 <p>期限从你接受时开始。货物需要运得越远，期限越长；风险越高，期限越短（风险系数：无 ×2，公平 ×1，有风险 ×0.75，风险极大 ×0.5，乘客和工人合同则为 ×0.625）：</p>

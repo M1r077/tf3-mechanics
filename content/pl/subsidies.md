@@ -78,13 +78,13 @@ Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęci
 - Trwa **60 miesięcy** (5 lat) od wypełnienia kontraktu (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Zaopatrz zakład przemysłowy**: dostawy do tego zakładu, na liniach, które dostarczały do niego w czasie kontraktu (`deliver_cargo.script.tl:463-469`).
 - **Zaopatrz miasto**: dostawy do dowolnego budynku tego miasta, **dowolnego towaru**, na liniach, które dostarczały towar z kontraktu (`deliver_cargo_town.script.tl:554-565`).
-- **Połącz miasta**: pasażerowie między tymi dwoma miastami na linii, która wypełniła kontrakt (`deliver_passengers.script.tl:281-304`).
+- **Połącz miasta**: pasażerowie między tymi dwoma miastami, tylko na **jednej** linii bezpośredniej: ostatniej linii bezpośredniej, do której wsiadł pasażer między nimi. Aktualizuje się to także po kontrakcie, więc przy dwóch liniach bezpośrednich ×2 może przechodzić z jednej na drugą (`deliver_passengers.script.tl:263-296`).
 - **Przewieź pracowników** nie ma żadnego efektu przychodowego (`deliver_workers.script.tl:90`).
-- Linia, która zaczęła dostarczać dopiero po wypełnieniu kontraktu, nic nie dostaje: lista linii jest wypełniana tylko w czasie kontraktu.
+- W Zaopatrz zakład przemysłowy i Zaopatrz miasto linia, która zaczęła dostarczać dopiero po wypełnieniu kontraktu, nic nie dostaje: lista linii jest wypełniana tylko w czasie kontraktu.
 - Dwa kontrakty nigdy nie podwajają tej samej płatności dwukrotnie: gdy pasuje kilka, liczy się tylko ostatnia odpowiedź (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Chcesz podwójny dochód z Zaopatrz zakład przemysłowy lub Zaopatrz miasto na kilku liniach? Niech wszystkie dostarczają przed wypełnieniem kontraktu.** Linia dodana później nic nie dostaje. Połącz miasta podwaja tylko jedną linię.
+**Chcesz podwójny dochód z Zaopatrz zakład przemysłowy lub Zaopatrz miasto na kilku liniach? Niech wszystkie dostarczają przed wypełnieniem kontraktu.** Linia dodana później nic nie dostaje. Połącz miasta podwaja tylko jedną linię, ostatnią bezpośrednią, do której wsiedli pasażerowie: trzymaj jedną linię bezpośrednią między tymi miastami.
 ```
 
 ```engine

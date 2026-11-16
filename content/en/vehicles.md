@@ -91,7 +91,7 @@ Which station a vehicle is assigned to, what happens when more vehicles use a st
 
 ## Age and lifespan
 
-- Each model has a **lifespan** in years (`vehicle_metadata_util.lua:79-83`). The **Age** column of the line window shows the age; its tooltip shows the share of the lifetime used and the time left, or **Lifetime Reached** (`line_eow.script.tl:133-147`).
+- Each model has a **lifespan** in years (`vehicle_metadata_util.lua:79-83`). The **Age** column of the line window shows the age; its tooltip shows the time left, or **Lifetime Reached** (`line_eow.script.tl:133-147`). The share of the lifetime in that tooltip reads **0 %** until the lifespan is reached: the script rounds the fraction down before showing it (`line_eow.script.tl:139`), while the same share is computed in full elsewhere (`vehicle_util.tl:311`). Use the time left instead.
 - For a train, the **oldest** part counts (`vehicle_util.tl:36-52`). One old wagon makes the whole train show as old.
 
 ```engine

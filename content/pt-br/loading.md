@@ -108,7 +108,7 @@ A ordem em que várias cargas são carregadas, como um estoque compartilhado é 
 
 ## A configuração automática
 
-Enquanto ninguém mudar os filtros de carga de uma linha, o próprio jogo preenche as listas Volume, cada vez que a linha é criada ou uma parada ou um ponto de passagem é adicionado, removido ou movido (`manager_window.tl:6712-6963`). Trocar a plataforma de uma parada não a executa de novo (`manager_window.tl:6860`).
+Enquanto ninguém salvar uma mudança na janela "Filtro de Cargas" de uma parada, o que a desliga de vez nessa linha (`line_util.tl:495-498`, `cargofilter_window.tl:438`), o próprio jogo preenche as listas Volume cada vez que a linha é criada, uma parada é adicionada ou removida, as paradas são reordenadas ou um ponto de passagem é adicionado (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Mover uma parada para outra estação ou plataforma, e remover ou mover um ponto de passagem, não a executam (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - Ela recomeça de listas vazias, com passageiros nas estações de passageiros (`line_util.tl:542-588`).
 - Ela procura produtores e consumidores só entre indústrias e prédios da cidade: armazéns não contam (`cargo_util.tl:518-526`).

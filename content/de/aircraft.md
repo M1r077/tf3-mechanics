@@ -54,36 +54,36 @@ Preis und Unterhalt der ersten Variante. Spätere Varianten kosten ×3 oder ×9 
 
 ## Alle Flugzeuge
 
-Geschwindigkeit in km/h, gerundet. „Alle Güter“ heißt jede Güterart.
+Geschwindigkeit in km/h, gerundet. „Alle Güter“ heißt jede Güterart. Die Kapazität ist die Summe, die der Fahrzeugkauf zeigt: alle Abteile zusammen, jedes mit seiner größten Ladekonfiguration (`vehicle_store_util.tl:70-95`).
 
 | Flugzeug | Jahre | Größe | Fracht | Kapazität | Geschwindigkeit | Ladegeschwindigkeit |
 |---|---|---|---|---|---|---|
 | Junkers F 13 Herta | 1920-1950 | klein | Passagiere | 16 | 135 | - |
 | Vickers J6860 Victoria | 1922-1960 | klein | alle Güter | 32 | 150 | 2,5 |
 | Fokker F VII A | 1925-1960 | klein | Passagiere | 32 | 175 | 2 |
-| Junkers JU-52 Tante Ju | 1933-1982 | klein | Passagiere, alle Güter | 24 | 200 | 3 |
+| Junkers JU-52 Tante Ju | 1933-1982 | klein | Passagiere, alle Güter | **48** (2 × 24) | 200 | 3 |
 | Douglas DC-3 | 1935-1995 | klein | Passagiere | 56 | 300 | 2,5 |
 | Curtiss C-46 Commando | 1942-1980 | klein | alle Güter | 80 | 280 | - |
 | Douglas DC-4 | 1944-1998 | klein | Passagiere | 100 | 365 | 3 |
-| Bristol Typ 170 Frachter | 1949-2005 | klein | Passagiere, alle Güter | 40 | 350 | 1,5 |
+| Bristol Typ 170 Frachter | 1949-2005 | klein | Passagiere, alle Güter | **80** (2 × 40) | 350 | 1,5 |
 | Lockheed L-1049 Super Connie | 1952-1986 | groß | Passagiere | 120 | 486 | 3 |
-| Lockheed L-1049D/H Super Connie | 1959-2000 | groß | alle Güter | 60 | 486 | 2,5 |
+| Lockheed L-1049D/H Super Connie | 1959-2000 | groß | alle Güter | **120** (2 × 60) | 486 | 2,5 |
 | De Havilland DH.106 Comet | 1960-2000 | groß | Passagiere | 160 | 724 | 3 |
-| Canadair CL-44 Frachter | 1962-2005 | groß | alle Güter | 48 | 645 | 2 |
+| Canadair CL-44 Frachter | 1962-2005 | groß | alle Güter | **144** (3 × 48) | 645 | 2 |
 | Convair CV 990 Coronado | 1962-2020 | groß | Passagiere | 200 | 917 | 2 |
-| Lockheed L-100 Hercules | 1976-2000 | klein | alle Güter | 44 | 400 | 3 |
+| Lockheed L-100 Hercules | 1976-2000 | klein | alle Güter | **132** (3 × 44) | 400 | 3 |
 | McDonnell Douglas DC-10-30 | 1978- | groß | Passagiere | 400 | 960 | 2,5 |
-| McDonnell Douglas DC-10-30CF | 1978- | groß | alle Güter | 132 | 960 | 4 |
+| McDonnell Douglas DC-10-30CF | 1978- | groß | alle Güter | **396** (3 × 132) | 960 | 4 |
 | Airbus A310 300F Frachter | 1982- | groß | alle Güter | 160 | 850 | 3 |
-| Short 330 Sherpa | 1984- | klein | Passagiere, alle Güter | 40 | 455 | 2,5 |
+| Short 330 Sherpa | 1984- | klein | Passagiere, alle Güter | **80** (2 × 40) | 455 | 2,5 |
 | Airbus A320 | 1985- | groß | Passagiere | 180 | 753 | 3 |
 | Br. Aerospace 146 | 1985- | klein | Passagiere | 112 | 753 | 3 |
-| Br. Aerospace 146 Frachter | 1985- | klein | alle Güter | 48 | 753 | 2 |
+| Br. Aerospace 146 Frachter | 1985- | klein | alle Güter | **96** (2 × 48) | 753 | 2 |
 | Fokker 100 | 1988- | groß | Passagiere | 160 | 845 | 3,5 |
 | Tupolev Tu-204 | 1995- | groß | Passagiere | 280 | 850 | 4 |
-| Tupolev Tu-204C Frachter | 1995- | groß | alle Güter | 68 | 850 | 2 |
+| Tupolev Tu-204C Frachter | 1995- | groß | alle Güter | **204** (3 × 68) | 850 | 2 |
 | Boeing 737-700 | 1998- | groß | Passagiere | 200 | 974 | 2,5 |
-| Boeing 737-700-C Frachter | 1998- | groß | alle Güter | 80 | 974 | 3 |
+| Boeing 737-700-C Frachter | 1998- | groß | alle Güter | **160** (2 × 80) | 974 | 3 |
 | Bombardier DHC-8 | 2000- | klein | Passagiere | 120 | 648 | 3 |
 | Bombardier DHC-8 Frachter | 2008- | klein | alle Güter | 120 | 648 | 2 |
 | Sukhoi Superjet 100 | 2011- | klein | Passagiere | 160 | 870 | 3 |
@@ -94,7 +94,7 @@ Geschwindigkeit in km/h, gerundet. „Alle Güter“ heißt jede Güterart.
 | Hubschrauber | Jahre | Fracht | Kapazität | Geschwindigkeit | Ladegeschwindigkeit |
 |---|---|---|---|---|---|
 | Bell 47 | 1950-1990 | Passagiere, alle Güter | 8 | 150 | 2 |
-| Piasecki H-21 Workhorse | 1952-1985 | Passagiere, alle Güter | 80 | 210 | 3 |
+| Piasecki H-21 Workhorse | 1952-1985 | Passagiere, alle Güter | 80 (48 Güter) | 210 | 3 |
 | Sikorsky S-64 Skycrane | 1962-2017 | alle Güter | 40 | 213 | 4 |
 | Bell 206 Long Ranger | 1965-2025 | Passagiere | 32 | 241 | 2,5 |
 | Boeing Vertol 234 Chinook | 1980- | Passagiere, alle Güter | 80 | 269 | 2 |

@@ -41,17 +41,17 @@ Er is één havenvariant per tijdperk: 1900, 1950 en 1990 (`harbor_modular.tl:71
 
 ## Alle schepen
 
-Snelheid in km/u, afgerond. "Vracht" toont de vrachtklassen uit het voertuigbestand; "alle vracht" betekent elk vrachttype.
+Snelheid in km/u, afgerond. "Vracht" toont de vrachtklassen uit het voertuigbestand; "alle vracht" betekent elk vrachttype. De capaciteit is het totaal dat de voertuigwinkel toont: de som van de compartimenten, elk met zijn grootste laadconfiguratie (`vehicle_store_util.tl:70-95`).
 
 | Schip | Jaren | Grootte | Vracht | Capaciteit | Snelheid | Laadsnelheid |
 |---|---|---|---|---|---|---|
-| Dunara Castle | 1875-1930 | groot | passagiers, alle vracht | 80 | 20 | 20 |
+| Dunara Castle | 1875-1930 | groot | passagiers, alle vracht | **160** (2 × 80) | 20 | 20 |
 | Canadese trawler | 1884-1948 | klein | alle vracht | 40 | 35 | 10 |
 | Waimarie | 1889-1940 | klein | passagiers | 80 | 30 | 15 |
 | Sydfart | 1900-1930 | klein | vloeibaar, laadbak, goederen, bulk | 80 | 30 | 20 |
 | PS Trillium | 1910-1955 | groot | passagiers | 200 | 35 | 15 |
-| Hekwieler | 1915-1960 | klein | passagiers, alle vracht | 60 | 40 | 10 |
-| Terra Nova | 1925-1975 | groot | bulk, laadbak, goederen | 100 | 45 | 30 |
+| Hekwieler | 1915-1960 | klein | passagiers, alle vracht | **120** (2 × 60) | 40 | 10 |
+| Terra Nova | 1925-1975 | groot | bulk, laadbak, goederen | **200** (2 × 100) | 45 | 30 |
 | Votrans (tankerduwboot) | 1935-1990 | klein | vloeibaar | 120 | 33 | 20 |
 | Votrans (vrachtduwboot) | 1935-1990 | klein | bulk, laadbak, goederen | 120 | 33 | 20 |
 | MS Stadt Kiel | 1943-1990 | klein | passagiers | 80 | 30 | 20 |
@@ -61,14 +61,14 @@ Snelheid in km/u, afgerond. "Vracht" toont de vrachtklassen uit het voertuigbest
 | Cap Arkona | 1965-2010 | groot | passagiers | 200 | 40 | 20 |
 | Tora-coaster | 1970-2020 | groot | vloeibaar, laadbak, goederen, bulk | 320 | 40 | 25 |
 | AP1-88 Hovercraft | 1980- | klein | passagiers | 240 | 90 | 15 |
-| Hercules XI (duwboot) | 1990- | groot | laadbak, goederen, bulk | 120 | 32 | 20 |
+| Hercules XI (duwboot) | 1990- | groot | laadbak, goederen, bulk | **240** (2 × 120) | 32 | 20 |
 | Baltica | 1994- | klein | alle vracht | 80 | 40 | 20 |
 | HADAG Type 2000 | 1995- | klein | passagiers | 100 | 35 | 25 |
-| Damen Tanker 800 | 1996- | klein | vloeibaar | 160 | 28 | 30 |
+| Damen Tanker 800 | 1996- | klein | vloeibaar | **320** (2 × 160) | 28 | 30 |
 | Damen Fast Ferry | 2003- | groot | passagiers | 220 | 75 | 20 |
-| Luise Deymann | 2013- | groot | vloeibaar | 240 | 30 | 35 |
+| Luise Deymann | 2013- | groot | vloeibaar | **480** (2 × 240) | 30 | 35 |
 | MS Diamant | 2013- | groot | passagiers | 280 | 45 | 35 |
-| Virgo (duwboot) | 2015- | groot | laadbak, goederen, bulk | 160 | 40 | 15 |
+| Virgo (duwboot) | 2015- | groot | laadbak, goederen, bulk | **320** (2 × 160) | 40 | 15 |
 | GHL Oita Hovercraft | 2023- | klein | passagiers | 320 | 100 | 20 |
 | Yara Birkeland | 2030- | groot | laadbak, goederen, bulk | 480 | 42 | 10 |
 | Solar Shuttle | 2035- | klein | passagiers | 80 | 30 | 30 |

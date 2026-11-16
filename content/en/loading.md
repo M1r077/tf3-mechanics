@@ -108,7 +108,7 @@ In which order several cargos are loaded, how a shared stock is split between wa
 
 ## The automatic configuration
 
-As long as nobody has changed a line's cargo filters, the game fills the Load lists itself, each time the line is created or a stop or waypoint is added, removed or moved (`manager_window.tl:6712-6963`). Changing the platform of a stop does not run it (`manager_window.tl:6860`).
+As long as nobody has saved a change in a stop's "Cargo Filter" window, which switches it off for good on that line (`line_util.tl:495-498`, `cargofilter_window.tl:438`), the game fills the Load lists itself each time the line is created, a stop is added or removed, the stops are reordered, or a waypoint is added (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Moving a stop to another station or platform, and removing or moving a waypoint, do not run it (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - It starts again from empty lists, with passengers at passenger stations (`line_util.tl:542-588`).
 - It looks for producers and consumers among industries and town buildings only: warehouses do not count (`cargo_util.tl:518-526`).

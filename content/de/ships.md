@@ -41,17 +41,17 @@ Es gibt eine Hafenvariante pro Epoche: 1900, 1950 und 1990 (`harbor_modular.tl:7
 
 ## Alle Schiffe
 
-Geschwindigkeit in km/h, gerundet. „Fracht“ listet die Frachtklassen der Fahrzeugdatei; „alle Güter“ heißt jede Güterart.
+Geschwindigkeit in km/h, gerundet. „Fracht“ listet die Frachtklassen der Fahrzeugdatei; „alle Güter“ heißt jede Güterart. Die Kapazität ist die Summe, die der Fahrzeugkauf zeigt: alle Abteile zusammen, jedes mit seiner größten Ladekonfiguration (`vehicle_store_util.tl:70-95`).
 
 | Schiff | Jahre | Größe | Fracht | Kapazität | Geschwindigkeit | Ladegeschwindigkeit |
 |---|---|---|---|---|---|---|
-| Dunara Castle | 1875-1930 | groß | Passagiere, alle Güter | 80 | 20 | 20 |
+| Dunara Castle | 1875-1930 | groß | Passagiere, alle Güter | **160** (2 × 80) | 20 | 20 |
 | Kanadischer Kutter | 1884-1948 | klein | alle Güter | 40 | 35 | 10 |
 | Waimarie | 1889-1940 | klein | Passagiere | 80 | 30 | 15 |
 | Sydfart | 1900-1930 | klein | Flüssiggut, Sperrgut, Stückgut, Schüttgut | 80 | 30 | 20 |
 | PS Trillium | 1910-1955 | groß | Passagiere | 200 | 35 | 15 |
-| Schaufelraddampfer | 1915-1960 | klein | Passagiere, alle Güter | 60 | 40 | 10 |
-| Terra Nova | 1925-1975 | groß | Schüttgut, Sperrgut, Stückgut | 100 | 45 | 30 |
+| Schaufelraddampfer | 1915-1960 | klein | Passagiere, alle Güter | **120** (2 × 60) | 40 | 10 |
+| Terra Nova | 1925-1975 | groß | Schüttgut, Sperrgut, Stückgut | **200** (2 × 100) | 45 | 30 |
 | Votrans Tankerschubboot | 1935-1990 | klein | Flüssiggut | 120 | 33 | 20 |
 | Votrans Güterschubboot | 1935-1990 | klein | Schüttgut, Sperrgut, Stückgut | 120 | 33 | 20 |
 | MS Stadt Kiel | 1943-1990 | klein | Passagiere | 80 | 30 | 20 |
@@ -61,14 +61,14 @@ Geschwindigkeit in km/h, gerundet. „Fracht“ listet die Frachtklassen der Fah
 | Cap Arkona | 1965-2010 | groß | Passagiere | 200 | 40 | 20 |
 | Tora Küstenschiff | 1970-2020 | groß | Flüssiggut, Sperrgut, Stückgut, Schüttgut | 320 | 40 | 25 |
 | AP1-88 Hovercraft | 1980- | klein | Passagiere | 240 | 90 | 15 |
-| Herkules XI Schubboot | 1990- | groß | Sperrgut, Stückgut, Schüttgut | 120 | 32 | 20 |
+| Herkules XI Schubboot | 1990- | groß | Sperrgut, Stückgut, Schüttgut | **240** (2 × 120) | 32 | 20 |
 | Baltica | 1994- | klein | alle Güter | 80 | 40 | 20 |
 | HADAG Typ 2000 | 1995- | klein | Passagiere | 100 | 35 | 25 |
-| Damen Tanker 800 | 1996- | klein | Flüssiggut | 160 | 28 | 30 |
+| Damen Tanker 800 | 1996- | klein | Flüssiggut | **320** (2 × 160) | 28 | 30 |
 | Damen Schnellfähre | 2003- | groß | Passagiere | 220 | 75 | 20 |
-| Luise Deymann | 2013- | groß | Flüssiggut | 240 | 30 | 35 |
+| Luise Deymann | 2013- | groß | Flüssiggut | **480** (2 × 240) | 30 | 35 |
 | MS Diamant | 2013- | groß | Passagiere | 280 | 45 | 35 |
-| Virgo Schubboot | 2015- | groß | Sperrgut, Stückgut, Schüttgut | 160 | 40 | 15 |
+| Virgo Schubboot | 2015- | groß | Sperrgut, Stückgut, Schüttgut | **320** (2 × 160) | 40 | 15 |
 | GHL Oita Hovercraft | 2023- | klein | Passagiere | 320 | 100 | 20 |
 | Yara Birkeland | 2030- | groß | Sperrgut, Stückgut, Schüttgut | 480 | 42 | 10 |
 | Solar Shuttle | 2035- | klein | Passagiere | 80 | 30 | 30 |

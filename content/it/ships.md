@@ -41,17 +41,17 @@ C'è una variante di porto per epoca: 1900, 1950 e 1990 (`harbor_modular.tl:71-7
 
 ## Tutte le navi
 
-Velocità in km/h, arrotondata. "Merci" elenca le classi di merci del file del veicolo; "qualsiasi merce" indica ogni tipo di merce.
+Velocità in km/h, arrotondata. "Merci" elenca le classi di merci del file del veicolo; "qualsiasi merce" indica ogni tipo di merce. La capacità è il totale mostrato dal negozio dei veicoli: la somma dei compartimenti, ciascuno con la sua configurazione di carico più grande (`vehicle_store_util.tl:70-95`).
 
 | Nave | Anni | Dimensione | Merci | Capacità | Velocità | Velocità di carico |
 |---|---|---|---|---|---|---|
-| Dunara Castle | 1875-1930 | grande | passeggeri, qualsiasi merce | 80 | 20 | 20 |
+| Dunara Castle | 1875-1930 | grande | passeggeri, qualsiasi merce | **160** (2 × 80) | 20 | 20 |
 | Battello da pesca canadese | 1884-1948 | piccola | qualsiasi merce | 40 | 35 | 10 |
 | Waimarie | 1889-1940 | piccola | passeggeri | 80 | 30 | 15 |
 | Sydfart | 1900-1930 | piccola | liquidi, merci ingombranti, merci, merci sfuse | 80 | 30 | 20 |
 | PS Trillium | 1910-1955 | grande | passeggeri | 200 | 35 | 15 |
-| Battello a ruota di poppa | 1915-1960 | piccola | passeggeri, qualsiasi merce | 60 | 40 | 10 |
-| Terra Nova | 1925-1975 | grande | merci sfuse, merci ingombranti, merci | 100 | 45 | 30 |
+| Battello a ruota di poppa | 1915-1960 | piccola | passeggeri, qualsiasi merce | **120** (2 × 60) | 40 | 10 |
+| Terra Nova | 1925-1975 | grande | merci sfuse, merci ingombranti, merci | **200** (2 × 100) | 45 | 30 |
 | Spintore cisterna Votrans | 1935-1990 | piccola | liquidi | 120 | 33 | 20 |
 | Spintore da carico Votrans | 1935-1990 | piccola | merci sfuse, merci ingombranti, merci | 120 | 33 | 20 |
 | MS Stadt Kiel | 1943-1990 | piccola | passeggeri | 80 | 30 | 20 |
@@ -61,14 +61,14 @@ Velocità in km/h, arrotondata. "Merci" elenca le classi di merci del file del v
 | Cap Arkona | 1965-2010 | grande | passeggeri | 200 | 40 | 20 |
 | Nave da cabotaggio Tora | 1970-2020 | grande | liquidi, merci ingombranti, merci, merci sfuse | 320 | 40 | 25 |
 | AP1-88 Hovercraft | 1980- | piccola | passeggeri | 240 | 90 | 15 |
-| Spintore Hercules XI | 1990- | grande | merci ingombranti, merci, merci sfuse | 120 | 32 | 20 |
+| Spintore Hercules XI | 1990- | grande | merci ingombranti, merci, merci sfuse | **240** (2 × 120) | 32 | 20 |
 | Baltica | 1994- | piccola | qualsiasi merce | 80 | 40 | 20 |
 | HADAG Type 2000 | 1995- | piccola | passeggeri | 100 | 35 | 25 |
-| Damen Tanker 800 | 1996- | piccola | liquidi | 160 | 28 | 30 |
+| Damen Tanker 800 | 1996- | piccola | liquidi | **320** (2 × 160) | 28 | 30 |
 | Damen Fast Ferry | 2003- | grande | passeggeri | 220 | 75 | 20 |
-| Luise Deymann | 2013- | grande | liquidi | 240 | 30 | 35 |
+| Luise Deymann | 2013- | grande | liquidi | **480** (2 × 240) | 30 | 35 |
 | MS Diamant | 2013- | grande | passeggeri | 280 | 45 | 35 |
-| Spintore Virgo | 2015- | grande | merci ingombranti, merci, merci sfuse | 160 | 40 | 15 |
+| Spintore Virgo | 2015- | grande | merci ingombranti, merci, merci sfuse | **320** (2 × 160) | 40 | 15 |
 | GHL Oita Hovercraft | 2023- | piccola | passeggeri | 320 | 100 | 20 |
 | Yara Birkeland | 2030- | grande | merci ingombranti, merci, merci sfuse | 480 | 42 | 10 |
 | Solar Shuttle | 2035- | piccola | passeggeri | 80 | 30 | 30 |

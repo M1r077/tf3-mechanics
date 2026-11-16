@@ -195,7 +195,7 @@
 </ul>
 <h2 id="年数と耐用年数"><span class="n">6</span><span>年数と耐用年数</span></h2>
 <ul>
-<li>各モデルには年単位の<strong>耐用年数</strong>がある<span class="sr">（<code class="src">vehicle_metadata_util.lua:79-83</code>）</span>。路線ウィンドウの<strong>年数</strong>の列が年数を示し、そのツールチップに耐用年数の使用割合と残り時間、または<strong>耐用期限に到達</strong>が表示される<span class="sr">（<code class="src">line_eow.script.tl:133-147</code>）</span>。</li>
+<li>各モデルには年単位の<strong>耐用年数</strong>がある<span class="sr">（<code class="src">vehicle_metadata_util.lua:79-83</code>）</span>。路線ウィンドウの<strong>年数</strong>の列が年数を示し、そのツールチップに残り時間、または<strong>耐用期限に到達</strong>が表示される<span class="sr">（<code class="src">line_eow.script.tl:133-147</code>）</span>。このツールチップの耐用年数の割合は、耐用年数に達するまで <strong>0 %</strong> と表示される。スクリプトが表示前に割合を切り捨てるためで<span class="sr">（<code class="src">line_eow.script.tl:139</code>）</span>、同じ割合は別の場所では正しく計算されている<span class="sr">（<code class="src">vehicle_util.tl:311</code>）</span>。代わりに残り時間を見ること。</li>
 <li>列車の場合、<strong>最も古い</strong>構成車両が基準になる<span class="sr">（<code class="src">vehicle_util.tl:36-52</code>）</span>。古い貨車が 1 両あるだけで列車全体が古く表示される。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>耐用年数に達すると何が変わるか（例えば状況の低下が速くなる、売却価格が下がるなど）はスクリプトにはない。スクリプトは年数と耐用年数を表示するだけである。</p></div></aside>

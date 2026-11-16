@@ -78,13 +78,13 @@ Cada contrato guarda tres listas, que su tarjeta muestra como **Tras la aceptaci
 - Dura **60 meses** (5 años) tras cumplir el contrato (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Suministrar a industria**: las entregas a esa industria, en las líneas que le entregaron durante el contrato (`deliver_cargo.script.tl:463-469`).
 - **Suministrar a localidad**: las entregas a cualquier edificio de esa localidad, **cualquier cargamento**, en las líneas que entregaron el cargamento del contrato (`deliver_cargo_town.script.tl:554-565`).
-- **Conectar localidades**: los pasajeros entre las dos localidades en la línea que lo cumplió (`deliver_passengers.script.tl:281-304`).
+- **Conectar localidades**: los pasajeros entre las dos localidades, en **una** sola línea directa: la última línea directa a la que subió un pasajero entre ellas. Se sigue actualizando después del contrato, así que con dos líneas directas el ×2 puede pasar de una a otra (`deliver_passengers.script.tl:263-296`).
 - **Transportar trabajadores** no tiene efecto en los ingresos (`deliver_workers.script.tl:90`).
-- Una línea que solo empezó a entregar después de cumplirse el contrato no recibe nada: la lista de líneas solo se llena durante el contrato.
+- En Suministrar a industria y Suministrar a localidad, una línea que solo empezó a entregar después de cumplirse el contrato no recibe nada: la lista de líneas solo se llena durante el contrato.
 - Dos contratos nunca duplican dos veces el mismo pago: cuando coinciden varios, solo se usa la última respuesta (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**¿Quieres los ingresos dobles de Suministrar a industria o Suministrar a localidad en varias líneas? Haz que todas entreguen antes de que se cumpla el contrato.** Una línea añadida después no recibe nada. Conectar localidades solo dobla una línea.
+**¿Quieres los ingresos dobles de Suministrar a industria o Suministrar a localidad en varias líneas? Haz que todas entreguen antes de que se cumpla el contrato.** Una línea añadida después no recibe nada. Conectar localidades solo dobla una línea, la última directa a la que subieron pasajeros: mantén una sola línea directa entre las dos localidades.
 ```
 
 ```engine

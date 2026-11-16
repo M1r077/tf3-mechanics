@@ -54,36 +54,36 @@ Precio y conservación de la primera variante. Las variantes posteriores cuestan
 
 ## Todos los aviones
 
-Velocidad en km/h, redondeada. «Cualquier cargamento» significa todos los tipos de cargamento.
+Velocidad en km/h, redondeada. «Cualquier cargamento» significa todos los tipos de cargamento. La capacidad es el total que muestra la tienda de vehículos: la suma de los compartimentos, cada uno con su mayor configuración de carga (`vehicle_store_util.tl:70-95`).
 
 | Avión | Años | Tamaño | Cargamento | Capacidad | Velocidad | Velocidad de carga |
 |---|---|---|---|---|---|---|
 | Junkers F 13 Herta | 1920-1950 | pequeño | pasajeros | 16 | 135 | - |
 | Vickers J6860 Victoria | 1922-1960 | pequeño | cualquier cargamento | 32 | 150 | 2,5 |
 | Fokker F VII A | 1925-1960 | pequeño | pasajeros | 32 | 175 | 2 |
-| Junkers JU-52 Iron Annie | 1933-1982 | pequeño | pasajeros, cualquier cargamento | 24 | 200 | 3 |
+| Junkers JU-52 Iron Annie | 1933-1982 | pequeño | pasajeros, cualquier cargamento | **48** (2 × 24) | 200 | 3 |
 | Douglas DC-3 | 1935-1995 | pequeño | pasajeros | 56 | 300 | 2,5 |
 | Curtiss C-46 Commando | 1942-1980 | pequeño | cualquier cargamento | 80 | 280 | - |
 | Douglas DC-4 | 1944-1998 | pequeño | pasajeros | 100 | 365 | 3 |
-| Bristol tipo 170 Freighter | 1949-2005 | pequeño | pasajeros, cualquier cargamento | 40 | 350 | 1,5 |
+| Bristol tipo 170 Freighter | 1949-2005 | pequeño | pasajeros, cualquier cargamento | **80** (2 × 40) | 350 | 1,5 |
 | Lockheed L-1049 Super Connie | 1952-1986 | grande | pasajeros | 120 | 486 | 3 |
-| Lockheed L-1049D/H Super Connie | 1959-2000 | grande | cualquier cargamento | 60 | 486 | 2,5 |
+| Lockheed L-1049D/H Super Connie | 1959-2000 | grande | cualquier cargamento | **120** (2 × 60) | 486 | 2,5 |
 | De Havilland DH.106 Comet | 1960-2000 | grande | pasajeros | 160 | 724 | 3 |
-| Canadair CL-44 Freighter | 1962-2005 | grande | cualquier cargamento | 48 | 645 | 2 |
+| Canadair CL-44 Freighter | 1962-2005 | grande | cualquier cargamento | **144** (3 × 48) | 645 | 2 |
 | Convair CV 990 Coronado | 1962-2020 | grande | pasajeros | 200 | 917 | 2 |
-| Lockheed L-100 Hercules | 1976-2000 | pequeño | cualquier cargamento | 44 | 400 | 3 |
+| Lockheed L-100 Hercules | 1976-2000 | pequeño | cualquier cargamento | **132** (3 × 44) | 400 | 3 |
 | McDonnell Douglas DC-10-30 | 1978- | grande | pasajeros | 400 | 960 | 2,5 |
-| McDonnell Douglas DC-10-30CF | 1978- | grande | cualquier cargamento | 132 | 960 | 4 |
+| McDonnell Douglas DC-10-30CF | 1978- | grande | cualquier cargamento | **396** (3 × 132) | 960 | 4 |
 | Airbus A310 300F Freighter | 1982- | grande | cualquier cargamento | 160 | 850 | 3 |
-| Short 330 Sherpa | 1984- | pequeño | pasajeros, cualquier cargamento | 40 | 455 | 2,5 |
+| Short 330 Sherpa | 1984- | pequeño | pasajeros, cualquier cargamento | **80** (2 × 40) | 455 | 2,5 |
 | Airbus A320 | 1985- | grande | pasajeros | 180 | 753 | 3 |
 | Br. Aerospace 146 | 1985- | pequeño | pasajeros | 112 | 753 | 3 |
-| Br. Aerospace 146 Freighter | 1985- | pequeño | cualquier cargamento | 48 | 753 | 2 |
+| Br. Aerospace 146 Freighter | 1985- | pequeño | cualquier cargamento | **96** (2 × 48) | 753 | 2 |
 | Fokker 100 | 1988- | grande | pasajeros | 160 | 845 | 3,5 |
 | Tupolev Tu-204 | 1995- | grande | pasajeros | 280 | 850 | 4 |
-| Tupolev Tu-204C Freighter | 1995- | grande | cualquier cargamento | 68 | 850 | 2 |
+| Tupolev Tu-204C Freighter | 1995- | grande | cualquier cargamento | **204** (3 × 68) | 850 | 2 |
 | Boeing 737-700 | 1998- | grande | pasajeros | 200 | 974 | 2,5 |
-| Boeing 737-700-C Freighter | 1998- | grande | cualquier cargamento | 80 | 974 | 3 |
+| Boeing 737-700-C Freighter | 1998- | grande | cualquier cargamento | **160** (2 × 80) | 974 | 3 |
 | Bombardier DHC-8 | 2000- | pequeño | pasajeros | 120 | 648 | 3 |
 | Bombardier DHC-8 Freighter | 2008- | pequeño | cualquier cargamento | 120 | 648 | 2 |
 | Sukhoi Superjet 100 | 2011- | pequeño | pasajeros | 160 | 870 | 3 |
@@ -94,7 +94,7 @@ Velocidad en km/h, redondeada. «Cualquier cargamento» significa todos los tipo
 | Helicóptero | Años | Cargamento | Capacidad | Velocidad | Velocidad de carga |
 |---|---|---|---|---|---|
 | Bell 47 | 1950-1990 | pasajeros, cualquier cargamento | 8 | 150 | 2 |
-| Piasecki H-21 Workhorse | 1952-1985 | pasajeros, cualquier cargamento | 80 | 210 | 3 |
+| Piasecki H-21 Workhorse | 1952-1985 | pasajeros, cualquier cargamento | 80 (48 cargamento) | 210 | 3 |
 | Sikorsky S-64 Skycrane | 1962-2017 | cualquier cargamento | 40 | 213 | 4 |
 | Bell 206 Long Ranger | 1965-2025 | pasajeros | 32 | 241 | 2,5 |
 | Boeing Vertol 234 Chinook | 1980- | pasajeros, cualquier cargamento | 80 | 269 | 2 |

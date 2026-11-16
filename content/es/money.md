@@ -23,7 +23,7 @@ Una entrega paga por **una sola línea recta**, desde donde se produjo el cargam
 - **Una vez, en el consumidor.** Descargar en un almacén o en una estación de transbordo no paga nada. El pago se reparte después entre las líneas de la cadena según la longitud en línea recta de cada tramo (medido en el juego).
 - **El cargamento con retraso se paga entero**: el tiempo de viaje no se usa (`cargotype.script.lua:7-13`). El retraso baja en cambio la calificación **Entrega** de la localidad.
 - **El rango de la empresa** baja todos los ingresos con el ajuste **Inflación**: en el rango 15, ×0,75 en Normal (`company_progression_util.tl:25-40`).
-- Una **subvención cumplida** duplica los ingresos de las líneas que entregaron, durante 5 años (`subvention_util.tl:286`).
+- Una **subvención cumplida** duplica, durante 5 años, los ingresos de las entregas que cubre: a su industria, a su localidad o pasajeros entre sus dos localidades, solo en sus líneas (`subvention_util.tl:286`). Ver [Subvenciones: ofertas, plazos y recompensas](subsidies.html).
 
 Detalles: [Ingresos por cargamento y tiempo de entrega](income.html).
 

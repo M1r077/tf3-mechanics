@@ -195,7 +195,7 @@
 </ul>
 <h2 id="연식과-수명"><span class="n">6</span><span>연식과 수명</span></h2>
 <ul>
-<li>각 모델에는 연 단위의 <strong>수명</strong>이 있다<span class="sr">(<code class="src">vehicle_metadata_util.lua:79-83</code>)</span>. 노선 창의 <strong>연식</strong> 열이 연식을 보여 주며, 툴팁에 사용한 수명 비율과 남은 시간, 또는 <strong>수명 도달함</strong>이 표시된다<span class="sr">(<code class="src">line_eow.script.tl:133-147</code>)</span>.</li>
+<li>각 모델에는 연 단위의 <strong>수명</strong>이 있다<span class="sr">(<code class="src">vehicle_metadata_util.lua:79-83</code>)</span>. 노선 창의 <strong>연식</strong> 열이 연식을 보여 주며, 툴팁에 남은 시간, 또는 <strong>수명 도달함</strong>이 표시된다<span class="sr">(<code class="src">line_eow.script.tl:133-147</code>)</span>. 이 툴팁의 수명 비율은 수명에 도달할 때까지 <strong>0 %</strong>로 나온다. 스크립트가 표시 전에 비율을 내림하기 때문이며<span class="sr">(<code class="src">line_eow.script.tl:139</code>)</span>, 같은 비율이 다른 곳에서는 제대로 계산된다<span class="sr">(<code class="src">vehicle_util.tl:311</code>)</span>. 대신 남은 시간을 본다.</li>
 <li>열차의 경우 <strong>가장 오래된</strong> 구성 차량이 기준이 된다<span class="sr">(<code class="src">vehicle_util.tl:36-52</code>)</span>. 오래된 화차 하나만 있어도 열차 전체가 오래된 것으로 표시된다.</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>수명에 도달하면 무엇이 바뀌는지(예: 상태가 더 빨리 떨어짐, 판매 가격 하락)는 스크립트에 없다. 스크립트는 연식과 수명을 표시할 뿐이다.</p></div></aside>

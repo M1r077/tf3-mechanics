@@ -61,7 +61,7 @@ Les scripts ne calculent que le total (`economy/cargo_income.script.lua`) ; le p
 | Quoi | Effet | Source |
 |---|---|---|
 | **Rang d'entreprise** avec le réglage Inflation | rang 1 : ×1, puis baisse régulière jusqu'au rang 15 : ×0,9 (Faible), **×0,75 (Normale)**, ×0,6 (Élevée), ×0,5 (Très élevée) ; Aucune : toujours ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Contrat rempli** | ×2 sur les lignes qui ont livré pour le contrat | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Contrat rempli** | ×2 pour les livraisons à l'industrie ou à la ville du contrat, sur les lignes qui ont livré pour le contrat | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Livraison en retard** | aucun effet sur le revenu | `cargotype.script.lua:7-13` |
 
 - Le multiplicateur de rang s'applique à **tous** les paiements de fret et de passagers (`company_growth.script.tl:159-170`). Les préréglages de difficulté utilisent l'Inflation Faible (Easy), Normale (Moyen), Élevée (Hard), Très élevée (Very Hard) (`difficulty_util.tl:108`).
@@ -69,7 +69,7 @@ Les scripts ne calculent que le total (`economy/cargo_income.script.lua`) ; le p
 
 ## Passagers
 
-Les passagers utilisent la même distance et un facteur de revenu fixe d'environ 3,61 (`cargotype.script.lua:50-53`), multiplié par **0,5 + le facteur de prix du billet du véhicule** (`cargo_income.script.lua:14-17`). Quand un modèle de véhicule ne définit pas son facteur de confort, le jeu met le facteur de prix à 0,3 pour les bus et trams, 0,9 pour les avions, 0,1 pour les bateaux et 0,5 pour les trains (`base_mod.lua:46-61`) ; pour les autres modèles, c'est une valeur du moteur, non visible dans les scripts. Un contrat de passagers double aussi le revenu sur sa ligne (`deliver_passengers.script.tl:284-298`).
+Les passagers utilisent la même distance et un facteur de revenu fixe d'environ 3,61 (`cargotype.script.lua:50-53`), multiplié par **0,5 + le facteur de prix du billet du véhicule** (`cargo_income.script.lua:14-17`). Quand un modèle de véhicule ne définit pas son facteur de confort, le jeu met le facteur de prix à 0,3 pour les bus et trams, 0,9 pour les avions, 0,1 pour les bateaux et 0,5 pour les trains (`base_mod.lua:46-61`) ; pour les autres modèles, c'est une valeur du moteur, non visible dans les scripts. Un contrat de passagers double seulement les passagers qui voyagent entre ses deux villes, sur son unique ligne (`deliver_passengers.script.tl:292-296`).
 
 ## Délais de livraison
 
@@ -110,7 +110,7 @@ La même livraison de charbon, à 5 km à vol d'oiseau.
 | destination 100 m plus haut | **116 %** |
 | livrée en retard | **100 %** (la note Livraison baisse) |
 | rang d'entreprise 15, Inflation Normale | **75 %** |
-| ligne d'un contrat rempli | **200 %** |
+| livraison couverte par un contrat rempli | **200 %** |
 
 ## Bon à savoir
 

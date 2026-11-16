@@ -23,7 +23,7 @@ A delivery pays for **one straight line**, from where the cargo was made to wher
 - **Once, at the consumer.** Unloading at a warehouse or a transfer station pays nothing. The payment is then split between the lines of the chain by the straight-line length of each leg (measured in game).
 - **Late cargo is paid in full**: the travel time is not used (`cargotype.script.lua:7-13`). Being late lowers the town's Delivery rating instead.
 - **Company rank** lowers all income with the **Inflation** setting: at rank 15, ×0.75 at Normal (`company_progression_util.tl:25-40`).
-- A **completed subsidy** doubles the income of the lines that delivered, for 5 years (`subvention_util.tl:286`).
+- A **completed subsidy** doubles, for 5 years, the income of the deliveries it covers: to its industry, to its town, or passengers between its two towns, on its lines only (`subvention_util.tl:286`). See [Subsidies](subsidies.html).
 
 Details: [Cargo income and delivery time](income.html).
 

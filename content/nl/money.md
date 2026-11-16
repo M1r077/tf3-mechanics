@@ -23,7 +23,7 @@ Een bezorging betaalt voor **één rechte lijn**, van waar de vracht gemaakt is 
 - **Eén keer, bij de afnemer.** Lossen bij een opslagplaats of een overstapstation levert niets op. De betaling wordt daarna over de lijnen van de keten verdeeld volgens de lengte in vogelvlucht van elk deel (gemeten in het spel).
 - **Te late vracht wordt volledig betaald**: de reistijd wordt niet gebruikt (`cargotype.script.lua:7-13`). Te laat komen verlaagt in plaats daarvan de beoordeling **Bezorging** van de stad.
 - **De bedrijfsrang** verlaagt alle inkomsten met de instelling **Inflatie**: bij rang 15 ×0,75 bij Gemiddeld (`company_progression_util.tl:25-40`).
-- Een **voltooide subsidie** verdubbelt de inkomsten van de lijnen die geleverd hebben, 5 jaar lang (`subvention_util.tl:286`).
+- Een **voltooide subsidie** verdubbelt 5 jaar lang de inkomsten van de leveringen die ze dekt: aan haar industriebedrijf, aan haar stad of reizigers tussen haar twee steden, alleen op haar lijnen (`subvention_util.tl:286`). Zie [Subsidies: aanbiedingen, termijnen en beloningen](subsidies.html).
 
 Details: [Vrachtinkomsten en bezorgtijd](income.html).
 

@@ -91,7 +91,7 @@ La station à laquelle un véhicule est affecté, ce qui se passe quand plus de 
 
 ## Âge et durée de vie
 
-- Chaque modèle a une **durée de vie** en années (`vehicle_metadata_util.lua:79-83`). La colonne **Âge** de la fenêtre de ligne montre l'âge ; son info-bulle montre la part de la durée de vie écoulée et le temps restant, ou **Durée de vie atteinte** (`line_eow.script.tl:133-147`).
+- Chaque modèle a une **durée de vie** en années (`vehicle_metadata_util.lua:79-83`). La colonne **Âge** de la fenêtre de ligne montre l'âge ; son info-bulle montre le temps restant, ou **Durée de vie atteinte** (`line_eow.script.tl:133-147`). La part de la durée de vie dans cette info-bulle affiche **0 %** jusqu'à ce que la durée de vie soit atteinte : le script arrondit la fraction à l'entier inférieur avant de l'afficher (`line_eow.script.tl:139`), alors que la même part est calculée en entier ailleurs (`vehicle_util.tl:311`). Fie-toi plutôt au temps restant.
 - Pour un train, c'est la partie **la plus ancienne** qui compte (`vehicle_util.tl:36-52`). Un seul vieux wagon fait apparaître tout le train comme vieux.
 
 ```engine

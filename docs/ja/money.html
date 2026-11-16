@@ -26,7 +26,7 @@
 <li><strong>消費地で 1 回だけ。</strong> 倉庫や乗り換え駅で積み下ろしても何も支払われない。支払いはその後、各区間の直線距離に応じてチェーンの路線間で分けられる（ゲーム内で測定）。</li>
 <li><strong>遅れた貨物も全額支払われる</strong>：移動時間は使われない<span class="sr">（<code class="src">cargotype.script.lua:7-13</code>）</span>。その代わり、遅れると町の配達評価が下がる。</li>
 <li><strong>会社ランク</strong>は<strong>インフレ</strong>設定によってすべての収入を下げる：ランク 15 で、普通なら ×0.75<span class="sr">（<code class="src">company_progression_util.tl:25-40</code>）</span>。</li>
-<li><strong>達成した助成金</strong>は、配送した路線の収入を 5 年間 2 倍にする<span class="sr">（<code class="src">subvention_util.tl:286</code>）</span>。</li>
+<li><strong>達成した助成金</strong>は、対象となる配送の収入を 5 年間 2 倍にする。対象はその産業への配送、その町への配送、または 2 つの町の間の旅客で、その路線のみ<span class="sr">（<code class="src">subvention_util.tl:286</code>）</span>。<a href="subsidies.html">助成金：提案、期限、報酬</a> を参照。</li>
 </ul>
 <p>詳細：<a href="income.html">貨物収入と配送時間</a>。</p>
 <h2 id="何がコストになるか"><span class="n">2</span><span>何がコストになるか</span></h2>

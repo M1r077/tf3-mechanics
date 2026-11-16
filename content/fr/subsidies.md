@@ -78,13 +78,13 @@ Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptat
 - Il dure **60 mois** (5 ans) après la réalisation du contrat (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Approvisionner l'industrie** : les livraisons à cette industrie, sur les lignes qui l'ont livrée pendant le contrat (`deliver_cargo.script.tl:463-469`).
 - **Approvisionner la ville** : les livraisons à n'importe quel bâtiment de la ville, **tout fret**, sur les lignes qui ont livré le fret du contrat (`deliver_cargo_town.script.tl:554-565`).
-- **Relier des villes** : les passagers entre les deux villes sur la ligne qui l'a rempli (`deliver_passengers.script.tl:281-304`).
+- **Relier des villes** : les passagers entre les deux villes, sur **une seule** ligne directe : la dernière ligne directe où un passager entre elles est monté. Cela continue de se mettre à jour après le contrat : avec deux lignes directes, le ×2 peut passer de l'une à l'autre (`deliver_passengers.script.tl:263-296`).
 - **Transporter des travailleurs** n'a pas d'effet sur les revenus (`deliver_workers.script.tl:90`).
-- Une ligne qui ne commence à livrer qu'après la réalisation n'a rien : la liste des lignes n'est remplie que pendant le contrat.
+- Pour Approvisionner l'industrie et Approvisionner la ville, une ligne qui ne commence à livrer qu'après la réalisation n'a rien : la liste des lignes n'est remplie que pendant le contrat.
 - Deux contrats ne doublent jamais deux fois le même paiement : quand plusieurs correspondent, seule la dernière réponse est utilisée (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Tu veux le revenu doublé d'Approvisionner l'industrie ou d'Approvisionner la ville sur plusieurs lignes ? Fais-les toutes livrer avant que le contrat soit réalisé.** Une ligne ajoutée après n'a rien. Relier des villes ne double qu'une seule ligne.
+**Tu veux le revenu doublé d'Approvisionner l'industrie ou d'Approvisionner la ville sur plusieurs lignes ? Fais-les toutes livrer avant que le contrat soit réalisé.** Une ligne ajoutée après n'a rien. Relier des villes ne double qu'une seule ligne, la dernière ligne directe où des passagers sont montés : garde une seule ligne directe entre les deux villes.
 ```
 
 ```engine

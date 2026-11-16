@@ -78,13 +78,13 @@ Every contract keeps three lists, shown on its card as **On Acceptance**, **On F
 - It lasts **60 months** (5 years) after the contract is fulfilled (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Supply Industry**: deliveries to that industry, on the lines that delivered to it during the contract (`deliver_cargo.script.tl:463-469`).
 - **Supply Town**: deliveries to any building of that town, **any cargo**, on the lines that delivered the contract cargo (`deliver_cargo_town.script.tl:554-565`).
-- **Connect Towns**: passengers between the two towns on the line that completed it (`deliver_passengers.script.tl:281-304`).
+- **Connect Towns**: passengers between the two towns, on **one** direct line only: the last direct line a passenger between them boarded. This keeps updating after the contract, so with two direct lines the ×2 can move from one to the other (`deliver_passengers.script.tl:263-296`).
 - **Transport Workers** has no income effect (`deliver_workers.script.tl:90`).
-- A line that only started delivering after the contract was fulfilled gets nothing: the list of lines is filled during the contract only.
+- For Supply Industry and Supply Town, a line that only started delivering after the contract was fulfilled gets nothing: the list of lines is filled during the contract only.
 - Two contracts never double the same payment twice: when several match, only the last answer is used (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Want the doubled income of Supply Industry or Supply Town on several lines? Have all of them deliver before the contract is fulfilled.** A line added afterwards gets nothing. Connect Towns doubles only one line.
+**Want the doubled income of Supply Industry or Supply Town on several lines? Have all of them deliver before the contract is fulfilled.** A line added afterwards gets nothing. Connect Towns doubles one line only, the last direct one passengers boarded: keep a single direct line between the two towns.
 ```
 
 ```engine

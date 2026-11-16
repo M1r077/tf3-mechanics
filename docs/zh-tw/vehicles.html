@@ -195,7 +195,7 @@
 </ul>
 <h2 id="年份與壽命"><span class="n">6</span><span>年份與壽命</span></h2>
 <ul>
-<li>每個型號都有以年計的<strong>壽命</strong><span class="sr">（<code class="src">vehicle_metadata_util.lua:79-83</code>）</span>。路線視窗的<strong>年份</strong>一欄顯示車齡；其提示顯示已用壽命的比例和剩餘時間，或<strong>已達使用年限</strong><span class="sr">（<code class="src">line_eow.script.tl:133-147</code>）</span>。</li>
+<li>每個型號都有以年計的<strong>壽命</strong><span class="sr">（<code class="src">vehicle_metadata_util.lua:79-83</code>）</span>。路線視窗的<strong>年份</strong>一欄顯示車齡；其提示顯示剩餘時間，或<strong>已達使用年限</strong><span class="sr">（<code class="src">line_eow.script.tl:133-147</code>）</span>。在達到壽命之前，該提示中的壽命比例顯示 <strong>0 %</strong>：腳本在顯示前把比例無條件捨去<span class="sr">（<code class="src">line_eow.script.tl:139</code>）</span>，而同一比例在別處是完整計算的<span class="sr">（<code class="src">vehicle_util.tl:311</code>）</span>。請改看剩餘時間。</li>
 <li>對於列車，以<strong>最老</strong>的組成部分為準<span class="sr">（<code class="src">vehicle_util.tl:36-52</code>）</span>。一節舊車廂就會讓整列車顯示為舊車。</li>
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>達到壽命後會改變什麼（例如狀態下降更快或售價更低）不在腳本中。腳本只顯示車齡和壽命。</p></div></aside>

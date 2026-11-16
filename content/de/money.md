@@ -23,7 +23,7 @@ Eine Lieferung bezahlt **eine einzige Luftlinie**, vom Ort, an dem die Fracht he
 - **Einmal, beim Verbraucher.** Entladen in ein Lager oder an einem Umsteigebahnhof bringt nichts. Die Zahlung wird dann nach der Luftlinienlänge jeder Etappe auf die Linien der Kette verteilt (im Spiel gemessen).
 - **Verspätete Fracht wird voll bezahlt**: Die Fahrzeit wird nicht verwendet (`cargotype.script.lua:7-13`). Verspätung senkt stattdessen die **Lieferungs**-Bewertung der Stadt.
 - **Der Unternehmensrang** senkt alle Einnahmen mit der Einstellung **Inflation**: auf Rang 15 ×0,75 bei Normal (`company_progression_util.tl:25-40`).
-- Eine **erfüllte Subvention** verdoppelt die Einnahmen der Linien, die geliefert haben, für 5 Jahre (`subvention_util.tl:286`).
+- Eine **erfüllte Subvention** verdoppelt für 5 Jahre die Einnahmen der Lieferungen, die sie abdeckt: an ihre Industrie, an ihre Stadt oder Passagiere zwischen ihren beiden Städten, nur auf ihren Linien (`subvention_util.tl:286`). Siehe [Subventionen: Angebote, Fristen und Belohnungen](subsidies.html).
 
 Details: [Gütereinnahmen und Lieferzeit](income.html).
 

@@ -91,7 +91,7 @@ Do której stacji pojazd zostaje przypisany, co się dzieje, gdy stację używa 
 
 ## Wiek i okres trwałości
 
-- Każdy model ma **okres trwałości** w latach (`vehicle_metadata_util.lua:79-83`). Kolumna **Wiek** w oknie linii pokazuje wiek; jej podpowiedź pokazuje zużytą część okresu trwałości i pozostały czas albo **Osiągnięto koniec okresu trwałości** (`line_eow.script.tl:133-147`).
+- Każdy model ma **okres trwałości** w latach (`vehicle_metadata_util.lua:79-83`). Kolumna **Wiek** w oknie linii pokazuje wiek; jej podpowiedź pokazuje pozostały czas albo **Osiągnięto koniec okresu trwałości** (`line_eow.script.tl:133-147`). Część okresu trwałości w tej podpowiedzi wynosi **0 %**, dopóki okres trwałości nie minie: skrypt zaokrągla ułamek w dół przed pokazaniem (`line_eow.script.tl:139`), a ta sama część jest gdzie indziej liczona w całości (`vehicle_util.tl:311`). Patrz raczej na pozostały czas.
 - Dla pociągu liczy się **najstarsza** część (`vehicle_util.tl:36-52`). Jeden stary wagon sprawia, że cały pociąg wygląda na stary.
 
 ```engine

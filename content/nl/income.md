@@ -61,7 +61,7 @@ De scripts berekenen alleen het totaal (`economy/cargo_income.script.lua`); de v
 | Wat | Effect | Bron |
 |---|---|---|
 | **Bedrijfsrang** met de instelling Inflatie | rang 1: ×1, gelijkmatig dalend tot rang 15: ×0,9 (Laag), **×0,75 (Gemiddeld)**, ×0,6 (Hoog), ×0,5 (Zeer hoog); Geen: altijd ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Voltooide subsidie** | ×2 op de lijnen die voor het contract hebben geleverd | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Voltooide subsidie** | ×2 voor leveringen aan het industriebedrijf of de stad van het contract, op de lijnen die voor het contract hebben geleverd | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
 | **Te late bezorging** | geen effect op de inkomsten | `cargotype.script.lua:7-13` |
 
 - De rangvermenigvuldiger geldt voor **elke** betaling voor vracht en reizigers (`company_growth.script.tl:159-170`). De niveaupresets gebruiken Inflatie Laag (Makkelijk), Gemiddeld (Gemiddeld), Hoog (Moeilijk), Zeer hoog (Heel moeilijk) (`difficulty_util.tl:108`).
@@ -69,7 +69,7 @@ De scripts berekenen alleen het totaal (`economy/cargo_income.script.lua`); de v
 
 ## Reizigers
 
-Reizigers gebruiken dezelfde afstand en een vaste inkomstenfactor van ongeveer 3,61 (`cargotype.script.lua:50-53`), vermenigvuldigd met **0,5 + de ticketprijsfactor van het voertuig** (`cargo_income.script.lua:14-17`). Als een voertuigmodel geen comfortfactor instelt, zet het spel de prijsfactor op 0,3 voor bussen en trams, 0,9 voor vliegtuigen, 0,1 voor schepen en 0,5 voor treinen (`base_mod.lua:46-61`); voor de andere modellen is het een enginewaarde, niet zichtbaar in de scripts. Een reizigerssubsidie verdubbelt ook de inkomsten op haar lijn (`deliver_passengers.script.tl:284-298`).
+Reizigers gebruiken dezelfde afstand en een vaste inkomstenfactor van ongeveer 3,61 (`cargotype.script.lua:50-53`), vermenigvuldigd met **0,5 + de ticketprijsfactor van het voertuig** (`cargo_income.script.lua:14-17`). Als een voertuigmodel geen comfortfactor instelt, zet het spel de prijsfactor op 0,3 voor bussen en trams, 0,9 voor vliegtuigen, 0,1 voor schepen en 0,5 voor treinen (`base_mod.lua:46-61`); voor de andere modellen is het een enginewaarde, niet zichtbaar in de scripts. Een reizigerssubsidie verdubbelt alleen de reizigers tussen haar twee steden, op haar ene lijn (`deliver_passengers.script.tl:292-296`).
 
 ## Tijdslimieten voor bezorging
 
@@ -110,7 +110,7 @@ Dezelfde steenkoolbezorging, 5 km in vogelvlucht.
 | bestemming 100 m hoger | **116 %** |
 | te laat bezorgd | **100 %** (beoordeling Bezorging daalt) |
 | bedrijfsrang 15, Inflatie Gemiddeld | **75 %** |
-| lijn van een voltooide subsidie | **200 %** |
+| levering gedekt door een voltooide subsidie | **200 %** |
 
 ## Goed om te weten
 

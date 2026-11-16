@@ -91,7 +91,7 @@ Aan welk station een voertuig wordt toegewezen, wat er gebeurt als meer voertuig
 
 ## Leeftijd en levensduur
 
-- Elk model heeft een **levensduur** in jaren (`vehicle_metadata_util.lua:79-83`). De kolom **Leeftijd** van het lijnvenster toont de leeftijd; de tooltip toont het gebruikte deel van de levensduur en de resterende tijd, of **Max. levensduur bereikt** (`line_eow.script.tl:133-147`).
+- Elk model heeft een **levensduur** in jaren (`vehicle_metadata_util.lua:79-83`). De kolom **Leeftijd** van het lijnvenster toont de leeftijd; de tooltip toont de resterende tijd, of **Max. levensduur bereikt** (`line_eow.script.tl:133-147`). Het deel van de levensduur in die tooltip staat op **0 %** tot de levensduur bereikt is: het script rondt de breuk naar beneden af voordat die getoond wordt (`line_eow.script.tl:139`), terwijl hetzelfde deel elders volledig berekend wordt (`vehicle_util.tl:311`). Kijk in plaats daarvan naar de resterende tijd.
 - Voor een trein telt het **oudste** onderdeel (`vehicle_util.tl:36-52`). Eén oude wagon laat de hele trein als oud verschijnen.
 
 ```engine

@@ -41,17 +41,17 @@ Jest jeden wariant portu na epokę: 1900, 1950 i 1990 (`harbor_modular.tl:71-73`
 
 ## Wszystkie statki
 
-Prędkość w km/h, zaokrąglona. "Ładunek" podaje klasy ładunku z pliku pojazdu; "każdy ładunek" oznacza każdy typ ładunku.
+Prędkość w km/h, zaokrąglona. "Ładunek" podaje klasy ładunku z pliku pojazdu; "każdy ładunek" oznacza każdy typ ładunku. Pojemność to suma pokazywana w sklepie pojazdów: wszystkie przedziały razem, każdy liczony według największej konfiguracji ładunku (`vehicle_store_util.tl:70-95`).
 
 | Statek | Lata | Rozmiar | Ładunek | Pojemność | Prędkość | Szybkość załadunku |
 |---|---|---|---|---|---|---|
-| Dunara Castle | 1875-1930 | duży | pasażerowie, każdy ładunek | 80 | 20 | 20 |
+| Dunara Castle | 1875-1930 | duży | pasażerowie, każdy ładunek | **160** (2 × 80) | 20 | 20 |
 | Kanadyjski trawler | 1884-1948 | mały | każdy ładunek | 40 | 35 | 10 |
 | Waimarie | 1889-1940 | mały | pasażerowie | 80 | 30 | 15 |
 | Sydfart | 1900-1930 | mały | płynny, platforma, towary, sypki | 80 | 30 | 20 |
 | PS Trillium | 1910-1955 | duży | pasażerowie | 200 | 35 | 15 |
-| Sternwheeler | 1915-1960 | mały | pasażerowie, każdy ładunek | 60 | 40 | 10 |
-| Terra Nova | 1925-1975 | duży | sypki, platforma, towary | 100 | 45 | 30 |
+| Sternwheeler | 1915-1960 | mały | pasażerowie, każdy ładunek | **120** (2 × 60) | 40 | 10 |
+| Terra Nova | 1925-1975 | duży | sypki, platforma, towary | **200** (2 × 100) | 45 | 30 |
 | Holownik tankowiec Votrans | 1935-1990 | mały | płynny | 120 | 33 | 20 |
 | Holownik towarowy Votrans | 1935-1990 | mały | sypki, platforma, towary | 120 | 33 | 20 |
 | MS Stadt Kiel | 1943-1990 | mały | pasażerowie | 80 | 30 | 20 |
@@ -61,14 +61,14 @@ Prędkość w km/h, zaokrąglona. "Ładunek" podaje klasy ładunku z pliku pojaz
 | Cap Arkona | 1965-2010 | duży | pasażerowie | 200 | 40 | 20 |
 | Kabotażowiec Tora | 1970-2020 | duży | płynny, platforma, towary, sypki | 320 | 40 | 25 |
 | Poduszkowiec AP1-88 | 1980- | mały | pasażerowie | 240 | 90 | 15 |
-| Holownik Hercules XI | 1990- | duży | platforma, towary, sypki | 120 | 32 | 20 |
+| Holownik Hercules XI | 1990- | duży | platforma, towary, sypki | **240** (2 × 120) | 32 | 20 |
 | Baltica | 1994- | mały | każdy ładunek | 80 | 40 | 20 |
 | HADAG Type 2000 | 1995- | mały | pasażerowie | 100 | 35 | 25 |
-| Damen Tanker 800 | 1996- | mały | płynny | 160 | 28 | 30 |
+| Damen Tanker 800 | 1996- | mały | płynny | **320** (2 × 160) | 28 | 30 |
 | Szybki prom Damen | 2003- | duży | pasażerowie | 220 | 75 | 20 |
-| Luise Deymann | 2013- | duży | płynny | 240 | 30 | 35 |
+| Luise Deymann | 2013- | duży | płynny | **480** (2 × 240) | 30 | 35 |
 | MS Diamant | 2013- | duży | pasażerowie | 280 | 45 | 35 |
-| Holownik Virgo | 2015- | duży | platforma, towary, sypki | 160 | 40 | 15 |
+| Holownik Virgo | 2015- | duży | platforma, towary, sypki | **320** (2 × 160) | 40 | 15 |
 | Poduszkowiec GHL Oita | 2023- | mały | pasażerowie | 320 | 100 | 20 |
 | Yara Birkeland | 2030- | duży | platforma, towary, sypki | 480 | 42 | 10 |
 | Prom Solarny | 2035- | mały | pasażerowie | 80 | 30 | 30 |

@@ -78,13 +78,13 @@ Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**,
 - Ele dura **60 meses** (5 anos) depois que o contrato é cumprido (`subvention_util.tl:286`, `subvention_util.tl:292`).
 - **Abastecer Indústria**: entregas a essa indústria, nas linhas que entregaram a ela durante o contrato (`deliver_cargo.script.tl:463-469`).
 - **Abastecer Município**: entregas a qualquer prédio desse município, **de qualquer carga**, nas linhas que entregaram a carga do contrato (`deliver_cargo_town.script.tl:554-565`).
-- **Conectar Municípios**: passageiros entre os dois municípios na linha que o cumpriu (`deliver_passengers.script.tl:281-304`).
+- **Conectar Municípios**: passageiros entre os dois municípios, em **uma** única linha direta: a última linha direta em que embarcou um passageiro entre eles. Isso continua sendo atualizado depois do contrato, então com duas linhas diretas o ×2 pode passar de uma para a outra (`deliver_passengers.script.tl:263-296`).
 - **Transportar Trabalhadores** não tem efeito na renda (`deliver_workers.script.tl:90`).
-- Uma linha que só começou a entregar depois que o contrato foi cumprido não ganha nada: a lista de linhas só é preenchida durante o contrato.
+- Em Abastecer Indústria e Abastecer Município, uma linha que só começou a entregar depois que o contrato foi cumprido não ganha nada: a lista de linhas só é preenchida durante o contrato.
 - Dois contratos nunca dobram o mesmo pagamento duas vezes: quando vários se aplicam, só a última resposta é usada (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Quer a renda dobrada de Abastecer Indústria ou Abastecer Município em várias linhas? Faça todas entregarem antes de o contrato ser cumprido.** Uma linha adicionada depois não ganha nada. Conectar Municípios dobra só uma linha.
+**Quer a renda dobrada de Abastecer Indústria ou Abastecer Município em várias linhas? Faça todas entregarem antes de o contrato ser cumprido.** Uma linha adicionada depois não ganha nada. Conectar Municípios dobra só uma linha, a última direta em que passageiros embarcaram: mantenha uma única linha direta entre os dois municípios.
 ```
 
 ```engine

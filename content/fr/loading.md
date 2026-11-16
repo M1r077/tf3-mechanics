@@ -108,7 +108,7 @@ L'ordre dans lequel plusieurs frets sont chargés, la façon dont un stock parta
 
 ## La configuration automatique
 
-Tant que personne n'a modifié les filtres de fret d'une ligne, le jeu remplit lui-même les listes Charge, à chaque création de la ligne et à chaque arrêt ou point de passage ajouté, retiré ou déplacé (`manager_window.tl:6712-6963`). Changer le quai d'un arrêt ne la relance pas (`manager_window.tl:6860`).
+Tant que personne n'a enregistré de modification dans la fenêtre « Filtre de fret » d'un arrêt, ce qui la désactive pour de bon sur cette ligne (`line_util.tl:495-498`, `cargofilter_window.tl:438`), le jeu remplit lui-même les listes Charge à chaque création de la ligne, à chaque arrêt ajouté ou retiré, à chaque changement d'ordre des arrêts et à chaque point de passage ajouté (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Déplacer un arrêt vers une autre gare ou un autre quai, et retirer ou déplacer un point de passage, ne la relancent pas (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6987`).
 
 - Elle repart de listes vides, avec les passagers aux gares voyageurs (`line_util.tl:542-588`).
 - Elle cherche producteurs et clients parmi les industries et les bâtiments de ville seulement : les entrepôts ne comptent pas (`cargo_util.tl:518-526`).
