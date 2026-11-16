@@ -19,12 +19,12 @@ Un script del juego fija la emisión de cuatro tipos de edificios cada pocas act
 
 | Edificio | Emite más cuando | Fuente |
 |---|---|---|
-| **Industria** | produce, y más con cada impulso (carga o trabajadores); la mitad cuando su existencia de salida está llena | `emissions.script.tl:152-194` |
+| **Industria** | produce, y más con cada impulso (carga o trabajadores); menos, hacia su nivel parado, cuando su existencia de salida está llena | `emissions.script.tl:152-194` |
 | **Estación** | está más concurrida: personas y carga en espera frente a su capacidad | `emissions.script.tl:211-222` |
 | **Cochera**, **estación de mantenimiento** | más vehículos usan su mantenimiento | `emissions.script.tl:223-234` |
 | **Almacén** | sus existencias están más llenas | `emissions.script.tl:237-250` |
 
-- Una industria parada no emite nada por defecto; produciendo, impulsada una vez e impulsada dos veces sube por escalones (`industryutil.lua:470-475`). Una mina de carbón, por ejemplo, pasa de 10 de contaminación a 20 y 30 (ver [Industrias](industries.html)).
+- Cada industria tiene sus propios cuatro niveles: parada, produciendo, impulsada una vez, impulsada dos veces (`industryutil.lua:464-475`; el valor por defecto 0 / 78 / 84 / 88 solo se aplica a una industria sin los suyos). La mayoría emite algo incluso parada: una mina de carbón pasa de 2 → 10 → 20 → 30 de contaminación, sus campos 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, ver [Industrias](industries.html)).
 - Una industria cuya producción no se recoge vuelve hacia su nivel parado: darle servicio aumenta su contaminación.
 - Vehículos y vías también emiten; un vehículo en mal estado emite más con el ajuste **Efecto del mantenimiento de vehículos** (ver [Costes, mantenimiento y préstamos](costs.html)).
 
@@ -40,9 +40,9 @@ Un script del juego fija la emisión de cuatro tipos de edificios cada pocas act
 | Estación subterránea | 40 | 80 | `underground_station.con.lua:75-76` |
 | Estación de camiones y autobuses | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | Estaciones de mantenimiento | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| Almacén | 20 | 25 o 50 | `warehouses/warehouse.tl:73-74` |
+| Almacén | 20 | 50 (universal) o 100 (especializado) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-Dos valores son el nivel tranquilo y el ajetreado. Mantén puertos, aeropuertos y grandes estaciones de mercancías lejos de las casas.
+Dos valores son el rango que muestra el menú, del más bajo al más alto, como el rango de precio a su lado (`construction_desc_react_util.tl:733-746`); un valor es una cifra única. En funcionamiento, cada edificio emite más cuanto más ocupado está (tabla de arriba). Mantén puertos, aeropuertos y grandes estaciones de mercancías lejos de las casas.
 
 ## Cómo lo valora una ciudad
 
@@ -99,7 +99,7 @@ Una ventaja de empresa que elimina la contaminación a su alrededor.
 ## Conviene saber
 
 - Abre la ventana de la ciudad o las capas de ruido y contaminación para ver la valoración y los puntos críticos.
-- Una existencia de salida llena reduce a la mitad la emisión de una industria, pero te cuesta su carga: mejor alejar la ciudad que dejar sin servicio a la industria.
+- Una existencia de salida llena baja la emisión de una industria hacia su nivel parado, pero te cuesta su carga: mejor alejar la ciudad que dejar sin servicio a la industria.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) y [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) ayudan a encontrar las estaciones más concurridas.
 
 ```engine
@@ -108,6 +108,6 @@ El motor calcula los mapas de ruido y contaminación, cómo se propagan los valo
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." El distrito residencial "is sensitive to noise"; el distrito comercial "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Valoración de ruido 65 → 80 dB, contaminación 60 → 74 dB promediada sobre 5–10 km²; la susceptibilidad suma 10·log10 dB; industrias, estaciones, cocheras y almacenes emiten más cuando están ocupados; una existencia de salida llena reduce a la mitad la emisión de una industria; ecologización −80 % una vez por industria; la Planta de limpieza elimina hasta 40.000 de contaminación en 700 m y necesita máquinas.
+scripts: Valoración de ruido 65 → 80 dB, contaminación 60 → 74 dB promediada sobre 5–10 km²; la susceptibilidad suma 10·log10 dB; industrias, estaciones, cocheras y almacenes emiten más cuando están ocupados; una existencia de salida llena baja la emisión de una industria hacia su nivel parado; ecologización −80 % una vez por industria; la Planta de limpieza elimina hasta 40.000 de contaminación en 700 m y necesita máquinas.
 result: refines
 ```

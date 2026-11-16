@@ -60,7 +60,7 @@ Un magazzino è un ingresso e un insieme di **moduli**. Conserva il carico tra d
 - I moduli per merci sfuse, merci ingombranti e merci generiche costano quanto quelli per liquidi (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-Gli script danno due livelli di emissione, il secondo doppio del primo (`warehouse.script.lua:342-343`); quando il motore usi il secondo non è negli script. Il prezzo davvero addebitato per i moduli lo calcola il motore.
+Gli script danno due livelli di emissione, il secondo doppio del primo (`warehouse.script.lua:342-343`); il magazzino passa dal primo al secondo man mano che le scorte si riempiono, scorte piene = il doppio (`emissions.script.tl:237-249`). Il prezzo davvero addebitato per i moduli lo calcola il motore.
 ```
 
 ## Che cosa un magazzino non fa

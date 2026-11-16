@@ -60,7 +60,7 @@ A warehouse is an entrance and a set of **modules**. It stores cargo between two
 - Bulk, flatbed and goods modules cost the same as liquid ones (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-The scripts give two emission levels, the second twice the first (`warehouse.script.lua:342-343`); when the engine uses the second is not in the scripts. The price actually charged for modules is computed by the engine.
+The scripts give two emission levels, the second twice the first (`warehouse.script.lua:342-343`); the warehouse moves from the first to the second as its stocks fill up, full stocks = twice (`emissions.script.tl:237-249`). The price actually charged for modules is computed by the engine.
 ```
 
 ## What a warehouse does not do

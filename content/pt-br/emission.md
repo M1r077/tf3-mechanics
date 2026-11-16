@@ -19,12 +19,12 @@ Um script do jogo define a emissão de quatro tipos de edifício a cada poucas a
 
 | Edifício | Emite mais quando | Fonte |
 |---|---|---|
-| **Indústria** | produz, e de novo a cada impulso (carga ou trabalhadores); metade quando seu estoque de saída está cheio | `emissions.script.tl:152-194` |
+| **Indústria** | produz, e de novo a cada impulso (carga ou trabalhadores); menos, em direção ao nível parado, quando seu estoque de saída está cheio | `emissions.script.tl:152-194` |
 | **Estação** | está mais movimentada: pessoas e carga esperando em relação à capacidade | `emissions.script.tl:211-222` |
 | **Garagem**, **estação de manutenção** | mais veículos usam sua manutenção | `emissions.script.tl:223-234` |
 | **Armazém** | seus estoques estão mais cheios | `emissions.script.tl:237-250` |
 
-- Uma indústria parada não emite nada por padrão; produzindo, com um impulso e com dois impulsos sobem passo a passo (`industryutil.lua:470-475`). Uma mina de carvão, por exemplo, vai de 10 de poluição para 20 e 30 (veja [Indústrias](industries.html)).
+- Cada indústria tem seus próprios quatro níveis: parada, produzindo, com um impulso, com dois impulsos (`industryutil.lua:464-475`; o padrão 0 / 78 / 84 / 88 só vale para uma indústria sem os seus). A maioria emite um pouco mesmo parada: uma mina de carvão vai de 2 → 10 → 20 → 30 de poluição, seus campos 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, veja [Indústrias](industries.html)).
 - Uma indústria cuja produção não é recolhida volta ao nível parado: atendê-la aumenta sua poluição.
 - Veículos e trilhos também emitem; um veículo em mau estado emite mais com a configuração **Efeito da Manutenção do Veículo** (veja [Custos, manutenção e empréstimos](costs.html)).
 
@@ -40,9 +40,9 @@ Um script do jogo define a emissão de quatro tipos de edifício a cada poucas a
 | Estação de metrô | 40 | 80 | `underground_station.con.lua:75-76` |
 | Estação de caminhões e ônibus | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | Estações de manutenção | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| Armazém | 20 | 25 ou 50 | `warehouses/warehouse.tl:73-74` |
+| Armazém | 20 | 50 (universal) ou 100 (especializado) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-Dois valores são o nível calmo e o movimentado. Mantenha portos, aeroportos e grandes estações de carga longe das casas.
+Dois valores são a faixa mostrada pelo menu, do mais baixo ao mais alto, como a faixa de preço ao lado (`construction_desc_react_util.tl:733-746`); um valor é um número único. Em funcionamento, cada prédio emite mais quanto mais movimentado está (tabela acima). Mantenha portos, aeroportos e grandes estações de carga longe das casas.
 
 ## Como uma cidade avalia
 
@@ -99,7 +99,7 @@ Uma vantagem da empresa que remove a poluição ao seu redor.
 ## Bom saber
 
 - Abra a janela da cidade ou as camadas de barulho e poluição para ver a avaliação e os pontos críticos.
-- Um estoque de saída cheio reduz pela metade a emissão de uma indústria, mas custa a sua carga: é melhor mover a cidade do que deixar a indústria sem atendimento.
+- Um estoque de saída cheio baixa a emissão de uma indústria em direção ao nível parado, mas custa a sua carga: é melhor mover a cidade do que deixar a indústria sem atendimento.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) e [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) ajudam a encontrar as estações mais movimentadas.
 
 ```engine
@@ -108,6 +108,6 @@ O motor calcula os mapas de barulho e poluição, como os valores se espalham, a
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." O distrito residencial "is sensitive to noise"; o distrito comercial "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Avaliação de barulho 65 → 80 dB, poluição 60 → 74 dB em média sobre 5–10 km²; a sensibilidade soma 10·log10 dB; indústrias, estações, garagens e armazéns emitem mais quando movimentados; um estoque de saída cheio reduz pela metade a emissão de uma indústria; ecologização −80 %, uma vez por indústria; a Estação de Limpeza remove até 40.000 de poluição num raio de 700 m e precisa de máquinas.
+scripts: Avaliação de barulho 65 → 80 dB, poluição 60 → 74 dB em média sobre 5–10 km²; a sensibilidade soma 10·log10 dB; indústrias, estações, garagens e armazéns emitem mais quando movimentados; um estoque de saída cheio baixa a emissão de uma indústria em direção ao nível parado; ecologização −80 %, uma vez por indústria; a Estação de Limpeza remove até 40.000 de poluição num raio de 700 m e precisa de máquinas.
 result: refines
 ```

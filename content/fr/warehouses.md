@@ -60,7 +60,7 @@ Un entrepôt, c'est une entrée et un ensemble de **modules**. Il stocke le fret
 - Les modules vrac, plateau et marchandises coûtent autant que les modules liquides (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-Les scripts donnent deux niveaux d'émission, le second deux fois le premier (`warehouse.script.lua:342-343`) ; quand le moteur utilise le second n'est pas dans les scripts. Le prix réellement facturé pour les modules est calculé par le moteur.
+Les scripts donnent deux niveaux d'émission, le second deux fois le premier (`warehouse.script.lua:342-343`) ; l'entrepôt passe du premier au second à mesure que ses stocks se remplissent, stocks pleins = deux fois (`emissions.script.tl:237-249`). Le prix réellement facturé pour les modules est calculé par le moteur.
 ```
 
 ## Ce qu'un entrepôt ne fait pas

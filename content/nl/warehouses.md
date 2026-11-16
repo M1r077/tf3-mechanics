@@ -60,7 +60,7 @@ Een opslagplaats is een ingang met een aantal **modules**. Ze bewaart vracht tus
 - Bulk-, dieplader- en goederenmodules kosten hetzelfde als vloeistofmodules (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-De scripts geven twee emissieniveaus, het tweede twee keer het eerste (`warehouse.script.lua:342-343`); wanneer de engine het tweede gebruikt, staat niet in de scripts. De prijs die echt voor modules wordt afgeschreven, berekent de engine.
+De scripts geven twee emissieniveaus, het tweede twee keer het eerste (`warehouse.script.lua:342-343`); de opslagplaats gaat van het eerste naar het tweede naarmate de voorraden vollopen, volle voorraden = twee keer (`emissions.script.tl:237-249`). De prijs die echt voor modules wordt afgeschreven, berekent de engine.
 ```
 
 ## Wat een opslagplaats niet doet

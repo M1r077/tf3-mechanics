@@ -60,7 +60,7 @@ Un almacén es una entrada y un conjunto de **módulos**. Guarda cargamento entr
 - Los módulos a granel, de plataforma y de mercancías cuestan lo mismo que los de líquidos (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-Los scripts dan dos niveles de emisión, el segundo el doble del primero (`warehouse.script.lua:342-343`); cuándo usa el motor el segundo no está en los scripts. El precio que se cobra de verdad por los módulos lo calcula el motor.
+Los scripts dan dos niveles de emisión, el segundo el doble del primero (`warehouse.script.lua:342-343`); el almacén pasa del primero al segundo a medida que se llenan sus existencias, existencias llenas = el doble (`emissions.script.tl:237-249`). El precio que se cobra de verdad por los módulos lo calcula el motor.
 ```
 
 ## Lo que un almacén no hace

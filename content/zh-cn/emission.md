@@ -19,12 +19,12 @@ fact: 700 m | 净化厂的作用范围
 
 | 建筑 | 何时排放更多 | 来源 |
 |---|---|---|
-| **产业** | 生产时，每次加成（货物或工人）再增加；输出库存满时减半 | `emissions.script.tl:152-194` |
+| **产业** | 生产时，每次加成（货物或工人）再增加；输出库存满时向闲置水平回落 | `emissions.script.tl:152-194` |
 | **车站** | 越繁忙越多：等待的人和货物与容量相比 | `emissions.script.tl:211-222` |
 | **车库**、**维护站** | 使用其维护的载具越多越多 | `emissions.script.tl:223-234` |
 | **仓库** | 库存越满越多 | `emissions.script.tl:237-250` |
 
-- 闲置的产业默认不排放；生产、加成一次、加成两次逐级上升（`industryutil.lua:470-475`）。例如煤矿的污染从 10 升到 20 和 30（见 [产业](industries.html)）。
+- 每个产业都有自己的四个等级：闲置、生产、加成一次、加成两次（`industryutil.lua:464-475`；默认的 0 / 78 / 84 / 88 只用于没有自己数值的产业）。大多数产业闲置时也会少量排放：煤矿的污染为 2 → 10 → 20 → 30，它的田地为 2 → 30 → 60 → 90（`coal_mine.con.lua:99-135`，见 [产业](industries.html)）。
 - 输出无人运走的产业会回落到闲置水平：为它提供运输会提高它的污染。
 - 载具和轨道也会排放；在**载具老化影响**设置下，状况差的载具排放更多（见 [成本、维护费与贷款](costs.html)）。
 
@@ -40,9 +40,9 @@ fact: 700 m | 净化厂的作用范围
 | 地下车站 | 40 | 80 | `underground_station.con.lua:75-76` |
 | 卡车和公交车站 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | 维护站 | 20 | 40–50 | `road_maint_station.con.lua:30-31`，`rail_maint_station.con.lua:30-31` |
-| 仓库 | 20 | 25 或 50 | `warehouses/warehouse.tl:73-74` |
+| 仓库 | 20 | 50（通用）或 100（专用） | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-两个数值是安静水平和繁忙水平。让港口、机场和大型货运站远离住宅。
+两个数值是菜单显示的范围，从最低到最高，与旁边的价格范围一样（`construction_desc_react_util.tl:733-746`）；只有一个数值时就是单一数值。运行时，每座建筑越繁忙排放越多（见上表）。让港口、机场和大型货运站远离住宅。
 
 ## 城镇如何评价
 
@@ -99,7 +99,7 @@ fact: 700 m | 净化厂的作用范围
 ## 小贴士
 
 - 打开城镇窗口或噪音与污染图层，可以看到评价和热点。
-- 输出库存满会让产业排放减半，但你会失去它的货物：与其饿着产业，不如让城镇搬开。
+- 输出库存满会让产业排放向闲置水平回落，但你会失去它的货物：与其饿着产业，不如让城镇搬开。
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) 和 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 可以帮你找到最繁忙的车站。
 
 ```engine
@@ -108,6 +108,6 @@ fact: 700 m | 净化厂的作用范围
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." 住宅区 "is sensitive to noise"；商业区 "is robust against the influence of noise"。([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 噪音评价 65 → 80 dB，污染 60 → 74 dB，按 5–10 km² 平均；敏感度增加 10·log10 dB；产业、车站、车库和仓库繁忙时排放更多；输出库存满时产业排放减半；绿化每个产业一次 −80 %；净化厂在 700 m 内最多清除 40,000 污染，并需要机器。
+scripts: 噪音评价 65 → 80 dB，污染 60 → 74 dB，按 5–10 km² 平均；敏感度增加 10·log10 dB；产业、车站、车库和仓库繁忙时排放更多；输出库存满时产业排放向闲置水平回落；绿化每个产业一次 −80 %；净化厂在 700 m 内最多清除 40,000 污染，并需要机器。
 result: refines
 ```

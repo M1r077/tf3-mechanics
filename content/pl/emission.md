@@ -19,12 +19,12 @@ Skrypt gry co kilka aktualizacji ustawia emisję czterech rodzajów budynków, m
 
 | Budynek | Emituje więcej, gdy | Źródło |
 |---|---|---|
-| **Zakład przemysłowy** | produkuje, i znowu z każdym wzmocnieniem (towar lub pracownicy); o połowę mniej, gdy jego zapas wyjściowy jest pełny | `emissions.script.tl:152-194` |
+| **Zakład przemysłowy** | produkuje, i znowu z każdym wzmocnieniem (towar lub pracownicy); mniej, w stronę poziomu bezczynności, gdy jego zapas wyjściowy jest pełny | `emissions.script.tl:152-194` |
 | **Stacja** | jest bardziej zajęta: czekający ludzie i towar względem jej pojemności | `emissions.script.tl:211-222` |
 | **Zajezdnia**, **stacja serwisowa** | więcej pojazdów korzysta z jej serwisu | `emissions.script.tl:223-234` |
 | **Magazyn** | jego zapasy są pełniejsze | `emissions.script.tl:237-250` |
 
-- Bezczynny zakład domyślnie nic nie emituje; produkcja, jedno wzmocnienie i dwa wzmocnienia rosną krok po kroku (`industryutil.lua:470-475`). Kopalnia węgla na przykład przechodzi z 10 zanieczyszczenia na 20 i 30 (zobacz [Zakłady przemysłowe](industries.html)).
+- Każdy zakład ma własne cztery poziomy: bezczynność, produkcja, jedno wzmocnienie, dwa wzmocnienia (`industryutil.lua:464-475`; domyślne 0 / 78 / 84 / 88 dotyczy tylko zakładu bez własnych wartości). Większość emituje trochę nawet w bezczynności: kopalnia węgla przechodzi 2 → 10 → 20 → 30 zanieczyszczenia, jej pola 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, zobacz [Zakłady przemysłowe](industries.html)).
 - Zakład, którego produkcji nikt nie odbiera, wraca do poziomu bezczynności: obsługa podnosi jego zanieczyszczenie.
 - Pojazdy i tory też emitują; pojazd w złym stanie emituje więcej przy ustawieniu **Wpływ konserwacji pojazdów** (zobacz [Koszty, utrzymanie i pożyczki](costs.html)).
 
@@ -40,9 +40,9 @@ Skrypt gry co kilka aktualizacji ustawia emisję czterech rodzajów budynków, m
 | Stacja metra | 40 | 80 | `underground_station.con.lua:75-76` |
 | Stacja ciężarówek i autobusów | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | Stacje serwisowe | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| Magazyn | 20 | 25 lub 50 | `warehouses/warehouse.tl:73-74` |
+| Magazyn | 20 | 50 (uniwersalny) lub 100 (specjalistyczny) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-Dwie wartości to poziom spokojny i ruchliwy. Trzymaj porty, lotniska i duże stacje towarowe z dala od domów.
+Dwie wartości to zakres pokazany w menu, od najniższej do najwyższej, jak zakres ceny obok (`construction_desc_react_util.tl:733-746`); jedna wartość to pojedyncza liczba. W działaniu każdy budynek emituje więcej, im bardziej jest zajęty (tabela wyżej). Trzymaj porty, lotniska i duże stacje towarowe z dala od domów.
 
 ## Jak ocenia to miasto
 
@@ -99,7 +99,7 @@ Atut firmy, który usuwa zanieczyszczenie wokół siebie.
 ## Warto wiedzieć
 
 - Otwórz okno miasta albo warstwy hałasu i zanieczyszczenia, aby zobaczyć ocenę i gorące punkty.
-- Pełny zapas wyjściowy zmniejsza emisję zakładu o połowę, ale kosztuje cię jego towar: lepiej przenieść miasto, niż głodzić zakład.
+- Pełny zapas wyjściowy obniża emisję zakładu w stronę poziomu bezczynności, ale kosztuje cię jego towar: lepiej przenieść miasto, niż głodzić zakład.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) i [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) pomagają znaleźć najbardziej zajęte stacje.
 
 ```engine
@@ -108,6 +108,6 @@ Silnik oblicza mapy hałasu i zanieczyszczenia, rozchodzenie się wartości, emi
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." Dzielnica mieszkalna "is sensitive to noise"; dzielnica handlowa "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Ocena hałasu 65 → 80 dB, zanieczyszczenie 60 → 74 dB uśredniane z 5–10 km²; wrażliwość dodaje 10·log10 dB; zakłady, stacje, zajezdnie i magazyny emitują więcej, gdy są zajęte; pełny zapas wyjściowy zmniejsza emisję zakładu o połowę; zazielenianie −80 %, raz na zakład; Oczyszczalnia usuwa do 40 000 zanieczyszczenia w promieniu 700 m i potrzebuje maszyn.
+scripts: Ocena hałasu 65 → 80 dB, zanieczyszczenie 60 → 74 dB uśredniane z 5–10 km²; wrażliwość dodaje 10·log10 dB; zakłady, stacje, zajezdnie i magazyny emitują więcej, gdy są zajęte; pełny zapas wyjściowy obniża emisję zakładu w stronę poziomu bezczynności; zazielenianie −80 %, raz na zakład; Oczyszczalnia usuwa do 40 000 zanieczyszczenia w promieniu 700 m i potrzebuje maszyn.
 result: refines
 ```

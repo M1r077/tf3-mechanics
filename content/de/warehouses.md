@@ -60,7 +60,7 @@ Ein Lager ist ein Eingang und eine Reihe von **Modulen**. Es lagert Fracht zwisc
 - Schüttgut-, Sperrgut- und Stückgutmodule kosten so viel wie Flüssiggutmodule (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-Die Skripte geben zwei Emissionsstufen an, die zweite doppelt so hoch wie die erste (`warehouse.script.lua:342-343`); wann die Engine die zweite nutzt, steht nicht in den Skripten. Den tatsächlich berechneten Preis der Module bestimmt die Engine.
+Die Skripte geben zwei Emissionsstufen an, die zweite doppelt so hoch wie die erste (`warehouse.script.lua:342-343`); das Lager geht von der ersten zur zweiten über, je voller seine Lager sind, volle Lager = doppelt (`emissions.script.tl:237-249`). Den tatsächlich berechneten Preis der Module bestimmt die Engine.
 ```
 
 ## Was ein Lager nicht tut

@@ -19,12 +19,12 @@ Un script du jeu règle l'émission de quatre sortes de bâtiments toutes les qu
 
 | Bâtiment | Émet plus quand | Source |
 |---|---|---|
-| **Industrie** | elle produit, et encore à chaque boost (fret ou ouvriers) ; deux fois moins quand son stock de sortie est plein | `emissions.script.tl:152-194` |
+| **Industrie** | elle produit, et encore à chaque boost (fret ou ouvriers) ; moins, vers son niveau à l'arrêt, quand son stock de sortie est plein | `emissions.script.tl:152-194` |
 | **Gare** | elle est plus chargée : personnes et fret en attente par rapport à sa capacité | `emissions.script.tl:211-222` |
 | **Dépôt**, **station de maintenance** | plus de véhicules utilisent sa maintenance | `emissions.script.tl:223-234` |
 | **Entrepôt** | ses stocks sont plus pleins | `emissions.script.tl:237-250` |
 
-- Une industrie à l'arrêt n'émet rien par défaut ; en production, boostée une fois et boostée deux fois, elle monte par paliers (`industryutil.lua:470-475`). Une mine de charbon, par exemple, passe de 10 de pollution à 20 puis 30 (voir [Industries](industries.html)).
+- Chaque industrie a ses propres quatre niveaux : à l'arrêt, en production, boostée une fois, boostée deux fois (`industryutil.lua:464-475` ; le défaut 0 / 78 / 84 / 88 ne s'applique qu'à une industrie sans les siens). La plupart émettent un peu même à l'arrêt : une mine de charbon passe de 2 → 10 → 20 → 30 de pollution, ses champs 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, voir [Industries](industries.html)).
 - Une industrie dont la production n'est pas enlevée redescend vers son niveau à l'arrêt : la desservir augmente sa pollution.
 - Les véhicules et les voies émettent aussi ; un véhicule en mauvais état émet plus avec le réglage **Effet de la maintenance des véhicules** (voir [Coûts, entretien et emprunts](costs.html)).
 
@@ -40,9 +40,9 @@ Un script du jeu règle l'émission de quatre sortes de bâtiments toutes les qu
 | Station souterraine | 40 | 80 | `underground_station.con.lua:75-76` |
 | Gare routière (camions et bus) | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | Stations de maintenance | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| Entrepôt | 20 | 25 ou 50 | `warehouses/warehouse.tl:73-74` |
+| Entrepôt | 20 | 50 (universel) ou 100 (spécialisé) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-Deux valeurs sont le niveau calme et le niveau chargé. Garde les ports, aéroports et grandes gares de fret loin des maisons.
+Deux valeurs sont la fourchette affichée par le menu, de la plus basse à la plus haute, comme la fourchette de prix à côté (`construction_desc_react_util.tl:733-746`) ; une seule valeur est un chiffre unique. En fonctionnement, chaque bâtiment émet plus quand il est plus chargé (tableau plus haut). Garde les ports, aéroports et grandes gares de fret loin des maisons.
 
 ## Comment une ville l'évalue
 
@@ -99,7 +99,7 @@ Un avantage d'entreprise qui retire la pollution autour de lui.
 ## Bon à savoir
 
 - Ouvre la fenêtre de la ville ou les calques bruit et pollution pour voir la note et les points chauds.
-- Un stock de sortie plein divise par deux l'émission d'une industrie, mais te coûte son fret : mieux vaut éloigner la ville qu'affamer l'industrie.
+- Un stock de sortie plein fait redescendre l'émission d'une industrie vers son niveau à l'arrêt, mais te coûte son fret : mieux vaut éloigner la ville qu'affamer l'industrie.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) et [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) aident à trouver les gares les plus chargées.
 
 ```engine
@@ -108,6 +108,6 @@ Le moteur calcule les cartes de bruit et de pollution, la diffusion des valeurs,
 
 ```check
 official: « Noise reflects noise levels in residential areas. » « Pollution reflects pollution levels across the town area. » Le quartier résidentiel « is sensitive to noise » ; le quartier commercial « is robust against the influence of noise ». ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Note de bruit 65 → 80 dB, pollution 60 → 74 dB moyennée sur 5–10 km² ; la sensibilité ajoute 10·log10 dB ; industries, gares, dépôts et entrepôts émettent plus quand ils sont chargés ; un stock de sortie plein divise par deux l'émission d'une industrie ; verdissement −80 % une fois par industrie ; la Station de dépollution retire jusqu'à 40 000 de pollution dans un rayon de 700 m et a besoin de machines.
+scripts: Note de bruit 65 → 80 dB, pollution 60 → 74 dB moyennée sur 5–10 km² ; la sensibilité ajoute 10·log10 dB ; industries, gares, dépôts et entrepôts émettent plus quand ils sont chargés ; un stock de sortie plein fait redescendre l'émission d'une industrie vers son niveau à l'arrêt ; verdissement −80 % une fois par industrie ; la Station de dépollution retire jusqu'à 40 000 de pollution dans un rayon de 700 m et a besoin de machines.
 result: refines
 ```

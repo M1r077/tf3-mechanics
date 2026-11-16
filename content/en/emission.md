@@ -19,12 +19,12 @@ A game script sets the emission of four kinds of buildings every few updates, be
 
 | Building | Emits more when | Source |
 |---|---|---|
-| **Industry** | it produces, and again with each boost (cargo or workers); half as much when its output stock is full | `emissions.script.tl:152-194` |
+| **Industry** | it produces, and again with each boost (cargo or workers); lower, toward its idle level, when its output stock is full | `emissions.script.tl:152-194` |
 | **Station** | it is busier: waiting people and cargo against its capacity | `emissions.script.tl:211-222` |
 | **Depot**, **maintenance station** | more vehicles use its maintenance | `emissions.script.tl:223-234` |
 | **Warehouse** | its stocks are fuller | `emissions.script.tl:237-250` |
 
-- An idle industry emits nothing by default; producing, boosted once and boosted twice go up step by step (`industryutil.lua:470-475`). A Coal Mine, for example, goes from 10 pollution to 20 and 30 (see [Industries](industries.html)).
+- Each industry has its own four levels: idle, producing, boosted once, boosted twice (`industryutil.lua:464-475`; the 0 / 78 / 84 / 88 default only applies to an industry without its own). Most still emit a little when idle: a Coal Mine goes 2 → 10 → 20 → 30 pollution, its fields 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, see [Industries](industries.html)).
 - An industry whose output is not picked up drops back toward its idle level: serving it raises its pollution.
 - Vehicles and tracks emit too; a vehicle in bad condition emits more with the **Vehicle Maintenance Effect** setting (see [Costs, upkeep and loans](costs.html)).
 
@@ -40,9 +40,9 @@ A game script sets the emission of four kinds of buildings every few updates, be
 | Underground station | 40 | 80 | `underground_station.con.lua:75-76` |
 | Truck and bus station | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | Maintenance stations | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| Warehouse | 20 | 25 or 50 | `warehouses/warehouse.tl:73-74` |
+| Warehouse | 20 | 50 (universal) or 100 (specialised) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-Two values are the quiet and the busy level. Keep harbours, airports and big freight stations away from houses.
+Two values are the range the menu shows, from lowest to highest, like the price range next to them (`construction_desc_react_util.tl:733-746`); one value means a single figure. While running, each building emits more as it gets busier (table above). Keep harbours, airports and big freight stations away from houses.
 
 ## How a town rates it
 
@@ -99,7 +99,7 @@ A company perk that removes pollution around it.
 ## Good to know
 
 - Open the town window or the noise and pollution layers to see the rating and the hotspots.
-- A full output stock halves an industry's emission, but costs you its cargo: better move the town than starve the industry.
+- A full output stock lowers an industry's emission toward its idle level, but costs you its cargo: better move the town than starve the industry.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) and [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) help you find the busiest stations.
 
 ```engine
@@ -108,6 +108,6 @@ The engine computes the noise and pollution maps, how the values spread, the emi
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." The residential district "is sensitive to noise"; the commercial district "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Noise rating 65 → 80 dB, pollution 60 → 74 dB averaged over 5–10 km²; sensitivity adds 10·log10 dB; industries, stations, depots and warehouses emit more when busy; a full output stock halves an industry's emission; greenification −80 % once per industry; the Cleaning Plant removes up to 40,000 pollution within 700 m and needs machines.
+scripts: Noise rating 65 → 80 dB, pollution 60 → 74 dB averaged over 5–10 km²; sensitivity adds 10·log10 dB; industries, stations, depots and warehouses emit more when busy; a full output stock lowers an industry's emission toward idle; greenification −80 % once per industry; the Cleaning Plant removes up to 40,000 pollution within 700 m and needs machines.
 result: refines
 ```

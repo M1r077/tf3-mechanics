@@ -19,12 +19,12 @@ fact: 700 m | 정화 시설의 범위
 
 | 건물 | 더 많이 내는 때 | 출처 |
 |---|---|---|
-| **산업** | 생산할 때, 그리고 부스트(화물 또는 노동자)마다 더. 출력 재고가 가득 차면 절반 | `emissions.script.tl:152-194` |
+| **산업** | 생산할 때, 그리고 부스트(화물 또는 노동자)마다 더. 출력 재고가 가득 차면 유휴 수준 쪽으로 낮아짐 | `emissions.script.tl:152-194` |
 | **역** | 바쁠수록. 기다리는 사람과 화물을 수용량과 비교 | `emissions.script.tl:211-222` |
 | **차고**, **정비소** | 그 정비를 쓰는 운송 수단이 많을수록 | `emissions.script.tl:223-234` |
 | **창고** | 재고가 많을수록 | `emissions.script.tl:237-250` |
 
-- 유휴 산업은 기본적으로 아무것도 내지 않는다. 생산 중, 부스트 1회, 부스트 2회로 단계적으로 오른다(`industryutil.lua:470-475`). 예를 들어 탄광은 오염 10에서 20, 30이 된다([산업](industries.html) 참조).
+- 산업마다 고유한 4단계(유휴, 생산 중, 부스트 1회, 부스트 2회)가 있다(`industryutil.lua:464-475`. 기본값 0 / 78 / 84 / 88은 고유 값이 없는 산업에만 쓰인다). 대부분은 유휴 상태에서도 조금 낸다. 탄광은 오염 2 → 10 → 20 → 30, 그 밭은 2 → 30 → 60 → 90이다(`coal_mine.con.lua:99-135`, [산업](industries.html) 참조).
 - 출력을 가져가지 않는 산업은 유휴 수준으로 돌아간다. 즉, 운송하면 그 오염이 올라간다.
 - 운송 수단과 선로도 배출한다. **운송 수단 유지보수 효과** 설정에서는 상태가 나쁜 운송 수단이 더 많이 낸다([비용, 관리비, 대출](costs.html) 참조).
 
@@ -40,9 +40,9 @@ fact: 700 m | 정화 시설의 범위
 | 지하역 | 40 | 80 | `underground_station.con.lua:75-76` |
 | 트럭 및 버스 정류장 | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | 정비소 | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| 창고 | 20 | 25 또는 50 | `warehouses/warehouse.tl:73-74` |
+| 창고 | 20 | 50(범용) 또는 100(전용) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-두 값은 조용한 수준과 바쁜 수준이다. 항구, 공항, 큰 화물역은 집에서 멀리 둔다.
+두 값은 메뉴가 보여 주는 범위로, 가장 낮은 값에서 가장 높은 값까지이며 옆의 가격 범위와 같다(`construction_desc_react_util.tl:733-746`). 값이 하나면 단일 수치다. 가동 중에는 모든 건물이 바쁠수록 더 많이 낸다(위 표). 항구, 공항, 큰 화물역은 집에서 멀리 둔다.
 
 ## 마을이 평가하는 방법
 
@@ -99,7 +99,7 @@ fact: 700 m | 정화 시설의 범위
 ## 알아두면 좋은 점
 
 - 마을 창이나 소음 및 오염 레이어를 열면 평가와 발생 지점을 볼 수 있다.
-- 출력 재고가 가득 차면 산업의 배출이 절반이 되지만, 그 화물을 잃는다. 산업을 굶기기보다 마을을 옮기는 편이 낫다.
+- 출력 재고가 가득 차면 산업의 배출이 유휴 수준 쪽으로 낮아지지만, 그 화물을 잃는다. 산업을 굶기기보다 마을을 옮기는 편이 낫다.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details)와 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)는 가장 바쁜 역을 찾는 데 도움이 된다.
 
 ```engine
@@ -108,6 +108,6 @@ fact: 700 m | 정화 시설의 범위
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." 주거 지구는 "is sensitive to noise", 상업 지구는 "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: 소음 평가 65 → 80 dB, 오염 60 → 74 dB, 5~10 km²에서 평균. 민감도는 10·log10 dB를 더한다. 산업, 역, 차고, 창고는 바쁠 때 더 많이 낸다. 출력 재고가 가득 차면 산업의 배출이 절반. 녹화는 산업마다 한 번 −80 %. 정화 시설은 700 m 이내에서 최대 40,000의 오염을 없애며 기계가 필요하다.
+scripts: 소음 평가 65 → 80 dB, 오염 60 → 74 dB, 5~10 km²에서 평균. 민감도는 10·log10 dB를 더한다. 산업, 역, 차고, 창고는 바쁠 때 더 많이 낸다. 출력 재고가 가득 차면 산업의 배출이 유휴 수준 쪽으로 낮아진다. 녹화는 산업마다 한 번 −80 %. 정화 시설은 700 m 이내에서 최대 40,000의 오염을 없애며 기계가 필요하다.
 result: refines
 ```

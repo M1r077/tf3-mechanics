@@ -60,7 +60,7 @@ Um armazém é uma entrada e um conjunto de **módulos**. Ele guarda carga entre
 - Módulos a granel, de plataforma e de mercadorias custam o mesmo que os de líquidos (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-Os scripts dão dois níveis de emissão, o segundo o dobro do primeiro (`warehouse.script.lua:342-343`); quando o motor usa o segundo não está nos scripts. O preço realmente cobrado pelos módulos é calculado pelo motor.
+Os scripts dão dois níveis de emissão, o segundo o dobro do primeiro (`warehouse.script.lua:342-343`); o armazém passa do primeiro ao segundo à medida que os estoques enchem, estoques cheios = o dobro (`emissions.script.tl:237-249`). O preço realmente cobrado pelos módulos é calculado pelo motor.
 ```
 
 ## O que um armazém não faz

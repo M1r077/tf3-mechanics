@@ -19,12 +19,12 @@ Uno script del gioco imposta l'emissione di quattro tipi di edifici ogni pochi a
 
 | Edificio | Emette di più quando | Fonte |
 |---|---|---|
-| **Industria** | produce, e ancora con ogni potenziamento (merci o lavoratori); la metà quando la sua scorta in uscita è piena | `emissions.script.tl:152-194` |
+| **Industria** | produce, e ancora con ogni potenziamento (merci o lavoratori); meno, verso il livello da ferma, quando la sua scorta in uscita è piena | `emissions.script.tl:152-194` |
 | **Stazione** | è più affollata: persone e merci in attesa rispetto alla capacità | `emissions.script.tl:211-222` |
 | **Deposito**, **stazione di manutenzione** | più veicoli usano la sua manutenzione | `emissions.script.tl:223-234` |
 | **Magazzino** | le sue scorte sono più piene | `emissions.script.tl:237-250` |
 
-- Un'industria ferma non emette nulla per impostazione predefinita; in produzione, potenziata una volta e potenziata due volte sale a gradini (`industryutil.lua:470-475`). Una miniera di carbone, per esempio, passa da 10 di inquinamento a 20 e 30 (vedi [Industrie](industries.html)).
+- Ogni industria ha i suoi quattro livelli: ferma, in produzione, potenziata una volta, potenziata due volte (`industryutil.lua:464-475`; il valore predefinito 0 / 78 / 84 / 88 vale solo per un'industria senza i propri). La maggior parte emette un po' anche da ferma: una miniera di carbone va da 2 → 10 → 20 → 30 di inquinamento, i suoi campi 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, vedi [Industrie](industries.html)).
 - Un'industria la cui produzione non viene ritirata torna verso il livello da ferma: servirla ne aumenta l'inquinamento.
 - Anche veicoli e binari emettono; un veicolo in cattivo stato emette di più con l'impostazione **Effetto manutenzione veicoli** (vedi [Costi, manutenzione e prestiti](costs.html)).
 
@@ -40,9 +40,9 @@ Uno script del gioco imposta l'emissione di quattro tipi di edifici ogni pochi a
 | Stazione sotterranea | 40 | 80 | `underground_station.con.lua:75-76` |
 | Stazione camion e autobus | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | Stazioni di manutenzione | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| Magazzino | 20 | 25 o 50 | `warehouses/warehouse.tl:73-74` |
+| Magazzino | 20 | 50 (universale) o 100 (specializzato) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-Due valori sono il livello tranquillo e quello intenso. Tieni porti, aeroporti e grandi stazioni merci lontano dalle case.
+Due valori sono l'intervallo mostrato dal menu, dal più basso al più alto, come l'intervallo di prezzo accanto (`construction_desc_react_util.tl:733-746`); un valore è una cifra unica. In funzione, ogni edificio emette di più quanto più è attivo (tabella sopra). Tieni porti, aeroporti e grandi stazioni merci lontano dalle case.
 
 ## Come lo valuta una città
 
@@ -99,7 +99,7 @@ Un vantaggio aziendale che rimuove l'inquinamento intorno a sé.
 ## Da sapere
 
 - Apri la finestra della città o i livelli rumore e inquinamento per vedere la valutazione e i punti critici.
-- Una scorta in uscita piena dimezza l'emissione di un'industria, ma ti costa le sue merci: meglio spostare la città che affamare l'industria.
+- Una scorta in uscita piena abbassa l'emissione di un'industria verso il livello da ferma, ma ti costa le sue merci: meglio spostare la città che affamare l'industria.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) e [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) aiutano a trovare le stazioni più affollate.
 
 ```engine
@@ -108,6 +108,6 @@ Il motore calcola le mappe di rumore e inquinamento, come si diffondono i valori
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." Il quartiere residenziale "is sensitive to noise"; il quartiere commerciale "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Valutazione del rumore 65 → 80 dB, inquinamento 60 → 74 dB mediato su 5–10 km²; la sensibilità aggiunge 10·log10 dB; industrie, stazioni, depositi e magazzini emettono di più quando sono attivi; una scorta in uscita piena dimezza l'emissione di un'industria; inverdimento −80 % una volta per industria; l'Impianto di bonifica rimuove fino a 40.000 di inquinamento entro 700 m e richiede macchinari.
+scripts: Valutazione del rumore 65 → 80 dB, inquinamento 60 → 74 dB mediato su 5–10 km²; la sensibilità aggiunge 10·log10 dB; industrie, stazioni, depositi e magazzini emettono di più quando sono attivi; una scorta in uscita piena abbassa l'emissione di un'industria verso il livello da ferma; inverdimento −80 % una volta per industria; l'Impianto di bonifica rimuove fino a 40.000 di inquinamento entro 700 m e richiede macchinari.
 result: refines
 ```

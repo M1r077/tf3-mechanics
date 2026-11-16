@@ -60,7 +60,7 @@ Magazyn to wejście i zestaw **modułów**. Przechowuje towar między dwiema lin
 - Moduły towarów sypkich, towarów niewymiarowych i produktów kosztują tyle samo co moduły płynów (`wh_bulk.module.lua:22-23`, `wh_flatbed.module.lua:22-23`, `wh_goods.module.lua:18-19`).
 
 ```engine
-Skrypty podają dwa poziomy emisji, drugi dwa razy wyższy od pierwszego (`warehouse.script.lua:342-343`); kiedy silnik używa drugiego, nie ma w skryptach. Cenę faktycznie pobieraną za moduły liczy silnik.
+Skrypty podają dwa poziomy emisji, drugi dwa razy wyższy od pierwszego (`warehouse.script.lua:342-343`); magazyn przechodzi od pierwszego do drugiego w miarę zapełniania zapasów, pełne zapasy = dwa razy (`emissions.script.tl:237-249`). Cenę faktycznie pobieraną za moduły liczy silnik.
 ```
 
 ## Czego magazyn nie robi

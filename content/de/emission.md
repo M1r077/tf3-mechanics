@@ -19,12 +19,12 @@ Ein Spielskript setzt die Emission von vier Gebäudearten alle paar Updates, zwi
 
 | Gebäude | Stößt mehr aus, wenn | Quelle |
 |---|---|---|
-| **Industrie** | sie produziert, und noch mehr mit jedem Boost (Fracht oder Arbeiter); halb so viel, wenn ihr Ausgangslager voll ist | `emissions.script.tl:152-194` |
+| **Industrie** | sie produziert, und noch mehr mit jedem Boost (Fracht oder Arbeiter); weniger, Richtung Ruheniveau, wenn ihr Ausgangslager voll ist | `emissions.script.tl:152-194` |
 | **Bahnhof** | er stärker ausgelastet ist: wartende Personen und Fracht im Verhältnis zur Kapazität | `emissions.script.tl:211-222` |
 | **Depot**, **Wartungsstation** | mehr Fahrzeuge seine Wartung nutzen | `emissions.script.tl:223-234` |
 | **Lager** | seine Bestände voller sind | `emissions.script.tl:237-250` |
 
-- Eine ruhende Industrie stößt standardmäßig nichts aus; produzierend, einmal und zweimal geboostet steigt es stufenweise (`industryutil.lua:470-475`). Eine Kohlemine geht zum Beispiel von 10 Verschmutzung auf 20 und 30 (siehe [Industrien](industries.html)).
+- Jede Industrie hat ihre eigenen vier Stufen: ruhend, produzierend, einmal geboostet, zweimal geboostet (`industryutil.lua:464-475`; der Standard 0 / 78 / 84 / 88 gilt nur für eine Industrie ohne eigene Werte). Die meisten stoßen auch ruhend etwas aus: Eine Kohlemine geht von 2 → 10 → 20 → 30 Verschmutzung, ihre Felder 2 → 30 → 60 → 90 (`coal_mine.con.lua:99-135`, siehe [Industrien](industries.html)).
 - Eine Industrie, deren Produktion nicht abgeholt wird, fällt auf ihr Ruheniveau zurück: Sie zu bedienen erhöht ihre Verschmutzung.
 - Auch Fahrzeuge und Gleise stoßen aus; ein Fahrzeug in schlechtem Zustand stößt mit der Einstellung **Fahrzeugwartungseffekt** mehr aus (siehe [Kosten, Unterhalt und Kredite](costs.html)).
 
@@ -40,9 +40,9 @@ Ein Spielskript setzt die Emission von vier Gebäudearten alle paar Updates, zwi
 | U-Bahn-Station | 40 | 80 | `underground_station.con.lua:75-76` |
 | Lkw- und Busbahnhof | 1–10 | 12–76 | `modular_terminal.con.lua:67-68` |
 | Wartungsstationen | 20 | 40–50 | `road_maint_station.con.lua:30-31`, `rail_maint_station.con.lua:30-31` |
-| Lager | 20 | 25 oder 50 | `warehouses/warehouse.tl:73-74` |
+| Lager | 20 | 50 (universal) oder 100 (spezialisiert) | `warehouses/warehouse.tl:51`, `warehouses/warehouse.tl:73-74` |
 
-Zwei Werte sind das ruhige und das ausgelastete Niveau. Halte Häfen, Flughäfen und große Güterbahnhöfe von Häusern fern.
+Zwei Werte sind die Spanne, die das Menü zeigt, vom niedrigsten zum höchsten, wie die Preisspanne daneben (`construction_desc_react_util.tl:733-746`); ein Wert ist eine einzelne Zahl. Im Betrieb stößt jedes Gebäude mehr aus, je ausgelasteter es ist (Tabelle oben). Halte Häfen, Flughäfen und große Güterbahnhöfe von Häusern fern.
 
 ## Wie eine Stadt es bewertet
 
@@ -99,7 +99,7 @@ Ein Unternehmensvorteil, der die Verschmutzung in der Umgebung entfernt.
 ## Gut zu wissen
 
 - Öffne das Stadtfenster oder die Lärm- und Verschmutzungsebenen, um die Bewertung und die Brennpunkte zu sehen.
-- Ein volles Ausgangslager halbiert die Emission einer Industrie, kostet dich aber ihre Fracht: Besser die Stadt verlegen als die Industrie aushungern.
+- Ein volles Ausgangslager senkt die Emission einer Industrie Richtung Ruheniveau, kostet dich aber ihre Fracht: Besser die Stadt verlegen als die Industrie aushungern.
 - [Platform Details](https://mod.io/g/transportfever3/m/platform-details) und [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) helfen, die am stärksten ausgelasteten Bahnhöfe zu finden.
 
 ```engine
@@ -108,6 +108,6 @@ Die Engine berechnet die Lärm- und Verschmutzungskarten, wie sich die Werte aus
 
 ```check
 official: "Noise reflects noise levels in residential areas." "Pollution reflects pollution levels across the town area." Das Wohnviertel "is sensitive to noise"; das Gewerbeviertel "is robust against the influence of noise". ([Towns](https://wiki.transportfever3.com/doku.php?id=gamemanual:simulation:towns))
-scripts: Lärmbewertung 65 → 80 dB, Verschmutzung 60 → 74 dB gemittelt über 5–10 km²; Empfindlichkeit addiert 10·log10 dB; Industrien, Bahnhöfe, Depots und Lager stoßen bei Auslastung mehr aus; ein volles Ausgangslager halbiert die Emission einer Industrie; Begrünung −80 % einmal pro Industrie; die Reinigungsanlage entfernt bis zu 40.000 Verschmutzung im Umkreis von 700 m und braucht Maschinen.
+scripts: Lärmbewertung 65 → 80 dB, Verschmutzung 60 → 74 dB gemittelt über 5–10 km²; Empfindlichkeit addiert 10·log10 dB; Industrien, Bahnhöfe, Depots und Lager stoßen bei Auslastung mehr aus; ein volles Ausgangslager senkt die Emission einer Industrie Richtung Ruheniveau; Begrünung −80 % einmal pro Industrie; die Reinigungsanlage entfernt bis zu 40.000 Verschmutzung im Umkreis von 700 m und braucht Maschinen.
 result: refines
 ```
