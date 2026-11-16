@@ -40,12 +40,12 @@ Every airplane is **small** or **large**. An **airfield** takes only small airpl
 
 ## Costs
 
-Price and upkeep of the first variant. Later variants cost ×3 or ×9 ([Costs, upkeep and loans](costs.html)); the first airfield already uses ×3 (`airfield.tl:8`).
+Price and upkeep of the first variant, era coefficient included. The coefficient is ×3 for both the first airfield (1920, `airfield.tl:8`) and the first airport (1950, `airport.tl:8`), then ×9 from 1980; modules have none ([Costs, upkeep and loans](costs.html)).
 
 | Building | Price | Upkeep per year | Source |
 |---|---|---|---|
-| Airfield | 1,200,000 – 3,000,000 | 50,000 – 200,000 | `airfield.tl:55-56` |
-| Airport | 1,800,000 – 4,500,000 | 300,000 – 750,000 | `airport.tl:30-31` |
+| Airfield | 3,600,000 – 9,000,000 | 150,000 – 600,000 | `airfield.tl:8`, `airfield.tl:55-56` |
+| Airport | 5,400,000 – 13,500,000 | 900,000 – 2,250,000 | `airport.tl:8`, `airport.tl:30-31` |
 | Airfield module (main building, terminal, hangar) | 600,000 | 100,000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
 | Airport module (terminal, hangar, second runway…) | 900,000 | 150,000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 

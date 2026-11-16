@@ -36,7 +36,7 @@ The engine runs the rules. It can make a run last longer: the run tooltip then s
 ## Plots and expansion
 
 - Raw industries and the Livestock Farm have **plots** (fields, mine shafts, rigs). Their level is their number of plots (`industryutil.lua:602-617`).
-- The rule grows with the plots: output per run × plots ÷ **all plots of that industry type**, rounded, at least 1. Inputs are cut in the same proportion (`industryutil.lua:225-259`). A Coal Mine (8 plot types) with 4 plots makes 8 coal per run instead of 16.
+- The rule grows with the plots: output per run × plots ÷ **all plots of that industry type**, rounded, at least 1. Inputs are cut by the same share, rounded up, at least 1, but not at all if one output keeps its full amount (for example an output of 1, which cannot go lower); booster rules are never cut (`industryutil.lua:225-259`). A Coal Mine (8 plot types) with 4 plots makes 8 coal per run instead of 16.
 - Each industry gets a maximum: random between half of the plots and all of them, or Small / Medium / Large (50 / 75 / 100 %) with the **Industry Size** parameter (`industryutil.lua:519-537`). A mine whose maximum is 5 of 8 never reaches the full rule.
 - With Medium, if 75 % rounds up to all plots, the maximum is all plots minus one (`industryutil.lua:523-526`). A new industry starts with the plots the engine builds at placement; its level is set from them (`industryutil.lua:602-617`).
 - Every half year of **game time** the game may add **one plot** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Half a standard year is used, so the calendar speed does not change how often (see [Game time and calendar](time.html)).
@@ -107,7 +107,7 @@ The 13 raw industries have a second rule, the **booster**: it takes a batch of b
 
 ## The workers boost
 
-Half of the workplaces (10 of 20) must be filled by residents who **arrived by your passenger lines** in the last 2 years; the factor is ×1.5 to ×2.5, fixed per industry (`industry_productivity_util.tl:35-72`). Assigned workers alone do not count. Details: [Workers and the workers boost](workers.html).
+Half of the workplaces (for example 10 of 20) must be filled by residents who **arrived by your passenger lines** in the last 2 years (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). The factor is random between ×1.5 and ×2.5, fixed per industry; a building can set its own (`industry_productivity_util.tl:58-72`). Assigned workers alone do not count. Details: [Workers and the workers boost](workers.html).
 
 ## Why is my industry not boosted?
 
@@ -128,7 +128,7 @@ Half of the workplaces (10 of 20) must be filled by residents who **arrived by y
 The check runs every 100 updates for each industry (`industries.script.tl:84-85`):
 
 1. **Candidate**: no cargo **loaded** onto a vehicle and none **consumed** for **5 years** (counted from its construction if never) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Producing alone does not count.
-2. **Chance**: each year a candidate is marked with the chance of the **Industry Closing Frequency** setting (table below) (`industries.script.tl:120-131`).
+2. **Chance**: a candidate is drawn at every check with a share of the yearly chance of the **Industry Closing Frequency** setting (table below), so that over a year it adds up to that chance (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Countdown**: the notification **Industry Closing** appears, with 2 years (730 days) to go (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Then the industry is removed with its own road pieces (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Saved**: one load or consumption during the countdown cancels it (`industries.script.tl:134-137`). Accepting a **Supply Industry** or **Transport Workers** subsidy for it cancels it too (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ The check runs every 100 updates for each industry (`industries.script.tl:84-85`
 | Often | 4.4 % | about 16 years | – | `difficulty_util.tl:37` |
 | Very Often | 8.8 % | about 8 years | Very Hard | `difficulty_util.tl:176` |
 
-The chance is 0.011 a year × 0, 1, 2, 4 or 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Industries you own never close, and neither do industries with manual development, nor any industry during the tutorial (`industries.script.tl:94-102`).
+The chance is 0.011 a year × 0, 1, 2, 4 or 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Industries you own never close, and neither do industries with manual development; while closures are paused (in the base game, only during the tutorial) none starts and a running countdown is cancelled (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 What counts as "loaded" and "consumed" (the logs itemsLoaded and itemsConsumed, e.g. whether booster cargo counts), the manualDevelopment flag, and why industries with a depot are left out (`industries.script.tl:140-146`) are engine-side. So is what the engine does with a booster rule that lost its input (Input Off).

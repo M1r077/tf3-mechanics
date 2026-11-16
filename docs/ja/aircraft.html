@@ -66,7 +66,7 @@
 <li><strong>ヘリパッド</strong>（1950 年から）：旅客と貨物用の小さな着陸場で、格納庫はない<span class="sr">（<code class="src">helipad.con.lua:29-33</code>）</span>。</li>
 </ul>
 <h2 id="コスト"><span class="n">3</span><span>コスト</span></h2>
-<p>最初の版の価格と維持費。後の版は ×3 または ×9（<a href="costs.html">コスト、維持費、融資</a>）。最初の飛行場はすでに ×3 を使う<span class="sr">（<code class="src">airfield.tl:8</code>）</span>。</p>
+<p>最初の版の価格と維持費で、時代係数を含む。係数は最初の飛行場（1920 年<span class="sr">、<code class="src">airfield.tl:8</code></span>）でも最初の空港（1950 年<span class="sr">、<code class="src">airport.tl:8</code></span>）でも ×3、1980 年からは ×9。モジュールには係数がない（<a href="costs.html">コスト、維持費、融資</a>）。</p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -79,15 +79,15 @@
 <tbody>
 <tr>
 <td>飛行場</td>
-<td>1,200,000 – 3,000,000</td>
-<td>50,000 – 200,000</td>
-<td class="sc"><code class="src">airfield.tl:55-56</code></td>
+<td>3,600,000 – 9,000,000</td>
+<td>150,000 – 600,000</td>
+<td class="sc"><code class="src">airfield.tl:8</code>, <code class="src">airfield.tl:55-56</code></td>
 </tr>
 <tr>
 <td>空港</td>
-<td>1,800,000 – 4,500,000</td>
-<td>300,000 – 750,000</td>
-<td class="sc"><code class="src">airport.tl:30-31</code></td>
+<td>5,400,000 – 13,500,000</td>
+<td>900,000 – 2,250,000</td>
+<td class="sc"><code class="src">airport.tl:8</code>, <code class="src">airport.tl:30-31</code></td>
 </tr>
 <tr>
 <td>飛行場モジュール（メインビル、ターミナル、格納庫）</td>

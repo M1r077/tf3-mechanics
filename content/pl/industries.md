@@ -36,7 +36,7 @@ Silnik wykonuje reguły. Może wydłużyć cykl: podpowiedź cyklu pokazuje wted
 ## Parcele i rozbudowa
 
 - Zakłady surowcowe i Hodowla bydła mają **parcele** (pola, szyby, wieże wiertnicze). Ich poziom to liczba parcel (`industryutil.lua:602-617`).
-- Reguła rośnie z parcelami: produkcja na cykl × parcele ÷ **wszystkie parcele tego typu zakładu**, zaokrąglone, co najmniej 1. Wejścia maleją w tej samej proporcji (`industryutil.lua:225-259`). Kopalnia węgla (8 typów parcel) z 4 parcelami robi 8 węgla na cykl zamiast 16.
+- Reguła rośnie z parcelami: produkcja na cykl × parcele ÷ **wszystkie parcele tego typu zakładu**, zaokrąglone, co najmniej 1. Wejścia maleją o tę samą część, zaokrąglone w górę, co najmniej 1, ale wcale, jeśli jedna produkcja zachowuje pełną ilość (na przykład produkcja 1, która nie może spaść niżej); reguły wzmocnienia nigdy nie są zmniejszane (`industryutil.lua:225-259`). Kopalnia węgla (8 typów parcel) z 4 parcelami robi 8 węgla na cykl zamiast 16.
 - Każdy zakład dostaje maksimum: losowo między połową parcel a wszystkimi, albo Mały / Średni / Duży (50 / 75 / 100 %) z parametrem **Wielkość zakładu** (`industryutil.lua:519-537`). Kopalnia z maksimum 5 z 8 nigdy nie osiąga pełnej reguły.
 - Przy Średni, jeśli 75 % po zaokrągleniu daje wszystkie parcele, maksimum to wszystkie parcele minus jedna (`industryutil.lua:523-526`). Nowy zakład zaczyna z parcelami, które silnik buduje przy postawieniu; jego poziom wynika z nich (`industryutil.lua:602-617`).
 - Co pół roku **czasu gry** gra może dodać **jedną parcelę** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Używane jest pół standardowego roku, więc szybkość kalendarza nie zmienia częstotliwości (zobacz [Czas gry i kalendarz](time.html)).
@@ -107,7 +107,7 @@ Ocena produkcji (getProductionRating), roczna produkcja i wywieziona ilość (ge
 
 ## Premia za pracowników
 
-Połowa miejsc pracy (10 z 20) musi być zajęta przez mieszkańców, którzy w ostatnich 2 latach **przyjechali twoimi liniami pasażerskimi**; współczynnik wynosi ×1,5 do ×2,5, stały dla zakładu (`industry_productivity_util.tl:35-72`). Pracownicy tylko przydzieleni się nie liczą. Szczegóły: [Pracownicy i premia za pracowników](workers.html).
+Połowa miejsc pracy (na przykład 10 z 20) musi być zajęta przez mieszkańców, którzy w ostatnich 2 latach **przyjechali twoimi liniami pasażerskimi** (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). Współczynnik jest losowy między ×1,5 a ×2,5, stały dla zakładu; budynek może ustalić własny (`industry_productivity_util.tl:58-72`). Pracownicy tylko przydzieleni się nie liczą. Szczegóły: [Pracownicy i premia za pracowników](workers.html).
 
 ## Dlaczego mój zakład nie ma premii?
 
@@ -128,7 +128,7 @@ Połowa miejsc pracy (10 z 20) musi być zajęta przez mieszkańców, którzy w 
 Sprawdzenie odbywa się co 100 aktualizacji dla każdego zakładu (`industries.script.tl:84-85`):
 
 1. **Kandydat**: żaden towar nie został **załadowany** do pojazdu ani **zużyty** przez **5 lat** (od budowy, jeśli nigdy) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Sama produkcja się nie liczy.
-2. **Los**: co roku kandydat jest oznaczany z szansą z ustawienia **Częstotliwość zamykania przemysłu** (tabela niżej) (`industries.script.tl:120-131`).
+2. **Los**: kandydat jest losowany przy każdej kontroli z częścią rocznej szansy z ustawienia **Częstotliwość zamykania przemysłu** (tabela niżej), tak że w ciągu roku daje to tę szansę (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Odliczanie**: pojawia się powiadomienie **Zamknięcie przemysłu**, z 2 latami (730 dni) czasu (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Potem zakład jest usuwany razem z własnymi odcinkami drogi (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Uratowany**: jeden załadunek lub zużycie w trakcie odliczania je przerywa (`industries.script.tl:134-137`). Przyjęcie dotacji **Zaopatrz zakład przemysłowy** lub **Przewieź pracowników** dla niego też je przerywa (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ Sprawdzenie odbywa się co 100 aktualizacji dla każdego zakładu (`industries.s
 | Często | 4,4 % | około 16 latach | – | `difficulty_util.tl:37` |
 | Bardzo często | 8,8 % | około 8 latach | Bardzo wysoki | `difficulty_util.tl:176` |
 
-Szansa to 0,011 na rok × 0, 1, 2, 4 lub 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Zakłady należące do ciebie nigdy się nie zamykają, tak samo zakłady z ręcznym rozwojem i żaden zakład w samouczku (`industries.script.tl:94-102`).
+Szansa to 0,011 na rok × 0, 1, 2, 4 lub 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Zakłady należące do ciebie nigdy się nie zamykają, tak samo zakłady z ręcznym rozwojem; dopóki zamykanie jest wstrzymane (w grze podstawowej tylko w samouczku), żadne się nie zaczyna, a trwające odliczanie zostaje anulowane (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Co liczy się jako „załadowane” i „zużyte” (logi itemsLoaded i itemsConsumed, np. czy liczy się towar premiujący), flaga manualDevelopment i dlaczego zakłady z zajezdnią są pomijane (`industries.script.tl:140-146`), zależy od silnika. Tak samo, co silnik robi z regułą premii, która straciła wejście (Przybywa wył.).

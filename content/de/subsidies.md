@@ -31,7 +31,7 @@ Eine Subvention ist ein Vertrag: Eine Industrie oder eine Stadt bietet eine Aufg
 - Jedes neue Angebot wählt eine der Arten, die gerade erscheinen können, mit gleichen Chancen (`subventions.script.tl:147-169`).
 - **Industrie beliefern** und **Stadt versorgen** zählen Lieferungen, nicht Fahrten: Jede bezahlte Einheit, die am Ziel ankommt, zählt 1. Umladen ist erlaubt (`deliver_cargo.script.tl:470-479`).
 - **Städte verbinden** verlangt keine Passagierzahl: Der erste Passagier, der zwischen den beiden Städten in deine Linie steigt, erfüllt ihn. „Ohne Umstieg" heißt, dass diese Fahrt auf einer einzigen Linie läuft, die beide Städte bedient. Es kommt kein Angebot, wenn schon eine Linie Passagiere zwischen ihnen befördert (`deliver_passengers.script.tl:72-78`).
-- Nahe Städte sind viel wahrscheinlicher: Das Gewicht eines Paares fällt von 1 bei 1 km oder weniger auf 0,01 bei 20 km, hoch 7 (`deliver_passengers.script.tl:175-191`).
+- Nahe Städte sind viel wahrscheinlicher: Das Gewicht eines Paares ist 100 × ein Entfernungsfaktor hoch 7 (1 bei 1 km oder weniger, 0,01 bei 20 km), plus ein Wert von mindestens 1 pro Stadt, den die Engine an der Position der Stadt aus ihrem Raster der Spieler-Infrastruktur liest (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Ab etwa 10 km ist der Entfernungsteil fast null und nur dieser Engine-Wert bleibt.
 - **Stadt versorgen** bevorzugt Frachten, die schon irgendwo auf der Karte produziert werden: 16-mal wahrscheinlicher als die anderen (`deliver_cargo_town.script.tl:277-280`).
 - Die zu liefernde Menge hängt von der Einstellung **Subventionsrisiko** ab:
 
@@ -58,7 +58,7 @@ Zu welcher Stadt ein Bahnhof gehört (stationSystem.getTown), wann genau ein Pas
 
 ## Belohnungen und Strafen
 
-Jeder Vertrag hat drei Listen, auf seiner Karte als **Bei Annahme**, **Bei Erfüllung** und **Bei Misserfolg** angezeigt (`subvention_util.tl:449-471`). Bei Misserfolg wird die Vorauszahlung immer zurückgezahlt, plus eine weitere Strafe (`deliver_cargo.script.tl:134-136`).
+Jeder Vertrag hat drei Listen, auf seiner Karte als **Bei Annahme**, **Bei Erfüllung** und **Bei Misserfolg** angezeigt (`subvention_util.tl:449-471`). Bei Misserfolg wird alles zurückgenommen, was bei Annahme gegeben wurde, plus eine Strafe, bei Städte verbinden zwei, ein Reputationsverlust in jeder Stadt (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Vertrag | Bei Annahme | Bei Erfüllung | Bei Misserfolg | Quelle |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Jeder Vertrag hat drei Listen, auf seiner Karte als **Bei Annahme**, **Bei Erfü
 | Städte verbinden | Geld, mehr bei weit entfernten Städten | Erfahrung in **beiden** Städten, plus 2-faches Einkommen | Vorauszahlung zurück + Rufverlust in **beiden** Städten | `deliver_passengers.script.tl:105-119` |
 | Transportiere Arbeiter | Geld | Geld | Vorauszahlung zurück + Strafe | `deliver_workers.script.tl:92-116` |
 
-- **Geld**, vor der Jahresskalierung: Vorauszahlung 1,5 Mio. bis 3,75 Mio. × Risikofaktor (Keines ×2, Fair ×1, Riskant ×0,75, Sehr riskant ×0,5); Strafe 3 Mio. bis 6 Mio.; Zahlung bei Erfüllung 3,75 Mio. bis 11,25 Mio. (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Geld**, vor der Jahresskalierung: Vorauszahlung 1,5 Mio. bis 3,75 Mio. × Risikofaktor (Keines ×2, Fair ×1, Riskant ×0,75, Sehr riskant ×0,5, oder ×0,625 bei Städte verbinden und Transportiere Arbeiter), bei Städte verbinden außerdem × Entfernungsfaktor (0,3 bis 3,0); Strafe 3 Mio. bis 6 Mio.; Zahlung bei Erfüllung 3,75 Mio. bis 11,25 Mio. (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - Geld wächst mit dem **Kalenderjahr**, nicht mit der Einstellung Inflation: ×1 im Jahr 1900, gleichmäßig steigend bis ×4 ab 2000, auf 10.000 aufgerundet (`finances_util.tl:87-90`). Es wird in den Finanzen als **Subventionen** gebucht (`subvention_util.tl:126-135`).
-- **Stadt versorgen** gibt Geldbelohnungen und Strafen nur, solange dein Konto unter 100 Mio. liegt; darüber nur noch 1 Angebot von 10 (`deliver_cargo_town.script.tl:206-217`).
+- **Stadt versorgen** kann eine Geldzahlung bei Erfüllung und eine Geldstrafe nur haben, wenn dein Konto beim Erstellen des Angebots unter 100 Mio. liegt; darüber nur noch 1 Angebot von 10, die anderen geben Stadterfahrung und nehmen stattdessen Reputation. Die Vorauszahlung ist nicht betroffen (`deliver_cargo_town.script.tl:194-229`).
 - **Stadterfahrung** ist ein Anteil der aktuellen Stufe der Stadt: 20 % bis 100 % der XP zwischen ihrer Stufe und der nächsten (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). Bei **Städte verbinden** wird sie mit dem Entfernungsfaktor multipliziert, 0,3 bei 1 km bis 3,0 bei 20 km: Weit entfernte Städte können mehrere Stufen gewinnen (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - Nach einem Misserfolg verlorener **Ruf** erscheint in der Ruf-Bewertung der Stadt als **Gescheiterte Subvention** (`towns.script.tl:313-334`). Bei Annahme gewonnener Ruf entfernt nur bestehende Abzüge, er geht nie über das Maximum (`town_util.tl:1644-1647`).
 
@@ -119,7 +119,7 @@ Wie lang ein Spielmonat ist, und damit die echte Länge der Fristen, legt die En
 - Ein Angebot **abzulehnen** halbiert den nächsten Abstand; Annehmen oder ein neues Angebot setzt ihn zurück (`subventions.script.tl:429`, `subventions.script.tl:395`, `subventions.script.tl:118`).
 - Kein neues Angebot, solange **5 Verträge** angenommen sind und laufen (`subventions.script.tl:23`, `subventions.script.tl:256-262`). Das erste Angebot kommt nach einem halben Monat.
 - Dasselbe Ziel (Industrie, Stadt und Fracht, Städtepaar) wird **nur einmal pro Spiel** angeboten, auch nach einem verpassten oder gescheiterten Vertrag (`subventions.script.tl:107-113`, `subventions.script.tl:186`).
-- Schwierigkeitsvorgaben, Verfügbarkeit / Risiko (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`): Easy Oft / Keines, Normal Manchmal / Fair, Hard Selten / Riskant, **Very Hard Nie**: gar keine Subventionen.
+- Schwierigkeitsvorgaben, Verfügbarkeit / Risiko (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`): Einfach Oft / Keines, Normal Manchmal / Fair, Schwierig Selten / Riskant, **Sehr schwierig Nie**: gar keine Subventionen.
 - Die Prüfung, die Subventionen nur in Städten mit der Bewertung Sehr gut erlauben würde, existiert, ist aber abgeschaltet (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:272-275`).
 
 ## Gut zu wissen

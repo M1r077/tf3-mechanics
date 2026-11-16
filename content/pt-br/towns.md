@@ -60,12 +60,12 @@ A taxa de crescimento vem de duas classificações da janela do município (`tow
 | **Barulho** | barulho do município: 65 dB ou menos → classificação cheia, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Poluição** | poluição média por célula de 16 m da área do município, na escala logarítmica dos scripts ("dB", não é um nível sonoro): 60 → cheia, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-As configurações de **sensibilidade** de cada classificação (sete níveis, o primeiro é Desligado) movem esses limites; Desligado significa classificação sempre cheia (`difficulty_util.tl:44-49`).
+As configurações de **sensibilidade** movem esses limites: Reputação só tem Desligado / Ligado, as outras cinco têm sete níveis de Desligado a Extremo, com Normal ×1 (Ruído e Poluição vão mais alto: até ×3,5 e ×5, contra ×3 nas outras); Desligado significa classificação sempre cheia (`difficulty_util.tl:44-49`).
 
 ## Suprimentos
 
 - **Passageiros**: uso das linhas do município × 2, então **50% de uso das linhas dá a classificação cheia** (`town_util.tl:546-553`).
-- **Carga**: oferta ÷ demanda de cada distrito (comercial, industrial); conta o **melhor** distrito, não a média (`town_util.tl:521-529`).
+- **Carga**: oferta ÷ demanda de cada distrito (residencial, comercial, industrial), com todas as suas cargas juntas; conta o **melhor** distrito, não a média (`town_util.tl:521-543`).
 - Um município sem nada a ser abastecido conta como suprimentos cheios. Um município que não recebe de você nem passageiros nem carga conta como "sem entregas": taxa de crescimento 0% (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ O motor calcula o uso das linhas, a velocidade do tráfego, os mapas de barulho 
 
 ## Demanda de carga e estoques dos prédios
 
-- A demanda de um município é a soma dos seus **prédios**. Cada prédio comercial ou industrial tem um pequeno estoque de entrada para cada carga que o município pede: capacidade ÷ 4, arredondado para cima (`townbuildingutil.lua:226-251`). O jogo anota que esse tamanho de estoque "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
+- A demanda de um município é a soma dos seus **prédios**. Cada prédio tem um pequeno estoque de entrada para cada carga que o seu distrito pede: capacidade ÷ 4, arredondado para cima, × o fator dessa carga nas necessidades do município (1 salvo outra definição; de onde vem o fator não está nos scripts) (`townbuildingutil.lua:226-251`). O jogo anota que esse tamanho de estoque "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
 - A demanda na janela do município é o limite total desses estoques; a oferta contada para a classificação é limitada à demanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Municípios maiores pedem mais porque têm mais prédios.
 - A janela do prédio mostra uma **Taxa de Consumo**: a velocidade com que o prédio usa a sua carga em relação ao máximo (`town_building.tl:103-132`).
 - XP e pagamento vêm quando uma unidade entra no estoque de um prédio (`town_growth.script.tl:620-642`).

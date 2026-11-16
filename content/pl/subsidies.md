@@ -31,7 +31,7 @@ Subsydium to kontrakt: zakład przemysłowy lub miasto proponuje zadanie, przy p
 - Każda nowa oferta wybiera, z równymi szansami, jeden z rodzajów, które mogą się w danej chwili pojawić (`subventions.script.tl:147-169`).
 - **Zaopatrz zakład przemysłowy** i **Zaopatrz miasto** liczą dostawy, a nie kursy: każda opłacona jednostka, która dotrze do celu, dodaje 1. Przeładunki są dozwolone (`deliver_cargo.script.tl:470-479`).
 - **Połącz miasta** nie wymaga żadnej liczby pasażerów: wypełnia go pierwszy pasażer, który wsiądzie do twojej linii między tymi dwoma miastami. „Bez przesiadki” oznacza, że ten odcinek podróży odbywa się jedną linią obsługującą oba miasta. Oferta się nie pojawia, jeśli jakaś linia już przewozi pasażerów między nimi (`deliver_passengers.script.tl:72-78`).
-- Bliskie miasta są dużo bardziej prawdopodobne: waga pary spada z 1 przy 1 km lub mniej do 0,01 przy 20 km, do potęgi 7 (`deliver_passengers.script.tl:175-191`).
+- Bliskie miasta są dużo bardziej prawdopodobne: waga pary to 100 × współczynnik odległości do potęgi 7 (1 przy 1 km lub mniej, 0,01 przy 20 km) plus wartość co najmniej 1 na miasto, którą silnik odczytuje w miejscu miasta ze swojej siatki infrastruktury gracza (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Powyżej około 10 km część odległości jest prawie zerowa i zostaje tylko ta wartość silnika.
 - **Zaopatrz miasto** woli towary, które są już gdzieś produkowane na mapie: 16 razy bardziej prawdopodobne niż pozostałe (`deliver_cargo_town.script.tl:277-280`).
 - Ilość do dostarczenia zależy od ustawienia **Ryzyko subsydiów**:
 
@@ -58,7 +58,7 @@ To, do którego miasta należy stacja (stationSystem.getTown), kiedy dokładnie 
 
 ## Nagrody i kary
 
-Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęcia**, **W chwili wypełnienia** i **W chwili niepowodzenia** (`subvention_util.tl:449-471`). Przy niepowodzeniu zaliczka jest zawsze zwracana, a do tego dochodzi jeszcze jedna kara (`deliver_cargo.script.tl:134-136`).
+Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęcia**, **W chwili wypełnienia** i **W chwili niepowodzenia** (`subvention_util.tl:449-471`). Przy niepowodzeniu odbierane jest wszystko, co dano przy przyjęciu, a do tego dochodzi jedna kara, a w Połącz miasta dwie, utrata reputacji w każdym mieście (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Kontrakt | W chwili przyjęcia | W chwili wypełnienia | W chwili niepowodzenia | Źródło |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Każdy kontrakt ma trzy listy, pokazane na jego karcie jako **W chwili przyjęci
 | Połącz miasta | pieniądze, więcej za odległe miasta | doświadczenie w **obu** miastach, plus podwojony dochód | zwrot zaliczki + utrata reputacji w **obu** miastach | `deliver_passengers.script.tl:105-119` |
 | Przewieź pracowników | pieniądze | pieniądze | zwrot zaliczki + kara | `deliver_workers.script.tl:92-116` |
 
-- **Pieniądze**, przed skalowaniem według roku: zaliczka od 1,5 mln do 3,75 mln × mnożnik ryzyka („Brak” ×2, „Rozsądne” ×1, „Ryzykowne” ×0,75, „Bardzo ryzykowne” ×0,5); kara od 3 mln do 6 mln; zapłata za wykonanie od 3,75 mln do 11,25 mln (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Pieniądze**, przed skalowaniem według roku: zaliczka od 1,5 mln do 3,75 mln × mnożnik ryzyka („Brak” ×2, „Rozsądne” ×1, „Ryzykowne” ×0,75, „Bardzo ryzykowne” ×0,5, albo ×0,625 w Połącz miasta i Przewieź pracowników), a w Połącz miasta jeszcze × współczynnik odległości (od 0,3 do 3,0); kara od 3 mln do 6 mln; zapłata za wykonanie od 3,75 mln do 11,25 mln (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - Kwoty rosną z **rokiem kalendarzowym**, a nie z ustawieniem „Inflacja”: ×1 w 1900, równomiernie do ×4 od 2000, zaokrąglone w górę do 10 000 (`finances_util.tl:87-90`). W finansach są księgowane jako **Subsydia** (`subvention_util.tl:126-135`).
-- **Zaopatrz miasto** daje nagrody i kary pieniężne tylko wtedy, gdy stan twojego konta jest poniżej 100 mln; powyżej może to zrobić już tylko 1 oferta na 10 (`deliver_cargo_town.script.tl:206-217`).
+- **Zaopatrz miasto** może mieć zapłatę pieniężną za wykonanie i karę pieniężną tylko wtedy, gdy stan twojego konta jest poniżej 100 mln w chwili tworzenia oferty; powyżej może to już tylko 1 oferta na 10, pozostałe dają zamiast tego doświadczenie miasta i odbierają reputację. Zaliczka się nie zmienia (`deliver_cargo_town.script.tl:194-229`).
 - **Doświadczenie miasta** to część bieżącego poziomu miasta: od 20 % do 100 % XP między jego poziomem a następnym (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). W **Połącz miasta** jest mnożone przez mnożnik odległości, od 0,3 przy 1 km do 3,0 przy 20 km: odległe miasta mogą zyskać kilka poziomów (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - **Reputacja** utracona po niepowodzeniu widnieje w ocenie reputacji miasta jako **Nieuzyskane subsydia** (`towns.script.tl:313-334`). Reputacja zyskana przy przyjęciu tylko usuwa istniejące kary, nie może przekroczyć maksimum (`town_util.tl:1644-1647`).
 

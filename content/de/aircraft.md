@@ -40,12 +40,12 @@ Jedes Flugzeug ist **klein** oder **groß**. Ein **Flugplatz** nimmt nur kleine 
 
 ## Kosten
 
-Preis und Unterhalt der ersten Variante. Spätere Varianten kosten ×3 oder ×9 ([Kosten, Unterhalt und Darlehen](costs.html)); der erste Flugplatz nutzt bereits ×3 (`airfield.tl:8`).
+Preis und Unterhalt der ersten Variante, Epochenfaktor eingerechnet. Der Faktor ist ×3 sowohl beim ersten Flugplatz (1920, `airfield.tl:8`) als auch beim ersten Flughafen (1950, `airport.tl:8`), dann ×9 ab 1980; Module haben keinen ([Kosten, Unterhalt und Darlehen](costs.html)).
 
 | Gebäude | Preis | Unterhalt pro Jahr | Quelle |
 |---|---|---|---|
-| Flugplatz | 1.200.000 - 3.000.000 | 50.000 - 200.000 | `airfield.tl:55-56` |
-| Flughafen | 1.800.000 - 4.500.000 | 300.000 - 750.000 | `airport.tl:30-31` |
+| Flugplatz | 3.600.000 - 9.000.000 | 150.000 - 600.000 | `airfield.tl:8`, `airfield.tl:55-56` |
+| Flughafen | 5.400.000 - 13.500.000 | 900.000 - 2.250.000 | `airport.tl:8`, `airport.tl:30-31` |
 | Flugplatzmodul (Hauptgebäude, Terminal, Hangar) | 600.000 | 100.000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
 | Flughafenmodul (Terminal, Hangar, zweite Landebahn) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 

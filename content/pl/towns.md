@@ -60,12 +60,12 @@ Tempo rozwoju zależy od dwóch ocen w oknie miasta (`town_util.tl:607-633`, `to
 | **Hałas** | hałas w mieście: 65 dB lub mniej → pełna ocena, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Zanieczyszczenie** | średnie zanieczyszczenie na komórkę 16 m obszaru miasta, w skali logarytmicznej skryptów („dB”, to nie poziom dźwięku): 60 → pełna, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-Ustawienia **wrażliwości** każdej oceny (siedem stopni, pierwszy to „Wył.”) przesuwają te progi; „Wył.” oznacza zawsze pełną ocenę (`difficulty_util.tl:44-49`).
+Ustawienia **wrażliwości** przesuwają te progi: Reputacja ma tylko „Wył.” / „Wł.”, pozostałe pięć ma siedem stopni od „Wył.” do „Skrajnie duża”, a „Normalna” to ×1 (Hałas i Zanieczyszczenie sięgają wyżej: do ×3,5 i ×5, wobec ×3 u pozostałych); „Wył.” oznacza zawsze pełną ocenę (`difficulty_util.tl:44-49`).
 
 ## Zaopatrzenie
 
 - **Pasażerowie**: obciążenie linii w mieście × 2, więc **50 % obciążenia linii daje pełną ocenę** (`town_util.tl:546-553`).
-- **Towary**: zaopatrzenie ÷ popyt każdej dzielnicy (handlowej, przemysłowej); liczy się **najlepsza** dzielnica, a nie średnia (`town_util.tl:521-529`).
+- **Towary**: zaopatrzenie ÷ popyt każdej dzielnicy (mieszkalnej, handlowej, przemysłowej), wszystkie jej towary razem; liczy się **najlepsza** dzielnica, a nie średnia (`town_util.tl:521-543`).
 - Miasto, któremu nie ma czego dostarczać, liczy się jako w pełni zaopatrzone. Miasto, które nie dostaje od ciebie ani pasażerów, ani towarów, liczy się jako „bez dostaw”: tempo rozwoju 0 % (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ Silnik oblicza obciążenie linii, prędkość ruchu, mapy hałasu i zanieczyszc
 
 ## Popyt na towary i zapasy budynków
 
-- Popyt miasta to suma jego **budynków**. Każdy budynek handlowy lub przemysłowy ma mały zapas wejściowy na każdy towar, o który prosi miasto: pojemność ÷ 4, zaokrąglona w górę (`townbuildingutil.lua:226-251`). Gra zaznacza, że ta wielkość zapasu „is currently nowhere shown in the UI” (obecnie nie jest nigdzie pokazywana w interfejsie) (`townbuildingutil.lua:249`).
+- Popyt miasta to suma jego **budynków**. Każdy budynek ma mały zapas wejściowy na każdy towar, o który prosi jego dzielnica: pojemność ÷ 4, zaokrąglona w górę, × współczynnik tego towaru w potrzebach miasta (1, chyba że ustawiono inaczej; skąd bierze się współczynnik, nie ma w skryptach) (`townbuildingutil.lua:226-251`). Gra zaznacza, że ta wielkość zapasu „is currently nowhere shown in the UI” (obecnie nie jest nigdzie pokazywana w interfejsie) (`townbuildingutil.lua:249`).
 - Popyt w oknie miasta to łączny limit tych zapasów; zaopatrzenie liczone do oceny jest ograniczone do popytu (`town_util.tl:95-99`, `town_util.tl:194-198`). Większe miasta proszą o więcej, bo mają więcej budynków.
 - Okno budynku pokazuje **Współczynnik zużycia**: jak szybko budynek zużywa swój towar w porównaniu z maksimum (`town_building.tl:103-132`).
 - Doświadczenie i zapłata przychodzą, gdy jednostka trafia do zapasu budynku (`town_growth.script.tl:620-642`).

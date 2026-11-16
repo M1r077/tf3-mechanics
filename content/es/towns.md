@@ -60,12 +60,12 @@ La tasa de crecimiento sale de dos calificaciones de la ventana de la localidad 
 | **Ruido** | ruido de la localidad: 65 dB o menos → calificación máxima, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Polución** | polución media por celda de 16 m del área de la localidad, en la escala logarítmica de los scripts («dB», no es un nivel sonoro): 60 → máxima, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-Los ajustes de **susceptibilidad** de cada calificación (siete niveles, el primero es No) desplazan estos límites; No significa calificación siempre máxima (`difficulty_util.tl:44-49`).
+Los ajustes de **susceptibilidad** desplazan estos límites: Reputación solo tiene No / Sí, las otras cinco tienen siete niveles de No a Extrema, con Normal ×1 (Ruido y Contaminación llegan más alto: hasta ×3,5 y ×5, frente a ×3 en las demás); No significa calificación siempre máxima (`difficulty_util.tl:44-49`).
 
 ## Suministros
 
 - **Pasajeros**: uso de línea de la localidad × 2, así que **un 50 % de uso de línea da la calificación máxima** (`town_util.tl:546-553`).
-- **Cargamento**: suministro ÷ demanda de cada distrito (comercial, industrial); cuenta el **mejor** distrito, no la media (`town_util.tl:521-529`).
+- **Cargamento**: suministro ÷ demanda de cada distrito (residencial, comercial, industrial), con todos sus cargamentos juntos; cuenta el **mejor** distrito, no la media (`town_util.tl:521-543`).
 - Una localidad sin nada que suministrar cuenta como suministros completos. Una localidad que no recibe de ti ni pasajeros ni cargamento cuenta como "sin entregas": tasa de crecimiento 0 % (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ El motor calcula el uso de línea, la velocidad del tráfico, los mapas de ruido
 
 ## Demanda de cargamento y existencias de los edificios
 
-- La demanda de una localidad es la suma de sus **edificios**. Cada edificio comercial o industrial tiene una pequeña reserva de entrada por cada cargamento que pide la localidad: capacidad ÷ 4, redondeada hacia arriba (`townbuildingutil.lua:226-251`). El juego anota que este tamaño de reserva "is currently nowhere shown in the UI" (de momento no se muestra en ninguna parte de la interfaz) (`townbuildingutil.lua:249`).
+- La demanda de una localidad es la suma de sus **edificios**. Cada edificio tiene una pequeña reserva de entrada por cada cargamento que pide su distrito: capacidad ÷ 4, redondeada hacia arriba, × el factor de ese cargamento en las necesidades de la localidad (1 salvo que se fije otro; de dónde sale el factor no está en los scripts) (`townbuildingutil.lua:226-251`). El juego anota que este tamaño de reserva "is currently nowhere shown in the UI" (de momento no se muestra en ninguna parte de la interfaz) (`townbuildingutil.lua:249`).
 - La demanda de la ventana de la localidad es el límite total de estas reservas; el suministro que cuenta para la calificación está limitado a la demanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Las localidades más grandes piden más porque tienen más edificios.
 - La ventana del edificio muestra una **Calificación de consumo**: lo rápido que el edificio usa su cargamento en comparación con su máximo (`town_building.tl:103-132`).
 - La XP y el pago llegan cuando una unidad entra en la reserva de un edificio (`town_growth.script.tl:620-642`).

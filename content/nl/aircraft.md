@@ -40,12 +40,12 @@ Elk vliegtuig is **klein** of **groot**. Een **vliegveld** neemt alleen kleine v
 
 ## Kosten
 
-Prijs en onderhoud van de eerste variant. Latere varianten kosten ×3 of ×9 ([Kosten, onderhoud en leningen](costs.html)); het eerste vliegveld gebruikt al ×3 (`airfield.tl:8`).
+Prijs en onderhoud van de eerste variant, tijdperkfactor inbegrepen. De factor is ×3 voor zowel het eerste vliegveld (1920, `airfield.tl:8`) als de eerste luchthaven (1950, `airport.tl:8`), daarna ×9 vanaf 1980; modules hebben er geen ([Kosten, onderhoud en leningen](costs.html)).
 
 | Gebouw | Prijs | Onderhoud per jaar | Bron |
 |---|---|---|---|
-| Vliegveld | 1.200.000 - 3.000.000 | 50.000 - 200.000 | `airfield.tl:55-56` |
-| Luchthaven | 1.800.000 - 4.500.000 | 300.000 - 750.000 | `airport.tl:30-31` |
+| Vliegveld | 3.600.000 - 9.000.000 | 150.000 - 600.000 | `airfield.tl:8`, `airfield.tl:55-56` |
+| Luchthaven | 5.400.000 - 13.500.000 | 900.000 - 2.250.000 | `airport.tl:8`, `airport.tl:30-31` |
 | Vliegveldmodule (hoofdgebouw, terminal, hangar) | 600.000 | 100.000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
 | Luchthavenmodule (terminal, hangar, tweede landingsbaan) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 

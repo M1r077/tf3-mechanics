@@ -60,12 +60,12 @@ Die Wachstumsrate kommt aus zwei Wertungen des Stadtfensters (`town_util.tl:607-
 | **Lärm** | Lärm der Stadt: 65 dB oder weniger → volle Wertung, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Verschmutzung** | mittlere Verschmutzung pro 16-m-Zelle des Stadtgebiets, auf der logarithmischen Skala der Skripte („dB“, kein Schallpegel): 60 → voll, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-Die **Empfindlichkeits**-Einstellungen jeder Wertung (sieben Stufen, die erste ist Aus) verschieben diese Grenzen; Aus heißt immer volle Wertung (`difficulty_util.tl:44-49`).
+Die **Empfindlichkeits**-Einstellungen verschieben diese Grenzen: Ruf ist nur Aus / Ein, die fünf anderen haben sieben Stufen von Aus bis Extrem, Normal ist ×1 (Lärm und Verschmutzung gehen oben weiter: bis ×3,5 und ×5, gegen ×3 bei den anderen); Aus heißt immer volle Wertung (`difficulty_util.tl:44-49`).
 
 ## Versorgung
 
 - **Passagiere**: Linienauslastung der Stadt × 2, also **gibt 50 % Auslastung die volle Wertung** (`town_util.tl:546-553`).
-- **Fracht**: Angebot ÷ Bedarf jedes Viertels (Gewerbe, Industrie); es zählt das **beste** Viertel, nicht der Durchschnitt (`town_util.tl:521-529`).
+- **Fracht**: Angebot ÷ Bedarf jedes Viertels (Wohnen, Gewerbe, Industrie), alle seine Frachten zusammen; es zählt das **beste** Viertel, nicht der Durchschnitt (`town_util.tl:521-543`).
 - Eine Stadt ohne etwas zu versorgen zählt als voll versorgt. Eine Stadt, die von dir weder Passagiere noch Fracht bekommt, zählt als „keine Lieferungen": Wachstumsrate 0 % (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ Die Engine berechnet die Linienauslastung, die Verkehrsgeschwindigkeit, die Lär
 
 ## Frachtbedarf und Gebäudelager
 
-- Der Bedarf einer Stadt ist die Summe ihrer **Gebäude**. Jedes Gewerbe- oder Industriegebäude hat ein kleines Eingangslager pro Fracht, die die Stadt verlangt: Kapazität ÷ 4, aufgerundet (`townbuildingutil.lua:226-251`). Das Spiel vermerkt, dass diese Lagergröße „is currently nowhere shown in the UI" (derzeit nirgends in der Oberfläche angezeigt wird) (`townbuildingutil.lua:249`).
+- Der Bedarf einer Stadt ist die Summe ihrer **Gebäude**. Jedes Gebäude hat ein kleines Eingangslager pro Fracht, die sein Viertel verlangt: Kapazität ÷ 4, aufgerundet, × der Faktor dieser Fracht im Bedarf der Stadt (1, wenn nichts anderes festgelegt ist; woher der Faktor kommt, steht nicht in den Skripten) (`townbuildingutil.lua:226-251`). Das Spiel vermerkt, dass diese Lagergröße „is currently nowhere shown in the UI" (derzeit nirgends in der Oberfläche angezeigt wird) (`townbuildingutil.lua:249`).
 - Der Bedarf im Stadtfenster ist die Gesamtgrenze dieser Lager; das für die Wertung gezählte Angebot ist auf den Bedarf begrenzt (`town_util.tl:95-99`, `town_util.tl:194-198`). Größere Städte verlangen mehr, weil sie mehr Gebäude haben.
 - Das Gebäudefenster zeigt eine **Verbrauchsrate**: wie schnell das Gebäude seine Fracht im Vergleich zu seinem Maximum verbraucht (`town_building.tl:103-132`).
 - XP und Bezahlung gibt es, wenn eine Einheit in das Lager eines Gebäudes gelangt (`town_growth.script.tl:620-642`).

@@ -31,7 +31,7 @@ Un contrat (appelé subvention dans les fichiers du jeu) : une industrie ou une 
 - Chaque nouvelle offre tire un des types qui peuvent apparaître à ce moment, avec les mêmes chances (`subventions.script.tl:147-169`).
 - **Approvisionner l'industrie** et **Approvisionner la ville** comptent des livraisons, pas des trajets : chaque unité payée qui arrive à la cible ajoute 1. Les correspondances sont permises (`deliver_cargo.script.tl:470-479`).
 - **Relier des villes** ne demande aucun nombre de passagers : le premier passager qui monte dans ta ligne entre les deux villes le remplit. « Sans correspondance » veut dire que ce trajet se fait sur une seule ligne qui dessert les deux villes. Aucune offre n'apparaît si une ligne transporte déjà des passagers entre elles (`deliver_passengers.script.tl:72-78`).
-- Les villes proches sont bien plus probables : le poids d'une paire passe de 1 à 1 km ou moins à 0,01 à 20 km, à la puissance 7 (`deliver_passengers.script.tl:175-191`).
+- Les villes proches sont bien plus probables : le poids d'une paire vaut 100 × un facteur de distance à la puissance 7 (1 à 1 km ou moins, 0,01 à 20 km), plus une valeur d'au moins 1 par ville que le moteur lit à la position de la ville dans sa grille d'infrastructure du joueur (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Au-delà d'environ 10 km, la part de la distance est presque nulle et il ne reste que cette valeur du moteur.
 - **Approvisionner la ville** préfère les frets déjà produits quelque part sur la carte : 16 fois plus probables que les autres (`deliver_cargo_town.script.tl:277-280`).
 - La quantité à livrer dépend du réglage **Risque des missions** :
 
@@ -58,7 +58,7 @@ La ville à laquelle appartient une gare (stationSystem.getTown), le moment exac
 
 ## Récompenses et pénalités
 
-Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptation**, **À la réalisation** et **En cas d'échec** (`subvention_util.tl:449-471`). En cas d'échec, l'avance est toujours remboursée, plus une pénalité (`deliver_cargo.script.tl:134-136`).
+Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptation**, **À la réalisation** et **En cas d'échec** (`subvention_util.tl:449-471`). En cas d'échec, tout ce qui a été donné à l'acceptation est repris, plus une pénalité, ou deux pour Relier des villes, une perte de réputation dans chaque ville (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Contrat | À l'acceptation | À la réalisation | En cas d'échec | Source |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptat
 | Relier des villes | argent, plus pour des villes éloignées | expérience dans **les deux** villes, plus Revenus 2x | avance remboursée + perte de réputation dans **les deux** villes | `deliver_passengers.script.tl:105-119` |
 | Transporter des travailleurs | argent | argent | avance remboursée + amende | `deliver_workers.script.tl:92-116` |
 
-- **Argent**, avant l'effet de l'année : avance de 1,5 M à 3,75 M × le facteur de risque (Aucun ×2, Équitable ×1, Risqué ×0,75, Très risqué ×0,5) ; amende de 3 M à 6 M ; paiement à la réalisation de 3,75 M à 11,25 M (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Argent**, avant l'effet de l'année : avance de 1,5 M à 3,75 M × le facteur de risque (Aucun ×2, Équitable ×1, Risqué ×0,75, Très risqué ×0,5, ou ×0,625 pour Relier des villes et Transporter des travailleurs), et pour Relier des villes aussi × le facteur de distance (0,3 à 3,0) ; amende de 3 M à 6 M ; paiement à la réalisation de 3,75 M à 11,25 M (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - L'argent suit l'**année du calendrier**, pas le réglage Inflation : ×1 en 1900, montée régulière jusqu'à ×4 en 2000 et après, arrondi au-dessus à 10 000 (`finances_util.tl:87-90`). Il est compté en **Contrats** dans les finances (`subvention_util.tl:126-135`).
-- **Approvisionner la ville** ne donne d'argent et d'amendes que tant que ton compte est sous 100 M ; au-dessus, seule 1 offre sur 10 le peut encore (`deliver_cargo_town.script.tl:206-217`).
+- **Approvisionner la ville** ne peut avoir un paiement en argent à la réalisation et une amende en argent que si ton compte est sous 100 M au moment où l'offre est créée ; au-dessus, seule 1 offre sur 10 le peut encore, les autres donnent de l'expérience à la ville et retirent de la réputation à la place. L'avance n'est pas concernée (`deliver_cargo_town.script.tl:194-229`).
 - L'**expérience de la ville** est une part de son niveau actuel : 20 % à 100 % de l'XP entre son niveau et le suivant (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). Pour **Relier des villes**, elle est multipliée par le facteur de distance, de 0,3 à 1 km jusqu'à 3,0 à 20 km : des villes éloignées peuvent gagner plusieurs niveaux (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - La **réputation** perdue après un échec apparaît dans la note Réputation de la ville comme **Contrat échoué** (`towns.script.tl:313-334`). La réputation gagnée à l'acceptation retire seulement des pénalités existantes, elle ne dépasse jamais le maximum (`town_util.tl:1644-1647`).
 
@@ -119,7 +119,7 @@ La durée d'un mois de jeu, et donc la vraie longueur des délais, est fixée pa
 - **Refuser** une offre divise l'intervalle suivant par deux ; accepter ou une nouvelle offre le remet à la normale (`subventions.script.tl:429`, `subventions.script.tl:395`, `subventions.script.tl:118`).
 - Plus aucune offre tant que **5 contrats** acceptés sont en cours (`subventions.script.tl:23`, `subventions.script.tl:256-262`). La première offre arrive après un demi-mois.
 - La même cible (industrie, ville et fret, paire de villes) n'est proposée **qu'une fois par partie**, même après un contrat manqué ou échoué (`subventions.script.tl:107-113`, `subventions.script.tl:186`).
-- Préréglages de difficulté, disponibilité / risque (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`) : Easy Souvent / Aucun(e), Moyen Parfois / Équitable, Hard Rarement / Risqué, **Very Hard Jamais** : aucun contrat.
+- Préréglages de difficulté, disponibilité / risque (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`) : Facile Souvent / Aucun(e), Normale Parfois / Équitable, Difficile Rarement / Risqué, **Très difficile Jamais** : aucun contrat.
 - La vérification qui n'autoriserait les contrats que dans les villes notées Très bon existe, mais elle est désactivée (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:272-275`).
 
 ## Bon à savoir

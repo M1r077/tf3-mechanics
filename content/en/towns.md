@@ -60,12 +60,12 @@ The growth rate comes from two ratings of the town window (`town_util.tl:607-633
 | **Noise** | town noise: 65 dB or less → full rating, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Pollution** | average pollution per 16 m cell of the town area, on the scripts' log scale ("dB", not a sound level): 60 → full, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-The **sensitivity** settings of each rating (seven steps, the first is Off) move these limits; Off means always full rating (`difficulty_util.tl:44-49`).
+The **sensitivity** settings move these limits: Reputation is only Off / On, the five others have seven steps from Off to Extreme, Normal being ×1 (Noise and Pollution go further at the top: up to ×3.5 and ×5, against ×3 for the others); Off means always full rating (`difficulty_util.tl:44-49`).
 
 ## Supplies
 
 - **Passengers**: line usage of the town × 2, so **50 % line usage gives the full rating** (`town_util.tl:546-553`).
-- **Cargo**: supply ÷ demand of each district (commercial, industrial); the **best** district counts, not the average (`town_util.tl:521-529`).
+- **Cargo**: supply ÷ demand of each district (residential, commercial, industrial), all its cargos together; the **best** district counts, not the average (`town_util.tl:521-543`).
 - A town with nothing to supply counts as full supplies. A town that gets neither passengers nor cargo from you counts as "no deliveries": growth rate 0 % (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ The engine computes line usage, the traffic speed, the noise and pollution maps 
 
 ## Cargo demand and building stocks
 
-- A town's demand is the sum of its **buildings**. Each commercial or industrial building has one small input stock per cargo the town asks for: capacity ÷ 4, rounded up (`townbuildingutil.lua:226-251`). The game notes that this stock size "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
+- A town's demand is the sum of its **buildings**. Each building has one small input stock per cargo its district asks for: capacity ÷ 4, rounded up, × that cargo's factor in the town's needs (1 unless set otherwise; where the factor comes from is not in the scripts) (`townbuildingutil.lua:226-251`). The game notes that this stock size "is currently nowhere shown in the UI" (`townbuildingutil.lua:249`).
 - The town window's demand is the total limit of these stocks; the supply counted for the rating is capped at the demand (`town_util.tl:95-99`, `town_util.tl:194-198`). Bigger towns ask for more because they have more buildings.
 - The building window shows a **Consumption Rating**: how fast the building uses its cargo compared with its maximum (`town_building.tl:103-132`).
 - XP and payment come when a unit enters a building's stock (`town_growth.script.tl:620-642`).

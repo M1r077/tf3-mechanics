@@ -31,7 +31,7 @@ Una commessa (chiamata subvention nei file del gioco) è un contratto: un'indust
 - Ogni nuova offerta sceglie uno dei tipi che possono comparire in quel momento, con la stessa probabilità (`subventions.script.tl:147-169`).
 - **Fornitura industriale** e **Fornitura urbana** contano le consegne, non i viaggi: ogni unità pagata che arriva all'obiettivo aggiunge 1. I trasbordi sono ammessi (`deliver_cargo.script.tl:470-479`).
 - **Collegamento urbano** non richiede un numero di passeggeri: il primo passeggero che sale sulla tua linea tra le due cittadine lo completa. "Diretto" significa che quel tratto si fa su un'unica linea che serve entrambe le cittadine. Nessuna offerta compare se una linea trasporta già passeggeri tra di esse (`deliver_passengers.script.tl:72-78`).
-- Le cittadine vicine sono molto più probabili: il peso di una coppia scende da 1 a 1 km o meno fino a 0,01 a 20 km, elevato alla settima potenza (`deliver_passengers.script.tl:175-191`).
+- Le cittadine vicine sono molto più probabili: il peso di una coppia è 100 × un fattore di distanza elevato alla settima (1 a 1 km o meno, 0,01 a 20 km), più un valore di almeno 1 per cittadina che il motore legge alla posizione della cittadina dalla sua griglia delle infrastrutture del giocatore (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Oltre circa 10 km la parte della distanza è quasi zero e resta solo quel valore del motore.
 - **Fornitura urbana** preferisce merci già prodotte da qualche parte sulla mappa: 16 volte più probabili delle altre (`deliver_cargo_town.script.tl:277-280`).
 - La quantità da consegnare dipende dall'impostazione **Rischio commesse**:
 
@@ -58,7 +58,7 @@ A quale cittadina appartiene una stazione (stationSystem.getTown), quando esatta
 
 ## Ricompense e penalità
 
-Ogni contratto tiene tre elenchi, mostrati sulla sua scheda come **In accettazione**, **In adempimento** e **In fallimento** (`subvention_util.tl:449-471`). In caso di fallimento l'anticipo viene sempre restituito, più una penalità aggiuntiva (`deliver_cargo.script.tl:134-136`).
+Ogni contratto tiene tre elenchi, mostrati sulla sua scheda come **In accettazione**, **In adempimento** e **In fallimento** (`subvention_util.tl:449-471`). In caso di fallimento viene ripreso tutto ciò che è stato dato all'accettazione, più una penalità, o due per Collegamento urbano, una perdita di reputazione in ogni cittadina (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Contratto | In accettazione | In adempimento | In fallimento | Fonte |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Ogni contratto tiene tre elenchi, mostrati sulla sua scheda come **In accettazio
 | Collegamento urbano | denaro, di più per cittadine lontane | esperienza in **entrambe** le cittadine, più Entrate x2 | anticipo restituito + perdita di reputazione in **entrambe** le cittadine | `deliver_passengers.script.tl:105-119` |
 | Trasporto di forza lavoro | denaro | denaro | anticipo restituito + multa | `deliver_workers.script.tl:92-116` |
 
-- **Denaro**, prima della scala per anno: anticipo da 1,5 M a 3,75 M × il fattore di rischio (Nessuno ×2, Sostenibile ×1, Rischioso ×0,75, Molto rischioso ×0,5); multa da 3 M a 6 M; pagamento al completamento da 3,75 M a 11,25 M (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Denaro**, prima della scala per anno: anticipo da 1,5 M a 3,75 M × il fattore di rischio (Nessuno ×2, Sostenibile ×1, Rischioso ×0,75, Molto rischioso ×0,5, o ×0,625 per Collegamento urbano e Trasporto di forza lavoro), e per Collegamento urbano anche × il fattore di distanza (da 0,3 a 3,0); multa da 3 M a 6 M; pagamento al completamento da 3,75 M a 11,25 M (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - Il denaro cresce con l'**anno del calendario**, non con l'impostazione Inflazione: ×1 nel 1900, in aumento uniforme fino a ×4 nel 2000 e dopo, arrotondato per eccesso a 10.000 (`finances_util.tl:87-90`). Viene registrato come **Commesse** nelle finanze (`subvention_util.tl:126-135`).
-- **Fornitura urbana** dà ricompense in denaro e multe solo finché il tuo conto bancario è sotto i 100 M; al di sopra, solo 1 offerta su 10 può ancora farlo (`deliver_cargo_town.script.tl:206-217`).
+- **Fornitura urbana** può avere un pagamento in denaro al completamento e una multa in denaro solo se il tuo conto bancario è sotto i 100 M quando l'offerta viene creata; al di sopra, solo 1 offerta su 10 può ancora, le altre danno esperienza alla cittadina e tolgono reputazione. L'anticipo non cambia (`deliver_cargo_town.script.tl:194-229`).
 - L'**esperienza della cittadina** è una quota del suo livello attuale: dal 20% al 100% dell'XP tra il suo livello e il successivo (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). Per **Collegamento urbano** viene moltiplicata per il fattore di distanza, da 0,3 a 1 km fino a 3,0 a 20 km: cittadine lontane possono guadagnare più livelli (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - La **reputazione** persa dopo un fallimento compare nella valutazione Reputazione della cittadina come **Commessa non completata** (`towns.script.tl:313-334`). La reputazione ottenuta all'accettazione elimina solo penalità esistenti, non può superare il massimo (`town_util.tl:1644-1647`).
 

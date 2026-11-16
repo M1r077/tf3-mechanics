@@ -40,12 +40,12 @@ Każdy samolot jest **mały** albo **duży**. **Lotnisko polowe** przyjmuje tylk
 
 ## Koszty
 
-Cena i utrzymanie pierwszego wariantu. Późniejsze warianty kosztują ×3 lub ×9 ([Koszty, utrzymanie i kredyty](costs.html)); pierwsze lotnisko polowe używa już ×3 (`airfield.tl:8`).
+Cena i utrzymanie pierwszego wariantu, z mnożnikiem epoki. Mnożnik wynosi ×3 zarówno dla pierwszego lotniska polowego (1920, `airfield.tl:8`), jak i pierwszego lotniska (1950, `airport.tl:8`), a od 1980 ×9; moduły go nie mają ([Koszty, utrzymanie i kredyty](costs.html)).
 
 | Budynek | Cena | Utrzymanie rocznie | Źródło |
 |---|---|---|---|
-| Lotnisko polowe | 1 200 000 - 3 000 000 | 50 000 - 200 000 | `airfield.tl:55-56` |
-| Lotnisko | 1 800 000 - 4 500 000 | 300 000 - 750 000 | `airport.tl:30-31` |
+| Lotnisko polowe | 3 600 000 - 9 000 000 | 150 000 - 600 000 | `airfield.tl:8`, `airfield.tl:55-56` |
+| Lotnisko | 5 400 000 - 13 500 000 | 900 000 - 2 250 000 | `airport.tl:8`, `airport.tl:30-31` |
 | Moduł lotniska polowego (budynek główny, terminal, hangar) | 600 000 | 100 000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
 | Moduł lotniska (terminal, hangar, drugi pas) | 900 000 | 150 000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 

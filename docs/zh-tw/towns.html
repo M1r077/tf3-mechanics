@@ -109,11 +109,11 @@
 </tr>
 </tbody>
 </table></div>
-<p>每項評價的<strong>靈敏度</strong>設定（七段，第一段為關閉）會移動這些界限；關閉代表始終滿分<span class="sr">（<code class="src">difficulty_util.tl:44-49</code>）</span>。</p>
+<p><strong>靈敏度</strong>設定會移動這些界限：聲望只有關閉 / 開啟兩段，其餘五項從關閉到極限共七段，普通為 ×1（噪音和污染的上限更高：最高 ×3.5 和 ×5，其餘為 ×3）；關閉代表始終滿分<span class="sr">（<code class="src">difficulty_util.tl:44-49</code>）</span>。</p>
 <h2 id="供應"><span class="n">4</span><span>供應</span></h2>
 <ul>
 <li><strong>乘客</strong>：城鎮的路線使用量 × 2，所以 <strong>50 % 的路線使用量就能拿到滿分</strong><span class="sr">（<code class="src">town_util.tl:546-553</code>）</span>。</li>
-<li><strong>貨物</strong>：每個區域（商業區、工業區）的供應 ÷ 需求；取<strong>最好</strong>的那個區域，而不是平均值<span class="sr">（<code class="src">town_util.tl:521-529</code>）</span>。</li>
+<li><strong>貨物</strong>：每個區域（住宅區、商業區、工業區）所有貨物合計的供應 ÷ 需求；取<strong>最好</strong>的那個區域，而不是平均值<span class="sr">（<code class="src">town_util.tl:521-543</code>）</span>。</li>
 <li>沒有任何需要供應項目的城鎮算作供應滿分。既沒有從你這裡得到乘客、也沒有得到貨物的城鎮算作「沒有配送」：成長率 0 %<span class="sr">（<code class="src">town_util.tl:565-588</code>）</span>。</li>
 </ul>
 <aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p><strong>不需要讓所有居民都搭你的路線：50 % 的路線使用率就已經是滿分的乘客評價。</strong></p></div></aside>
@@ -131,7 +131,7 @@
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>路線使用量、交通速度、噪音與汙染分布圖、遲到配送的清單都由引擎計算，新的房屋與街道也由引擎建造。一個區域始終能分到的最小份額（townGrowthMinDistrictFraction）是引擎中的數值。</p></div></aside>
 <h2 id="貨物需求與建築庫存"><span class="n">6</span><span>貨物需求與建築庫存</span></h2>
 <ul>
-<li>城鎮的需求是它所有<strong>建築</strong>的總和。每棟商業或工業建築對城鎮需要的每種貨物都有一個小的輸入庫存：容量 ÷ 4，無條件進位<span class="sr">（<code class="src">townbuildingutil.lua:226-251</code>）</span>。遊戲程式碼註明這個庫存大小「is currently nowhere shown in the UI」<span class="sr">（<code class="src">townbuildingutil.lua:249</code>）</span>。</li>
+<li>城鎮的需求是它所有<strong>建築</strong>的總和。每棟建築對其所在區域需要的每種貨物都有一個小的輸入庫存：容量 ÷ 4，無條件進位，再 × 該貨物在城鎮需求中的係數（未另行設定時為 1；係數來源不在腳本中）<span class="sr">（<code class="src">townbuildingutil.lua:226-251</code>）</span>。遊戲程式碼註明這個庫存大小「is currently nowhere shown in the UI」<span class="sr">（<code class="src">townbuildingutil.lua:249</code>）</span>。</li>
 <li>城鎮視窗中的需求是這些庫存上限的總和；評價中計入的供應以需求為上限<span class="sr">（<code class="src">town_util.tl:95-99</code>，<code class="src">town_util.tl:194-198</code>）</span>。城鎮越大建築越多，需要的也越多。</li>
 <li>建築視窗顯示<strong>消耗量評價</strong>：建築使用貨物的速度與其最大值相比<span class="sr">（<code class="src">town_building.tl:103-132</code>）</span>。</li>
 <li>一個單位進入建築庫存時，才會獲得經驗值與貨款<span class="sr">（<code class="src">town_growth.script.tl:620-642</code>）</span>。</li>

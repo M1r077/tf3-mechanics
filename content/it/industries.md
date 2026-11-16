@@ -36,7 +36,7 @@ Il motore esegue le regole. Può allungare un ciclo: il tooltip del ciclo mostra
 ## Lotti ed espansione
 
 - Le industrie primarie e l'Allevamento di bestiame hanno **lotti** (campi, pozzi di miniera, torri). Il loro livello è il numero di lotti (`industryutil.lua:602-617`).
-- La regola cresce con i lotti: produzione per ciclo × lotti ÷ **tutti i lotti di quel tipo di industria**, arrotondato, almeno 1. Le entrate calano nella stessa proporzione (`industryutil.lua:225-259`). Una Miniera di carbone (8 tipi di lotto) con 4 lotti fa 8 carbone per ciclo invece di 16.
+- La regola cresce con i lotti: produzione per ciclo × lotti ÷ **tutti i lotti di quel tipo di industria**, arrotondato, almeno 1. Le entrate calano della stessa quota, arrotondate per eccesso, almeno 1, ma per niente se una produzione mantiene la quantità piena (per esempio una produzione di 1, che non può scendere); le regole di potenziamento non vengono mai ridotte (`industryutil.lua:225-259`). Una Miniera di carbone (8 tipi di lotto) con 4 lotti fa 8 carbone per ciclo invece di 16.
 - Ogni industria riceve un massimo: a caso tra metà dei lotti e tutti, oppure Piccola / Media / Grande (50 / 75 / 100 %) con il parametro **Dimensioni industria** (`industryutil.lua:519-537`). Una miniera con massimo 5 su 8 non raggiunge mai la regola completa.
 - Con Media, se il 75 % arrotondato dà tutti i lotti, il massimo è tutti i lotti meno uno (`industryutil.lua:523-526`). Una nuova industria parte con i lotti che il motore costruisce al piazzamento; il suo livello viene da questi (`industryutil.lua:602-617`).
 - Ogni sei mesi di **tempo di gioco** il gioco può aggiungere **un lotto** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Si usa mezzo anno standard, quindi la velocità del calendario non cambia la frequenza (vedi [Tempo di gioco e calendario](time.html)).
@@ -107,7 +107,7 @@ Le 13 industrie primarie hanno una seconda regola, il **booster**: prende un lot
 
 ## Il booster dei lavoratori
 
-Metà dei posti (10 su 20) deve essere occupata da abitanti **arrivati con le tue linee passeggeri** negli ultimi 2 anni; il fattore è da ×1,5 a ×2,5, fisso per ogni industria (`industry_productivity_util.tl:35-72`). I lavoratori solo assegnati non contano. Dettagli: [I lavoratori e il booster dei lavoratori](workers.html).
+Metà dei posti (per esempio 10 su 20) deve essere occupata da abitanti **arrivati con le tue linee passeggeri** negli ultimi 2 anni (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). Il fattore è casuale tra ×1,5 e ×2,5, fisso per ogni industria; un edificio può fissarne uno proprio (`industry_productivity_util.tl:58-72`). I lavoratori solo assegnati non contano. Dettagli: [I lavoratori e il booster dei lavoratori](workers.html).
 
 ## Perché la mia industria non è potenziata?
 
@@ -128,7 +128,7 @@ Metà dei posti (10 su 20) deve essere occupata da abitanti **arrivati con le tu
 Il controllo passa ogni 100 aggiornamenti per ogni industria (`industries.script.tl:84-85`):
 
 1. **Candidata**: nessun carico **caricato** su un veicolo e nessuno **consumato** per **5 anni** (dalla costruzione se mai) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Produrre non basta.
-2. **Caso**: ogni anno una candidata viene segnata con la probabilità dell'impostazione **Frequenza di chiusura delle industrie** (tabella sotto) (`industries.script.tl:120-131`).
+2. **Caso**: una candidata viene estratta a ogni controllo con una parte della probabilità annua dell'impostazione **Frequenza di chiusura delle industrie** (tabella sotto), così che in un anno si arriva a quella probabilità (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Conto alla rovescia**: compare la notifica **Chiusura dell'industria**, con 2 anni (730 giorni) di tempo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Poi l'industria viene rimossa con i suoi tratti di strada (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Salvata**: un solo carico o un consumo durante il conto alla rovescia lo annulla (`industries.script.tl:134-137`). Accettare un sussidio **Fornitura industriale** o **Trasporto di forza lavoro** per lei lo annulla pure (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ Il controllo passa ogni 100 aggiornamenti per ogni industria (`industries.script
 | Frequentemente | 4,4 % | circa 16 anni | – | `difficulty_util.tl:37` |
 | Regolarmente | 8,8 % | circa 8 anni | Molto difficile | `difficulty_util.tl:176` |
 
-La probabilità è 0,011 all'anno × 0, 1, 2, 4 o 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Le industrie di tua proprietà non chiudono mai, né quelle a sviluppo manuale, né alcuna durante il tutorial (`industries.script.tl:94-102`).
+La probabilità è 0,011 all'anno × 0, 1, 2, 4 o 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Le industrie di tua proprietà non chiudono mai, né quelle a sviluppo manuale; finché le chiusure sono in pausa (nel gioco base, solo durante il tutorial) non ne inizia nessuna e un conto alla rovescia in corso viene annullato (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Cosa conta come «caricato» e «consumato» (i registri itemsLoaded e itemsConsumed, ad es. se il carico booster conta), il flag manualDevelopment, e perché le industrie con un deposito sono escluse (`industries.script.tl:140-146`) dipendono dal motore. Così come cosa fa il motore di una regola booster che ha perso l'entrata (Ingresso disattivato).

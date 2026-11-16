@@ -40,12 +40,12 @@ Chaque avion est **petit** ou **grand**. Un **aérodrome** n'accepte que les pet
 
 ## Coûts
 
-Prix et entretien de la première variante. Les variantes suivantes coûtent ×3 ou ×9 ([Coûts, entretien et emprunts](costs.html)) ; le premier aérodrome utilise déjà ×3 (`airfield.tl:8`).
+Prix et entretien de la première variante, coefficient d'époque compris. Le coefficient est ×3 aussi bien pour le premier aérodrome (1920, `airfield.tl:8`) que pour le premier aéroport (1950, `airport.tl:8`), puis ×9 à partir de 1980 ; les modules n'en ont pas ([Coûts, entretien et emprunts](costs.html)).
 
 | Bâtiment | Prix | Entretien par an | Source |
 |---|---|---|---|
-| Aérodrome | 1 200 000 - 3 000 000 | 50 000 - 200 000 | `airfield.tl:55-56` |
-| Aéroport | 1 800 000 - 4 500 000 | 300 000 - 750 000 | `airport.tl:30-31` |
+| Aérodrome | 3 600 000 - 9 000 000 | 150 000 - 600 000 | `airfield.tl:8`, `airfield.tl:55-56` |
+| Aéroport | 5 400 000 - 13 500 000 | 900 000 - 2 250 000 | `airport.tl:8`, `airport.tl:30-31` |
 | Module d'aérodrome (bâtiment principal, terminal, hangar) | 600 000 | 100 000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
 | Module d'aéroport (terminal, hangar, deuxième piste) | 900 000 | 150 000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 

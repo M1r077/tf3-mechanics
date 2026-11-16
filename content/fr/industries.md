@@ -36,7 +36,7 @@ Le moteur exécute les règles. Il peut rallonger un cycle : l'infobulle du cycl
 ## Parcelles et extension
 
 - Les industries primaires et la Ferme d'élevage ont des **parcelles** (champs, puits de mine, derricks). Leur niveau est leur nombre de parcelles (`industryutil.lua:602-617`).
-- La règle grandit avec les parcelles : production par cycle × parcelles ÷ **toutes les parcelles de ce type d'industrie**, arrondi, au moins 1. Les entrées baissent dans la même proportion (`industryutil.lua:225-259`). Une Mine de charbon (8 types de parcelles) avec 4 parcelles fait 8 charbon par cycle au lieu de 16.
+- La règle grandit avec les parcelles : production par cycle × parcelles ÷ **toutes les parcelles de ce type d'industrie**, arrondi, au moins 1. Les entrées baissent de la même part, arrondies au-dessus, au moins 1, mais pas du tout si une production garde sa quantité complète (par exemple une production de 1, qui ne peut pas descendre plus bas) ; les règles de boost ne sont jamais réduites (`industryutil.lua:225-259`). Une Mine de charbon (8 types de parcelles) avec 4 parcelles fait 8 charbon par cycle au lieu de 16.
 - Chaque industrie reçoit un maximum : au hasard entre la moitié des parcelles et toutes, ou Petite / Moyenne / Grande (50 / 75 / 100 %) avec le paramètre **Taille de l'industrie** (`industryutil.lua:519-537`). Une mine dont le maximum est 5 sur 8 n'atteint jamais la règle complète.
 - Avec Moyenne, si 75 % arrondi donne toutes les parcelles, le maximum vaut toutes les parcelles moins une (`industryutil.lua:523-526`). Une nouvelle industrie démarre avec les parcelles que le moteur construit à la pose ; son niveau est fixé d'après elles (`industryutil.lua:602-617`).
 - Tous les six mois de **temps de jeu**, le jeu peut ajouter **une parcelle** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). C'est une demi-année standard : la vitesse du calendrier ne change pas la fréquence (voir [Temps de jeu et calendrier](time.html)).
@@ -107,7 +107,7 @@ Les 13 industries primaires ont une deuxième règle, le **booster** : il prend 
 
 ## Le bonus des travailleurs
 
-La moitié des emplois (10 sur 20) doit être occupée par des habitants **arrivés par tes lignes de passagers** au cours des 2 dernières années ; le facteur vaut ×1,5 à ×2,5, fixe pour chaque industrie (`industry_productivity_util.tl:35-72`). Les travailleurs seulement attribués ne comptent pas. Détails : [Travailleurs et bonus des travailleurs](workers.html).
+La moitié des emplois (par exemple 10 sur 20) doit être occupée par des habitants **arrivés par tes lignes de passagers** au cours des 2 dernières années (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). Le facteur est tiré au hasard entre ×1,5 et ×2,5, fixe pour chaque industrie ; un bâtiment peut fixer le sien (`industry_productivity_util.tl:58-72`). Les travailleurs seulement attribués ne comptent pas. Détails : [Travailleurs et bonus des travailleurs](workers.html).
 
 ## Pourquoi mon industrie n'est pas boostée ?
 
@@ -128,7 +128,7 @@ La moitié des emplois (10 sur 20) doit être occupée par des habitants **arriv
 La vérification passe toutes les 100 mises à jour pour chaque industrie (`industries.script.tl:84-85`) :
 
 1. **Candidate** : aucun fret **chargé** dans un véhicule et aucun **consommé** pendant **5 ans** (comptés depuis sa construction si jamais) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Produire seul ne compte pas.
-2. **Hasard** : chaque année, une candidate est marquée avec la chance du réglage **Fréquence de fermeture des industries** (tableau ci-dessous) (`industries.script.tl:120-131`).
+2. **Hasard** : une candidate est tirée à chaque contrôle avec une part de la chance annuelle du réglage **Fréquence de fermeture des industries** (tableau ci-dessous), de sorte que sur un an cela fait cette chance (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Compte à rebours** : la notification **Fermeture de l'industrie** apparaît, avec 2 ans (730 jours) à attendre (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Ensuite l'industrie est supprimée avec ses propres morceaux de route (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Sauvée** : un seul chargement ou une consommation pendant le compte à rebours l'annule (`industries.script.tl:134-137`). Accepter un contrat **Approvisionner l'industrie** ou **Transporter des travailleurs** pour elle l'annule aussi (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ La vérification passe toutes les 100 mises à jour pour chaque industrie (`indu
 | Souvent | 4,4 % | environ 16 ans | – | `difficulty_util.tl:37` |
 | Très souvent | 8,8 % | environ 8 ans | Très difficile | `difficulty_util.tl:176` |
 
-La chance vaut 0,011 par an × 0, 1, 2, 4 ou 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Les industries qui t'appartiennent ne ferment jamais, ni celles en développement manuel, ni aucune pendant le tutoriel (`industries.script.tl:94-102`).
+La chance vaut 0,011 par an × 0, 1, 2, 4 ou 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Les industries qui t'appartiennent ne ferment jamais, ni celles en développement manuel ; tant que les fermetures sont en pause (dans le jeu de base, seulement pendant le tutoriel), aucune ne commence et un compte à rebours en cours est annulé (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Ce qui compte comme « chargé » et « consommé » (les journaux itemsLoaded et itemsConsumed, par ex. si le fret booster compte), l'indicateur manualDevelopment, et pourquoi les industries avec un dépôt sont laissées de côté (`industries.script.tl:140-146`) relèvent du moteur. De même que ce que fait le moteur d'une règle booster qui a perdu son entrée (Entrée désactivée).

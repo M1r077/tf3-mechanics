@@ -36,7 +36,7 @@ El motor ejecuta las reglas. Puede alargar un ciclo: la descripción del ciclo m
 ## Terrenos y expansión
 
 - Las industrias primarias y la Granja de ganado tienen **terrenos** (campos, pozos de mina, torres). Su nivel es su número de terrenos (`industryutil.lua:602-617`).
-- La regla crece con los terrenos: producción por ciclo × terrenos ÷ **todos los terrenos de ese tipo de industria**, redondeado, al menos 1. Las entradas bajan en la misma proporción (`industryutil.lua:225-259`). Una Mina de carbón (8 tipos de terreno) con 4 terrenos hace 8 carbón por ciclo en vez de 16.
+- La regla crece con los terrenos: producción por ciclo × terrenos ÷ **todos los terrenos de ese tipo de industria**, redondeado, al menos 1. Las entradas bajan en la misma parte, redondeadas hacia arriba, al menos 1, pero nada si una producción conserva su cantidad completa (por ejemplo una producción de 1, que no puede bajar); las reglas de impulso nunca se reducen (`industryutil.lua:225-259`). Una Mina de carbón (8 tipos de terreno) con 4 terrenos hace 8 carbón por ciclo en vez de 16.
 - Cada industria recibe un máximo: al azar entre la mitad de los terrenos y todos, o Pequeña / Mediana / Grande (50 / 75 / 100 %) con el parámetro **Tamaño de la industria** (`industryutil.lua:519-537`). Una mina con máximo 5 de 8 nunca llega a la regla completa.
 - Con Mediana, si el 75 % redondeado da todos los terrenos, el máximo es todos los terrenos menos uno (`industryutil.lua:523-526`). Una industria nueva empieza con los terrenos que el motor construye al colocarla; su nivel se fija a partir de ellos (`industryutil.lua:602-617`).
 - Cada medio año de **tiempo de juego** el juego puede añadir **un terreno** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Se usa medio año estándar, así que la velocidad del calendario no cambia la frecuencia (ver [Tiempo de juego y calendario](time.html)).
@@ -107,7 +107,7 @@ Las 13 industrias primarias tienen una segunda regla, el **refuerzo**: toma un l
 
 ## El refuerzo de trabajadores
 
-La mitad de los puestos (10 de 20) debe estar ocupada por residentes que **llegaron con tus líneas de pasajeros** en los últimos 2 años; el factor es ×1,5 a ×2,5, fijo por industria (`industry_productivity_util.tl:35-72`). Los trabajadores solo asignados no cuentan. Detalles: [Trabajadores y el refuerzo de trabajadores](workers.html).
+La mitad de los puestos (por ejemplo 10 de 20) debe estar ocupada por residentes que **llegaron con tus líneas de pasajeros** en los últimos 2 años (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). El factor es aleatorio entre ×1,5 y ×2,5, fijo por industria; un edificio puede fijar el suyo (`industry_productivity_util.tl:58-72`). Los trabajadores solo asignados no cuentan. Detalles: [Trabajadores y el refuerzo de trabajadores](workers.html).
 
 ## ¿Por qué mi industria no tiene refuerzo?
 
@@ -128,7 +128,7 @@ La mitad de los puestos (10 de 20) debe estar ocupada por residentes que **llega
 La comprobación se hace cada 100 actualizaciones para cada industria (`industries.script.tl:84-85`):
 
 1. **Candidata**: ninguna carga **cargada** en un vehículo y ninguna **consumida** durante **5 años** (desde su construcción si nunca) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Producir no basta.
-2. **Azar**: cada año una candidata se marca con la probabilidad del ajuste **Frecuencia de cierre de industrias** (tabla abajo) (`industries.script.tl:120-131`).
+2. **Azar**: una candidata se sortea en cada comprobación con una parte de la probabilidad anual del ajuste **Frecuencia de cierre de industrias** (tabla abajo), de modo que en un año suma esa probabilidad (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Cuenta atrás**: aparece la notificación **Cierre de industria**, con 2 años (730 días) de plazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Después la industria se elimina con sus propios tramos de carretera (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Salvada**: una sola carga o un consumo durante la cuenta atrás la cancela (`industries.script.tl:134-137`). Aceptar un subsidio **Suministrar a industria** o **Transportar trabajadores** para ella también la cancela (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ La comprobación se hace cada 100 actualizaciones para cada industria (`industri
 | Con frecuencia | 4,4 % | unos 16 años | – | `difficulty_util.tl:37` |
 | Con mucha frecuencia | 8,8 % | unos 8 años | Muy difícil | `difficulty_util.tl:176` |
 
-La probabilidad es 0,011 al año × 0, 1, 2, 4 u 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Las industrias que te pertenecen nunca cierran, ni las de desarrollo manual, ni ninguna durante el tutorial (`industries.script.tl:94-102`).
+La probabilidad es 0,011 al año × 0, 1, 2, 4 u 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Las industrias que te pertenecen nunca cierran, ni las de desarrollo manual; mientras los cierres están en pausa (en el juego base, solo durante el tutorial) no empieza ninguno y una cuenta atrás en curso se cancela (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Qué cuenta como «cargado» y «consumido» (los registros itemsLoaded e itemsConsumed, p. ej. si cuenta la carga de refuerzo), el indicador manualDevelopment, y por qué se excluyen las industrias con depósito (`industries.script.tl:140-146`) dependen del motor. También qué hace el motor con una regla de refuerzo que perdió su entrada (Entrada desactivada).

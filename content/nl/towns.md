@@ -60,12 +60,12 @@ Het groeitempo komt uit twee beoordelingen in het stadsvenster (`town_util.tl:60
 | **Geluidsoverlast** | geluid in de stad: 65 dB of minder → volle beoordeling, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Vervuiling** | gemiddelde vervuiling per cel van 16 m van het stadsgebied, op de logaritmische schaal van de scripts ("dB", geen geluidsniveau): 60 → vol, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-De **gevoeligheids**instellingen van elke beoordeling (zeven stappen, de eerste is Uit) verschuiven deze grenzen; Uit betekent altijd volle beoordeling (`difficulty_util.tl:44-49`).
+De **gevoeligheids**instellingen verschuiven deze grenzen: Reputatie is alleen Uit / Aan, de vijf andere hebben zeven stappen van Uit tot Extreem, met Gemiddeld ×1 (Geluid en Vervuiling gaan bovenaan verder: tot ×3,5 en ×5, tegen ×3 voor de andere); Uit betekent altijd volle beoordeling (`difficulty_util.tl:44-49`).
 
 ## Bevoorrading
 
 - **Reizigers**: lijngebruik van de stad × 2, dus **50 % lijngebruik geeft de volle beoordeling** (`town_util.tl:546-553`).
-- **Vracht**: aanbod ÷ vraag van elk district (commercieel, industrie); het **beste** district telt, niet het gemiddelde (`town_util.tl:521-529`).
+- **Vracht**: aanbod ÷ vraag van elk district (woon, commercieel, industrie), al zijn vracht samen; het **beste** district telt, niet het gemiddelde (`town_util.tl:521-543`).
 - Een stad die niets te bevoorraden heeft, telt als volledig bevoorraad. Een stad die van jou geen reizigers en geen vracht krijgt, telt als "geen bezorgingen": groeitempo 0 % (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ De engine berekent het lijngebruik, de verkeerssnelheid, de geluids- en vervuili
 
 ## Vrachtvraag en voorraden van gebouwen
 
-- De vraag van een stad is de som van haar **gebouwen**. Elk commercieel of industrieel gebouw heeft een kleine invoervoorraad per vracht waar de stad om vraagt: capaciteit ÷ 4, naar boven afgerond (`townbuildingutil.lua:226-251`). Het spel merkt op dat deze voorraadgrootte "is currently nowhere shown in the UI" (op dit moment nergens in de interface wordt getoond) (`townbuildingutil.lua:249`).
+- De vraag van een stad is de som van haar **gebouwen**. Elk gebouw heeft een kleine invoervoorraad per vracht waar zijn district om vraagt: capaciteit ÷ 4, naar boven afgerond, × de factor van die vracht in de behoeften van de stad (1 tenzij anders ingesteld; waar de factor vandaan komt staat niet in de scripts) (`townbuildingutil.lua:226-251`). Het spel merkt op dat deze voorraadgrootte "is currently nowhere shown in the UI" (op dit moment nergens in de interface wordt getoond) (`townbuildingutil.lua:249`).
 - De vraag in het stadsvenster is de totale limiet van deze voorraden; het aanbod dat voor de beoordeling telt, is begrensd tot de vraag (`town_util.tl:95-99`, `town_util.tl:194-198`). Grotere steden vragen meer omdat ze meer gebouwen hebben.
 - Het gebouwvenster toont een **Verbruikspercentage**: hoe snel het gebouw zijn vracht verbruikt vergeleken met zijn maximum (`town_building.tl:103-132`).
 - XP en betaling komen wanneer een eenheid de voorraad van een gebouw binnenkomt (`town_growth.script.tl:620-642`).

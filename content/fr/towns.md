@@ -60,12 +60,12 @@ Le taux de croissance vient de deux notes de la fenêtre de la ville (`town_util
 | **Bruit** | bruit de la ville : 65 dB ou moins → note pleine, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Pollution** | pollution moyenne par case de 16 m de la zone de la ville, sur l'échelle logarithmique des scripts (« dB », pas un niveau sonore) : 60 → pleine, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-Les réglages de **sensibilité** de chaque note (sept crans, le premier est Désactivé) déplacent ces limites ; Désactivé donne toujours la note pleine (`difficulty_util.tl:44-49`).
+Les réglages de **sensibilité** déplacent ces limites : Réputation n'a que Désactivé / Activé, les cinq autres ont sept crans de Désactivé à Extrême, Normale valant ×1 (Bruit et Pollution montent plus haut : jusqu'à ×3,5 et ×5, contre ×3 pour les autres) ; Désactivé donne toujours la note pleine (`difficulty_util.tl:44-49`).
 
 ## Apports
 
 - **Passagers** : utilisation des lignes de la ville × 2, donc **50 % d'utilisation donnent la note pleine** (`town_util.tl:546-553`).
-- **Fret** : apport ÷ demande de chaque quartier (commercial, industriel) ; c'est le **meilleur** quartier qui compte, pas la moyenne (`town_util.tl:521-529`).
+- **Fret** : apport ÷ demande de chaque quartier (résidentiel, commercial, industriel), tous ses frets ensemble ; c'est le **meilleur** quartier qui compte, pas la moyenne (`town_util.tl:521-543`).
 - Une ville sans rien à approvisionner compte comme apports pleins. Une ville qui ne reçoit de toi ni passagers ni fret compte comme « aucune livraison » : taux de croissance 0 % (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ Le moteur calcule l'utilisation des lignes, la vitesse du trafic, les cartes de 
 
 ## Demande de fret et stocks des bâtiments
 
-- La demande d'une ville est la somme de ses **bâtiments**. Chaque bâtiment commercial ou industriel a un petit stock d'entrée par fret que la ville demande : capacité ÷ 4, arrondie au supérieur (`townbuildingutil.lua:226-251`). Le jeu note que cette taille de stock « is currently nowhere shown in the UI » (n'est affichée nulle part dans l'interface pour l'instant) (`townbuildingutil.lua:249`).
+- La demande d'une ville est la somme de ses **bâtiments**. Chaque bâtiment a un petit stock d'entrée par fret que son quartier demande : capacité ÷ 4, arrondie au supérieur, × le facteur de ce fret dans les besoins de la ville (1 sauf indication contraire ; d'où vient ce facteur n'est pas dans les scripts) (`townbuildingutil.lua:226-251`). Le jeu note que cette taille de stock « is currently nowhere shown in the UI » (n'est affichée nulle part dans l'interface pour l'instant) (`townbuildingutil.lua:249`).
 - La demande de la fenêtre de la ville est la limite totale de ces stocks ; l'apport compté pour la note est plafonné à la demande (`town_util.tl:95-99`, `town_util.tl:194-198`). Les grandes villes demandent plus parce qu'elles ont plus de bâtiments.
 - La fenêtre du bâtiment affiche un **Taux de consommation** : la vitesse à laquelle le bâtiment utilise son fret par rapport à son maximum (`town_building.tl:103-132`).
 - L'XP et le paiement arrivent quand une unité entre dans le stock d'un bâtiment (`town_growth.script.tl:620-642`).

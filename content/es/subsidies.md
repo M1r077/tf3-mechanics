@@ -31,7 +31,7 @@ Una subvención es un contrato: una industria o una localidad propone una tarea,
 - Cada nueva oferta elige uno de los tipos que pueden aparecer en ese momento, con la misma probabilidad (`subventions.script.tl:147-169`).
 - **Suministrar a industria** y **Suministrar a localidad** cuentan entregas, no viajes: cada unidad pagada que llega al objetivo suma 1. Se permiten transbordos (`deliver_cargo.script.tl:470-479`).
 - **Conectar localidades** no exige ningún número de pasajeros: el primer pasajero que sube a tu línea entre las dos localidades lo cumple. "Sin escalas" significa que ese tramo se hace en una sola línea que da servicio a ambas localidades. No aparece ninguna oferta si una línea ya transporta pasajeros entre ellas (`deliver_passengers.script.tl:72-78`).
-- Las localidades cercanas son mucho más probables: el peso de una pareja baja de 1 a 1 km o menos a 0,01 a 20 km, elevado a la potencia 7 (`deliver_passengers.script.tl:175-191`).
+- Las localidades cercanas son mucho más probables: el peso de una pareja es 100 × un factor de distancia elevado a 7 (1 a 1 km o menos, 0,01 a 20 km), más un valor de al menos 1 por localidad que el motor lee en la posición de la localidad en su cuadrícula de infraestructura del jugador (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). A partir de unos 10 km la parte de distancia es casi cero y solo queda ese valor del motor.
 - **Suministrar a localidad** prefiere cargamentos que ya se producen en algún lugar del mapa: 16 veces más probables que los demás (`deliver_cargo_town.script.tl:277-280`).
 - La cantidad que hay que entregar depende del ajuste **Riesgo de las subvenciones**:
 
@@ -58,7 +58,7 @@ A qué localidad pertenece una estación (stationSystem.getTown), cuándo exacta
 
 ## Recompensas y penalizaciones
 
-Cada contrato guarda tres listas, que su tarjeta muestra como **Tras la aceptación**, **Tras el cumplimiento** y **Tras fallar** (`subvention_util.tl:449-471`). Si falla, el anticipo siempre se devuelve, más una penalización adicional (`deliver_cargo.script.tl:134-136`).
+Cada contrato guarda tres listas, que su tarjeta muestra como **Tras la aceptación**, **Tras el cumplimiento** y **Tras fallar** (`subvention_util.tl:449-471`). Si falla, se retira todo lo que se dio al aceptar, más una penalización, o dos en Conectar localidades, una pérdida de reputación en cada localidad (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Contrato | Tras la aceptación | Tras el cumplimiento | Tras fallar | Fuente |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Cada contrato guarda tres listas, que su tarjeta muestra como **Tras la aceptaci
 | Conectar localidades | dinero, más para localidades lejanas | experiencia en **ambas** localidades, más Ingresos x2 | devolución del anticipo + pérdida de reputación en **ambas** localidades | `deliver_passengers.script.tl:105-119` |
 | Transportar trabajadores | dinero | dinero | devolución del anticipo + multa | `deliver_workers.script.tl:92-116` |
 
-- **Dinero**, antes del ajuste por año: anticipo de 1,5 M a 3,75 M × el factor de riesgo (Ninguno ×2, Considerable ×1, Arriesgado ×0,75, Muy arriesgado ×0,5); multa de 3 M a 6 M; pago al cumplir de 3,75 M a 11,25 M (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Dinero**, antes del ajuste por año: anticipo de 1,5 M a 3,75 M × el factor de riesgo (Ninguno ×2, Considerable ×1, Arriesgado ×0,75, Muy arriesgado ×0,5, o ×0,625 en Conectar localidades y Transportar trabajadores), y en Conectar localidades además × el factor de distancia (0,3 a 3,0); multa de 3 M a 6 M; pago al cumplir de 3,75 M a 11,25 M (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - El dinero crece con el **año del calendario**, no con el ajuste Inflación: ×1 en 1900, subiendo de forma regular hasta ×4 en 2000 y después, redondeado hacia arriba a 10.000 (`finances_util.tl:87-90`). Se contabiliza como **Subvenciones** en las finanzas (`subvention_util.tl:126-135`).
-- **Suministrar a localidad** da recompensas en dinero y multas solo mientras tu cuenta bancaria esté por debajo de 100 M; por encima, solo 1 de cada 10 ofertas puede darlas todavía (`deliver_cargo_town.script.tl:206-217`).
+- **Suministrar a localidad** solo puede tener un pago en dinero al cumplir y una multa en dinero si tu cuenta bancaria está por debajo de 100 M cuando se crea la oferta; por encima, solo 1 de cada 10 ofertas todavía puede, las demás dan experiencia a la localidad y quitan reputación. El anticipo no cambia (`deliver_cargo_town.script.tl:194-229`).
 - La **experiencia de la localidad** es una parte de su nivel actual: del 20 % al 100 % de la XP entre su nivel y el siguiente (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). En **Conectar localidades** se multiplica por el factor de distancia, de 0,3 a 1 km hasta 3,0 a 20 km: las localidades lejanas pueden ganar varios niveles (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - La **reputación** perdida tras un fallo aparece en la calificación Reputación de la localidad como **Subvención fallida** (`towns.script.tl:313-334`). La reputación ganada al aceptar solo elimina penalizaciones existentes, no puede superar el máximo (`town_util.tl:1644-1647`).
 

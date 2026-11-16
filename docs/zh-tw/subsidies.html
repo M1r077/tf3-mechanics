@@ -61,7 +61,7 @@
 <li>每個新提案會從當下可以出現的類型中抽出一種，機率均等<span class="sr">（<code class="src">subventions.script.tl:147-169</code>）</span>。</li>
 <li><strong>供應產業</strong>與<strong>供應城鎮</strong>計算的是配送次數，而不是行程：每個抵達目標並獲得付款的單位加 1。可以轉乘<span class="sr">（<code class="src">deliver_cargo.script.tl:470-479</code>）</span>。</li>
 <li><strong>連接城鎮</strong>不要求乘客人數：第一位在兩鎮之間搭上你的路線的乘客就能讓它達成。「無需轉乘」是指這段行程由一條同時服務兩個城鎮的路線完成。如果已經有路線在兩鎮之間載客，就不會出現這個提案<span class="sr">（<code class="src">deliver_passengers.script.tl:72-78</code>）</span>。</li>
-<li>距離近的城鎮出現機率高得多：一對城鎮的權重從 1 km 以內的 1 降到 20 km 的 0.01，再取 7 次方<span class="sr">（<code class="src">deliver_passengers.script.tl:175-191</code>）</span>。</li>
+<li>距離近的城鎮出現機率高得多：一對城鎮的權重 = 距離係數（1 km 以內為 1，20 km 時為 0.01）的 7 次方 × 100，再加上引擎在城鎮位置從其玩家基礎設施網格讀出的每個城鎮的值（至少 1）<span class="sr">（<code class="src">deliver_passengers.script.tl:154-156</code>, <code class="src">deliver_passengers.script.tl:175-191</code>）</span>。超過約 10 km 後，距離部分幾乎為零，只剩下這個引擎值。</li>
 <li><strong>供應城鎮</strong>偏好地圖上已經有人生產的貨物：機率是其他貨物的 16 倍<span class="sr">（<code class="src">deliver_cargo_town.script.tl:277-280</code>）</span>。</li>
 <li>需要配送的數量取決於<strong>補助風險</strong>設定：</li>
 </ul>
@@ -112,7 +112,7 @@
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>車站屬於哪個城鎮（stationSystem.getTown）、乘客究竟何時「開始使用」一條路線（OnStartedLineUsage），以及路線的哪些編輯算是新版本，都由引擎決定。達成後編輯路線是否會結束「2倍收入」效果，尚未測試。</p></div></aside>
 <h2 id="獎勵與懲罰"><span class="n">3</span><span>獎勵與懲罰</span></h2>
-<p>每份合約都有三份清單，在合約卡片上分別顯示為<strong>接受</strong>、<strong>完成</strong>與<strong>失敗</strong><span class="sr">（<code class="src">subvention_util.tl:449-471</code>）</span>。失敗時一定要歸還預付款，另外再加一項懲罰<span class="sr">（<code class="src">deliver_cargo.script.tl:134-136</code>）</span>。</p>
+<p>每份合約都有三份清單，在合約卡片上分別顯示為<strong>接受</strong>、<strong>完成</strong>與<strong>失敗</strong><span class="sr">（<code class="src">subvention_util.tl:449-471</code>）</span>。失敗時，接受時給出的一切都會被收回，另外再加一項懲罰；連接城鎮是兩項，兩座城鎮各失去聲望<span class="sr">（<code class="src">subvention_util.tl:457-463</code>, <code class="src">deliver_cargo.script.tl:134-136</code>, <code class="src">deliver_passengers.script.tl:111-114</code>）</span>。</p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -155,9 +155,9 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>現金</strong>，依年份縮放之前：預付款 150 萬到 375 萬 × 風險係數（無 ×2、一般風險 ×1、高風險 ×0.75、極高風險 ×0.5）；罰款 300 萬到 600 萬；達成獎金 375 萬到 1,125 萬<span class="sr">（<code class="src">deliver_cargo.script.tl:120-128</code>，<code class="src">deliver_workers.script.tl:102-104</code>）</span>。</li>
+<li><strong>現金</strong>，依年份縮放之前：預付款 150 萬到 375 萬 × 風險係數（無 ×2、一般風險 ×1、高風險 ×0.75、極高風險 ×0.5；連接城鎮和運送工人為 ×0.625），連接城鎮還要 × 距離係數（0.3 到 3.0）；罰款 300 萬到 600 萬；達成獎金 375 萬到 1,125 萬<span class="sr">（<code class="src">deliver_cargo.script.tl:100-128</code>，<code class="src">deliver_passengers.script.tl:82-106</code>，<code class="src">deliver_workers.script.tl:64-104</code>）</span>。</li>
 <li>金額隨<strong>月曆年份</strong>成長，與通貨膨脹設定無關：1900 年 ×1，平均上升到 2000 年以後的 ×4，無條件進位到 1 萬<span class="sr">（<code class="src">finances_util.tl:87-90</code>）</span>。在財務狀況中列為<strong>補助</strong><span class="sr">（<code class="src">subvention_util.tl:126-135</code>）</span>。</li>
-<li><strong>供應城鎮</strong>只有在你的帳戶餘額低於 1 億時才會給現金獎勵與罰款；超過 1 億時，只有十分之一的提案還會這樣<span class="sr">（<code class="src">deliver_cargo_town.script.tl:206-217</code>）</span>。</li>
+<li><strong>供應城鎮</strong>只有在提案產生時你的帳戶餘額低於 1 億，才可能有現金達成獎金與現金罰款；超過 1 億時，只有十分之一的提案還會這樣，其餘的改為給城鎮經驗並扣聲望。預付款不受影響<span class="sr">（<code class="src">deliver_cargo_town.script.tl:194-229</code>）</span>。</li>
 <li><strong>城鎮經驗值</strong>是城鎮目前等級的一定比例：目前等級到下一級之間所需經驗值的 20 % 到 100 %<span class="sr">（<code class="src">deliver_cargo_town.script.tl:216</code>，<code class="src">town_growth.script.tl:605-608</code>）</span>。<strong>連接城鎮</strong>還要再乘上距離係數，從 1 km 的 0.3 到 20 km 的 3.0：相距很遠的城鎮可以連升好幾級<span class="sr">（<code class="src">deliver_passengers.script.tl:94-96</code>，<code class="src">deliver_passengers.script.tl:116-118</code>）</span>。</li>
 <li>失敗後失去的<strong>聲望</strong>，會在城鎮的聲望評價中顯示為<strong>申請失敗的補助</strong><span class="sr">（<code class="src">towns.script.tl:313-334</code>）</span>。接受時獲得的聲望只會抵銷既有的懲罰，不會超過滿分<span class="sr">（<code class="src">town_util.tl:1644-1647</code>）</span>。</li>
 </ul>

@@ -36,7 +36,7 @@ O motor executa as regras. Ele pode alongar um ciclo: a dica do ciclo mostra ent
 ## Lotes e expansão
 
 - As indústrias primárias e a Fazenda Pecuária têm **lotes** (campos, poços de mina, torres). O nível delas é o número de lotes (`industryutil.lua:602-617`).
-- A regra cresce com os lotes: produção por ciclo × lotes ÷ **todos os lotes desse tipo de indústria**, arredondado, no mínimo 1. As entradas caem na mesma proporção (`industryutil.lua:225-259`). Uma Mina de Carvão (8 tipos de lote) com 4 lotes faz 8 carvão por ciclo em vez de 16.
+- A regra cresce com os lotes: produção por ciclo × lotes ÷ **todos os lotes desse tipo de indústria**, arredondado, no mínimo 1. As entradas caem na mesma parcela, arredondadas para cima, no mínimo 1, mas nada se uma produção mantiver a quantidade cheia (por exemplo uma produção de 1, que não pode baixar); as regras de impulso nunca são reduzidas (`industryutil.lua:225-259`). Uma Mina de Carvão (8 tipos de lote) com 4 lotes faz 8 carvão por ciclo em vez de 16.
 - Cada indústria recebe um máximo: ao acaso entre metade dos lotes e todos, ou Pequena / Média / Grande (50 / 75 / 100 %) com o parâmetro **Tamanho da Indústria** (`industryutil.lua:519-537`). Uma mina com máximo de 5 de 8 nunca chega à regra completa.
 - Com Média, se 75 % arredonda para todos os lotes, o máximo é todos os lotes menos um (`industryutil.lua:523-526`). Uma indústria nova começa com os lotes que o motor constrói na colocação; o nível dela vem deles (`industryutil.lua:602-617`).
 - A cada meio ano de **tempo de jogo** o jogo pode adicionar **um lote** (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Usa-se meio ano padrão, então a velocidade do calendário não muda a frequência (veja [Tempo de jogo e calendário](time.html)).
@@ -107,7 +107,7 @@ As 13 indústrias primárias têm uma segunda regra, o **reforço**: ele tira um
 
 ## O reforço de trabalhadores
 
-Metade dos postos (10 de 20) precisa ser ocupada por moradores que **chegaram pelas suas linhas de passageiros** nos últimos 2 anos; o fator é ×1,5 a ×2,5, fixo por indústria (`industry_productivity_util.tl:35-72`). Trabalhadores só designados não contam. Detalhes: [Trabalhadores e o reforço de trabalhadores](workers.html).
+Metade dos postos (por exemplo 10 de 20) precisa ser ocupada por moradores que **chegaram pelas suas linhas de passageiros** nos últimos 2 anos (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). O fator é aleatório entre ×1,5 e ×2,5, fixo por indústria; um prédio pode definir o seu (`industry_productivity_util.tl:58-72`). Trabalhadores só designados não contam. Detalhes: [Trabalhadores e o reforço de trabalhadores](workers.html).
 
 ## Por que minha indústria não tem reforço?
 
@@ -128,7 +128,7 @@ Metade dos postos (10 de 20) precisa ser ocupada por moradores que **chegaram pe
 A verificação roda a cada 100 atualizações para cada indústria (`industries.script.tl:84-85`):
 
 1. **Candidata**: nenhuma carga **carregada** num veículo e nenhuma **consumida** por **5 anos** (desde a construção, se nunca) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Só produzir não conta.
-2. **Sorte**: a cada ano uma candidata é marcada com a chance da configuração **Frequência de fechamento de indústrias** (tabela abaixo) (`industries.script.tl:120-131`).
+2. **Sorte**: uma candidata é sorteada a cada verificação com uma parte da chance anual da configuração **Frequência de fechamento de indústrias** (tabela abaixo), de modo que em um ano soma essa chance (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Contagem regressiva**: aparece a notificação **Fechamento da indústria**, com 2 anos (730 dias) de prazo (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Depois a indústria é removida com seus próprios trechos de estrada (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Salva**: um único carregamento ou consumo durante a contagem a cancela (`industries.script.tl:134-137`). Aceitar um subsídio **Abastecer Indústria** ou **Transportar Trabalhadores** para ela também cancela (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ A verificação roda a cada 100 atualizações para cada indústria (`industries
 | Frequentemente | 4,4 % | cerca de 16 anos | – | `difficulty_util.tl:37` |
 | Muito Frequentemente | 8,8 % | cerca de 8 anos | Muito Difícil | `difficulty_util.tl:176` |
 
-A chance é 0,011 por ano × 0, 1, 2, 4 ou 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Indústrias que pertencem a você nunca fecham, nem as de desenvolvimento manual, nem nenhuma durante o tutorial (`industries.script.tl:94-102`).
+A chance é 0,011 por ano × 0, 1, 2, 4 ou 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Indústrias que pertencem a você nunca fecham, nem as de desenvolvimento manual; enquanto os fechamentos estão pausados (no jogo base, só durante o tutorial) nenhum começa e uma contagem em andamento é cancelada (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 O que conta como “carregado” e “consumido” (os registros itemsLoaded e itemsConsumed, p. ex. se a carga de reforço conta), o indicador manualDevelopment, e por que indústrias com depósito ficam de fora (`industries.script.tl:140-146`) dependem do motor. Também o que o motor faz com uma regra de reforço que perdeu a entrada (Entrada desligada).

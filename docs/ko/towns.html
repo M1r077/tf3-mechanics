@@ -109,11 +109,11 @@
 </tr>
 </tbody>
 </table></div>
-<p>평가별 <strong>민감도</strong> 설정(7단계, 첫 단계는 끄기)이 이 한계를 옮긴다. 끄기는 항상 최고 평가를 뜻한다<span class="sr">(<code class="src">difficulty_util.tl:44-49</code>)</span>.</p>
+<p><strong>민감도</strong> 설정이 이 한계를 옮긴다. 평판은 끄기 / 켜기 두 가지뿐이고, 나머지 다섯은 끄기부터 극단까지 7단계이며 보통이 ×1이다(소음과 오염은 위쪽이 더 높아 ×3.5와 ×5까지, 나머지는 ×3). 끄기는 항상 최고 평가를 뜻한다<span class="sr">(<code class="src">difficulty_util.tl:44-49</code>)</span>.</p>
 <h2 id="공급량"><span class="n">4</span><span>공급량</span></h2>
 <ul>
 <li><strong>승객</strong>: 마을의 노선 사용량 × 2. 따라서 <strong>노선 사용량 50 %면 최고 평가</strong>가 된다<span class="sr">(<code class="src">town_util.tl:546-553</code>)</span>.</li>
-<li><strong>화물</strong>: 각 구역(상업, 산업)의 공급 ÷ 수요. 평균이 아니라 <strong>가장 좋은</strong> 구역이 반영된다<span class="sr">(<code class="src">town_util.tl:521-529</code>)</span>.</li>
+<li><strong>화물</strong>: 각 구역(주거, 상업, 산업)의 모든 화물을 합친 공급 ÷ 수요. 평균이 아니라 <strong>가장 좋은</strong> 구역이 반영된다<span class="sr">(<code class="src">town_util.tl:521-543</code>)</span>.</li>
 <li>공급할 것이 없는 마을은 공급량 최고로 간주된다. 플레이어로부터 승객도 화물도 받지 않는 마을은 "배송 없음"으로 간주되어 성장률이 0 %다<span class="sr">(<code class="src">town_util.tl:565-588</code>)</span>.</li>
 </ul>
 <aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>팁</h4><p><strong>모든 주민을 노선에 태울 필요는 없다. 노선 이용률 50 %면 이미 승객 평가가 최대다.</strong></p></div></aside>
@@ -131,7 +131,7 @@
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>노선 사용량, 교통 속도, 소음 및 공해 지도, 늦은 배송 목록은 엔진이 계산하며, 새 주택과 도로도 엔진이 건설한다. 한 구역이 항상 받는 최소 몫(townGrowthMinDistrictFraction)은 엔진 값이다.</p></div></aside>
 <h2 id="화물-수요와-건물-재고"><span class="n">6</span><span>화물 수요와 건물 재고</span></h2>
 <ul>
-<li>마을의 수요는 그 <strong>건물</strong>들의 합이다. 상업·산업 건물은 마을이 요구하는 화물마다 작은 입력 재고를 하나씩 가진다. 수용량 ÷ 4, 올림<span class="sr">(<code class="src">townbuildingutil.lua:226-251</code>)</span>. 게임 코드에는 이 재고 크기가 "is currently nowhere shown in the UI"라고 적혀 있다<span class="sr">(<code class="src">townbuildingutil.lua:249</code>)</span>.</li>
+<li>마을의 수요는 그 <strong>건물</strong>들의 합이다. 모든 건물은 그 구역이 요구하는 화물마다 작은 입력 재고를 하나씩 가진다. 수용량 ÷ 4, 올림, × 마을 수요에서 그 화물의 계수(따로 정하지 않으면 1. 계수의 출처는 스크립트에 없다)<span class="sr">(<code class="src">townbuildingutil.lua:226-251</code>)</span>. 게임 코드에는 이 재고 크기가 "is currently nowhere shown in the UI"라고 적혀 있다<span class="sr">(<code class="src">townbuildingutil.lua:249</code>)</span>.</li>
 <li>마을 창의 수요는 이 재고들의 한도 합계이고, 평가에 계산되는 공급은 수요를 넘지 않는다<span class="sr">(<code class="src">town_util.tl:95-99</code>, <code class="src">town_util.tl:194-198</code>)</span>. 큰 마을은 건물이 더 많아서 더 많이 요구한다.</li>
 <li>건물 창에는 <strong>소비 등급</strong>이 표시된다. 건물이 화물을 쓰는 속도를 최대치와 비교한 값이다<span class="sr">(<code class="src">town_building.tl:103-132</code>)</span>.</li>
 <li>경험치와 대금은 한 단위가 건물 재고에 들어갈 때 생긴다<span class="sr">(<code class="src">town_growth.script.tl:620-642</code>)</span>.</li>

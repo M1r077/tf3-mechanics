@@ -109,11 +109,11 @@
 </tr>
 </tbody>
 </table></div>
-<p>每项评价的<strong>敏感度</strong>设置（七档，第一档为关）会移动这些界限；关表示始终满分<span class="sr">（<code class="src">difficulty_util.tl:44-49</code>）</span>。</p>
+<p><strong>敏感度</strong>设置会移动这些界限：声誉只有关闭 / 打开两档，其余五项从关到极高共七档，正常为 ×1（噪音和污染的上限更高：最高 ×3.5 和 ×5，其余为 ×3）；关表示始终满分<span class="sr">（<code class="src">difficulty_util.tl:44-49</code>）</span>。</p>
 <h2 id="供应"><span class="n">4</span><span>供应</span></h2>
 <ul>
 <li><strong>乘客</strong>：城镇的线路使用率 × 2，所以 <strong>50 % 的线路使用率就能得到满分</strong><span class="sr">（<code class="src">town_util.tl:546-553</code>）</span>。</li>
-<li><strong>货物</strong>：每个区（商业区、工业区）的供应 ÷ 需求；取<strong>最好</strong>的那个区，而不是平均值<span class="sr">（<code class="src">town_util.tl:521-529</code>）</span>。</li>
+<li><strong>货物</strong>：每个区（住宅区、商业区、工业区）所有货物合计的供应 ÷ 需求；取<strong>最好</strong>的那个区，而不是平均值<span class="sr">（<code class="src">town_util.tl:521-543</code>）</span>。</li>
 <li>没有任何需要供应的城镇算作供应满分。既没有从你这里得到乘客、也没有得到货物的城镇算作“没有交付”：增长率 0 %<span class="sr">（<code class="src">town_util.tl:565-588</code>）</span>。</li>
 </ul>
 <aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p><strong>不需要让所有居民都坐你的线路：50 % 的线路使用率就已经是满分的乘客评价。</strong></p></div></aside>
@@ -131,7 +131,7 @@
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由游戏引擎决定<small>C++，脚本中不可见</small></h4><p>线路使用率、交通速度、噪音和污染分布图、迟到交付的列表都由引擎计算，新的房屋和街道也由引擎建造。一个区始终能得到的最小份额（townGrowthMinDistrictFraction）是引擎中的数值。</p></div></aside>
 <h2 id="货物需求与建筑库存"><span class="n">6</span><span>货物需求与建筑库存</span></h2>
 <ul>
-<li>城镇的需求是它所有<strong>建筑</strong>的总和。每座商业或工业建筑对城镇需要的每种货物都有一个小的输入库存：容量 ÷ 4，向上取整<span class="sr">（<code class="src">townbuildingutil.lua:226-251</code>）</span>。游戏代码注明这个库存大小“is currently nowhere shown in the UI”<span class="sr">（<code class="src">townbuildingutil.lua:249</code>）</span>。</li>
+<li>城镇的需求是它所有<strong>建筑</strong>的总和。每座建筑对其所在区需要的每种货物都有一个小的输入库存：容量 ÷ 4，向上取整，再 × 该货物在城镇需求中的系数（未另行设定时为 1；系数来源不在脚本中）<span class="sr">（<code class="src">townbuildingutil.lua:226-251</code>）</span>。游戏代码注明这个库存大小“is currently nowhere shown in the UI”<span class="sr">（<code class="src">townbuildingutil.lua:249</code>）</span>。</li>
 <li>城镇窗口中的需求是这些库存上限的总和；评价中计入的供应以需求为上限<span class="sr">（<code class="src">town_util.tl:95-99</code>，<code class="src">town_util.tl:194-198</code>）</span>。城镇越大建筑越多，需要的也越多。</li>
 <li>建筑窗口显示<strong>消费评级</strong>：建筑使用货物的速度与其最大值相比<span class="sr">（<code class="src">town_building.tl:103-132</code>）</span>。</li>
 <li>一个单位进入建筑库存时，才获得经验和货款<span class="sr">（<code class="src">town_growth.script.tl:620-642</code>）</span>。</li>

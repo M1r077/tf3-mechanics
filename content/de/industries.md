@@ -36,7 +36,7 @@ Die Engine führt die Regeln aus. Sie kann einen Durchlauf verlängern: der Tool
 ## Parzellen und Erweiterung
 
 - Rohstoffindustrien und der Viehzuchtbetrieb haben **Parzellen** (Felder, Schächte, Bohrtürme). Ihre Stufe ist ihre Zahl an Parzellen (`industryutil.lua:602-617`).
-- Die Regel wächst mit den Parzellen: Produktion pro Durchlauf × Parzellen ÷ **alle Parzellen dieses Industrietyps**, gerundet, mindestens 1. Die Eingänge sinken im gleichen Verhältnis (`industryutil.lua:225-259`). Ein Kohlebergwerk (8 Parzellentypen) mit 4 Parzellen macht 8 statt 16 Kohle pro Durchlauf.
+- Die Regel wächst mit den Parzellen: Produktion pro Durchlauf × Parzellen ÷ **alle Parzellen dieses Industrietyps**, gerundet, mindestens 1. Die Eingänge sinken im gleichen Anteil, aufgerundet, mindestens 1, aber gar nicht, wenn eine Produktion ihre volle Menge behält (etwa eine Produktion von 1, die nicht tiefer gehen kann); Booster-Regeln werden nie gekürzt (`industryutil.lua:225-259`). Ein Kohlebergwerk (8 Parzellentypen) mit 4 Parzellen macht 8 statt 16 Kohle pro Durchlauf.
 - Jede Industrie erhält ein Maximum: zufällig zwischen der Hälfte und allen Parzellen, oder Klein / Mittel / Groß (50 / 75 / 100 %) mit dem Parameter **Industriegrösse** (`industryutil.lua:519-537`). Ein Bergwerk mit Maximum 5 von 8 erreicht nie die volle Regel.
 - Bei Mittel gilt: ergeben 75 % gerundet alle Parzellen, ist das Maximum alle Parzellen minus eine (`industryutil.lua:523-526`). Eine neue Industrie startet mit den Parzellen, die die Engine beim Platzieren baut; ihre Stufe wird daraus gesetzt (`industryutil.lua:602-617`).
 - Jedes halbe Jahr **Spielzeit** kann das Spiel **eine Parzelle** hinzufügen (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Es ist ein halbes Standardjahr, die Kalendergeschwindigkeit ändert die Häufigkeit also nicht (siehe [Spielzeit und Kalender](time.html)).
@@ -107,7 +107,7 @@ Die 13 Rohstoffindustrien haben eine zweite Regel, den **Booster**: er nimmt 4-m
 
 ## Der Arbeiterbonus
 
-Die Hälfte der Arbeitsplätze (10 von 20) muss mit Einwohnern besetzt sein, die in den letzten 2 Jahren **mit deinen Personenlinien angekommen** sind; der Faktor beträgt ×1,5 bis ×2,5, pro Industrie fest (`industry_productivity_util.tl:35-72`). Nur zugeteilte Arbeiter zählen nicht. Details: [Arbeiter und Arbeiterbonus](workers.html).
+Die Hälfte der Arbeitsplätze (zum Beispiel 10 von 20) muss mit Einwohnern besetzt sein, die in den letzten 2 Jahren **mit deinen Personenlinien angekommen** sind (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). Der Faktor ist zufällig zwischen ×1,5 und ×2,5, pro Industrie fest; ein Gebäude kann einen eigenen festlegen (`industry_productivity_util.tl:58-72`). Nur zugeteilte Arbeiter zählen nicht. Details: [Arbeiter und Arbeiterbonus](workers.html).
 
 ## Warum ist meine Industrie nicht geboostet?
 
@@ -128,7 +128,7 @@ Die Hälfte der Arbeitsplätze (10 von 20) muss mit Einwohnern besetzt sein, die
 Die Prüfung läuft alle 100 Updates für jede Industrie (`industries.script.tl:84-85`):
 
 1. **Kandidat**: keine Fracht in ein Fahrzeug **verladen** und keine **verbraucht** für **5 Jahre** (ab dem Bau, falls nie) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Nur Produzieren zählt nicht.
-2. **Zufall**: jedes Jahr wird ein Kandidat mit der Chance der Einstellung **Häufigkeit von Industrieschliessungen** markiert (Tabelle unten) (`industries.script.tl:120-131`).
+2. **Zufall**: Ein Kandidat wird bei jeder Prüfung mit einem Teil der jährlichen Chance der Einstellung **Häufigkeit von Industrieschliessungen** gezogen (Tabelle unten), sodass es übers Jahr diese Chance ergibt (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Countdown**: die Meldung **Industrieschliessung** erscheint, mit 2 Jahren (730 Tagen) Frist (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Danach wird die Industrie mit ihren eigenen Straßenstücken entfernt (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Gerettet**: ein einziges Verladen oder ein Verbrauch während des Countdowns bricht ihn ab (`industries.script.tl:134-137`). Eine angenommene Subvention **Industrie beliefern** oder **Transportiere Arbeiter** für sie bricht ihn ebenfalls ab (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ Die Prüfung läuft alle 100 Updates für jede Industrie (`industries.script.tl:
 | Oft | 4,4 % | etwa 16 Jahren | – | `difficulty_util.tl:37` |
 | Sehr oft | 8,8 % | etwa 8 Jahren | Sehr schwierig | `difficulty_util.tl:176` |
 
-Die Chance ist 0,011 pro Jahr × 0, 1, 2, 4 oder 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Industrien in deinem Besitz schließen nie, ebenso wenig Industrien mit manueller Entwicklung und keine Industrie während des Tutorials (`industries.script.tl:94-102`).
+Die Chance ist 0,011 pro Jahr × 0, 1, 2, 4 oder 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Industrien in deinem Besitz schließen nie, ebenso wenig Industrien mit manueller Entwicklung; solange Schließungen pausiert sind (im Grundspiel nur während des Tutorials), beginnt keine und ein laufender Countdown wird abgebrochen (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Was als „verladen“ und „verbraucht“ zählt (die Logs itemsLoaded und itemsConsumed, z. B. ob Booster-Fracht zählt), das Flag manualDevelopment und warum Industrien mit Depot ausgenommen sind (`industries.script.tl:140-146`), liegt in der Engine. Ebenso, was die Engine mit einer Booster-Regel ohne Eingang macht (Eingang aus).

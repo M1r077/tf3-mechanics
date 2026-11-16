@@ -31,7 +31,7 @@ A subsidy is a contract: an industry or a town offers a task, you get something 
 - Every new offer picks one of the types that can currently spawn, with equal chances (`subventions.script.tl:147-169`).
 - **Supply Industry** and **Supply Town** count deliveries, not trips: each paid unit that arrives at the target adds 1. Transfers are allowed (`deliver_cargo.script.tl:470-479`).
 - **Connect Towns** needs no number of passengers: the first passenger who boards your line between the two towns completes it. "Transfer-free" means that this leg runs on a single line serving both towns. No offer is made if a line already carries passengers between them (`deliver_passengers.script.tl:72-78`).
-- Close towns are much more likely: the pair weight falls from 1 at 1 km or less to 0.01 at 20 km, to the power of 7 (`deliver_passengers.script.tl:175-191`).
+- Close towns are much more likely: a pair's weight is 100 × a distance factor to the power of 7 (1 at 1 km or less, 0.01 at 20 km), plus a value of at least 1 per town that the engine reads at the town's position from its player-infrastructure grid (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Beyond about 10 km the distance part is almost zero and only that engine value is left.
 - **Supply Town** prefers cargos that are already produced somewhere on the map: 16 times more likely than the others (`deliver_cargo_town.script.tl:277-280`).
 - The amount to deliver depends on the **Subsidies Risk** setting:
 
@@ -58,7 +58,7 @@ Which town a station belongs to (stationSystem.getTown), when exactly a passenge
 
 ## Rewards and penalties
 
-Every contract keeps three lists, shown on its card as **On Acceptance**, **On Fulfillment** and **On Failure** (`subvention_util.tl:449-471`). On failure, the advance is always paid back, plus one extra penalty (`deliver_cargo.script.tl:134-136`).
+Every contract keeps three lists, shown on its card as **On Acceptance**, **On Fulfillment** and **On Failure** (`subvention_util.tl:449-471`). On failure, whatever was given on acceptance is taken back, plus one penalty, or two for Connect Towns, one reputation loss in each town (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Contract | On Acceptance | On Fulfillment | On Failure | Source |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Every contract keeps three lists, shown on its card as **On Acceptance**, **On F
 | Connect Towns | cash, more for distant towns | town experience in **both** towns, plus 2x Income | advance back + reputation loss in **both** towns | `deliver_passengers.script.tl:105-119` |
 | Transport Workers | cash | cash | advance back + fine | `deliver_workers.script.tl:92-116` |
 
-- **Cash**, before the year scaling: advance 1.5 M to 3.75 M × the risk factor (None ×2, Fair ×1, Risky ×0.75, Very Risky ×0.5); fine 3 M to 6 M; completion payment 3.75 M to 11.25 M (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Cash**, before the year scaling: advance 1.5 M to 3.75 M × the risk factor (None ×2, Fair ×1, Risky ×0.75, Very Risky ×0.5, or ×0.625 for Connect Towns and Transport Workers), and for Connect Towns also × the distance factor (0.3 to 3.0); fine 3 M to 6 M; completion payment 3.75 M to 11.25 M (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - Money grows with the **calendar year**, not with the Inflation setting: ×1 in 1900, rising evenly to ×4 in 2000 and later, rounded up to 10,000 (`finances_util.tl:87-90`). It is booked as **Subsidies** in the finances (`subvention_util.tl:126-135`).
-- **Supply Town** gives cash rewards and fines only while your bank account is below 100 M; above it, only 1 offer in 10 still can (`deliver_cargo_town.script.tl:206-217`).
+- **Supply Town** can have a cash completion payment and a cash fine only if your bank account is below 100 M when the offer is made; above it, only 1 offer in 10 still can, the others give town experience and take reputation instead. The advance is not affected (`deliver_cargo_town.script.tl:194-229`).
 - **Town experience** is a share of the town's current level: 20 % to 100 % of the XP between its level and the next (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). For **Connect Towns** it is multiplied by the distance factor, 0.3 at 1 km up to 3.0 at 20 km: far towns can gain several levels (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - **Reputation** lost after a failure shows in the town's Reputation rating as **Failed Subsidy** (`towns.script.tl:313-334`). Reputation won on acceptance only removes existing penalties, it cannot go above full (`town_util.tl:1644-1647`).
 
@@ -119,7 +119,7 @@ How long a game month is, and so the real length of the deadlines, is set by the
 - **Declining** an offer halves the next interval; accepting or a new offer resets it (`subventions.script.tl:429`, `subventions.script.tl:395`, `subventions.script.tl:118`).
 - No new offer while **5 contracts** are accepted and running (`subventions.script.tl:23`, `subventions.script.tl:256-262`). The first offer comes after half a month.
 - The same target (industry, town and cargo, pair of towns) is offered **only once per game**, even after a missed or failed contract (`subventions.script.tl:107-113`, `subventions.script.tl:186`).
-- Difficulty presets, availability / risk (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`): Easy Often / None, Medium Sometimes / Fair, Hard Rarely / Risky, **Very Hard Never**: no subsidies at all.
+- Difficulty presets, availability / risk (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`): Easy Often / None, Normal Sometimes / Fair, Hard Rarely / Risky, **Very Hard Never**: no subsidies at all.
 - The town rating check that would allow subsidies only in towns rated Very Good exists but is switched off (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:272-275`).
 
 ## Good to know

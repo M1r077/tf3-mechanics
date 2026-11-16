@@ -40,12 +40,12 @@ Cada avión es **pequeño** o **grande**. Un **aeródromo** solo admite aviones 
 
 ## Costes
 
-Precio y conservación de la primera variante. Las variantes posteriores cuestan ×3 o ×9 ([Costes, conservación y préstamos](costs.html)); el primer aeródromo ya usa ×3 (`airfield.tl:8`).
+Precio y conservación de la primera variante, con el coeficiente de época incluido. El coeficiente es ×3 tanto en el primer aeródromo (1920, `airfield.tl:8`) como en el primer aeropuerto (1950, `airport.tl:8`), y ×9 desde 1980; los módulos no tienen ([Costes, conservación y préstamos](costs.html)).
 
 | Edificio | Precio | Conservación por año | Fuente |
 |---|---|---|---|
-| Aeródromo | 1.200.000 - 3.000.000 | 50.000 - 200.000 | `airfield.tl:55-56` |
-| Aeropuerto | 1.800.000 - 4.500.000 | 300.000 - 750.000 | `airport.tl:30-31` |
+| Aeródromo | 3.600.000 - 9.000.000 | 150.000 - 600.000 | `airfield.tl:8`, `airfield.tl:55-56` |
+| Aeropuerto | 5.400.000 - 13.500.000 | 900.000 - 2.250.000 | `airport.tl:8`, `airport.tl:30-31` |
 | Módulo de aeródromo (edificio principal, terminal, hangar) | 600.000 | 100.000 | `af_main.module.lua:316-317`, `af_hangar.module.lua:326-327` |
 | Módulo de aeropuerto (terminal, hangar, segunda pista) | 900.000 | 150.000 | `ap_main.module.lua:672-673`, `ap_hangar.module.lua:508-509`, `airport_2nd_runway.module.lua:27-28` |
 

@@ -31,7 +31,7 @@ Een subsidie is een contract: een industriebedrijf of een stad biedt een taak aa
 - Elke nieuwe aanbieding kiest met gelijke kansen een van de soorten die op dat moment kunnen verschijnen (`subventions.script.tl:147-169`).
 - **Bevoorraad industriebedrijf** en **Bevoorraad stad** tellen bezorgingen, geen ritten: elke betaalde eenheid die bij het doel aankomt, telt als 1. Overslaan is toegestaan (`deliver_cargo.script.tl:470-479`).
 - **Steden verbinden** vraagt geen aantal reizigers: de eerste reiziger die tussen de twee steden in je lijn stapt, voltooit het. "Directe verbinding" betekent dat dit deel van de reis op één lijn gaat die beide steden bedient. Er komt geen aanbieding als er al een lijn reizigers tussen ze vervoert (`deliver_passengers.script.tl:72-78`).
-- Steden dicht bij elkaar zijn veel waarschijnlijker: het gewicht van een paar daalt van 1 bij 1 km of minder tot 0,01 bij 20 km, tot de macht 7 (`deliver_passengers.script.tl:175-191`).
+- Steden dicht bij elkaar zijn veel waarschijnlijker: het gewicht van een paar is 100 × een afstandsfactor tot de macht 7 (1 bij 1 km of minder, 0,01 bij 20 km), plus een waarde van minstens 1 per stad die de engine op de positie van de stad uit zijn raster van spelerinfrastructuur leest (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Vanaf ongeveer 10 km is het afstandsdeel bijna nul en blijft alleen die enginewaarde over.
 - **Bevoorraad stad** geeft de voorkeur aan vrachten die al ergens op de kaart worden geproduceerd: 16 keer waarschijnlijker dan de andere (`deliver_cargo_town.script.tl:277-280`).
 - De te leveren hoeveelheid hangt af van de instelling **Risico subsidies**:
 
@@ -58,7 +58,7 @@ Bij welke stad een station hoort (stationSystem.getTown), wanneer precies een re
 
 ## Beloningen en boetes
 
-Elk contract heeft drie lijsten, op zijn kaart getoond als **Bij aanvaarding**, **Na voltooiing** en **Bij mislukking** (`subvention_util.tl:449-471`). Bij mislukking wordt de vooruitbetaling altijd terugbetaald, plus nog een boete (`deliver_cargo.script.tl:134-136`).
+Elk contract heeft drie lijsten, op zijn kaart getoond als **Bij aanvaarding**, **Na voltooiing** en **Bij mislukking** (`subvention_util.tl:449-471`). Bij mislukking wordt alles teruggenomen wat bij aanvaarding is gegeven, plus één boete, of twee bij Steden verbinden, een reputatieverlies in elke stad (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Contract | Bij aanvaarding | Na voltooiing | Bij mislukking | Bron |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Elk contract heeft drie lijsten, op zijn kaart getoond als **Bij aanvaarding**, 
 | Steden verbinden | geld, meer bij verre steden | stadservaring in **beide** steden, plus 2x inkomsten | vooruitbetaling terug + reputatieverlies in **beide** steden | `deliver_passengers.script.tl:105-119` |
 | Werknemers vervoeren | geld | geld | vooruitbetaling terug + boete | `deliver_workers.script.tl:92-116` |
 
-- **Geld**, vóór de schaling met het jaar: vooruitbetaling 1,5 mln tot 3,75 mln × de risicofactor (Geen ×2, Normaal ×1, Risicovol ×0,75, Zeer risicovol ×0,5); boete 3 mln tot 6 mln; betaling bij voltooiing 3,75 mln tot 11,25 mln (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Geld**, vóór de schaling met het jaar: vooruitbetaling 1,5 mln tot 3,75 mln × de risicofactor (Geen ×2, Normaal ×1, Risicovol ×0,75, Zeer risicovol ×0,5, of ×0,625 bij Steden verbinden en Werknemers vervoeren), en bij Steden verbinden ook × de afstandsfactor (0,3 tot 3,0); boete 3 mln tot 6 mln; betaling bij voltooiing 3,75 mln tot 11,25 mln (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - Geld groeit met het **kalenderjaar**, niet met de instelling Inflatie: ×1 in 1900, gelijkmatig stijgend tot ×4 vanaf 2000, naar boven afgerond op 10.000 (`finances_util.tl:87-90`). Het wordt in de financiën geboekt als **Subsidies** (`subvention_util.tl:126-135`).
-- **Bevoorraad stad** geeft geldbeloningen en geldboetes alleen zolang je banksaldo onder 100 mln ligt; daarboven kan dat nog maar bij 1 op de 10 aanbiedingen (`deliver_cargo_town.script.tl:206-217`).
+- **Bevoorraad stad** kan alleen een geldbetaling bij voltooiing en een geldboete hebben als je banksaldo onder 100 mln ligt wanneer de aanbieding wordt gemaakt; daarboven kan dat nog maar bij 1 op de 10 aanbiedingen, de andere geven stadservaring en nemen in plaats daarvan reputatie af. De vooruitbetaling verandert niet (`deliver_cargo_town.script.tl:194-229`).
 - **Stadservaring** is een deel van het huidige niveau van de stad: 20 % tot 100 % van de XP tussen haar niveau en het volgende (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). Bij **Steden verbinden** wordt ze vermenigvuldigd met de afstandsfactor, van 0,3 bij 1 km tot 3,0 bij 20 km: verre steden kunnen meerdere niveaus winnen (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - **Reputatie** die na een mislukking verloren gaat, staat in de reputatiebeoordeling van de stad als **Mislukte subsidie** (`towns.script.tl:313-334`). Reputatie die bij aanvaarding wordt gewonnen, haalt alleen bestaande aftrekken weg; ze gaat nooit boven het maximum (`town_util.tl:1644-1647`).
 

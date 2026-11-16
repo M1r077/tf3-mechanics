@@ -61,7 +61,7 @@
 <li>新しい提案は、その時点で出現可能な種類の中から等しい確率で 1 つが選ばれる<span class="sr">（<code class="src">subventions.script.tl:147-169</code>）</span>。</li>
 <li><strong>産業への供給</strong>と<strong>町への供給</strong>は移動ではなく配送を数える。対象に到着した支払い済みの 1 単位ごとに 1 が加算される。乗り継ぎも認められる<span class="sr">（<code class="src">deliver_cargo.script.tl:470-479</code>）</span>。</li>
 <li><strong>町の接続</strong>には旅客数の条件がない。2 つの町の間であなたの路線に乗った最初の旅客 1 人で達成となる。「乗り換えなし」とは、この区間が両方の町を結ぶ 1 本の路線で運ばれるという意味である。2 つの町の間ですでに旅客を運んでいる路線がある場合、提案は出ない<span class="sr">（<code class="src">deliver_passengers.script.tl:72-78</code>）</span>。</li>
-<li>近い町ほどはるかに選ばれやすい。ペアの重みは 1 km 以下で 1、20 km で 0.01 まで下がり、それが 7 乗される<span class="sr">（<code class="src">deliver_passengers.script.tl:175-191</code>）</span>。</li>
+<li>近い町ほどはるかに選ばれやすい。ペアの重みは、距離係数（1 km 以下で 1、20 km で 0.01）の 7 乗 × 100 に、エンジンが町の位置でプレイヤーのインフラのグリッドから読む町ごとの値（最低 1）を加えたもの<span class="sr">（<code class="src">deliver_passengers.script.tl:154-156</code>, <code class="src">deliver_passengers.script.tl:175-191</code>）</span>。約 10 km を超えると距離の部分はほぼゼロになり、そのエンジンの値だけが残る。</li>
 <li><strong>町への供給</strong>は、マップ上のどこかですでに生産されている貨物を優先する。他の貨物より 16 倍選ばれやすい<span class="sr">（<code class="src">deliver_cargo_town.script.tl:277-280</code>）</span>。</li>
 <li>配送する量は <strong>補助のリスク</strong> 設定で決まる。</li>
 </ul>
@@ -112,7 +112,7 @@
 </ul>
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>駅がどの町に属するか（stationSystem.getTown）、旅客が路線の「利用を開始」するのは正確にいつか（OnStartedLineUsage）、路線のどの編集が新しいバージョンとみなされるかはエンジン側で決まる。達成後の路線の編集で収入2倍の効果が終わるかどうかは検証していない。</p></div></aside>
 <h2 id="報酬とペナルティ"><span class="n">3</span><span>報酬とペナルティ</span></h2>
-<p>どの契約も 3 つのリストを持ち、カードには <strong>受諾時</strong>、<strong>達成時</strong>、<strong>失敗時</strong> として表示される<span class="sr">（<code class="src">subvention_util.tl:449-471</code>）</span>。失敗時には前払い分が必ず返済され、さらにペナルティが 1 つ加わる<span class="sr">（<code class="src">deliver_cargo.script.tl:134-136</code>）</span>。</p>
+<p>どの契約も 3 つのリストを持ち、カードには <strong>受諾時</strong>、<strong>達成時</strong>、<strong>失敗時</strong> として表示される<span class="sr">（<code class="src">subvention_util.tl:449-471</code>）</span>。失敗時には受諾時に与えられたものがすべて取り戻され、さらにペナルティが 1 つ加わる。「町の接続」では 2 つで、両方の町で評判が下がる<span class="sr">（<code class="src">subvention_util.tl:457-463</code>, <code class="src">deliver_cargo.script.tl:134-136</code>, <code class="src">deliver_passengers.script.tl:111-114</code>）</span>。</p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -155,9 +155,9 @@
 </tbody>
 </table></div>
 <ul>
-<li><strong>資金</strong>（年による補正の前）：前払いは 150万～375万 × リスク係数（なし ×2、適正 ×1、高リスク ×0.75、非常に高リスク ×0.5）。罰金は 300万～600万。達成時の支払いは 375万～1125万<span class="sr">（<code class="src">deliver_cargo.script.tl:120-128</code>、<code class="src">deliver_workers.script.tl:102-104</code>）</span>。</li>
+<li><strong>資金</strong>（年による補正の前）：前払いは 150万～375万 × リスク係数（なし ×2、適正 ×1、高リスク ×0.75、非常に高リスク ×0.5。「町の接続」と「労働者の移送」では ×0.625）。「町の接続」ではさらに距離係数（0.3～3.0）を掛ける。罰金は 300万～600万。達成時の支払いは 375万～1125万<span class="sr">（<code class="src">deliver_cargo.script.tl:100-128</code>、<code class="src">deliver_passengers.script.tl:82-106</code>、<code class="src">deliver_workers.script.tl:64-104</code>）</span>。</li>
 <li>金額はインフレ設定ではなく<strong>暦年</strong>に応じて増える。1900 年は ×1、2000 年以降の ×4 まで均等に上がり、1万単位で切り上げられる<span class="sr">（<code class="src">finances_util.tl:87-90</code>）</span>。財務では <strong>助成金</strong> として計上される<span class="sr">（<code class="src">subvention_util.tl:126-135</code>）</span>。</li>
-<li><strong>町への供給</strong>が資金の報酬と罰金を伴うのは、銀行口座の残高が 1億 未満のときだけである。それを超えると、まだそうなるのは提案 10 件に 1 件だけである<span class="sr">（<code class="src">deliver_cargo_town.script.tl:206-217</code>）</span>。</li>
+<li><strong>町への供給</strong>が達成時の資金の支払いと資金の罰金を持てるのは、提案が作られた時点で銀行口座の残高が 1億 未満の場合だけである。それを超えると、まだそうなるのは提案 10 件に 1 件だけで、残りは代わりに町の経験値を与え、評判を奪う。前払いは影響を受けない<span class="sr">（<code class="src">deliver_cargo_town.script.tl:194-229</code>）</span>。</li>
 <li><strong>町の経験値</strong>は町の現在のレベルに対する割合で、そのレベルから次のレベルまでの XP の 20 %～100 % である<span class="sr">（<code class="src">deliver_cargo_town.script.tl:216</code>、<code class="src">town_growth.script.tl:605-608</code>）</span>。<strong>町の接続</strong>では距離係数（1 km で 0.3、20 km で 3.0 まで）が掛けられるので、遠い町は複数レベル上がることがある<span class="sr">（<code class="src">deliver_passengers.script.tl:94-96</code>、<code class="src">deliver_passengers.script.tl:116-118</code>）</span>。</li>
 <li>失敗で失った<strong>評判</strong>は、町の評判の評価に <strong>失敗した補助</strong> として表示される<span class="sr">（<code class="src">towns.script.tl:313-334</code>）</span>。受諾時に得る評判は既存のペナルティを取り除くだけで、満点を超えることはない<span class="sr">（<code class="src">town_util.tl:1644-1647</code>）</span>。</li>
 </ul>

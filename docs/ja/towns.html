@@ -109,11 +109,11 @@
 </tr>
 </tbody>
 </table></div>
-<p>各評価の<strong>感度</strong>設定（7 段階、最初はオフ）がこれらの上限・下限を動かす。オフは常に満点を意味する<span class="sr">（<code class="src">difficulty_util.tl:44-49</code>）</span>。</p>
+<p><strong>感度</strong>設定がこれらの上限・下限を動かす。評判はオフ / オンの 2 つだけで、ほかの 5 つはオフから極めて高いまでの 7 段階、標準が ×1（騒音と汚染は上限がさらに高く、×3.5 と ×5。ほかは ×3）。オフは常に満点を意味する<span class="sr">（<code class="src">difficulty_util.tl:44-49</code>）</span>。</p>
 <h2 id="供給"><span class="n">4</span><span>供給</span></h2>
 <ul>
 <li><strong>旅客</strong>：町の路線使用率 × 2。したがって <strong>路線使用率 50 % で満点になる</strong><span class="sr">（<code class="src">town_util.tl:546-553</code>）</span>。</li>
-<li><strong>貨物</strong>：各地区（商業、産業）の供給 ÷ 需要。平均ではなく<strong>最も良い</strong>地区が数えられる<span class="sr">（<code class="src">town_util.tl:521-529</code>）</span>。</li>
+<li><strong>貨物</strong>：各地区（住宅、商業、産業）の、すべての貨物を合わせた供給 ÷ 需要。平均ではなく<strong>最も良い</strong>地区が数えられる<span class="sr">（<code class="src">town_util.tl:521-543</code>）</span>。</li>
 <li>供給すべきものがない町は供給満点とみなされる。あなたから旅客も貨物も受け取っていない町は「配送なし」とみなされ、成長率は 0 %<span class="sr">（<code class="src">town_util.tl:565-588</code>）</span>。</li>
 </ul>
 <aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>ヒント</h4><p><strong>住民全員を路線に乗せる必要はない。路線利用率 50 % で旅客の評価はもう最大になる。</strong></p></div></aside>
@@ -131,7 +131,7 @@
 <aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>路線使用率、交通速度、騒音と汚染のマップ、遅延配送のリストはエンジンが計算し、新しい家や道路もエンジンが建てる。地区が常に受け取る最小の割合（townGrowthMinDistrictFraction）はエンジン側の値である。</p></div></aside>
 <h2 id="貨物需要と建物の在庫"><span class="n">6</span><span>貨物需要と建物の在庫</span></h2>
 <ul>
-<li>町の需要はその<strong>建物</strong>の合計である。商業・工業の建物はそれぞれ、町が求める貨物ごとに小さな入力在庫を持つ。容量 ÷ 4 を切り上げた値<span class="sr">（<code class="src">townbuildingutil.lua:226-251</code>）</span>。ゲームのコードには、この在庫の大きさは「is currently nowhere shown in the UI」と書かれている<span class="sr">（<code class="src">townbuildingutil.lua:249</code>）</span>。</li>
+<li>町の需要はその<strong>建物</strong>の合計である。どの建物も、その地区が求める貨物ごとに小さな入力在庫を持つ。容量 ÷ 4 を切り上げ、町の需要におけるその貨物の係数を掛けた値（指定がなければ 1。係数の出どころはスクリプトにない）<span class="sr">（<code class="src">townbuildingutil.lua:226-251</code>）</span>。ゲームのコードには、この在庫の大きさは「is currently nowhere shown in the UI」と書かれている<span class="sr">（<code class="src">townbuildingutil.lua:249</code>）</span>。</li>
 <li>町のウィンドウの需要はこれらの在庫の上限の合計で、評価に数えられる供給は需要で頭打ちになる<span class="sr">（<code class="src">town_util.tl:95-99</code>、<code class="src">town_util.tl:194-198</code>）</span>。大きな町ほど建物が多いので、求める量も多い。</li>
 <li>建物のウィンドウには<strong>消費率</strong>が表示される。建物が貨物を使う速さを最大値と比べたもの<span class="sr">（<code class="src">town_building.tl:103-132</code>）</span>。</li>
 <li>経験値と支払いは、1 単位が建物の在庫に入ったときに得られる<span class="sr">（<code class="src">town_growth.script.tl:620-642</code>）</span>。</li>

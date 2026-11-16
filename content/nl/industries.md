@@ -36,7 +36,7 @@ De engine voert de regels uit. Hij kan een ronde langer maken: de tooltip toont 
 ## Percelen en uitbreiding
 
 - Grondstofbedrijven en het Veeteeltbedrijf hebben **percelen** (velden, mijnschachten, boortorens). Hun niveau is hun aantal percelen (`industryutil.lua:602-617`).
-- De regel groeit met de percelen: productie per ronde × percelen ÷ **alle percelen van dat bedrijfstype**, afgerond, minstens 1. De invoer daalt in dezelfde verhouding (`industryutil.lua:225-259`). Een Steenkolenmijn (8 perceeltypes) met 4 percelen maakt 8 steenkool per ronde in plaats van 16.
+- De regel groeit met de percelen: productie per ronde × percelen ÷ **alle percelen van dat bedrijfstype**, afgerond, minstens 1. De invoer daalt met hetzelfde deel, naar boven afgerond, minstens 1, maar helemaal niet als één productie haar volle hoeveelheid houdt (bijvoorbeeld een productie van 1, die niet lager kan); boosterregels worden nooit verlaagd (`industryutil.lua:225-259`). Een Steenkolenmijn (8 perceeltypes) met 4 percelen maakt 8 steenkool per ronde in plaats van 16.
 - Elk bedrijf krijgt een maximum: willekeurig tussen de helft van de percelen en allemaal, of Klein / Middel / Groot (50 / 75 / 100 %) met de parameter **Grootte industriebedrijf** (`industryutil.lua:519-537`). Een mijn met maximum 5 van 8 haalt nooit de volle regel.
 - Bij Middel: als 75 % afgerond alle percelen geeft, is het maximum alle percelen min één (`industryutil.lua:523-526`). Een nieuw bedrijf begint met de percelen die de engine bij het plaatsen bouwt; zijn niveau komt daarvan (`industryutil.lua:602-617`).
 - Elk half jaar **speltijd** kan het spel **één perceel** toevoegen (`industries_config.res.lua:5`, `industries.script.tl:161-167`). Er wordt een half standaardjaar gebruikt, dus de kalendersnelheid verandert niet hoe vaak (zie [Speltijd en kalender](time.html)).
@@ -107,7 +107,7 @@ De 13 grondstofbedrijven hebben een tweede regel, de **booster**: hij neemt 4 ke
 
 ## De werknemersboost
 
-De helft van de arbeidsplaatsen (10 van 20) moet bezet zijn door inwoners die in de laatste 2 jaar **met jouw passagierslijnen zijn aangekomen**; de factor is ×1,5 tot ×2,5, vast per bedrijf (`industry_productivity_util.tl:35-72`). Alleen toegewezen werknemers tellen niet. Details: [Werknemers en de werknemersboost](workers.html).
+De helft van de arbeidsplaatsen (bijvoorbeeld 10 van 20) moet bezet zijn door inwoners die in de laatste 2 jaar **met jouw passagierslijnen zijn aangekomen** (`industry_productivity_util.tl:3`, `industry_productivity_util.tl:35-48`, `industry_productivity_util.tl:74`). De factor is willekeurig tussen ×1,5 en ×2,5, vast per bedrijf; een gebouw kan een eigen factor instellen (`industry_productivity_util.tl:58-72`). Alleen toegewezen werknemers tellen niet. Details: [Werknemers en de werknemersboost](workers.html).
 
 ## Waarom heeft mijn industrie geen boost?
 
@@ -128,7 +128,7 @@ De helft van de arbeidsplaatsen (10 van 20) moet bezet zijn door inwoners die in
 De controle loopt elke 100 updates voor elk bedrijf (`industries.script.tl:84-85`):
 
 1. **Kandidaat**: geen vracht in een voertuig **geladen** en niets **verbruikt** gedurende **5 jaar** (vanaf de bouw als nooit) (`industries.script.tl:104-119`, `industries_config.res.lua:6`). Alleen produceren telt niet.
-2. **Toeval**: elk jaar wordt een kandidaat gemarkeerd met de kans van de instelling **Frequentie van industriesluitingen** (tabel hieronder) (`industries.script.tl:120-131`).
+2. **Toeval**: een kandidaat wordt bij elke controle getrokken met een deel van de jaarlijkse kans van de instelling **Frequentie van industriesluitingen** (tabel hieronder), zodat het over een jaar die kans oplevert (`industries.script.tl:84-85`, `industries.script.tl:120-131`).
 3. **Aftellen**: de melding **Sluiting van industrie** verschijnt, met 2 jaar (730 dagen) te gaan (`industries_config.res.lua:7`, `industry_close.script.tl:53-67`). Daarna wordt het bedrijf verwijderd met zijn eigen wegstukken (`industries.script.tl:147-155`, `industry_util.tl:560-601`).
 4. **Gered**: één keer laden of verbruik tijdens het aftellen breekt het af (`industries.script.tl:134-137`). Een aangenomen subsidie **Bevoorraad industriebedrijf** of **Werknemers vervoeren** ervoor breekt het ook af (`subvention_util.tl:473-484`).
 
@@ -144,7 +144,7 @@ De controle loopt elke 100 updates voor elk bedrijf (`industries.script.tl:84-85
 | Vaak | 4,4 % | ongeveer 16 jaar | – | `difficulty_util.tl:37` |
 | Zeer vaak | 8,8 % | ongeveer 8 jaar | Heel moeilijk | `difficulty_util.tl:176` |
 
-De kans is 0,011 per jaar × 0, 1, 2, 4 of 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Bedrijven die van jou zijn sluiten nooit, net als bedrijven met handmatige ontwikkeling en geen enkel bedrijf tijdens de tutorial (`industries.script.tl:94-102`).
+De kans is 0,011 per jaar × 0, 1, 2, 4 of 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Bedrijven die van jou zijn sluiten nooit, net als bedrijven met handmatige ontwikkeling; zolang sluitingen gepauzeerd zijn (in het basisspel alleen tijdens de tutorial) begint er geen en wordt een lopend aftellen geannuleerd (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Wat telt als „geladen” en „verbruikt” (de logs itemsLoaded en itemsConsumed, bijv. of boostervracht telt), de vlag manualDevelopment, en waarom bedrijven met een depot overgeslagen worden (`industries.script.tl:140-146`) liggen bij de engine. Net als wat de engine doet met een boosterregel zonder invoer (Invoer uit).

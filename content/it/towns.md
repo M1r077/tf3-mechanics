@@ -60,12 +60,12 @@ L'indice di crescita deriva da due valutazioni della finestra della cittadina (`
 | **Rumore** | rumore della cittadina: 65 dB o meno → valutazione piena, 80 dB → 0 | `town_util.tl:433-443`, `emission_config.tl:10-11` |
 | **Inquinamento** | inquinamento medio per cella di 16 m dell'area della cittadina, sulla scala logaritmica degli script («dB», non un livello sonoro): 60 → piena, 74 → 0 | `town_util.tl:413-431`, `emission_config.tl:23-24` |
 
-Le impostazioni di **sensibilità** di ogni valutazione (sette livelli, il primo è No) spostano questi limiti; No significa valutazione sempre piena (`difficulty_util.tl:44-49`).
+Le impostazioni di **sensibilità** spostano questi limiti: Reputazione ha solo Mai / Sì, le altre cinque hanno sette livelli da No a Estrema, con Normale ×1 (Rumore e Inquinamento salgono di più: fino a ×3,5 e ×5, contro ×3 per le altre); No significa valutazione sempre piena (`difficulty_util.tl:44-49`).
 
 ## Forniture
 
 - **Passeggeri**: utilizzo linea della cittadina × 2, quindi **un utilizzo linea del 50% dà la valutazione piena** (`town_util.tl:546-553`).
-- **Merci**: offerta ÷ domanda di ogni quartiere (commerciale, industriale); conta il quartiere **migliore**, non la media (`town_util.tl:521-529`).
+- **Merci**: offerta ÷ domanda di ogni quartiere (residenziale, commerciale, industriale), con tutte le sue merci insieme; conta il quartiere **migliore**, non la media (`town_util.tl:521-543`).
 - Una cittadina senza nulla da rifornire conta come forniture piene. Una cittadina che non riceve da te né passeggeri né merci conta come "nessuna consegna": indice di crescita 0% (`town_util.tl:565-588`).
 
 ```tip scripts
@@ -91,7 +91,7 @@ Il motore calcola l'utilizzo delle linee, la velocità del traffico, le mappe de
 
 ## Domanda di merci e scorte degli edifici
 
-- La domanda di una cittadina è la somma dei suoi **edifici**. Ogni edificio commerciale o industriale ha una piccola scorta in entrata per ogni merce richiesta dalla cittadina: capacità ÷ 4, arrotondata per eccesso (`townbuildingutil.lua:226-251`). Il gioco annota che questa dimensione della scorta "is currently nowhere shown in the UI" (per ora non è mostrata da nessuna parte nell'interfaccia) (`townbuildingutil.lua:249`).
+- La domanda di una cittadina è la somma dei suoi **edifici**. Ogni edificio ha una piccola scorta in entrata per ogni merce richiesta dal suo quartiere: capacità ÷ 4, arrotondata per eccesso, × il fattore di quella merce nei bisogni della cittadina (1 salvo diversa impostazione; da dove venga il fattore non è negli script) (`townbuildingutil.lua:226-251`). Il gioco annota che questa dimensione della scorta "is currently nowhere shown in the UI" (per ora non è mostrata da nessuna parte nell'interfaccia) (`townbuildingutil.lua:249`).
 - La domanda nella finestra della cittadina è il limite totale di queste scorte; l'offerta contata per la valutazione è limitata alla domanda (`town_util.tl:95-99`, `town_util.tl:194-198`). Le cittadine più grandi chiedono di più perché hanno più edifici.
 - La finestra dell'edificio mostra una **Valutazione consumo**: quanto velocemente l'edificio usa le sue merci rispetto al suo massimo (`town_building.tl:103-132`).
 - XP e pagamento arrivano quando un'unità entra nella scorta di un edificio (`town_growth.script.tl:620-642`).

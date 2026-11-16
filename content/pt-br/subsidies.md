@@ -31,7 +31,7 @@ Um subsídio é um contrato: uma indústria ou um município oferece uma tarefa,
 - Cada nova oferta sorteia um dos tipos que podem aparecer no momento, com chances iguais (`subventions.script.tl:147-169`).
 - **Abastecer Indústria** e **Abastecer Município** contam entregas, não viagens: cada unidade paga que chega ao alvo soma 1. Transferências são permitidas (`deliver_cargo.script.tl:470-479`).
 - **Conectar Municípios** não exige um número de passageiros: o primeiro passageiro que embarca na sua linha entre os dois municípios o cumpre. "Sem transferência" significa que esse trecho é feito em uma única linha que atende os dois municípios. Nenhuma oferta aparece se uma linha já transporta passageiros entre eles (`deliver_passengers.script.tl:72-78`).
-- Municípios próximos são bem mais prováveis: o peso do par cai de 1 a 1 km ou menos para 0,01 a 20 km, elevado à potência 7 (`deliver_passengers.script.tl:175-191`).
+- Municípios próximos são bem mais prováveis: o peso do par é 100 × um fator de distância elevado a 7 (1 a 1 km ou menos, 0,01 a 20 km), mais um valor de pelo menos 1 por município que o motor lê na posição do município na sua grade de infraestrutura do jogador (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Acima de uns 10 km a parte da distância é quase zero e só sobra esse valor do motor.
 - **Abastecer Município** prefere cargas que já são produzidas em algum lugar do mapa: 16 vezes mais prováveis que as outras (`deliver_cargo_town.script.tl:277-280`).
 - A quantidade a entregar depende da configuração **Risco dos Subsídios**:
 
@@ -58,7 +58,7 @@ A qual município uma estação pertence (stationSystem.getTown), quando exatame
 
 ## Recompensas e penalidades
 
-Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**, **Ao cumprir** e **Ao fracassar** (`subvention_util.tl:449-471`). Em caso de fracasso, o adiantamento é sempre devolvido, mais uma penalidade extra (`deliver_cargo.script.tl:134-136`).
+Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**, **Ao cumprir** e **Ao fracassar** (`subvention_util.tl:449-471`). Em caso de fracasso, tudo o que foi dado ao aceitar é retirado, mais uma penalidade, ou duas em Conectar Municípios, uma perda de reputação em cada município (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
 
 | Contrato | Ao aceitar | Ao cumprir | Ao fracassar | Fonte |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**,
 | Conectar Municípios | dinheiro, mais para municípios distantes | experiência nos **dois** municípios, mais Renda x2 | adiantamento devolvido + perda de reputação nos **dois** municípios | `deliver_passengers.script.tl:105-119` |
 | Transportar Trabalhadores | dinheiro | dinheiro | adiantamento devolvido + multa | `deliver_workers.script.tl:92-116` |
 
-- **Dinheiro**, antes do ajuste pelo ano: adiantamento de 1,5 a 3,75 milhões × o fator de risco (Nenhum ×2, Justo ×1, Arriscado ×0,75, Muito Arriscado ×0,5); multa de 3 a 6 milhões; pagamento ao cumprir de 3,75 a 11,25 milhões (`deliver_cargo.script.tl:120-128`, `deliver_workers.script.tl:102-104`).
+- **Dinheiro**, antes do ajuste pelo ano: adiantamento de 1,5 a 3,75 milhões × o fator de risco (Nenhum ×2, Justo ×1, Arriscado ×0,75, Muito Arriscado ×0,5, ou ×0,625 em Conectar Municípios e Transportar Trabalhadores), e em Conectar Municípios também × o fator de distância (0,3 a 3,0); multa de 3 a 6 milhões; pagamento ao cumprir de 3,75 a 11,25 milhões (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`).
 - O dinheiro cresce com o **ano do calendário**, não com a configuração Inflação: ×1 em 1900, subindo de forma regular até ×4 em 2000 e depois, arredondado para cima a 10.000 (`finances_util.tl:87-90`). Ele é lançado como **Subsídios** nas finanças (`subvention_util.tl:126-135`).
-- **Abastecer Município** dá recompensas e multas em dinheiro só enquanto a sua conta bancária está abaixo de 100 milhões; acima disso, só 1 oferta em 10 ainda pode dar (`deliver_cargo_town.script.tl:206-217`).
+- **Abastecer Município** só pode ter um pagamento em dinheiro ao cumprir e uma multa em dinheiro se a sua conta bancária estiver abaixo de 100 milhões quando a oferta é criada; acima disso, só 1 oferta em 10 ainda pode, as outras dão experiência ao município e tiram reputação no lugar. O adiantamento não muda (`deliver_cargo_town.script.tl:194-229`).
 - A **experiência do município** é uma parte do nível atual do município: de 20% a 100% do XP entre o seu nível e o seguinte (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). Para **Conectar Municípios** ela é multiplicada pelo fator de distância, de 0,3 a 1 km até 3,0 a 20 km: municípios distantes podem ganhar vários níveis (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
 - A **reputação** perdida depois de um fracasso aparece na classificação Reputação do município como **Subsídio Fracassado** (`towns.script.tl:313-334`). A reputação ganha ao aceitar só remove penalidades existentes, não pode passar do máximo (`town_util.tl:1644-1647`).
 
