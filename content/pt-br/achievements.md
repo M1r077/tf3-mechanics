@@ -12,7 +12,7 @@ fact: < 1 % | reputação do município para Vexame
 fact: 10 | marcos que precisam ter o mesmo município mais próximo para Centralização
 ---
 
-A wiki oficial lista 41 conquistas. O script do jogo `achievements.script.tl` desbloqueia **17** delas sozinho e alimenta **9 contadores entre jogos**; as outras (campanha, clima, tamanho do município, armazém, juros, boosters, carros, 1900-2000, vapor nos anos 2000) são verificadas em outro lugar, pelo motor ou pela plataforma. Cada verificação primeiro pergunta ao motor se a conquista ainda pode ser desbloqueada; se mods ou configurações a bloqueiam é decidido lá (`achievements.script.tl:632`, `achievements.script.tl:510`).
+A wiki oficial lista 41 conquistas. O script do jogo (`achievements.script.tl`) desbloqueia **17** delas sozinho e alimenta **9 contadores entre jogos**; as outras (campanha, clima, tamanho do município, armazém, juros, boosters, carros, 1900-2000, vapor nos anos 2000) são verificadas em outro lugar, pelo motor ou pela plataforma. Cada verificação primeiro pergunta ao motor se a conquista ainda pode ser desbloqueada; se mods ou configurações a bloqueiam é decidido lá (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Conquistas verificadas pelo script
 

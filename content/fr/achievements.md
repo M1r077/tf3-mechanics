@@ -12,7 +12,7 @@ fact: < 1 % | de Réputation de la ville pour C’est pas moi
 fact: 10 | monuments qui doivent avoir la même ville la plus proche pour Centralisation
 ---
 
-Le wiki officiel liste 41 succès. Le script du jeu `achievements.script.tl` en débloque **17** lui-même et alimente **9 compteurs entre les parties** ; les autres (campagne, météo, taille des villes, entrepôt, intérêts, boosters, voitures, 1900-2000, vapeur dans les années 2000) sont vérifiés ailleurs, par le moteur ou la plateforme. Chaque vérification demande d'abord au moteur si le succès peut encore être débloqué ; c'est là qu'il est décidé si des mods ou des réglages le bloquent (`achievements.script.tl:632`, `achievements.script.tl:510`).
+Le wiki officiel liste 41 succès. Le script du jeu (`achievements.script.tl`) en débloque **17** lui-même et alimente **9 compteurs entre les parties** ; les autres (campagne, météo, taille des villes, entrepôt, intérêts, boosters, voitures, 1900-2000, vapeur dans les années 2000) sont vérifiés ailleurs, par le moteur ou la plateforme. Chaque vérification demande d'abord au moteur si le succès peut encore être débloqué ; c'est là qu'il est décidé si des mods ou des réglages le bloquent (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Succès vérifiés par le script
 

@@ -12,7 +12,7 @@ fact: < 1 % | reputacja miasta dla To nie ja
 fact: 10 | zabytków, które muszą mieć to samo najbliższe miasto dla Centralizacja
 ---
 
-Oficjalna wiki wymienia 41 osiągnięć. Skrypt gry `achievements.script.tl` sam odblokowuje **17** z nich i zasila **9 liczników między grami**; pozostałe (kampania, pogoda, wielkość miasta, magazyn, odsetki, boostery, samochody, 1900-2000, para w latach 2000.) są sprawdzane gdzie indziej, przez silnik lub platformę. Każde sprawdzenie najpierw pyta silnik, czy osiągnięcie da się jeszcze odblokować; o tym, czy blokują je mody lub ustawienia, decyduje silnik (`achievements.script.tl:632`, `achievements.script.tl:510`).
+Oficjalna wiki wymienia 41 osiągnięć. Skrypt gry (`achievements.script.tl`) sam odblokowuje **17** z nich i zasila **9 liczników między grami**; pozostałe (kampania, pogoda, wielkość miasta, magazyn, odsetki, boostery, samochody, 1900-2000, para w latach 2000.) są sprawdzane gdzie indziej, przez silnik lub platformę. Każde sprawdzenie najpierw pyta silnik, czy osiągnięcie da się jeszcze odblokować; o tym, czy blokują je mody lub ustawienia, decyduje silnik (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Osiągnięcia sprawdzane przez skrypt
 

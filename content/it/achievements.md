@@ -12,7 +12,7 @@ fact: < 1 % | di Reputazione della cittadina per Non è colpa mia
 fact: 10 | monumenti che devono avere la stessa cittadina più vicina per L'ombelico del mondo
 ---
 
-La wiki ufficiale elenca 41 obiettivi. Lo script del gioco `achievements.script.tl` ne sblocca **17** da solo e alimenta **9 contatori tra le partite**; gli altri (campagna, meteo, dimensione delle cittadine, magazzino, interessi, potenziamenti, auto, 1900-2000, vapore negli anni 2000) sono controllati altrove, dal motore o dalla piattaforma. Ogni controllo chiede prima al motore se l'obiettivo può ancora essere sbloccato; è lì che si decide se mod o impostazioni lo bloccano (`achievements.script.tl:632`, `achievements.script.tl:510`).
+La wiki ufficiale elenca 41 obiettivi. Lo script del gioco (`achievements.script.tl`) ne sblocca **17** da solo e alimenta **9 contatori tra le partite**; gli altri (campagna, meteo, dimensione delle cittadine, magazzino, interessi, potenziamenti, auto, 1900-2000, vapore negli anni 2000) sono controllati altrove, dal motore o dalla piattaforma. Ogni controllo chiede prima al motore se l'obiettivo può ancora essere sbloccato; è lì che si decide se mod o impostazioni lo bloccano (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Obiettivi controllati dallo script
 

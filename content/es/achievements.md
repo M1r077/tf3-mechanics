@@ -12,7 +12,7 @@ fact: < 1 % | de Reputación de la localidad para Yo no he sido
 fact: 10 | monumentos que deben tener la misma localidad más cercana para Centralizado
 ---
 
-La wiki oficial lista 41 logros. El script del juego `achievements.script.tl` desbloquea **17** de ellos por sí mismo y alimenta **9 contadores entre partidas**; los demás (campaña, clima, tamaño de las localidades, almacén, intereses, potenciadores, coches, 1900-2000, vapor en los años 2000) se comprueban en otro sitio, en el motor o en la plataforma. Cada comprobación pregunta primero al motor si el logro aún puede desbloquearse; allí se decide si los mods o los ajustes lo bloquean (`achievements.script.tl:632`, `achievements.script.tl:510`).
+La wiki oficial lista 41 logros. El script del juego (`achievements.script.tl`) desbloquea **17** de ellos por sí mismo y alimenta **9 contadores entre partidas**; los demás (campaña, clima, tamaño de las localidades, almacén, intereses, potenciadores, coches, 1900-2000, vapor en los años 2000) se comprueban en otro sitio, en el motor o en la plataforma. Cada comprobación pregunta primero al motor si el logro aún puede desbloquearse; allí se decide si los mods o los ajustes lo bloquean (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Logros comprobados por el script
 

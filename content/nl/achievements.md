@@ -12,7 +12,7 @@ fact: < 1 % | reputatie van de stad voor De hatelijke nul
 fact: 10 | bezienswaardigheden die dezelfde dichtstbijzijnde stad moeten hebben voor Overzichtelijk
 ---
 
-De officiële wiki noemt 41 prestaties. Het spelscript `achievements.script.tl` ontgrendelt er zelf **17** en voedt **9 spelbrede tellers**; de rest (campagne, weer, stadsgrootte, magazijn, rente, boosters, auto's, 1900-2000, stoom in de jaren 2000) wordt elders gecontroleerd, door de engine of het platform. Elke controle vraagt eerst aan de engine of de prestatie nog ontgrendeld kan worden; of mods of instellingen dat blokkeren, wordt daar beslist (`achievements.script.tl:632`, `achievements.script.tl:510`).
+De officiële wiki noemt 41 prestaties. Het spelscript (`achievements.script.tl`) ontgrendelt er zelf **17** en voedt **9 spelbrede tellers**; de rest (campagne, weer, stadsgrootte, magazijn, rente, boosters, auto's, 1900-2000, stoom in de jaren 2000) wordt elders gecontroleerd, door de engine of het platform. Elke controle vraagt eerst aan de engine of de prestatie nog ontgrendeld kan worden; of mods of instellingen dat blokkeren, wordt daar beslist (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Prestaties die het script controleert
 

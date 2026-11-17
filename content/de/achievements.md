@@ -12,7 +12,7 @@ fact: < 1 % | Ruf der Stadt für Ich war es nicht
 fact: 10 | Wahrzeichen, die dieselbe nächste Stadt haben müssen, für Zentralisiert
 ---
 
-Das offizielle Wiki listet 41 Erfolge. Das Spielskript `achievements.script.tl` schaltet **17** davon selbst frei und speist **9 spielübergreifende Zähler**; die anderen (Kampagne, Wetter, Stadtgrösse, Lagerhaus, Zinsen, Booster, Autos, 1900-2000, Dampf in den 2000ern) werden anderswo geprüft, von der Engine oder der Plattform. Jede Prüfung fragt zuerst die Engine, ob der Erfolg noch freigeschaltet werden kann; ob Mods oder Einstellungen ihn sperren, wird dort entschieden (`achievements.script.tl:632`, `achievements.script.tl:510`).
+Das offizielle Wiki listet 41 Erfolge. Das Spielskript (`achievements.script.tl`) schaltet **17** davon selbst frei und speist **9 spielübergreifende Zähler**; die anderen (Kampagne, Wetter, Stadtgrösse, Lagerhaus, Zinsen, Booster, Autos, 1900-2000, Dampf in den 2000ern) werden anderswo geprüft, von der Engine oder der Plattform. Jede Prüfung fragt zuerst die Engine, ob der Erfolg noch freigeschaltet werden kann; ob Mods oder Einstellungen ihn sperren, wird dort entschieden (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Vom Skript geprüfte Erfolge
 

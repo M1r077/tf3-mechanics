@@ -12,7 +12,7 @@ fact: < 1 % | town reputation for It Wasn't Me
 fact: 10 | landmarks that must have the same closest town for Centralized
 ---
 
-The official wiki lists 41 achievements. The game script `achievements.script.tl` unlocks **17** of them itself and feeds **9 cross-game counters**; the others (campaign, weather, town size, warehouse, interest, boosters, cars, 1900-2000, steam in the 2000s) are checked elsewhere, by the engine or the platform. Every check first asks the engine whether the achievement can still be unlocked; whether mods or settings block it is decided there (`achievements.script.tl:632`, `achievements.script.tl:510`).
+The official wiki lists 41 achievements. The game script (`achievements.script.tl`) unlocks **17** of them itself and feeds **9 cross-game counters**; the others (campaign, weather, town size, warehouse, interest, boosters, cars, 1900-2000, steam in the 2000s) are checked elsewhere, by the engine or the platform. Every check first asks the engine whether the achievement can still be unlocked; whether mods or settings block it is decided there (`achievements.script.tl:632`, `achievements.script.tl:510`).
 
 ## Achievements checked by the script
 
