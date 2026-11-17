@@ -87,7 +87,7 @@ Welcher Station ein Fahrzeug zugeordnet wird, was passiert, wenn mehr Fahrzeuge 
 ## Preis und Betriebskosten
 
 - Fahrzeuge des Grundspiels haben keinen festen Preis: Die Betriebskosten ergeben sich aus Geschwindigkeit und Kapazität, und der Preis beträgt das **6-Fache** der jährlichen Grund-Betriebskosten, vor den Einstellungen Fahrzeugkosten und Fahrzeugwartung (`model_metadata_util.lua:548-549`). Genau 6 Jahre Betriebskosten sind es nur, wenn beide Einstellungen gleich sind. Vollständige Formel: [Kosten, Unterhalt und Darlehen](costs.html).
-- **Fahrzeugkosten** skaliert die Preise von 50 % bis 150 % (`post_run_util.tl:54-81`). Bei **Fahrzeugwartung** rundet das Skript den Faktor auf eine ganze Zahl, wenn die Betriebskosten noch nicht gesetzt sind (`post_run_util.tl:71-72`). Das ergäbe 100 % auf jeder Stufe außer Sehr hoch (200 %). Im Spiel noch zu bestätigen.
+- **Fahrzeugkosten** skaliert die Preise von 50 % bis 150 % (`post_run_util.tl:54-81`), und **Fahrzeugwartung** skaliert die Betriebskosten genauso. Im Spiel gemessen an den 921 Fahrzeugen eines Spielstands, geladen mit 75 %, 100 % und 125 %: Die Betriebskosten folgen dem Regler (Median ×0,75 und ×1,25; Fahrzeuge, deren Zustand sich zwischen den Ladevorgängen änderte, weichen etwas ab).
 - Ein Fahrzeug in schlechtem Zustand zahlt zusätzlich zum Grundwert höhere Betriebskosten (`vehicle_store_util.tl:256-259`).
 
 ## Alter und Lebensdauer

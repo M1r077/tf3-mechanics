@@ -87,7 +87,7 @@ Which station a vehicle is assigned to, what happens when more vehicles use a st
 ## Price and running costs
 
 - Base-game vehicles have no fixed price: running costs come from speed and capacity, and the price is **6 ×** the base yearly running cost, before the Vehicle Costs and Vehicle Maintenance settings (`model_metadata_util.lua:548-549`). It equals exactly 6 years of running costs only when both settings are equal. Full formula: [Costs, upkeep and loans](costs.html).
-- **Vehicle Costs** scales prices from 50 % to 150 % (`post_run_util.tl:54-81`). For **Vehicle Maintenance**, the script rounds the scale to a whole number when the running cost is not yet set (`post_run_util.tl:71-72`). That would give 100 % at every level except Very High (200 %). To be confirmed in game.
+- **Vehicle Costs** scales prices from 50 % to 150 % (`post_run_util.tl:54-81`), and **Vehicle Maintenance** scales running costs the same way. Measured in game on the 921 vehicles of one savegame, reloaded at 75 %, 100 % and 125 %: the running costs follow the slider (median ×0.75 and ×1.25; vehicles whose condition changed between loads differ a little).
 - A vehicle in bad condition pays more running costs, on top of the base value (`vehicle_store_util.tl:256-259`).
 
 ## Age and lifespan

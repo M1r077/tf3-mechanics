@@ -87,7 +87,7 @@ Aan welk station een voertuig wordt toegewezen, wat er gebeurt als meer voertuig
 ## Prijs en bedrijfskosten
 
 - Voertuigen uit het basisspel hebben geen vaste prijs: de bedrijfskosten komen uit snelheid en capaciteit, en de prijs is **6 ×** de jaarlijkse basisbedrijfskosten, vóór de instellingen Kosten voertuigen en Voertuigonderhoud (`model_metadata_util.lua:548-549`). Precies 6 jaar bedrijfskosten is het alleen als beide instellingen gelijk zijn. Volledige formule: [Kosten, onderhoud en leningen](costs.html).
-- **Kosten voertuigen** schaalt de prijzen van 50 % tot 150 % (`post_run_util.tl:54-81`). Bij **Voertuigonderhoud** rondt het script de factor af op een geheel getal als de bedrijfskosten nog niet vastliggen (`post_run_util.tl:71-72`). Dat zou 100 % geven op elk niveau behalve Zeer hoog (200 %). Nog te bevestigen in het spel.
+- **Kosten voertuigen** schaalt de prijzen van 50 % tot 150 % (`post_run_util.tl:54-81`), en **Voertuigonderhoud** schaalt de bedrijfskosten op dezelfde manier. Gemeten in het spel op de 921 voertuigen van één opgeslagen spel, geladen op 75 %, 100 % en 125 %: de bedrijfskosten volgen de schuifregelaar (mediaan ×0,75 en ×1,25; voertuigen waarvan de staat tussen het laden veranderde, wijken iets af).
 - Een voertuig in slechte staat betaalt meer bedrijfskosten, bovenop de basiswaarde (`vehicle_store_util.tl:256-259`).
 
 ## Leeftijd en levensduur

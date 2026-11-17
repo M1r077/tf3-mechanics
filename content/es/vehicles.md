@@ -87,7 +87,7 @@ A qué estación se asigna un vehículo, qué pasa cuando más vehículos usan u
 ## Precio y costes de funcionamiento
 
 - Los vehículos del juego base no tienen precio fijo: los costes de funcionamiento salen de la velocidad y la capacidad, y el precio es **6 ×** el coste de funcionamiento anual base, antes de los ajustes Gastos de vehículos y Mantenimiento de vehículos (`model_metadata_util.lua:548-549`). Equivale exactamente a 6 años de costes de funcionamiento solo si ambos ajustes son iguales. Fórmula completa: [Costes, conservación y préstamos](costs.html).
-- **Gastos de vehículos** escala los precios del 50 % al 150 % (`post_run_util.tl:54-81`). Para **Mantenimiento de vehículos**, el script redondea el factor a un número entero cuando el coste de funcionamiento aún no está fijado (`post_run_util.tl:71-72`). Eso daría 100 % en todos los niveles salvo Muy alto (200 %). Por confirmar en el juego.
+- **Gastos de vehículos** escala los precios del 50 % al 150 % (`post_run_util.tl:54-81`), y **Mantenimiento de vehículos** escala los costes de funcionamiento igual. Medido en el juego con los 921 vehículos de una partida, cargada al 75 %, 100 % y 125 %: los costes de funcionamiento siguen el control deslizante (mediana ×0,75 y ×1,25; los vehículos cuyo estado cambió entre cargas varían un poco).
 - Un vehículo en mal estado paga más costes de funcionamiento, además del valor base (`vehicle_store_util.tl:256-259`).
 
 ## Edad y vida útil

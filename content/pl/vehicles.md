@@ -87,7 +87,7 @@ Do której stacji pojazd zostaje przypisany, co się dzieje, gdy stację używa 
 ## Cena i koszty eksploatacji
 
 - Pojazdy z podstawowej gry nie mają stałej ceny: koszty eksploatacji wynikają z prędkości i pojemności, a cena to **6 ×** bazowy roczny koszt eksploatacji, przed ustawieniami Koszty pojazdów i Konserwacja pojazdów (`model_metadata_util.lua:548-549`). Dokładnie 6 lat kosztów eksploatacji wychodzi tylko, gdy oba ustawienia są równe. Pełny wzór: [Koszty, utrzymanie i kredyty](costs.html).
-- **Koszty pojazdów** skalują ceny od 50 % do 150 % (`post_run_util.tl:54-81`). Przy **Konserwacji pojazdów** skrypt zaokrągla współczynnik do liczby całkowitej, gdy koszt eksploatacji nie jest jeszcze ustalony (`post_run_util.tl:71-72`). Dawałoby to 100 % na każdym poziomie oprócz „Bardzo wysoki” (200 %). Do potwierdzenia w grze.
+- **Koszty pojazdów** skaluje ceny od 50 % do 150 % (`post_run_util.tl:54-81`), a **Konserwacja pojazdów** tak samo skaluje koszty eksploatacji. Zmierzone w grze na 921 pojazdach jednego zapisu, wczytanego przy 75 %, 100 % i 125 %: koszty eksploatacji podążają za suwakiem (mediana ×0,75 i ×1,25; pojazdy, których stan zmienił się między wczytaniami, nieco odbiegają).
 - Pojazd w złym stanie płaci wyższe koszty eksploatacji, ponad wartość bazową (`vehicle_store_util.tl:256-259`).
 
 ## Wiek i okres trwałości

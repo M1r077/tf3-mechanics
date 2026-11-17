@@ -87,7 +87,7 @@ A quale stazione viene assegnato un veicolo, cosa succede quando una stazione è
 ## Prezzo e costi di esercizio
 
 - I veicoli del gioco base non hanno un prezzo fisso: i costi di esercizio derivano da velocità e capacità, e il prezzo è **6 ×** il costo di esercizio annuo di base, prima delle impostazioni Costo veicoli e Manutenzione veicolo (`model_metadata_util.lua:548-549`). Corrisponde esattamente a 6 anni di costi di esercizio solo se le due impostazioni sono uguali. Formula completa: [Costi, manutenzione e prestiti](costs.html).
-- **Costo veicoli** scala i prezzi dal 50 % al 150 % (`post_run_util.tl:54-81`). Per **Manutenzione veicolo**, lo script arrotonda il fattore a un numero intero quando il costo di esercizio non è ancora fissato (`post_run_util.tl:71-72`). Questo darebbe 100 % a ogni livello tranne Molto elevato (200 %). Da confermare in gioco.
+- **Costo veicoli** scala i prezzi dal 50 % al 150 % (`post_run_util.tl:54-81`), e **Manutenzione veicolo** scala i costi di esercizio allo stesso modo. Misurato in gioco sui 921 veicoli di un salvataggio, caricato al 75 %, 100 % e 125 %: i costi di esercizio seguono il cursore (mediana ×0,75 e ×1,25; i veicoli il cui stato è cambiato tra un caricamento e l'altro si discostano un po').
 - Un veicolo in cattive condizioni paga costi di esercizio maggiori, oltre al valore base (`vehicle_store_util.tl:256-259`).
 
 ## Età e durata

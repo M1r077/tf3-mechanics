@@ -87,7 +87,7 @@ La station à laquelle un véhicule est affecté, ce qui se passe quand plus de 
 ## Prix et coûts d'exploitation
 
 - Les véhicules du jeu de base n'ont pas de prix fixe : les coûts d'exploitation viennent de la vitesse et de la capacité, et le prix vaut **6 ×** le coût d'exploitation annuel de base, avant les réglages Coût des véhicules et Entretien des véhicules (`model_metadata_util.lua:548-549`). Cela fait exactement 6 ans de coûts d'exploitation seulement si les deux réglages sont égaux. Formule complète : [Coûts, entretien et emprunts](costs.html).
-- **Coût des véhicules** module les prix de 50 % à 150 % (`post_run_util.tl:54-81`). Pour **Entretien des véhicules**, le script arrondit le facteur à un nombre entier quand le coût d'exploitation n'est pas encore fixé (`post_run_util.tl:71-72`). Cela donnerait 100 % à tous les niveaux sauf Très élevée (200 %). À confirmer en jeu.
+- **Coût des véhicules** fait varier les prix de 50 % à 150 % (`post_run_util.tl:54-81`), et **Entretien des véhicules** fait varier les coûts d'exploitation de la même façon. Mesuré en jeu sur les 921 véhicules d'une sauvegarde, rechargée à 75 %, 100 % et 125 % : les coûts d'exploitation suivent le curseur (médiane ×0,75 et ×1,25 ; les véhicules dont l'état a changé entre deux chargements s'en écartent un peu).
 - Un véhicule en mauvais état paie plus de coûts d'exploitation, en plus de la valeur de base (`vehicle_store_util.tl:256-259`).
 
 ## Âge et durée de vie

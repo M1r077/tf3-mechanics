@@ -87,7 +87,7 @@ A qual estação um veículo é atribuído, o que acontece quando mais veículos
 ## Preço e custos operacionais
 
 - Os veículos do jogo base não têm preço fixo: os custos operacionais vêm da velocidade e da capacidade, e o preço é **6 ×** o custo operacional anual base, antes das configurações Custos de Veículo e Manutenção de Veículos (`model_metadata_util.lua:548-549`). Dá exatamente 6 anos de custos operacionais só quando as duas configurações são iguais. Fórmula completa: [Custos, manutenção e empréstimos](costs.html).
-- **Custos de Veículo** escala os preços de 50 % a 150 % (`post_run_util.tl:54-81`). Para **Manutenção de Veículos**, o script arredonda o fator para um número inteiro quando o custo operacional ainda não está definido (`post_run_util.tl:71-72`). Isso daria 100 % em todos os níveis exceto Muito Alto (200 %). A confirmar no jogo.
+- **Custos de Veículo** escala os preços de 50 % a 150 % (`post_run_util.tl:54-81`), e **Manutenção de Veículos** escala os custos operacionais do mesmo jeito. Medido no jogo nos 921 veículos de um jogo salvo, carregado a 75 %, 100 % e 125 %: os custos operacionais seguem o controle deslizante (mediana ×0,75 e ×1,25; veículos cujo estado mudou entre os carregamentos variam um pouco).
 - Um veículo em má condição paga mais custos operacionais, além do valor base (`vehicle_store_util.tl:256-259`).
 
 ## Idade e vida útil
