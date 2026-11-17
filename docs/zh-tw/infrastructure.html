@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>街道、軌道、橋梁與號誌 · TF3 機制</title>
+<meta name="description" content="Transport Fever 3 到底如何運作，直接取自遊戲本身的腳本。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/infrastructure.html"><link rel="alternate" hreflang="fr" href="../fr/infrastructure.html"><link rel="alternate" hreflang="de" href="../de/infrastructure.html"><link rel="alternate" hreflang="es" href="../es/infrastructure.html"><link rel="alternate" hreflang="it" href="../it/infrastructure.html"><link rel="alternate" hreflang="nl" href="../nl/infrastructure.html"><link rel="alternate" hreflang="pl" href="../pl/infrastructure.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/infrastructure.html"><link rel="alternate" hreflang="ru" href="../ru/infrastructure.html"><link rel="alternate" hreflang="ja" href="../ja/infrastructure.html"><link rel="alternate" hreflang="ko" href="../ko/infrastructure.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/infrastructure.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/infrastructure.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目錄</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新日誌</a></nav>
+<button class="srcbtn" type="button" data-src title="顯示或隱藏腳本引用"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>來源</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="顯示或隱藏提示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>提示</span></button>
+<details class="langs"><summary aria-label="語言"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>繁體中文</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="語言"><a href="../en/infrastructure.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/infrastructure.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/infrastructure.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/infrastructure.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/infrastructure.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/infrastructure.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/infrastructure.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/infrastructure.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/infrastructure.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/infrastructure.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/infrastructure.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/infrastructure.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/infrastructure.html" class="on" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目錄</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg>道路、軌道與倉庫</span></div><h1 class="rise d1">街道、軌道、橋梁與號誌</h1><p class="lead rise d2">每種軌道與街道的速度、價格與維護費，橋梁、隧道、平交道與號誌的花費與作用，林蔭道與隔音牆到底改變了什麼，以及車庫在哪裡說明。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>已在腳本中核實</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新於 2026-11-17</span><span class="pill" title="核對這些說明時使用的遊戲版本(官方更新說明)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>遊戲版本 40425</span></div><div class=facts><div class="fact rise d1"><b>100 / 160 / 350 km/h</b><span>簡易軌道、標準軌道與高速軌道</span></div><div class="fact rise d2"><b>×9</b><span>高速軌道相對簡易軌道的價格與維護費</span></div><div class="fact rise d3"><b>+30 %</b><span>為軌道加上電纜的價格</span></div><div class="fact rise d4"><b>-65 %</b><span>裝了隔音牆的街道或軌道的噪音</span></div></div></div></section><div class="wrap layout"><article><p>每種街道與軌道都有最高速度、每公尺價格與每公尺每年的維護費，都寫在它的檔案裡。橋梁、平交道與部分街道裝飾會附加自己的速限。以下費用是 <strong>基礎設施成本</strong> 與 <strong>基礎設施維護</strong> 為 100 % 時的數值（見 <a href="costs.html">成本、維護費與貸款</a>）。</p>
+<h2 id="軌道"><span class="n">1</span><span>軌道</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>軌道</th>
+<th>開放時間</th>
+<th>最高速度</th>
+<th>每公里建造費</th>
+<th>每公里每年維護費</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>簡易軌道</td>
+<td>開局</td>
+<td>100 km/h</td>
+<td>6 萬</td>
+<td>1 萬</td>
+<td class="sc"><code class="src">simple.street_template.lua:9</code>，<code class="src">simple.street_template.lua:28</code>，<code class="src">simple.street_template.lua:33</code></td>
+</tr>
+<tr>
+<td>標準軌道</td>
+<td>1930</td>
+<td>160 km/h</td>
+<td>18 萬</td>
+<td>3 萬</td>
+<td class="sc"><code class="src">standard.street_template.lua:4</code>，<code class="src">standard.street_template.lua:11</code>，<code class="src">standard.street_template.lua:30</code>，<code class="src">standard.street_template.lua:35</code></td>
+</tr>
+<tr>
+<td>高速軌道</td>
+<td>1980</td>
+<td>350 km/h</td>
+<td>54 萬</td>
+<td>9 萬</td>
+<td class="sc"><code class="src">high_speed.street_template.lua:4</code>，<code class="src">high_speed.street_template.lua:11</code>，<code class="src">high_speed.street_template.lua:30</code>，<code class="src">high_speed.street_template.lua:35</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>電纜</strong> 比軌道貴 <strong>30 %</strong><span class="sr">（<code class="src">mod.script.tl:24-25</code>）</span>。簡易軌道從 1921 年起可用，較新的類型從開放起就可用<span class="sr">（<code class="src">simple_catenary.street_template.lua:4</code>）</span>。檔案裡它每年沒有額外費用：電氣化版本的維護費相同<span class="sr">（<code class="src">simple_catenary.street_template.lua:34</code>）</span>。</li>
+<li>三種軌道的坡度與彎道條件相同：建造時 <strong>8.5 %</strong>（<strong>坡度</strong> 滑桿的上限），軌道形狀最多 13 %，彎道半徑建造時 55 m，最小 40 m<span class="sr">（<code class="src">standard.street_template.lua:36-37</code>，<code class="src">standard.street_template.lua:48-49</code>，<code class="src">construction_react_util.tl:241-242</code>，<code class="src">construction_react_util.tl:1821</code>）</span>。</li>
+<li>軌道本身的污染隨類型增加：2、4、6<span class="sr">（<code class="src">simple.street_template.lua:18</code>，<code class="src">standard.street_template.lua:20</code>，<code class="src">high_speed.street_template.lua:20</code>）</span>。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>彎道讓列車減速多少（每種軌道的 speedCoeffs），以及建造工具為彎道顯示的速度，都由引擎計算。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p>高速軌道的建造費與每年維護費都是簡易軌道的 9 倍。只在列車真的跑得比 160 km/h 快的地方鋪設；其他地方用標準軌道就夠了，慢速貨運支線用簡易軌道即可。</p></div></aside>
+<h2 id="街道"><span class="n">2</span><span>街道</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>街道</th>
+<th>年份</th>
+<th>最高速度</th>
+<th>每公里建造費</th>
+<th>每公里每年維護費</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>狹窄街道（舊）</td>
+<td>1940 年以前</td>
+<td>20 km/h</td>
+<td>3.6 萬</td>
+<td>6,000</td>
+<td class="sc"><code class="src">town_old_xsmall.street_template.lua:4-5</code>，<code class="src">town_old_xsmall.street_template.lua:8</code>，<code class="src">town_old_xsmall.street_template.lua:27</code>，<code class="src">town_old_xsmall.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>小型街道（舊）</td>
+<td>1940 年以前</td>
+<td>40 km/h</td>
+<td>6 萬</td>
+<td>1 萬</td>
+<td class="sc"><code class="src">town_old_small.street_template.lua:8</code>，<code class="src">town_old_small.street_template.lua:27</code>，<code class="src">town_old_small.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>大型街道（舊）</td>
+<td>1940 年以前</td>
+<td>60 km/h</td>
+<td>18 萬</td>
+<td>3 萬</td>
+<td class="sc"><code class="src">town_old_large.street_template.lua:8</code>，<code class="src">town_old_large.street_template.lua:27</code>，<code class="src">town_old_large.street_template.lua:88</code></td>
+</tr>
+<tr>
+<td>狹窄街道（新）</td>
+<td>1940 年起</td>
+<td>30 km/h</td>
+<td>12 萬</td>
+<td>2 萬</td>
+<td class="sc"><code class="src">town_new_xsmall.street_template.lua:4</code>，<code class="src">town_new_xsmall.street_template.lua:11</code>，<code class="src">town_new_xsmall.street_template.lua:30</code>，<code class="src">town_new_xsmall.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>小型街道（新）</td>
+<td>1940 年起</td>
+<td>50 km/h</td>
+<td>18 萬</td>
+<td>3 萬</td>
+<td class="sc"><code class="src">town_new_small.street_template.lua:11</code>，<code class="src">town_new_small.street_template.lua:30</code>，<code class="src">town_new_small.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>中型街道（新）</td>
+<td>1940 年起</td>
+<td>50 km/h</td>
+<td>36 萬</td>
+<td>6 萬</td>
+<td class="sc"><code class="src">town_new_medium.street_template.lua:11</code>，<code class="src">town_new_medium.street_template.lua:30</code>，<code class="src">town_new_medium.street_template.lua:75</code></td>
+</tr>
+<tr>
+<td>大型街道（新）</td>
+<td>1940 年起</td>
+<td>60 km/h</td>
+<td>54 萬</td>
+<td>9 萬</td>
+<td class="sc"><code class="src">town_new_large.street_template.lua:11</code>，<code class="src">town_new_large.street_template.lua:30</code>，<code class="src">town_new_large.street_template.lua:91</code></td>
+</tr>
+<tr>
+<td>小型鄉村道路（舊）</td>
+<td>1940 年以前</td>
+<td>60 km/h</td>
+<td>6 萬</td>
+<td>1 萬</td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>，<code class="src">country_old_small.street_template.lua:29</code>，<code class="src">country_old_small.street_template.lua:58</code></td>
+</tr>
+<tr>
+<td>小型鄉村道路（新）</td>
+<td>1940 年起</td>
+<td>80 km/h</td>
+<td>18 萬</td>
+<td>3 萬</td>
+<td class="sc"><code class="src">country_new_small.street_template.lua:10</code>，<code class="src">country_new_small.street_template.lua:31</code>，<code class="src">country_new_small.street_template.lua:60</code></td>
+</tr>
+<tr>
+<td>單線道高速公路</td>
+<td>1940 年起</td>
+<td>100 km/h</td>
+<td>18 萬</td>
+<td>3 萬</td>
+<td class="sc"><code class="src">highway_new_small.street_template.lua:10</code>，<code class="src">highway_new_small.street_template.lua:32</code>，<code class="src">highway_new_small.street_template.lua:53</code></td>
+</tr>
+<tr>
+<td>二線道高速公路</td>
+<td>1940 年起</td>
+<td>120 km/h</td>
+<td>36 萬</td>
+<td>6 萬</td>
+<td class="sc"><code class="src">highway_new_medium.street_template.lua:10</code>，<code class="src">highway_new_medium.street_template.lua:32</code>，<code class="src">highway_new_medium.street_template.lua:61</code></td>
+</tr>
+<tr>
+<td>三線道高速公路</td>
+<td>1940 年起</td>
+<td>120 km/h</td>
+<td>54 萬</td>
+<td>9 萬</td>
+<td class="sc"><code class="src">highway_new_large.street_template.lua:10</code>，<code class="src">highway_new_large.street_template.lua:32</code>，<code class="src">highway_new_large.street_template.lua:69</code></td>
+</tr>
+<tr>
+<td>輕軌軌道（舊）</td>
+<td>1910 年以前</td>
+<td>40 km/h</td>
+<td>3.6 萬</td>
+<td>6,000</td>
+<td class="sc"><code class="src">tram_old.street_template.lua:4-5</code>，<code class="src">tram_old.street_template.lua:8</code>，<code class="src">tram_old.street_template.lua:27</code>，<code class="src">tram_old.street_template.lua:40</code></td>
+</tr>
+<tr>
+<td>輕軌軌道（新）</td>
+<td>1925 年起</td>
+<td>100 km/h</td>
+<td>12 萬</td>
+<td>2 萬</td>
+<td class="sc"><code class="src">tram_new.street_template.lua:4</code>，<code class="src">tram_new.street_template.lua:9</code>，<code class="src">tram_new.street_template.lua:29</code>，<code class="src">tram_new.street_template.lua:42</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>1940 年的更替</strong> 讓城鎮街道快 10 km/h，但建造與每年維護都貴 <strong>三倍</strong>：小型街道從每公里 6 萬變成 18 萬。</li>
+<li>鄉村道路的中型與大型版本速度相同，花費是小型的 2 倍與 3 倍<span class="sr">（<code class="src">country_new_large.street_template.lua:10</code>，<code class="src">country_new_large.street_template.lua:31</code>）</span>。</li>
+<li>為街道加上：<strong>公車專用道</strong> +10 %，<strong>輕軌軌道</strong> +20 %，<strong>電氣化輕軌軌道</strong> +40 % 的街道價格<span class="sr">（<code class="src">mod.script.tl:24-28</code>）</span>。</li>
+<li>玩家通常不擁有街道，即使是玩家自己建的；街道工具可以改變街道的擁有者（官方 wiki）。街道的維護費由誰支付由引擎決定。</li>
+</ul>
+<h2 id="林蔭道與隔音牆"><span class="n">3</span><span>林蔭道與隔音牆</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>噪音</th>
+<th>污染</th>
+<th>最高速度</th>
+<th>位置</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>林蔭道工具（樹木）</td>
+<td>-10 %</td>
+<td>-50 %</td>
+<td><strong>-25 %</strong></td>
+<td>有人行道的街道，不能在橋上或隧道內</td>
+<td class="sc"><code class="src">alley.edge.lua:39-40</code>，<code class="src">alley.edge.lua:53-56</code></td>
+</tr>
+<tr>
+<td>隔音牆工具</td>
+<td>-65 %</td>
+<td>不變</td>
+<td>不變</td>
+<td>街道與軌道，不能在隧道內</td>
+<td class="sc"><code class="src">barrier_b.edge.lua:43</code>，<code class="src">barrier_b.edge.lua:47</code>，<code class="src">barrier_track_b.edge.lua:43</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>兩者在檔案裡都是 100、每年 10，與街道每公尺的寫法一樣<span class="sr">（<code class="src">alley.edge.lua:8</code>，<code class="src">alley.edge.lua:12</code>，<code class="src">barrier_b.edge.lua:7</code>，<code class="src">barrier_b.edge.lua:11</code>）</span>。</li>
+<li>建造選單裡「有樹木」與「有隔音牆」的街道，就是已經裝好這些裝飾的同一種街道<span class="sr">（<code class="src">town_new_medium_trees.street_template.lua:12-14</code>）</span>。建造選單會把它們的效果加總<span class="sr">（<code class="src">construction_react_util.tl:2116-2139</code>）</span>。</li>
+<li>所以有樹木的街道 <strong>慢四分之一</strong>：有樹木的新中型街道只能跑約 38 km/h，而不是 50。</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p>對付噪音，用隔音牆：-65 %，而且不損失速度。樹木是對付污染的工具（-50 %），但會讓街道慢四分之一。</p></div></aside>
+<p>城鎮如何評價噪音與污染：<a href="emission.html">污染與噪音</a>。</p>
+<h2 id="橋梁與隧道"><span class="n">4</span><span>橋梁與隧道</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>橋梁</th>
+<th>年份</th>
+<th>最高速度</th>
+<th>用於</th>
+<th>基礎價格</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>石橋</td>
+<td>開局起</td>
+<td>90 km/h</td>
+<td>軌道、街道</td>
+<td>200</td>
+<td class="sc"><code class="src">stone.bridge.lua:169-170</code>，<code class="src">stone.bridge.lua:181-183</code>，<code class="src">stone.bridge.lua:193</code></td>
+</tr>
+<tr>
+<td>棧橋</td>
+<td>1970 年以前</td>
+<td>60 km/h</td>
+<td>軌道用與街道用各一種</td>
+<td>100</td>
+<td class="sc"><code class="src">trestle.bridge.lua:200-201</code>，<code class="src">trestle.bridge.lua:212-214</code>，<code class="src">trestle.bridge.lua:226</code>，<code class="src">trestle_s.bridge.lua:212</code></td>
+</tr>
+<tr>
+<td>鋼構橋</td>
+<td>1940 年起</td>
+<td>140 km/h</td>
+<td>軌道、街道</td>
+<td>200</td>
+<td class="sc"><code class="src">steel.bridge.lua:243</code>，<code class="src">steel.bridge.lua:259</code>，<code class="src">steel.bridge.lua:269</code></td>
+</tr>
+<tr>
+<td>吊橋</td>
+<td>1940 年起</td>
+<td>180 km/h</td>
+<td>軌道、街道</td>
+<td>600</td>
+<td class="sc"><code class="src">suspension.bridge.lua:277</code>，<code class="src">suspension.bridge.lua:294</code>，<code class="src">suspension.bridge.lua:304</code></td>
+</tr>
+<tr>
+<td>混凝土橋</td>
+<td>1970 年起</td>
+<td>280 km/h</td>
+<td>軌道、街道</td>
+<td>200</td>
+<td class="sc"><code class="src">concrete.bridge.lua:162</code>，<code class="src">concrete.bridge.lua:176</code>，<code class="src">concrete.bridge.lua:187</code></td>
+</tr>
+<tr>
+<td>斜張橋</td>
+<td>2000 年起</td>
+<td>220 km/h</td>
+<td>軌道、街道</td>
+<td>750</td>
+<td class="sc"><code class="src">cable.bridge.lua:214</code>，<code class="src">cable.bridge.lua:231</code>，<code class="src">cable.bridge.lua:240</code></td>
+</tr>
+<tr>
+<td>繫拱橋</td>
+<td>2010 年起</td>
+<td>350 km/h</td>
+<td>軌道、街道</td>
+<td>650</td>
+<td class="sc"><code class="src">tarch.bridge.lua:253</code>，<code class="src">tarch.bridge.lua:270</code>，<code class="src">tarch.bridge.lua:280</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>橋梁速限 <strong>疊加在</strong> 軌道速限之上：高速路線經過鋼構橋時，在橋上以 140 km/h 行駛。1970 年以前沒有超過 180 km/h 的橋，2010 年以前沒有允許 350 km/h 的橋。</li>
+<li><strong>隧道</strong>（岩石隧道，1970 年起有混凝土隧道）在檔案中 <strong>沒有速限</strong>，基礎價格都是 600<span class="sr">（<code class="src">tunnel_a.tunnel.lua:187-188</code>，<code class="src">tunnel_a_car.tunnel.lua:185</code>，<code class="src">tunnel_b.tunnel.lua:191-194</code>）</span>。</li>
+<li>橋梁與隧道的價格跟隨基礎設施成本<span class="sr">（<code class="src">post_run_util.tl:50-51</code>）</span>。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>橋梁或隧道的基礎價格由引擎依高度或深度（costFactors）換算成每公尺價格；官方 wiki 說價格取決於長度以及離地高度或地下深度。因此同樣的基礎價格，帳單可能相差很大。隧道會降低城鎮的聲望（見 <a href="reputation.html">聲望</a>）。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p>1970 年以前要讓快速路線跨越山谷，吊橋（180 km/h）是唯一快於 140 km/h 的橋；隧道則完全沒有速限。</p></div></aside>
+<h2 id="平交道與號誌"><span class="n">5</span><span>平交道與號誌</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>類型</th>
+<th>年份</th>
+<th>軌道最高速度</th>
+<th>價格</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>簡易平交道</td>
+<td>1850 - 1925</td>
+<td>120 km/h</td>
+<td>4,000</td>
+<td class="sc"><code class="src">era_a_eu.rcr.lua:14-17</code>，<code class="src">era_a_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>半遮斷式平交道</td>
+<td>1925 - 1975</td>
+<td>160 km/h</td>
+<td>1.6 萬</td>
+<td class="sc"><code class="src">era_b_eu.rcr.lua:15-18</code>，<code class="src">era_b_eu.rcr.lua:27</code></td>
+</tr>
+<tr>
+<td>現代化半遮斷式平交道</td>
+<td>1975 年起</td>
+<td>160 km/h</td>
+<td>1.6 萬</td>
+<td class="sc"><code class="src">era_c_eu.rcr.lua:15-17</code>，<code class="src">era_c_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>路徑號誌（1950 年以前為臂木式，1950 年起為色燈式）</td>
+<td>全部</td>
+<td>-</td>
+<td>9,000，每年維護費 1,500</td>
+<td class="sc"><code class="src">signal_path_a.con.lua:4-5</code>，<code class="src">signal_path_a.con.lua:10-11</code>，<code class="src">signal_path_c.con.lua:4-5</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>平交道把軌道限制在最多 160 km/h：高速路線需要用橋梁或隧道跨越街道。</li>
+<li>每個號誌都可以設為 <strong>單行道</strong><span class="sr">（<code class="src">signal_path_a.con.lua:51-52</code>）</span>。號誌如何把軌道劃分為閉塞區間，見官方 wiki 的鐵路號誌頁面。</li>
+</ul>
+<h2 id="車庫與維修站"><span class="n">6</span><span>車庫與維修站</span></h2>
+<p>車庫與維修站的花費、能服務多少載具以及服務半徑：<a href="vehicles.html">路線與載具</a> 與 <a href="costs.html">成本、維護費與貸款</a>。</p>
+<h2 id="須知"><span class="n">7</span><span>須知</span></h2>
+<ul>
+<li>1940 年以前，升級城鎮街道很便宜；1940 年以後，每條新建或重建的城鎮街道價格與維護費都是三倍。</li>
+<li>在快速路線上，檢查每座橋與每個平交道：最慢的那個決定了那裡的速度。</li>
+<li>速度只有在帶來更多趟次時才划算（見 <a href="money.html">為什麼我在虧錢？</a>）。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>官方 wiki 與遊戲腳本對照</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>補充細節</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki 的說法</div><p>"Streets and tracks have speed limits, depending on the type used. On curved tracks, the speed of trains is also limited by the curve's radius. . Rail bridges have an additional speed limit, which may lower the speed limit of the used tracks." "The Alley tool places trees on the side of the street which reduces the noises and pollutions emitted by vehicles using that street. It also lower the maximum speed of the road." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks">Streets and Tracks</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>遊戲腳本顯示</div><p>軌道、街道與橋梁的速度與官方表格相同。檔案中橋梁速限也適用於街道，隧道沒有速限，平交道把軌道限制在 120 或 160 km/h，樹木讓街道慢 25 %、污染減少 50 %，但噪音只減少 10 %；而隔音牆讓噪音減少 65 %，且不降低速度。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>路徑位於遊戲的 base/content 資料夾或其 zip 檔案內。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>本頁內容</h5><ol><li><a href="#軌道">軌道</a></li><li><a href="#街道">街道</a></li><li><a href="#林蔭道與隔音牆">林蔭道與隔音牆</a></li><li><a href="#橋梁與隧道">橋梁與隧道</a></li><li><a href="#平交道與號誌">平交道與號誌</a></li><li><a href="#車庫與維修站">車庫與維修站</a></li><li><a href="#須知">須知</a></li></ol><div class="box"><b>42</b><span>處原始碼引用</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">顯示來源</span><span class="h">隱藏來源</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>其他機制</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>飛機、機場與直升機</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>公司等級、特權與總部</b><small>公司與總部</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>成本、維護費與貸款</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>發車設定：滿載、裝填量與停留時間</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>汙染與噪音</b><small>汙染與噪音</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨運收益與配送時間</b><small>貨物與收益</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>產業</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>裝載與卸貨速度</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>為什麼我在虧錢？</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮聲望</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>船舶與港口</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>補助：提案、期限與獎勵</b><small>補助</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>遊戲時間與月曆</b><small>遊戲時間與月曆</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮成長：經驗值、評價與規模</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>車輛：狀態、年份與裝載速度</b><small>路線與車輛</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>貨物倉庫</b><small>貨物倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>工人與工人加速效果</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro 製作的玩家專案。與 Urban Games 無關。</span><span>文字與圖片：CC BY 4.0 · 遊戲程式碼 © Urban Games：僅展示簡短引用。</span><span class="tr">譯自英文；歡迎指正 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>

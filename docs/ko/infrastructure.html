@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>도로, 선로, 교량, 신호기 · TF3 메커니즘</title>
+<meta name="description" content="Transport Fever 3가 실제로 어떻게 작동하는지, 게임의 스크립트에서 직접 읽어 낸 정보.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/infrastructure.html"><link rel="alternate" hreflang="fr" href="../fr/infrastructure.html"><link rel="alternate" hreflang="de" href="../de/infrastructure.html"><link rel="alternate" hreflang="es" href="../es/infrastructure.html"><link rel="alternate" hreflang="it" href="../it/infrastructure.html"><link rel="alternate" hreflang="nl" href="../nl/infrastructure.html"><link rel="alternate" hreflang="pl" href="../pl/infrastructure.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/infrastructure.html"><link rel="alternate" hreflang="ru" href="../ru/infrastructure.html"><link rel="alternate" hreflang="ja" href="../ja/infrastructure.html"><link rel="alternate" hreflang="ko" href="../ko/infrastructure.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/infrastructure.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/infrastructure.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>목차</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>패치 노트</a></nav>
+<button class="srcbtn" type="button" data-src title="스크립트 참조 표시 또는 숨기기"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>소스</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="팁 표시 또는 숨기기"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>팁</span></button>
+<details class="langs"><summary aria-label="언어"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>한국어</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="언어"><a href="../en/infrastructure.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/infrastructure.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/infrastructure.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/infrastructure.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/infrastructure.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/infrastructure.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/infrastructure.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/infrastructure.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/infrastructure.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/infrastructure.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/infrastructure.html" class="on" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/infrastructure.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/infrastructure.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>목차</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg>도로, 선로, 차고지</span></div><h1 class="rise d1">도로, 선로, 교량, 신호기</h1><p class="lead rise d2">선로와 도로 종류별 속도, 가격, 관리비, 교량, 터널, 건널목, 신호기의 비용과 가능한 것, 가로수와 소음 장벽이 실제로 바꾸는 것, 그리고 차량기지 설명이 있는 곳.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>스크립트에서 검증됨</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>업데이트 2026-11-17</span><span class="pill" title="이 설명을 확인한 게임 버전 (공식 릴리스 노트)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>게임 빌드 40425</span></div><div class=facts><div class="fact rise d1"><b>100 / 160 / 350 km/h</b><span>간소한 선로, 표준 선로, 고속 선로</span></div><div class="fact rise d2"><b>×9</b><span>간소한 선로와 비교한 고속 선로의 가격과 관리비</span></div><div class="fact rise d3"><b>+30 %</b><span>선로에 전차선을 놓는 가격</span></div><div class="fact rise d4"><b>-65 %</b><span>소음 장벽이 있는 도로나 선로의 소음</span></div></div></div></section><div class="wrap layout"><article><p>도로와 선로의 종류마다 최고 속도, 미터당 가격, 미터당 연간 관리비가 있으며 모두 파일에 적혀 있다. 교량, 건널목, 일부 도로 장식은 자체 속도 제한을 더한다. 아래 비용은 <strong>기반 시설 비용</strong>과 <strong>기반 시설 관리</strong>가 100 %일 때의 값이다(<a href="costs.html">비용, 관리비, 대출</a> 참조).</p>
+<h2 id="선로"><span class="n">1</span><span>선로</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>선로</th>
+<th>등장</th>
+<th>최고 속도</th>
+<th>km당 건설비</th>
+<th>km당 연간 관리비</th>
+<th class="sc">출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>간소한 선로</td>
+<td>시작</td>
+<td>100 km/h</td>
+<td>6만</td>
+<td>1만</td>
+<td class="sc"><code class="src">simple.street_template.lua:9</code>, <code class="src">simple.street_template.lua:28</code>, <code class="src">simple.street_template.lua:33</code></td>
+</tr>
+<tr>
+<td>표준 선로</td>
+<td>1930</td>
+<td>160 km/h</td>
+<td>18만</td>
+<td>3만</td>
+<td class="sc"><code class="src">standard.street_template.lua:4</code>, <code class="src">standard.street_template.lua:11</code>, <code class="src">standard.street_template.lua:30</code>, <code class="src">standard.street_template.lua:35</code></td>
+</tr>
+<tr>
+<td>고속 선로</td>
+<td>1980</td>
+<td>350 km/h</td>
+<td>54만</td>
+<td>9만</td>
+<td class="sc"><code class="src">high_speed.street_template.lua:4</code>, <code class="src">high_speed.street_template.lua:11</code>, <code class="src">high_speed.street_template.lua:30</code>, <code class="src">high_speed.street_template.lua:35</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>전차선</strong>은 선로보다 <strong>30 %</strong> 비싸다<span class="sr">(<code class="src">mod.script.tl:24-25</code>)</span>. 간소한 선로에서는 1921년부터, 더 새로운 종류에서는 등장할 때부터 쓸 수 있다<span class="sr">(<code class="src">simple_catenary.street_template.lua:4</code>)</span>. 파일상 연간 추가 비용은 없으며, 전기 버전의 관리비는 같다<span class="sr">(<code class="src">simple_catenary.street_template.lua:34</code>)</span>.</li>
+<li>세 종류 모두 경사와 곡선 조건이 같다. 건설할 때 <strong>8.5 %</strong>(<strong>경사</strong> 슬라이더의 최대값), 선로 형태로는 최대 13 %, 곡선 반경은 건설할 때 55 m, 최소 40 m다<span class="sr">(<code class="src">standard.street_template.lua:36-37</code>, <code class="src">standard.street_template.lua:48-49</code>, <code class="src">construction_react_util.tl:241-242</code>, <code class="src">construction_react_util.tl:1821</code>)</span>.</li>
+<li>선로 자체의 오염은 종류에 따라 커진다. 2, 4, 6<span class="sr">(<code class="src">simple.street_template.lua:18</code>, <code class="src">standard.street_template.lua:20</code>, <code class="src">high_speed.street_template.lua:20</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>곡선이 열차 속도를 얼마나 낮추는지(선로 종류별 speedCoeffs)와 건설 도구가 곡선에 표시하는 속도는 엔진이 계산한다.</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>팁</h4><p>고속 선로는 건설도 연간 관리도 간소한 선로의 9배가 든다. 열차가 실제로 160 km/h보다 빠르게 달리는 곳에만 깔자. 다른 곳은 표준 선로면 충분하고, 느린 화물 지선은 간소한 선로로 된다.</p></div></aside>
+<h2 id="도로"><span class="n">2</span><span>도로</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>도로</th>
+<th>연도</th>
+<th>최고 속도</th>
+<th>km당 건설비</th>
+<th>km당 연간 관리비</th>
+<th class="sc">출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>좁은 거리(옛)</td>
+<td>1940년까지</td>
+<td>20 km/h</td>
+<td>3.6만</td>
+<td>6,000</td>
+<td class="sc"><code class="src">town_old_xsmall.street_template.lua:4-5</code>, <code class="src">town_old_xsmall.street_template.lua:8</code>, <code class="src">town_old_xsmall.street_template.lua:27</code>, <code class="src">town_old_xsmall.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>소형 거리(옛)</td>
+<td>1940년까지</td>
+<td>40 km/h</td>
+<td>6만</td>
+<td>1만</td>
+<td class="sc"><code class="src">town_old_small.street_template.lua:8</code>, <code class="src">town_old_small.street_template.lua:27</code>, <code class="src">town_old_small.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>대형 거리(옛)</td>
+<td>1940년까지</td>
+<td>60 km/h</td>
+<td>18만</td>
+<td>3만</td>
+<td class="sc"><code class="src">town_old_large.street_template.lua:8</code>, <code class="src">town_old_large.street_template.lua:27</code>, <code class="src">town_old_large.street_template.lua:88</code></td>
+</tr>
+<tr>
+<td>좁은 거리(새)</td>
+<td>1940년부터</td>
+<td>30 km/h</td>
+<td>12만</td>
+<td>2만</td>
+<td class="sc"><code class="src">town_new_xsmall.street_template.lua:4</code>, <code class="src">town_new_xsmall.street_template.lua:11</code>, <code class="src">town_new_xsmall.street_template.lua:30</code>, <code class="src">town_new_xsmall.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>소형 거리(새)</td>
+<td>1940년부터</td>
+<td>50 km/h</td>
+<td>18만</td>
+<td>3만</td>
+<td class="sc"><code class="src">town_new_small.street_template.lua:11</code>, <code class="src">town_new_small.street_template.lua:30</code>, <code class="src">town_new_small.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>중형 거리(새)</td>
+<td>1940년부터</td>
+<td>50 km/h</td>
+<td>36만</td>
+<td>6만</td>
+<td class="sc"><code class="src">town_new_medium.street_template.lua:11</code>, <code class="src">town_new_medium.street_template.lua:30</code>, <code class="src">town_new_medium.street_template.lua:75</code></td>
+</tr>
+<tr>
+<td>대형 거리(새)</td>
+<td>1940년부터</td>
+<td>60 km/h</td>
+<td>54만</td>
+<td>9만</td>
+<td class="sc"><code class="src">town_new_large.street_template.lua:11</code>, <code class="src">town_new_large.street_template.lua:30</code>, <code class="src">town_new_large.street_template.lua:91</code></td>
+</tr>
+<tr>
+<td>소형 시골 도로(옛)</td>
+<td>1940년까지</td>
+<td>60 km/h</td>
+<td>6만</td>
+<td>1만</td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:29</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
+</tr>
+<tr>
+<td>소형 시골 도로(새)</td>
+<td>1940년부터</td>
+<td>80 km/h</td>
+<td>18만</td>
+<td>3만</td>
+<td class="sc"><code class="src">country_new_small.street_template.lua:10</code>, <code class="src">country_new_small.street_template.lua:31</code>, <code class="src">country_new_small.street_template.lua:60</code></td>
+</tr>
+<tr>
+<td>1차선 고속도로</td>
+<td>1940년부터</td>
+<td>100 km/h</td>
+<td>18만</td>
+<td>3만</td>
+<td class="sc"><code class="src">highway_new_small.street_template.lua:10</code>, <code class="src">highway_new_small.street_template.lua:32</code>, <code class="src">highway_new_small.street_template.lua:53</code></td>
+</tr>
+<tr>
+<td>2차선 고속도로</td>
+<td>1940년부터</td>
+<td>120 km/h</td>
+<td>36만</td>
+<td>6만</td>
+<td class="sc"><code class="src">highway_new_medium.street_template.lua:10</code>, <code class="src">highway_new_medium.street_template.lua:32</code>, <code class="src">highway_new_medium.street_template.lua:61</code></td>
+</tr>
+<tr>
+<td>3차선 고속도로</td>
+<td>1940년부터</td>
+<td>120 km/h</td>
+<td>54만</td>
+<td>9만</td>
+<td class="sc"><code class="src">highway_new_large.street_template.lua:10</code>, <code class="src">highway_new_large.street_template.lua:32</code>, <code class="src">highway_new_large.street_template.lua:69</code></td>
+</tr>
+<tr>
+<td>전차 선로(옛)</td>
+<td>1910년까지</td>
+<td>40 km/h</td>
+<td>3.6만</td>
+<td>6,000</td>
+<td class="sc"><code class="src">tram_old.street_template.lua:4-5</code>, <code class="src">tram_old.street_template.lua:8</code>, <code class="src">tram_old.street_template.lua:27</code>, <code class="src">tram_old.street_template.lua:40</code></td>
+</tr>
+<tr>
+<td>전차 선로(새)</td>
+<td>1925년부터</td>
+<td>100 km/h</td>
+<td>12만</td>
+<td>2만</td>
+<td class="sc"><code class="src">tram_new.street_template.lua:4</code>, <code class="src">tram_new.street_template.lua:9</code>, <code class="src">tram_new.street_template.lua:29</code>, <code class="src">tram_new.street_template.lua:42</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>1940년의 전환</strong>으로 시내 도로는 10 km/h 빨라지지만, 건설도 연간 관리도 <strong>3배</strong> 비싸진다. 소형 거리는 km당 6만에서 18만이 된다.</li>
+<li>시골 도로의 중형과 대형은 같은 속도에서 소형의 2배와 3배가 든다<span class="sr">(<code class="src">country_new_large.street_template.lua:10</code>, <code class="src">country_new_large.street_template.lua:31</code>)</span>.</li>
+<li>도로에 추가하기: <strong>버스 전용 차로</strong>는 도로 가격의 +10 %, <strong>전차 선로</strong>는 +20 %, <strong>전기 전차 선로</strong>는 +40 %<span class="sr">(<code class="src">mod.script.tl:24-28</code>)</span>.</li>
+<li>플레이어는 보통 도로를 소유하지 않으며, 플레이어가 지은 도로도 마찬가지다. 도로 도구로 도로의 소유자를 바꿀 수 있다(공식 위키). 도로 관리비를 누가 내는지는 엔진이 정한다.</li>
+</ul>
+<h2 id="가로수와-소음-장벽"><span class="n">3</span><span>가로수와 소음 장벽</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>도구</th>
+<th>소음</th>
+<th>오염</th>
+<th>최고 속도</th>
+<th>장소</th>
+<th class="sc">출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>골목 도구(나무)</td>
+<td>-10 %</td>
+<td>-50 %</td>
+<td><strong>-25 %</strong></td>
+<td>보도가 있는 도로. 교량 위나 터널 안은 안 됨</td>
+<td class="sc"><code class="src">alley.edge.lua:39-40</code>, <code class="src">alley.edge.lua:53-56</code></td>
+</tr>
+<tr>
+<td>소음 장벽 도구</td>
+<td>-65 %</td>
+<td>변화 없음</td>
+<td>변화 없음</td>
+<td>도로와 선로. 터널 안은 안 됨</td>
+<td class="sc"><code class="src">barrier_b.edge.lua:43</code>, <code class="src">barrier_b.edge.lua:47</code>, <code class="src">barrier_track_b.edge.lua:43</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>둘 다 파일상 100, 연간 10으로, 도로의 미터당 값과 같다<span class="sr">(<code class="src">alley.edge.lua:8</code>, <code class="src">alley.edge.lua:12</code>, <code class="src">barrier_b.edge.lua:7</code>, <code class="src">barrier_b.edge.lua:11</code>)</span>.</li>
+<li>건설 메뉴의 "가로수 있음", "장벽 있음" 도로는 이 장식이 이미 붙은 같은 도로다<span class="sr">(<code class="src">town_new_medium_trees.street_template.lua:12-14</code>)</span>. 건설 메뉴는 그 효과를 합산한다<span class="sr">(<code class="src">construction_react_util.tl:2116-2139</code>)</span>.</li>
+<li>그래서 가로수가 있는 도로는 <strong>4분의 1 느리다</strong>. 가로수가 있는 새 중형 거리는 50 km/h 대신 약 38 km/h다.</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>팁</h4><p>소음에는 소음 장벽을 쓰자. -65 %에 속도 손실도 없다. 나무는 오염 대책(-50 %)이지만 도로를 4분의 1 느리게 만든다.</p></div></aside>
+<p>도시가 소음과 오염을 어떻게 평가하는지: <a href="emission.html">오염과 소음</a>.</p>
+<h2 id="교량과-터널"><span class="n">4</span><span>교량과 터널</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>교량</th>
+<th>연도</th>
+<th>최고 속도</th>
+<th>용도</th>
+<th>기본 가격</th>
+<th class="sc">출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>돌 교량</td>
+<td>시작부터</td>
+<td>90 km/h</td>
+<td>선로, 도로</td>
+<td>200</td>
+<td class="sc"><code class="src">stone.bridge.lua:169-170</code>, <code class="src">stone.bridge.lua:181-183</code>, <code class="src">stone.bridge.lua:193</code></td>
+</tr>
+<tr>
+<td>구각교</td>
+<td>1970년까지</td>
+<td>60 km/h</td>
+<td>선로용과 도로용이 따로 있음</td>
+<td>100</td>
+<td class="sc"><code class="src">trestle.bridge.lua:200-201</code>, <code class="src">trestle.bridge.lua:212-214</code>, <code class="src">trestle.bridge.lua:226</code>, <code class="src">trestle_s.bridge.lua:212</code></td>
+</tr>
+<tr>
+<td>강철 교량</td>
+<td>1940년부터</td>
+<td>140 km/h</td>
+<td>선로, 도로</td>
+<td>200</td>
+<td class="sc"><code class="src">steel.bridge.lua:243</code>, <code class="src">steel.bridge.lua:259</code>, <code class="src">steel.bridge.lua:269</code></td>
+</tr>
+<tr>
+<td>현수교</td>
+<td>1940년부터</td>
+<td>180 km/h</td>
+<td>선로, 도로</td>
+<td>600</td>
+<td class="sc"><code class="src">suspension.bridge.lua:277</code>, <code class="src">suspension.bridge.lua:294</code>, <code class="src">suspension.bridge.lua:304</code></td>
+</tr>
+<tr>
+<td>콘크리트 교량</td>
+<td>1970년부터</td>
+<td>280 km/h</td>
+<td>선로, 도로</td>
+<td>200</td>
+<td class="sc"><code class="src">concrete.bridge.lua:162</code>, <code class="src">concrete.bridge.lua:176</code>, <code class="src">concrete.bridge.lua:187</code></td>
+</tr>
+<tr>
+<td>사장교</td>
+<td>2000년부터</td>
+<td>220 km/h</td>
+<td>선로, 도로</td>
+<td>750</td>
+<td class="sc"><code class="src">cable.bridge.lua:214</code>, <code class="src">cable.bridge.lua:231</code>, <code class="src">cable.bridge.lua:240</code></td>
+</tr>
+<tr>
+<td>타이드 아치 교량</td>
+<td>2010년부터</td>
+<td>350 km/h</td>
+<td>선로, 도로</td>
+<td>650</td>
+<td class="sc"><code class="src">tarch.bridge.lua:253</code>, <code class="src">tarch.bridge.lua:270</code>, <code class="src">tarch.bridge.lua:280</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>교량 제한은 선로 제한에 <strong>더해서</strong> 적용된다. 강철 교량을 건너는 고속 노선은 그곳에서 140 km/h로 달린다. 1970년 이전에는 180 km/h를 넘는 교량이 없고, 2010년 이전에는 350 km/h를 허용하는 교량이 없다.</li>
+<li><strong>터널</strong>(바위 터널, 1970년부터 콘크리트 터널)은 파일상 <strong>속도 제한이 없고</strong>, 기본 가격은 똑같이 600이다<span class="sr">(<code class="src">tunnel_a.tunnel.lua:187-188</code>, <code class="src">tunnel_a_car.tunnel.lua:185</code>, <code class="src">tunnel_b.tunnel.lua:191-194</code>)</span>.</li>
+<li>교량과 터널 가격은 기반 시설 비용을 따른다<span class="sr">(<code class="src">post_run_util.tl:50-51</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>게임 엔진이 결정<small>C++, 스크립트에서 보이지 않음</small></h4><p>교량이나 터널의 기본 가격은 엔진이 높이나 깊이(costFactors)를 써서 미터당 가격으로 바꾼다. 공식 위키에 따르면 가격은 길이와 지면 위 높이, 또는 지하 깊이에 따라 달라진다. 따라서 같은 기본 가격이라도 청구액은 크게 다를 수 있다. 터널은 도시의 평판을 떨어뜨린다(<a href="reputation.html">평판</a> 참조).</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>팁</h4><p>1970년 이전에 골짜기를 건너는 빠른 노선이라면, 140 km/h보다 빠른 교량은 현수교(180 km/h)뿐이다. 터널에는 제한이 전혀 없다.</p></div></aside>
+<h2 id="건널목과-신호기"><span class="n">5</span><span>건널목과 신호기</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>종류</th>
+<th>연도</th>
+<th>선로 최고 속도</th>
+<th>가격</th>
+<th class="sc">출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>간소한 건널목</td>
+<td>1850 - 1925</td>
+<td>120 km/h</td>
+<td>4,000</td>
+<td class="sc"><code class="src">era_a_eu.rcr.lua:14-17</code>, <code class="src">era_a_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>반 장벽 건널목</td>
+<td>1925 - 1975</td>
+<td>160 km/h</td>
+<td>1.6만</td>
+<td class="sc"><code class="src">era_b_eu.rcr.lua:15-18</code>, <code class="src">era_b_eu.rcr.lua:27</code></td>
+</tr>
+<tr>
+<td>현대 반 장벽 건널목</td>
+<td>1975년부터</td>
+<td>160 km/h</td>
+<td>1.6만</td>
+<td class="sc"><code class="src">era_c_eu.rcr.lua:15-17</code>, <code class="src">era_c_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>길 신호기(1950년까지 완목식, 1950년부터 색등식)</td>
+<td>전체</td>
+<td>-</td>
+<td>9,000, 연간 관리비 1,500</td>
+<td class="sc"><code class="src">signal_path_a.con.lua:4-5</code>, <code class="src">signal_path_a.con.lua:10-11</code>, <code class="src">signal_path_c.con.lua:4-5</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>건널목은 선로를 최대 160 km/h로 제한한다. 고속 노선은 도로를 교량이나 터널로 넘어야 한다.</li>
+<li>모든 신호기는 <strong>일방통행</strong>으로 설정할 수 있다<span class="sr">(<code class="src">signal_path_a.con.lua:51-52</code>)</span>. 신호기가 선로를 어떻게 블록으로 나누는지는 공식 위키의 철도 신호 페이지에 설명되어 있다.</li>
+</ul>
+<h2 id="차량기지와-정비소"><span class="n">6</span><span>차량기지와 정비소</span></h2>
+<p>차량기지와 정비소의 비용, 담당하는 운송 수단 수와 반경: <a href="vehicles.html">노선과 운송 수단</a>, <a href="costs.html">비용, 관리비, 대출</a>.</p>
+<h2 id="알아두면-좋은-점"><span class="n">7</span><span>알아두면 좋은 점</span></h2>
+<ul>
+<li>1940년 이전에는 시내 도로 개량이 싸다. 1940년 이후에는 새로 짓거나 다시 짓는 시내 도로마다 가격과 관리비가 3배다.</li>
+<li>빠른 노선에서는 모든 교량과 건널목을 확인하자. 가장 느린 것이 그곳의 속도를 정한다.</li>
+<li>속도는 운행 횟수가 늘어날 때만 이득이다(<a href="money.html">왜 돈을 잃고 있을까?</a> 참조).</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>공식 위키와 게임 스크립트 비교</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>세부 보충</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키의 설명</div><p>"Streets and tracks have speed limits, depending on the type used. On curved tracks, the speed of trains is also limited by the curve's radius. . Rail bridges have an additional speed limit, which may lower the speed limit of the used tracks." "The Alley tool places trees on the side of the street which reduces the noises and pollutions emitted by vehicles using that street. It also lower the maximum speed of the road." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks">Streets and Tracks</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>게임 스크립트의 내용</div><p>선로, 도로, 교량 속도는 공식 표와 같다. 파일에서는 교량 제한이 도로에도 적용되고, 터널에는 제한이 없으며, 건널목은 선로를 120 또는 160 km/h로 제한하고, 나무는 도로를 25 % 느리게 하고 오염을 50 % 줄이지만 소음은 10 %만 줄인다. 반면 소음 장벽은 속도를 낮추지 않고 소음을 65 % 줄인다.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>경로는 게임의 base/content 폴더 또는 그 zip 파일 안에 있다.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>이 페이지의 내용</h5><ol><li><a href="#선로">선로</a></li><li><a href="#도로">도로</a></li><li><a href="#가로수와-소음-장벽">가로수와 소음 장벽</a></li><li><a href="#교량과-터널">교량과 터널</a></li><li><a href="#건널목과-신호기">건널목과 신호기</a></li><li><a href="#차량기지와-정비소">차량기지와 정비소</a></li><li><a href="#알아두면-좋은-점">알아두면 좋은 점</a></li></ol><div class="box"><b>42</b><span>개 소스 참조</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">소스 보기</span><span class="h">소스 숨기기</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>다른 메커니즘</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>비행기, 공항, 헬리콥터</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>회사 등급, 특전과 본부</b><small>회사와 본부</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>비용, 관리비, 대출</b><small>재정과 대출</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>출발 설정: 가득 실음, 충전 수위, 정지 시간</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>오염과 소음</b><small>공해와 소음</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>화물 수입과 배송 시간</b><small>화물과 수입</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>산업</b><small>산업</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>상차 및 하차 속도</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>왜 돈을 잃고 있을까?</b><small>재정과 대출</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>마을 평판</b><small>마을</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>선박과 항구</b><small>정류장과 상차</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>보조금: 제안, 기한, 보상</b><small>보조금</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>게임 시간과 달력</b><small>게임 시간과 달력</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>마을 성장: 경험치, 평가, 규모</b><small>마을</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>운송 수단: 상태, 연식, 상차 속도</b><small>노선과 운송 수단</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>창고</b><small>창고</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>근로자와 근로자 부스트</b><small>산업</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro의 팬 프로젝트. Urban Games와 관련 없음.</span><span>글과 이미지: CC BY 4.0 · 게임 코드 © Urban Games: 짧은 참조만 표시.</span><span class="tr">영어에서 번역됨. 수정 제안 환영 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>공식 위키</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>

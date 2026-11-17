@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>道路、線路、橋、信号 · TF3 メカニクス</title>
+<meta name="description" content="Transport Fever 3 の本当の仕組みを、ゲーム自身のスクリプトから読み解く。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/infrastructure.html"><link rel="alternate" hreflang="fr" href="../fr/infrastructure.html"><link rel="alternate" hreflang="de" href="../de/infrastructure.html"><link rel="alternate" hreflang="es" href="../es/infrastructure.html"><link rel="alternate" hreflang="it" href="../it/infrastructure.html"><link rel="alternate" hreflang="nl" href="../nl/infrastructure.html"><link rel="alternate" hreflang="pl" href="../pl/infrastructure.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/infrastructure.html"><link rel="alternate" hreflang="ru" href="../ru/infrastructure.html"><link rel="alternate" hreflang="ja" href="../ja/infrastructure.html"><link rel="alternate" hreflang="ko" href="../ko/infrastructure.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/infrastructure.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/infrastructure.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目次</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>パッチノート</a></nav>
+<button class="srcbtn" type="button" data-src title="スクリプト参照の表示・非表示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>ソース</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="ヒントの表示・非表示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>ヒント</span></button>
+<details class="langs"><summary aria-label="言語"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>日本語</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="言語"><a href="../en/infrastructure.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/infrastructure.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/infrastructure.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/infrastructure.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/infrastructure.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/infrastructure.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/infrastructure.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/infrastructure.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/infrastructure.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/infrastructure.html" class="on" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/infrastructure.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/infrastructure.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/infrastructure.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目次</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg>道路、線路、車庫</span></div><h1 class="rise d1">道路、線路、橋、信号</h1><p class="lead rise d2">線路と道路の種類ごとの速度、価格、維持費、橋、トンネル、踏切、信号のコストとできること、並木と防音壁が実際に何を変えるか、そしてデポの説明がどこにあるか。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>スクリプトで検証済み</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新日 2026-11-17</span><span class="pill" title="この説明を確認したゲームのバージョン(公式リリースノート)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>ゲームのビルド 40425</span></div><div class=facts><div class="fact rise d1"><b>100 / 160 / 350 km/h</b><span>シンプルな線路、標準線路、高速線路</span></div><div class="fact rise d2"><b>×9</b><span>シンプルな線路と比べた高速線路の価格と維持費</span></div><div class="fact rise d3"><b>+30 %</b><span>線路に架線を付けるときの価格</span></div><div class="fact rise d4"><b>-65 %</b><span>防音壁を付けた道路や線路の騒音</span></div></div></div></section><div class="wrap layout"><article><p>道路と線路の種類にはそれぞれ最高速度、1 m あたりの価格、1 m・1 年あたりの維持費があり、すべてファイルに書かれている。橋、踏切、一部の道路の装飾は独自の速度制限を加える。以下のコストは <strong>インフラコスト</strong> と <strong>インフラ維持費</strong> が 100 % のときの値である（<a href="costs.html">コスト、維持費、融資</a> を参照）。</p>
+<h2 id="線路"><span class="n">1</span><span>線路</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>線路</th>
+<th>登場年</th>
+<th>最高速度</th>
+<th>1 km あたりの建設費</th>
+<th>1 km・1 年あたりの維持費</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>シンプルな線路</td>
+<td>開始時</td>
+<td>100 km/h</td>
+<td>6万</td>
+<td>1万</td>
+<td class="sc"><code class="src">simple.street_template.lua:9</code>、<code class="src">simple.street_template.lua:28</code>、<code class="src">simple.street_template.lua:33</code></td>
+</tr>
+<tr>
+<td>標準線路</td>
+<td>1930</td>
+<td>160 km/h</td>
+<td>18万</td>
+<td>3万</td>
+<td class="sc"><code class="src">standard.street_template.lua:4</code>、<code class="src">standard.street_template.lua:11</code>、<code class="src">standard.street_template.lua:30</code>、<code class="src">standard.street_template.lua:35</code></td>
+</tr>
+<tr>
+<td>高速線路</td>
+<td>1980</td>
+<td>350 km/h</td>
+<td>54万</td>
+<td>9万</td>
+<td class="sc"><code class="src">high_speed.street_template.lua:4</code>、<code class="src">high_speed.street_template.lua:11</code>、<code class="src">high_speed.street_template.lua:30</code>、<code class="src">high_speed.street_template.lua:35</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>架線</strong> は線路より <strong>30 %</strong> 高い<span class="sr">（<code class="src">mod.script.tl:24-25</code>）</span>。シンプルな線路では 1921 年から、より新しい種類では登場時から使える<span class="sr">（<code class="src">simple_catenary.street_template.lua:4</code>）</span>。ファイル上は年ごとの追加費用はなく、電化版の維持費は同じである<span class="sr">（<code class="src">simple_catenary.street_template.lua:34</code>）</span>。</li>
+<li>3 種類とも勾配とカーブの条件は同じ：建設時は <strong>8.5 %</strong>（<strong>勾配</strong> スライダーの上限）、線路の形状としては最大 13 %、カーブ半径は建設時 55 m、最小 40 m<span class="sr">（<code class="src">standard.street_template.lua:36-37</code>、<code class="src">standard.street_template.lua:48-49</code>、<code class="src">construction_react_util.tl:241-242</code>、<code class="src">construction_react_util.tl:1821</code>）</span>。</li>
+<li>線路そのものの汚染は種類とともに増える：2、4、6<span class="sr">（<code class="src">simple.street_template.lua:18</code>、<code class="src">standard.street_template.lua:20</code>、<code class="src">high_speed.street_template.lua:20</code>）</span>。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>カーブが列車の速度をどれだけ下げるか（各線路の speedCoeffs）と、建設ツールがカーブに表示する速度は、エンジンが計算する。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>ヒント</h4><p>高速線路は建設も毎年の維持もシンプルな線路の 9 倍かかる。列車が本当に 160 km/h より速く走る区間だけに敷こう。それ以外は標準線路で足り、遅い貨物支線ならシンプルな線路でよい。</p></div></aside>
+<h2 id="道路"><span class="n">2</span><span>道路</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>道路</th>
+<th>年</th>
+<th>最高速度</th>
+<th>1 km あたりの建設費</th>
+<th>1 km・1 年あたりの維持費</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>街道（狭）（旧）</td>
+<td>1940 年まで</td>
+<td>20 km/h</td>
+<td>3.6万</td>
+<td>6,000</td>
+<td class="sc"><code class="src">town_old_xsmall.street_template.lua:4-5</code>、<code class="src">town_old_xsmall.street_template.lua:8</code>、<code class="src">town_old_xsmall.street_template.lua:27</code>、<code class="src">town_old_xsmall.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>街道（小）（旧）</td>
+<td>1940 年まで</td>
+<td>40 km/h</td>
+<td>6万</td>
+<td>1万</td>
+<td class="sc"><code class="src">town_old_small.street_template.lua:8</code>、<code class="src">town_old_small.street_template.lua:27</code>、<code class="src">town_old_small.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>街道（大）（旧）</td>
+<td>1940 年まで</td>
+<td>60 km/h</td>
+<td>18万</td>
+<td>3万</td>
+<td class="sc"><code class="src">town_old_large.street_template.lua:8</code>、<code class="src">town_old_large.street_template.lua:27</code>、<code class="src">town_old_large.street_template.lua:88</code></td>
+</tr>
+<tr>
+<td>街道（狭）（新）</td>
+<td>1940 年から</td>
+<td>30 km/h</td>
+<td>12万</td>
+<td>2万</td>
+<td class="sc"><code class="src">town_new_xsmall.street_template.lua:4</code>、<code class="src">town_new_xsmall.street_template.lua:11</code>、<code class="src">town_new_xsmall.street_template.lua:30</code>、<code class="src">town_new_xsmall.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>街道（小）（新）</td>
+<td>1940 年から</td>
+<td>50 km/h</td>
+<td>18万</td>
+<td>3万</td>
+<td class="sc"><code class="src">town_new_small.street_template.lua:11</code>、<code class="src">town_new_small.street_template.lua:30</code>、<code class="src">town_new_small.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>街道（中）（新）</td>
+<td>1940 年から</td>
+<td>50 km/h</td>
+<td>36万</td>
+<td>6万</td>
+<td class="sc"><code class="src">town_new_medium.street_template.lua:11</code>、<code class="src">town_new_medium.street_template.lua:30</code>、<code class="src">town_new_medium.street_template.lua:75</code></td>
+</tr>
+<tr>
+<td>街道（大）（新）</td>
+<td>1940 年から</td>
+<td>60 km/h</td>
+<td>54万</td>
+<td>9万</td>
+<td class="sc"><code class="src">town_new_large.street_template.lua:11</code>、<code class="src">town_new_large.street_template.lua:30</code>、<code class="src">town_new_large.street_template.lua:91</code></td>
+</tr>
+<tr>
+<td>田舎道（小）（旧）</td>
+<td>1940 年まで</td>
+<td>60 km/h</td>
+<td>6万</td>
+<td>1万</td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>、<code class="src">country_old_small.street_template.lua:29</code>、<code class="src">country_old_small.street_template.lua:58</code></td>
+</tr>
+<tr>
+<td>田舎道（小）（新）</td>
+<td>1940 年から</td>
+<td>80 km/h</td>
+<td>18万</td>
+<td>3万</td>
+<td class="sc"><code class="src">country_new_small.street_template.lua:10</code>、<code class="src">country_new_small.street_template.lua:31</code>、<code class="src">country_new_small.street_template.lua:60</code></td>
+</tr>
+<tr>
+<td>1車線高速道路</td>
+<td>1940 年から</td>
+<td>100 km/h</td>
+<td>18万</td>
+<td>3万</td>
+<td class="sc"><code class="src">highway_new_small.street_template.lua:10</code>、<code class="src">highway_new_small.street_template.lua:32</code>、<code class="src">highway_new_small.street_template.lua:53</code></td>
+</tr>
+<tr>
+<td>2車線高速道路</td>
+<td>1940 年から</td>
+<td>120 km/h</td>
+<td>36万</td>
+<td>6万</td>
+<td class="sc"><code class="src">highway_new_medium.street_template.lua:10</code>、<code class="src">highway_new_medium.street_template.lua:32</code>、<code class="src">highway_new_medium.street_template.lua:61</code></td>
+</tr>
+<tr>
+<td>3車線高速道路</td>
+<td>1940 年から</td>
+<td>120 km/h</td>
+<td>54万</td>
+<td>9万</td>
+<td class="sc"><code class="src">highway_new_large.street_template.lua:10</code>、<code class="src">highway_new_large.street_template.lua:32</code>、<code class="src">highway_new_large.street_template.lua:69</code></td>
+</tr>
+<tr>
+<td>トラム線路（旧）</td>
+<td>1910 年まで</td>
+<td>40 km/h</td>
+<td>3.6万</td>
+<td>6,000</td>
+<td class="sc"><code class="src">tram_old.street_template.lua:4-5</code>、<code class="src">tram_old.street_template.lua:8</code>、<code class="src">tram_old.street_template.lua:27</code>、<code class="src">tram_old.street_template.lua:40</code></td>
+</tr>
+<tr>
+<td>トラム線路（新）</td>
+<td>1925 年から</td>
+<td>100 km/h</td>
+<td>12万</td>
+<td>2万</td>
+<td class="sc"><code class="src">tram_new.street_template.lua:4</code>、<code class="src">tram_new.street_template.lua:9</code>、<code class="src">tram_new.street_template.lua:29</code>、<code class="src">tram_new.street_template.lua:42</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>1940 年の切り替え</strong> で町の道路は 10 km/h 速くなるが、建設も毎年の維持も <strong>3 倍</strong> 高くなる。小さな道路は 1 km あたり 6万 から 18万 になる。</li>
+<li>田舎道の中・大の種類は、同じ速度で小の 2 倍と 3 倍かかる<span class="sr">（<code class="src">country_new_large.street_template.lua:10</code>、<code class="src">country_new_large.street_template.lua:31</code>）</span>。</li>
+<li>道路への追加：<strong>バスレーン</strong> は道路の価格の +10 %、<strong>トラムの線路</strong> は +20 %、<strong>電化されたトラムの線路</strong> は +40 %<span class="sr">（<code class="src">mod.script.tl:24-28</code>）</span>。</li>
+<li>プレイヤーは通常、自分で建てた道路であっても道路を所有しない。道路ツールで道路の所有者を変えられる（公式 wiki）。道路の維持費を誰が払うかはエンジンが決める。</li>
+</ul>
+<h2 id="並木と防音壁"><span class="n">3</span><span>並木と防音壁</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>ツール</th>
+<th>騒音</th>
+<th>汚染</th>
+<th>最高速度</th>
+<th>場所</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>アレイ工具（木）</td>
+<td>-10 %</td>
+<td>-50 %</td>
+<td><strong>-25 %</strong></td>
+<td>歩道のある道路。橋の上やトンネル内は不可</td>
+<td class="sc"><code class="src">alley.edge.lua:39-40</code>、<code class="src">alley.edge.lua:53-56</code></td>
+</tr>
+<tr>
+<td>防音ツール</td>
+<td>-65 %</td>
+<td>変化なし</td>
+<td>変化なし</td>
+<td>道路と線路。トンネル内は不可</td>
+<td class="sc"><code class="src">barrier_b.edge.lua:43</code>、<code class="src">barrier_b.edge.lua:47</code>、<code class="src">barrier_track_b.edge.lua:43</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>どちらもファイル上は 100 と年 10 で、道路の 1 m あたりと同じ扱いである<span class="sr">（<code class="src">alley.edge.lua:8</code>、<code class="src">alley.edge.lua:12</code>、<code class="src">barrier_b.edge.lua:7</code>、<code class="src">barrier_b.edge.lua:11</code>）</span>。</li>
+<li>建設メニューの「並木付き」「防音壁付き」の道路は、これらの装飾が最初から付いた同じ道路である<span class="sr">（<code class="src">town_new_medium_trees.street_template.lua:12-14</code>）</span>。建設メニューはその効果を合算する<span class="sr">（<code class="src">construction_react_util.tl:2116-2139</code>）</span>。</li>
+<li>そのため並木付きの道路は <strong>4 分の 1 遅い</strong>。並木付きの新しい街道（中）は 50 km/h ではなく約 38 km/h になる。</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>ヒント</h4><p>騒音対策には防音壁を使おう：-65 % で速度も落ちない。木は汚染対策の道具（-50 %）だが、道路を 4 分の 1 遅くする。</p></div></aside>
+<p>町が騒音と汚染をどう評価するか：<a href="emission.html">汚染と騒音</a>。</p>
+<h2 id="橋とトンネル"><span class="n">4</span><span>橋とトンネル</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>橋</th>
+<th>年</th>
+<th>最高速度</th>
+<th>対象</th>
+<th>基本価格</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>石橋</td>
+<td>開始時から</td>
+<td>90 km/h</td>
+<td>線路、道路</td>
+<td>200</td>
+<td class="sc"><code class="src">stone.bridge.lua:169-170</code>、<code class="src">stone.bridge.lua:181-183</code>、<code class="src">stone.bridge.lua:193</code></td>
+</tr>
+<tr>
+<td>トレッスル橋</td>
+<td>1970 年まで</td>
+<td>60 km/h</td>
+<td>線路用と道路用で別の種類</td>
+<td>100</td>
+<td class="sc"><code class="src">trestle.bridge.lua:200-201</code>、<code class="src">trestle.bridge.lua:212-214</code>、<code class="src">trestle.bridge.lua:226</code>、<code class="src">trestle_s.bridge.lua:212</code></td>
+</tr>
+<tr>
+<td>鉄橋</td>
+<td>1940 年から</td>
+<td>140 km/h</td>
+<td>線路、道路</td>
+<td>200</td>
+<td class="sc"><code class="src">steel.bridge.lua:243</code>、<code class="src">steel.bridge.lua:259</code>、<code class="src">steel.bridge.lua:269</code></td>
+</tr>
+<tr>
+<td>つり橋</td>
+<td>1940 年から</td>
+<td>180 km/h</td>
+<td>線路、道路</td>
+<td>600</td>
+<td class="sc"><code class="src">suspension.bridge.lua:277</code>、<code class="src">suspension.bridge.lua:294</code>、<code class="src">suspension.bridge.lua:304</code></td>
+</tr>
+<tr>
+<td>コンクリート橋</td>
+<td>1970 年から</td>
+<td>280 km/h</td>
+<td>線路、道路</td>
+<td>200</td>
+<td class="sc"><code class="src">concrete.bridge.lua:162</code>、<code class="src">concrete.bridge.lua:176</code>、<code class="src">concrete.bridge.lua:187</code></td>
+</tr>
+<tr>
+<td>斜張橋</td>
+<td>2000 年から</td>
+<td>220 km/h</td>
+<td>線路、道路</td>
+<td>750</td>
+<td class="sc"><code class="src">cable.bridge.lua:214</code>、<code class="src">cable.bridge.lua:231</code>、<code class="src">cable.bridge.lua:240</code></td>
+</tr>
+<tr>
+<td>結合アーチ橋</td>
+<td>2010 年から</td>
+<td>350 km/h</td>
+<td>線路、道路</td>
+<td>650</td>
+<td class="sc"><code class="src">tarch.bridge.lua:253</code>、<code class="src">tarch.bridge.lua:270</code>、<code class="src">tarch.bridge.lua:280</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>橋の制限は線路の制限に <strong>重ねて</strong> かかる。鉄橋を渡る高速線はそこでは 140 km/h で走る。1970 年より前は 180 km/h を超える橋がなく、2010 年より前は 350 km/h を出せる橋がない。</li>
+<li><strong>トンネル</strong>（岩のトンネル、1970 年からはコンクリートのトンネル）にはファイル上 <strong>速度制限がなく</strong>、基本価格はどちらも 600 である<span class="sr">（<code class="src">tunnel_a.tunnel.lua:187-188</code>、<code class="src">tunnel_a_car.tunnel.lua:185</code>、<code class="src">tunnel_b.tunnel.lua:191-194</code>）</span>。</li>
+<li>橋とトンネルの価格はインフラコストに従う<span class="sr">（<code class="src">post_run_util.tl:50-51</code>）</span>。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>橋やトンネルの基本価格は、高さや深さ（costFactors）を使ってエンジンが 1 m あたりの価格に変える。公式 wiki によると、価格は長さと地面からの高さ、または地下の深さで決まる。そのため同じ基本価格でも請求額は大きく変わりうる。トンネルは町の評判を下げる（<a href="reputation.html">評判</a> を参照）。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>ヒント</h4><p>1970 年より前に谷を越える高速線を通すなら、140 km/h より速い橋はつり橋（180 km/h）だけである。トンネルには制限がまったくない。</p></div></aside>
+<h2 id="踏切と信号"><span class="n">5</span><span>踏切と信号</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>種類</th>
+<th>年</th>
+<th>線路の最高速度</th>
+<th>価格</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>シンプルな踏切</td>
+<td>1850 - 1925</td>
+<td>120 km/h</td>
+<td>4,000</td>
+<td class="sc"><code class="src">era_a_eu.rcr.lua:14-17</code>、<code class="src">era_a_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>半防壁付き踏切</td>
+<td>1925 - 1975</td>
+<td>160 km/h</td>
+<td>1.6万</td>
+<td class="sc"><code class="src">era_b_eu.rcr.lua:15-18</code>、<code class="src">era_b_eu.rcr.lua:27</code></td>
+</tr>
+<tr>
+<td>近代化半防壁付き踏切</td>
+<td>1975 年から</td>
+<td>160 km/h</td>
+<td>1.6万</td>
+<td class="sc"><code class="src">era_c_eu.rcr.lua:15-17</code>、<code class="src">era_c_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>経路信号（1950 年まで腕木式、1950 年から灯火式）</td>
+<td>すべて</td>
+<td>-</td>
+<td>9,000、維持費 年 1,500</td>
+<td class="sc"><code class="src">signal_path_a.con.lua:4-5</code>、<code class="src">signal_path_a.con.lua:10-11</code>、<code class="src">signal_path_c.con.lua:4-5</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>踏切は線路を最大 160 km/h に制限する。高速線は道路を橋かトンネルで越える必要がある。</li>
+<li>どの信号も <strong>一方通行</strong> に設定できる<span class="sr">（<code class="src">signal_path_a.con.lua:51-52</code>）</span>。信号が線路をどうブロックに分けるかは、公式 wiki の鉄道信号のページで説明されている。</li>
+</ul>
+<h2 id="デポと整備施設"><span class="n">6</span><span>デポと整備施設</span></h2>
+<p>デポと整備施設のコスト、扱える車両の数と範囲：<a href="vehicles.html">路線と車両</a> と <a href="costs.html">コスト、維持費、融資</a>。</p>
+<h2 id="知っておくと良いこと"><span class="n">7</span><span>知っておくと良いこと</span></h2>
+<ul>
+<li>1940 年より前は町の道路の改良が安い。1940 年以降は新設や建て直しの町の道路が 3 倍の価格、3 倍の維持費になる。</li>
+<li>高速線では橋と踏切をすべて確認しよう：最も遅いものがそこでの速度を決める。</li>
+<li>速度は運行回数が増えるときだけ元が取れる（<a href="money.html">なぜお金が減るのか？</a> を参照）。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>公式wiki とゲームスクリプトの比較</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>詳細を追加</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wikiの記述</div><p>"Streets and tracks have speed limits, depending on the type used. On curved tracks, the speed of trains is also limited by the curve's radius. . Rail bridges have an additional speed limit, which may lower the speed limit of the used tracks." "The Alley tool places trees on the side of the street which reduces the noises and pollutions emitted by vehicles using that street. It also lower the maximum speed of the road." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks">Streets and Tracks</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>ゲームスクリプトの内容</div><p>線路、道路、橋の速度は公式の表と同じ。ファイルでは橋の制限は道路にもかかり、トンネルには制限がなく、踏切は線路を 120 または 160 km/h に制限し、木は道路を 25 % 遅くして汚染を 50 % 減らすが騒音は 10 % しか減らさない。一方、防音壁は速度を落とさずに騒音を 65 % 減らす。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>パスはゲームの base/content フォルダー内、またはその zip ファイル内のもの。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>このページの内容</h5><ol><li><a href="#線路">線路</a></li><li><a href="#道路">道路</a></li><li><a href="#並木と防音壁">並木と防音壁</a></li><li><a href="#橋とトンネル">橋とトンネル</a></li><li><a href="#踏切と信号">踏切と信号</a></li><li><a href="#デポと整備施設">デポと整備施設</a></li><li><a href="#知っておくと良いこと">知っておくと良いこと</a></li></ol><div class="box"><b>42</b><span>ソース参照</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">ソースを表示</span><span class="h">ソースを隠す</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>その他のメカニクス</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>飛行機、空港、ヘリコプター</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>会社のランク、特典と本社</b><small>会社と本社</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>コスト、維持費、融資</b><small>財務とローン</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>出発設定：満載、積載量、停留時間</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>汚染と騒音</b><small>公害と騒音</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨物収入と配送時間</b><small>貨物と収入</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>産業</b><small>産業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>積み込みと積み下ろしの速度</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>なぜお金が減るのか？</b><small>財務とローン</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>町の評判</b><small>町</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>船舶と港</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>助成金：提案、期限、報酬</b><small>助成金</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>ゲーム時間とカレンダー</b><small>ゲーム内時間とカレンダー</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>町の成長：経験値、評価、規模</b><small>町</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>車両：状態、年数、積載速度</b><small>路線と車両</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>倉庫</b><small>倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>労働者と労働者ブースト</b><small>産業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro によるファンプロジェクト。Urban Games とは無関係です。</span><span>文章と画像：CC BY 4.0 · ゲームコード © Urban Games：短い参照のみ掲載。</span><span class="tr">英語からの翻訳です。訂正を歓迎します (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>

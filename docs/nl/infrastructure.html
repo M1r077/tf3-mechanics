@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Straten, sporen, bruggen en seinen · TF3-mechanismen</title>
+<meta name="description" content="Hoe Transport Fever 3 echt werkt, gelezen uit de eigen scripts van het spel.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/infrastructure.html"><link rel="alternate" hreflang="fr" href="../fr/infrastructure.html"><link rel="alternate" hreflang="de" href="../de/infrastructure.html"><link rel="alternate" hreflang="es" href="../es/infrastructure.html"><link rel="alternate" hreflang="it" href="../it/infrastructure.html"><link rel="alternate" hreflang="nl" href="../nl/infrastructure.html"><link rel="alternate" hreflang="pl" href="../pl/infrastructure.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/infrastructure.html"><link rel="alternate" hreflang="ru" href="../ru/infrastructure.html"><link rel="alternate" hreflang="ja" href="../ja/infrastructure.html"><link rel="alternate" hreflang="ko" href="../ko/infrastructure.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/infrastructure.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/infrastructure.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Index</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Officiële wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Patchnotes</a></nav>
+<button class="srcbtn" type="button" data-src title="Scriptverwijzingen tonen of verbergen"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Bronnen</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="Tips tonen of verbergen"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>Tips</span></button>
+<details class="langs"><summary aria-label="Taal"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Nederlands</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Taal"><a href="../en/infrastructure.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/infrastructure.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/infrastructure.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/infrastructure.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/infrastructure.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/infrastructure.html" class="on" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/infrastructure.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/infrastructure.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/infrastructure.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/infrastructure.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/infrastructure.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/infrastructure.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/infrastructure.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Index</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg>Straten, sporen en depots</span></div><h1 class="rise d1">Straten, sporen, bruggen en seinen</h1><p class="lead rise d2">Snelheid, prijs en onderhoud van elk spoor- en straattype, wat bruggen, tunnels, overwegen en seinen kosten en toestaan, wat lanen en geluidsschermen echt veranderen, en waar depots worden uitgelegd.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Gecontroleerd in de scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Officiële wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Bijgewerkt 2026-11-17</span><span class="pill" title="Spelversie waarop deze uitleg is gecontroleerd (officiële release notes)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Spelversie 40425</span></div><div class=facts><div class="fact rise d1"><b>100 / 160 / 350 km/h</b><span>eenvoudig spoor, standaardspoor en hogesnelheidslijn</span></div><div class="fact rise d2"><b>×9</b><span>prijs en onderhoud van een hogesnelheidslijn vergeleken met eenvoudig spoor</span></div><div class="fact rise d3"><b>+30 %</b><span>prijs van een bovenleiding op een spoor</span></div><div class="fact rise d4"><b>-65 %</b><span>geluid van een straat of spoor met een geluidsscherm</span></div></div></div></section><div class="wrap layout"><article><p>Elk straat- en spoortype heeft een topsnelheid, een prijs per meter en een onderhoud per meter en jaar, allemaal in zijn bestand. Bruggen, overwegen en sommige straatversieringen voegen hun eigen snelheidslimiet toe. De kosten hieronder gelden bij <strong>Kosten infrastructuur</strong> en <strong>Onderhoud infrastructuur</strong> 100 % (zie <a href="costs.html">Kosten, onderhoud en leningen</a>).</p>
+<h2 id="sporen"><span class="n">1</span><span>Sporen</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Spoor</th>
+<th>Vanaf</th>
+<th>Topsnelheid</th>
+<th>Bouw per km</th>
+<th>Onderhoud per km en jaar</th>
+<th class="sc">Bron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eenvoudig spoor</td>
+<td>start</td>
+<td>100 km/h</td>
+<td>60.000</td>
+<td>10.000</td>
+<td class="sc"><code class="src">simple.street_template.lua:9</code>, <code class="src">simple.street_template.lua:28</code>, <code class="src">simple.street_template.lua:33</code></td>
+</tr>
+<tr>
+<td>Standaardspoor</td>
+<td>1930</td>
+<td>160 km/h</td>
+<td>180.000</td>
+<td>30.000</td>
+<td class="sc"><code class="src">standard.street_template.lua:4</code>, <code class="src">standard.street_template.lua:11</code>, <code class="src">standard.street_template.lua:30</code>, <code class="src">standard.street_template.lua:35</code></td>
+</tr>
+<tr>
+<td>Hogesnelheidslijn</td>
+<td>1980</td>
+<td>350 km/h</td>
+<td>540.000</td>
+<td>90.000</td>
+<td class="sc"><code class="src">high_speed.street_template.lua:4</code>, <code class="src">high_speed.street_template.lua:11</code>, <code class="src">high_speed.street_template.lua:30</code>, <code class="src">high_speed.street_template.lua:35</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Een <strong>bovenleiding</strong> kost <strong>30 %</strong> meer dan het spoor<span class="sr"> (<code class="src">mod.script.tl:24-25</code>)</span>. Ze is beschikbaar vanaf 1921 op eenvoudig spoor en vanaf de start van elk nieuwer type<span class="sr"> (<code class="src">simple_catenary.street_template.lua:4</code>)</span>. Volgens de bestanden kost ze per jaar niets extra: de elektrische variant heeft hetzelfde onderhoud<span class="sr"> (<code class="src">simple_catenary.street_template.lua:34</code>)</span>.</li>
+<li>Alle drie de typen staan dezelfde helling en bochten toe: <strong>8,5 %</strong> bij het bouwen (de schuifregelaar Hoek gaat tot daar), hooguit 13 % voor de vorm van het spoor, en een bochtstraal van 55 m bij het bouwen, minstens 40 m<span class="sr"> (<code class="src">standard.street_template.lua:36-37</code>, <code class="src">standard.street_template.lua:48-49</code>, <code class="src">construction_react_util.tl:241-242</code>, <code class="src">construction_react_util.tl:1821</code>)</span>.</li>
+<li>De vervuiling van het spoor zelf stijgt met het type: 2, 4 en 6<span class="sr"> (<code class="src">simple.street_template.lua:18</code>, <code class="src">standard.street_template.lua:20</code>, <code class="src">high_speed.street_template.lua:20</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Bepaald door de game-engine<small>C++, niet zichtbaar in de scripts</small></h4><p>Hoeveel een bocht de snelheid van een trein verlaagt (de speedCoeffs van elk spoortype) en welke snelheid het bouwgereedschap voor een bocht toont, berekent de engine.</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Tip</h4><p>Een hogesnelheidslijn kost 9 keer zoveel als eenvoudig spoor, bij de bouw en elk jaar. Leg ze alleen waar treinen echt sneller dan 160 km/h rijden; elders volstaat standaardspoor, en eenvoudig spoor voor trage goederenzijlijnen.</p></div></aside>
+<h2 id="straten"><span class="n">2</span><span>Straten</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Straat</th>
+<th>Jaren</th>
+<th>Topsnelheid</th>
+<th>Bouw per km</th>
+<th>Onderhoud per km en jaar</th>
+<th class="sc">Bron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Smalle straat (oud)</td>
+<td>tot 1940</td>
+<td>20 km/h</td>
+<td>36.000</td>
+<td>6.000</td>
+<td class="sc"><code class="src">town_old_xsmall.street_template.lua:4-5</code>, <code class="src">town_old_xsmall.street_template.lua:8</code>, <code class="src">town_old_xsmall.street_template.lua:27</code>, <code class="src">town_old_xsmall.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>Kleine straat (oud)</td>
+<td>tot 1940</td>
+<td>40 km/h</td>
+<td>60.000</td>
+<td>10.000</td>
+<td class="sc"><code class="src">town_old_small.street_template.lua:8</code>, <code class="src">town_old_small.street_template.lua:27</code>, <code class="src">town_old_small.street_template.lua:56</code></td>
+</tr>
+<tr>
+<td>Grote straat (oud)</td>
+<td>tot 1940</td>
+<td>60 km/h</td>
+<td>180.000</td>
+<td>30.000</td>
+<td class="sc"><code class="src">town_old_large.street_template.lua:8</code>, <code class="src">town_old_large.street_template.lua:27</code>, <code class="src">town_old_large.street_template.lua:88</code></td>
+</tr>
+<tr>
+<td>Smalle straat (nieuw)</td>
+<td>vanaf 1940</td>
+<td>30 km/h</td>
+<td>120.000</td>
+<td>20.000</td>
+<td class="sc"><code class="src">town_new_xsmall.street_template.lua:4</code>, <code class="src">town_new_xsmall.street_template.lua:11</code>, <code class="src">town_new_xsmall.street_template.lua:30</code>, <code class="src">town_new_xsmall.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>Kleine straat (nieuw)</td>
+<td>vanaf 1940</td>
+<td>50 km/h</td>
+<td>180.000</td>
+<td>30.000</td>
+<td class="sc"><code class="src">town_new_small.street_template.lua:11</code>, <code class="src">town_new_small.street_template.lua:30</code>, <code class="src">town_new_small.street_template.lua:59</code></td>
+</tr>
+<tr>
+<td>Middelgrote straat (nieuw)</td>
+<td>vanaf 1940</td>
+<td>50 km/h</td>
+<td>360.000</td>
+<td>60.000</td>
+<td class="sc"><code class="src">town_new_medium.street_template.lua:11</code>, <code class="src">town_new_medium.street_template.lua:30</code>, <code class="src">town_new_medium.street_template.lua:75</code></td>
+</tr>
+<tr>
+<td>Grote straat (nieuw)</td>
+<td>vanaf 1940</td>
+<td>60 km/h</td>
+<td>540.000</td>
+<td>90.000</td>
+<td class="sc"><code class="src">town_new_large.street_template.lua:11</code>, <code class="src">town_new_large.street_template.lua:30</code>, <code class="src">town_new_large.street_template.lua:91</code></td>
+</tr>
+<tr>
+<td>Kleine autoweg (oud)</td>
+<td>tot 1940</td>
+<td>60 km/h</td>
+<td>60.000</td>
+<td>10.000</td>
+<td class="sc"><code class="src">country_old_small.street_template.lua:8</code>, <code class="src">country_old_small.street_template.lua:29</code>, <code class="src">country_old_small.street_template.lua:58</code></td>
+</tr>
+<tr>
+<td>Kleine autoweg (nieuw)</td>
+<td>vanaf 1940</td>
+<td>80 km/h</td>
+<td>180.000</td>
+<td>30.000</td>
+<td class="sc"><code class="src">country_new_small.street_template.lua:10</code>, <code class="src">country_new_small.street_template.lua:31</code>, <code class="src">country_new_small.street_template.lua:60</code></td>
+</tr>
+<tr>
+<td>Eenbaans-snelweg</td>
+<td>vanaf 1940</td>
+<td>100 km/h</td>
+<td>180.000</td>
+<td>30.000</td>
+<td class="sc"><code class="src">highway_new_small.street_template.lua:10</code>, <code class="src">highway_new_small.street_template.lua:32</code>, <code class="src">highway_new_small.street_template.lua:53</code></td>
+</tr>
+<tr>
+<td>Tweebaans-snelweg</td>
+<td>vanaf 1940</td>
+<td>120 km/h</td>
+<td>360.000</td>
+<td>60.000</td>
+<td class="sc"><code class="src">highway_new_medium.street_template.lua:10</code>, <code class="src">highway_new_medium.street_template.lua:32</code>, <code class="src">highway_new_medium.street_template.lua:61</code></td>
+</tr>
+<tr>
+<td>Driebaans-snelweg</td>
+<td>vanaf 1940</td>
+<td>120 km/h</td>
+<td>540.000</td>
+<td>90.000</td>
+<td class="sc"><code class="src">highway_new_large.street_template.lua:10</code>, <code class="src">highway_new_large.street_template.lua:32</code>, <code class="src">highway_new_large.street_template.lua:69</code></td>
+</tr>
+<tr>
+<td>Tramspoor (oud)</td>
+<td>tot 1910</td>
+<td>40 km/h</td>
+<td>36.000</td>
+<td>6.000</td>
+<td class="sc"><code class="src">tram_old.street_template.lua:4-5</code>, <code class="src">tram_old.street_template.lua:8</code>, <code class="src">tram_old.street_template.lua:27</code>, <code class="src">tram_old.street_template.lua:40</code></td>
+</tr>
+<tr>
+<td>Tramspoor (nieuw)</td>
+<td>vanaf 1925</td>
+<td>100 km/h</td>
+<td>120.000</td>
+<td>20.000</td>
+<td class="sc"><code class="src">tram_new.street_template.lua:4</code>, <code class="src">tram_new.street_template.lua:9</code>, <code class="src">tram_new.street_template.lua:29</code>, <code class="src">tram_new.street_template.lua:42</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>De <strong>wissel van 1940</strong> maakt stadsstraten 10 km/h sneller maar <strong>drie keer</strong> zo duur, bij de bouw en elk jaar: een kleine straat gaat van 60.000 naar 180.000 per km.</li>
+<li>De middelgrote en grote varianten van autowegen kosten 2 en 3 keer de kleine, bij dezelfde snelheid<span class="sr"> (<code class="src">country_new_large.street_template.lua:10</code>, <code class="src">country_new_large.street_template.lua:31</code>)</span>.</li>
+<li>Toevoegingen aan een straat: een <strong>busbaan</strong> +10 %, een <strong>tramspoor</strong> +20 %, een <strong>elektrisch tramspoor</strong> +40 % van de straatprijs<span class="sr"> (<code class="src">mod.script.tl:24-28</code>)</span>.</li>
+<li>De speler bezit straten meestal niet, ook niet die hij zelf heeft gebouwd; met het straatgereedschap kun je de eigenaar van een straat wijzigen (officiële wiki). Wie het onderhoud van een straat betaalt, beslist de engine.</li>
+</ul>
+<h2 id="lanen-en-geluidsschermen"><span class="n">3</span><span>Lanen en geluidsschermen</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Gereedschap</th>
+<th>Geluid</th>
+<th>Vervuiling</th>
+<th>Topsnelheid</th>
+<th>Waar</th>
+<th class="sc">Bron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Laantool (bomen)</td>
+<td>-10 %</td>
+<td>-50 %</td>
+<td><strong>-25 %</strong></td>
+<td>straten met een stoep, niet op bruggen of in tunnels</td>
+<td class="sc"><code class="src">alley.edge.lua:39-40</code>, <code class="src">alley.edge.lua:53-56</code></td>
+</tr>
+<tr>
+<td>Geluidsschermtool</td>
+<td>-65 %</td>
+<td>geen verandering</td>
+<td>geen verandering</td>
+<td>straten en sporen, niet in tunnels</td>
+<td class="sc"><code class="src">barrier_b.edge.lua:43</code>, <code class="src">barrier_b.edge.lua:47</code>, <code class="src">barrier_track_b.edge.lua:43</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Beide kosten in hun bestanden 100 en 10 per jaar, zoals een straat per meter<span class="sr"> (<code class="src">alley.edge.lua:8</code>, <code class="src">alley.edge.lua:12</code>, <code class="src">barrier_b.edge.lua:7</code>, <code class="src">barrier_b.edge.lua:11</code>)</span>.</li>
+<li>De straattypen "met bomen" en "met schermen" in het bouwmenu zijn dezelfde straten met deze versieringen er al op<span class="sr"> (<code class="src">town_new_medium_trees.street_template.lua:12-14</code>)</span>. Het bouwmenu telt hun effecten op<span class="sr"> (<code class="src">construction_react_util.tl:2116-2139</code>)</span>.</li>
+<li>Een straat met bomen is dus <strong>een kwart trager</strong>: een nieuwe middelgrote straat met bomen staat ongeveer 38 km/h toe in plaats van 50.</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Tip</h4><p>Tegen geluid gebruik je het geluidsscherm: -65 % en geen snelheidsverlies. Bomen zijn het middel tegen vervuiling (-50 %), maar ze maken de straat een kwart trager.</p></div></aside>
+<p>Hoe steden geluid en vervuiling beoordelen: <a href="emission.html">Vervuiling en geluid</a>.</p>
+<h2 id="bruggen-en-tunnels"><span class="n">4</span><span>Bruggen en tunnels</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Brug</th>
+<th>Jaren</th>
+<th>Topsnelheid</th>
+<th>Voor</th>
+<th>Basisprijs</th>
+<th class="sc">Bron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stenen brug</td>
+<td>vanaf de start</td>
+<td>90 km/h</td>
+<td>sporen, straten</td>
+<td>200</td>
+<td class="sc"><code class="src">stone.bridge.lua:169-170</code>, <code class="src">stone.bridge.lua:181-183</code>, <code class="src">stone.bridge.lua:193</code></td>
+</tr>
+<tr>
+<td>Schraagbrug</td>
+<td>tot 1970</td>
+<td>60 km/h</td>
+<td>één type voor sporen, één voor straten</td>
+<td>100</td>
+<td class="sc"><code class="src">trestle.bridge.lua:200-201</code>, <code class="src">trestle.bridge.lua:212-214</code>, <code class="src">trestle.bridge.lua:226</code>, <code class="src">trestle_s.bridge.lua:212</code></td>
+</tr>
+<tr>
+<td>Stalen brug</td>
+<td>vanaf 1940</td>
+<td>140 km/h</td>
+<td>sporen, straten</td>
+<td>200</td>
+<td class="sc"><code class="src">steel.bridge.lua:243</code>, <code class="src">steel.bridge.lua:259</code>, <code class="src">steel.bridge.lua:269</code></td>
+</tr>
+<tr>
+<td>Ophangbrug</td>
+<td>vanaf 1940</td>
+<td>180 km/h</td>
+<td>sporen, straten</td>
+<td>600</td>
+<td class="sc"><code class="src">suspension.bridge.lua:277</code>, <code class="src">suspension.bridge.lua:294</code>, <code class="src">suspension.bridge.lua:304</code></td>
+</tr>
+<tr>
+<td>Betonnen brug</td>
+<td>vanaf 1970</td>
+<td>280 km/h</td>
+<td>sporen, straten</td>
+<td>200</td>
+<td class="sc"><code class="src">concrete.bridge.lua:162</code>, <code class="src">concrete.bridge.lua:176</code>, <code class="src">concrete.bridge.lua:187</code></td>
+</tr>
+<tr>
+<td>Tuibrug</td>
+<td>vanaf 2000</td>
+<td>220 km/h</td>
+<td>sporen, straten</td>
+<td>750</td>
+<td class="sc"><code class="src">cable.bridge.lua:214</code>, <code class="src">cable.bridge.lua:231</code>, <code class="src">cable.bridge.lua:240</code></td>
+</tr>
+<tr>
+<td>Verstijfde staafboogbrug</td>
+<td>vanaf 2010</td>
+<td>350 km/h</td>
+<td>sporen, straten</td>
+<td>650</td>
+<td class="sc"><code class="src">tarch.bridge.lua:253</code>, <code class="src">tarch.bridge.lua:270</code>, <code class="src">tarch.bridge.lua:280</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>De limiet van de brug geldt <strong>bovenop</strong> die van het spoor: een hogesnelheidslijn over een stalen brug rijdt daar 140 km/h. Vóór 1970 staat geen enkele brug meer dan 180 km/h toe, vóór 2010 geen enkele 350 km/h.</li>
+<li><strong>Tunnels</strong> (Stenen tunnel, Betonnen tunnel vanaf 1970) hebben in hun bestanden <strong>geen snelheidslimiet</strong>, en dezelfde basisprijs van 600<span class="sr"> (<code class="src">tunnel_a.tunnel.lua:187-188</code>, <code class="src">tunnel_a_car.tunnel.lua:185</code>, <code class="src">tunnel_b.tunnel.lua:191-194</code>)</span>.</li>
+<li>Brug- en tunnelprijzen volgen Kosten infrastructuur<span class="sr"> (<code class="src">post_run_util.tl:50-51</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Bepaald door de game-engine<small>C++, niet zichtbaar in de scripts</small></h4><p>De basisprijs van een brug of tunnel wordt door de engine omgezet in een prijs per meter, met de hoogte of diepte (costFactors); de officiële wiki zegt dat die afhangt van de lengte en de hoogte boven de grond of de diepte eronder. Dezelfde basisprijs kan dus heel verschillende rekeningen geven. Tunnels kosten de stad Reputatie (zie <a href="reputation.html">Reputatie</a>).</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Tip</h4><p>Voor een snelle lijn over een dal vóór 1970 is een ophangbrug (180 km/h) de enige brug die sneller is dan 140 km/h; een tunnel heeft helemaal geen limiet.</p></div></aside>
+<h2 id="overwegen-en-seinen"><span class="n">5</span><span>Overwegen en seinen</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Wat</th>
+<th>Jaren</th>
+<th>Topsnelheid van het spoor</th>
+<th>Prijs</th>
+<th class="sc">Bron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eenvoudige overweg</td>
+<td>1850 - 1925</td>
+<td>120 km/h</td>
+<td>4.000</td>
+<td class="sc"><code class="src">era_a_eu.rcr.lua:14-17</code>, <code class="src">era_a_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>Overweg met halve overwegbomen</td>
+<td>1925 - 1975</td>
+<td>160 km/h</td>
+<td>16.000</td>
+<td class="sc"><code class="src">era_b_eu.rcr.lua:15-18</code>, <code class="src">era_b_eu.rcr.lua:27</code></td>
+</tr>
+<tr>
+<td>Moderne overweg met halve overwegbomen</td>
+<td>vanaf 1975</td>
+<td>160 km/h</td>
+<td>16.000</td>
+<td class="sc"><code class="src">era_c_eu.rcr.lua:15-17</code>, <code class="src">era_c_eu.rcr.lua:26</code></td>
+</tr>
+<tr>
+<td>Sein (armsein tot 1950, lichtsein vanaf 1950)</td>
+<td>alle</td>
+<td>-</td>
+<td>9.000, onderhoud 1.500 per jaar</td>
+<td class="sc"><code class="src">signal_path_a.con.lua:4-5</code>, <code class="src">signal_path_a.con.lua:10-11</code>, <code class="src">signal_path_c.con.lua:4-5</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Een overweg beperkt het spoor tot hooguit 160 km/h: hogesnelheidslijnen hebben bruggen of tunnels over straten nodig.</li>
+<li>Elk sein kan op <strong>Eenrichtingsverkeer</strong> worden gezet<span class="sr"> (<code class="src">signal_path_a.con.lua:51-52</code>)</span>. Hoe seinen het spoor in blokken verdelen, staat op de pagina Railway Signals van de officiële wiki.</li>
+</ul>
+<h2 id="depots-en-onderhoudsstations"><span class="n">6</span><span>Depots en onderhoudsstations</span></h2>
+<p>Wat depots en onderhoudsstations kosten, hoeveel voertuigen ze bedienen en in welke straal: <a href="vehicles.html">Lijnen en voertuigen</a> en <a href="costs.html">Kosten, onderhoud en leningen</a>.</p>
+<h2 id="goed-om-te-weten"><span class="n">7</span><span>Goed om te weten</span></h2>
+<ul>
+<li>Vóór 1940 is het opwaarderen van stadsstraten goedkoop; na 1940 kost elke nieuwe of herbouwde stadsstraat drie keer zoveel en drie keer zoveel onderhoud.</li>
+<li>Controleer op een snelle lijn elke brug en elke overweg: de traagste bepaalt daar de snelheid.</li>
+<li>Snelheid loont alleen als ze meer ritten oplevert (zie <a href="money.html">Waarom verlies ik geld?</a>).</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Officiële wiki tegenover spelscripts</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Vult aan</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>De officiële wiki zegt</div><p>"Streets and tracks have speed limits, depending on the type used. On curved tracks, the speed of trains is also limited by the curve's radius. . Rail bridges have an additional speed limit, which may lower the speed limit of the used tracks." "The Alley tool places trees on the side of the street which reduces the noises and pollutions emitted by vehicles using that street. It also lower the maximum speed of the road." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks">Streets and Tracks</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>De spelscripts tonen</div><p>Dezelfde snelheden als de officiële tabellen voor sporen, straten en bruggen. In de bestanden gelden bruglimieten ook voor straten, tunnels hebben er geen, overwegen beperken sporen tot 120 of 160 km/h, bomen maken een straat 25 % trager en verlagen de vervuiling met 50 % maar het geluid maar met 10 %, terwijl geluidsschermen het geluid met 65 % verlagen zonder te vertragen.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>De paden liggen in de map base/content van het spel of in de zipbestanden ervan.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Op deze pagina</h5><ol><li><a href="#sporen">Sporen</a></li><li><a href="#straten">Straten</a></li><li><a href="#lanen-en-geluidsschermen">Lanen en geluidsschermen</a></li><li><a href="#bruggen-en-tunnels">Bruggen en tunnels</a></li><li><a href="#overwegen-en-seinen">Overwegen en seinen</a></li><li><a href="#depots-en-onderhoudsstations">Depots en onderhoudsstations</a></li><li><a href="#goed-om-te-weten">Goed om te weten</a></li></ol><div class="box"><b>42</b><span>bronverwijzingen</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Bronnen tonen</span><span class="h">Bronnen verbergen</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:infrastructure:streetstracks"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Officiële wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Andere mechanismen</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Vliegtuigen, luchthavens en helikopters</b><small>Stations en laden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>Bedrijfsrang, voordelen en hoofdkwartier</b><small>Bedrijf en hoofdkwartier</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Kosten, onderhoud en leningen</b><small>Financiën en leningen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Vertrekinstellingen: volledige belading, Vulniveau en stoptijden</b><small>Stations en laden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Vervuiling en geluidsoverlast</b><small>Vervuiling en geluid</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Vrachtinkomsten en bezorgtijd</b><small>Vracht en inkomsten</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Industrie</b><small>Industriebedrijven</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Laad- en lossnelheid</b><small>Stations en laden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Waarom verlies ik geld?</b><small>Financiën en leningen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputatie van steden</b><small>Steden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Schepen en havens</b><small>Stations en laden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsidies: aanbiedingen, termijnen en beloningen</b><small>Subsidies</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Speltijd en kalender</b><small>Speltijd en kalender</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Stadsgroei: XP, beoordelingen en grootte</b><small>Steden</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Voertuigen: staat, leeftijd en laadsnelheid</b><small>Lijnen en voertuigen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Opslagplaatsen</b><small>Opslagplaatsen</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Werknemers en de werknemersboost</b><small>Industriebedrijven</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Fanproject van Miro. Niet verbonden aan Urban Games.</span><span>Teksten en afbeeldingen: CC BY 4.0 · Spelcode © Urban Games: alleen korte verwijzingen worden getoond.</span><span class="tr">Vertaald uit het Engels; correcties zijn welkom (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Officiële wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>
