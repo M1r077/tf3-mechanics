@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>通知と警告 · TF3 メカニクス</title>
+<meta name="description" content="Transport Fever 3 の本当の仕組みを、ゲーム自身のスクリプトから読み解く。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/notifications.html"><link rel="alternate" hreflang="fr" href="../fr/notifications.html"><link rel="alternate" hreflang="de" href="../de/notifications.html"><link rel="alternate" hreflang="es" href="../es/notifications.html"><link rel="alternate" hreflang="it" href="../it/notifications.html"><link rel="alternate" hreflang="nl" href="../nl/notifications.html"><link rel="alternate" hreflang="pl" href="../pl/notifications.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/notifications.html"><link rel="alternate" hreflang="ru" href="../ru/notifications.html"><link rel="alternate" hreflang="ja" href="../ja/notifications.html"><link rel="alternate" hreflang="ko" href="../ko/notifications.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/notifications.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/notifications.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目次</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>パッチノート</a></nav>
+<button class="srcbtn" type="button" data-src title="スクリプト参照の表示・非表示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>ソース</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="ヒントの表示・非表示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>ヒント</span></button>
+<details class="langs"><summary aria-label="言語"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>日本語</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="言語"><a href="../en/notifications.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/notifications.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/notifications.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/notifications.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/notifications.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/notifications.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/notifications.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/notifications.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/notifications.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/notifications.html" class="on" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/notifications.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/notifications.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/notifications.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目次</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg>通知と警告</span></div><h1 class="rise d1">通知と警告</h1><p class="lead rise d2">各警告がいつ出ていつ消えるか：立ち往生した車両、使えない駅や混雑した駅、路線と停車駅の問題、町の評価、車両状態、閉鎖する産業、そして初期設定でログに残らない警告。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>スクリプトで検証済み</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:userinterface"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新日 2026-11-17</span><span class="pill" title="この説明を確認したゲームのバージョン(公式リリースノート)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>ゲームのビルド 40425</span></div><div class=facts><div class="fact rise d1"><b>5 分</b><span>車両が立ち往生と報告されるまでに止まっているゲーム時間</span></div><div class="fact rise d2"><b>20 %</b><span>警告が出る車両状態。30 % を超えるまで続く</span></div><div class="fact rise d3"><b>11</b><span>新しいゲームでオフになっている通知の種類</span></div><div class="fact rise d4"><b>75 日</b><span>道路に接続されていない駅を調べる間隔</span></div></div></div></section><div class="wrap layout"><article><p>ほとんどの警告は<strong>持続型</strong>である。ゲームスクリプトが状況を繰り返し調べ、問題がある間は警告が残り、解決すると自然に消える。調査は 4 回の更新に順番に分けて行われるため、警告が出たり消えたりするまで少し時間がかかることがある<span class="sr">（<code class="src">notifications.script.tl:13</code>、<code class="src">notifications.script.tl:49</code>）</span>。</p>
+<h2 id="各警告が出る条件"><span class="n">1</span><span>各警告が出る条件</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>警告</th>
+<th>出る条件</th>
+<th>消える条件</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>車両が立ち往生しています</strong></td>
+<td>あなたの車両が運行中で、あなたが止めたのではなく、ゲーム時間で <strong>5 分</strong>間速度 0 のまま</td>
+<td>再び動く</td>
+<td class="sc"><code class="src">notifications.script.tl:557-580</code></td>
+</tr>
+<tr>
+<td><strong>駅が機能していません</strong></td>
+<td>駅のどのターミナルでも旅客の乗降がなく、集客範囲に<strong>何も</strong>ない（倉庫、産業、町の建物がない）状態で、あなたの路線が停車している</td>
+<td>集客範囲に何かが入る</td>
+<td class="sc"><code class="src">notifications.script.tl:602-617</code>、<code class="src">notifications.script.tl:630-647</code>、<code class="src">station_useless.script.tl:39</code></td>
+</tr>
+<tr>
+<td><strong>駅が混雑しています</strong></td>
+<td>駅で待つ旅客や貨物が収容量を超え（あふれ）、あなたの路線が停車している。旅客は去っていく</td>
+<td>あふれが解消する</td>
+<td class="sc"><code class="src">notifications.script.tl:599</code>、<code class="src">notifications.script.tl:649-661</code>、<code class="src">overcrowding.script.tl:23</code></td>
+</tr>
+<tr>
+<td><strong>車両状態</strong></td>
+<td>あなたの車両の状態が <strong>20 %</strong> 以下</td>
+<td><strong>30 %</strong> を超えるまで戻る</td>
+<td class="sc"><code class="src">notifications.script.tl:310-318</code></td>
+</tr>
+<tr>
+<td><strong>町の評価が極めて低い</strong></td>
+<td>町の評価のどれかが「劣」（1/6 未満）に落ちる</td>
+<td>評価が「可」以上に戻る</td>
+<td class="sc"><code class="src">notifications.script.tl:230-238</code>、<code class="src">town_util.tl:763-769</code>、<code class="src">town_util.tl:983-985</code></td>
+</tr>
+<tr>
+<td><strong>町の評価が低下中</strong></td>
+<td>評価が「不可」または「可」（50 % 未満）で、「劣」の警告には入っていない</td>
+<td>評価が「良」以上になる</td>
+<td class="sc"><code class="src">notifications.script.tl:240-248</code></td>
+</tr>
+<tr>
+<td><strong>産業の閉鎖</strong></td>
+<td>産業が閉鎖のカウントダウンを始める</td>
+<td>閉鎖する、または間に合ううちに再び利用される</td>
+<td class="sc"><code class="src">notifications.script.tl:439-451</code>、<code class="src">industry_close.script.tl:53-59</code></td>
+</tr>
+<tr>
+<td><strong>道路の接続なし</strong></td>
+<td>駅が道路に接続されていない。<strong>75 日</strong>ごとに調べられる</td>
+<td>次の調査で道路が見つかる</td>
+<td class="sc"><code class="src">notifications.script.tl:16</code>、<code class="src">notifications.script.tl:423-436</code></td>
+</tr>
+<tr>
+<td><strong>貨物積み下ろしの問題</strong></td>
+<td>車両の貨物がその路線のどこでも積み下ろされない</td>
+<td>積み下ろされる</td>
+<td class="sc"><code class="src">notifications.script.tl:277-290</code>、<code class="src">cargo_rtc_warning.script.tl:28-37</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>車両基地にいる</strong>車両は立ち往生とみなされない。その判定はスクリプトで無効にされている<span class="sr">（<code class="src">notifications.script.tl:563-564</code>）</span>。あなたが止めた車両もみなされない。</li>
+<li>「駅が機能していません」の判定は集客範囲だけを見る。ターミナルですでに旅客の乗降がある駅は報告されない<span class="sr">（<code class="src">notifications.script.tl:606-610</code>）</span>。</li>
+<li>町の評価を上げる方法は<a href="towns.html">町の成長</a>と<a href="reputation.html">評判</a>、閉鎖のカウントダウンの仕組みと止め方は<a href="industries.html">産業</a>、車両状態が車両に与える影響は<a href="costs.html">コスト、維持費、借入</a>を参照。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>ゲームエンジンが決定<small>C++、スクリプトからは見えない</small></h4><p>駅があふれているか、車両に経路があるか、路線が駅に到達できるか、2 つの町の間の移動にどれだけかかってよいかは、エンジンが判定する（calculateStationGroupCargo、getVehicleProblems、getLineProblems、getTownProblems）。スクリプトはその結果を警告に変えるだけである。</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>ヒント</h4><p>「車両が立ち往生しています」「車両の問題」「車両状態」「駅が混雑しています」「駅が使用できません」は、新しいゲームではログでオフになっている。通知の設定でオンにしよう。渋滞、経路の欠如、老朽化した車両群を知らせてくれる警告である。</p></div></aside>
+<h2 id="路線停車駅車両の問題"><span class="n">2</span><span>路線、停車駅、車両の問題</span></h2>
+<p>これらはエンジンによる路線と車両の判定をそのまま使い、スクリプトがそれぞれに見出しを付ける。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>警告</th>
+<th>ケース</th>
+<th class="sc">ソース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>路線の問題</strong></td>
+<td>駅が少なすぎる、同じ駅が 2 回続く、駅同士に互換性がない、駅を接続できなかった、代替ターミナルを接続できなかった</td>
+<td class="sc"><code class="src">line_warning.script.tl:46-128</code></td>
+</tr>
+<tr>
+<td><strong>路線の設定が正しくありません</strong></td>
+<td>どこでも積み込めない、またはどこでも積み下ろせない貨物の種類がある、積み込む設定の貨物を運べる車両がない、設定したどの貨物も運ばない車両や、旅客路線の貨物専用車両がある、貨物がまったく設定されていない</td>
+<td class="sc"><code class="src">line_warning.script.tl:15-36</code>、<code class="src">line_warning.script.tl:133</code></td>
+</tr>
+<tr>
+<td><strong>駅の問題</strong></td>
+<td>現在の車両が使えない停車駅、旅客用の停車駅を貨物車両が使っている（一部またはすべて）、貨物用の停車駅を旅客車両が使っている、設定した貨物の種類をその停車駅で積み込めない、または積み下ろせない</td>
+<td class="sc"><code class="src">line_station_warning.script.tl:6-87</code></td>
+</tr>
+<tr>
+<td><strong>車両の問題</strong></td>
+<td>電化された経路がない、大型航空機用の経路がない、大型船舶用の経路がない、経路がまったくない、2 本の列車が互いにふさいでいる</td>
+<td class="sc"><code class="src">vehicle_warning.script.tl:6-58</code></td>
+</tr>
+<tr>
+<td><strong>街が接続されていません</strong></td>
+<td>2 つの町の間の道路が途切れている、2 つの町の間の移動に時間がかかりすぎる</td>
+<td class="sc"><code class="src">town_warning.script.tl:7-19</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>「大型航空機用の経路がありません」と「大型船舶用の経路がありません」は、車両がその路線の滑走路、ドック、水路に対して大きすぎることを意味する。<a href="aircraft.html">航空機</a>と<a href="ships.html">船舶</a>を参照。</li>
+</ul>
+<h2 id="ログポップアップ設定"><span class="n">3</span><span>ログ、ポップアップ、設定</span></h2>
+<ul>
+<li>警告の種類はそれぞれ通知の設定（「通知ログを設定」）でオフにできる。オフにした種類はポップアップが出ず、ログにも残らない<span class="sr">（<code class="src">notification_util.tl:145-146</code>、<code class="src">notification_log.tl:480</code>）</span>。</li>
+<li><strong>新しいゲーム</strong>では、11 種類が最初からオフになっている：<strong>車両が立ち往生しています</strong>、<strong>車両の問題</strong>、<strong>車両状態</strong>、<strong>駅が混雑しています</strong>、<strong>駅が使用できません</strong>、<strong>駅が接続されていません</strong>、<strong>街が接続されていません</strong>、<strong>積み下ろされていない貨物</strong>、そして会社の資源調査、マーケティングキャンペーン、産業の緑化の進行メッセージ<span class="sr">（<code class="src">stuck_vehicle.res.lua:7</code>、<code class="src">vehicle_warning.res.lua:8</code>、<code class="src">noroadconnection.res.lua:8</code>、<code class="src">vehiclecondition.res.lua:8</code>、<code class="src">overcrowding.res.lua:8</code>、<code class="src">station_useless.res.lua:7</code>、<code class="src">town_warning.res.lua:8</code>、<code class="src">cargo_rtc_warning.res.lua:8</code>、<code class="src">notification_util.tl:32-39</code>）</span>。</li>
+<li>1 回限りのメッセージ（新しい車両、新しい建設、昇格、助成金）は、ゲーム時間で <strong>60 秒</strong>後にポップアップが消える。履歴には残る<span class="sr">（<code class="src">notification_util.tl:10</code>、<code class="src">notifications.script.tl:85-94</code>）</span>。</li>
+<li>通知が指しているものがすべて撤去または再建されたときも、その通知は終わる<span class="sr">（<code class="src">notifications.script.tl:95-107</code>）</span>。</li>
+<li>ミッションでは通知は一時停止の状態で始まり、ミッションがオンにするまで続く<span class="sr">（<code class="src">notifications.script.tl:700-704</code>）</span>。</li>
+</ul>
+<h2 id="知っておくと便利なこと"><span class="n">4</span><span>知っておくと便利なこと</span></h2>
+<ul>
+<li>5 分後の立ち往生の警告は理由を教えてくれない。車両を見てみよう：赤信号、逆向きの一方通行信号、または同じ車両の「車両の問題」警告。</li>
+<li>「駅が機能していません」は「集客範囲にまだ何もない」という意味でしかない。駅を家、産業、倉庫に近づけるか、駅を大きくしよう。</li>
+<li>混雑した駅は旅客を失う。車両を増やすか、運行間隔を短くしよう（<a href="departure.html">発車と待機</a>を参照）。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>公式wiki とゲームスクリプトの比較</h4><span class="res adds"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>adds</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wikiの記述</div><p>The official wiki's User Interface page describes the notification button, the log and its filters, without the conditions of each warning. (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:userinterface">User Interface</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>ゲームスクリプトの内容</div><p>上記の条件：運行中に速度 0 で 5 分たつと立ち往生、車両状態は 20 % から 30 % まで、町の評価「劣」は 1/6 未満、道路接続は 75 日ごとに確認、初期設定で 11 種類がオフ。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>パスはゲームの base/content フォルダー内、またはその zip ファイル内のもの。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>このページの内容</h5><ol><li><a href="#各警告が出る条件">各警告が出る条件</a></li><li><a href="#路線停車駅車両の問題">路線、停車駅、車両の問題</a></li><li><a href="#ログポップアップ設定">ログ、ポップアップ、設定</a></li><li><a href="#知っておくと便利なこと">知っておくと便利なこと</a></li></ol><div class="box"><b>20</b><span>ソース参照</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">ソースを表示</span><span class="h">ソースを隠す</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:userinterface"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>その他のメカニクス</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>飛行機、空港、ヘリコプター</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>会社のランク、特典と本社</b><small>会社と本社</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>コスト、維持費、融資</b><small>財務とローン</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>出発設定：満載、積載量、停留時間</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>汚染と騒音</b><small>公害と騒音</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨物収入と配送時間</b><small>貨物と収入</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>産業</b><small>産業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="infrastructure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg></span><span><b>道路、線路、橋、信号</b><small>道路、線路、車庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>積み込みと積み下ろしの速度</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>なぜお金が減るのか？</b><small>財務とローン</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>町の評判</b><small>町</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>船舶と港</b><small>駅と積み込み</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>助成金：提案、期限、報酬</b><small>助成金</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>ゲーム時間とカレンダー</b><small>ゲーム内時間とカレンダー</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>町の成長：経験値、評価、規模</b><small>町</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>車両：状態、年数、積載速度</b><small>路線と車両</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>倉庫</b><small>倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>労働者と労働者ブースト</b><small>産業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro によるファンプロジェクト。Urban Games とは無関係です。</span><span>文章と画像：CC BY 4.0 · ゲームコード © Urban Games：短い参照のみ掲載。</span><span class="tr">英語からの翻訳です。訂正を歓迎します (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>公式wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>
