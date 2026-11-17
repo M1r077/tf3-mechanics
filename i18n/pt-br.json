@@ -52,7 +52,21 @@
   "tip_sub": "medido no jogo",
   "game": "Versão do jogo",
   "game_tip": "Versão do jogo em que estas explicações foram verificadas (notas de versão oficiais)",
-  "changes": "Mudanças com as versões do jogo"
+  "changes": "Mudanças com as versões do jogo",
+  "patch": "Notas de atualização",
+  "patch_sub": "Cada linha das notas de versão oficiais, da versão mais recente para a mais antiga. Clique nos filtros para mostrar só alguns tipos de linhas.",
+  "f_kind": "Tipo",
+  "f_area": "Área",
+  "f_branch": "Ramo",
+  "k_fixed": "Corrigido",
+  "k_improved": "Melhorado",
+  "k_other": "Outro",
+  "a_general": "Geral",
+  "b_stable": "Estável",
+  "b_preview": "Prévia",
+  "f_all": "Tudo",
+  "patch_lines": "linhas",
+  "patch_src": "Fonte: notas de versão oficiais"
  },
  "diagrams": {
   "T_WORKERS": {

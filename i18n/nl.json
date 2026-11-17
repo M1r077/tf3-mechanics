@@ -52,7 +52,21 @@
   "tip_sub": "in het spel gemeten",
   "game": "Spelversie",
   "game_tip": "Spelversie waarop deze uitleg is gecontroleerd (officiële release notes)",
-  "changes": "Wijzigingen per spelversie"
+  "changes": "Wijzigingen per spelversie",
+  "patch": "Patchnotes",
+  "patch_sub": "Elke regel van de officiële release notes, de nieuwste versie eerst. Klik op de filters om alleen bepaalde soorten regels te tonen.",
+  "f_kind": "Soort",
+  "f_area": "Onderdeel",
+  "f_branch": "Tak",
+  "k_fixed": "Opgelost",
+  "k_improved": "Verbeterd",
+  "k_other": "Overig",
+  "a_general": "Algemeen",
+  "b_stable": "Stabiel",
+  "b_preview": "Preview",
+  "f_all": "Alles",
+  "patch_lines": "regels",
+  "patch_src": "Bron: officiële release notes"
  },
  "diagrams": {
   "T_WORKERS": {

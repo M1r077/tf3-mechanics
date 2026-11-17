@@ -52,7 +52,21 @@
   "tip_sub": "misurato in gioco",
   "game": "Versione del gioco",
   "game_tip": "Versione del gioco su cui sono state verificate queste spiegazioni (note di rilascio ufficiali)",
-  "changes": "Modifiche con le versioni del gioco"
+  "changes": "Modifiche con le versioni del gioco",
+  "patch": "Note di rilascio",
+  "patch_sub": "Ogni riga delle note di rilascio ufficiali, la versione più recente per prima. Clicca sui filtri per mostrare solo alcuni tipi di righe.",
+  "f_kind": "Tipo",
+  "f_area": "Area",
+  "f_branch": "Ramo",
+  "k_fixed": "Corretto",
+  "k_improved": "Migliorato",
+  "k_other": "Altro",
+  "a_general": "Generale",
+  "b_stable": "Stabile",
+  "b_preview": "Anteprima",
+  "f_all": "Tutto",
+  "patch_lines": "righe",
+  "patch_src": "Fonte: note di rilascio ufficiali"
  },
  "diagrams": {
   "T_WORKERS": {

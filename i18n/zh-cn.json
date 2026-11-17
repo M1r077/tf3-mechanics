@@ -52,7 +52,21 @@
   "tip_sub": "游戏内实测",
   "game": "游戏版本",
   "game_tip": "核对这些说明时使用的游戏版本(官方更新说明)",
-  "changes": "随游戏版本的变化"
+  "changes": "随游戏版本的变化",
+  "patch": "更新日志",
+  "patch_sub": "官方更新说明的每一条，最新版本在前。点击筛选器可只显示某些类型的条目。",
+  "f_kind": "类型",
+  "f_area": "领域",
+  "f_branch": "分支",
+  "k_fixed": "修复",
+  "k_improved": "改进",
+  "k_other": "其他",
+  "a_general": "通用",
+  "b_stable": "稳定版",
+  "b_preview": "预览版",
+  "f_all": "全部",
+  "patch_lines": "条",
+  "patch_src": "来源：官方更新说明"
  },
  "diagrams": {
   "T_WORKERS": {

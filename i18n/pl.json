@@ -52,7 +52,21 @@
   "tip_sub": "zmierzone w grze",
   "game": "Wersja gry",
   "game_tip": "Wersja gry, na której sprawdzono te wyjaśnienia (oficjalne informacje o wydaniu)",
-  "changes": "Zmiany w kolejnych wersjach gry"
+  "changes": "Zmiany w kolejnych wersjach gry",
+  "patch": "Lista zmian",
+  "patch_sub": "Każdy wiersz oficjalnych informacji o wydaniu, od najnowszej wersji. Kliknij filtry, aby pokazać tylko niektóre rodzaje wierszy.",
+  "f_kind": "Rodzaj",
+  "f_area": "Obszar",
+  "f_branch": "Gałąź",
+  "k_fixed": "Naprawiono",
+  "k_improved": "Ulepszono",
+  "k_other": "Inne",
+  "a_general": "Ogólne",
+  "b_stable": "Stabilna",
+  "b_preview": "Podgląd",
+  "f_all": "Wszystko",
+  "patch_lines": "wierszy",
+  "patch_src": "Źródło: oficjalne informacje o wydaniu"
  },
  "diagrams": {
   "T_WORKERS": {

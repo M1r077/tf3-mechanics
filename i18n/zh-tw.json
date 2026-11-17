@@ -52,7 +52,21 @@
   "tip_sub": "遊戲內實測",
   "game": "遊戲版本",
   "game_tip": "核對這些說明時使用的遊戲版本(官方更新說明)",
-  "changes": "隨遊戲版本的變化"
+  "changes": "隨遊戲版本的變化",
+  "patch": "更新日誌",
+  "patch_sub": "官方更新說明的每一條，最新版本在前。點擊篩選器可只顯示某些類型的條目。",
+  "f_kind": "類型",
+  "f_area": "領域",
+  "f_branch": "分支",
+  "k_fixed": "修正",
+  "k_improved": "改進",
+  "k_other": "其他",
+  "a_general": "通用",
+  "b_stable": "穩定版",
+  "b_preview": "預覽版",
+  "f_all": "全部",
+  "patch_lines": "條",
+  "patch_src": "來源：官方更新說明"
  },
  "diagrams": {
   "T_WORKERS": {

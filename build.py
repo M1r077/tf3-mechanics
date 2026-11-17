@@ -41,6 +41,7 @@ CONTENT = os.path.join(HERE, "content")
 OUT = os.environ.get("WIKI_OUT") or os.path.join(HERE, "docs")  # WIKI_OUT: build elsewhere (previews)
 INDEX = os.path.join(HERE, "data", "index.json")
 DOMAINS = os.path.join(HERE, "data", "domains.json")
+BUILDS = os.path.join(HERE, "data", "builds.json")  # official release notes, written by notes.py
 LANGS = L.present()
 SOURCE_LANGS = ("en", "fr", "de")  # written directly; the others are translated from English
 REPO = "https://github.com/M1r077/tf3-mechanics"
@@ -69,6 +70,10 @@ UI = {
         "translated": "Translated from English; corrections welcome", "lang_label": "Language",
         "src_btn": "Sources", "src_toggle": "Show or hide the script references", "src_show": "Show the sources", "src_hide": "Hide the sources",
         "game": "Game build", "game_tip": "Game version these explanations were checked on (official release notes)", "changes": "Changes with game versions",
+        "patch": "Patch notes", "patch_sub": "Every line of the official release notes, newest build first. Click the filters to show only some kinds of lines.",
+        "f_kind": "Kind", "f_area": "Area", "f_branch": "Branch",
+        "k_fixed": "Fixed", "k_improved": "Improved", "k_other": "Other", "a_general": "General",
+        "b_stable": "Stable", "b_preview": "Preview", "f_all": "All", "patch_lines": "lines", "patch_src": "Source: official release notes",
     },
     "fr": {
         "site": "Mécaniques TF3", "tagline": "Comment Transport Fever 3 fonctionne vraiment, lu dans les scripts du jeu.",
@@ -92,6 +97,10 @@ UI = {
         "translated": "Traduit de l'anglais ; corrections bienvenues", "lang_label": "Langue",
         "src_btn": "Sources", "src_toggle": "Afficher ou cacher les références aux scripts", "src_show": "Afficher les sources", "src_hide": "Cacher les sources",
         "game": "Version du jeu", "game_tip": "Version du jeu sur laquelle ces explications ont été vérifiées (notes de version officielles)", "changes": "Changements selon les versions du jeu",
+        "patch": "Notes de version", "patch_sub": "Chaque ligne des notes de version officielles, la version la plus récente en premier. Cliquez sur les filtres pour n'afficher que certains types de lignes.",
+        "f_kind": "Type", "f_area": "Domaine", "f_branch": "Branche",
+        "k_fixed": "Corrigé", "k_improved": "Amélioré", "k_other": "Autre", "a_general": "Général",
+        "b_stable": "Stable", "b_preview": "Préversion", "f_all": "Tout", "patch_lines": "lignes", "patch_src": "Source : notes de version officielles",
     },
     "de": {
         "site": "TF3-Mechaniken", "tagline": "Wie Transport Fever 3 wirklich funktioniert, gelesen in den Skripten des Spiels.",
@@ -115,6 +124,10 @@ UI = {
         "translated": "Aus dem Englischen übersetzt; Korrekturen willkommen", "lang_label": "Sprache",
         "src_btn": "Quellen", "src_toggle": "Skriptverweise ein- oder ausblenden", "src_show": "Quellen anzeigen", "src_hide": "Quellen ausblenden",
         "game": "Spielversion", "game_tip": "Spielversion, auf der diese Erklärungen geprüft wurden (offizielle Versionshinweise)", "changes": "Änderungen mit Spielversionen",
+        "patch": "Versionshinweise", "patch_sub": "Jede Zeile der offiziellen Versionshinweise, die neueste Version zuerst. Klicke auf die Filter, um nur bestimmte Arten von Zeilen zu zeigen.",
+        "f_kind": "Art", "f_area": "Bereich", "f_branch": "Zweig",
+        "k_fixed": "Behoben", "k_improved": "Verbessert", "k_other": "Sonstiges", "a_general": "Allgemein",
+        "b_stable": "Stabil", "b_preview": "Vorschau", "f_all": "Alle", "patch_lines": "Zeilen", "patch_src": "Quelle: offizielle Versionshinweise",
     },
 }
 
@@ -349,6 +362,24 @@ aside.toc{position:sticky;top:96px;align-self:start;font-size:14px}
 .dcard .pages a{display:inline-flex;align-items:center;gap:6px;font-weight:700}
 .empty{display:none;color:var(--dim);padding:30px 0}
 
+/* patch notes */
+.pfilters{display:flex;flex-direction:column;gap:10px;margin-bottom:26px;padding:16px 18px;border-radius:var(--r);border:1px solid var(--line);background:var(--panel)}
+.pf{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.pf .pl{min-width:90px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.chip{padding:5px 12px;border-radius:30px;border:1px solid var(--line2);background:none;color:var(--soft);font:600 13.5px var(--font);cursor:pointer}
+.chip:hover{border-color:var(--gold);color:var(--text)}
+.chip.on{color:#0f141b;background:linear-gradient(135deg,#f7cf72,#e09a2a);border-color:transparent}
+.pcount{font-size:13.5px;color:var(--dim)}.pcount b{color:var(--text)}
+.pbuild{margin:0 0 22px;border-radius:var(--r);border:1px solid var(--line);background:var(--panel);overflow:hidden}
+.pbuild h3{display:flex;align-items:center;gap:12px;margin:0;padding:12px 18px;background:var(--panel2);border-bottom:1px solid var(--line);font-size:15px}
+.pbuild h3 b{color:var(--gold);font-size:18px}.pbuild h3 small{color:var(--dim);font-weight:600;margin-left:auto}
+.pbuild ul{list-style:none;margin:0;padding:6px 0}
+.pbuild li{display:flex;gap:10px;align-items:baseline;padding:7px 18px;font-size:15px}
+.pbuild li+li{border-top:1px solid rgba(255,255,255,.04)}
+.pk,.pa{flex:none;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:7px}
+.pk.fixed{color:var(--teal);background:rgba(56,209,191,.12)}.pk.improved{color:var(--gold);background:rgba(242,184,75,.12)}
+.pk.other{color:var(--violet);background:rgba(180,156,240,.12)}.pa{color:var(--blue);background:rgba(90,169,255,.12)}
+
 /* more + footer */
 .more{padding:30px 0 10px}
 .more h2{color:var(--text);font-size:22px;margin:0 0 16px}
@@ -406,6 +437,21 @@ JS = r"""
     [].forEach.call(document.querySelectorAll('.dcard'),function(c){
       var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
     document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
 })();
 """
 
@@ -606,7 +652,8 @@ def page_shell(lang, title, body, alt_links, nav_on="", page_title=None, has_src
 <header class="bar"><div class="wrap top">
 <a class="brand" href="index.html">{LOGO}<span>TF3 <b>MECHANICS</b></span></a>
 <nav class="nav"><a href="index.html" class="{"on" if nav_on == "home" else ""}">{icon("list", 17)}{ui["home"]}</a>
-<a href="https://wiki.transportfever3.com">{icon("book", 17)}{ui["official"]}{icon("external", 13)}</a></nav>
+<a href="https://wiki.transportfever3.com">{icon("book", 17)}{ui["official"]}{icon("external", 13)}</a>
+<a href="patchnotes.html" class="{"on" if nav_on == "patch" else ""}">{icon("clock", 17)}{ui["patch"]}</a></nav>
 {f'<button class="srcbtn" type="button" data-src title="{ui["src_toggle"]}">{icon("code", 16)}<span>{ui["src_btn"]}</span></button>' if has_src else ""}
 {f'<button class="srcbtn tipbtn" type="button" data-tips title="{ui["tips_toggle"]}">{icon("lightbulb", 16)}<span>{ui["tips_btn"]}</span></button>' if has_tips else ""}
 <details class="langs"><summary aria-label="{ui["lang_label"]}">{icon("globe", 16)}<span>{L.BY_CODE[lang]["name"]}</span>{icon("chev", 14, "chev")}</summary><nav class="menu" aria-label="{ui["lang_label"]}">{langs}</nav></details></div></header>
@@ -635,6 +682,52 @@ location.replace("en/index.html");}})();</script>
 """
 
 
+def patch_notes(lang, data):
+    """Patch notes page: every official note line grouped by build, with toggle filters (kind, area, branch)."""
+    ui = UI[lang]
+
+    def kind(text):
+        w = text.split(" ", 1)[0].lower()
+        return w if w in ("fixed", "improved") else "other"
+
+    by_build = {}
+    for n in data["notes"]:
+        for b in n["builds"]:
+            by_build.setdefault(str(b), []).append(n)
+    areas = sorted({n["tag"] for n in data["notes"] if n["tag"]})
+    groups = []
+    for b in sorted(data["builds"], key=int, reverse=True):
+        info = data["builds"][b]
+        rows = "".join(
+            f'<li data-k="{kind(n["text"])}" data-a="{html.escape(n["tag"] or "general")}">'
+            f'<span class="pk {kind(n["text"])}">{ui["k_" + kind(n["text"])]}</span>'
+            + (f'<span class="pa">{html.escape(n["tag"])}</span>' if n["tag"] else "")
+            + f'<span class="pt">{html.escape(n["text"])}</span></li>'
+            for n in by_build.get(b, []))
+        store = f' · {html.escape(info["store"])}' if info.get("store") else ""
+        groups.append(
+            f'<section class="pbuild" data-b="{info["branch"]}"><h3><b>{b}</b>'
+            f'<span class="pill {"verified" if info["branch"] == "stable" else ""}">{ui["b_" + info["branch"]]}</span>'
+            f'<small>{html.escape(info.get("date", ""))}{store}</small></h3><ul>{rows}</ul></section>')
+
+    def chips(group, items):
+        return (f'<div class="pf" data-g="{group}"><span class="pl">{ui["f_" + group]}</span>'
+                f'<button type="button" class="chip on" data-v="*">{ui["f_all"]}</button>'
+                + "".join(f'<button type="button" class="chip" data-v="{html.escape(v)}">{html.escape(lab)}</button>'
+                          for v, lab in items) + '</div>')
+
+    filters = (chips("kind", [(k, ui["k_" + k]) for k in ("fixed", "improved", "other")])
+               + chips("area", [("general", ui["a_general"])] + [(a, a) for a in areas])
+               + chips("branch", [("stable", ui["b_stable"]), ("preview", ui["b_preview"])]))
+    return (f'<section class="hero"><div class="wrap"><div class="kicker rise">{icon("clock", 15)}{ui["patch_src"]}</div>'
+            f'<h1 class="rise d1">{ui["patch"]}</h1><p class="lead rise d2">{ui["patch_sub"]}</p></div></section>'
+            f'<section class="wrap section"><div class="pfilters">{filters}'
+            f'<span class="pcount"><b id="pn">{len(data["notes"])}</b> {ui["patch_lines"]}</span></div>'
+            f'{"".join(groups)}<p class="empty">–</p>'
+            f'<p class="srcnote" style="display:flex"><a href="{OFFICIAL_BASE}releasenotes">{icon("book", 15)}{ui["patch_src"]}'
+            f'{icon("external", 12)}</a></p></section>')
+
+
 def domain_of(domains, did):
     return next((d for d in domains if d["id"] == did), None)
 
@@ -650,6 +743,7 @@ def first_diagram(text, lang):
 
 def build():
     index = load_json(INDEX, {"domains": {}, "files": {}})
+    builds = load_json(BUILDS, {"builds": {}, "notes": []})
     domains = load_domains()
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
@@ -782,6 +876,10 @@ def build():
         alt = {l: f"../{l}/index.html" for l in LANGS}
         with open(os.path.join(OUT, lang, "index.html"), "w", encoding="utf-8", newline="\n") as f:
             f.write(page_shell(lang, site, body, alt, nav_on="home"))
+
+        alt = {l: f"../{l}/patchnotes.html" for l in LANGS}
+        with open(os.path.join(OUT, lang, "patchnotes.html"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(page_shell(lang, ui["patch"], patch_notes(lang, builds), alt, nav_on="patch", page_title=ui["patch"]))
 
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8", newline="\n") as f:
         f.write(root_redirect())
