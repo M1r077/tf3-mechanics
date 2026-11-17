@@ -78,7 +78,7 @@ Para onde vai a carga descarregada, e se o prazo de entrega de uma carga armazen
 ## Bom saber
 
 - Confira a lista Volume de cada parada perto de um armazém: o que não está nela é descarregado no armazém, mesmo no meio da linha.
-- Um estoque cheio recusa mais carga, a menos que a parada use "Forçar descarregamento de todas as cargas na chegada" ("Descarregar a carga mesmo se os estoques estiverem cheios"); o que acontece com a carga que não cabe é decidido pelo motor (veja [Velocidade de carga e descarga](loading.html)).
+- Um estoque cheio recusa mais carga, a menos que a parada use "Forçar descarregamento de todas as cargas na chegada" ("Descarregar a carga mesmo se os estoques estiverem cheios"); a carga que não cabe é destruída: o jogo indica a estação como destino, e uma estação nunca consome carga (medido no jogo, veja [Velocidade de carga e descarga](loading.html)).
 - Para manter um módulo especializado para uma carga, fixe o tipo de carga dele na seção Estoques.
 - O [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) lista, por estação, os armazéns ao alcance com os seus estoques; o [Detalhes das plataformas (Platform Details)](https://mod.io/g/transportfever3/m/platform-details) mostra para onde foi a carga descarregada.
 

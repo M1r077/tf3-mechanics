@@ -88,7 +88,7 @@ Chaque arrêt d'une ligne a une liste **Charge**, dans la fenêtre « Filtre de 
 
 | Option de « Filtre de fret » | Effet | Source |
 |---|---|---|
-| « Forcer le déchargement de tout le fret à l’arrivée » | infobulle : « Décharger le fret même si les stocks sont pleins » ; ce que devient le fret qui ne rentre pas est décidé par le moteur. Désactivée pour un nouvel arrêt. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| « Forcer le déchargement de tout le fret à l’arrivée » | infobulle : « Décharger le fret même si les stocks sont pleins » ; le fret qui ne rentre pas est détruit : le jeu indique la gare comme destination, et une gare ne consomme jamais de fret (mesuré en jeu). Désactivée pour un nouvel arrêt. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | « Détruire le fret à l’arrivée lorsque la configuration change » | décharge ou détruit le fret à bord quand du fret pour une autre configuration de chargement du véhicule attend à cet arrêt ; c'est le moteur qui choisit entre les deux | `cargofilter_window.tl:767` |
 | « Remplacer par un fret plus récent si disponible » | détruit le fret revenu à l'arrêt où il a été chargé, quand du fret plus récent du même type attend | `cargofilter_window.tl:778` |
 

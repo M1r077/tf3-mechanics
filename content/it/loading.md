@@ -88,7 +88,7 @@ Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico
 
 | Opzione di "Filtro carico" | Che cosa fa | Fonte |
 |---|---|---|
-| "Forza scarico di tutte le merci all'arrivo" | tooltip: "Scarica le merci anche se le scorte sono piene"; cosa succede alle merci che non entrano lo decide il motore. Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forza scarico di tutte le merci all'arrivo" | tooltip: "Scarica le merci anche se le scorte sono piene"; le merci che non entrano vengono distrutte: il gioco indica la stazione come destinazione, e una stazione non consuma mai merci (misurato in gioco). Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Distrugge il carico all'arrivo se la configurazione cambia" | scarica o distrugge il carico a bordo quando a questa fermata aspetta merce per un'altra configurazione di carico del veicolo; quale delle due lo decide il motore | `cargofilter_window.tl:767` |
 | "Sostituisci con nuovo carico se disponibile" | distrugge il carico tornato alla fermata dove era stato caricato, quando aspetta un carico più recente dello stesso tipo | `cargofilter_window.tl:778` |
 

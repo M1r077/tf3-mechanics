@@ -88,7 +88,7 @@ Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ 
 
 | Option im „Güterfilter“ | Wirkung | Quelle |
 |---|---|---|
-| „Entladen aller Güter nach Ankunft erzwingen“ | Tooltip: „Güter auch bei vollen Beständen entladen“; was mit den Gütern geschieht, die nicht hineinpassen, entscheidet die Engine. Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Entladen aller Güter nach Ankunft erzwingen“ | Tooltip: „Güter auch bei vollen Beständen entladen“; die Güter, die nicht hineinpassen, werden vernichtet: Das Spiel nennt den Bahnhof als Ziel, und ein Bahnhof verbraucht nie Fracht (im Spiel gemessen). Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | „Bei Konfigurationsänderung Güter nach Ankunft zerstören“ | entlädt oder zerstört die Fracht an Bord, wenn an diesem Halt Fracht für eine andere Ladekonfiguration des Fahrzeugs wartet; was davon geschieht, entscheidet die Engine | `cargofilter_window.tl:767` |
 | „Durch neuere Güter ersetzen, falls verfügbar“ | zerstört Fracht, die zu dem Halt zurückgekommen ist, an dem sie geladen wurde, wenn neuere Fracht derselben Art wartet | `cargofilter_window.tl:778` |
 

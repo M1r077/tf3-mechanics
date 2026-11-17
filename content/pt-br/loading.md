@@ -88,7 +88,7 @@ Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" 
 
 | Opção de "Filtro de Cargas" | O que faz | Fonte |
 |---|---|---|
-| "Forçar descarregamento de todas as cargas na chegada" | dica: "Descarregar a carga mesmo se os estoques estiverem cheios"; o que acontece com a carga que não cabe é decidido pelo motor. Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forçar descarregamento de todas as cargas na chegada" | dica: "Descarregar a carga mesmo se os estoques estiverem cheios"; a carga que não cabe é destruída: o jogo indica a estação como destino, e uma estação nunca consome carga (medido no jogo). Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Destruir cargas na chegada quando a configuração mudar" | descarrega ou destrói a carga a bordo quando há carga esperando nesta parada para outra configuração de carregamento do veículo; qual das duas coisas acontece é o motor que decide | `cargofilter_window.tl:767` |
 | "Substituir com carga mais nova, se disponível" | destrói a carga que voltou à parada onde foi carregada, quando há carga mais nova do mesmo tipo esperando | `cargofilter_window.tl:778` |
 

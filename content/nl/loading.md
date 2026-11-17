@@ -88,7 +88,7 @@ Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter
 
 | Optie in "Vrachtfilter" | Wat het doet | Bron |
 |---|---|---|
-| "Alle vracht bij aankomst verplicht lossen" | tooltip: "Vracht lossen, ook als de voorraden vol zijn"; wat er gebeurt met de vracht die niet past, bepaalt de engine. Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Alle vracht bij aankomst verplicht lossen" | tooltip: "Vracht lossen, ook als de voorraden vol zijn"; de vracht die niet past, wordt vernietigd: het spel geeft het station als bestemming, en een station verbruikt nooit vracht (gemeten in het spel). Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Vracht bij aankomst vernietigen na wijziging configuratie" | lost of vernietigt de vracht aan boord als er bij deze halte vracht wacht voor een andere laadconfiguratie van het voertuig; welke van de twee bepaalt de engine | `cargofilter_window.tl:767` |
 | "Vervangen door nieuwere vracht indien beschikbaar" | vernietigt vracht die terug is bij de halte waar hij geladen werd, als er nieuwere vracht van hetzelfde type wacht | `cargofilter_window.tl:778` |
 

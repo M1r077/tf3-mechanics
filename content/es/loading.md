@@ -88,7 +88,7 @@ Cada parada de una línea tiene una lista **Carga**, en la ventana "Filtro de ca
 
 | Opción de "Filtro de cargamento" | Qué hace | Fuente |
 |---|---|---|
-| "Forzar la descarga de todo el cargamento al llegar" | tooltip: "Descargar el cargamento aunque las existencias estén llenas"; qué pasa con el cargamento que no cabe lo decide el motor. Desactivada en una parada nueva. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forzar la descarga de todo el cargamento al llegar" | tooltip: "Descargar el cargamento aunque las existencias estén llenas"; el cargamento que no cabe se destruye: el juego indica la estación como destino, y una estación nunca consume cargamento (medido en el juego). Desactivada en una parada nueva. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Destruir el cargamento al llegar cuando cambie la configuración" | descarga o destruye el cargamento a bordo cuando en esta parada espera carga para otra configuración de carga del vehículo; cuál de las dos cosas pasa lo decide el motor | `cargofilter_window.tl:767` |
 | "Sustituir por cargamento nuevo si hay disponibilidad" | destruye el cargamento que volvió a la parada donde se cargó, cuando espera cargamento más nuevo del mismo tipo | `cargofilter_window.tl:778` |
 

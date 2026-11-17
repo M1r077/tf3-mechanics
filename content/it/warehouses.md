@@ -78,7 +78,7 @@ Dove va il carico scaricato, e se il tempo di consegna di un'unità immagazzinat
 ## Da sapere
 
 - Controlla la lista Carico di ogni fermata vicino a un magazzino: ciò che non c'è viene scaricato nel magazzino, anche a metà linea.
-- Una scorta piena rifiuta altro carico, a meno che la fermata usi "Forza scarico di tutte le merci all'arrivo" ("Scarica le merci anche se le scorte sono piene"); cosa succede alle merci che non entrano lo decide il motore (vedi [Velocità di carico e scarico](loading.html)).
+- Una scorta piena rifiuta altro carico, a meno che la fermata usi "Forza scarico di tutte le merci all'arrivo" ("Scarica le merci anche se le scorte sono piene"); le merci che non entrano vengono distrutte: il gioco indica la stazione come destinazione, e una stazione non consuma mai merci (misurato in gioco, vedi [Velocità di carico e scarico](loading.html)).
 - Per tenere un modulo specializzato per un solo carico, fissa il suo tipo di carico nella sezione Scorte.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) elenca, per stazione, i magazzini raggiungibili con le loro scorte; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) mostra dove è finito il carico scaricato.
 

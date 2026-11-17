@@ -88,7 +88,7 @@ Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At
 
 | Option in "Cargo Filter" | What it does | Source |
 |---|---|---|
-| "Force Unload All Cargo On Arrival" | tooltip: "Unload cargo even if stocks are full"; what happens to the cargo that does not fit is decided by the engine. Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Force Unload All Cargo On Arrival" | tooltip: "Unload cargo even if stocks are full"; the cargo that does not fit is destroyed: the game gives the station as its destination, and a station never consumes cargo (measured in game). Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | "Destroy Cargo On Arrival When Config Changes" | unloads or destroys the cargo on board when cargo for another load configuration of the vehicle is waiting at this stop; which of the two is up to the engine | `cargofilter_window.tl:767` |
 | "Replace with Newer Cargo if Available" | destroys cargo that came back to the stop where it was loaded, when newer cargo of the same type is waiting | `cargofilter_window.tl:778` |
 

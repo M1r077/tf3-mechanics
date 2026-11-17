@@ -88,7 +88,7 @@ Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” prz
 
 | Opcja w „Filtr towarów” | Co robi | Źródło |
 |---|---|---|
-| „Wymuś rozładowanie wszystkich towarów po przybyciu” | podpowiedź: „Rozładuj towary, nawet jeśli zapasy są pełne”; co dzieje się z towarem, który się nie mieści, decyduje silnik. Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Wymuś rozładowanie wszystkich towarów po przybyciu” | podpowiedź: „Rozładuj towary, nawet jeśli zapasy są pełne”; towar, który się nie mieści, jest niszczony: gra podaje stację jako cel, a stacja nigdy nie zużywa towaru (zmierzone w grze). Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
 | „Przy zmianie konfiguracji zniszcz ładunek po przybyciu” | rozładowuje lub niszczy towar na pokładzie, gdy na tym przystanku czeka towar dla innej konfiguracji załadunku pojazdu; co z tych dwóch, decyduje silnik | `cargofilter_window.tl:767` |
 | „Zastąp nowym ładunkiem, jeśli jest dostępny” | niszczy towar, który wrócił na przystanek, gdzie go załadowano, gdy czeka nowszy towar tego samego rodzaju | `cargofilter_window.tl:778` |
 

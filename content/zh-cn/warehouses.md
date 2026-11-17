@@ -78,7 +78,7 @@ fact: 0 | 在仓库卸下的货物带来的收入
 ## 须知
 
 - 检查仓库附近每个站点的载重列表：不在列表里的货物会卸进仓库，即使在线路半途。
-- 库存满了就不再接收货物，除非站点使用“到达时强制卸下所有货品”（“即使库存已满也卸下货物”）；放不下的货物如何处理由引擎决定（见 [装载与卸载速度](loading.html)）。
+- 库存满了就不再接收货物，除非站点使用“到达时强制卸下所有货品”（“即使库存已满也卸下货物”）；放不下的货物会被销毁：游戏把车站显示为目的地，而车站从不消耗货物（游戏内实测，见 [装载与卸载速度](loading.html)）。
 - 要让一个专用模块只存一种货物，就在库存部分固定它的货物类型。
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 会按车站列出范围内的仓库及其库存；[Platform Details](https://mod.io/g/transportfever3/m/platform-details) 会显示卸下的货物去了哪里。
 

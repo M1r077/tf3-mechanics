@@ -78,7 +78,7 @@ Adónde va el cargamento descargado, y si se detiene el plazo de entrega de una 
 ## Conviene saber
 
 - Revisa la lista Carga de cada parada cerca de un almacén: lo que no está en ella se descarga en el almacén, incluso a mitad de la línea.
-- Unas existencias llenas rechazan más cargamento, salvo que la parada use "Forzar la descarga de todo el cargamento al llegar" ("Descargar el cargamento aunque las existencias estén llenas"); qué pasa con el cargamento que no cabe lo decide el motor (ver [Velocidad de carga y descarga](loading.html)).
+- Unas existencias llenas rechazan más cargamento, salvo que la parada use "Forzar la descarga de todo el cargamento al llegar" ("Descargar el cargamento aunque las existencias estén llenas"); el cargamento que no cabe se destruye: el juego indica la estación como destino, y una estación nunca consume cargamento (medido en el juego, ver [Velocidad de carga y descarga](loading.html)).
 - Para reservar un módulo especializado a un cargamento, fija su tipo de cargamento en la sección Existencias.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) enumera, por estación, los almacenes a su alcance con sus existencias; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) muestra adónde fue el cargamento descargado.
 

@@ -78,7 +78,7 @@ Dokąd trafia rozładowany towar i czy licznik czasu dostawy przechowywanego tow
 ## Warto wiedzieć
 
 - Sprawdź listę Ładunek każdego przystanku w pobliżu magazynu: to, czego na niej nie ma, jest rozładowywane do magazynu, nawet w połowie linii.
-- Pełny zapas odmawia przyjęcia kolejnego towaru, chyba że przystanek używa „Wymuś rozładowanie wszystkich towarów po przybyciu” („Rozładuj towary, nawet jeśli zapasy są pełne”); co dzieje się z towarem, który się nie mieści, decyduje silnik (patrz [Szybkość załadunku i rozładunku](loading.html)).
+- Pełny zapas odmawia przyjęcia kolejnego towaru, chyba że przystanek używa „Wymuś rozładowanie wszystkich towarów po przybyciu” („Rozładuj towary, nawet jeśli zapasy są pełne”); towar, który się nie mieści, jest niszczony: gra podaje stację jako cel, a stacja nigdy nie zużywa towaru (zmierzone w grze, patrz [Szybkość załadunku i rozładunku](loading.html)).
 - Aby zachować moduł specjalistyczny dla jednego towaru, przypnij jego rodzaj towaru w sekcji Zapasy.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) pokazuje dla każdej stacji magazyny w zasięgu wraz z ich zapasami; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) pokazuje, dokąd trafił rozładowany towar.
 

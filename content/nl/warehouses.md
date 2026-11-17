@@ -78,7 +78,7 @@ Waar geloste vracht naartoe gaat, en of de bezorgtimer van opgeslagen vracht sto
 ## Goed om te weten
 
 - Controleer de lijst Lading van elke halte bij een opslagplaats: wat er niet in staat, wordt in de opslagplaats gelost, ook halverwege de lijn.
-- Een volle voorraad weigert meer vracht, tenzij de halte "Alle vracht bij aankomst verplicht lossen" ("Vracht lossen, ook als de voorraden vol zijn") gebruikt; wat er gebeurt met de vracht die niet past, bepaalt de engine (zie [Laad- en lossnelheid](loading.html)).
+- Een volle voorraad weigert meer vracht, tenzij de halte "Alle vracht bij aankomst verplicht lossen" ("Vracht lossen, ook als de voorraden vol zijn") gebruikt; de vracht die niet past, wordt vernietigd: het spel geeft het station als bestemming, en een station verbruikt nooit vracht (gemeten in het spel, zie [Laad- en lossnelheid](loading.html)).
 - Wil je een gespecialiseerde module voor één vracht houden, zet dan haar vrachttype vast in de sectie Voorraad.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) toont per station de opslagplaatsen binnen bereik met hun voorraden; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) toont waar de geloste vracht naartoe ging.
 

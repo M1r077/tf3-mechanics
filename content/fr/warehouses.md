@@ -78,7 +78,7 @@ Où va le fret déchargé, et si le délai de livraison d'une unité stockée s'
 ## Bon à savoir
 
 - Vérifie la liste Charge de chaque arrêt près d'un entrepôt : ce qui n'y est pas est déchargé dans l'entrepôt, même au milieu de la ligne.
-- Un stock plein refuse le fret en plus, sauf si l'arrêt utilise « Forcer le déchargement de tout le fret à l’arrivée » (« Décharger le fret même si les stocks sont pleins ») ; ce que devient le fret qui ne rentre pas est décidé par le moteur (voir [Vitesse de chargement et de déchargement](loading.html)).
+- Un stock plein refuse le fret en plus, sauf si l'arrêt utilise « Forcer le déchargement de tout le fret à l’arrivée » (« Décharger le fret même si les stocks sont pleins ») ; le fret qui ne rentre pas est détruit : le jeu indique la gare comme destination, et une gare ne consomme jamais de fret (mesuré en jeu, voir [Vitesse de chargement et de déchargement](loading.html)).
 - Pour garder un module spécialisé pour un seul fret, réserve son type de fret dans la section Stocks.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) liste, par gare, les entrepôts à portée avec leurs stocks ; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) montre où est parti le fret déchargé.
 

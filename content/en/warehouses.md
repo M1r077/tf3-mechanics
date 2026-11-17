@@ -78,7 +78,7 @@ Where unloaded cargo goes, and whether a stored item's delivery timer stops, are
 ## Good to know
 
 - Check the Load list of every stop near a warehouse: what is not in it is unloaded into the warehouse, even halfway along the line.
-- A full stock refuses more cargo unless the stop uses "Force Unload All Cargo On Arrival" ("Unload cargo even if stocks are full"); what happens to the cargo that does not fit is decided by the engine (see [Loading speed](loading.html)).
+- A full stock refuses more cargo unless the stop uses "Force Unload All Cargo On Arrival" ("Unload cargo even if stocks are full"); the cargo that does not fit is destroyed: the game gives the station as its destination, and a station never consumes cargo (measured in game, see [Loading speed](loading.html)).
 - To keep a specialised module for one cargo, pin its cargo type in the Stocks section.
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) lists, per station, the warehouses in reach with their stocks; [Platform Details](https://mod.io/g/transportfever3/m/platform-details) shows where the unloaded cargo went.
 
