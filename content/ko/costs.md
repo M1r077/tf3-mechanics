@@ -48,7 +48,7 @@ fact: 4 | 동시에 받을 수 있는 대출 수
 
 | 종류 | 등장 | km당 건설비 | km당 연간 관리비 | 출처 |
 |---|---|---|---|---|
-| 단순 선로 | 시작 | 6만 | 1만 | `simple.street_template.lua:9`, `simple.street_template.lua:33` |
+| 간소한 선로 | 시작 | 6만 | 1만 | `simple.street_template.lua:9`, `simple.street_template.lua:33` |
 | 표준 선로 | 1930 | 18만 | 3만 | `standard.street_template.lua:11`, `standard.street_template.lua:35` |
 | 고속 선로 | 1980 | 54만 | 9만 | `high_speed.street_template.lua:11`, `high_speed.street_template.lua:35` |
 | 오래된 작은 시골길 | 시작 – 1940 | 6만 | 1만 | `country_old_small.street_template.lua:4-5`, `country_old_small.street_template.lua:8`, `country_old_small.street_template.lua:58` |

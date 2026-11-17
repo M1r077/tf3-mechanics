@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Conquistas · Mecânicas do TF3</title>
+<meta name="description" content="Como Transport Fever 3 funciona de verdade, lido nos próprios scripts do jogo.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/achievements.html"><link rel="alternate" hreflang="fr" href="../fr/achievements.html"><link rel="alternate" hreflang="de" href="../de/achievements.html"><link rel="alternate" hreflang="es" href="../es/achievements.html"><link rel="alternate" hreflang="it" href="../it/achievements.html"><link rel="alternate" hreflang="nl" href="../nl/achievements.html"><link rel="alternate" hreflang="pl" href="../pl/achievements.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/achievements.html"><link rel="alternate" hreflang="ru" href="../ru/achievements.html"><link rel="alternate" hreflang="ja" href="../ja/achievements.html"><link rel="alternate" hreflang="ko" href="../ko/achievements.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/achievements.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/achievements.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Índice</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Notas de atualização</a></nav>
+<button class="srcbtn" type="button" data-src title="Mostrar ou ocultar as referências aos scripts"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Fontes</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="Mostrar ou ocultar as dicas"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>Dicas</span></button>
+<details class="langs"><summary aria-label="Idioma"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Português (Brasil)</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Idioma"><a href="../en/achievements.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/achievements.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/achievements.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/achievements.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/achievements.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/achievements.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/achievements.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/achievements.html" class="on" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/achievements.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/achievements.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/achievements.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/achievements.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/achievements.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Índice</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"/></svg>Conquistas</span></div><h1 class="rise d1">Conquistas</h1><p class="lead rise d2">O que o script do jogo verifica para cada conquista do Jogo Livre e quando, quais contam só veículos, cargas e animais do jogo base, e quais verificações ficam com o motor.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verificado nos scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Atualizado 2026-11-17</span><span class="pill" title="Versão do jogo em que estas explicações foram verificadas (notas de versão oficiais)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Versão do jogo 40425</span></div><div class=facts><div class="fact rise d1"><b>17</b><span>conquistas desbloqueadas pelo próprio script do jogo</span></div><div class="fact rise d2"><b>500 m</b><span>altura do primeiro vagão de um trem numa parada para Chegada ao Topo</span></div><div class="fact rise d3"><b>&lt; 1 %</b><span>reputação do município para Vexame</span></div><div class="fact rise d4"><b>10</b><span>marcos que precisam ter o mesmo município mais próximo para Centralização</span></div></div></div></section><div class="wrap layout"><article><p>A wiki oficial lista 41 conquistas. O script do jogo <code class="src">achievements.script.tl</code> desbloqueia <strong>17</strong> delas sozinho e alimenta <strong>9 contadores entre jogos</strong>; as outras (campanha, clima, tamanho do município, armazém, juros, boosters, carros, 1900-2000, vapor nos anos 2000) são verificadas em outro lugar, pelo motor ou pela plataforma. Cada verificação primeiro pergunta ao motor se a conquista ainda pode ser desbloqueada; se mods ou configurações a bloqueiam é decidido lá<span class="sr"> (<code class="src">achievements.script.tl:632</code>, <code class="src">achievements.script.tl:510</code>)</span>.</p>
+<h2 id="conquistas-verificadas-pelo-script"><span class="n">1</span><span>Conquistas verificadas pelo script</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Conquista</th>
+<th>O que o script verifica</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pacote Entregue</strong></td>
+<td>um item de carga chega ao destino</td>
+<td class="sc"><code class="src">achievements.script.tl:221-225</code>, <code class="src">achievements.script.tl:632-636</code></td>
+</tr>
+<tr>
+<td><strong>Em Nome do Povo</strong></td>
+<td>um subsídio concluído</td>
+<td class="sc"><code class="src">achievements.script.tl:241-244</code>, <code class="src">achievements.script.tl:638-642</code></td>
+</tr>
+<tr>
+<td><strong>Sequência de Subsídios</strong></td>
+<td>10 subsídios concluídos sem nenhum fracassado entre eles; um subsídio fracassado zera a contagem</td>
+<td class="sc"><code class="src">achievements.script.tl:243-249</code>, <code class="src">achievements.script.tl:644-648</code></td>
+</tr>
+<tr>
+<td><strong>Protegendo o Município</strong></td>
+<td>a avaliação de entregas de um município passa a <strong>Excelente</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:270-276</code>, <code class="src">towns.script.tl:30-33</code>, <code class="src">achievements.script.tl:650-654</code></td>
+</tr>
+<tr>
+<td><strong>Desenvolvimento Urbano</strong></td>
+<td>um município sobe de nível</td>
+<td class="sc"><code class="src">achievements.script.tl:253-255</code>, <code class="src">town_growth.script.tl:92</code></td>
+</tr>
+<tr>
+<td><strong>Demanda em Ascensão</strong></td>
+<td>um município ganha demanda por um novo tipo de carga</td>
+<td class="sc"><code class="src">achievements.script.tl:257-259</code>, <code class="src">achievements.script.tl:668-672</code></td>
+</tr>
+<tr>
+<td><strong>Vexame</strong></td>
+<td>a Reputação de um município <strong>cai</strong> para menos de <strong>1 %</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:261-267</code>, <code class="src">towns.script.tl:36-39</code></td>
+</tr>
+<tr>
+<td><strong>Promoção</strong></td>
+<td>a empresa sobe de nível</td>
+<td class="sc"><code class="src">achievements.script.tl:280-282</code>, <code class="src">achievements.script.tl:680-684</code></td>
+</tr>
+<tr>
+<td><strong>Degraus da Carreira</strong></td>
+<td>a empresa chega ao nível mais alto</td>
+<td class="sc"><code class="src">achievements.script.tl:284-290</code>, <code class="src">achievements.script.tl:686-690</code></td>
+</tr>
+<tr>
+<td><strong>Paisagismo Perfeito</strong></td>
+<td>você coloca árvores, e só árvores, numa construção (nada removido, não por reflorestamento)</td>
+<td class="sc"><code class="src">achievements.script.tl:346-377</code></td>
+</tr>
+<tr>
+<td><strong>Perfeccionismo</strong></td>
+<td>a mesma estação é demolida, reconstruída, demolida e reconstruída, nessa ordem, sem outra estação construída ou removida entre elas</td>
+<td class="sc"><code class="src">achievements.script.tl:304-341</code>, <code class="src">achievements.script.tl:694-710</code></td>
+</tr>
+<tr>
+<td><strong>Centralização</strong></td>
+<td>exatamente 10 marcos concluídos têm o mesmo município mais próximo</td>
+<td class="sc"><code class="src">achievements.script.tl:382-395</code>, <code class="src">achievements.script.tl:713-721</code></td>
+</tr>
+<tr>
+<td><strong>Chegada ao Topo</strong></td>
+<td>um dos seus trens chega a uma parada com o primeiro vagão acima de <strong>500 m</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:407-417</code>, <code class="src">achievements.script.tl:723-727</code></td>
+</tr>
+<tr>
+<td><strong>Offshore</strong></td>
+<td>um dos seus helicópteros chega a uma parada de uma plataforma de petróleo</td>
+<td class="sc"><code class="src">achievements.script.tl:420-450</code>, <code class="src">achievements.script.tl:729-733</code></td>
+</tr>
+<tr>
+<td><strong>Frota Patrimonial</strong></td>
+<td>todos os modelos de navio do jogo base estão rodando ao mesmo tempo nas suas linhas de navio</td>
+<td class="sc"><code class="src">achievements.script.tl:735-776</code></td>
+</tr>
+<tr>
+<td><strong>Contato do Terceiro Grau</strong></td>
+<td>você clica num OVNI</td>
+<td class="sc"><code class="src">achievements.script.tl:793-806</code></td>
+</tr>
+<tr>
+<td><strong>Tempo Marcado</strong></td>
+<td>você muda a hora do dia manualmente</td>
+<td class="sc"><code class="src">achievements.script.tl:839-844</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Perfeccionismo</strong> só conta uma construção que adiciona ou remove uma estação inteira: adicionar uma plataforma ou um módulo a uma estação não conta<span class="sr"> (<code class="src">achievements.script.tl:301-302</code>)</span>.</li>
+<li><strong>Centralização</strong> conta cada marco quando ele fica pronto, para o município mais próximo dele naquele momento<span class="sr"> (<code class="src">achievements.script.tl:386</code>)</span>.</li>
+<li><strong>Frota Patrimonial</strong> só é verificada quando um modelo de navio que nunca parou antes chega a uma parada; ela olha os veículos das suas linhas de navio, não os navios no depósito<span class="sr"> (<code class="src">achievements.script.tl:736</code>, <code class="src">achievements.script.tl:750-766</code>)</span>.</li>
+<li><strong>Vexame</strong> exige a Reputação, não outra avaliação: veja <a href="reputation.html">Reputação dos municípios</a>.</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Dica</h4><p>Chegada ao Topo verifica a altura do primeiro vagão quando o trem para, não a altura do prédio da estação. Construa a estação numa montanha acima de 500 m e faça um trem chegar lá.</p></div></aside>
+<h2 id="contadores-entre-jogos"><span class="n">2</span><span>Contadores entre jogos</span></h2>
+<p>Estes continuam de um jogo para outro (a plataforma os guarda). O script só envia o que mudou desde a última verificação.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Contador</th>
+<th>Conquista</th>
+<th>O que conta</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Comprimento de vias</td>
+<td><strong>Ao Redor do Mundo</strong></td>
+<td>o crescimento do comprimento total do registro (em km); nada é descontado quando você remove</td>
+<td class="sc"><code class="src">achievements.script.tl:511-523</code></td>
+</tr>
+<tr>
+<td>População</td>
+<td><strong>População Global</strong></td>
+<td>o crescimento da população do mapa, a partir da população quando o jogo foi carregado</td>
+<td class="sc"><code class="src">achievements.script.tl:512</code>, <code class="src">achievements.script.tl:525-533</code></td>
+</tr>
+<tr>
+<td>Passageiros</td>
+<td><strong>Pioneirismo em Viagens</strong></td>
+<td>passageiros que terminaram uma viagem numa das suas linhas</td>
+<td class="sc"><code class="src">achievements.script.tl:236-238</code>, <code class="src">achievements.script.tl:535-541</code></td>
+</tr>
+<tr>
+<td>Carga</td>
+<td><strong>Pioneirismo em Cargas</strong></td>
+<td>itens de carga entregues</td>
+<td class="sc"><code class="src">achievements.script.tl:543-549</code></td>
+</tr>
+<tr>
+<td>Climas</td>
+<td><strong>Magnata dos Magnatas</strong></td>
+<td>o clima do mapa, quando a empresa chega ao nível mais alto nele</td>
+<td class="sc"><code class="src">achievements.script.tl:551-567</code></td>
+</tr>
+<tr>
+<td>Receita</td>
+<td><strong>Dinheiro Maligno</strong></td>
+<td>sua receita somada, em bilhões</td>
+<td class="sc"><code class="src">achievements.script.tl:202-204</code>, <code class="src">achievements.script.tl:569-590</code></td>
+</tr>
+<tr>
+<td>Tipos de carga</td>
+<td><strong>Mestre das Vendas</strong></td>
+<td>cada tipo de carga do jogo base entregue uma vez</td>
+<td class="sc"><code class="src">achievements.script.tl:20-22</code>, <code class="src">achievements.script.tl:230-232</code>, <code class="src">achievements.script.tl:592-607</code></td>
+</tr>
+<tr>
+<td>Veículos</td>
+<td><strong>Conhecimento é Tudo</strong></td>
+<td>cada modelo de veículo do jogo base que chega a uma parada uma vez</td>
+<td class="sc"><code class="src">achievements.script.tl:16-18</code>, <code class="src">achievements.script.tl:469-481</code>, <code class="src">achievements.script.tl:609-625</code></td>
+</tr>
+<tr>
+<td>Animais</td>
+<td><strong>Amor aos Animais</strong></td>
+<td>cada animal do jogo base em que você clica uma vez</td>
+<td class="sc"><code class="src">achievements.script.tl:24-26</code>, <code class="src">achievements.script.tl:809-834</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Veículos, cargas e animais de mods nunca contam para esses contadores: só arquivos do jogo base (<code>::/vehicle</code>, <code>::/cargos</code>, <code>::/animal</code>) são considerados<span class="sr"> (<code class="src">achievements.script.tl:16-26</code>)</span>.</li>
+<li>Para Conhecimento é Tudo um veículo precisa <strong>chegar a uma parada</strong> de uma linha; comprá-lo não basta.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>Se uma conquista ainda pode ser desbloqueada (isAchievementUnlockable), se os contadores estão desligados (areStatsDisabled), as metas de cada contador e as 24 conquistas fora do script ficam a cargo do motor e da plataforma. A wiki oficial diz que as conquistas geralmente ficam indisponíveis com mods não cosméticos ou com configurações de jogo diferentes dos valores padrão.</p></div></aside>
+<h2 id="bom-saber"><span class="n">3</span><span>Bom saber</span></h2>
+<ul>
+<li>Cada conquista de "primeira vez" é comparada com a verificação anterior: ela precisa de um evento <strong>novo</strong> num jogo em que a conquista ainda está aberta; um subsídio ou nível antigo de um save não conta de novo<span class="sr"> (<code class="src">achievements.script.tl:633</code>, <code class="src">achievements.script.tl:779</code>)</span>.</li>
+<li>Seu nível, os subsídios e a Reputação são explicados em <a href="company.html">Nível da empresa, vantagens e sede</a>, <a href="subsidies.html">Subsídios</a> e <a href="reputation.html">Reputação dos municípios</a>.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Wiki oficial e scripts do jogo</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Detalha</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>A wiki oficial diz</div><p>"There are 41 achievements that can be earned by completing a certain task or reaching a specific goal." "Achievements are generally unavailable if non-cosmetic mods are used or the gameplay settings are deviating from standard values." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements">Achievements</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os scripts do jogo mostram</div><p>17 conquistas e 9 contadores estão no script. Ele detalha os textos oficiais: Protegendo o Município significa a avaliação de entregas chegar a Excelente, Vexame uma Reputação abaixo de 1 %, Chegada ao Topo o primeiro vagão acima de 500 m, Perfeccionismo demolir-reconstruir-demolir-reconstruir a mesma estação, e Frota Patrimonial todos os modelos de navio do jogo base em linhas ao mesmo tempo. Só veículos, cargas e animais do jogo base contam para os contadores.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os caminhos ficam dentro da pasta base/content do jogo ou dos seus arquivos zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Nesta página</h5><ol><li><a href="#conquistas-verificadas-pelo-script">Conquistas verificadas pelo script</a></li><li><a href="#contadores-entre-jogos">Contadores entre jogos</a></li><li><a href="#bom-saber">Bom saber</a></li></ol><div class="box"><b>3</b><span>referências às fontes</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Mostrar as fontes</span><span class="h">Ocultar as fontes</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Outras mecânicas</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Aviões, aeroportos e helicópteros</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>Nível da empresa, vantagens e sede</b><small>Empresa e sede</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Custos, manutenção e empréstimos</b><small>Finanças e empréstimos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Configurações de partida: carga completa, Nível de Preenchimento e tempos de parada</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Poluição e barulho</b><small>Poluição e barulho</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Renda por carga e tempo de entrega</b><small>Carga e renda</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Indústrias</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="infrastructure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg></span><span><b>Ruas, trilhos, pontes e sinais</b><small>Ruas, trilhos e pátios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Velocidade de carga e descarga</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Por que estou perdendo dinheiro?</b><small>Finanças e empréstimos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="notifications.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></span><span><b>Notificações e avisos</b><small>Notificações e avisos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputação dos municípios</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Navios e portos</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsídios: ofertas, prazos e recompensas</b><small>Subsídios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Tempo de jogo e calendário</b><small>Tempo de jogo e calendário</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Crescimento dos municípios: XP, classificações e tamanho</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Veículos: condição, idade e velocidade de carga</b><small>Linhas e veículos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Armazéns</b><small>Armazéns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Trabalhadores e o reforço de trabalhadores</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Projeto de fã por Miro. Sem vínculo com a Urban Games.</span><span>Textos e imagens: CC BY 4.0 · Código do jogo © Urban Games: só são mostradas referências curtas.</span><span class="tr">Traduzido do inglês; correções são bem-vindas (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>

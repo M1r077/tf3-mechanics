@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Достижения · Механики TF3</title>
+<meta name="description" content="Как на самом деле устроена Transport Fever 3: прочитано в скриптах самой игры.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/achievements.html"><link rel="alternate" hreflang="fr" href="../fr/achievements.html"><link rel="alternate" hreflang="de" href="../de/achievements.html"><link rel="alternate" hreflang="es" href="../es/achievements.html"><link rel="alternate" hreflang="it" href="../it/achievements.html"><link rel="alternate" hreflang="nl" href="../nl/achievements.html"><link rel="alternate" hreflang="pl" href="../pl/achievements.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/achievements.html"><link rel="alternate" hreflang="ru" href="../ru/achievements.html"><link rel="alternate" hreflang="ja" href="../ja/achievements.html"><link rel="alternate" hreflang="ko" href="../ko/achievements.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/achievements.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/achievements.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Главная</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Список изменений</a></nav>
+<button class="srcbtn" type="button" data-src title="Показать или скрыть ссылки на скрипты"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Источники</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="Показать или скрыть советы"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>Советы</span></button>
+<details class="langs"><summary aria-label="Язык"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Русский</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Язык"><a href="../en/achievements.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/achievements.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/achievements.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/achievements.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/achievements.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/achievements.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/achievements.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/achievements.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/achievements.html" class="on" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/achievements.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/achievements.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/achievements.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/achievements.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Главная</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"/></svg>Достижения</span></div><h1 class="rise d1">Достижения</h1><p class="lead rise d2">Что игровой скрипт проверяет для каждого достижения в Свободной игре и когда, какие из них учитывают только транспорт, грузы и животных базовой игры, и какие проверки оставлены движку.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Проверено в скриптах</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Обновлено 2026-11-17</span><span class="pill" title="Версия игры, на которой проверены эти объяснения (официальные примечания к выпуску)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Версия игры 40425</span></div><div class=facts><div class="fact rise d1"><b>17</b><span>достижений открывает сам игровой скрипт</span></div><div class="fact rise d2"><b>500 м</b><span>высота первого вагона поезда на остановке для «Остановка у вершины»</span></div><div class="fact rise d3"><b>&lt; 1 %</b><span>репутация города для «А я тут причем?»</span></div><div class="fact rise d4"><b>10</b><span>достопримечательностей с одним и тем же ближайшим городом для «Централизация»</span></div></div></div></section><div class="wrap layout"><article><p>Официальная вики перечисляет 41 достижение. Игровой скрипт <code class="src">achievements.script.tl</code> сам открывает <strong>17</strong> из них и пополняет <strong>9 счётчиков между играми</strong>; остальные (кампания, погода, размер города, склад, проценты, бустеры, автомобили, 1900-2000, пар в 2000-х) проверяются в другом месте, движком или платформой. Каждая проверка сначала спрашивает движок, можно ли ещё открыть достижение; блокируют ли его моды или настройки, решается там<span class="sr"> (<code class="src">achievements.script.tl:632</code>, <code class="src">achievements.script.tl:510</code>)</span>.</p>
+<h2 id="достижения-которые-проверяет-скрипт"><span class="n">1</span><span>Достижения, которые проверяет скрипт</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Достижение</th>
+<th>Что проверяет скрипт</th>
+<th class="sc">Источник</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Доставлено</strong></td>
+<td>одна единица груза достигает места назначения</td>
+<td class="sc"><code class="src">achievements.script.tl:221-225</code>, <code class="src">achievements.script.tl:632-636</code></td>
+</tr>
+<tr>
+<td><strong>По поручению</strong></td>
+<td>выполнена одна субсидия</td>
+<td class="sc"><code class="src">achievements.script.tl:241-244</code>, <code class="src">achievements.script.tl:638-642</code></td>
+</tr>
+<tr>
+<td><strong>Поток субсидий</strong></td>
+<td>10 субсидий выполнено без проваленных между ними; проваленная субсидия сбрасывает счёт до 0</td>
+<td class="sc"><code class="src">achievements.script.tl:243-249</code>, <code class="src">achievements.script.tl:644-648</code></td>
+</tr>
+<tr>
+<td><strong>Услужливый</strong></td>
+<td>оценка поставок города меняется на <strong>Прекрасное</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:270-276</code>, <code class="src">towns.script.tl:30-33</code>, <code class="src">achievements.script.tl:650-654</code></td>
+</tr>
+<tr>
+<td><strong>Городское развитие</strong></td>
+<td>город поднимается на уровень</td>
+<td class="sc"><code class="src">achievements.script.tl:253-255</code>, <code class="src">town_growth.script.tl:92</code></td>
+</tr>
+<tr>
+<td><strong>Рост спроса</strong></td>
+<td>у города появляется спрос на новый тип груза</td>
+<td class="sc"><code class="src">achievements.script.tl:257-259</code>, <code class="src">achievements.script.tl:668-672</code></td>
+</tr>
+<tr>
+<td><strong>А я тут причем?</strong></td>
+<td>Репутация города <strong>падает</strong> ниже <strong>1 %</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:261-267</code>, <code class="src">towns.script.tl:36-39</code></td>
+</tr>
+<tr>
+<td><strong>Повышение</strong></td>
+<td>компания получает ранг</td>
+<td class="sc"><code class="src">achievements.script.tl:280-282</code>, <code class="src">achievements.script.tl:680-684</code></td>
+</tr>
+<tr>
+<td><strong>Карьерная лестница</strong></td>
+<td>компания достигает высшего ранга</td>
+<td class="sc"><code class="src">achievements.script.tl:284-290</code>, <code class="src">achievements.script.tl:686-690</code></td>
+</tr>
+<tr>
+<td><strong>Ландшафтный дизайнер</strong></td>
+<td>вы ставите деревья, и только деревья, за одну постройку (ничего не удалено, не через лесовосстановление)</td>
+<td class="sc"><code class="src">achievements.script.tl:346-377</code></td>
+</tr>
+<tr>
+<td><strong>Перфекционист</strong></td>
+<td>одна и та же станция сносится, отстраивается, сносится и отстраивается, именно в этом порядке, без постройки или удаления другой станции между ними</td>
+<td class="sc"><code class="src">achievements.script.tl:304-341</code>, <code class="src">achievements.script.tl:694-710</code></td>
+</tr>
+<tr>
+<td><strong>Централизация</strong></td>
+<td>ровно у 10 завершённых достопримечательностей один и тот же ближайший город</td>
+<td class="sc"><code class="src">achievements.script.tl:382-395</code>, <code class="src">achievements.script.tl:713-721</code></td>
+</tr>
+<tr>
+<td><strong>Остановка у вершины</strong></td>
+<td>один из ваших поездов прибывает на остановку с первым вагоном выше <strong>500 м</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:407-417</code>, <code class="src">achievements.script.tl:723-727</code></td>
+</tr>
+<tr>
+<td><strong>Открытое море</strong></td>
+<td>один из ваших вертолётов прибывает на остановку нефтяной платформы</td>
+<td class="sc"><code class="src">achievements.script.tl:420-450</code>, <code class="src">achievements.script.tl:729-733</code></td>
+</tr>
+<tr>
+<td><strong>Потомственный мореход</strong></td>
+<td>каждая модель судна базовой игры одновременно ходит на одной из ваших водных линий</td>
+<td class="sc"><code class="src">achievements.script.tl:735-776</code></td>
+</tr>
+<tr>
+<td><strong>Близкие контакты третьей степени</strong></td>
+<td>вы щёлкаете по НЛО</td>
+<td class="sc"><code class="src">achievements.script.tl:793-806</code></td>
+</tr>
+<tr>
+<td><strong>Повелитель времени</strong></td>
+<td>вы вручную меняете время суток</td>
+<td class="sc"><code class="src">achievements.script.tl:839-844</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Перфекционист</strong> засчитывает только постройку, которая добавляет или удаляет целую станцию: добавление платформы или модуля к станции не считается<span class="sr"> (<code class="src">achievements.script.tl:301-302</code>)</span>.</li>
+<li><strong>Централизация</strong> засчитывает каждую достопримечательность в момент её завершения, для города, ближайшего к ней в этот момент<span class="sr"> (<code class="src">achievements.script.tl:386</code>)</span>.</li>
+<li><strong>Потомственный мореход</strong> проверяется только тогда, когда на остановку прибывает модель судна, которая ещё ни разу не останавливалась; смотрятся транспортные средства ваших водных линий, а не суда в депо<span class="sr"> (<code class="src">achievements.script.tl:736</code>, <code class="src">achievements.script.tl:750-766</code>)</span>.</li>
+<li><strong>А я тут причем?</strong> требует именно Репутации, а не другой оценки: см. <a href="reputation.html">Репутация городов</a>.</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Совет</h4><p>«Остановка у вершины» проверяет высоту первого вагона в момент остановки поезда, а не высоту здания станции. Постройте станцию на горе выше 500 м и пустите туда один поезд.</p></div></aside>
+<h2 id="счётчики-между-играми"><span class="n">2</span><span>Счётчики между играми</span></h2>
+<p>Они продолжаются от игры к игре (их хранит платформа). Скрипт отправляет только то, что изменилось с прошлой проверки.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Счётчик</th>
+<th>Достижение</th>
+<th>Что учитывается</th>
+<th class="sc">Источник</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Длина путей</td>
+<td><strong>Вокруг света</strong></td>
+<td>прирост общей длины в журнале (в км); при удалении ничего не вычитается</td>
+<td class="sc"><code class="src">achievements.script.tl:511-523</code></td>
+</tr>
+<tr>
+<td>Население</td>
+<td><strong>Население мира</strong></td>
+<td>прирост населения карты, начиная с населения при загрузке игры</td>
+<td class="sc"><code class="src">achievements.script.tl:512</code>, <code class="src">achievements.script.tl:525-533</code></td>
+</tr>
+<tr>
+<td>Пассажиры</td>
+<td><strong>Лидер по пассажирам</strong></td>
+<td>пассажиры, завершившие поездку на одной из ваших линий</td>
+<td class="sc"><code class="src">achievements.script.tl:236-238</code>, <code class="src">achievements.script.tl:535-541</code></td>
+</tr>
+<tr>
+<td>Груз</td>
+<td><strong>Лидер по грузам</strong></td>
+<td>доставленные единицы груза</td>
+<td class="sc"><code class="src">achievements.script.tl:543-549</code></td>
+</tr>
+<tr>
+<td>Климаты</td>
+<td><strong>Король магнатов</strong></td>
+<td>климат карты, когда компания достигает на ней высшего ранга</td>
+<td class="sc"><code class="src">achievements.script.tl:551-567</code></td>
+</tr>
+<tr>
+<td>Доход</td>
+<td><strong>Деньги — зло</strong></td>
+<td>ваш суммарный доход, в миллиардах</td>
+<td class="sc"><code class="src">achievements.script.tl:202-204</code>, <code class="src">achievements.script.tl:569-590</code></td>
+</tr>
+<tr>
+<td>Типы грузов</td>
+<td><strong>Лучший продавец</strong></td>
+<td>каждый тип груза базовой игры, доставленный один раз</td>
+<td class="sc"><code class="src">achievements.script.tl:20-22</code>, <code class="src">achievements.script.tl:230-232</code>, <code class="src">achievements.script.tl:592-607</code></td>
+</tr>
+<tr>
+<td>Транспорт</td>
+<td><strong>Знаток</strong></td>
+<td>каждая модель транспорта базовой игры, один раз прибывшая на остановку</td>
+<td class="sc"><code class="src">achievements.script.tl:16-18</code>, <code class="src">achievements.script.tl:469-481</code>, <code class="src">achievements.script.tl:609-625</code></td>
+</tr>
+<tr>
+<td>Животные</td>
+<td><strong>Любитель животных</strong></td>
+<td>каждое животное базовой игры, по которому вы один раз щёлкнули</td>
+<td class="sc"><code class="src">achievements.script.tl:24-26</code>, <code class="src">achievements.script.tl:809-834</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Транспорт, грузы и животные из модов никогда не учитываются в этих счётчиках: берутся только файлы базовой игры (<code>::/vehicle</code>, <code>::/cargos</code>, <code>::/animal</code>)<span class="sr"> (<code class="src">achievements.script.tl:16-26</code>)</span>.</li>
+<li>Для «Знатока» транспорт должен <strong>прибыть на остановку</strong> линии; одной покупки недостаточно.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Решает движок игры<small>C++, в скриптах не видно</small></h4><p>Можно ли ещё открыть достижение (isAchievementUnlockable), отключены ли счётчики (areStatsDisabled), цели каждого счётчика и 24 достижения вне скрипта обрабатываются движком и платформой. Официальная вики говорит, что достижения обычно недоступны с некосметическими модами или с игровыми настройками, отличными от стандартных.</p></div></aside>
+<h2 id="полезно-знать"><span class="n">3</span><span>Полезно знать</span></h2>
+<ul>
+<li>Каждое достижение «в первый раз» сравнивается с предыдущей проверкой: нужно <strong>новое</strong> событие в игре, где достижение ещё не получено; старая субсидия или ранг из сохранения повторно не засчитываются<span class="sr"> (<code class="src">achievements.script.tl:633</code>, <code class="src">achievements.script.tl:779</code>)</span>.</li>
+<li>Ранг, субсидии и Репутация описаны в разделах <a href="company.html">Ранг компании, преимущества и штаб-квартира</a>, <a href="subsidies.html">Субсидии</a> и <a href="reputation.html">Репутация городов</a>.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Официальная вики и скрипты игры</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Уточняет</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики</div><p>"There are 41 achievements that can be earned by completing a certain task or reaching a specific goal." "Achievements are generally unavailable if non-cosmetic mods are used or the gameplay settings are deviating from standard values." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements">Achievements</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Скрипты игры</div><p>В скрипте 17 достижений и 9 счётчиков. Он уточняет официальные тексты: «Услужливый» означает оценку поставок «Прекрасное», «А я тут причем?» — Репутацию ниже 1 %, «Остановка у вершины» — первый вагон выше 500 м, «Перфекционист» — снос, отстройку, снос и отстройку одной станции, а «Потомственный мореход» — все модели судов базовой игры одновременно на линиях. В счётчиках учитываются только транспорт, грузы и животные базовой игры.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Пути указаны внутри папки игры base/content или её zip-файлов.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>На этой странице</h5><ol><li><a href="#достижения-которые-проверяет-скрипт">Достижения, которые проверяет скрипт</a></li><li><a href="#счётчики-между-играми">Счётчики между играми</a></li><li><a href="#полезно-знать">Полезно знать</a></li></ol><div class="box"><b>3</b><span>ссылок на источники</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Показать источники</span><span class="h">Скрыть источники</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Другие механики</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Самолёты, аэропорты и вертолёты</b><small>Станции и погрузка</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>Ранг компании, преимущества и штаб-квартира</b><small>Компания и штаб-квартира</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Расходы, обслуживание и займы</b><small>Финансы и кредиты</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Настройки отправления: полная загрузка, Уровень заполнения и время стоянки</b><small>Станции и погрузка</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Загрязнение и шум</b><small>Загрязнение и шум</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Доход от грузов и время доставки</b><small>Грузы и доход</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Предприятия</b><small>Предприятия</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="infrastructure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg></span><span><b>Улицы, пути, мосты и сигналы</b><small>Улицы, пути и депо</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Скорость погрузки и разгрузки</b><small>Станции и погрузка</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Почему я теряю деньги?</b><small>Финансы и кредиты</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="notifications.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></span><span><b>Уведомления и предупреждения</b><small>Уведомления и предупреждения</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Репутация городов</b><small>Города</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Суда и порты</b><small>Станции и погрузка</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Субсидии: предложения, сроки и награды</b><small>Субсидии</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Игровое время и календарь</b><small>Игровое время и календарь</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Рост городов: опыт, оценки и размер</b><small>Города</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Транспорт: состояние, возраст и скорость погрузки</b><small>Маршруты и транспорт</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Склады</b><small>Склады</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Работники и бонус работников</b><small>Предприятия</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Фанатский проект Miro. Не связан с Urban Games.</span><span>Тексты и изображения: CC BY 4.0 · Код игры © Urban Games: показаны только короткие ссылки.</span><span class="tr">Переведено с английского; исправления приветствуются (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Официальная вики</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>

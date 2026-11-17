@@ -48,7 +48,7 @@ fact: 4 | 同時に組める融資の数
 
 | 種類 | 登場年 | 1 km あたりの建設費 | 1 km・1 年あたりの維持費 | ソース |
 |---|---|---|---|---|
-| 簡易線路 | 開始時 | 6万 | 1万 | `simple.street_template.lua:9`、`simple.street_template.lua:33` |
+| シンプルな線路 | 開始時 | 6万 | 1万 | `simple.street_template.lua:9`、`simple.street_template.lua:33` |
 | 標準線路 | 1930 | 18万 | 3万 | `standard.street_template.lua:11`、`standard.street_template.lua:35` |
 | 高速線路 | 1980 | 54万 | 9万 | `high_speed.street_template.lua:11`、`high_speed.street_template.lua:35` |
 | 古い小さな田舎道 | 開始時 – 1940 | 6万 | 1万 | `country_old_small.street_template.lua:4-5`、`country_old_small.street_template.lua:8`、`country_old_small.street_template.lua:58` |

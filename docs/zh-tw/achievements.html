@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>成就 · TF3 機制</title>
+<meta name="description" content="Transport Fever 3 到底如何運作，直接取自遊戲本身的腳本。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/achievements.html"><link rel="alternate" hreflang="fr" href="../fr/achievements.html"><link rel="alternate" hreflang="de" href="../de/achievements.html"><link rel="alternate" hreflang="es" href="../es/achievements.html"><link rel="alternate" hreflang="it" href="../it/achievements.html"><link rel="alternate" hreflang="nl" href="../nl/achievements.html"><link rel="alternate" hreflang="pl" href="../pl/achievements.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/achievements.html"><link rel="alternate" hreflang="ru" href="../ru/achievements.html"><link rel="alternate" hreflang="ja" href="../ja/achievements.html"><link rel="alternate" hreflang="ko" href="../ko/achievements.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/achievements.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/achievements.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目錄</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新日誌</a></nav>
+<button class="srcbtn" type="button" data-src title="顯示或隱藏腳本引用"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>來源</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="顯示或隱藏提示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>提示</span></button>
+<details class="langs"><summary aria-label="語言"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>繁體中文</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="語言"><a href="../en/achievements.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/achievements.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/achievements.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/achievements.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/achievements.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/achievements.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/achievements.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/achievements.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/achievements.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/achievements.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/achievements.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/achievements.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/achievements.html" class="on" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目錄</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"/></svg>成就</span></div><h1 class="rise d1">成就</h1><p class="lead rise d2">遊戲腳本對每個自由遊戲成就檢查什麼、何時檢查，哪些成就只計入基礎遊戲的車輛、貨物與動物，以及哪些檢查交給引擎。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>已在腳本中核實</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新於 2026-11-17</span><span class="pill" title="核對這些說明時使用的遊戲版本(官方更新說明)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>遊戲版本 40425</span></div><div class=facts><div class="fact rise d1"><b>17</b><span>由遊戲腳本自己解鎖的成就</span></div><div class="fact rise d2"><b>500 m</b><span>停靠山巔中列車停站時第一節車廂的高度</span></div><div class="fact rise d3"><b>&lt; 1 %</b><span>與我無關所需的城鎮聲望</span></div><div class="fact rise d4"><b>10</b><span>集中管理中最近城鎮必須相同的地標數</span></div></div></div></section><div class="wrap layout"><article><p>官方 wiki 列出了 41 個成就。遊戲腳本 <code class="src">achievements.script.tl</code> 自己解鎖其中 <strong>17</strong> 個，並為 <strong>9 個跨遊戲計數器</strong>提供資料；其餘的（戰役、天氣、城鎮規模、倉庫、利息、增益、汽車、1900-2000、2000 年代的蒸汽）在別處由引擎或平台檢查。每次檢查都先詢問引擎該成就是否仍可解鎖；模組或設定是否阻止它由引擎決定<span class="sr">（<code class="src">achievements.script.tl:632</code>，<code class="src">achievements.script.tl:510</code>）</span>。</p>
+<h2 id="腳本檢查的成就"><span class="n">1</span><span>腳本檢查的成就</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>成就</th>
+<th>腳本檢查什麼</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>包裹已抵達</strong></td>
+<td>一件貨物送達目的地</td>
+<td class="sc"><code class="src">achievements.script.tl:221-225</code>，<code class="src">achievements.script.tl:632-636</code></td>
+</tr>
+<tr>
+<td><strong>受命於人</strong></td>
+<td>完成一項補助</td>
+<td class="sc"><code class="src">achievements.script.tl:241-244</code>，<code class="src">achievements.script.tl:638-642</code></td>
+</tr>
+<tr>
+<td><strong>連環補助</strong></td>
+<td>連續完成 10 項補助，中間沒有失敗；補助失敗會把計數重設為 0</td>
+<td class="sc"><code class="src">achievements.script.tl:243-249</code>，<code class="src">achievements.script.tl:644-648</code></td>
+</tr>
+<tr>
+<td><strong>照護者</strong></td>
+<td>城鎮的送貨評價變為<strong>卓越</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:270-276</code>，<code class="src">towns.script.tl:30-33</code>，<code class="src">achievements.script.tl:650-654</code></td>
+</tr>
+<tr>
+<td><strong>城市發展</strong></td>
+<td>城鎮升級</td>
+<td class="sc"><code class="src">achievements.script.tl:253-255</code>，<code class="src">town_growth.script.tl:92</code></td>
+</tr>
+<tr>
+<td><strong>需求增加</strong></td>
+<td>城鎮產生新的貨物類型需求</td>
+<td class="sc"><code class="src">achievements.script.tl:257-259</code>，<code class="src">achievements.script.tl:668-672</code></td>
+</tr>
+<tr>
+<td><strong>與我無關</strong></td>
+<td>城鎮的聲望<strong>下降</strong>到 <strong>1 %</strong> 以下</td>
+<td class="sc"><code class="src">achievements.script.tl:261-267</code>，<code class="src">towns.script.tl:36-39</code></td>
+</tr>
+<tr>
+<td><strong>晉升</strong></td>
+<td>公司提升一個等級</td>
+<td class="sc"><code class="src">achievements.script.tl:280-282</code>，<code class="src">achievements.script.tl:680-684</code></td>
+</tr>
+<tr>
+<td><strong>職涯高峰</strong></td>
+<td>公司達到最高等級</td>
+<td class="sc"><code class="src">achievements.script.tl:284-290</code>，<code class="src">achievements.script.tl:686-690</code></td>
+</tr>
+<tr>
+<td><strong>園藝大師</strong></td>
+<td>在一次建造中只放置樹木（沒有移除任何東西，也不是透過植林）</td>
+<td class="sc"><code class="src">achievements.script.tl:346-377</code></td>
+</tr>
+<tr>
+<td><strong>完美主義者</strong></td>
+<td>同一座車站依序被拆除、重建、拆除、重建，中間沒有建造或移除其他車站</td>
+<td class="sc"><code class="src">achievements.script.tl:304-341</code>，<code class="src">achievements.script.tl:694-710</code></td>
+</tr>
+<tr>
+<td><strong>集中管理</strong></td>
+<td>恰好 10 座已完工地標的最近城鎮相同</td>
+<td class="sc"><code class="src">achievements.script.tl:382-395</code>，<code class="src">achievements.script.tl:713-721</code></td>
+</tr>
+<tr>
+<td><strong>停靠山巔</strong></td>
+<td>你的某列列車到站時第一節車廂高於 <strong>500 m</strong></td>
+<td class="sc"><code class="src">achievements.script.tl:407-417</code>，<code class="src">achievements.script.tl:723-727</code></td>
+</tr>
+<tr>
+<td><strong>離岸作業</strong></td>
+<td>你的某架直升機抵達石油平台的站點</td>
+<td class="sc"><code class="src">achievements.script.tl:420-450</code>，<code class="src">achievements.script.tl:729-733</code></td>
+</tr>
+<tr>
+<td><strong>傳承船隊</strong></td>
+<td>基礎遊戲的每種船舶型號同時在你的船舶路線上運行</td>
+<td class="sc"><code class="src">achievements.script.tl:735-776</code></td>
+</tr>
+<tr>
+<td><strong>第三類接觸</strong></td>
+<td>你點擊一個 UFO</td>
+<td class="sc"><code class="src">achievements.script.tl:793-806</code></td>
+</tr>
+<tr>
+<td><strong>時空管理者</strong></td>
+<td>你手動更改一天中的時間</td>
+<td class="sc"><code class="src">achievements.script.tl:839-844</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>完美主義者</strong>只計算增加或移除一整座車站的建造：為車站增加月台或模組不算<span class="sr">（<code class="src">achievements.script.tl:301-302</code>）</span>。</li>
+<li><strong>集中管理</strong>在每座地標完工時計數，算入當時離它最近的城鎮<span class="sr">（<code class="src">achievements.script.tl:386</code>）</span>。</li>
+<li><strong>傳承船隊</strong>只在一種從未停過站的船舶型號到站時檢查；它看的是你船舶路線上的車輛，而不是車庫裡的船<span class="sr">（<code class="src">achievements.script.tl:736</code>，<code class="src">achievements.script.tl:750-766</code>）</span>。</li>
+<li><strong>與我無關</strong>需要的是聲望，而不是其他評價：見<a href="reputation.html">城鎮聲望</a>。</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p>停靠山巔檢查的是列車停下時第一節車廂的高度，而不是站房的高度。把車站建在 500 m 以上的山上，並讓一列列車開到那裡。</p></div></aside>
+<h2 id="跨遊戲計數器"><span class="n">2</span><span>跨遊戲計數器</span></h2>
+<p>這些計數會在各局遊戲之間延續（由平台儲存）。腳本只傳送自上次檢查以來的變化。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>計數器</th>
+<th>成就</th>
+<th>計入什麼</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>軌道長度</td>
+<td><strong>環繞世界</strong></td>
+<td>日誌總長度（km）的增長；移除時不會扣除</td>
+<td class="sc"><code class="src">achievements.script.tl:511-523</code></td>
+</tr>
+<tr>
+<td>人口</td>
+<td><strong>全球人口</strong></td>
+<td>地圖人口相對於載入遊戲時人口的增長</td>
+<td class="sc"><code class="src">achievements.script.tl:512</code>，<code class="src">achievements.script.tl:525-533</code></td>
+</tr>
+<tr>
+<td>乘客</td>
+<td><strong>客運先驅</strong></td>
+<td>在你的路線上完成行程的乘客</td>
+<td class="sc"><code class="src">achievements.script.tl:236-238</code>，<code class="src">achievements.script.tl:535-541</code></td>
+</tr>
+<tr>
+<td>貨物</td>
+<td><strong>貨運先驅</strong></td>
+<td>送達的貨物</td>
+<td class="sc"><code class="src">achievements.script.tl:543-549</code></td>
+</tr>
+<tr>
+<td>氣候</td>
+<td><strong>大亨中的大亨</strong></td>
+<td>公司在該地圖達到最高等級時的地圖氣候</td>
+<td class="sc"><code class="src">achievements.script.tl:551-567</code></td>
+</tr>
+<tr>
+<td>收入</td>
+<td><strong>不義之財</strong></td>
+<td>你的收入累計，以十億計</td>
+<td class="sc"><code class="src">achievements.script.tl:202-204</code>，<code class="src">achievements.script.tl:569-590</code></td>
+</tr>
+<tr>
+<td>貨物類型</td>
+<td><strong>銷售大師</strong></td>
+<td>基礎遊戲的每種貨物類型各送達一次</td>
+<td class="sc"><code class="src">achievements.script.tl:20-22</code>，<code class="src">achievements.script.tl:230-232</code>，<code class="src">achievements.script.tl:592-607</code></td>
+</tr>
+<tr>
+<td>車輛</td>
+<td><strong>鑑賞家</strong></td>
+<td>基礎遊戲的每種車輛型號各到站一次</td>
+<td class="sc"><code class="src">achievements.script.tl:16-18</code>，<code class="src">achievements.script.tl:469-481</code>，<code class="src">achievements.script.tl:609-625</code></td>
+</tr>
+<tr>
+<td>動物</td>
+<td><strong>動物愛好者</strong></td>
+<td>基礎遊戲的每種動物各點擊一次</td>
+<td class="sc"><code class="src">achievements.script.tl:24-26</code>，<code class="src">achievements.script.tl:809-834</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>模組中的車輛、貨物與動物永遠不計入這些計數器：只採用基礎遊戲的檔案（<code>::/vehicle</code>，<code>::/cargos</code>，<code>::/animal</code>）<span class="sr">（<code class="src">achievements.script.tl:16-26</code>）</span>。</li>
+<li>對於鑑賞家，車輛必須<strong>抵達路線的站點</strong>；只購買是不夠的。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>成就是否仍可解鎖（isAchievementUnlockable）、計數器是否被關閉（areStatsDisabled）、各計數器的目標，以及腳本中沒有的 24 個成就，都由引擎與平台處理。官方 wiki 指出，使用非外觀類模組或遊戲設定偏離標準值時，通常無法取得成就。</p></div></aside>
+<h2 id="小提示"><span class="n">3</span><span>小提示</span></h2>
+<ul>
+<li>每個「首次」成就都與上一次檢查相比較：需要在該成就仍未解鎖的遊戲中發生<strong>新的</strong>事件，存檔中舊的補助或等級不會再次計入<span class="sr">（<code class="src">achievements.script.tl:633</code>，<code class="src">achievements.script.tl:779</code>）</span>。</li>
+<li>你的等級、補助與聲望分別在<a href="company.html">公司等級、特權與總部</a>、<a href="subsidies.html">補助</a>與<a href="reputation.html">城鎮聲望</a>中說明。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>官方 wiki 與遊戲腳本對照</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>補充細節</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki 的說法</div><p>"There are 41 achievements that can be earned by completing a certain task or reaching a specific goal." "Achievements are generally unavailable if non-cosmetic mods are used or the gameplay settings are deviating from standard values." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements">Achievements</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>遊戲腳本顯示</div><p>腳本中有 17 個成就與 9 個計數器。它細化了官方說明：照護者指送貨評價達到卓越，與我無關指聲望低於 1 %，停靠山巔指第一節車廂高於 500 m，完美主義者指同一車站拆除-重建-拆除-重建，傳承船隊指基礎遊戲的所有船舶型號同時在路線上。計數器只計入基礎遊戲的車輛、貨物與動物。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>路徑位於遊戲的 base/content 資料夾或其 zip 檔案內。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>本頁內容</h5><ol><li><a href="#腳本檢查的成就">腳本檢查的成就</a></li><li><a href="#跨遊戲計數器">跨遊戲計數器</a></li><li><a href="#小提示">小提示</a></li></ol><div class="box"><b>3</b><span>處原始碼引用</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">顯示來源</span><span class="h">隱藏來源</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:gamemodes:achievements"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>其他機制</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>飛機、機場與直升機</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>公司等級、特權與總部</b><small>公司與總部</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>成本、維護費與貸款</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>發車設定：滿載、裝填量與停留時間</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>汙染與噪音</b><small>汙染與噪音</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨運收益與配送時間</b><small>貨物與收益</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>產業</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="infrastructure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg></span><span><b>街道、軌道、橋梁與號誌</b><small>道路、軌道與倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>裝載與卸貨速度</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>為什麼我在虧錢？</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="notifications.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></span><span><b>通知與警告</b><small>通知與警告</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮聲望</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>船舶與港口</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>補助：提案、期限與獎勵</b><small>補助</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>遊戲時間與月曆</b><small>遊戲時間與月曆</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮成長：經驗值、評價與規模</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>車輛：狀態、年份與裝載速度</b><small>路線與車輛</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>貨物倉庫</b><small>貨物倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>工人與工人加速效果</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro 製作的玩家專案。與 Urban Games 無關。</span><span>文字與圖片：CC BY 4.0 · 遊戲程式碼 © Urban Games：僅展示簡短引用。</span><span class="tr">譯自英文；歡迎指正 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>
