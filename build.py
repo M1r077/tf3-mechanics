@@ -744,7 +744,7 @@ def first_diagram(text, lang):
 def build():
     index = load_json(INDEX, {"domains": {}, "files": {}})
     builds = load_json(BUILDS, {"builds": {}, "notes": []})
-    domains = load_domains()
+    domains = [d for d in load_domains() if not d.get("hidden")]
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     os.makedirs(OUT)

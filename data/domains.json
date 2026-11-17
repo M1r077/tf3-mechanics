@@ -149,7 +149,7 @@
           "questions": ["Pourquoi mon succès ne s'est pas débloqué ?"]},
    "de": {"name": "Erfolge", "what": "Was jeder Erfolg prüft und wann.",
           "questions": ["Warum wurde mein Erfolg nicht freigeschaltet?"]}}},
- {"id": "map",
+ {"id": "map", "hidden": true,
   "prefixes": ["climates.zip!", "terrain/", "names.zip!", "animal.zip!"],
   "official": ["gamemanual:gamemodes:mapeditor"],
   "text": {
@@ -159,7 +159,7 @@
           "questions": ["Quelles industries existent dans mon climat ?", "Les arbres repoussent-ils ?"]},
    "de": {"name": "Karte, Klimazonen und Natur", "what": "Klimazonen, Geländeerzeugung, Wiederaufforstung, Tiere und Städtenamen.",
           "questions": ["Welche Industrien gibt es in meinem Klima?", "Wachsen Bäume nach?"]}}},
- {"id": "missions",
+ {"id": "missions", "hidden": true,
   "prefixes": ["mission.zip!"],
   "official": ["gamemanual:gamemodes:campaign"],
   "text": {
@@ -169,7 +169,7 @@
           "questions": ["Que demande vraiment cette tâche de mission ?"]},
    "de": {"name": "Kampagne und Tutorials", "what": "Missionsaufgaben, das Hilfesystem und Tutorials.",
           "questions": ["Was verlangt diese Missionsaufgabe wirklich?"]}}},
- {"id": "interface",
+ {"id": "interface", "hidden": true,
   "prefixes": ["gui.zip!", "scripts.zip!", "base.zip!"],
   "official": ["gamemanual:management:statisticsdatalayers"],
   "text": {
