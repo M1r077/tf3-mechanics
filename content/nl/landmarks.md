@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | bezienswaardigheden, één per bedrijfsrang van 2 tot 15
-fact: +20 % / −20 % / +25 % | topsnelheid, vervuiling of comfort voor de voertuigen van haar stad
+fact: 9 + 3 | bezienswaardigheden: 9 in het basisspel (rangen 2 tot 15), 3 extra met de DLC-pakketten (rang 1)
+fact: +20 % / +25 % / −20 % / −25 % | topsnelheid, vervuiling of comfort voor de voertuigen van haar stad
 fact: ×0 tot ×4 | benodigde vracht, met de instelling Grondstoffen voor trekpleisters
 fact: 2-4 jaar | tussen twee ufo's
 ---
@@ -30,6 +30,14 @@ Vracht bij **Grondstoffen voor trekpleisters** ×1 (Gemiddeld).
 | **Opera** | 14 | 800 stenen, 400 glas, 400 plaatmetaal, 400 textiel | treinen: comfort **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Houses of Parliament** | 15 | 800 stenen, 400 planken, 400 glas, 400 meubels | wegvoertuigen, treinen, schepen en vliegtuigen: topsnelheid **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**DLC-bezienswaardigheden.** Twee DLC-pakketten voegen er nog drie toe, vrijgespeeld vanaf rang 1. Hun bestanden staan in de DLC-mappen van het spel (Deluxe Upgrade Pack en Pre-order Pack), buiten de basisbestanden die deze wiki indexeert, dus ze hebben hier geen bronlinks.
+
+| Bezienswaardigheid | DLC | Rang | Te leveren vracht | Bonus voor de voertuigen van haar stad |
+|---|---|---|---|---|
+| **Eiffeltoren** | Deluxe Upgrade Pack | 1 | 400 staal | wegvoertuigen: topsnelheid **+25 %** |
+| **Taj Mahal** | Deluxe Upgrade Pack | 1 | 800 stenen | vliegtuigen: geluid **−25 %** |
+| **Grote Piramide** | Pre-order Pack | 1 | 800 stenen | treinen: topsnelheid **+25 %** |
+
 - Elke bezienswaardigheid wordt één keer vrijgespeeld, door haar rang; hoe de rang groeit staat in [Bedrijfsrang, voordelen en hoofdkwartier](company.html).
 - Bezienswaardigheden kosten in hun bestanden niets om te bouwen en niets per jaar: alleen de vracht (`arena.con.lua:59-64`).
 - De bouwplaats slaat de helft van elke vracht tegelijk op, dus zijn er minstens twee leveringen van elke vracht nodig (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ Welke stad de "dichtstbijzijnde stad" van een bezienswaardigheid of van een rijd
 ```
 
 ```tip scripts
-Zet de Houses of Parliament in de stad waar de meeste van je voertuigen rijden: +20 % topsnelheid voor elk vervoermiddel. Een tweede +20 % komt van de Grote Vuurtoren voor schepen in dezelfde stad. De prestatie Overzichtelijk vraagt 10 voltooide bezienswaardigheden met dezelfde dichtstbijzijnde stad, terwijl de spelbestanden naast het hoofdkwartier 9 bezienswaardigheden bevatten (geteld); of ze in deze build haalbaar is, is onbekend (zie [Prestaties](achievements.html)).
+Zet de Houses of Parliament in de stad waar de meeste van je voertuigen rijden: +20 % topsnelheid voor elk vervoermiddel. Een tweede +20 % komt van de Grote Vuurtoren voor schepen in dezelfde stad. De prestatie Overzichtelijk vraagt 10 voltooide bezienswaardigheden met dezelfde dichtstbijzijnde stad; het hoofdkwartier telt niet mee, want het heeft geen vracht om te leveren. Het basisspel bevat 9 bezienswaardigheden en de DLC-pakketten voegen er 3 toe (geteld); of Overzichtelijk zonder DLC haalbaar is, is onbekend (zie [Prestaties](achievements.html)).
 ```
 
 ## Vieringen
@@ -81,6 +89,6 @@ Een viering is het feestje dat boven een stad verschijnt wanneer er voor het eer
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Negen bezienswaardigheden, één per rang van 2 tot 15, elk gebouwd uit geleverde vracht in 4 fasen, geschaald door Grondstoffen voor trekpleisters ×0 tot ×4. Eenmaal voltooid geeft elk één bonus (+20 % topsnelheid, −20 % vervuiling, −25 % geluid of +25 % comfort) aan de voertuigen van één vervoermiddel in de dichtstbijzijnde stad; bonussen tellen op. Vieringen geven 50 % of 20 % Reputatie; een ufo komt elke 2 tot 4 jaar.
+scripts: Negen basisbezienswaardigheden, één per rang van 2 tot 15, plus drie DLC-bezienswaardigheden op rang 1, elk gebouwd uit geleverde vracht in 4 fasen, geschaald door Grondstoffen voor trekpleisters ×0 tot ×4. Eenmaal voltooid geeft elk één bonus (+20 % of +25 % topsnelheid, −20 % vervuiling, −25 % geluid of +25 % comfort) aan de voertuigen van één vervoermiddel in de dichtstbijzijnde stad; bonussen tellen op. Vieringen geven 50 % of 20 % Reputatie; een ufo komt elke 2 tot 4 jaar.
 result: adds
 ```

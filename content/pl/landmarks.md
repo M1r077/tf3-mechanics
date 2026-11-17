@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | zabytków, po jednym na rangę firmy od 2 do 15
-fact: +20 % / −20 % / +25 % | prędkość maksymalna, zanieczyszczenie lub komfort pojazdów jego miasta
+fact: 9 + 3 | zabytków: 9 w grze podstawowej (rangi od 2 do 15), 3 więcej z pakietami DLC (ranga 1)
+fact: +20 % / +25 % / −20 % / −25 % | prędkość maksymalna, zanieczyszczenie lub komfort pojazdów jego miasta
 fact: ×0 do ×4 | potrzebnego ładunku, z ustawieniem Surowce budynków specjalnych
 fact: 2-4 lata | między dwoma UFO
 ---
@@ -30,6 +30,14 @@ Zabytek buduje się jak plac budowy: odblokowujesz go rangą firmy, stawiasz, a 
 | **Opera Miejska** | 14 | 800 kamienia, 400 szkła, 400 blachy, 400 płócien | pociągi: komfort **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Gmach Parlamentu** | 15 | 800 kamienia, 400 desek, 400 szkła, 400 mebli | pojazdy drogowe, pociągi, statki i samoloty: prędkość maksymalna **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**Zabytki z DLC.** Dwa pakiety DLC dodają trzy kolejne, odblokowane od rangi 1. Ich pliki są w folderach DLC gry (Deluxe Upgrade Pack i Pre-order Pack), poza plikami podstawowymi indeksowanymi przez tę wiki, więc nie mają tu linków do źródeł.
+
+| Zabytek | DLC | Ranga | Ładunek do dostarczenia | Bonus dla pojazdów jego miasta |
+|---|---|---|---|---|
+| **Wieża Eiffla** | Deluxe Upgrade Pack | 1 | 400 stali | pojazdy drogowe: prędkość maksymalna **+25 %** |
+| **Tadź Mahal** | Deluxe Upgrade Pack | 1 | 800 kamienia | samoloty: hałas **−25 %** |
+| **Wielka Piramida** | Pre-order Pack | 1 | 800 kamienia | pociągi: prędkość maksymalna **+25 %** |
+
 - Każdy zabytek odblokowuje się raz, swoją rangą; jak rośnie ranga, opisuje [Ranga firmy, korzyści i siedziba](company.html).
 - W swoich plikach zabytki nic nie kosztują przy budowie ani rocznie: tylko ładunek (`arena.con.lua:59-64`).
 - Plac przechowuje naraz połowę każdego ładunku, więc potrzeba co najmniej dwóch dostaw każdego (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ Które miasto jest "najbliższym miastem" zabytku lub jadącego pojazdu, decyduj
 ```
 
 ```tip scripts
-Postaw Gmach Parlamentu w mieście, w którym jeździ najwięcej twoich pojazdów: +20 % prędkości maksymalnej dla każdego rodzaju transportu. Drugie +20 % daje Wielka Latarnia statkom w tym samym mieście. Osiągnięcie Centralizacja wymaga 10 ukończonych zabytków z tym samym najbliższym miastem, a pliki gry zawierają 9 zabytków oprócz siedziby (policzone); czy da się je zdobyć w tej wersji, nie wiadomo (zob. [Osiągnięcia](achievements.html)).
+Postaw Gmach Parlamentu w mieście, w którym jeździ najwięcej twoich pojazdów: +20 % prędkości maksymalnej dla każdego rodzaju transportu. Drugie +20 % daje Wielka Latarnia statkom w tym samym mieście. Osiągnięcie Centralizacja wymaga 10 ukończonych zabytków z tym samym najbliższym miastem; siedziba się nie liczy, bo nie ma ładunku do dostarczenia. Gra podstawowa zawiera 9 zabytków, a pakiety DLC dodają 3 (policzone); czy Centralizację da się zdobyć bez DLC, nie wiadomo (zob. [Osiągnięcia](achievements.html)).
 ```
 
 ## Obchody
@@ -81,6 +89,6 @@ Obchody to małe przyjęcie widoczne nad miastem, gdy coś dzieje się po raz pi
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Dziewięć zabytków, po jednym na rangę od 2 do 15, każdy budowany z dostarczonego ładunku w 4 etapach, skalowanego przez Surowce budynków specjalnych od ×0 do ×4. Po ukończeniu każdy daje jeden bonus (+20 % prędkości maksymalnej, −20 % zanieczyszczenia, −25 % hałasu lub +25 % komfortu) pojazdom jednego rodzaju transportu w najbliższym mieście; bonusy się sumują. Obchody dodają 50 % lub 20 % Reputacji; UFO pojawia się co 2 do 4 lat.
+scripts: Dziewięć zabytków podstawowych, po jednym na rangę od 2 do 15, plus trzy zabytki z DLC na randze 1, każdy budowany z dostarczonego ładunku w 4 etapach, skalowanego przez Surowce budynków specjalnych od ×0 do ×4. Po ukończeniu każdy daje jeden bonus (+20 % lub +25 % prędkości maksymalnej, −20 % zanieczyszczenia, −25 % hałasu lub +25 % komfortu) pojazdom jednego rodzaju transportu w najbliższym mieście; bonusy się sumują. Obchody dodają 50 % lub 20 % Reputacji; UFO pojawia się co 2 do 4 lat.
 result: adds
 ```

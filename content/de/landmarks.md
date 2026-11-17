@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | Wahrzeichen, eines pro Unternehmensrang von 2 bis 15
-fact: +20 % / -20 % / +25 % | Höchstgeschwindigkeit, Verschmutzung oder Komfort für die Fahrzeuge seiner Stadt
+fact: 9 + 3 | Wahrzeichen: 9 im Basisspiel (Ränge 2 bis 15), 3 weitere mit den DLC-Paketen (Rang 1)
+fact: +20 % / +25 % / -20 % / -25 % | Höchstgeschwindigkeit, Verschmutzung oder Komfort für die Fahrzeuge seiner Stadt
 fact: ×0 bis ×4 | benötigte Fracht, mit der Einstellung Benötigte Ressourcen für Wahrzeichen
 fact: 2-4 Jahre | zwischen zwei UFOs
 ---
@@ -30,6 +30,14 @@ Fracht bei **Benötigte Ressourcen für Wahrzeichen** ×1 (Normal).
 | **Opernhaus** | 14 | 800 Stein, 400 Glas, 400 Blech, 400 Stoff | Züge: Komfort **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Parlament** | 15 | 800 Stein, 400 Bretter, 400 Glas, 400 Möbel | Strassenfahrzeuge, Züge, Schiffe und Flugzeuge: Höchstgeschwindigkeit **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**DLC-Wahrzeichen.** Zwei DLC-Pakete fügen drei weitere hinzu, freigeschaltet ab Rang 1. Ihre Dateien liegen in den DLC-Ordnern des Spiels (Deluxe Upgrade Pack und Pre-order Pack), ausserhalb der Basisdateien, die dieses Wiki indexiert, deshalb haben sie hier keine Quellenlinks.
+
+| Wahrzeichen | DLC | Rang | Zu liefernde Fracht | Bonus für die Fahrzeuge seiner Stadt |
+|---|---|---|---|---|
+| **Eiffelturm** | Deluxe Upgrade Pack | 1 | 400 Stahl | Strassenfahrzeuge: Höchstgeschwindigkeit **+25 %** |
+| **Taj Mahal** | Deluxe Upgrade Pack | 1 | 800 Stein | Flugzeuge: Lärm **-25 %** |
+| **Cheops Pyramide** | Pre-order Pack | 1 | 800 Stein | Züge: Höchstgeschwindigkeit **+25 %** |
+
 - Jedes Wahrzeichen wird einmal freigeschaltet, durch seinen Rang; wie der Rang steigt, steht in [Unternehmensrang, Vorteile und Hauptquartier](company.html).
 - Laut ihren Dateien kosten Wahrzeichen nichts beim Bau und nichts pro Jahr: nur die Fracht (`arena.con.lua:59-64`).
 - Die Baustelle lagert jeweils die Hälfte jeder Fracht, sie braucht also mindestens zwei Lieferungen von jeder (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ Welche Stadt die „nächste Stadt“ eines Wahrzeichens oder eines fahrenden Fa
 ```
 
 ```tip scripts
-Setze das Parlament in die Stadt, in der die meisten deiner Fahrzeuge fahren: +20 % Höchstgeschwindigkeit für jede Verkehrsart. Weitere +20 % gibt der Grosse Leuchtturm für Schiffe in derselben Stadt. Der Erfolg Zentralisiert verlangt 10 fertige Wahrzeichen mit derselben nächsten Stadt, während die Spieldateien neben dem Hauptquartier (mitgezählt) 9 Wahrzeichen enthalten; ob er in diesem Build erreichbar ist, ist unbekannt (siehe [Erfolge](achievements.html)).
+Setze das Parlament in die Stadt, in der die meisten deiner Fahrzeuge fahren: +20 % Höchstgeschwindigkeit für jede Verkehrsart. Weitere +20 % gibt der Grosse Leuchtturm für Schiffe in derselben Stadt. Der Erfolg Zentralisiert verlangt 10 fertige Wahrzeichen mit derselben nächsten Stadt; das Hauptquartier zählt nicht, da es keine Fracht zum Liefern hat. Das Basisspiel enthält 9 Wahrzeichen und die DLC-Pakete fügen 3 hinzu (gezählt); ob Zentralisiert ohne DLC erreichbar ist, ist unbekannt (siehe [Erfolge](achievements.html)).
 ```
 
 ## Feiern
@@ -81,6 +89,6 @@ Eine Feier ist das kleine Fest, das über einer Stadt angezeigt wird, wenn etwas
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Neun Wahrzeichen, eines pro Rang von 2 bis 15, jedes aus gelieferter Fracht in 4 Stufen gebaut, skaliert durch Benötigte Ressourcen für Wahrzeichen ×0 bis ×4. Fertig gibt jedes einen Bonus (+20 % Höchstgeschwindigkeit, -20 % Verschmutzung, -25 % Lärm oder +25 % Komfort) an die Fahrzeuge einer Verkehrsart in seiner nächsten Stadt; Boni addieren sich. Feiern geben 50 % oder 20 % Ruf; alle 2 bis 4 Jahre kommt ein UFO.
+scripts: Neun Basis-Wahrzeichen, eines pro Rang von 2 bis 15, plus drei DLC-Wahrzeichen auf Rang 1, jedes aus gelieferter Fracht in 4 Stufen gebaut, skaliert durch Benötigte Ressourcen für Wahrzeichen ×0 bis ×4. Fertig gibt jedes einen Bonus (+20 % oder +25 % Höchstgeschwindigkeit, -20 % Verschmutzung, -25 % Lärm oder +25 % Komfort) an die Fahrzeuge einer Verkehrsart in seiner nächsten Stadt; Boni addieren sich. Feiern geben 50 % oder 20 % Ruf; alle 2 bis 4 Jahre kommt ein UFO.
 result: adds
 ```

@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | pontos de referência, um por nível de empresa de 2 a 15
-fact: +20 % / −20 % / +25 % | velocidade máxima, poluição ou conforto para os veículos da sua cidade
+fact: 9 + 3 | pontos de referência: 9 no jogo base (níveis 2 a 15), mais 3 com os pacotes DLC (nível 1)
+fact: +20 % / +25 % / −20 % / −25 % | velocidade máxima, poluição ou conforto para os veículos da sua cidade
 fact: ×0 a ×4 | de carga necessária, com a configuração Recursos Necessários para Marcos
 fact: 2-4 anos | entre dois OVNIs
 ---
@@ -30,6 +30,14 @@ Carga com **Recursos Necessários para Marcos** ×1 (Normal).
 | **Teatro de Ópera** | 14 | 800 de pedra, 400 de vidro, 400 chapas metálicas, 400 de tecido | trens: conforto **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Palácio de Westminster** | 15 | 800 de pedra, 400 tábuas, 400 de vidro, 400 móveis | veículos rodoviários, trens, navios e aeronaves: velocidade máxima **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**Pontos de referência de DLC.** Dois pacotes DLC adicionam mais três, desbloqueados a partir do nível 1. Os arquivos deles ficam nas pastas DLC do jogo (Deluxe Upgrade Pack e Pre-order Pack), fora dos arquivos base que esta wiki indexa, então eles não têm links para as fontes aqui.
+
+| Ponto de referência | DLC | Nível | Carga a entregar | Bônus para os veículos da sua cidade |
+|---|---|---|---|---|
+| **Torre Eiffel** | Deluxe Upgrade Pack | 1 | 400 de aço | veículos rodoviários: velocidade máxima **+25 %** |
+| **Taj Mahal** | Deluxe Upgrade Pack | 1 | 800 de pedra | aeronaves: ruído **−25 %** |
+| **Grande Pirâmide** | Pre-order Pack | 1 | 800 de pedra | trens: velocidade máxima **+25 %** |
+
 - Cada ponto de referência é desbloqueado uma vez, pelo seu nível; como o nível cresce está em [Nível da empresa, vantagens e sede](company.html).
 - Nos seus arquivos, os pontos de referência não custam nada para construir nem por ano: só a carga (`arena.con.lua:59-64`).
 - O canteiro armazena metade de cada carga por vez, então precisa de pelo menos duas entregas de cada (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ Qual cidade é a "cidade mais próxima" de um ponto de referência ou de um veí
 ```
 
 ```tip scripts
-Coloque o Palácio de Westminster na cidade onde roda a maioria dos seus veículos: +20 % de velocidade máxima para todo tipo de transporte. Um segundo +20 % vem do Grande Farol para navios na mesma cidade. A conquista Centralização pede 10 pontos de referência prontos com a mesma cidade mais próxima, enquanto os arquivos do jogo têm 9 pontos de referência além da sede (contados); se ela pode ser obtida nesta versão é desconhecido (veja [Conquistas](achievements.html)).
+Coloque o Palácio de Westminster na cidade onde roda a maioria dos seus veículos: +20 % de velocidade máxima para todo tipo de transporte. Um segundo +20 % vem do Grande Farol para navios na mesma cidade. A conquista Centralização pede 10 pontos de referência prontos com a mesma cidade mais próxima; a sede não conta, pois não tem carga a entregar. O jogo base tem 9 pontos de referência e os pacotes DLC adicionam 3 (contados); se Centralização pode ser obtida sem um DLC é desconhecido (veja [Conquistas](achievements.html)).
 ```
 
 ## Celebrações
@@ -81,6 +89,6 @@ Uma celebração é a pequena festa mostrada sobre uma cidade quando algo aconte
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Nove pontos de referência, um por nível de 2 a 15, cada um construído com carga entregue em 4 estágios, escalada por Recursos Necessários para Marcos de ×0 a ×4. Depois de pronto, cada um dá um bônus (+20 % de velocidade máxima, −20 % de poluição, −25 % de ruído ou +25 % de conforto) aos veículos de um tipo de transporte na cidade mais próxima; os bônus se somam. Celebrações dão 50 % ou 20 % de Reputação; um OVNI vem a cada 2 a 4 anos.
+scripts: Nove pontos de referência base, um por nível de 2 a 15, mais três pontos de referência de DLC no nível 1, cada um construído com carga entregue em 4 estágios, escalada por Recursos Necessários para Marcos de ×0 a ×4. Depois de pronto, cada um dá um bônus (+20 % ou +25 % de velocidade máxima, −20 % de poluição, −25 % de ruído ou +25 % de conforto) aos veículos de um tipo de transporte na cidade mais próxima; os bônus se somam. Celebrações dão 50 % ou 20 % de Reputação; um OVNI vem a cada 2 a 4 anos.
 result: adds
 ```

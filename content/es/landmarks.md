@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | monumentos, uno por rango de empresa del 2 al 15
-fact: +20 % / -20 % / +25 % | velocidad máxima, contaminación o comodidad para los vehículos de su localidad
+fact: 9 + 3 | monumentos: 9 en el juego base (rangos 2 al 15), 3 más con los packs DLC (rango 1)
+fact: +20 % / +25 % / -20 % / -25 % | velocidad máxima, contaminación o comodidad para los vehículos de su localidad
 fact: ×0 a ×4 | de carga necesaria, con el ajuste Recursos necesarios para los monumentos
 fact: 2-4 años | entre dos ovnis
 ---
@@ -30,6 +30,14 @@ Carga con **Recursos necesarios para los monumentos** ×1 (Normal).
 | **Teatro de ópera** | 14 | 800 piedra, 400 vidrio, 400 lámina de metal, 400 tejido | trenes: comodidad **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Palacio de Westminster** | 15 | 800 piedra, 400 tablones, 400 vidrio, 400 muebles | vehículos de carretera, trenes, barcos y aviones: velocidad máxima **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**Monumentos DLC.** Dos packs DLC añaden tres más, desbloqueados desde el rango 1. Sus archivos están en las carpetas DLC del juego (Deluxe Upgrade Pack y Pre-order Pack), fuera de los archivos base que indexa este wiki, así que aquí no tienen enlaces a las fuentes.
+
+| Monumento | DLC | Rango | Carga que entregar | Bonificación para los vehículos de su localidad |
+|---|---|---|---|---|
+| **Torre Eiffel** | Deluxe Upgrade Pack | 1 | 400 acero | vehículos de carretera: velocidad máxima **+25 %** |
+| **Taj Mahal** | Deluxe Upgrade Pack | 1 | 800 piedra | aviones: ruido **-25 %** |
+| **Gran Pirámide** | Pre-order Pack | 1 | 800 piedra | trenes: velocidad máxima **+25 %** |
+
 - Cada monumento se desbloquea una sola vez, por su rango; cómo sube el rango está en [Rango de la empresa, ventajas y sede central](company.html).
 - Según sus archivos, los monumentos no cuestan nada al construirlos ni cada año: solo la carga (`arena.con.lua:59-64`).
 - La obra almacena la mitad de cada carga a la vez, así que necesita al menos dos entregas de cada una (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ Qué localidad es la «localidad más cercana» de un monumento o de un vehícul
 ```
 
 ```tip scripts
-Pon el Palacio de Westminster en la localidad donde circulan la mayoría de tus vehículos: +20 % de velocidad máxima para todos los medios de transporte. Otro +20 % lo da el Gran faro para los barcos de la misma localidad. El logro Centralizado pide 10 monumentos terminados con la misma localidad más cercana, mientras que los archivos del juego contienen 9 monumentos además de la sede central (contada); no se sabe si puede conseguirse en esta versión (ver [Logros](achievements.html)).
+Pon el Palacio de Westminster en la localidad donde circulan la mayoría de tus vehículos: +20 % de velocidad máxima para todos los medios de transporte. Otro +20 % lo da el Gran faro para los barcos de la misma localidad. El logro Centralizado pide 10 monumentos terminados con la misma localidad más cercana; la sede central no cuenta, ya que no tiene carga que entregar. El juego base contiene 9 monumentos y los packs DLC añaden 3 (contados); no se sabe si Centralizado puede conseguirse sin un DLC (ver [Logros](achievements.html)).
 ```
 
 ## Celebraciones
@@ -81,6 +89,6 @@ Una celebración es la pequeña fiesta que aparece sobre una localidad cuando al
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Nueve monumentos, uno por rango del 2 al 15, cada uno construido con carga entregada en 4 fases, escalada por Recursos necesarios para los monumentos ×0 a ×4. Una vez terminado, cada uno da una bonificación (+20 % de velocidad máxima, -20 % de contaminación, -25 % de ruido o +25 % de comodidad) a los vehículos de un medio de transporte en su localidad más cercana; las bonificaciones se suman. Las celebraciones añaden 50 % o 20 % de Reputación; un ovni llega cada 2 a 4 años.
+scripts: Nueve monumentos base, uno por rango del 2 al 15, más tres monumentos DLC en el rango 1, cada uno construido con carga entregada en 4 fases, escalada por Recursos necesarios para los monumentos ×0 a ×4. Una vez terminado, cada uno da una bonificación (+20 % o +25 % de velocidad máxima, -20 % de contaminación, -25 % de ruido o +25 % de comodidad) a los vehículos de un medio de transporte en su localidad más cercana; las bonificaciones se suman. Las celebraciones añaden 50 % o 20 % de Reputación; un ovni llega cada 2 a 4 años.
 result: adds
 ```

@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | landmarks, one per company rank from 2 to 15
-fact: +20 % / −20 % / +25 % | top speed, pollution or comfort for the vehicles of its town
+fact: 9 + 3 | landmarks: 9 in the base game (ranks 2 to 15), 3 more with the DLC packs (rank 1)
+fact: +20 % / +25 % / −20 % / −25 % | top speed, pollution or comfort for the vehicles of its town
 fact: ×0 to ×4 | cargo needed, with the Landmark Required Resources setting
 fact: 2-4 years | between two UFOs
 ---
@@ -30,6 +30,14 @@ Cargo at **Landmark Required Resources** Normal (×1).
 | **Opera House** | 14 | 800 stone, 400 glass, 400 sheet metal, 400 fabric | trains: comfort **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Houses of Parliament** | 15 | 800 stone, 400 planks, 400 glass, 400 furniture | road vehicles, trains, ships and aircraft: top speed **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**DLC landmarks.** Two DLC packs add three more, unlocked from rank 1. Their files are in the game's DLC folders (Deluxe Upgrade Pack and Pre-order Pack), outside the base files this wiki indexes, so they have no source links here.
+
+| Landmark | DLC | Rank | Cargo to deliver | Bonus for the vehicles of its town |
+|---|---|---|---|---|
+| **Eiffel Tower** | Deluxe Upgrade Pack | 1 | 400 steel | road vehicles: top speed **+25 %** |
+| **Taj Mahal** | Deluxe Upgrade Pack | 1 | 800 stone | aircraft: noise **−25 %** |
+| **Great Pyramid** | Pre-order Pack | 1 | 800 stone | trains: top speed **+25 %** |
+
 - Each landmark is unlocked once, by its rank; how the rank grows is in [Company rank, perks and headquarters](company.html).
 - Landmarks cost nothing to build and nothing per year in their files: only the cargo (`arena.con.lua:59-64`).
 - The site stores half of each cargo at a time, so it needs at least two deliveries of each (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ Which town is the "closest town" of a landmark or of a moving vehicle is decided
 ```
 
 ```tip scripts
-Put the Houses of Parliament in the town where most of your vehicles run: +20 % top speed for every carrier. A second +20 % comes from the Great Lighthouse for ships in the same town. The Centralized achievement asks for 10 finished landmarks with the same closest town, while the game files hold 9 landmarks besides the headquarters (counted); whether it can be reached in this build is unknown (see [Achievements](achievements.html)).
+Put the Houses of Parliament in the town where most of your vehicles run: +20 % top speed for every carrier. A second +20 % comes from the Great Lighthouse for ships in the same town. The Centralized achievement asks for 10 finished landmarks with the same closest town; the headquarters does not count, as it has no cargo to deliver. The base game holds 9 landmarks and the DLC packs add 3 (counted); whether Centralized can be reached without a DLC is unknown (see [Achievements](achievements.html)).
 ```
 
 ## Celebrations
@@ -81,6 +89,6 @@ A celebration is the little party shown over a town when something happens for t
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Nine landmarks, one per rank from 2 to 15, each built from delivered cargo in 4 stages, scaled by Landmark Required Resources ×0 to ×4. Once finished each gives one bonus (+20 % top speed, −20 % pollution, −25 % noise or +25 % comfort) to the vehicles of one carrier in its closest town; bonuses add up. Celebrations add 50 % or 20 % Reputation; a UFO comes every 2 to 4 years.
+scripts: Nine base landmarks, one per rank from 2 to 15, plus three DLC landmarks at rank 1, each built from delivered cargo in 4 stages, scaled by Landmark Required Resources ×0 to ×4. Once finished each gives one bonus (+20 % or +25 % top speed, −20 % pollution, −25 % noise or +25 % comfort) to the vehicles of one carrier in its closest town; bonuses add up. Celebrations add 50 % or 20 % Reputation; a UFO comes every 2 to 4 years.
 result: adds
 ```

@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | monuments, un par rang d'entreprise de 2 à 15
-fact: +20 % / -20 % / +25 % | vitesse maximale, pollution ou confort pour les véhicules de sa ville
+fact: 9 + 3 | monuments : 9 dans le jeu de base (rangs 2 à 15), 3 de plus avec les packs DLC (rang 1)
+fact: +20 % / +25 % / -20 % / -25 % | vitesse maximale, pollution ou confort pour les véhicules de sa ville
 fact: ×0 à ×4 | de fret nécessaire, avec le réglage Ressources nécessaires aux monuments
 fact: 2-4 ans | entre deux OVNI
 ---
@@ -30,6 +30,14 @@ Fret avec **Ressources nécessaires aux monuments** ×1 (Normale).
 | **Opéra** | 14 | 800 pierre, 400 verre, 400 tôle, 400 tissu | trains : confort **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Chambres du Parlement** | 15 | 800 pierre, 400 planches, 400 verre, 400 meubles | véhicules routiers, trains, navires et avions : vitesse maximale **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**Monuments DLC.** Deux packs DLC en ajoutent trois, débloqués dès le rang 1. Leurs fichiers sont dans les dossiers DLC du jeu (Deluxe Upgrade Pack et Pre-order Pack), hors des fichiers de base que ce wiki indexe, ils n'ont donc pas de liens vers les sources ici.
+
+| Monument | DLC | Rang | Fret à livrer | Bonus pour les véhicules de sa ville |
+|---|---|---|---|---|
+| **Tour Eiffel** | Deluxe Upgrade Pack | 1 | 400 acier | véhicules routiers : vitesse maximale **+25 %** |
+| **Taj Mahal** | Deluxe Upgrade Pack | 1 | 800 pierre | avions : bruit **-25 %** |
+| **Grande Pyramide** | Pre-order Pack | 1 | 800 pierre | trains : vitesse maximale **+25 %** |
+
 - Chaque monument se débloque une seule fois, par son rang ; la façon dont le rang monte est dans [Rang de l'entreprise, avantages et siège social](company.html).
 - Dans leurs fichiers, les monuments ne coûtent rien à construire ni par an : seulement le fret (`arena.con.lua:59-64`).
 - Le chantier stocke la moitié de chaque fret à la fois, il faut donc au moins deux livraisons de chacun (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ La « ville la plus proche » d'un monument ou d'un véhicule en mouvement est d
 ```
 
 ```tip scripts
-Place les Chambres du Parlement dans la ville où roulent la plupart de tes véhicules : +20 % de vitesse maximale pour tous les modes. Un second +20 % vient du Grand Phare pour les navires de la même ville. Le succès Centralisation demande 10 monuments terminés avec la même ville la plus proche, alors que les fichiers du jeu contiennent 9 monuments en plus du siège social (comptés) ; on ne sait pas s'il peut être obtenu dans cette version (voir [Succès](achievements.html)).
+Place les Chambres du Parlement dans la ville où roulent la plupart de tes véhicules : +20 % de vitesse maximale pour tous les modes. Un second +20 % vient du Grand Phare pour les navires de la même ville. Le succès Centralisation demande 10 monuments terminés avec la même ville la plus proche ; le siège social ne compte pas, car il n'a pas de fret à livrer. Le jeu de base contient 9 monuments et les packs DLC en ajoutent 3 (comptés) ; on ne sait pas si Centralisation peut être obtenu sans DLC (voir [Succès](achievements.html)).
 ```
 
 ## Célébrations
@@ -81,6 +89,6 @@ Une célébration est la petite fête affichée au-dessus d'une ville quand quel
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Neuf monuments, un par rang de 2 à 15, chacun construit avec du fret livré en 4 étapes, modifié par Ressources nécessaires aux monuments ×0 à ×4. Une fois terminé, chacun donne un bonus (+20 % de vitesse maximale, -20 % de pollution, -25 % de bruit ou +25 % de confort) aux véhicules d'un mode de transport dans sa ville la plus proche ; les bonus s'additionnent. Les célébrations ajoutent 50 % ou 20 % de Réputation ; un OVNI vient tous les 2 à 4 ans.
+scripts: Neuf monuments de base, un par rang de 2 à 15, plus trois monuments DLC au rang 1, chacun construit avec du fret livré en 4 étapes, modifié par Ressources nécessaires aux monuments ×0 à ×4. Une fois terminé, chacun donne un bonus (+20 % ou +25 % de vitesse maximale, -20 % de pollution, -25 % de bruit ou +25 % de confort) aux véhicules d'un mode de transport dans sa ville la plus proche ; les bonus s'additionnent. Les célébrations ajoutent 50 % ou 20 % de Réputation ; un OVNI vient tous les 2 à 4 ans.
 result: adds
 ```

@@ -6,8 +6,8 @@ official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
 game: 40425
-fact: 9 | monumenti, uno per grado aziendale dal 2 al 15
-fact: +20 % / -20 % / +25 % | velocità massima, inquinamento o comfort per i veicoli della sua città
+fact: 9 + 3 | monumenti: 9 nel gioco base (gradi dal 2 al 15), altri 3 con i pacchetti DLC (grado 1)
+fact: +20 % / +25 % / -20 % / -25 % | velocità massima, inquinamento o comfort per i veicoli della sua città
 fact: ×0 a ×4 | di merci necessarie, con l'impostazione Livello risorse per luoghi di riferimento
 fact: 2-4 anni | tra due UFO
 ---
@@ -30,6 +30,14 @@ Merci con **Livello risorse per luoghi di riferimento** ×1 (Normale).
 | **Teatro dell'opera** | 14 | 800 pietra, 400 vetro, 400 lamine di metallo, 400 tessuti | treni: comfort **+25 %** | `opera_house.con.lua:10-22`, `opera_house.con.lua:44`, `opera_house.con.lua:63` |
 | **Parlamento** | 15 | 800 pietra, 400 assi, 400 vetro, 400 mobili | veicoli stradali, treni, navi e aerei: velocità massima **+20 %** | `westminster.con.lua:10-22`, `westminster.con.lua:45`, `westminster.con.lua:79` |
 
+**Monumenti DLC.** Due pacchetti DLC ne aggiungono altri tre, sbloccati dal grado 1. I loro file sono nelle cartelle DLC del gioco (Deluxe Upgrade Pack e Pre-order Pack), fuori dai file base indicizzati da questo wiki, quindi qui non hanno link alle fonti.
+
+| Monumento | DLC | Grado | Merci da consegnare | Bonus per i veicoli della sua città |
+|---|---|---|---|---|
+| **Torre Eiffel** | Deluxe Upgrade Pack | 1 | 400 acciaio | veicoli stradali: velocità massima **+25 %** |
+| **Taj Mahal** | Deluxe Upgrade Pack | 1 | 800 pietra | aerei: rumore **-25 %** |
+| **Grande piramide** | Pre-order Pack | 1 | 800 pietra | treni: velocità massima **+25 %** |
+
 - Ogni monumento si sblocca una sola volta, con il suo grado; come sale il grado è spiegato in [Grado aziendale, vantaggi e sede centrale](company.html).
 - Nei loro file i monumenti non costano nulla da costruire né all'anno: solo le merci (`arena.con.lua:59-64`).
 - Il cantiere immagazzina metà di ogni merce alla volta, quindi servono almeno due consegne di ciascuna (`arena.con.lua:13-18`).
@@ -51,7 +59,7 @@ Quale città sia la «città più vicina» di un monumento o di un veicolo in mo
 ```
 
 ```tip scripts
-Metti il Parlamento nella città dove circola la maggior parte dei tuoi veicoli: +20 % di velocità massima per ogni tipo di trasporto. Un secondo +20 % viene dal Grande faro per le navi nella stessa città. L'obiettivo L'ombelico del mondo chiede 10 monumenti finiti con la stessa città più vicina, mentre i file del gioco contengono 9 monumenti oltre alla sede centrale (contata); non si sa se sia raggiungibile in questa versione (vedi [Obiettivi](achievements.html)).
+Metti il Parlamento nella città dove circola la maggior parte dei tuoi veicoli: +20 % di velocità massima per ogni tipo di trasporto. Un secondo +20 % viene dal Grande faro per le navi nella stessa città. L'obiettivo L'ombelico del mondo chiede 10 monumenti finiti con la stessa città più vicina; la sede centrale non conta, perché non ha merci da consegnare. Il gioco base contiene 9 monumenti e i pacchetti DLC ne aggiungono 3 (contati); non si sa se L'ombelico del mondo sia raggiungibile senza un DLC (vedi [Obiettivi](achievements.html)).
 ```
 
 ## Celebrazioni
@@ -81,6 +89,6 @@ Una celebrazione è la piccola festa mostrata sopra una città quando qualcosa a
 
 ```check
 official: The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.
-scripts: Nove monumenti, uno per grado dal 2 al 15, ciascuno costruito con merci consegnate in 4 fasi, scalate da Livello risorse per luoghi di riferimento ×0 a ×4. Una volta finito, ognuno dà un bonus (+20 % di velocità massima, -20 % di inquinamento, -25 % di rumore o +25 % di comfort) ai veicoli di un tipo di trasporto nella sua città più vicina; i bonus si sommano. Le celebrazioni aggiungono il 50 % o il 20 % di Reputazione; un UFO arriva ogni 2-4 anni.
+scripts: Nove monumenti base, uno per grado dal 2 al 15, più tre monumenti DLC al grado 1, ciascuno costruito con merci consegnate in 4 fasi, scalate da Livello risorse per luoghi di riferimento ×0 a ×4. Una volta finito, ognuno dà un bonus (+20 % o +25 % di velocità massima, -20 % di inquinamento, -25 % di rumore o +25 % di comfort) ai veicoli di un tipo di trasporto nella sua città più vicina; i bonus si sommano. Le celebrazioni aggiungono il 50 % o il 20 % di Reputazione; un UFO arriva ogni 2-4 anni.
 result: adds
 ```
