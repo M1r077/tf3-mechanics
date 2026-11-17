@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Landmarks, celebrations and fun elements · TF3 Mechanics</title>
+<meta name="description" content="How Transport Fever 3 really works, read from the game&#x27;s own scripts.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/landmarks.html"><link rel="alternate" hreflang="fr" href="../fr/landmarks.html"><link rel="alternate" hreflang="de" href="../de/landmarks.html"><link rel="alternate" hreflang="es" href="../es/landmarks.html"><link rel="alternate" hreflang="it" href="../it/landmarks.html"><link rel="alternate" hreflang="nl" href="../nl/landmarks.html"><link rel="alternate" hreflang="pl" href="../pl/landmarks.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/landmarks.html"><link rel="alternate" hreflang="ru" href="../ru/landmarks.html"><link rel="alternate" hreflang="ja" href="../ja/landmarks.html"><link rel="alternate" hreflang="ko" href="../ko/landmarks.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/landmarks.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/landmarks.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Index</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Patch notes</a></nav>
+<button class="srcbtn" type="button" data-src title="Show or hide the script references"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Sources</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="Show or hide the tips"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>Tips</span></button>
+<details class="langs"><summary aria-label="Language"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>English</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Language"><a href="../en/landmarks.html" class="on" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/landmarks.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/landmarks.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/landmarks.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/landmarks.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/landmarks.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/landmarks.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/landmarks.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/landmarks.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/landmarks.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/landmarks.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/landmarks.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/landmarks.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Index</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M5 21h14M7 21V10l5-4 5 4v11M10 21v-5h4v5"/></svg>Landmarks, perks and celebrations</span></div><h1 class="rise d1">Landmarks, celebrations and fun elements</h1><p class="lead rise d2">What each landmark costs in cargo, when it unlocks and what it does for the vehicles of its town, how the Landmark Required Resources setting scales it, and what celebrations, fireworks, blimps and UFOs really do.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verified in the scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:userinterface"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Updated 2026-11-17</span><span class="pill" title="Game version these explanations were checked on (official release notes)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Game build 40425</span></div><div class=facts><div class="fact rise d1"><b>9</b><span>landmarks, one per company rank from 2 to 15</span></div><div class="fact rise d2"><b>+20 % / −20 % / +25 %</b><span>top speed, pollution or comfort for the vehicles of its town</span></div><div class="fact rise d3"><b>×0 to ×4</b><span>cargo needed, with the Landmark Required Resources setting</span></div><div class="fact rise d4"><b>2-4 years</b><span>between two UFOs</span></div></div></div></section><div class="wrap layout"><article><p>A landmark is built like a construction site: you unlock it with a company rank, place it, and then <strong>deliver cargo</strong> to it. When the site has all its cargo, the landmark is finished and gives a bonus to the vehicles of <strong>its town</strong>. The headquarters is a separate building with its own rules (see <a href="company.html">Company rank, perks and headquarters</a>).</p>
+<h2 id="the-landmarks"><span class="n">1</span><span>The landmarks</span></h2>
+<p>Cargo at <strong>Landmark Required Resources</strong> Normal (×1).</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Landmark</th>
+<th>Rank</th>
+<th>Cargo to deliver</th>
+<th>Bonus for the vehicles of its town</th>
+<th class="sc">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Amphitheater</strong></td>
+<td>2</td>
+<td>800 stone</td>
+<td>road vehicles: noise <strong>−25 %</strong></td>
+<td class="sc"><code class="src">arena.con.lua:10</code>, <code class="src">arena.con.lua:20-26</code>, <code class="src">arena.con.lua:39</code></td>
+</tr>
+<tr>
+<td><strong>Great Lighthouse</strong></td>
+<td>5</td>
+<td>1,200 stone, 200 fuel</td>
+<td>ships: top speed <strong>+20 %</strong></td>
+<td class="sc"><code class="src">lighthouse.con.lua:10</code>, <code class="src">lighthouse.con.lua:14</code>, <code class="src">lighthouse.con.lua:29</code>, <code class="src">lighthouse.con.lua:48</code></td>
+</tr>
+<tr>
+<td><strong>White Heron Castle</strong></td>
+<td>7</td>
+<td>1,200 stone, 400 planks</td>
+<td>trains: pollution <strong>−20 %</strong></td>
+<td class="sc"><code class="src">white_heron_castle.con.lua:10</code>, <code class="src">white_heron_castle.con.lua:14</code>, <code class="src">white_heron_castle.con.lua:28</code>, <code class="src">white_heron_castle.con.lua:47</code></td>
+</tr>
+<tr>
+<td><strong>Ship Museum</strong></td>
+<td>9</td>
+<td>600 logs, 600 planks, 200 fabric</td>
+<td>ships: comfort <strong>+25 %</strong></td>
+<td class="sc"><code class="src">ship_museum.con.lua:10-18</code>, <code class="src">ship_museum.con.lua:36</code>, <code class="src">ship_museum.con.lua:55</code></td>
+</tr>
+<tr>
+<td><strong>Castle Neuschwanstein</strong></td>
+<td>10</td>
+<td>1,000 stone, 600 planks, 200 dyes</td>
+<td>road vehicles: comfort <strong>+25 %</strong></td>
+<td class="sc"><code class="src">neuschwanstein.con.lua:10-18</code>, <code class="src">neuschwanstein.con.lua:36</code>, <code class="src">neuschwanstein.con.lua:55</code></td>
+</tr>
+<tr>
+<td><strong>Statue of Liberty</strong></td>
+<td>11</td>
+<td>800 stone, 400 steel, 400 sheet metal</td>
+<td>ships: pollution <strong>−20 %</strong></td>
+<td class="sc"><code class="src">statue_of_liberty.con.lua:10-18</code>, <code class="src">statue_of_liberty.con.lua:38</code>, <code class="src">statue_of_liberty.con.lua:57</code></td>
+</tr>
+<tr>
+<td><strong>Summer Palace</strong></td>
+<td>13</td>
+<td>600 stone, 300 planks, 300 dyes, 300 furniture</td>
+<td>aircraft: pollution <strong>−20 %</strong></td>
+<td class="sc"><code class="src">summer_palace.con.lua:10-22</code>, <code class="src">summer_palace.con.lua:44</code>, <code class="src">summer_palace.con.lua:63</code></td>
+</tr>
+<tr>
+<td><strong>Opera House</strong></td>
+<td>14</td>
+<td>800 stone, 400 glass, 400 sheet metal, 400 fabric</td>
+<td>trains: comfort <strong>+25 %</strong></td>
+<td class="sc"><code class="src">opera_house.con.lua:10-22</code>, <code class="src">opera_house.con.lua:44</code>, <code class="src">opera_house.con.lua:63</code></td>
+</tr>
+<tr>
+<td><strong>Houses of Parliament</strong></td>
+<td>15</td>
+<td>800 stone, 400 planks, 400 glass, 400 furniture</td>
+<td>road vehicles, trains, ships and aircraft: top speed <strong>+20 %</strong></td>
+<td class="sc"><code class="src">westminster.con.lua:10-22</code>, <code class="src">westminster.con.lua:45</code>, <code class="src">westminster.con.lua:79</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Each landmark is unlocked once, by its rank; how the rank grows is in <a href="company.html">Company rank, perks and headquarters</a>.</li>
+<li>Landmarks cost nothing to build and nothing per year in their files: only the cargo<span class="sr"> (<code class="src">arena.con.lua:59-64</code>)</span>.</li>
+<li>The site stores half of each cargo at a time, so it needs at least two deliveries of each<span class="sr"> (<code class="src">arena.con.lua:13-18</code>)</span>.</li>
+</ul>
+<h2 id="building-a-landmark"><span class="n">2</span><span>Building a landmark</span></h2>
+<ul>
+<li>The site has <strong>4 stages</strong>. It moves up as cargo arrives: stage 2 at one third of all the cargo, stage 3 at two thirds, finished at 100 %. Each cargo only counts up to its own amount, so extra stone does not make up for missing planks<span class="sr"> (<code class="src">landmarks.script.tl:34-46</code>)</span>.</li>
+<li>The bonus works only when the landmark is <strong>finished</strong><span class="sr"> (<code class="src">landmark_util_serialized.tl:393-395</code>)</span>. The message "Construction finished" appears then<span class="sr"> (<code class="src">landmarks.script.tl:49-61</code>)</span>.</li>
+<li>The <strong>Landmark Required Resources</strong> setting multiplies all the cargo: None ×0, Low ×0.5, Normal ×1, High ×2, Very High ×4. The presets are Easy ×0.5, Medium ×1, Hard ×2, Very Hard ×4. At ×0 a landmark is finished as soon as it is placed<span class="sr"> (<code class="src">difficulty_util.tl:40</code>, <code class="src">difficulty_util.tl:107</code>, <code class="src">difficulty_util.tl:135</code>, <code class="src">difficulty_util.tl:162</code>, <code class="src">difficulty_util.tl:189</code>, <code class="src">landmarks.script.tl:38</code>, <code class="src">landmarks.script.tl:46</code>)</span>.</li>
+</ul>
+<h2 id="who-gets-the-bonus"><span class="n">3</span><span>Who gets the bonus</span></h2>
+<ul>
+<li>The bonus goes to the town <strong>closest to the landmark</strong>, and to the vehicles whose closest town is that town, of the carrier listed<span class="sr"> (<code class="src">landmark_util.tl:6-47</code>, <code class="src">landmarks.script.tl:208-236</code>)</span>.</li>
+<li>When a vehicle drives into the area of another town, it takes that town's bonuses and loses the old ones<span class="sr"> (<code class="src">landmarks.script.tl:279-299</code>)</span>.</li>
+<li>Bonuses of several landmarks in the same town <strong>add up</strong>: two +20 % top speeds give +40 %<span class="sr"> (<code class="src">landmark_util.tl:46</code>, <code class="src">vehicle_modifier.script.tl:3-16</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decided by the game engine<small>C++, not visible in the scripts</small></h4><p>Which town is the "closest town" of a landmark or of a moving vehicle is decided by the engine (getConstructionClosestTown, closestTown). How the engine turns +25 % comfort or +20 % top speed into trips and income is engine work too.</p></div></aside>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Tip</h4><p>Put the Houses of Parliament in the town where most of your vehicles run: +20 % top speed for every carrier. A second +20 % comes from the Great Lighthouse for ships in the same town. The Centralized achievement asks for 10 finished landmarks with the same closest town, while the game files hold 9 landmarks besides the headquarters (counted); whether it can be reached in this build is unknown (see <a href="achievements.html">Achievements</a>).</p></div></aside>
+<h2 id="celebrations"><span class="n">4</span><span>Celebrations</span></h2>
+<p>A celebration is the little party shown over a town when something happens for the first time. It also raises the town's <strong>Reputation</strong>, but only when the Reputation is not already full.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Reputation</th>
+<th class="sc">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>first passenger boards one of your lines in the town</td>
+<td>+50 %</td>
+<td class="sc"><code class="src">celebrations.script.tl:228-252</code></td>
+</tr>
+<tr>
+<td>first cargo delivered to the town</td>
+<td>+50 %</td>
+<td class="sc"><code class="src">celebrations.script.tl:187-198</code></td>
+</tr>
+<tr>
+<td>the town levels up</td>
+<td>+50 %</td>
+<td class="sc"><code class="src">celebrations.script.tl:260-272</code></td>
+</tr>
+<tr>
+<td>first cargo delivered to an industry</td>
+<td>+20 % to the town closest to it</td>
+<td class="sc"><code class="src">celebrations.script.tl:202-219</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>A town levelling up also gets <strong>fireworks</strong>, unless they are turned off<span class="sr"> (<code class="src">town_growth.script.tl:108-112</code>)</span>.</li>
+<li>How Reputation works: <a href="reputation.html">Reputation</a>.</li>
+</ul>
+<h2 id="fun-elements"><span class="n">5</span><span>Fun elements</span></h2>
+<ul>
+<li>A <strong>blimp</strong> flies over a town when you start a Marketing Campaign there<span class="sr"> (<code class="src">fun_elements.script.tl:112-117</code>)</span>.</li>
+<li>A <strong>UFO</strong> appears every <strong>2 to 4 years</strong> of game time, chosen at random, when there is none on the map<span class="sr"> (<code class="src">fun_elements.script.tl:10</code>, <code class="src">fun_elements.script.tl:79-91</code>)</span>. Click it for the Encounter of the 3rd Kind achievement.</li>
+<li>None of them changes the economy.</li>
+</ul>
+<h2 id="good-to-know"><span class="n">6</span><span>Good to know</span></h2>
+<ul>
+<li>Pick the town before building: the bonus does not follow your lines, only the vehicles near that town.</li>
+<li>On Very Hard a landmark needs four times the cargo: the Houses of Parliament then takes 3,200 stone and 1,600 of each of the other cargo.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Official wiki vs game scripts</h4><span class="res adds"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>adds</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki says</div><p>The official wiki's User Interface page shows the landmarks in the build menu and the town window, without their cargo or bonuses.</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Game scripts show</div><p>Nine landmarks, one per rank from 2 to 15, each built from delivered cargo in 4 stages, scaled by Landmark Required Resources ×0 to ×4. Once finished each gives one bonus (+20 % top speed, −20 % pollution, −25 % noise or +25 % comfort) to the vehicles of one carrier in its closest town; bonuses add up. Celebrations add 50 % or 20 % Reputation; a UFO comes every 2 to 4 years.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Paths are inside the game's base/content folder or its zip files.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>On this page</h5><ol><li><a href="#the-landmarks">The landmarks</a></li><li><a href="#building-a-landmark">Building a landmark</a></li><li><a href="#who-gets-the-bonus">Who gets the bonus</a></li><li><a href="#celebrations">Celebrations</a></li><li><a href="#fun-elements">Fun elements</a></li><li><a href="#good-to-know">Good to know</a></li></ol><div class="box"><b>17</b><span>source references</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Show the sources</span><span class="h">Hide the sources</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:ui:userinterface"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Other mechanics</h2><div class="mgrid"><a class="mcard" href="achievements.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"/></svg></span><span><b>Achievements</b><small>Achievements</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Airplanes, airports and helicopters</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="company.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg></span><span><b>Company rank, perks and headquarters</b><small>Company and headquarters</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Costs, upkeep and loans</b><small>Finances and loans</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Departure settings: full load, Fill Level and stop times</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Pollution and noise</b><small>Pollution and noise</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Cargo income and delivery time</b><small>Cargo and income</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Industries</b><small>Industries</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="infrastructure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3 5 21M17 3l2 18M6 7h12M5.6 12h12.8M5 17h14"/></svg></span><span><b>Streets, tracks, bridges and signals</b><small>Streets, tracks and depots</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Loading and unloading speed</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Why am I losing money?</b><small>Finances and loans</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="notifications.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></span><span><b>Notifications and warnings</b><small>Notifications and warnings</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Town reputation</b><small>Towns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Ships and ports</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsidies: offers, deadlines and rewards</b><small>Subsidies</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Game time and calendar</b><small>Game time and calendar</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Town growth: XP, ratings and size</b><small>Towns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Vehicles: condition, age and load speed</b><small>Lines and vehicles</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Warehouses</b><small>Warehouses</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Workers and the workers boost</b><small>Industries</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Fan project by Miro. Not affiliated with Urban Games.</span><span>Texts and images: CC BY 4.0 · Game code © Urban Games: only short references are shown.</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>
