@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Company rank, perks and headquarters · TF3 Mechanics</title>
+<meta name="description" content="How Transport Fever 3 really works, read from the game&#x27;s own scripts.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/company.html"><link rel="alternate" hreflang="fr" href="../fr/company.html"><link rel="alternate" hreflang="de" href="../de/company.html"><link rel="alternate" hreflang="es" href="../es/company.html"><link rel="alternate" hreflang="it" href="../it/company.html"><link rel="alternate" hreflang="nl" href="../nl/company.html"><link rel="alternate" hreflang="pl" href="../pl/company.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/company.html"><link rel="alternate" hreflang="ru" href="../ru/company.html"><link rel="alternate" hreflang="ja" href="../ja/company.html"><link rel="alternate" hreflang="ko" href="../ko/company.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/company.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/company.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Index</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Patch notes</a></nav>
+<button class="srcbtn" type="button" data-src title="Show or hide the script references"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Sources</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="Show or hide the tips"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>Tips</span></button>
+<details class="langs"><summary aria-label="Language"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>English</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Language"><a href="../en/company.html" class="on" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/company.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/company.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/company.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/company.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/company.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/company.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/company.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/company.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/company.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/company.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/company.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/company.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Index</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg>Company and headquarters</span></div><h1 class="rise d1">Company rank, perks and headquarters</h1><p class="lead rise d2">What raises your company rank, what each rank unlocks, how permits and prospections work, what the headquarters really gives, and what a higher rank costs you.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verified in the scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Updated 2026-11-17</span><span class="pill" title="Game version these explanations were checked on (official release notes)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Game build 40425</span></div><div class=facts><div class="fact rise d1"><b>15</b><span>company ranks, from Junior to Tycoon</span></div><div class="fact rise d2"><b>×12.5</b><span>world population needed for rank 15, compared with the start</span></div><div class="fact rise d3"><b>×0.75</b><span>income at rank 15 with Inflation Normal</span></div><div class="fact rise d4"><b>0</b><span>ranks lost when the population falls</span></div></div></div></section><div class="wrap layout"><article><p>Your company rank does not come from money or deliveries: it comes from the <strong>population of the whole map</strong>. Every new rank unlocks perks (landmarks, prospections, Marketing Campaigns, Industry Greenification, headquarters modules), and with the <strong>Inflation</strong> setting it also lowers all your income a little.</p>
+<h2 id="what-raises-the-rank"><span class="n">1</span><span>What raises the rank</span></h2>
+<ul>
+<li>The game remembers the <strong>world population at the start</strong> of the game: the residents of all towns<span class="sr"> (<code class="src">company.script.tl:392-396</code>, <code class="src">company_util.tl:365-371</code>)</span>.</li>
+<li>It then compares the <strong>highest</strong> world population ever reached with that start value<span class="sr"> (<code class="src">company_growth.script.tl:25-27</code>)</span>. The value only goes up: towns that shrink never cost you a rank.</li>
+<li>Rank 1 is reached at the start value, rank 15 at about <strong>12.5 times</strong> it<span class="sr"> (<code class="src">company_progression_util.tl:6-14</code>, <code class="src">company_progression_util.tl:95-120</code>, <code class="src">town_growth_function.tl:13-20</code>)</span>.</li>
+<li>There is no rank in campaign missions and in the map editor<span class="sr"> (<code class="src">company_growth.script.tl:74-79</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Role</th>
+<th>World population, compared with the start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Junior</td>
+<td>×1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Mechanic</td>
+<td>×1.02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Engineer</td>
+<td>×1.08</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Coordinator</td>
+<td>×1.2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Expert</td>
+<td>×1.4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Team Leader</td>
+<td>×1.7</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Supervisor</td>
+<td>×2.1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Manager</td>
+<td>×2.6</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Director</td>
+<td>×3.3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Senior Director</td>
+<td>×4.2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>CEO</td>
+<td>×5.3</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Chairperson</td>
+<td>×6.7</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Vice President</td>
+<td>×8.3</td>
+</tr>
+<tr>
+<td>14</td>
+<td>President</td>
+<td>×10.2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Tycoon</td>
+<td>×12.5</td>
+</tr>
+</tbody>
+</table></div>
+<p>The ratios are computed from the scripts for a start population of 50,000 or more<span class="sr"> (<code class="src">company_progression_util.tl:6-14</code>, <code class="src">company_static_util.tl:6-24</code>)</span>. On a small map they are slightly higher for the middle ranks (rank 8 needs ×2.85 at 5,000 residents); ranks 1 and 15 stay at ×1 and ×12.5.</p>
+<ul>
+<li>So the rank follows <strong>town growth</strong>: towns grow from your passengers and cargo, see <a href="towns.html">Town growth</a>.</li>
+<li>The first ranks come quickly, the last ones need the map's towns to be many times bigger.</li>
+</ul>
+<h2 id="a-new-rank-is-applied-in-the-company-window"><span class="n">2</span><span>A new rank is applied in the company window</span></h2>
+<p>When the population passes a threshold, a <strong>rank-up notification</strong> appears; clicking it opens the company window on that rank<span class="sr"> (<code class="src">company_growth.script.tl:96-107</code>, <code class="src">company_notification_rank_up.script.tl:8-9</code>)</span>.</p>
+<ul>
+<li>The new perks are unlocked only when that rank is <strong>selected in the company window</strong>: the window then sends the unlock<span class="sr"> (<code class="src">company.tl:420-423</code>, <code class="src">company_growth.script.tl:55-62</code>)</span>. The build menus check this applied rank<span class="sr"> (<code class="src">company_util.tl:92</code>, <code class="src">company_util.tl:171-178</code>)</span>.</li>
+<li>The income multiplier of the next section follows the rank <strong>reached</strong>, applied or not<span class="sr"> (<code class="src">company_growth.script.tl:47-48</code>)</span>.</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Tip</h4><p>After a rank-up, click the notification (or open the company window and select the new rank) to get the perks. Waiting gives you nothing: the income is already lowered.</p></div></aside>
+<h2 id="what-a-higher-rank-costs-the-inflation-setting"><span class="n">3</span><span>What a higher rank costs: the Inflation setting</span></h2>
+<p>With <strong>Inflation</strong>, all cargo and passenger income falls evenly from ×1 at rank 1 to a minimum at rank 15<span class="sr"> (<code class="src">company_progression_util.tl:25-40</code>, <code class="src">company_growth.script.tl:159-170</code>)</span>.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Inflation</th>
+<th>Income at rank 15</th>
+<th class="sc">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>×1 (no change)</td>
+<td class="sc"><code class="src">difficulty_util.tl:50</code>, <code class="src">mod.script.tl:694-697</code></td>
+</tr>
+<tr>
+<td>Low</td>
+<td>×0.9</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>Normal</td>
+<td>×0.75</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>High</td>
+<td>×0.6</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>Very High</td>
+<td>×0.5</td>
+<td class="sc"></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>At Normal, each rank costs about 1.8 % of income: ×0.96 at rank 3, ×0.875 at rank 8, ×0.75 at rank 15.</li>
+<li>Inflation does not raise any cost; costs follow the calendar year (see <a href="costs.html">Costs, upkeep and loans</a>).</li>
+<li>A higher rank also makes new subsidy offers rarer (see <a href="subsidies.html">Subsidies</a>).</li>
+</ul>
+<h2 id="permits"><span class="n">4</span><span>Permits</span></h2>
+<p>Most perks are limited by <strong>permits</strong>. A rank gives permits for a perk; each building or use takes one<span class="sr"> (<code class="src">company_util.tl:33-80</code>, <code class="src">company_util.tl:206</code>)</span>.</p>
+<ul>
+<li>Permits <strong>add up</strong> over the ranks: a perk that gives 1 at rank 3 and 1 at rank 5 allows 2 from rank 5 on<span class="sr"> (<code class="src">company_util.tl:51-56</code>)</span>.</li>
+<li>A building gives its permit back when it is demolished: the game counts what is standing<span class="sr"> (<code class="src">company_util.tl:143-163</code>, <code class="src">company_util.tl:203-206</code>)</span>.</li>
+<li>Prospections, Marketing Campaigns and Greenification use a permit up when they start<span class="sr"> (<code class="src">company.script.tl:416-423</code>, <code class="src">company.script.tl:459-462</code>, <code class="src">company.script.tl:496-500</code>)</span>. The build menu then shows <strong>Already Used</strong> or <strong>Cooldown</strong><span class="sr"> (<code class="src">company_util.tl:207-226</code>)</span>.</li>
+<li>The <strong>Marketing</strong> permit comes back <strong>5 years</strong> after each campaign<span class="sr"> (<code class="src">marketing.res.lua:6-7</code>, <code class="src">company.script.tl:66-94</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Perk</th>
+<th>Permits</th>
+<th class="sc">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headquarters</td>
+<td>1 at rank 1</td>
+<td class="sc"><code class="src">hq.res.lua:6</code></td>
+</tr>
+<tr>
+<td>Marketing Campaign</td>
+<td>1 at rank 4, back after 5 years</td>
+<td class="sc"><code class="src">marketing.res.lua:6-7</code></td>
+</tr>
+<tr>
+<td>Industry Greenification</td>
+<td>1 at rank 3, 6, 9, 12 and 15</td>
+<td class="sc"><code class="src">industry_greenify_tool.script.tl:101-102</code></td>
+</tr>
+<tr>
+<td>Cleaning Plant</td>
+<td>15 at rank 10</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:106-108</code></td>
+</tr>
+<tr>
+<td>Landmarks</td>
+<td>one each: Amphitheater 2, Great Lighthouse 5, White Heron Castle 7, Ship Museum 9, Castle Neuschwanstein 10, Statue of Liberty 11, Summer Palace 13, Opera House 14, Houses of Parliament 15</td>
+<td class="sc"><code class="src">arena.con.lua:39</code>, <code class="src">lighthouse.con.lua:48</code>, <code class="src">white_heron_castle.con.lua:47</code>, <code class="src">ship_museum.con.lua:55</code>, <code class="src">neuschwanstein.con.lua:55</code>, <code class="src">statue_of_liberty.con.lua:57</code>, <code class="src">summer_palace.con.lua:63</code>, <code class="src">opera_house.con.lua:63</code>, <code class="src">westminster.con.lua:79</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>What each perk does: <a href="reputation.html">Reputation</a> (Marketing Campaign), <a href="emission.html">Pollution and noise</a> (Greenification, Cleaning Plant).</p>
+<h2 id="prospections"><span class="n">5</span><span>Prospections</span></h2>
+<p>A prospection looks for a resource near a town and, when it succeeds, founds a new industry there.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Rank</th>
+<th class="sc">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fish</td>
+<td>2</td>
+<td class="sc"><code class="src">exploration_fish.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Clay</td>
+<td>3</td>
+<td class="sc"><code class="src">exploration_clay.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Crude oil</td>
+<td>4</td>
+<td class="sc"><code class="src">exploration_crude_oil.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Grain, vegetables</td>
+<td>4, <strong>one shared permit</strong> (Industry)</td>
+<td class="sc"><code class="src">exploration_grain.res.lua:9</code>, <code class="src">exploration_vegetables.res.lua:9</code>, <code class="src">permit_key_farm.res.lua:6</code></td>
+</tr>
+<tr>
+<td>Logs</td>
+<td>5</td>
+<td class="sc"><code class="src">exploration_logs.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Coal, iron ore</td>
+<td>6</td>
+<td class="sc"><code class="src">exploration_coal.res.lua:9-11</code>, <code class="src">exploration_iron_ore.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Stone, wool</td>
+<td>8</td>
+<td class="sc"><code class="src">exploration_stone.res.lua:9-11</code>, <code class="src">exploration_wool.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Sand</td>
+<td>9</td>
+<td class="sc"><code class="src">exploration_sand.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Rubber</td>
+<td>12</td>
+<td class="sc"><code class="src">exploration_rubber.res.lua:9-11</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Each resource has <strong>one</strong> permit, used when the prospection starts<span class="sr"> (<code class="src">company.script.tl:451-462</code>)</span>.</li>
+<li>It runs for up to <strong>6 months</strong>. Once a month it tries to place the industry, with a chance rising from 20 % to 60 % over the 6 months<span class="sr"> (<code class="src">company_util.tl:14-17</code>, <code class="src">company.script.tl:299-307</code>, <code class="src">company.script.tl:130-142</code>)</span>.</li>
+<li>A try also fails when the game finds no place for that industry near the town<span class="sr"> (<code class="src">company.script.tl:199-210</code>)</span>.</li>
+<li>If the last try fails, <strong>the permit comes back</strong> and a notification says so<span class="sr"> (<code class="src">company.script.tl:106-126</code>, <code class="src">company.script.tl:170-181</code>)</span>.</li>
+<li>Only one prospection per town and resource can run at a time<span class="sr"> (<code class="src">company.script.tl:442-447</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decided by the game engine<small>C++, not visible in the scripts</small></h4><p>Where the new industry may stand (makeIndustrySpawnProposal near the town) is decided by the engine: a fish prospection far from water, or a town with no free land around it, simply fails and gives the permit back.</p></div></aside>
+<h2 id="the-headquarters"><span class="n">6</span><span>The headquarters</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>What</th>
+<th>Value</th>
+<th class="sc">Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Price and upkeep</td>
+<td>free, no upkeep</td>
+<td class="sc"><code class="src">headquarter.script.tl:526-527</code></td>
+</tr>
+<tr>
+<td>Permit</td>
+<td>1, at rank 1</td>
+<td class="sc"><code class="src">headquarter.con.lua:6-7</code>, <code class="src">hq.res.lua:6</code></td>
+</tr>
+<tr>
+<td>Town growth</td>
+<td>+5 % to the town closest to it</td>
+<td class="sc"><code class="src">headquarter.script.tl:510-515</code>, <code class="src">landmark_util.tl:51-70</code></td>
+</tr>
+<tr>
+<td>Workplaces</td>
+<td>24</td>
+<td class="sc"><code class="src">headquarter.con.lua:16</code>, <code class="src">headquarter.script.tl:505-508</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The +5 % is a bonus on that town's growth rate, so it does nothing when the town's rate is 0 % (see <a href="towns.html">Town growth</a>).</li>
+<li><strong>Modules</strong> cost 50,000 each and are limited by permits that grow with the rank<span class="sr"> (<code class="src">hq_module_m.module.lua:83</code>, <code class="src">hq_module_m.module.lua:137</code>)</span>.</li>
+<li>Only two modules carry a bonus in the files: <strong>Medium Building</strong> +1 % town growth<span class="sr"> (<code class="src">hq_module_m.module.lua:139-142</code>)</span> and <strong>Large Building</strong> +1 % Reputation Recovery<span class="sr"> (<code class="src">hq_module_l.module.lua:169-172</code>)</span>. The recovery bonus is read by no town rating (see <a href="reputation.html">Reputation</a>). The other modules are decorative.</li>
+<li>Each module file also starts with a table that gives +5 % town growth, but nothing in the file uses it<span class="sr"> (<code class="src">hq_corner_l.module.lua:148-159</code>, <code class="src">hq_statue.module.lua:46-57</code>)</span>. Only the bonus inside the module's <code>metadata</code> is added up<span class="sr"> (<code class="src">headquarter_addon.script.tl:18-29</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Permits gained at rank (×2 = two)</th>
+<th>Total at rank 15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ground Flag</td>
+<td>1 ×2, 6, 7, 8, 9, 11, 12, 13, 14</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Corner Building</td>
+<td>3, 5, 7 ×2, 9, 11, 13, 15</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Medium Building</td>
+<td>2, 4, 10 ×2, 15 ×2</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Large Building</td>
+<td>5, 6, 10, 12</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Balcony</td>
+<td>8 ×2, 14 ×2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Large Fountain</td>
+<td>10 ×2, 14 ×2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Dome</td>
+<td>6, 15 ×2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Roof Flag</td>
+<td>7, 10, 13</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Tennis Court</td>
+<td>11, 12, 14</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Ancient Tree</td>
+<td>13, 15 ×2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Statue</td>
+<td>14 ×2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Pool</td>
+<td>15</td>
+<td>1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sources: the <code>rankAndPermits</code> line of each module file<span class="sr"> (<code class="src">hq_corner_l.module.lua:247</code>, <code class="src">hq_flag_ground.module.lua:79</code>, <code class="src">hq_pool.module.lua:111</code>)</span>.</p>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Tip</h4><p>Put the headquarters in the town you want to grow fastest, and add Medium Buildings there: they are the only modules with a growth bonus.</p></div></aside>
+<h2 id="good-to-know"><span class="n">7</span><span>Good to know</span></h2>
+<ul>
+<li>To rank up, grow the towns: more passengers and cargo to more towns, with good ratings. Money in the bank does not count.</li>
+<li>Plan your landmarks and prospections: each comes once, at a fixed rank.</li>
+<li>On a map with Inflation, a rank-up is good for perks and bad for income. At Normal the whole way to rank 15 costs a quarter of all income.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Official wiki vs game scripts</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Adds detail</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki says</div><p>"The company rank depends on the population of the map. … Once the population passes the next threshold, the company will level up." "Headquarters upgrades are sometimes purely decorative, but most add-on modules either increase the reputation recovery or the town growth of the capital." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances">Company and Finances</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Game scripts show</div><p>Same rule: the highest world population reached, compared with the population at the start, ×12.5 for rank 15; never lost. A new rank must be selected in the company window to unlock its perks, while Inflation lowers income at once. Only two modules have a bonus (Medium Building +1 % growth, Large Building +1 % Reputation Recovery, which no rating reads); the others are decorative.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Paths are inside the game's base/content folder or its zip files.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>On this page</h5><ol><li><a href="#what-raises-the-rank">What raises the rank</a></li><li><a href="#a-new-rank-is-applied-in-the-company-window">A new rank is applied in the company window</a></li><li><a href="#what-a-higher-rank-costs-the-inflation-setting">What a higher rank costs: the Inflation setting</a></li><li><a href="#permits">Permits</a></li><li><a href="#prospections">Prospections</a></li><li><a href="#the-headquarters">The headquarters</a></li><li><a href="#good-to-know">Good to know</a></li></ol><div class="box"><b>46</b><span>source references</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Show the sources</span><span class="h">Hide the sources</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Other mechanics</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Airplanes, airports and helicopters</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Costs, upkeep and loans</b><small>Finances and loans</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Departure settings: full load, Fill Level and stop times</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Pollution and noise</b><small>Pollution and noise</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Cargo income and delivery time</b><small>Cargo and income</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Industries</b><small>Industries</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Loading and unloading speed</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Why am I losing money?</b><small>Finances and loans</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Town reputation</b><small>Towns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Ships and ports</b><small>Stations and loading</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsidies: offers, deadlines and rewards</b><small>Subsidies</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Game time and calendar</b><small>Game time and calendar</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Town growth: XP, ratings and size</b><small>Towns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Vehicles: condition, age and load speed</b><small>Lines and vehicles</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Warehouses</b><small>Warehouses</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Workers and the workers boost</b><small>Industries</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Fan project by Miro. Not affiliated with Urban Games.</span><span>Texts and images: CC BY 4.0 · Game code © Urban Games: only short references are shown.</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Official wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>Nível da empresa, vantagens e sede · Mecânicas do TF3</title>
+<meta name="description" content="Como Transport Fever 3 funciona de verdade, lido nos próprios scripts do jogo.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/company.html"><link rel="alternate" hreflang="fr" href="../fr/company.html"><link rel="alternate" hreflang="de" href="../de/company.html"><link rel="alternate" hreflang="es" href="../es/company.html"><link rel="alternate" hreflang="it" href="../it/company.html"><link rel="alternate" hreflang="nl" href="../nl/company.html"><link rel="alternate" hreflang="pl" href="../pl/company.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/company.html"><link rel="alternate" hreflang="ru" href="../ru/company.html"><link rel="alternate" hreflang="ja" href="../ja/company.html"><link rel="alternate" hreflang="ko" href="../ko/company.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/company.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/company.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Índice</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Notas de atualização</a></nav>
+<button class="srcbtn" type="button" data-src title="Mostrar ou ocultar as referências aos scripts"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Fontes</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="Mostrar ou ocultar as dicas"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>Dicas</span></button>
+<details class="langs"><summary aria-label="Idioma"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>Português (Brasil)</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="Idioma"><a href="../en/company.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/company.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/company.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/company.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/company.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/company.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/company.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/company.html" class="on" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/company.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/company.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/company.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/company.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/company.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Índice</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg>Empresa e sede</span></div><h1 class="rise d1">Nível da empresa, vantagens e sede</h1><p class="lead rise d2">O que aumenta o nível da sua empresa, o que cada nível desbloqueia, como funcionam licenças e prospecções, o que a sede dá de verdade e quanto um nível mais alto custa para você.</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Verificado nos scripts</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Atualizado 2026-11-17</span><span class="pill" title="Versão do jogo em que estas explicações foram verificadas (notas de versão oficiais)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Versão do jogo 40425</span></div><div class=facts><div class="fact rise d1"><b>15</b><span>níveis de empresa, de Júnior a Magnata</span></div><div class="fact rise d2"><b>×12,5</b><span>população mundial necessária para o nível 15, comparada com o início</span></div><div class="fact rise d3"><b>×0,75</b><span>de receita no nível 15 com Inflação Normal</span></div><div class="fact rise d4"><b>0</b><span>níveis perdidos quando a população cai</span></div></div></div></section><div class="wrap layout"><article><p>O nível da sua empresa não vem do dinheiro nem das entregas: vem da <strong>população do mapa inteiro</strong>. Cada novo nível desbloqueia vantagens (pontos de referência, prospecções, Campanhas de Marketing, Ecologização industrial, módulos da sede) e, com a opção <strong>Inflação</strong>, também baixa um pouco toda a sua receita.</p>
+<h2 id="o-que-aumenta-o-nível"><span class="n">1</span><span>O que aumenta o nível</span></h2>
+<ul>
+<li>O jogo guarda a <strong>população mundial no início</strong> do jogo: os habitantes de todos os municípios<span class="sr"> (<code class="src">company.script.tl:392-396</code>, <code class="src">company_util.tl:365-371</code>)</span>.</li>
+<li>Depois compara a <strong>maior</strong> população mundial já alcançada com esse valor inicial<span class="sr"> (<code class="src">company_growth.script.tl:25-27</code>)</span>. O valor só sobe: municípios que encolhem nunca custam um nível.</li>
+<li>O nível 1 é alcançado no valor inicial, o nível 15 em cerca de <strong>12,5 vezes</strong> esse valor<span class="sr"> (<code class="src">company_progression_util.tl:6-14</code>, <code class="src">company_progression_util.tl:95-120</code>, <code class="src">town_growth_function.tl:13-20</code>)</span>.</li>
+<li>Não há nível nas missões de campanha nem no editor de mapas<span class="sr"> (<code class="src">company_growth.script.tl:74-79</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>Cargo</th>
+<th>População mundial, comparada com o início</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Júnior</td>
+<td>×1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Mecânico</td>
+<td>×1,02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Engenheiro</td>
+<td>×1,08</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Coordenador</td>
+<td>×1,2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Perito</td>
+<td>×1,4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Líder de Equipe</td>
+<td>×1,7</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Supervisor</td>
+<td>×2,1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Gerente</td>
+<td>×2,6</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Diretor</td>
+<td>×3,3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Diretor Sênior</td>
+<td>×4,2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>CEO</td>
+<td>×5,3</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Presidente Executivo</td>
+<td>×6,7</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Vice-Presidente</td>
+<td>×8,3</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Presidente</td>
+<td>×10,2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Magnata</td>
+<td>×12,5</td>
+</tr>
+</tbody>
+</table></div>
+<p>As proporções foram calculadas a partir dos scripts para uma população inicial de 50.000 ou mais<span class="sr"> (<code class="src">company_progression_util.tl:6-14</code>, <code class="src">company_static_util.tl:6-24</code>)</span>. Num mapa pequeno elas são um pouco maiores nos níveis do meio (o nível 8 pede ×2,85 com 5.000 habitantes); os níveis 1 e 15 ficam em ×1 e ×12,5.</p>
+<ul>
+<li>O nível segue, portanto, o <strong>crescimento dos municípios</strong>: eles crescem com seus passageiros e cargas, veja <a href="towns.html">Crescimento dos municípios</a>.</li>
+<li>Os primeiros níveis chegam rápido; os últimos exigem municípios muitas vezes maiores.</li>
+</ul>
+<h2 id="um-novo-nível-é-aplicado-na-janela-da-empresa"><span class="n">2</span><span>Um novo nível é aplicado na janela da empresa</span></h2>
+<p>Quando a população passa de um limite, aparece uma <strong>notificação de subida de nível</strong>; clicar nela abre a janela da empresa nesse nível<span class="sr"> (<code class="src">company_growth.script.tl:96-107</code>, <code class="src">company_notification_rank_up.script.tl:8-9</code>)</span>.</p>
+<ul>
+<li>As novas vantagens só são desbloqueadas quando esse nível é <strong>selecionado na janela da empresa</strong>: a janela então envia o desbloqueio<span class="sr"> (<code class="src">company.tl:420-423</code>, <code class="src">company_growth.script.tl:55-62</code>)</span>. Os menus de construção verificam esse nível aplicado<span class="sr"> (<code class="src">company_util.tl:92</code>, <code class="src">company_util.tl:171-178</code>)</span>.</li>
+<li>O multiplicador de receita da próxima seção segue o nível <strong>alcançado</strong>, aplicado ou não<span class="sr"> (<code class="src">company_growth.script.tl:47-48</code>)</span>.</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Dica</h4><p>Depois de subir de nível, clique na notificação (ou abra a janela da empresa e selecione o novo nível) para receber as vantagens. Esperar não dá nada: a receita já foi reduzida.</p></div></aside>
+<h2 id="quanto-custa-um-nível-mais-alto-a-opção-inflação"><span class="n">3</span><span>Quanto custa um nível mais alto: a opção Inflação</span></h2>
+<p>Com <strong>Inflação</strong>, toda a receita de cargas e passageiros cai de forma uniforme de ×1 no nível 1 até um mínimo no nível 15<span class="sr"> (<code class="src">company_progression_util.tl:25-40</code>, <code class="src">company_growth.script.tl:159-170</code>)</span>.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Inflação</th>
+<th>Receita no nível 15</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nenhuma</td>
+<td>×1 (sem mudança)</td>
+<td class="sc"><code class="src">difficulty_util.tl:50</code>, <code class="src">mod.script.tl:694-697</code></td>
+</tr>
+<tr>
+<td>Baixa</td>
+<td>×0,9</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>Normal</td>
+<td>×0,75</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>Alta</td>
+<td>×0,6</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>Muito Alta</td>
+<td>×0,5</td>
+<td class="sc"></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Em Normal, cada nível custa cerca de 1,8 % da receita: ×0,96 no nível 3, ×0,875 no nível 8, ×0,75 no nível 15.</li>
+<li>A Inflação não aumenta nenhum custo; os custos seguem o ano do calendário (veja <a href="costs.html">Custos, manutenção e empréstimos</a>).</li>
+<li>Um nível mais alto também torna as novas ofertas de subsídio mais raras (veja <a href="subsidies.html">Subsídios</a>).</li>
+</ul>
+<h2 id="licenças"><span class="n">4</span><span>Licenças</span></h2>
+<p>A maioria das vantagens é limitada por <strong>licenças</strong>. Um nível dá licenças para uma vantagem; cada edifício ou uso consome uma<span class="sr"> (<code class="src">company_util.tl:33-80</code>, <code class="src">company_util.tl:206</code>)</span>.</p>
+<ul>
+<li>As licenças <strong>se somam</strong> ao longo dos níveis: uma vantagem que dá 1 no nível 3 e 1 no nível 5 permite 2 a partir do nível 5<span class="sr"> (<code class="src">company_util.tl:51-56</code>)</span>.</li>
+<li>Um edifício devolve sua licença quando é demolido: o jogo conta o que está de pé<span class="sr"> (<code class="src">company_util.tl:143-163</code>, <code class="src">company_util.tl:203-206</code>)</span>.</li>
+<li>Prospecções, Campanhas de Marketing e Ecologização consomem uma licença ao começar<span class="sr"> (<code class="src">company.script.tl:416-423</code>, <code class="src">company.script.tl:459-462</code>, <code class="src">company.script.tl:496-500</code>)</span>. O menu de construção mostra então <strong>Já utilizado</strong> ou <strong>Recarga</strong><span class="sr"> (<code class="src">company_util.tl:207-226</code>)</span>.</li>
+<li>A licença de <strong>Marketing</strong> volta <strong>5 anos</strong> depois de cada campanha<span class="sr"> (<code class="src">marketing.res.lua:6-7</code>, <code class="src">company.script.tl:66-94</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Vantagem</th>
+<th>Licenças</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sede</td>
+<td>1 no nível 1</td>
+<td class="sc"><code class="src">hq.res.lua:6</code></td>
+</tr>
+<tr>
+<td>Campanha de Marketing</td>
+<td>1 no nível 4, volta após 5 anos</td>
+<td class="sc"><code class="src">marketing.res.lua:6-7</code></td>
+</tr>
+<tr>
+<td>Ecologização industrial</td>
+<td>1 nos níveis 3, 6, 9, 12 e 15</td>
+<td class="sc"><code class="src">industry_greenify_tool.script.tl:101-102</code></td>
+</tr>
+<tr>
+<td>Estação de Limpeza</td>
+<td>15 no nível 10</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:106-108</code></td>
+</tr>
+<tr>
+<td>Pontos de referência</td>
+<td>um de cada: Anfiteatro 2, Grande Farol 5, Castelo de Himeji 7, Museu Naval 9, Castelo Neuschwanstein 10, Estátua da Liberdade 11, Palácio de Verão 13, Teatro de Ópera 14, Palácio de Westminster 15</td>
+<td class="sc"><code class="src">arena.con.lua:39</code>, <code class="src">lighthouse.con.lua:48</code>, <code class="src">white_heron_castle.con.lua:47</code>, <code class="src">ship_museum.con.lua:55</code>, <code class="src">neuschwanstein.con.lua:55</code>, <code class="src">statue_of_liberty.con.lua:57</code>, <code class="src">summer_palace.con.lua:63</code>, <code class="src">opera_house.con.lua:63</code>, <code class="src">westminster.con.lua:79</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>O que cada vantagem faz: <a href="reputation.html">Reputação</a> (Campanha de Marketing), <a href="emission.html">Poluição e ruído</a> (Ecologização, Estação de Limpeza).</p>
+<h2 id="prospecções"><span class="n">5</span><span>Prospecções</span></h2>
+<p>Uma prospecção procura um recurso perto de um município e, se tiver sucesso, funda ali uma nova indústria.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Nível</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Peixes</td>
+<td>2</td>
+<td class="sc"><code class="src">exploration_fish.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Argila</td>
+<td>3</td>
+<td class="sc"><code class="src">exploration_clay.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Petróleo Bruto</td>
+<td>4</td>
+<td class="sc"><code class="src">exploration_crude_oil.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Grãos, vegetais</td>
+<td>4, <strong>uma licença compartilhada</strong> (Indústria)</td>
+<td class="sc"><code class="src">exploration_grain.res.lua:9</code>, <code class="src">exploration_vegetables.res.lua:9</code>, <code class="src">permit_key_farm.res.lua:6</code></td>
+</tr>
+<tr>
+<td>Troncos</td>
+<td>5</td>
+<td class="sc"><code class="src">exploration_logs.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Carvão, minério de ferro</td>
+<td>6</td>
+<td class="sc"><code class="src">exploration_coal.res.lua:9-11</code>, <code class="src">exploration_iron_ore.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Pedra, lã</td>
+<td>8</td>
+<td class="sc"><code class="src">exploration_stone.res.lua:9-11</code>, <code class="src">exploration_wool.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Areia</td>
+<td>9</td>
+<td class="sc"><code class="src">exploration_sand.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>Borracha</td>
+<td>12</td>
+<td class="sc"><code class="src">exploration_rubber.res.lua:9-11</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Cada recurso tem <strong>uma</strong> licença, consumida quando a prospecção começa<span class="sr"> (<code class="src">company.script.tl:451-462</code>)</span>.</li>
+<li>Ela dura até <strong>6 meses</strong>. Uma vez por mês tenta colocar a indústria, com uma chance que sobe de 20 % a 60 % ao longo dos 6 meses<span class="sr"> (<code class="src">company_util.tl:14-17</code>, <code class="src">company.script.tl:299-307</code>, <code class="src">company.script.tl:130-142</code>)</span>.</li>
+<li>Uma tentativa também falha quando o jogo não encontra lugar para essa indústria perto do município<span class="sr"> (<code class="src">company.script.tl:199-210</code>)</span>.</li>
+<li>Se a última tentativa falhar, <strong>a licença volta</strong> e uma notificação avisa<span class="sr"> (<code class="src">company.script.tl:106-126</code>, <code class="src">company.script.tl:170-181</code>)</span>.</li>
+<li>Só pode haver uma prospecção por vez por município e recurso<span class="sr"> (<code class="src">company.script.tl:442-447</code>)</span>.</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>Decidido pelo motor do jogo<small>C++, não visível nos scripts</small></h4><p>Onde a nova indústria pode ficar (makeIndustrySpawnProposal perto do município) é decidido pelo motor: uma prospecção de peixes longe da água, ou um município sem terreno livre ao redor, simplesmente falha e devolve a licença.</p></div></aside>
+<h2 id="a-sede"><span class="n">6</span><span>A sede</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>O quê</th>
+<th>Valor</th>
+<th class="sc">Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preço e manutenção</td>
+<td>grátis, sem manutenção</td>
+<td class="sc"><code class="src">headquarter.script.tl:526-527</code></td>
+</tr>
+<tr>
+<td>Licença</td>
+<td>1, no nível 1</td>
+<td class="sc"><code class="src">headquarter.con.lua:6-7</code>, <code class="src">hq.res.lua:6</code></td>
+</tr>
+<tr>
+<td>Crescimento do município</td>
+<td>+5 % para o município mais próximo</td>
+<td class="sc"><code class="src">headquarter.script.tl:510-515</code>, <code class="src">landmark_util.tl:51-70</code></td>
+</tr>
+<tr>
+<td>Empregos</td>
+<td>24</td>
+<td class="sc"><code class="src">headquarter.con.lua:16</code>, <code class="src">headquarter.script.tl:505-508</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Os +5 % são um bônus sobre a taxa de crescimento desse município, então não fazem nada quando a taxa é 0 % (veja <a href="towns.html">Crescimento dos municípios</a>).</li>
+<li>Os <strong>módulos</strong> custam 50.000 cada e são limitados por licenças que aumentam com o nível<span class="sr"> (<code class="src">hq_module_m.module.lua:83</code>, <code class="src">hq_module_m.module.lua:137</code>)</span>.</li>
+<li>Só dois módulos têm bônus nos arquivos: <strong>Edifício Médio</strong> +1 % de crescimento do município<span class="sr"> (<code class="src">hq_module_m.module.lua:139-142</code>)</span> e <strong>Edifício Grande</strong> +1 % de Recuperação da Reputação<span class="sr"> (<code class="src">hq_module_l.module.lua:169-172</code>)</span>. O bônus de recuperação não é lido por nenhuma avaliação do município (veja <a href="reputation.html">Reputação</a>). Os outros módulos são decorativos.</li>
+<li>Cada arquivo de módulo também começa com uma tabela que dá +5 % de crescimento, mas nada no arquivo a usa<span class="sr"> (<code class="src">hq_corner_l.module.lua:148-159</code>, <code class="src">hq_statue.module.lua:46-57</code>)</span>. Só o bônus dentro do <code>metadata</code> do módulo é somado<span class="sr"> (<code class="src">headquarter_addon.script.tl:18-29</code>)</span>.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Licenças ganhas no nível (×2 = duas)</th>
+<th>Total no nível 15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bandeira de Chão</td>
+<td>1 ×2, 6, 7, 8, 9, 11, 12, 13, 14</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Edifício de Esquina</td>
+<td>3, 5, 7 ×2, 9, 11, 13, 15</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Edifício Médio</td>
+<td>2, 4, 10 ×2, 15 ×2</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Edifício Grande</td>
+<td>5, 6, 10, 12</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Varanda</td>
+<td>8 ×2, 14 ×2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Fonte Grande</td>
+<td>10 ×2, 14 ×2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Cúpula</td>
+<td>6, 15 ×2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Bandeira de Telhado</td>
+<td>7, 10, 13</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Quadra de Tênis</td>
+<td>11, 12, 14</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Árvore Antiga</td>
+<td>13, 15 ×2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Estátua</td>
+<td>14 ×2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Piscina</td>
+<td>15</td>
+<td>1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Fontes: a linha <code>rankAndPermits</code> de cada arquivo de módulo<span class="sr"> (<code class="src">hq_corner_l.module.lua:247</code>, <code class="src">hq_flag_ground.module.lua:79</code>, <code class="src">hq_pool.module.lua:111</code>)</span>.</p>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>Dica</h4><p>Coloque a sede no município que você quer fazer crescer mais rápido e adicione Edifícios Médios ali: são os únicos módulos com bônus de crescimento.</p></div></aside>
+<h2 id="bom-saber"><span class="n">7</span><span>Bom saber</span></h2>
+<ul>
+<li>Para subir de nível, faça os municípios crescerem: mais passageiros e cargas para mais municípios, com boas avaliações. Dinheiro no banco não conta.</li>
+<li>Planeje seus pontos de referência e prospecções: cada um vem uma vez, num nível fixo.</li>
+<li>Num mapa com Inflação, subir de nível é bom para as vantagens e ruim para a receita. Em Normal, o caminho inteiro até o nível 15 custa um quarto de toda a receita.</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>Wiki oficial e scripts do jogo</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Detalha</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>A wiki oficial diz</div><p>"The company rank depends on the population of the map. … Once the population passes the next threshold, the company will level up." "Headquarters upgrades are sometimes purely decorative, but most add-on modules either increase the reputation recovery or the town growth of the capital." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances">Company and Finances</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os scripts do jogo mostram</div><p>Mesma regra: a maior população mundial alcançada, comparada com a população no início, ×12,5 para o nível 15; nunca perdida. Um novo nível precisa ser selecionado na janela da empresa para desbloquear suas vantagens, enquanto a Inflação reduz a receita na hora. Só dois módulos têm bônus (Edifício Médio +1 % de crescimento, Edifício Grande +1 % de Recuperação da Reputação, que nenhuma avaliação lê); os outros são decorativos.</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Os caminhos ficam dentro da pasta base/content do jogo ou dos seus arquivos zip.</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>Nesta página</h5><ol><li><a href="#o-que-aumenta-o-nível">O que aumenta o nível</a></li><li><a href="#um-novo-nível-é-aplicado-na-janela-da-empresa">Um novo nível é aplicado na janela da empresa</a></li><li><a href="#quanto-custa-um-nível-mais-alto-a-opção-inflação">Quanto custa um nível mais alto: a opção Inflação</a></li><li><a href="#licenças">Licenças</a></li><li><a href="#prospecções">Prospecções</a></li><li><a href="#a-sede">A sede</a></li><li><a href="#bom-saber">Bom saber</a></li></ol><div class="box"><b>46</b><span>referências às fontes</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">Mostrar as fontes</span><span class="h">Ocultar as fontes</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>Outras mecânicas</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Aviões, aeroportos e helicópteros</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Custos, manutenção e empréstimos</b><small>Finanças e empréstimos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Configurações de partida: carga completa, Nível de Preenchimento e tempos de parada</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>Poluição e barulho</b><small>Poluição e barulho</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>Renda por carga e tempo de entrega</b><small>Carga e renda</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Indústrias</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Velocidade de carga e descarga</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>Por que estou perdendo dinheiro?</b><small>Finanças e empréstimos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Reputação dos municípios</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>Navios e portos</b><small>Estações e carregamento</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>Subsídios: ofertas, prazos e recompensas</b><small>Subsídios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Tempo de jogo e calendário</b><small>Tempo de jogo e calendário</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>Crescimento dos municípios: XP, classificações e tamanho</b><small>Municípios</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>Veículos: condição, idade e velocidade de carga</b><small>Linhas e veículos</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>Armazéns</b><small>Armazéns</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>Trabalhadores e o reforço de trabalhadores</b><small>Indústrias</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Projeto de fã por Miro. Sem vínculo com a Urban Games.</span><span>Textos e imagens: CC BY 4.0 · Código do jogo © Urban Games: só são mostradas referências curtas.</span><span class="tr">Traduzido do inglês; correções são bem-vindas (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>Wiki oficial</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>

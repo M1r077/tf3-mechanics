@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0f14">
+<title>公司等級、特權與總部 · TF3 機制</title>
+<meta name="description" content="Transport Fever 3 到底如何運作，直接取自遊戲本身的腳本。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<script>try{if(localStorage.getItem("tf3src")==="1")document.documentElement.classList.add("srcon");if(localStorage.getItem("tf3tips")==="0")document.documentElement.classList.add("tipsoff")}catch(e){}</script>
+<link rel="alternate" hreflang="en" href="../en/company.html"><link rel="alternate" hreflang="fr" href="../fr/company.html"><link rel="alternate" hreflang="de" href="../de/company.html"><link rel="alternate" hreflang="es" href="../es/company.html"><link rel="alternate" hreflang="it" href="../it/company.html"><link rel="alternate" hreflang="nl" href="../nl/company.html"><link rel="alternate" hreflang="pl" href="../pl/company.html"><link rel="alternate" hreflang="pt-BR" href="../pt-br/company.html"><link rel="alternate" hreflang="ru" href="../ru/company.html"><link rel="alternate" hreflang="ja" href="../ja/company.html"><link rel="alternate" hreflang="ko" href="../ko/company.html"><link rel="alternate" hreflang="zh-Hans" href="../zh-cn/company.html"><link rel="alternate" hreflang="zh-Hant" href="../zh-tw/company.html">
+</head><body>
+<header class="bar"><div class="wrap top">
+<a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<nav class="nav"><a href="index.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>目錄</a>
+<a href="https://wiki.transportfever3.com"><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+<a href="patchnotes.html" class=""><svg class="ic " width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新日誌</a></nav>
+<button class="srcbtn" type="button" data-src title="顯示或隱藏腳本引用"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>來源</span></button>
+<button class="srcbtn tipbtn" type="button" data-tips title="顯示或隱藏提示"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span>提示</span></button>
+<details class="langs"><summary aria-label="語言"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>繁體中文</span><svg class="ic chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><nav class="menu" aria-label="語言"><a href="../en/company.html" class="" hreflang="en" lang="en">English<small>en</small></a><a href="../fr/company.html" class="" hreflang="fr" lang="fr">Français<small>fr</small></a><a href="../de/company.html" class="" hreflang="de" lang="de">Deutsch<small>de</small></a><a href="../es/company.html" class="" hreflang="es" lang="es">Español<small>es</small></a><a href="../it/company.html" class="" hreflang="it" lang="it">Italiano<small>it</small></a><a href="../nl/company.html" class="" hreflang="nl" lang="nl">Nederlands<small>nl</small></a><a href="../pl/company.html" class="" hreflang="pl" lang="pl">Polski<small>pl</small></a><a href="../pt-br/company.html" class="" hreflang="pt-BR" lang="pt-BR">Português (Brasil)<small>pt-br</small></a><a href="../ru/company.html" class="" hreflang="ru" lang="ru">Русский<small>ru</small></a><a href="../ja/company.html" class="" hreflang="ja" lang="ja">日本語<small>ja</small></a><a href="../ko/company.html" class="" hreflang="ko" lang="ko">한국어<small>ko</small></a><a href="../zh-cn/company.html" class="" hreflang="zh-Hans" lang="zh-Hans">简体中文<small>zh-cn</small></a><a href="../zh-tw/company.html" class="on" hreflang="zh-Hant" lang="zh-Hant">繁體中文<small>zh-tw</small></a></nav></details></div></header>
+<section class="hero"><div class="wrap"><div class="crumb rise"><a href="index.html"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>目錄</a><span>/</span><span class="dom"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M4 13h16"/></svg>公司與總部</span></div><h1 class="rise d1">公司等級、特權與總部</h1><p class="lead rise d2">什麼會提升公司等級，每個等級解鎖什麼，許可與勘探如何運作，總部實際提供什麼，以及更高等級的代價。</p><div class="meta rise d3"><span class="pill verified"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>已在腳本中核實</span><a class="pill" href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><span class="pill"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新於 2026-11-17</span><span class="pill" title="核對這些說明時使用的遊戲版本(官方更新說明)"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>遊戲版本 40425</span></div><div class=facts><div class="fact rise d1"><b>15</b><span>個公司等級，從初階員工到鐵路大亨</span></div><div class="fact rise d2"><b>×12.5</b><span>達到等級 15 所需的世界人口（與開局相比）</span></div><div class="fact rise d3"><b>×0.75</b><span>通貨膨脹為普通時等級 15 的收入</span></div><div class="fact rise d4"><b>0</b><span>人口下降時失去的等級</span></div></div></div></section><div class="wrap layout"><article><p>公司等級不取決於金錢或運輸量，而取決於<strong>整張地圖的人口</strong>。每個新等級都會解鎖特權（地標、勘探、行銷活動、產業綠化、總部模組），而在<strong>通貨膨脹</strong>設定下，它也會讓你的所有收入稍微下降。</p>
+<h2 id="什麼會提升等級"><span class="n">1</span><span>什麼會提升等級</span></h2>
+<ul>
+<li>遊戲會記住<strong>開局時的世界人口</strong>：所有城鎮的居民數<span class="sr">（<code class="src">company.script.tl:392-396</code>，<code class="src">company_util.tl:365-371</code>）</span>。</li>
+<li>接著把歷來達到的<strong>最高</strong>世界人口與這個開局值比較<span class="sr">（<code class="src">company_growth.script.tl:25-27</code>）</span>。這個值只增不減：城鎮縮小永遠不會讓你降級。</li>
+<li>等級 1 在開局值時達到，等級 15 在約 <strong>12.5 倍</strong>時達到<span class="sr">（<code class="src">company_progression_util.tl:6-14</code>，<code class="src">company_progression_util.tl:95-120</code>，<code class="src">town_growth_function.tl:13-20</code>）</span>。</li>
+<li>戰役任務與地圖編輯器中沒有等級<span class="sr">（<code class="src">company_growth.script.tl:74-79</code>）</span>。</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>等級</th>
+<th>職位</th>
+<th>世界人口（與開局相比）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>初階員工</td>
+<td>×1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>技師</td>
+<td>×1.02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>工程師</td>
+<td>×1.08</td>
+</tr>
+<tr>
+<td>4</td>
+<td>協調員</td>
+<td>×1.2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>專家</td>
+<td>×1.4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>組長</td>
+<td>×1.7</td>
+</tr>
+<tr>
+<td>7</td>
+<td>督導</td>
+<td>×2.1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>經理</td>
+<td>×2.6</td>
+</tr>
+<tr>
+<td>9</td>
+<td>局長</td>
+<td>×3.3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>資深局長</td>
+<td>×4.2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>執行長</td>
+<td>×5.3</td>
+</tr>
+<tr>
+<td>12</td>
+<td>董事長</td>
+<td>×6.7</td>
+</tr>
+<tr>
+<td>13</td>
+<td>副總裁</td>
+<td>×8.3</td>
+</tr>
+<tr>
+<td>14</td>
+<td>總裁</td>
+<td>×10.2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>鐵路大亨</td>
+<td>×12.5</td>
+</tr>
+</tbody>
+</table></div>
+<p>這些比例是依腳本以開局人口 50,000 以上計算的<span class="sr">（<code class="src">company_progression_util.tl:6-14</code>，<code class="src">company_static_util.tl:6-24</code>）</span>。在小地圖上，中間等級略高（5,000 居民時等級 8 需要 ×2.85）；等級 1 與 15 仍為 ×1 與 ×12.5。</p>
+<ul>
+<li>所以等級跟隨<strong>城鎮成長</strong>：城鎮因你的乘客與貨物而成長，見<a href="towns.html">城鎮成長</a>。</li>
+<li>前幾個等級來得很快，最後幾個需要地圖上的城鎮擴大許多倍。</li>
+</ul>
+<h2 id="新等級在公司視窗中生效"><span class="n">2</span><span>新等級在公司視窗中生效</span></h2>
+<p>人口越過門檻時會出現<strong>升級通知</strong>；點擊它會在該等級上開啟公司視窗<span class="sr">（<code class="src">company_growth.script.tl:96-107</code>，<code class="src">company_notification_rank_up.script.tl:8-9</code>）</span>。</p>
+<ul>
+<li>只有當該等級在<strong>公司視窗中被選取</strong>時，新特權才會解鎖：視窗這時送出解鎖<span class="sr">（<code class="src">company.tl:420-423</code>，<code class="src">company_growth.script.tl:55-62</code>）</span>。建造選單檢查的是這個已生效的等級<span class="sr">（<code class="src">company_util.tl:92</code>，<code class="src">company_util.tl:171-178</code>）</span>。</li>
+<li>下一節的收入係數跟隨<strong>已達到</strong>的等級，不論是否生效<span class="sr">（<code class="src">company_growth.script.tl:47-48</code>）</span>。</li>
+</ul>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p>升級後點擊通知（或開啟公司視窗並選取新等級）來取得特權。等待不會帶來任何好處：收入已經降低了。</p></div></aside>
+<h2 id="更高等級的代價通貨膨脹設定"><span class="n">3</span><span>更高等級的代價：通貨膨脹設定</span></h2>
+<p>開啟<strong>通貨膨脹</strong>時，所有貨物與乘客收入從等級 1 的 ×1 平均下降到等級 15 的最低值<span class="sr">（<code class="src">company_progression_util.tl:25-40</code>，<code class="src">company_growth.script.tl:159-170</code>）</span>。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>通貨膨脹</th>
+<th>等級 15 的收入</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>無</td>
+<td>×1（不變）</td>
+<td class="sc"><code class="src">difficulty_util.tl:50</code>，<code class="src">mod.script.tl:694-697</code></td>
+</tr>
+<tr>
+<td>低</td>
+<td>×0.9</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>普通</td>
+<td>×0.75</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>高</td>
+<td>×0.6</td>
+<td class="sc"></td>
+</tr>
+<tr>
+<td>極高</td>
+<td>×0.5</td>
+<td class="sc"></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>在普通下，每升一級損失約 1.8 % 的收入：等級 3 為 ×0.96，等級 8 為 ×0.875，等級 15 為 ×0.75。</li>
+<li>通貨膨脹不會提高任何成本；成本跟隨日曆年份（見<a href="costs.html">成本、維護費與貸款</a>）。</li>
+<li>更高的等級也會讓新的補助提議變少（見<a href="subsidies.html">補助</a>）。</li>
+</ul>
+<h2 id="許可"><span class="n">4</span><span>許可</span></h2>
+<p>大多數特權受<strong>許可</strong>限制。等級為某項特權提供許可；每棟建築或每次使用佔用一個<span class="sr">（<code class="src">company_util.tl:33-80</code>，<code class="src">company_util.tl:206</code>）</span>。</p>
+<ul>
+<li>許可隨等級<strong>累加</strong>：在等級 3 給 1 個、等級 5 再給 1 個的特權，從等級 5 起允許 2 個<span class="sr">（<code class="src">company_util.tl:51-56</code>）</span>。</li>
+<li>建築被拆除時會歸還許可：遊戲計算的是現存的建築<span class="sr">（<code class="src">company_util.tl:143-163</code>，<code class="src">company_util.tl:203-206</code>）</span>。</li>
+<li>勘探、行銷活動與綠化在開始時消耗許可<span class="sr">（<code class="src">company.script.tl:416-423</code>，<code class="src">company.script.tl:459-462</code>，<code class="src">company.script.tl:496-500</code>）</span>。之後建造選單顯示<strong>已使用</strong>或<strong>冷卻時間</strong><span class="sr">（<code class="src">company_util.tl:207-226</code>）</span>。</li>
+<li><strong>行銷</strong>許可在每次活動 <strong>5 年</strong>後恢復<span class="sr">（<code class="src">marketing.res.lua:6-7</code>，<code class="src">company.script.tl:66-94</code>）</span>。</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>特權</th>
+<th>許可</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>總部</td>
+<td>等級 1 時 1 個</td>
+<td class="sc"><code class="src">hq.res.lua:6</code></td>
+</tr>
+<tr>
+<td>行銷活動</td>
+<td>等級 4 時 1 個，5 年後恢復</td>
+<td class="sc"><code class="src">marketing.res.lua:6-7</code></td>
+</tr>
+<tr>
+<td>產業綠化</td>
+<td>等級 3、6、9、12 與 15 各 1 個</td>
+<td class="sc"><code class="src">industry_greenify_tool.script.tl:101-102</code></td>
+</tr>
+<tr>
+<td>淨化廠</td>
+<td>等級 10 時 15 個</td>
+<td class="sc"><code class="src">pollution_cleanup_facility.con.lua:106-108</code></td>
+</tr>
+<tr>
+<td>地標</td>
+<td>各一個：圓形劇場 2，大燈塔 5，姬路城 7，船舶博物館 9，新天鵝堡 10，自由女神像 11，頤和園 13，歌劇院 14，國會大廈 15</td>
+<td class="sc"><code class="src">arena.con.lua:39</code>，<code class="src">lighthouse.con.lua:48</code>，<code class="src">white_heron_castle.con.lua:47</code>，<code class="src">ship_museum.con.lua:55</code>，<code class="src">neuschwanstein.con.lua:55</code>，<code class="src">statue_of_liberty.con.lua:57</code>，<code class="src">summer_palace.con.lua:63</code>，<code class="src">opera_house.con.lua:63</code>，<code class="src">westminster.con.lua:79</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>各特權的作用：<a href="reputation.html">城鎮聲望</a>（行銷活動），<a href="emission.html">污染與噪音</a>（綠化，淨化廠）。</p>
+<h2 id="勘探"><span class="n">5</span><span>勘探</span></h2>
+<p>勘探會在城鎮附近尋找一種資源，成功後在那裡建立一個新產業。</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>資源</th>
+<th>等級</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>漁獲</td>
+<td>2</td>
+<td class="sc"><code class="src">exploration_fish.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>陶土</td>
+<td>3</td>
+<td class="sc"><code class="src">exploration_clay.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>原油</td>
+<td>4</td>
+<td class="sc"><code class="src">exploration_crude_oil.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>穀物，蔬菜</td>
+<td>4，<strong>共用一個許可</strong>（產業）</td>
+<td class="sc"><code class="src">exploration_grain.res.lua:9</code>，<code class="src">exploration_vegetables.res.lua:9</code>，<code class="src">permit_key_farm.res.lua:6</code></td>
+</tr>
+<tr>
+<td>原木</td>
+<td>5</td>
+<td class="sc"><code class="src">exploration_logs.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>煤，鐵礦</td>
+<td>6</td>
+<td class="sc"><code class="src">exploration_coal.res.lua:9-11</code>，<code class="src">exploration_iron_ore.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>石材，羊毛</td>
+<td>8</td>
+<td class="sc"><code class="src">exploration_stone.res.lua:9-11</code>，<code class="src">exploration_wool.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>沙子</td>
+<td>9</td>
+<td class="sc"><code class="src">exploration_sand.res.lua:9-11</code></td>
+</tr>
+<tr>
+<td>橡膠</td>
+<td>12</td>
+<td class="sc"><code class="src">exploration_rubber.res.lua:9-11</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>每種資源只有<strong>一個</strong>許可，在勘探開始時使用<span class="sr">（<code class="src">company.script.tl:451-462</code>）</span>。</li>
+<li>勘探最長持續 <strong>6 個月</strong>。每月嘗試放置一次產業，成功率在 6 個月內從 20 % 升到 60 %<span class="sr">（<code class="src">company_util.tl:14-17</code>，<code class="src">company.script.tl:299-307</code>，<code class="src">company.script.tl:130-142</code>）</span>。</li>
+<li>當遊戲在城鎮附近找不到放置該產業的地方時，嘗試也會失敗<span class="sr">（<code class="src">company.script.tl:199-210</code>）</span>。</li>
+<li>如果最後一次嘗試失敗，<strong>許可會歸還</strong>，並有通知告知<span class="sr">（<code class="src">company.script.tl:106-126</code>，<code class="src">company.script.tl:170-181</code>）</span>。</li>
+<li>每個城鎮與資源組合同一時間只能進行一次勘探<span class="sr">（<code class="src">company.script.tl:442-447</code>）</span>。</li>
+</ul>
+<aside class="callout"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><div><h4>由遊戲引擎決定<small>C++，腳本中看不到</small></h4><p>新產業可以建在哪裡（城鎮附近的 makeIndustrySpawnProposal）由引擎決定：遠離水域的漁獲勘探，或周圍沒有空地的城鎮，都會直接失敗並歸還許可。</p></div></aside>
+<h2 id="總部"><span class="n">6</span><span>總部</span></h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>數值</th>
+<th class="sc">來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>價格與維護費</td>
+<td>免費，無維護費</td>
+<td class="sc"><code class="src">headquarter.script.tl:526-527</code></td>
+</tr>
+<tr>
+<td>許可</td>
+<td>1 個，等級 1 時</td>
+<td class="sc"><code class="src">headquarter.con.lua:6-7</code>，<code class="src">hq.res.lua:6</code></td>
+</tr>
+<tr>
+<td>城鎮成長</td>
+<td>離它最近的城鎮 +5 %</td>
+<td class="sc"><code class="src">headquarter.script.tl:510-515</code>，<code class="src">landmark_util.tl:51-70</code></td>
+</tr>
+<tr>
+<td>工作崗位</td>
+<td>24</td>
+<td class="sc"><code class="src">headquarter.con.lua:16</code>，<code class="src">headquarter.script.tl:505-508</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>+5 % 是對該城鎮成長率的加成，所以城鎮成長率為 0 % 時沒有作用（見<a href="towns.html">城鎮成長</a>）。</li>
+<li><strong>模組</strong>每個 50,000，受隨等級增加的許可限制<span class="sr">（<code class="src">hq_module_m.module.lua:83</code>，<code class="src">hq_module_m.module.lua:137</code>）</span>。</li>
+<li>檔案中只有兩個模組帶有加成：<strong>中型建築</strong>城鎮成長 +1 %<span class="sr">（<code class="src">hq_module_m.module.lua:139-142</code>）</span>與<strong>大型建築</strong><strong>聲望恢復</strong> +1 %<span class="sr">（<code class="src">hq_module_l.module.lua:169-172</code>）</span>。恢復加成不被任何城鎮評價讀取（見<a href="reputation.html">城鎮聲望</a>）。其他模組都是裝飾。</li>
+<li>每個模組檔案開頭還有一張給出 +5 % 城鎮成長的表，但檔案中沒有任何地方使用它<span class="sr">（<code class="src">hq_corner_l.module.lua:148-159</code>，<code class="src">hq_statue.module.lua:46-57</code>）</span>。只有模組 <code>metadata</code> 中的加成會被累加<span class="sr">（<code class="src">headquarter_addon.script.tl:18-29</code>）</span>。</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>模組</th>
+<th>獲得許可的等級（×2 = 兩個）</th>
+<th>等級 15 時合計</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>立旗</td>
+<td>1 ×2，6，7，8，9，11，12，13，14</td>
+<td>10</td>
+</tr>
+<tr>
+<td>轉角建築</td>
+<td>3，5，7 ×2，9，11，13，15</td>
+<td>8</td>
+</tr>
+<tr>
+<td>中型建築</td>
+<td>2，4，10 ×2，15 ×2</td>
+<td>6</td>
+</tr>
+<tr>
+<td>大型建築</td>
+<td>5，6，10，12</td>
+<td>4</td>
+</tr>
+<tr>
+<td>陽台</td>
+<td>8 ×2，14 ×2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>大型噴泉</td>
+<td>10 ×2，14 ×2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>圓頂</td>
+<td>6，15 ×2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>屋頂旗幟</td>
+<td>7，10，13</td>
+<td>3</td>
+</tr>
+<tr>
+<td>網球場</td>
+<td>11，12，14</td>
+<td>3</td>
+</tr>
+<tr>
+<td>老樹</td>
+<td>13，15 ×2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>雕像</td>
+<td>14 ×2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>水池</td>
+<td>15</td>
+<td>1</td>
+</tr>
+</tbody>
+</table></div>
+<p>來源：每個模組檔案中的 <code>rankAndPermits</code> 行<span class="sr">（<code class="src">hq_corner_l.module.lua:247</code>, <code class="src">hq_flag_ground.module.lua:79</code>, <code class="src">hq_pool.module.lua:111</code>）</span>。</p>
+<aside class="callout tip"><div class="badge"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></div><div><h4>提示</h4><p>把總部建在你最想讓它快速成長的城鎮，並在那裡加上中型建築：它們是唯一帶成長加成的模組。</p></div></aside>
+<h2 id="小提示"><span class="n">7</span><span>小提示</span></h2>
+<ul>
+<li>想升級就讓城鎮成長：把更多乘客與貨物送到更多城鎮，並保持良好的評價。銀行裡的錢不算數。</li>
+<li>規劃好地標與勘探：每項只有一次，在固定的等級。</li>
+<li>在有通貨膨脹的地圖上，升級對特權有利、對收入不利。在普通下，一路升到等級 15 會損失全部收入的四分之一。</li>
+</ul>
+<section class="check"><div class="head"><h4><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg>官方 wiki 與遊戲腳本對照</h4><span class="res refines"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>補充細節</span></div><div class="cols"><div class="col off"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki 的說法</div><p>"The company rank depends on the population of the map. . Once the population passes the next threshold, the company will level up." "Headquarters upgrades are sometimes purely decorative, but most add-on modules either increase the reputation recovery or the town growth of the capital." (<a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances">Company and Finances</a>)</p></div><div class="col scr"><div class="lab"><svg class="ic " width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>遊戲腳本顯示</div><p>規則相同：歷來最高的世界人口與開局人口相比，等級 15 為 ×12.5；永不失去。新等級必須在公司視窗中選取才會解鎖特權，而通貨膨脹會立即降低收入。只有兩個模組帶有加成（中型建築成長 +1 %，大型建築聲望恢復 +1 %，後者不被任何評價讀取）；其他都是裝飾。</p></div></div></section><p class="srcnote"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>路徑位於遊戲的 base/content 資料夾或其 zip 檔案內。</p></article><aside class="toc"><h5><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>本頁內容</h5><ol><li><a href="#什麼會提升等級">什麼會提升等級</a></li><li><a href="#新等級在公司視窗中生效">新等級在公司視窗中生效</a></li><li><a href="#更高等級的代價通貨膨脹設定">更高等級的代價：通貨膨脹設定</a></li><li><a href="#許可">許可</a></li><li><a href="#勘探">勘探</a></li><li><a href="#總部">總部</a></li><li><a href="#小提示">小提示</a></li></ol><div class="box"><b>46</b><span>處原始碼引用</span><button class="srcbox" type="button" data-src><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><span class="s">顯示來源</span><span class="h">隱藏來源</span></button><a href="https://wiki.transportfever3.com/doku.php?id=gamemanual:management:companyandfinances"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki<svg class="ic " width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div></aside></div><section class="wrap more"><h2>其他機制</h2><div class="mgrid"><a class="mcard" href="aircraft.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>飛機、機場與直升機</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="costs.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>成本、維護費與貸款</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="departure.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>發車設定：滿載、裝填量與停留時間</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="emission.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a4 4 0 0 1 3-6.5A5 5 0 0 1 17 8a4 4 0 0 1 2 7.5"/><path d="M8 19h8M10 22h4"/></svg></span><span><b>汙染與噪音</b><small>汙染與噪音</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="income.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13l5 5-5 5H3z"/><circle cx="8" cy="12" r="2"/></svg></span><span><b>貨運收益與配送時間</b><small>貨物與收益</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="industries.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>產業</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="loading.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>裝載與卸貨速度</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="money.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg></span><span><b>為什麼我在虧錢？</b><small>財務與貸款</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="reputation.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮聲望</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="ships.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M9 20l-2 2M15 20l2 2M8 16l-1 4M16 16l1 4"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/></svg></span><span><b>船舶與港口</b><small>車站與裝載</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="subsidies.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><span><b>補助：提案、期限與獎勵</b><small>補助</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="time.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>遊戲時間與月曆</b><small>遊戲時間與月曆</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="towns.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V11l5-4 5 4v10M13 21V5h8v16M3 21h18"/><path d="M16 9h2M16 13h2M16 17h2M7 15h2"/></svg></span><span><b>城鎮成長：經驗值、評價與規模</b><small>城鎮</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="vehicles.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M3 11h18M7 16v2M17 16v2"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><span><b>車輛：狀態、年份與裝載速度</b><small>路線與車輛</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="warehouses.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/></svg></span><span><b>貨物倉庫</b><small>貨物倉庫</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="mcard" href="workers.html"><span class="di"><svg class="ic " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V6h3l1-3h2l1 3v15z"/><path d="M7 17h2M12 17h2M17 17h1"/></svg></span><span><b>工人與工人加速效果</b><small>產業</small></span><svg class="ic end" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></section>
+<footer><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7cf72"/><stop offset="1" stop-color="#e09a2a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="#0f141b" stroke-width="2.6"/><path d="M16 4.5v4M16 23.5v4M4.5 16h4M23.5 16h4M7.9 7.9l2.8 2.8M21.3 21.3l2.8 2.8M7.9 24.1l2.8-2.8M21.3 10.7l2.8-2.8" stroke="#0f141b" stroke-width="2.6" stroke-linecap="round"/></svg><span>TF3 <b>MECHANICS</b></span></a>
+<div class="txt"><span>Miro 製作的玩家專案。與 Urban Games 無關。</span><span>文字與圖片：CC BY 4.0 · 遊戲程式碼 © Urban Games：僅展示簡短引用。</span><span class="tr">譯自英文；歡迎指正 (<a href="https://github.com/M1r077/tf3-mechanics/issues">GitHub</a>)</span></div>
+<div class="links"><a href="https://wiki.transportfever3.com"><svg class="ic " width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6z"/></svg>官方 wiki</a></div></div></footer>
+<script>(function(){
+  var root=document.documentElement;
+  function setSrc(on){root.classList.toggle('srcon',on);try{localStorage.setItem('tf3src',on?'1':'0')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-src]'),function(b){b.setAttribute('aria-pressed',on?'true':'false')});}
+  [].forEach.call(document.querySelectorAll('[data-src]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('srcon')?'true':'false');
+    b.addEventListener('click',function(){setSrc(!root.classList.contains('srcon'))});});
+  function setTips(off){root.classList.toggle('tipsoff',off);try{localStorage.setItem('tf3tips',off?'0':'1')}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){b.setAttribute('aria-pressed',off?'false':'true')});}
+  [].forEach.call(document.querySelectorAll('[data-tips]'),function(b){
+    b.setAttribute('aria-pressed',root.classList.contains('tipsoff')?'false':'true');
+    b.addEventListener('click',function(){setTips(!root.classList.contains('tipsoff'))});});
+  var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}})},
+      {rootMargin:'-90px 0px -65% 0px'});
+    Object.keys(map).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h)});
+  }
+  var q=document.getElementById('q');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.normalize('NFKC').trim().toLowerCase(),n=0;
+    [].forEach.call(document.querySelectorAll('.dcard'),function(c){
+      var ok=!v||c.textContent.normalize('NFKC').toLowerCase().indexOf(v)>=0;c.style.display=ok?'':'none';if(ok)n++;});
+    document.querySelector('.empty').style.display=n?'none':'block';});}
+  var pfs=[].slice.call(document.querySelectorAll('.pf'));
+  if(pfs.length){
+    function sel(g){var s=[];[].forEach.call(document.querySelectorAll('.pf[data-g="'+g+'"] .chip.on'),function(c){s.push(c.dataset.v)});return s;}
+    function ok(s,v){return s.indexOf('*')>=0||s.indexOf(v)>=0;}
+    function apply(){var k=sel('kind'),a=sel('area'),b=sel('branch'),n=0;
+      [].forEach.call(document.querySelectorAll('.pbuild'),function(sec){var m=0,bo=ok(b,sec.dataset.b);
+        [].forEach.call(sec.querySelectorAll('li'),function(li){var y=bo&&ok(k,li.dataset.k)&&ok(a,li.dataset.a);li.style.display=y?'':'none';if(y)m++;});
+        sec.style.display=m?'':'none';n+=m;});
+      document.getElementById('pn').textContent=n;document.querySelector('.empty').style.display=n?'none':'block';}
+    pfs.forEach(function(pf){pf.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      var all=pf.querySelector('[data-v="*"]');
+      if(c===all){[].forEach.call(pf.querySelectorAll('.chip'),function(x){x.classList.toggle('on',x===all)});}
+      else{c.classList.toggle('on');all.classList.toggle('on',!pf.querySelector('.chip.on:not([data-v="*"])'));}
+      apply();});});
+  }
+})();</script>
+</body></html>
