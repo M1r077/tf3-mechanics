@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 年 | 積み込みも消費もないと、産業は閉鎖候補になる
 fact: 1.1 % | 稀に閉鎖（既定）での 1 年あたりの確率、その後 730 日のカウントダウン
 fact: +50–150 % | ブースター貨物のボーナス、産業ごとに固定
@@ -19,7 +19,7 @@ fact: ×2/3 – ×1.5 | 産業の目標密度：新しい産業はオフにで�
 
 - ルールは 1 回あたりに使う貨物と作る貨物、そして 1 年あたりの回数を決める。1 回は 1 年 ÷ その回数かかり、生産ルールではブーストの分だけ短くなる（`industry_react_util.tl:51-57`）。産業ウィンドウの「生産」欄に小さな数字で出る。
 - ウィンドウの **最大** の数値は：1 回あたり × 1 年の回数 × 規模係数（`rule.consumptionFactor`）× ブースト × 設定 **産業の生産性**。最後の 2 つは生産ルールのみ（`industry_util.tl:310-379`、`industry_util.tl:357-362`）。
-- **産業の生産性**：50 %、75 %、100 %、150 %、200 %。プリセット：イージー 150 %、ノーマル 100 %、ハード 75 %、ベリーハード 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:196-197`）。
+- **産業の生産性**：50 %、75 %、100 %、150 %、200 %。プリセット：イージー 150 %、ノーマル 100 %、ハード 75 %、ベリーハード 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:197-198`）。
 - 例、製鋼所：鉄鉱石 6 + 石炭 6 → 鋼鉄 3 + 板金 4、1 年に 121.7 回：鉄鉱石 730 と石炭 730 → 鋼鉄 365 と板金 487（`steel_mill.con.lua:43-71`）。入力が 1 つでも欠けるとルールは止まる。
 - 缶詰工場には 2 つのルールがある：魚 + 板金、または肉 + 板金（`food_factory.con.lua:43-74`）。
 
@@ -31,7 +31,7 @@ fact: ×2/3 – ×1.5 | 産業の目標密度：新しい産業はオフにで�
 
 - 貨物ごとに上限付きの在庫がある：例えば炭鉱は道具 100 と石炭 400、製鋼所は鉄鉱石 800、石炭 800、鋼鉄 400、板金 500（`coal_mine.con.lua:44-67`、`steel_mill.con.lua:43-71`）。
 - 在庫は劣化しない（`industryutil.lua:25-29`）：貨物は必要なだけ待つ。
-- 出力在庫が満杯でも生産は止まらない：あふれた分は捨てられる（公式 wiki）。**貨物フロー** グラフに **消費**、**生産**、**破壊** が出る（`industry_eow.script.tl:804-816`）。
+- 出力在庫が満杯でも生産は止まらない：あふれた分は捨てられる（公式 wiki）。**貨物フロー** グラフに **消費**、**生産**、**破壊** が出る（`industry_eow.script.tl:807-819`）。
 - 建設パラメーター **入力** をオフにすると、ルールから入力が消え、在庫（入）もなくなる（`industryutil.lua:280-287`、`industryutil.lua:383-387`、`industryutil.lua:432-441`）。
 
 ## 区画と拡張
@@ -145,7 +145,7 @@ fact: ×2/3 – ×1.5 | 産業の目標密度：新しい産業はオフにで�
 | 頻繁に閉鎖 | 4.4 % | 約 16 年 | – | `difficulty_util.tl:37` |
 | 非常に頻繁に閉鎖 | 8.8 % | 約 8 年 | ベリーハード | `difficulty_util.tl:176` |
 
-確率は 1 年 0.011 × 0、1、2、4、8（`mod.script.tl:171`、`mod.script.tl:202-203`、`difficulty_util.tl:37`）。あなたが所有する産業は閉鎖されず、手動開発の産業も閉鎖されない。閉鎖が一時停止している間（基本ゲームではチュートリアル中のみ）は閉鎖が始まらず、進行中のカウントダウンは取り消される（`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`）。
+確率は 1 年 0.011 × 0、1、2、4、8（`mod.script.tl:172`、`mod.script.tl:203-204`、`difficulty_util.tl:37`）。あなたが所有する産業は閉鎖されず、手動開発の産業も閉鎖されない。閉鎖が一時停止している間（基本ゲームではチュートリアル中のみ）は閉鎖が始まらず、進行中のカウントダウンは取り消される（`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`）。
 
 ```engine
 何が「積み込み」「消費」に数えられるか（ログ itemsLoaded と itemsConsumed、例えばブースター貨物が数えられるか）、manualDevelopment フラグ、そして車庫のある産業が除外される理由（`industries.script.tl:140-146`）はエンジン側。入力を失ったブースタールール（入力オフ）をエンジンがどう扱うかも同じ。
@@ -155,7 +155,7 @@ fact: ×2/3 – ×1.5 | 産業の目標密度：新しい産業はオフにで�
 
 エンジンはゲーム中に新しい産業を加える。通知は **新たな産業の創設**：「先見性のある事業家が利益をかぎつけ、{industry} を創設しました。」（`industry_spawn.script.tl:34-36`）。種類のラベルは **産業の創設**（`industry_spawn.res.lua:6`）。場所、種類、時期を選ぶゲームスクリプトはなく、エンジンの提案を絞り込むスクリプトもない。
 
-スクリプトがエンジンに渡すもの（`mod.script.tl:128-133`、`mod.script.tl:166-168`、`mod.script.tl:194-195`）：
+スクリプトがエンジンに渡すもの（`mod.script.tl:128-133`、`mod.script.tl:167-169`、`mod.script.tl:195-196`）：
 
 | 設定値 | 値 | 意味 |
 |---|---|---|

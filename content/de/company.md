@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | Unternehmensränge, von Junior bis Tycoon
 fact: ×12,5 | Weltbevölkerung für Rang 15, verglichen mit dem Start
 fact: ×0,75 | Einnahmen auf Rang 15 mit Inflation Normal
@@ -61,7 +61,7 @@ Mit **Inflation** sinken alle Fracht- und Passagiereinnahmen gleichmäßig von �
 
 | Inflation | Einnahmen auf Rang 15 | Quelle |
 |---|---|---|
-| Aus | ×1 (keine Änderung) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| Aus | ×1 (keine Änderung) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Niedrig | ×0,9 | |
 | Normal | ×0,75 | |
 | Hoch | ×0,6 | |

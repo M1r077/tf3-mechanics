@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | jaarfactor op het onderhoud van opslagplaatsen, havens en luchthavens tot 2020
 fact: 6 jaar | gebruikskosten: de prijs van een voertuig
 fact: één keer | wordt de rente van een lening over het bedrag berekend, niet elk jaar
@@ -24,16 +24,16 @@ De instelling **Inflatie** verhoogt geen enkele kost: ze verlaagt alleen je inko
 | **Kosten voertuigen**, **Voertuigonderhoud** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Kosten infrastructuur**, **Onderhoud infrastructuur** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Effect voertuigonderhoud** | Geen ×0 · Laag ×0,5 · Gemiddeld ×1 · Hoog ×1,5 · Zeer hoog ×2 | Laag · Gemiddeld · Hoog · Zeer hoog | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflatie** | alleen inkomsten, zie [Vrachtinkomsten](income.html) | Laag · Gemiddeld · Hoog · Zeer hoog | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflatie** | alleen inkomsten, zie [Vrachtinkomsten](income.html) | Laag · Gemiddeld · Hoog · Zeer hoog | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Kosten infrastructuur** schaalt de prijs van straten, sporen, bruggen, tunnels, overwegen, gebouwen en modules, en ook terreinwerk (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Het schaalt ook de sloopkosten van gebouwen (`construction.script.tl:39-44`). **Onderhoud infrastructuur** schaalt bij het laden het onderhoud van straten, sporen, bruggen, tunnels, overwegen en modules (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Bij gebouwen passen de scripts het alleen toe in het gebouwvenster (`entity_window_util.tl:186`); wat wordt afgeschreven, beslist de engine.
+- **Kosten infrastructuur** schaalt de prijs van straten, sporen, bruggen, tunnels, overwegen, gebouwen en modules, en ook terreinwerk (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). Het schaalt ook de sloopkosten van gebouwen (`construction.script.tl:39-44`). **Onderhoud infrastructuur** schaalt bij het laden het onderhoud van straten, sporen, bruggen, tunnels, overwegen en modules (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Bij gebouwen passen de scripts het alleen toe in het gebouwvenster (`entity_window_util.tl:186`); wat wordt afgeschreven, beslist de engine.
 - **Kosten voertuigen** en **Voertuigonderhoud** schalen de aankoopprijs en de gebruikskosten van elk voertuig (`post_run_util.tl:54-81`).
-- **Effect voertuigonderhoud** bepaalt hoe sterk een voertuig in slechte staat snelheid, vermogen en comfort verliest en meer geluid, vervuiling en gebruikskosten krijgt (`mod.script.tl:241-245`).
+- **Effect voertuigonderhoud** bepaalt hoe sterk een voertuig in slechte staat snelheid, vermogen en comfort verliest en meer geluid, vervuiling en gebruikskosten krijgt (`mod.script.tl:242-246`).
 
 ## Wat met het kalenderjaar stijgt
 
-- **Onderhoud van gebouwen**: ×1 in 1900, ×1,5 in 1920, ×2,2 in 1940, ×3,2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). Het gebouwvenster en het bouwmenu passen dit toe op elk gebouw dat het jaar moet volgen, en het bouwmenu markeert elke meta-constructie (in het basisspel: opslagplaatsen, vliegvelden, luchthavens en havens) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- **Modules** van zo'n gebouw kosten de prijs van het bouwjaar van het gebouw, hun onderhoud dat van het huidige jaar (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Onderhoud van gebouwen**: ×1 in 1900, ×1,5 in 1920, ×2,2 in 1940, ×3,2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). Het gebouwvenster en het bouwmenu passen dit toe op elk gebouw dat het jaar moet volgen, en het bouwmenu markeert elke meta-constructie (in het basisspel: opslagplaatsen, vliegvelden, luchthavens en havens) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Modules** van zo'n gebouw kosten de prijs van het bouwjaar van het gebouw, hun onderhoud dat van het huidige jaar (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Tijdperkvarianten**: depots, onderhoudsstations, opslagplaatsen, stations, havens en luchthavens hebben één variant per tijdperk, en elke latere variant kost **×3** (tijdperk B) of **×9** (tijdperk C) van de eerste (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Geld van subsidies**: ×1 in 1900 tot ×4 vanaf 2000 (`finances_util.tl:87-90`). **Leningbedragen**: ×0,4 in 1900 tot ×2,4 in 2020 (`loan_util.tl:7-10`).
 - **Inkomsten** hebben helemaal geen jaarfactor (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ Het onderhoud dat echt wordt afgeschreven, en of straten, sporen en voertuigen o
 
 ## Sporen, wegen en gebouwen
 
-Straat- en spoorbestanden geven de prijs en het jaarlijkse onderhoud per meter; het bouwmenu toont ze per kilometer (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). Bij de meeste typen is het onderhoud **een zesde** van de bouwprijs:
+Straat- en spoorbestanden geven de prijs en het jaarlijkse onderhoud per meter; het bouwmenu toont ze per kilometer (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). Bij de meeste typen is het onderhoud **een zesde** van de bouwprijs:
 
 | Type | Beschikbaar vanaf | Bouw per km | Onderhoud per km en jaar | Bron |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ Straat- en spoorbestanden geven de prijs en het jaarlijkse onderhoud per meter; 
 | Grote nieuwe stadsstraat | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Een bovenleiding kost **30 %** van de spoorprijs extra; een busbaan 10 %, een tramspoor 20 %, een elektrisch tramspoor 40 % van de straatprijs (`mod.script.tl:24-28`).
-- Terrein ophogen kost 4,5 per m³, verlagen 5,25 per m³, beide × Kosten infrastructuur; een akker weghalen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Terrein ophogen kost 4,5 per m³, verlagen 5,25 per m³, beide × Kosten infrastructuur; een akker weghalen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - Een gebouw zonder eigen onderhoud betaalt **een zesde van zijn prijs** per jaar, berekend op de prijs vóór de instelling Kosten infrastructuur (`construction.script.tl:25-27`).
 - De basisconfiguratie zet een sloopvergoeding van 0,75 en een termijn van 60 (`mod.script.tl:30-31`): wat je net hebt gebouwd, levert bij slopen het meeste geld terug. De engine past dit toe.
 

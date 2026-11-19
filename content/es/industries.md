@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 años | sin carga ni consumo convierten una industria en candidata al cierre
 fact: 1,1 % | de probabilidad al año en Casi nunca (por defecto), luego 730 días de cuenta atrás
 fact: +50–150 % | de refuerzo por carga de refuerzo, fijo por industria
@@ -19,7 +19,7 @@ Cada industria funciona con **reglas**: «toma esto de las existencias de entrad
 
 - Una regla indica la carga usada y producida por ciclo, y cuántos ciclos al año: un ciclo dura un año ÷ ese número, menos con los refuerzos en las reglas de producción (`industry_react_util.tl:51-57`). La sección Producción de la ventana de la industria lo muestra con números pequeños.
 - El número **Máx.** de la ventana es: por ciclo × ciclos al año × el factor de tamaño (`rule.consumptionFactor`) × los refuerzos × el ajuste **Productividad de la industria**, estos dos últimos solo en las reglas de producción (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Productividad de la industria**: 50 %, 75 %, 100 %, 150 % o 200 %. Preajustes: Fácil 150 %, Normal 100 %, Difícil 75 %, Muy difícil 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Productividad de la industria**: 50 %, 75 %, 100 %, 150 % o 200 %. Preajustes: Fácil 150 %, Normal 100 %, Difícil 75 %, Muy difícil 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Ejemplo, Acería: 6 mineral de hierro + 6 carbón → 3 acero + 4 lámina de metal, 121,7 ciclos al año: 730 mineral de hierro y 730 carbón → 365 acero y 487 lámina de metal (`steel_mill.con.lua:43-71`). Si falta una entrada, la regla se para.
 - La Fábrica de conservas tiene dos reglas: pescado + lámina de metal, o carne + lámina de metal (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ El motor ejecuta las reglas. Puede alargar un ciclo: la descripción del ciclo m
 
 - Cada carga tiene su propia existencia con un límite: p. ej. una Mina de carbón guarda 100 herramientas y 400 carbón, una Acería 800 mineral de hierro, 800 carbón, 400 acero y 500 lámina de metal (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Las existencias nunca se degradan (`industryutil.lua:25-29`): la carga espera lo que haga falta.
-- Una existencia de salida llena no para la producción: lo que sobra se tira (wiki oficial). El gráfico **Flujo de cargamento** muestra **Consumido**, **Producido** y **Destruido** (`industry_eow.script.tl:804-816`).
+- Una existencia de salida llena no para la producción: lo que sobra se tira (wiki oficial). El gráfico **Flujo de cargamento** muestra **Consumido**, **Producido** y **Destruido** (`industry_eow.script.tl:807-819`).
 - Con el parámetro de construcción **Entrada** en Desactivado, las reglas pierden sus entradas y la industria no tiene existencias de entrada (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Terrenos y expansión
@@ -145,7 +145,7 @@ La comprobación se hace cada 100 actualizaciones para cada industria (`industri
 | Con frecuencia | 4,4 % | unos 16 años | – | `difficulty_util.tl:37` |
 | Con mucha frecuencia | 8,8 % | unos 8 años | Muy difícil | `difficulty_util.tl:176` |
 
-La probabilidad es 0,011 al año × 0, 1, 2, 4 u 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Las industrias que te pertenecen nunca cierran, ni las de desarrollo manual; mientras los cierres están en pausa (en el juego base, solo durante el tutorial) no empieza ninguno y una cuenta atrás en curso se cancela (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+La probabilidad es 0,011 al año × 0, 1, 2, 4 u 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Las industrias que te pertenecen nunca cierran, ni las de desarrollo manual; mientras los cierres están en pausa (en el juego base, solo durante el tutorial) no empieza ninguno y una cuenta atrás en curso se cancela (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Qué cuenta como «cargado» y «consumido» (los registros itemsLoaded e itemsConsumed, p. ej. si cuenta la carga de refuerzo), el indicador manualDevelopment, y por qué se excluyen las industrias con depósito (`industries.script.tl:140-146`) dependen del motor. También qué hace el motor con una regla de refuerzo que perdió su entrada (Entrada desactivada).
@@ -155,7 +155,7 @@ Qué cuenta como «cargado» y «consumido» (los registros itemsLoaded e itemsC
 
 El motor añade industrias nuevas durante la partida. La notificación es **Nueva industria fundada**: «Un emprendedor visionario ha descubierto una oportunidad para sacar beneficio y ha fundado {industry}.» (`industry_spawn.script.tl:34-36`); su etiqueta de tipo es **Industria fundada** (`industry_spawn.res.lua:6`). Ningún script del juego elige el lugar, el tipo ni el momento, y ninguno filtra lo que propone el motor.
 
-Lo que los scripts dan al motor (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+Lo que los scripts dan al motor (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | Valor de config | Valor | Significado |
 |---|---|---|

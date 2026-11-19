@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | 게임 스크립트가 직접 해제하는 업적
 fact: 500 m | 꼭대기 체류에서 정류장에 선 열차의 첫 차량 높이
 fact: < 1 % | 내가 안 그랬어를 위한 마을 평판
@@ -21,10 +21,10 @@ fact: 10 | 중앙 집중을 위해 가장 가까운 마을이 같아야 하는 �
 | **택배 도착** | 화물 하나가 목적지에 도착한다 | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **당신을 대신하여** | 보조금 하나를 완료한다 | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **보조금 연속 기록** | 중간에 실패 없이 보조금 10개를 완료한다. 실패하면 횟수가 0으로 돌아간다 | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **관리인** | 마을의 배송 평가가 **탁월함**으로 바뀐다 | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **관리인** | 마을의 배송 평가가 **탁월함**으로 바뀐다 | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **도시 개발** | 마을 레벨이 오른다 | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **수요 증가** | 마을에 새 화물 종류 수요가 생긴다 | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **내가 안 그랬어** | 마을 평판이 **내려가서** **1 %** 미만이 된다 | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **내가 안 그랬어** | 마을 평판이 **내려가서** **1 %** 미만이 된다 | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **승진** | 회사 등급이 오른다 | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **출세 가도** | 회사가 최고 등급에 도달한다 | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **조경사** | 한 번의 건설에서 나무만 놓는다(아무것도 제거하지 않고, 재조림으로도 아님) | `achievements.script.tl:346-377` |

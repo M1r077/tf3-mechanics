@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | pracowników potrzeba do premii
 fact: 2 lata | tak długo liczy się przyjazd
 fact: ×1,5–2,5 | mnożnik premii, stały dla każdego zakładu
@@ -28,7 +28,7 @@ To, jak mieszkaniec wybiera jedną pracę spośród wszystkich osiągalnych miej
 
 ## Przydzieleni pracownicy
 
-To mieszkańcy, których miejscem pracy jest ten zakład. Pokazuje ich pasek miejsc pracy w oknie zakładu i kolumna **Miejsca pracy** w statystykach zakładów przemysłowych („12/20”) (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Sami przydzieleni pracownicy **nie** dają żadnej premii: muszą rzeczywiście tam dojechać.
+To mieszkańcy, których miejscem pracy jest ten zakład. Pokazuje ich pasek miejsc pracy w oknie zakładu i kolumna **Miejsca pracy** w statystykach zakładów przemysłowych („12/20”) (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Sami przydzieleni pracownicy **nie** dają żadnej premii: muszą rzeczywiście tam dojechać.
 
 ## Pracownicy liczeni do premii
 
@@ -75,7 +75,7 @@ Kopalnia węgla z 20 miejscami pracy i „+84 %”.
 - **Przesiadki się liczą.** Skrypt patrzy tylko na sposób podróży, a nie na liczbę użytych linii (`industry_workers.script.tl:91`). Pracownik z miasta oddalonego o cztery linie liczy się tak samo jak sąsiad, ale może jechać dużo dłużej.
 - **Dowieźć ich może każda twoja linia**, także linia towarowa, o ile jej pojazdy zabierają pasażerów, a przystanek ładuje pasażerów. Skrypt nie sprawdza typu pojazdu (`industry_workers.script.tl:86-118`). Gracze zgłaszają mniej problemów z osobnymi liniami pasażerskimi.
 - Niektóre zakłady (na przykład platformy wiertnicze) mają własny wbudowany przystanek, który przyjmuje pasażerów i towary (`industryutil.lua:156-165`).
-- Okno zakładu pokazuje dla każdego przydzielonego pracownika, czy jest **Obecnie tu**, czy **W drodze** (`entity_window_util.tl:1371-1384`). Sekcja Premia wymienia zaliczonych pracowników z ich **Czas do końca** z 2 lat (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- Okno zakładu pokazuje dla każdego przydzielonego pracownika, czy jest **Obecnie tu**, czy **W drodze** (`entity_window_util.tl:1371-1384`). Sekcja Premia wymienia zaliczonych pracowników z ich **Czas do końca** z 2 lat (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - Gdy żaden przyjazd nie jest liczony (brak w ostatnich 2 latach), lista pracowników w sekcji wzmocnienia pokazuje: „Doprowadź komunikację publiczną do tego miejsca, aby mieszkańcy mogli tu pracować.” (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

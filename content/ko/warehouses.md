@@ -5,7 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 500 | 단위: 종류와 상관없이 모듈 하나당 화물
 fact: ×2 | 특화된 모듈의 상차 속도, 범용 모듈은 ×1
 fact: 15만 / 30만 | 범용 / 특화된 모듈의 가격

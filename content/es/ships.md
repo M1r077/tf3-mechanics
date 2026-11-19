@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | tamaños de barco: pequeño y grande
 fact: 1, 2, 4 | terminales por puerto
 fact: 27 | barcos en el juego base

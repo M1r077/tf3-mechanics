@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | landmarks: 9 in the base game (ranks 2 to 15), 3 more with the DLC packs (rank 1)
 fact: +20 % / +25 % / −20 % / −25 % | top speed, pollution or comfort for the vehicles of its town
 fact: ×0 to ×4 | cargo needed, with the Landmark Required Resources setting

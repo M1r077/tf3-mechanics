@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | conquistas desbloqueadas pelo próprio script do jogo
 fact: 500 m | altura do primeiro vagão de um trem numa parada para Chegada ao Topo
 fact: < 1 % | reputação do município para Vexame
@@ -21,10 +21,10 @@ A wiki oficial lista 41 conquistas. O script do jogo (`achievements.script.tl`) 
 | **Pacote Entregue** | um item de carga chega ao destino | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **Em Nome do Povo** | um subsídio concluído | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Sequência de Subsídios** | 10 subsídios concluídos sem nenhum fracassado entre eles; um subsídio fracassado zera a contagem | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Protegendo o Município** | a avaliação de entregas de um município passa a **Excelente** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Protegendo o Município** | a avaliação de entregas de um município passa a **Excelente** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Desenvolvimento Urbano** | um município sobe de nível | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Demanda em Ascensão** | um município ganha demanda por um novo tipo de carga | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **Vexame** | a Reputação de um município **cai** para menos de **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **Vexame** | a Reputação de um município **cai** para menos de **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Promoção** | a empresa sobe de nível | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Degraus da Carreira** | a empresa chega ao nível mais alto | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Paisagismo Perfeito** | você coloca árvores, e só árvores, numa construção (nada removido, não por reflorestamento) | `achievements.script.tl:346-377` |

@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | 个公司等级，从低级职员到商业大亨
 fact: ×12.5 | 达到等级 15 所需的世界人口（与开局相比）
 fact: ×0.75 | 通货膨胀为正常时等级 15 的收入
@@ -61,7 +61,7 @@ fact: 0 | 人口下降时失去的等级
 
 | 通货膨胀 | 等级 15 的收入 | 来源 |
 |---|---|---|
-| 无 | ×1（不变） | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
+| 无 | ×1（不变） | `difficulty_util.tl:50`，`mod.script.tl:695-698` |
 | 低 | ×0.9 | |
 | 正常 | ×0.75 | |
 | 高 | ×0.6 | |

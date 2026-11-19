@@ -5,7 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 65–80 dB | geluid in de stad: volle beoordeling bij 65, nul bij 80
 fact: 60–74 | vervuiling in de stad, op de logaritmische schaal van de scripts (geen geluidsniveau): volle beoordeling bij 60, nul bij 74
 fact: −80 % | geluid en vervuiling van een vergroend industriebedrijf

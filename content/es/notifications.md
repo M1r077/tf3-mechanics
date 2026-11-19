@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | de tiempo de juego parado antes de que un vehículo se dé por atascado
 fact: 20 % | de condición que activa el aviso, hasta que el vehículo vuelve a superar el 30 %
 fact: 11 | tipos de notificación desactivados en una partida nueva

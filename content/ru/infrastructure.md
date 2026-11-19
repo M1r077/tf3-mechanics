@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 км/ч | простые, обычные и скоростные пути
 fact: ×9 | цена и обслуживание скоростных путей по сравнению с простыми
 fact: +30 % | к цене путей за контактную сеть
@@ -23,7 +23,7 @@ fact: -65 % | шума улицы или путей с шумозащитным 
 | Скоростные пути | 1980 | 350 км/ч | 540 000 | 90 000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - **Контактная сеть** стоит на **30 %** больше путей (`mod.script.tl:24-25`). Она доступна с 1921 года на простых путях и с самого появления каждого более нового типа (`simple_catenary.street_template.lua:4`). По файлам она ничего не добавляет в год: у электрифицированного варианта то же обслуживание (`simple_catenary.street_template.lua:34`).
-- Все три типа допускают одинаковые уклоны и кривые: **8,5 %** при строительстве (ползунок «Наклон» доходит до этого значения), не более 13 % для формы путей, и радиус кривой 55 м при строительстве, не менее 40 м (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- Все три типа допускают одинаковые уклоны и кривые: **8,5 %** при строительстве (ползунок «Наклон» доходит до этого значения), не более 13 % для формы путей, и радиус кривой 55 м при строительстве, не менее 40 м (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - Загрязнение от самих путей растёт с типом: 2, 4 и 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ fact: -65 % | шума улицы или путей с шумозащитным 
 | Шумозащитные экраны | -65 % | без изменений | без изменений | улицы и пути, не в туннелях | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Оба стоят в своих файлах 100 и 10 в год, как улица за метр (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- Типы улиц «с деревьями» и «с экранами» в меню строительства - это те же улицы с уже нанесёнными украшениями (`town_new_medium_trees.street_template.lua:12-14`). Меню строительства суммирует их эффекты (`construction_react_util.tl:2116-2139`).
+- Типы улиц «с деревьями» и «с экранами» в меню строительства - это те же улицы с уже нанесёнными украшениями (`town_new_medium_trees.street_template.lua:12-14`). Меню строительства суммирует их эффекты (`construction_react_util.tl:2119-2142`).
 - Поэтому улица с деревьями **на четверть медленнее**: новая средняя улица с деревьями допускает около 38 км/ч вместо 50.
 
 ```tip scripts

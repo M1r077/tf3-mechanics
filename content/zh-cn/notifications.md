@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 分钟 | 载具静止多久游戏时间后被报告为卡住
 fact: 20 % | 触发警告的状况，直到载具回到 30 % 以上
 fact: 11 | 新游戏中关闭的通知类型

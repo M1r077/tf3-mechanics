@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3.8 | the same income factor for every cargo
 fact: +8 × climb | metres of climb added to the distance
 fact: 100 % | paid even when the delivery is late
@@ -21,7 +21,7 @@ A delivery pays for **distance as the crow flies**, nothing else about the trip.
 The whole formula is one short game script (`cargo_income.script.lua:10-13`):
 
 1. **Income factor** of the cargo. Every base-game cargo uses the same function and the same prices (`initialPrice = 4`, `finalPrice = 3.2`), which gives **3.8 for all 36 cargos** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Coal pays exactly what goods pay over the same distance.
-2. **Cargo Income** setting: 50 %, 75 %, 100 %, 125 % or 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). All four difficulty presets use 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
+2. **Cargo Income** setting: 50 %, 75 %, 100 %, 125 % or 150 % (`difficulty_util.tl:38`, `mod.script.tl:212`). All four difficulty presets use 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distance**, see below.
 
 The function receives the travel time but **does not use it** (`cargotype.script.lua:7-13`): a slow or late delivery pays the same.
@@ -61,8 +61,8 @@ The scripts only compute the total (`economy/cargo_income.script.lua`); the spli
 
 | What | Effect | Source |
 |---|---|---|
-| **Company rank** with the Inflation setting | rank 1: ×1, falling evenly to rank 15: ×0.9 (Low), **×0.75 (Normal)**, ×0.6 (High), ×0.5 (Very High); None: always ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Completed subsidy** | ×2 for deliveries to the contract's industry or town, on the lines that delivered for the contract | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Company rank** with the Inflation setting | rank 1: ×1, falling evenly to rank 15: ×0.9 (Low), **×0.75 (Normal)**, ×0.6 (High), ×0.5 (Very High); None: always ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:695-698` |
+| **Completed subsidy** | ×2 for deliveries to the contract's industry or town, on the lines that delivered for the contract | `deliver_cargo.script.tl:456-462`, `deliver_cargo_town.script.tl:547-558` |
 | **Late delivery** | no effect on the income | `cargotype.script.lua:7-13` |
 
 - The rank multiplier applies to **every** cargo and passenger payment (`company_growth.script.tl:159-170`). The difficulty presets use Inflation Low (Easy), Normal (Medium), High (Hard), Very High (Very Hard) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
@@ -70,7 +70,7 @@ The scripts only compute the total (`economy/cargo_income.script.lua`); the spli
 
 ## Passengers
 
-Passengers use the same distance and a fixed income factor of about 3.61 (`cargotype.script.lua:50-53`), multiplied by **0.5 + the vehicle's ticket price factor** (`cargo_income.script.lua:14-17`). When a vehicle model does not set its comfort factor, the game sets the price factor to 0.3 for buses and trams, 0.9 for aircraft, 0.1 for ships and 0.5 for trains (`base_mod.lua:46-61`); for the other models it is an engine value, not visible in the scripts. A passenger subsidy doubles only the passengers travelling between its two towns, on its one line (`deliver_passengers.script.tl:292-296`).
+Passengers use the same distance and a fixed income factor of about 3.61 (`cargotype.script.lua:50-53`), multiplied by **0.5 + the vehicle's ticket price factor** (`cargo_income.script.lua:14-17`). When a vehicle model does not set its comfort factor, the game sets the price factor to 0.3 for buses and trams, 0.9 for aircraft, 0.1 for ships and 0.5 for trains (`base_mod.lua:46-61`); for the other models it is an engine value, not visible in the scripts. A passenger subsidy doubles only the passengers travelling between its two towns, on its one line, the line that completed the contract (`deliver_passengers.script.tl:288-293`).
 
 ## Delivery time limits
 
@@ -80,7 +80,7 @@ Every cargo has its own time limit (`meat.cargo.lua:30`, `coal.cargo.lua:30`). F
 ```
 
 - **Finances › Delivery Time** shows the limit of each cargo on your map; the cargo satisfaction layer colours the routes from green to red.
-- A delivery counts as **delayed** when it arrives after its limit (`towns.script.tl:425`).
+- A delivery counts as **delayed** when it arrives after its limit (`towns.script.tl:422`).
 - Specialised warehouse modules **freeze** the timer of the cargo they store (official wiki, Warehouses).
 
 ```engine

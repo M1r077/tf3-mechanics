@@ -5,7 +5,8 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
+change: 40444 | Vrachtvoorraden van gebouwen blijven behouden als een straat wordt opgewaardeerd (officiële release notes).
 fact: 0 % | groei als één beoordeling Zeer slecht is
 fact: ×1,5 | XP voor elk volgend niveau (1.000 voor niveau 2)
 fact: ×40 | grootte na 17 gewonnen niveaus
@@ -95,10 +96,11 @@ De engine berekent het lijngebruik, de verkeerssnelheid, de geluids- en vervuili
 - De vraag van een stad is de som van haar **gebouwen**. Elk gebouw heeft een kleine invoervoorraad per vracht waar zijn district om vraagt: capaciteit ÷ 4, naar boven afgerond, × de factor van die vracht in de behoeften van de stad (1 tenzij anders ingesteld; waar de factor vandaan komt staat niet in de scripts) (`townbuildingutil.lua:226-251`). Elke vracht legt een townConsumptionFactor van 1, 0,5 of 0,25 vast (`placementparamsutil.lua:506-616`); hoe die bij het gebouw komt, zit in de engine. Het spel merkt op dat deze voorraadgrootte "is currently nowhere shown in the UI" (op dit moment nergens in de interface wordt getoond) (`townbuildingutil.lua:249`).
 - De vraag in het stadsvenster is de totale limiet van deze voorraden; het aanbod dat voor de beoordeling telt, is begrensd tot de vraag (`town_util.tl:95-99`, `town_util.tl:194-198`). Grotere steden vragen meer omdat ze meer gebouwen hebben.
 - Het gebouwvenster toont een **Verbruikspercentage**: hoe snel het gebouw zijn vracht verbruikt vergeleken met zijn maximum (`town_building.tl:103-132`).
+- Sinds 40444 maakt het opwaarderen van een straat de voorraden van de gebouwen waaraan het raakt niet meer leeg (officiële release notes: "Fixed cargo needs disappearing in buildings affected by upgrading streets").
 - XP en betaling komen wanneer een eenheid de voorraad van een gebouw binnenkomt (`town_growth.script.tl:620-642`).
 - Een halte bereikt alleen de gebouwen in haar verzorgingsgebied. Hun voorraden kunnen vol zijn terwijl de stad als geheel nog tekort heeft: dan **blijft** de vracht die niet past **in het voertuig**, tenzij **Alle vracht bij aankomst verplicht lossen** is aangevinkt ("Vracht ook lossen als er geen ruimte is.") (`cargofilter_window.tl:757-763`), wat vernietigt wat niet past (zie [Laad- en lossnelheid](loading.html)).
 - Vracht die aan boord blijft, geeft de melding **Probleem met lossen**: "{vehicle} heeft {cargoCount} stuks vracht niet gelost op de lijn." (`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`); het typelabel is **Vracht niet gelost** (`cargo_rtc_warning.res.lua:6`).
-- **Vrachtvraag steden** ("Bepaal het maximale aantal vrachtvragen per stad."): 2, 4 of 6, standaard 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). De scripts voegen vrachtbehoeften toe per niveau (zie hierboven) en geven deze waarde door aan de engine.
+- **Vrachtvraag steden** ("Bepaal het maximale aantal vrachtvragen per stad."): 2, 4 of 6, standaard 2 (`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:174`, `mod.script.tl:206`). De scripts voegen vrachtbehoeften toe per niveau (zie hierboven) en geven deze waarde door aan de engine.
 
 ```engine
 Hoe snel een gebouw zijn voorraad verbruikt (consumeFrequency), welk gebouw in een verzorgingsgebied elke eenheid krijgt, wat er gebeurt met vracht die rondgereden wordt en hoe de engine Vrachtvraag steden gebruikt, ligt in de engine.
@@ -107,7 +109,7 @@ Hoe snel een gebouw zijn voorraad verbruikt (consumeFrequency), welk gebouw in e
 ## Kan ik een stad tegenhouden in haar groei?
 
 - In een normaal spel is er **geen instelling** voor een maximale stadsgrootte (`difficulty_util.tl:90-199`).
-- In de **sandboxmodus** heeft het stadsvenster een kaart **Beoogde capaciteit wijk** met **Stedelijke ontwikkeling inschakelen** (`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). Uitgevinkt krijgt de stad geen XP en wordt ze niet van grootte veranderd; het venster toont **Stadsontwikkeling inactief** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- In de **sandboxmodus** heeft het stadsvenster een kaart **Beoogde capaciteit wijk** met **Stedelijke ontwikkeling inschakelen** (`town_eow.script.tl:1044-1055`, `town_eow.script.tl:1173-1174`, `town_eow_editor_initial_capacity.res.lua:6`). Uitgevinkt krijgt de stad geen XP en wordt ze niet van grootte veranderd; het venster toont **Stadsontwikkeling inactief** (`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - Zonder sandbox kan het alleen indirect: een stad groeit alleen door jouw reizigers en vracht, en één beoordeling Zeer slecht houdt haar tegen (zie hierboven).
 
 ## Goed om te weten

@@ -5,7 +5,8 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
+change: 40444 | Relier des villes : la ligne qui reçoit le ×2 est fixée quand le contrat est rempli ; un passager ne compte qu'après l'acceptation de l'offre ; toute ligne directe avec un véhicule de passagers bloque l'offre.
 fact: 4 | types de contrats en partie libre
 fact: 5 | contrats acceptés au plus en même temps
 fact: ×2 | revenus pendant 5 ans sur les lignes qui ont livré
@@ -24,21 +25,21 @@ Un contrat (appelé subvention dans les fichiers du jeu) : une industrie ou une 
 
 | Contrat | Cible | Ce qui le remplit | Source |
 |---|---|---|---|
-| **Approvisionner l'industrie** | une industrie qui n'a jamais rien produit et qui a besoin d'une marchandise déjà produite quelque part sur la carte (`deliver_cargo.script.tl:157`) | le nombre demandé de livraisons chez elle, **n'importe lequel de ses intrants** | `deliver_cargo.script.tl:54-61`, `deliver_cargo.script.tl:230-234`, `deliver_cargo.script.tl:470-479` |
-| **Approvisionner la ville** | un fret que la ville demande et ne reçoit pas du tout | le nombre demandé d'unités **de ce fret** livrées aux bâtiments de la ville | `deliver_cargo_town.script.tl:566-581` |
-| **Relier des villes** | deux villes | **un seul** passager qui commence un trajet entre les deux villes sur une ligne qui s'arrête dans les deux | `deliver_passengers.script.tl:263-280`, `subvention_util.tl:561-592` |
+| **Approvisionner l'industrie** | une industrie qui n'a jamais rien produit et qui a besoin d'une marchandise déjà produite quelque part sur la carte (`deliver_cargo.script.tl:163`) | le nombre demandé de livraisons chez elle, **n'importe lequel de ses intrants** | `deliver_cargo.script.tl:60-67`, `deliver_cargo.script.tl:236-240`, `deliver_cargo.script.tl:463-472` |
+| **Approvisionner la ville** | un fret que la ville demande et ne reçoit pas du tout | le nombre demandé d'unités **de ce fret** livrées aux bâtiments de la ville | `deliver_cargo_town.script.tl:559-574` |
+| **Relier des villes** | deux villes | **un seul** passager qui commence un trajet entre les deux villes sur une ligne qui s'arrête dans les deux | `deliver_passengers.script.tl:252-274`, `subvention_util.tl:561-592` |
 | **Transporter des travailleurs** | une industrie qui expédie ou reçoit déjà du fret, pas encore boostée | son bonus des travailleurs devient actif (la moitié de ses emplois) | `deliver_workers.script.tl:121-131`, `deliver_workers.script.tl:152-156` |
 
 - Chaque nouvelle offre tire un des types qui peuvent apparaître à ce moment, avec les mêmes chances (`subventions.script.tl:147-169`).
-- **Approvisionner l'industrie** et **Approvisionner la ville** comptent des livraisons, pas des trajets : chaque unité payée qui arrive à la cible ajoute 1. Les correspondances sont permises (`deliver_cargo.script.tl:470-479`).
-- **Relier des villes** ne demande aucun nombre de passagers : le premier passager qui monte dans ta ligne entre les deux villes le remplit. « Sans correspondance » veut dire que ce trajet se fait sur une seule ligne qui dessert les deux villes. Aucune offre n'apparaît si une ligne charge déjà des passagers dans les deux villes et a un véhicule qui peut les transporter (`deliver_passengers.script.tl:72-78`).
-- Les villes proches sont bien plus probables : le poids d'une paire vaut (poids de distance)^7 × 100 plus la **moyenne** des valeurs des deux villes, chacune d'au moins 1, que le moteur lit à la position de la ville dans sa grille d'infrastructure du joueur (`deliver_passengers.script.tl:156`, `deliver_passengers.script.tl:186`, `deliver_passengers.script.tl:191`). Le poids de distance vaut 1 à 1 km et descend régulièrement jusqu'à 0,01 à 20 km (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). La part de la distance vaut donc environ 19 à 5 km, environ 1 à 10 km, et presque rien au-delà d'environ 15 km, où il ne reste que les valeurs des villes.
-- **Approvisionner la ville** préfère les frets déjà produits quelque part sur la carte : 16 fois plus probables que les autres (`deliver_cargo_town.script.tl:277-280`).
+- **Approvisionner l'industrie** et **Approvisionner la ville** comptent des livraisons, pas des trajets : chaque unité payée qui arrive à la cible ajoute 1. Les correspondances sont permises (`deliver_cargo.script.tl:463-472`).
+- **Relier des villes** ne demande aucun nombre de passagers : le premier passager qui monte dans ta ligne entre les deux villes le remplit. « Sans correspondance » veut dire que ce trajet se fait sur une seule ligne qui dessert les deux villes. Aucune offre n'apparaît si une ligne charge déjà des passagers dans les deux villes et a un véhicule qui peut les transporter (`deliver_passengers.script.tl:76-85`).
+- Les villes proches sont bien plus probables : le poids d'une paire vaut (poids de distance)^7 × 100 plus la **moyenne** des valeurs des deux villes, chacune d'au moins 1, que le moteur lit à la position de la ville dans sa grille d'infrastructure du joueur (`deliver_passengers.script.tl:159`, `deliver_passengers.script.tl:183`, `deliver_passengers.script.tl:188`). Le poids de distance vaut 1 à 1 km et descend régulièrement jusqu'à 0,01 à 20 km (`deliver_passengers.script.tl:157-159`, `deliver_passengers.script.tl:175-191`). La part de la distance vaut donc environ 19 à 5 km, environ 1 à 10 km, et presque rien au-delà d'environ 15 km, où il ne reste que les valeurs des villes.
+- **Approvisionner la ville** préfère les frets déjà produits quelque part sur la carte : 16 fois plus probables que les autres (`deliver_cargo_town.script.tl:283-286`).
 - La quantité à livrer dépend du réglage **Risque des missions** :
 
 | Risque des missions | Approvisionner l'industrie | Approvisionner la ville (au plus la demande de la ville) | Source |
 |---|---|---|---|
-| Aucun(e) | 10 à 50 | 10 à 30 | `deliver_cargo.script.tl:100-114`, `deliver_cargo_town.script.tl:165-188` |
+| Aucun(e) | 10 à 50 | 10 à 30 | `deliver_cargo.script.tl:106-120`, `deliver_cargo_town.script.tl:171-194` |
 | Équitable | 50 à 100 | 30 à 100 | |
 | Risqué | 75 à 150 | 35 à 125 | |
 | Très risqué | 150 à 300 | 45 à 150 | |
@@ -48,10 +49,10 @@ Un contrat (appelé subvention dans les fichiers du jeu) : une industrie ou une 
 La carte **Relier des villes** demande : « Créez une liaison sans correspondance entre {fromTownName} et {toTownName} et transportez des passagers entre les deux villes. » (`deliver_passengers.script.tl:14`).
 
 - **Une ligne avec un arrêt dans chaque ville.** Le jeu parcourt les arrêts de la ligne et prend la ville de chacun ; la ligne compte quand au moins un arrêt se trouve dans chacune des deux villes. Les autres arrêts, leur ordre et le type de véhicule (bus, tram, train, bateau, avion) ne comptent pas (`subvention_util.tl:561-592`).
-- **Un seul passager le remplit** : le premier passager qui prend cette ligne d'un arrêt d'une ville jusqu'à un arrêt de l'autre, dans un sens ou dans l'autre (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). Le contrôle ne regarde que ce trajet, donc changer de ligne avant ou après ne devrait pas compter.
+- **Un seul passager le remplit** : le premier passager, après que tu as accepté l'offre, qui prend cette ligne d'un arrêt d'une ville jusqu'à un arrêt de l'autre, dans un sens ou dans l'autre (`deliver_passengers.script.tl:252-274`, `deliver_passengers.script.tl:207-215`). Le contrôle ne regarde que ce trajet, donc changer de ligne avant ou après ne devrait pas compter.
 - **La ville d'un arrêt** est la ville de la première gare de son groupe de gares (`town_util.tl:1844-1873`). La ville à laquelle appartient une gare est décidée par le moteur.
-- **Aucune offre** quand une ligne a déjà un arrêt qui charge des passagers dans chaque ville et un véhicule qui prend des passagers (`deliver_passengers.script.tl:72-78`). Une ligne de fret seul entre elles ne bloque pas l'offre.
-- Le contrat se termine en **Contrat retiré** quand l'une des deux villes, ou la ligne qui l'a rempli, change d'une manière que le jeu compte comme une nouvelle version (`deliver_passengers.script.tl:232-240`).
+- **Aucune offre** quand une ligne quelconque a déjà un arrêt qui charge des passagers dans chaque ville et un véhicule qui prend des passagers ; chaque ligne de ce type est vérifiée (`deliver_passengers.script.tl:76-85`). Une ligne de fret seul entre elles ne bloque pas l'offre.
+- Le contrat se termine en **Contrat retiré** quand l'une des deux villes, ou la ligne qui l'a rempli, change d'une manière que le jeu compte comme une nouvelle version (`deliver_passengers.script.tl:229-237`).
 
 ```engine
 La ville à laquelle appartient une gare (stationSystem.getTown), le moment exact où un passager « commence à utiliser » une ligne (OnStartedLineUsage) et les modifications d'une ligne qui comptent comme une nouvelle version relèvent du moteur. On n'a pas testé si une modification de la ligne après la réalisation met fin à l'effet Revenus 2x.
@@ -59,33 +60,34 @@ La ville à laquelle appartient une gare (stationSystem.getTown), le moment exac
 
 ## Récompenses et pénalités
 
-Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptation**, **À la réalisation** et **En cas d'échec** ; les scripts les appliquent à l'acceptation, à la réalisation et à l'échec (`subvention_util.tl:449-471`). En cas d'échec, tout ce qui a été donné à l'acceptation est repris, plus une pénalité, ou deux pour Relier des villes, une perte de réputation dans chaque ville (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
+Chaque contrat garde trois listes, affichées sur sa carte comme **À l'acceptation**, **À la réalisation** et **En cas d'échec** ; les scripts les appliquent à l'acceptation, à la réalisation et à l'échec (`subvention_util.tl:449-471`). En cas d'échec, tout ce qui a été donné à l'acceptation est repris, plus une pénalité, ou deux pour Relier des villes, une perte de réputation dans chaque ville (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:140-142`, `deliver_passengers.script.tl:118-121`).
 
 | Contrat | À l'acceptation | À la réalisation | En cas d'échec | Source |
 |---|---|---|---|---|
-| Approvisionner l'industrie | argent | seulement l'effet **Revenus 2x** | avance remboursée + amende | `deliver_cargo.script.tl:120-136` |
-| Approvisionner la ville | argent **ou** réputation dans la ville | expérience de la ville **ou** argent, plus Revenus 2x | avance remboursée + perte de réputation **ou** amende | `deliver_cargo_town.script.tl:194-229` |
-| Relier des villes | argent, plus pour des villes éloignées | expérience dans **les deux** villes, plus Revenus 2x | avance remboursée + perte de réputation dans **les deux** villes | `deliver_passengers.script.tl:105-119` |
+| Approvisionner l'industrie | argent | seulement l'effet **Revenus 2x** | avance remboursée + amende | `deliver_cargo.script.tl:126-142` |
+| Approvisionner la ville | argent **ou** réputation dans la ville | expérience de la ville **ou** argent, plus Revenus 2x | avance remboursée + perte de réputation **ou** amende | `deliver_cargo_town.script.tl:200-235` |
+| Relier des villes | argent, plus pour des villes éloignées | expérience dans **les deux** villes, plus Revenus 2x | avance remboursée + perte de réputation dans **les deux** villes | `deliver_passengers.script.tl:112-126` |
 | Transporter des travailleurs | argent | argent | avance remboursée + amende | `deliver_workers.script.tl:92-116` |
 
-- **Argent**, avant l'effet de l'année : avance de 1,5 M à 3,75 M × le facteur de risque (Aucun ×2, Équitable ×1, Risqué ×0,75, Très risqué ×0,5, ou ×0,625 pour Relier des villes et Transporter des travailleurs), et pour Relier des villes aussi × le facteur de distance (0,3 à 3,0) ; amende de 3 M à 6 M ; paiement à la réalisation de 3,75 M à 11,25 M (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`). Chaque montant est aussi multiplié par un facteur de la configuration de base, `subventionFinancialRewardMultiplier` (`deliver_cargo.script.tl:120`), dont la valeur n'est pas fixée dans les scripts.
+- **Argent**, avant l'effet de l'année : avance de 1,5 M à 3,75 M × le facteur de risque (Aucun ×2, Équitable ×1, Risqué ×0,75, Très risqué ×0,5, ou ×0,625 pour Relier des villes et Transporter des travailleurs), et pour Relier des villes aussi × le facteur de distance (0,3 à 3,0) ; amende de 3 M à 6 M ; paiement à la réalisation de 3,75 M à 11,25 M (`deliver_cargo.script.tl:106-134`, `deliver_passengers.script.tl:89-113`, `deliver_workers.script.tl:64-104`). Chaque montant est aussi multiplié par un facteur de la configuration de base, `subventionFinancialRewardMultiplier` (`deliver_cargo.script.tl:126`), dont la valeur n'est pas fixée dans les scripts.
 - L'argent suit l'**année du calendrier**, pas le réglage Inflation : ×1 en 1900, montée régulière jusqu'à ×4 en 2000 et après, arrondi au-dessus à 10 000 (`finances_util.tl:87-90`). Il est compté en **Contrats** dans les finances (`subvention_util.tl:126-135`).
-- **Approvisionner la ville** ne peut avoir un paiement en argent à la réalisation et une amende en argent que si ton compte est sous 100 M au moment où l'offre est créée ; au-dessus, seule 1 offre sur 10 le peut encore, les autres donnent de l'expérience à la ville et retirent de la réputation à la place. L'avance n'est pas concernée (`deliver_cargo_town.script.tl:194-229`).
-- L'**expérience de la ville** est une part de son niveau actuel : 20 % à 100 % de l'XP entre son niveau et le suivant (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). Pour **Relier des villes**, elle est multipliée par le facteur de distance, de 0,3 à 1 km jusqu'à 3,0 à 20 km : des villes éloignées peuvent gagner plusieurs niveaux (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
-- La **réputation** perdue après un échec apparaît dans la note Réputation de la ville comme **Contrat échoué** (`towns.script.tl:313-334`). La réputation gagnée à l'acceptation retire seulement des pénalités existantes, elle ne dépasse jamais le maximum (`town_util.tl:1644-1647`).
+- **Approvisionner la ville** ne peut avoir un paiement en argent à la réalisation et une amende en argent que si ton compte est sous 100 M au moment où l'offre est créée ; au-dessus, seule 1 offre sur 10 le peut encore, les autres donnent de l'expérience à la ville et retirent de la réputation à la place. L'avance n'est pas concernée (`deliver_cargo_town.script.tl:200-235`).
+- L'**expérience de la ville** est une part de son niveau actuel : 20 % à 100 % de l'XP entre son niveau et le suivant (`deliver_cargo_town.script.tl:222`, `town_growth.script.tl:605-608`). Pour **Relier des villes**, elle est multipliée par le facteur de distance, de 0,3 à 1 km jusqu'à 3,0 à 20 km : des villes éloignées peuvent gagner plusieurs niveaux (`deliver_passengers.script.tl:101-103`, `deliver_passengers.script.tl:123-125`).
+- La **réputation** perdue après un échec apparaît dans la note Réputation de la ville comme **Contrat échoué** (`towns.script.tl:310-331`). La réputation gagnée à l'acceptation retire seulement des pénalités existantes, elle ne dépasse jamais le maximum (`town_util.tl:1644-1647`).
 
 ## L'effet Revenus 2x
 
 - Il dure **60 mois** (5 ans) après la réalisation du contrat (`subvention_util.tl:286`, `subvention_util.tl:292`).
-- **Approvisionner l'industrie** : les livraisons à cette industrie, sur les lignes qui l'ont livrée pendant le contrat (`deliver_cargo.script.tl:463-469`).
-- **Approvisionner la ville** : les livraisons à n'importe quel bâtiment de la ville, **tout fret**, sur les lignes qui ont livré le fret du contrat (`deliver_cargo_town.script.tl:554-565`).
-- **Relier des villes** : les passagers entre les deux villes, sur **une seule** ligne directe : la dernière ligne directe où un passager entre elles est monté. Cela continue de se mettre à jour après le contrat : avec deux lignes directes, le ×2 peut passer de l'une à l'autre (`deliver_passengers.script.tl:263-296`).
+- **Approvisionner l'industrie** : les livraisons à cette industrie, sur les lignes qui l'ont livrée pendant le contrat (`deliver_cargo.script.tl:456-462`).
+- **Approvisionner la ville** : les livraisons à n'importe quel bâtiment de la ville, **tout fret**, sur les lignes qui ont livré le fret du contrat (`deliver_cargo_town.script.tl:547-558`).
+- **Relier des villes** : les passagers entre les deux villes, sur **une seule** ligne directe : la ligne qui a rempli le contrat. Elle ne change plus après la réalisation, même avec plusieurs lignes directes (`deliver_passengers.script.tl:252-299`).
+- La carte nomme les lignes : "2x Income for {duration} on All Supplying Lines" pour Approvisionner l'industrie et Approvisionner la ville (`deliver_cargo.script.tl:40-41`, `deliver_cargo_town.script.tl:44-45`), "2x Income for {duration} on First Established Connection" pour Relier des villes (`deliver_passengers.script.tl:48-51`).
 - **Transporter des travailleurs** n'a pas d'effet sur les revenus (`deliver_workers.script.tl:189-190`).
 - Pour Approvisionner l'industrie et Approvisionner la ville, une ligne qui ne commence à livrer qu'après la réalisation n'a rien : la liste des lignes n'est remplie que pendant le contrat.
 - Deux contrats ne doublent jamais deux fois le même paiement : quand plusieurs correspondent, seule la dernière réponse est utilisée (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Tu veux le revenu doublé d'Approvisionner l'industrie ou d'Approvisionner la ville sur plusieurs lignes ? Fais-les toutes livrer avant que le contrat soit réalisé.** Une ligne ajoutée après n'a rien. Relier des villes ne double qu'une seule ligne, la dernière ligne directe où des passagers sont montés : garde une seule ligne directe entre les deux villes.
+**Tu veux le revenu doublé d'Approvisionner l'industrie ou d'Approvisionner la ville sur plusieurs lignes ? Fais-les toutes livrer avant que le contrat soit réalisé.** Une ligne ajoutée après n'a rien. Relier des villes ne double qu'une seule ligne, celle qui l'a rempli : fais transporter le premier passager par la ligne que tu veux voir doublée.
 ```
 
 ```engine
@@ -98,8 +100,8 @@ Le délai commence quand tu acceptes. Il est plus long quand le fret doit venir 
 
 | Contrat | Délai en mois | Distance utilisée | Source |
 |---|---|---|---|
-| Approvisionner l'industrie, Approvisionner la ville | (6 + 32 × E) × facteur de risque | jusqu'à l'industrie la plus proche qui produit le fret | `deliver_cargo.script.tl:116-117` |
-| Relier des villes | (9 + 4 × E) × facteur de risque | entre les deux villes | `deliver_passengers.script.tl:98-99` |
+| Approvisionner l'industrie, Approvisionner la ville | (6 + 32 × E) × facteur de risque | jusqu'à l'industrie la plus proche qui produit le fret | `deliver_cargo.script.tl:122-123` |
+| Relier des villes | (9 + 4 × E) × facteur de risque | entre les deux villes | `deliver_passengers.script.tl:105-106` |
 | Transporter des travailleurs | (6 + 15 × E) × facteur de risque × facteur d'époque (×1,75 avant 1940, ×1,25 avant 1980) | jusqu'à la ville la plus proche | `deliver_workers.script.tl:75-87` |
 
 E est le temps qu'un train à la vitesse maximale de l'époque (120 km/h dès 1900 jusqu'à 300 km/h dès 1981) met pour cette distance, arrondi au-dessus, au moins 1 (`subvention_util.tl:486-489`, `vehicle_util.tl:225-230`).
@@ -115,13 +117,13 @@ La durée d'un mois de jeu, et donc la vraie longueur des délais, est fixée pa
 
 ## À quel rythme arrivent les offres
 
-- **Missions disponibles** : Rarement, Parfois (par défaut), Souvent, Très souvent donnent une nouvelle offre tous les 12, 6, 3 ou 1 mois ; **Jamais** désactive les contrats (`subvention_util.tl:13-38`, `mod.script.tl:247-248`).
+- **Missions disponibles** : Rarement, Parfois (par défaut), Souvent, Très souvent donnent une nouvelle offre tous les 12, 6, 3 ou 1 mois ; **Jamais** désactive les contrats (`subvention_util.tl:13-38`, `mod.script.tl:248-249`).
 - L'intervalle grandit avec le **rang de l'entreprise** : ×1 au rang 1 jusqu'à ×2 au rang 15 (`subvention_util.tl:19-22`).
 - **Refuser** une offre divise l'intervalle suivant par deux ; accepter ou une nouvelle offre le remet à la normale (`subventions.script.tl:429`, `subventions.script.tl:395`, `subventions.script.tl:118`).
 - Plus aucune offre tant que **5 contrats** acceptés sont en cours (`subventions.script.tl:23`, `subventions.script.tl:256-262`). La première offre arrive après un demi-mois (`subventions.script.tl:25`).
 - La même cible (industrie, ville et fret, paire de villes) n'est proposée **qu'une fois par partie**, même après un contrat manqué ou échoué (`subventions.script.tl:107-113`, `subventions.script.tl:186`).
 - Préréglages de difficulté, disponibilité / risque (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`) : Facile Souvent / Aucun(e), Normale Parfois / Équitable, Difficile Rarement / Risqué, **Très difficile Jamais** : aucun contrat.
-- La vérification qui n'autoriserait les contrats que dans les villes notées Très bon existe, mais elle est désactivée (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:272-275`).
+- La vérification qui n'autoriserait les contrats que dans les villes notées Très bon existe, mais elle est désactivée (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:278-281`).
 
 ## Bon à savoir
 

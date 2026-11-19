@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 分 | 車両が立ち往生と報告されるまでに止まっているゲーム時間
 fact: 20 % | 警告が出る車両状態。30 % を超えるまで続く
 fact: 11 | 新しいゲームでオフになっている通知の種類

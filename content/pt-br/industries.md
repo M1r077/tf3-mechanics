@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 anos | sem carregamento nem consumo tornam uma indústria candidata ao fechamento
 fact: 1,1 % | de chance por ano em Raramente (padrão), depois 730 dias de contagem regressiva
 fact: +50–150 % | de reforço pela carga de reforço, fixo por indústria
@@ -19,7 +19,7 @@ Cada indústria funciona por **regras**: “pegue isto da entrada dos estoques, 
 
 - Uma regra dá a carga usada e produzida por ciclo, e quantos ciclos por ano: um ciclo dura um ano ÷ esse número, menos com os reforços nas regras de produção (`industry_react_util.tl:51-57`). A seção Produção da janela da indústria mostra isso em números pequenos.
 - O número **Máx.** da janela é: por ciclo × ciclos por ano × o fator de tamanho (`rule.consumptionFactor`) × os reforços × a configuração **Produtividade da Indústria**, os dois últimos só nas regras de produção (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Produtividade da Indústria**: 50 %, 75 %, 100 %, 150 % ou 200 %. Predefinições: Fácil 150 %, Normal 100 %, Difícil 75 %, Muito Difícil 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Produtividade da Indústria**: 50 %, 75 %, 100 %, 150 % ou 200 %. Predefinições: Fácil 150 %, Normal 100 %, Difícil 75 %, Muito Difícil 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Exemplo, Usina Siderúrgica: 6 minério de ferro + 6 carvão → 3 aço + 4 chapas metálicas, 121,7 ciclos por ano: 730 minério de ferro e 730 carvão → 365 aço e 487 chapas metálicas (`steel_mill.con.lua:43-71`). Faltando uma entrada, a regra para.
 - A Fábrica de Conservas tem duas regras: peixes + chapas metálicas, ou carne + chapas metálicas (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ O motor executa as regras. Ele pode alongar um ciclo: a dica do ciclo mostra ent
 
 - Cada carga tem seu próprio estoque com limite: p. ex. uma Mina de Carvão guarda 100 ferramentas e 400 carvão, uma Usina Siderúrgica 800 minério de ferro, 800 carvão, 400 aço e 500 chapas metálicas (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Os estoques nunca se estragam (`industryutil.lua:25-29`): a carga espera o tempo que for preciso.
-- Um estoque de saída cheio não para a produção: o excesso é jogado fora (wiki oficial). O gráfico **Fluxo de Carga** mostra **Consumido**, **Produzido** e **Destruído** (`industry_eow.script.tl:804-816`).
+- Um estoque de saída cheio não para a produção: o excesso é jogado fora (wiki oficial). O gráfico **Fluxo de Carga** mostra **Consumido**, **Produzido** e **Destruído** (`industry_eow.script.tl:807-819`).
 - Com o parâmetro de construção **Entrada** em Desligado, as regras perdem as entradas e a indústria não tem estoques de entrada (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Lotes e expansão
@@ -145,7 +145,7 @@ A verificação roda a cada 100 atualizações para cada indústria (`industries
 | Frequentemente | 4,4 % | cerca de 16 anos | – | `difficulty_util.tl:37` |
 | Muito Frequentemente | 8,8 % | cerca de 8 anos | Muito Difícil | `difficulty_util.tl:176` |
 
-A chance é 0,011 por ano × 0, 1, 2, 4 ou 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Indústrias que pertencem a você nunca fecham, nem as de desenvolvimento manual; enquanto os fechamentos estão pausados (no jogo base, só durante o tutorial) nenhum começa e uma contagem em andamento é cancelada (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+A chance é 0,011 por ano × 0, 1, 2, 4 ou 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Indústrias que pertencem a você nunca fecham, nem as de desenvolvimento manual; enquanto os fechamentos estão pausados (no jogo base, só durante o tutorial) nenhum começa e uma contagem em andamento é cancelada (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 O que conta como “carregado” e “consumido” (os registros itemsLoaded e itemsConsumed, p. ex. se a carga de reforço conta), o indicador manualDevelopment, e por que indústrias com depósito ficam de fora (`industries.script.tl:140-146`) dependem do motor. Também o que o motor faz com uma regra de reforço que perdeu a entrada (Entrada desligada).
@@ -155,7 +155,7 @@ O que conta como “carregado” e “consumido” (os registros itemsLoaded e i
 
 O motor adiciona novas indústrias durante o jogo. A notificação é **Nova Indústria Fundada**: “Um empreendedor visionário identificou uma possibilidade de lucro e fundou: {industry}.” (`industry_spawn.script.tl:34-36`); seu rótulo de tipo é **Indústria Fundada** (`industry_spawn.res.lua:6`). Nenhum script do jogo escolhe o lugar, o tipo ou o momento, e nenhum filtra o que o motor propõe.
 
-O que os scripts dão ao motor (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+O que os scripts dão ao motor (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | Valor de configuração | Valor | Significado |
 |---|---|---|

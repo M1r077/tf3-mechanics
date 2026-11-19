@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | 由遊戲腳本自己解鎖的成就
 fact: 500 m | 停靠山巔中列車停站時第一節車廂的高度
 fact: < 1 % | 與我無關所需的城鎮聲望
@@ -21,10 +21,10 @@ fact: 10 | 集中管理中最近城鎮必須相同的地標數
 | **包裹已抵達** | 一件貨物送達目的地 | `achievements.script.tl:221-225`，`achievements.script.tl:632-636` |
 | **受命於人** | 完成一項補助 | `achievements.script.tl:241-244`，`achievements.script.tl:638-642` |
 | **連環補助** | 連續完成 10 項補助，中間沒有失敗；補助失敗會把計數重設為 0 | `achievements.script.tl:243-249`，`achievements.script.tl:644-648` |
-| **照護者** | 城鎮的送貨評價變為**卓越** | `achievements.script.tl:270-276`，`towns.script.tl:30-33`，`achievements.script.tl:650-654` |
+| **照護者** | 城鎮的送貨評價變為**卓越** | `achievements.script.tl:270-276`，`towns.script.tl:27-30`，`achievements.script.tl:650-654` |
 | **城市發展** | 城鎮升級 | `achievements.script.tl:253-255`，`town_growth.script.tl:92` |
 | **需求增加** | 城鎮產生新的貨物類型需求 | `achievements.script.tl:257-259`，`achievements.script.tl:668-672` |
-| **與我無關** | 城鎮的聲望**下降**到 **1 %** 以下 | `achievements.script.tl:261-267`，`towns.script.tl:36-39` |
+| **與我無關** | 城鎮的聲望**下降**到 **1 %** 以下 | `achievements.script.tl:261-267`，`towns.script.tl:33-36` |
 | **晉升** | 公司提升一個等級 | `achievements.script.tl:280-282`，`achievements.script.tl:680-684` |
 | **職涯高峰** | 公司達到最高等級 | `achievements.script.tl:284-290`，`achievements.script.tl:686-690` |
 | **園藝大師** | 在一次建造中只放置樹木（沒有移除任何東西，也不是透過植林） | `achievements.script.tl:346-377` |

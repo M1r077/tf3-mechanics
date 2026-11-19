@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | voie simple, standard et à grande vitesse
 fact: ×9 | prix et entretien d'une voie à grande vitesse par rapport à une voie simple
 fact: +30 % | prix de la caténaire sur une voie
@@ -23,7 +23,7 @@ Chaque type de rue et de voie a une vitesse maximale, un prix par mètre et un e
 | Voies à grande vitesse | 1980 | 350 km/h | 540 000 | 90 000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - La **caténaire** coûte **30 %** de plus que la voie (`mod.script.tl:24-25`). Elle est disponible dès 1921 sur la voie simple et dès le début de chaque type plus récent (`simple_catenary.street_template.lua:4`). Elle ne coûte rien de plus par an dans les fichiers : la variante électrique a le même entretien (`simple_catenary.street_template.lua:34`).
-- Les trois types permettent la même pente et les mêmes courbes : **8,5 %** à la construction (le curseur Inclinaison va jusque-là), 13 % au plus pour la forme de la voie, et un rayon de courbe de 55 m à la construction, 40 m au minimum (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- Les trois types permettent la même pente et les mêmes courbes : **8,5 %** à la construction (le curseur Inclinaison va jusque-là), 13 % au plus pour la forme de la voie, et un rayon de courbe de 55 m à la construction, 40 m au minimum (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - La pollution de la voie elle-même augmente avec son type : 2, 4 et 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ La voie à grande vitesse coûte 9 fois la voie simple, à la construction et ch
 | Outil d'écran antibruit | -65 % | aucun changement | aucun changement | rues et voies, pas dans les tunnels | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Les deux coûtent 100 et 10 par an dans leurs fichiers, comme une rue par mètre (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- Les types de rue « avec arbres » et « avec écrans » du menu de construction sont les mêmes rues avec ces décorations déjà posées (`town_new_medium_trees.street_template.lua:12-14`). Le menu de construction additionne leurs effets (`construction_react_util.tl:2116-2139`).
+- Les types de rue « avec arbres » et « avec écrans » du menu de construction sont les mêmes rues avec ces décorations déjà posées (`town_new_medium_trees.street_template.lua:12-14`). Le menu de construction additionne leurs effets (`construction_react_util.tl:2119-2142`).
 - Une rue avec arbres est donc **un quart plus lente** : une rue moyenne moderne avec arbres permet environ 38 km/h au lieu de 50.
 
 ```tip scripts

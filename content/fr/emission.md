@@ -5,7 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 65–80 dB | bruit en ville : note pleine à 65, nulle à 80
 fact: 60–74 | pollution en ville, sur l'échelle logarithmique des scripts (pas un niveau sonore) : note pleine à 60, nulle à 74
 fact: −80 % | bruit et pollution d'une industrie verdie

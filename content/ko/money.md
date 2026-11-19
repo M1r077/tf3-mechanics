@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 1 | 화물 1개당 지급, 소비처에서, 직선 거리에 대해
 fact: 0 | 창고나 환승에서의 지급
 fact: 100 % | 늦어도 지급

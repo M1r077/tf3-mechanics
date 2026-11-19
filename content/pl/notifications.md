@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | postoju w czasie gry, zanim pojazd zostanie zgłoszony jako unieruchomiony
 fact: 20 % | stanu, który wywołuje ostrzeżenie, dopóki pojazd nie wróci powyżej 30 %
 fact: 11 | typów powiadomień wyłączonych w nowej grze

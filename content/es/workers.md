@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | trabajadores necesarios para el refuerzo
 fact: 2 años | tiempo durante el que cuenta una llegada
 fact: ×1,5–2,5 | factor de refuerzo, fijo para cada industria
@@ -28,7 +28,7 @@ Cómo elige un residente un empleo entre todos los lugares que puede alcanzar (t
 
 ## Trabajadores asignados
 
-Son los residentes cuyo empleo es esta industria. Es la barra de puestos de trabajo de la ventana de la industria y la columna **Zonas de trabajo** de las estadísticas de las industrias ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Estar asignado **no** basta para el refuerzo: el trabajador tiene que hacer realmente el viaje.
+Son los residentes cuyo empleo es esta industria. Es la barra de puestos de trabajo de la ventana de la industria y la columna **Zonas de trabajo** de las estadísticas de las industrias ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Estar asignado **no** basta para el refuerzo: el trabajador tiene que hacer realmente el viaje.
 
 ## Trabajadores contados para el refuerzo
 
@@ -75,7 +75,7 @@ Una mina de carbón con 20 puestos de trabajo y "+84 %".
 - **Los transbordos cuentan.** El script solo mira el modo del viaje, no cuántas líneas se usaron (`industry_workers.script.tl:91`). Un trabajador de una localidad a cuatro líneas de distancia cuenta igual que uno de al lado, pero puede tardar mucho más en llegar.
 - **Cualquiera de tus líneas puede llevarlos**, incluso una línea de carga, siempre que sus vehículos lleven pasajeros y la parada cargue pasajeros. El script no comprueba el tipo de vehículo (`industry_workers.script.tl:86-118`). Los jugadores dicen tener menos problemas con líneas de pasajeros separadas.
 - Algunas industrias (por ejemplo las plataformas petrolíferas) tienen su propia parada integrada, que acepta pasajeros y carga (`industryutil.lua:156-165`).
-- La ventana de la industria indica, para cada trabajador asignado, si está en **Ubicación actual** o **De camino** (`entity_window_util.tl:1371-1384`). La sección Refuerzos lista los trabajadores contados con su **Tiempo restante** de los 2 años (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- La ventana de la industria indica, para cada trabajador asignado, si está en **Ubicación actual** o **De camino** (`entity_window_util.tl:1371-1384`). La sección Refuerzos lista los trabajadores contados con su **Tiempo restante** de los 2 años (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - Cuando no se cuenta ninguna llegada (ninguna en los últimos 2 años), la lista de trabajadores de la sección de refuerzo muestra: "Conecta esta ubicación con el transporte público para permitir que los residentes trabajen aquí." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | fattore dell'anno sulla manutenzione di magazzini, porti e aeroporti nel 2020
 fact: 6 anni | di costi operativi: il prezzo di un veicolo
 fact: una volta | il tasso di un prestito si applica all'importo, non ogni anno
@@ -24,16 +24,16 @@ L'impostazione **Inflazione** non aumenta nessun costo: abbassa solo le tue entr
 | **Costo veicoli**, **Manutenzione veicolo** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Costi infrastrutture**, **Manutenzione infrastrutture** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Effetto manutenzione veicoli** | Nessuno ×0 · Ridotto ×0,5 · Medio ×1 · Elevato ×1,5 · Molto elevato ×2 | Ridotto · Medio · Elevato · Molto elevato | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflazione** | solo entrate, vedi [Entrate dalle merci](income.html) | Ridotta · Normale · Elevata · Molto elevata | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflazione** | solo entrate, vedi [Entrate dalle merci](income.html) | Ridotta · Normale · Elevata · Molto elevata | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Costi infrastrutture** scala il prezzo di strade, binari, ponti, gallerie, incroci, edifici e moduli, e anche dei lavori sul terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Scala anche il costo di demolizione degli edifici (`construction.script.tl:39-44`). **Manutenzione infrastrutture** scala al caricamento la manutenzione di strade, binari, ponti, gallerie, incroci e moduli (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Per gli edifici gli script la applicano solo nella finestra dell'edificio (`entity_window_util.tl:186`); ciò che viene addebitato lo decide il motore.
+- **Costi infrastrutture** scala il prezzo di strade, binari, ponti, gallerie, incroci, edifici e moduli, e anche dei lavori sul terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). Scala anche il costo di demolizione degli edifici (`construction.script.tl:39-44`). **Manutenzione infrastrutture** scala al caricamento la manutenzione di strade, binari, ponti, gallerie, incroci e moduli (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Per gli edifici gli script la applicano solo nella finestra dell'edificio (`entity_window_util.tl:186`); ciò che viene addebitato lo decide il motore.
 - **Costo veicoli** e **Manutenzione veicolo** scalano il prezzo d'acquisto e i costi operativi di ogni veicolo (`post_run_util.tl:54-81`).
-- **Effetto manutenzione veicoli** stabilisce quanto un veicolo in cattive condizioni perde velocità, potenza e comfort e guadagna rumore, inquinamento e costi operativi (`mod.script.tl:241-245`).
+- **Effetto manutenzione veicoli** stabilisce quanto un veicolo in cattive condizioni perde velocità, potenza e comfort e guadagna rumore, inquinamento e costi operativi (`mod.script.tl:242-246`).
 
 ## Cosa cresce con l'anno del calendario
 
-- **Manutenzione degli edifici**: ×1 nel 1900, ×1,5 nel 1920, ×2,2 nel 1940, ×3,2 nel 1960, ×4 nel 1980, ×5 nel 2000, ×6 nel 2020 (`mod.script.tl:92-100`). La finestra dell'edificio e il menu di costruzione lo applicano a ogni edificio contrassegnato per seguire l'anno, e il menu di costruzione contrassegna ogni meta-costruzione (nel gioco base: magazzini, aerodromi, aeroporti e porti) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- I **moduli** aggiunti a un edificio del genere costano secondo l'anno in cui l'edificio è stato costruito, la loro manutenzione secondo l'anno attuale (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Manutenzione degli edifici**: ×1 nel 1900, ×1,5 nel 1920, ×2,2 nel 1940, ×3,2 nel 1960, ×4 nel 1980, ×5 nel 2000, ×6 nel 2020 (`mod.script.tl:92-100`). La finestra dell'edificio e il menu di costruzione lo applicano a ogni edificio contrassegnato per seguire l'anno, e il menu di costruzione contrassegna ogni meta-costruzione (nel gioco base: magazzini, aerodromi, aeroporti e porti) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- I **moduli** aggiunti a un edificio del genere costano secondo l'anno in cui l'edificio è stato costruito, la loro manutenzione secondo l'anno attuale (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Varianti per epoca**: depositi, edifici di manutenzione, magazzini, stazioni, porti e aeroporti hanno una variante per epoca, e ogni variante successiva costa **×3** (epoca B) o **×9** (epoca C) rispetto alla prima (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Denaro delle commesse**: da ×1 nel 1900 fino a ×4 dal 2000 (`finances_util.tl:87-90`). **Importo dei prestiti**: da ×0,4 nel 1900 fino a ×2,4 nel 2020 (`loan_util.tl:7-10`).
 - Le **entrate** non hanno alcun fattore dell'anno (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ La manutenzione addebitata davvero, e se anche strade, binari e veicoli seguono 
 
 ## Binari, strade ed edifici
 
-I file di strade e binari indicano il prezzo e la manutenzione annua per metro; il menu di costruzione li mostra per chilometro (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). Per la maggior parte dei tipi la manutenzione è **un sesto** del prezzo di costruzione:
+I file di strade e binari indicano il prezzo e la manutenzione annua per metro; il menu di costruzione li mostra per chilometro (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). Per la maggior parte dei tipi la manutenzione è **un sesto** del prezzo di costruzione:
 
 | Tipo | Disponibile dal | Costruzione per km | Manutenzione per km e anno | Fonte |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ I file di strade e binari indicano il prezzo e la manutenzione annua per metro; 
 | Strada urbana moderna grande | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - La catenaria aggiunge il **30%** del prezzo del binario; una corsia per autobus il 10%, un binario del tram il 20%, un binario del tram elettrico il 40% del prezzo della strada (`mod.script.tl:24-28`).
-- Alzare il terreno costa 4,5 per m³, abbassarlo 5,25 per m³, entrambi × Costi infrastrutture; rimuovere un campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Alzare il terreno costa 4,5 per m³, abbassarlo 5,25 per m³, entrambi × Costi infrastrutture; rimuovere un campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - Un edificio che non fissa una manutenzione paga **un sesto del suo prezzo** all'anno, calcolato sul prezzo prima dell'impostazione Costi infrastrutture (`construction.script.tl:25-27`).
 - La configurazione base fissa un fattore di rimborso alla demolizione di 0,75 e un tempo di rimborso di 60 (`mod.script.tl:30-31`): se demolisci quello che hai appena costruito, recuperi gran parte del denaro. Lo applica il motore.
 

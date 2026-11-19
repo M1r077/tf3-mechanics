@@ -5,7 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 5 | livelli di condizione, da Pessima a Ottima, 20 % ciascuno
 fact: 20 % | condizione che attiva l'avviso Condizione veicolo
 fact: 6 × | il costo di esercizio annuo di base: il prezzo di un veicolo
@@ -51,9 +51,9 @@ Come la velocità di carico del veicolo, il fattore di carico del carico e i fat
 
 - La condizione di un treno è la **media** di tutti i suoi vagoni e locomotive (`vehicle_util.tl:285-295`).
 - Un veicolo usurato perde velocità massima, potenza e comfort, e aumenta rumore, inquinamento e costi di esercizio (`vehicle_store_util.tl:236-258`). Di quanto, e da quale condizione, sono valori del motore di gioco. La finestra del veicolo elenca queste penalità sotto **Condizione**.
-- L'intensità di queste penalità è impostata da **Effetto manutenzione veicoli** (Nessuno, Ridotto, Medio, Elevato, Molto elevato); con Nessuno la condizione non ha effetto (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Dettagli: [Costi, manutenzione e prestiti](costs.html).
+- L'intensità di queste penalità è impostata da **Effetto manutenzione veicoli** (Nessuno, Ridotto, Medio, Elevato, Molto elevato); con Nessuno la condizione non ha effetto (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Dettagli: [Costi, manutenzione e prestiti](costs.html).
 - Al **20 %** o meno ricevi l'avviso **Condizione veicolo**. Resta finché il veicolo non torna sopra il **30 %** (`notifications.script.tl:310-318`).
-- Un veicolo clonato è un nuovo acquisto: condizione 100 %, nuova data di acquisto (`manager_window.tl:8502-8506`).
+- Un veicolo clonato è un nuovo acquisto: condizione 100 %, nuova data di acquisto (`manager_window.tl:8744-8748`).
 
 ```engine
 Quanto velocemente cala la condizione, quanto ripristina una visita a una stazione di manutenzione e l'entità di ogni penalità (getMaintenanceTopSpeedPenalty e le altre) sono valori del motore. Ogni modello di veicolo può anche impostare una propria penalità di velocità massima per livello (`vehicle_store_util.tl:250-253`).
@@ -92,7 +92,7 @@ A quale stazione viene assegnato un veicolo, cosa succede quando una stazione è
 
 ## Età e durata
 
-- Ogni modello ha una **durata** (`vehicle_util.tl:31-34`). La colonna **Età** della finestra della linea mostra l'età; il suo tooltip mostra il tempo rimanente, oppure **Durata massima raggiunta** (`line_eow.script.tl:133-147`). La quota di durata in quel tooltip indica **0%** finché la durata non è raggiunta: lo script arrotonda la frazione per difetto prima di mostrarla (`line_eow.script.tl:139`), mentre la stessa quota è calcolata per intero altrove (`vehicle_util.tl:311`). Usa invece il tempo rimanente.
+- Ogni modello ha una **durata** (`vehicle_util.tl:31-34`). La colonna **Età** della finestra della linea mostra l'età; il suo tooltip mostra il tempo rimanente, oppure **Durata massima raggiunta** (`line_eow.script.tl:136-150`). La quota di durata in quel tooltip indica **0%** finché la durata non è raggiunta: lo script arrotonda la frazione per difetto prima di mostrarla (`line_eow.script.tl:142`), mentre la stessa quota è calcolata per intero altrove (`vehicle_util.tl:311`). Usa invece il tempo rimanente.
 - Per un treno conta la parte **più vecchia** (`vehicle_util.tl:36-52`). Un solo vagone vecchio fa apparire vecchio l'intero treno.
 
 ```engine
@@ -104,7 +104,7 @@ Cosa cambia al raggiungimento della durata (per esempio una perdita di condizion
 1. **La condizione resta bassa** anche con una stazione di manutenzione vicina: il veicolo perde velocità e paga costi di esercizio maggiori. Controlla prima il fondo della stazione: potrebbe essere pieno.
 2. **Durata massima raggiunta** nel tooltip di Età: il modello ha superato la durata prevista.
 3. **Esiste un modello migliore**: i veicoli più veloci o più grandi costano di più in esercizio, ma trasportano di più (il prezzo segue velocità × capacità).
-4. Usa **Sostituisci veicoli** nel gestore delle linee. Apre il negozio con un confronto con il veicolo attuale (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+4. Usa **Sostituisci veicoli** nel gestore delle linee. Apre il negozio con un confronto con il veicolo attuale (`vehicle_store_window.tl:4997-5032`, `vehicle_store_window.tl:2678`).
 
 ```tip scripts
 **I veicoli restano in cattive condizioni vicino a un deposito? Apri la sua finestra e guarda «usati / capacità».** Un deposito treni serve 6 treni, una stazione di manutenzione treni 12. Cosa fa il motore con i veicoli oltre la capacità non è negli script; un secondo edificio è la risposta sicura.

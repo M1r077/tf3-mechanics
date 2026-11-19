@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | fator de ano na manutenção de armazéns, portos e aeroportos em 2020
 fact: 6 anos | de custos operacionais: o preço de um veículo
 fact: uma vez | a taxa de um empréstimo é aplicada ao valor, não a cada ano
@@ -24,16 +24,16 @@ A configuração **Inflação** não aumenta nenhum custo: ela só baixa a sua r
 | **Custos de Veículo**, **Manutenção de Veículos** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Custos de Infraestrutura**, **Manutenção de Infraestrutura** | 50% · 75% · 100% · 125% · 150% | 50% · 100% · 125% · 150% | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Efeito da Manutenção do Veículo** | Nenhum ×0 · Baixo ×0,5 · Médio ×1 · Alto ×1,5 · Muito Alto ×2 | Baixo · Médio · Alto · Muito Alto | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflação** | só a renda, veja [Renda por carga](income.html) | Baixa · Normal · Alta · Muito Alta | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflação** | só a renda, veja [Renda por carga](income.html) | Baixa · Normal · Alta · Muito Alta | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Custos de Infraestrutura** escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Também escala o custo de demolição dos prédios (`construction.script.tl:39-44`). **Manutenção de Infraestrutura** escala ao carregar a manutenção de ruas, trilhos, pontes, túneis, cruzamentos e módulos (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Nos prédios, os scripts só a aplicam na janela do prédio (`entity_window_util.tl:186`); o que é cobrado é decidido pelo motor.
+- **Custos de Infraestrutura** escala o preço de ruas, trilhos, pontes, túneis, cruzamentos, prédios e módulos, e também das obras no terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). Também escala o custo de demolição dos prédios (`construction.script.tl:39-44`). **Manutenção de Infraestrutura** escala ao carregar a manutenção de ruas, trilhos, pontes, túneis, cruzamentos e módulos (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Nos prédios, os scripts só a aplicam na janela do prédio (`entity_window_util.tl:186`); o que é cobrado é decidido pelo motor.
 - **Custos de Veículo** e **Manutenção de Veículos** escalam o preço de compra e os custos operacionais de cada veículo (`post_run_util.tl:54-81`).
-- **Efeito da Manutenção do Veículo** define o quanto um veículo em mau estado perde velocidade, potência e conforto e ganha ruído, poluição e custos operacionais (`mod.script.tl:241-245`).
+- **Efeito da Manutenção do Veículo** define o quanto um veículo em mau estado perde velocidade, potência e conforto e ganha ruído, poluição e custos operacionais (`mod.script.tl:242-246`).
 
 ## O que cresce com o ano do calendário
 
-- **Manutenção de prédios**: ×1 em 1900, ×1,5 em 1920, ×2,2 em 1940, ×3,2 em 1960, ×4 em 1980, ×5 em 2000, ×6 em 2020 (`mod.script.tl:92-100`). A janela do prédio e o menu de construção aplicam isso a cada prédio marcado para seguir o ano, e o menu de construção marca toda metaconstrução (no jogo base: armazéns, aeródromos, aeroportos e portos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- Os **módulos** adicionados a um prédio assim custam o preço do ano em que o prédio foi construído, e a manutenção deles segue o ano atual (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Manutenção de prédios**: ×1 em 1900, ×1,5 em 1920, ×2,2 em 1940, ×3,2 em 1960, ×4 em 1980, ×5 em 2000, ×6 em 2020 (`mod.script.tl:92-100`). A janela do prédio e o menu de construção aplicam isso a cada prédio marcado para seguir o ano, e o menu de construção marca toda metaconstrução (no jogo base: armazéns, aeródromos, aeroportos e portos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- Os **módulos** adicionados a um prédio assim custam o preço do ano em que o prédio foi construído, e a manutenção deles segue o ano atual (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Variantes por era**: pátios, edifícios de manutenção, armazéns, estações, portos e aeroportos têm uma variante por era, e cada variante seguinte custa **×3** (era B) ou **×9** (era C) da primeira (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Dinheiro dos subsídios**: ×1 em 1900 até ×4 a partir de 2000 (`finances_util.tl:87-90`). **Valor dos empréstimos**: ×0,4 em 1900 até ×2,4 em 2020 (`loan_util.tl:7-10`).
 - A **renda** não tem nenhum fator de ano (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ A manutenção cobrada de verdade, e se ruas, trilhos e veículos também seguem
 
 ## Trilhos, estradas e prédios
 
-Os arquivos de ruas e trilhos dão o preço e a manutenção anual por metro; o menu de construção os mostra por quilômetro (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). Na maioria dos tipos, a manutenção é **um sexto** do preço de construção:
+Os arquivos de ruas e trilhos dão o preço e a manutenção anual por metro; o menu de construção os mostra por quilômetro (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). Na maioria dos tipos, a manutenção é **um sexto** do preço de construção:
 
 | Tipo | Disponível desde | Construção por km | Manutenção por km e ano | Fonte |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ Os arquivos de ruas e trilhos dão o preço e a manutenção anual por metro; o 
 | Rua urbana moderna grande | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - A catenária soma **30%** do preço do trilho; uma faixa de ônibus, 10%; um trilho de bonde, 20%; um trilho de bonde elétrico, 40% do preço da rua (`mod.script.tl:24-28`).
-- Subir o terreno custa 4,5 por m³, baixá-lo 5,25 por m³, ambos × Custos de Infraestrutura; remover um campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Subir o terreno custa 4,5 por m³, baixá-lo 5,25 por m³, ambos × Custos de Infraestrutura; remover um campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - Um prédio que não define manutenção paga **um sexto do seu preço** por ano, calculado sobre o preço antes da configuração Custos de Infraestrutura (`construction.script.tl:25-27`).
 - A configuração base define um fator de reembolso na demolição de 0,75 e um tempo de reembolso de 60 (`mod.script.tl:30-31`): demolir o que você acabou de construir devolve a maior parte do dinheiro. Quem aplica isso é o motor.
 

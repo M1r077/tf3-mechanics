@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | travailleurs requis pour le bonus
 fact: 2 ans | durée pendant laquelle une arrivée compte
 fact: ×1,5–2,5 | facteur de bonus, fixe pour chaque industrie
@@ -28,7 +28,7 @@ La façon dont un habitant choisit un emploi parmi tous les lieux qu'il peut att
 
 ## Travailleurs attribués
 
-Les habitants dont l'emploi est cette industrie. C'est la jauge des emplois de la fenêtre de l'industrie et la colonne **Lieux de travail** des statistiques des industries (« 12/20 ») (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Être attribué ne suffit **pas** pour le bonus : il faut vraiment faire le trajet.
+Les habitants dont l'emploi est cette industrie. C'est la jauge des emplois de la fenêtre de l'industrie et la colonne **Lieux de travail** des statistiques des industries (« 12/20 ») (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Être attribué ne suffit **pas** pour le bonus : il faut vraiment faire le trajet.
 
 ## Travailleurs comptés pour le bonus
 
@@ -75,7 +75,7 @@ Une mine de charbon avec 20 emplois et « +84 % ».
 - **Les correspondances comptent.** Le script regarde seulement le mode du trajet, pas le nombre de lignes utilisées (`industry_workers.script.tl:91`). Un travailleur d'une ville à quatre lignes de là compte autant qu'un voisin, mais peut mettre bien plus longtemps à arriver.
 - **N'importe laquelle de tes lignes peut les amener**, même une ligne de fret, tant que ses véhicules prennent des passagers et que l'arrêt charge des passagers. Le script ne vérifie pas le type de véhicule (`industry_workers.script.tl:86-118`). Les joueurs signalent moins de problèmes avec des lignes de passagers séparées.
 - Certaines industries (par exemple les plateformes pétrolières) ont leur propre arrêt intégré, qui prend passagers et fret (`industryutil.lua:156-165`).
-- La fenêtre de l'industrie indique, pour chaque travailleur attribué, s'il est **Actuellement ici** ou **En route** (`entity_window_util.tl:1371-1384`). La section Boosters liste les travailleurs comptés avec leur **Temps restant** sur les 2 ans (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- La fenêtre de l'industrie indique, pour chaque travailleur attribué, s'il est **Actuellement ici** ou **En route** (`entity_window_util.tl:1371-1384`). La section Boosters liste les travailleurs comptés avec leur **Temps restant** sur les 2 ans (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - Quand aucune arrivée n'est comptée (aucune dans les 2 dernières années), la liste des travailleurs de la section Bonus affiche : « Connecter cet emplacement aux transports publics pour permettre à des habitants d'y travailler. » (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

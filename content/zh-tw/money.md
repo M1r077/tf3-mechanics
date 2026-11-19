@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 1 | 每單位貨物的付款，在消費地，依直線計算
 fact: 0 | 在貨物倉庫或轉乘處的付款
 fact: 100 % | 遲到也照付

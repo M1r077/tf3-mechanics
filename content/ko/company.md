@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | 회사 등급, 주니어부터 거물까지
 fact: ×12.5 | 등급 15에 필요한 세계 인구(시작 시와 비교)
 fact: ×0.75 | 인플레이션 보통에서 등급 15의 수입
@@ -61,7 +61,7 @@ fact: 0 | 인구가 줄어도 잃는 등급
 
 | 인플레이션 | 등급 15의 수입 | 출처 |
 |---|---|---|
-| 없음 | ×1(변화 없음) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| 없음 | ×1(변화 없음) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | 낮음 | ×0.9 | |
 | 보통 | ×0.75 | |
 | 높음 | ×0.6 | |

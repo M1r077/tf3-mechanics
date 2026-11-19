@@ -5,7 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 5 | staatniveaus, van Zeer slecht tot Zeer goed, elk 20 %
 fact: 20 % | staat die de waarschuwing Voertuigstaat activeert
 fact: 6 × | de jaarlijkse basisbedrijfskosten: de prijs van een voertuig
@@ -51,9 +51,9 @@ Hoe de laadsnelheid van het voertuig, de laadfactor van de vracht en de perron- 
 
 - De staat van een trein is het **gemiddelde** van al zijn wagons en locomotieven (`vehicle_util.tl:285-295`).
 - Een versleten voertuig verliest topsnelheid, vermogen en comfort, en wint geluid, vervuiling en bedrijfskosten (`vehicle_store_util.tl:236-258`). Hoeveel, en vanaf welke staat, zijn waarden van de engine. Het voertuigvenster toont deze straffen onder **Staat**.
-- Hoe sterk deze straffen zijn, stelt **Effect voertuigonderhoud** in (Geen, Laag, Gemiddeld, Hoog, Zeer hoog); met Geen heeft de staat geen effect (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Kosten, onderhoud en leningen](costs.html).
+- Hoe sterk deze straffen zijn, stelt **Effect voertuigonderhoud** in (Geen, Laag, Gemiddeld, Hoog, Zeer hoog); met Geen heeft de staat geen effect (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Kosten, onderhoud en leningen](costs.html).
 - Bij **20 %** of minder krijg je de waarschuwing **Voertuigstaat**. Ze blijft tot het voertuig weer boven **30 %** is (`notifications.script.tl:310-318`).
-- Een gekloond voertuig is een nieuwe aankoop: staat 100 %, nieuwe aankoopdatum (`manager_window.tl:8502-8506`).
+- Een gekloond voertuig is een nieuwe aankoop: staat 100 %, nieuwe aankoopdatum (`manager_window.tl:8744-8748`).
 
 ```engine
 Hoe snel de staat daalt, hoeveel een bezoek aan een onderhoudsstation herstelt, en de grootte van elke straf (getMaintenanceTopSpeedPenalty en de andere) zijn waarden van de engine. Elk voertuigmodel kan ook zijn eigen topsnelheidsstraf per niveau instellen (`vehicle_store_util.tl:250-253`).
@@ -92,7 +92,7 @@ Aan welk station een voertuig wordt toegewezen, wat er gebeurt als meer voertuig
 
 ## Leeftijd en levensduur
 
-- Elk model heeft een **levensduur** (`vehicle_util.tl:31-34`). De kolom **Leeftijd** van het lijnvenster toont de leeftijd; de tooltip toont de resterende tijd, of **Max. levensduur bereikt** (`line_eow.script.tl:133-147`). Het deel van de levensduur in die tooltip staat op **0 %** tot de levensduur bereikt is: het script rondt de breuk naar beneden af voordat die getoond wordt (`line_eow.script.tl:139`), terwijl hetzelfde deel elders volledig berekend wordt (`vehicle_util.tl:311`). Kijk in plaats daarvan naar de resterende tijd.
+- Elk model heeft een **levensduur** (`vehicle_util.tl:31-34`). De kolom **Leeftijd** van het lijnvenster toont de leeftijd; de tooltip toont de resterende tijd, of **Max. levensduur bereikt** (`line_eow.script.tl:136-150`). Het deel van de levensduur in die tooltip staat op **0 %** tot de levensduur bereikt is: het script rondt de breuk naar beneden af voordat die getoond wordt (`line_eow.script.tl:142`), terwijl hetzelfde deel elders volledig berekend wordt (`vehicle_util.tl:311`). Kijk in plaats daarvan naar de resterende tijd.
 - Voor een trein telt het **oudste** onderdeel (`vehicle_util.tl:36-52`). Eén oude wagon laat de hele trein als oud verschijnen.
 
 ```engine
@@ -104,7 +104,7 @@ Wat het bereiken van de levensduur verandert (bijvoorbeeld sneller verlies van s
 1. **De staat blijft laag**, zelfs met een onderhoudsstation in de buurt: het voertuig verliest snelheid en betaalt meer bedrijfskosten. Controleer eerst de groep van het station: die kan vol zijn.
 2. **Max. levensduur bereikt** in de tooltip van Leeftijd: het model is voorbij zijn geplande levensduur.
 3. **Er bestaat een beter model**: snellere of grotere voertuigen kosten meer in bedrijf, maar ze vervoeren meer (de prijs volgt snelheid × capaciteit).
-4. Gebruik **Voertuigen vervangen** in de lijnbeheerder. Het opent de winkel met een vergelijking met het huidige voertuig (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+4. Gebruik **Voertuigen vervangen** in de lijnbeheerder. Het opent de winkel met een vergelijking met het huidige voertuig (`vehicle_store_window.tl:4997-5032`, `vehicle_store_window.tl:2678`).
 
 ```tip scripts
 **Blijven voertuigen in slechte staat naast een depot? Open het venster en kijk naar "gebruikt / pool".** Een treindepot bedient 6 treinen, een treinonderhoudsstation 12. Wat de engine doet met voertuigen boven de pool staat niet in de scripts; een tweede gebouw is het veilige antwoord.

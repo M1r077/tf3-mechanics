@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 600 s | Standard-Max. Haltezeit eines neuen Halts
 fact: 30 s / 60 s | Standard-Max. zusätzlicher Aufenthalt, Straße / Schiene
 fact: 0–100 % | Füllstand, pro Fracht, der Fahrzeugkapazität
@@ -20,12 +20,12 @@ Jeder Halt einer Linie hat eigene Abfahrtseinstellungen, im Fenster „Güterfil
 | „Lade wenn vorhanden“, „Vollladen einer Güterart“, „Vollladen jeder Güterart“ | einer von drei | Lade wenn vorhanden (gemessen) | `cargofilter_window.tl:798-821` |
 | „Min. Haltezeit“ | 0–600 s, Schritt 10 | 0 s (gemessen) | `cargofilter_window.tl:841-845` |
 | „Max. Haltezeit“ | 0–600 s oder „---“ (keine Grenze, Schieberegler am Ende) | **600 s** (gemessen) | `cargofilter_window.tl:855-863` |
-| „Max. zusätzlicher Aufenthalt“ | 0–600 s, Schritt 10 | 60 s; 30 s an einem Straßen- oder Straßenbahnbahnhof ohne Schiene | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| „Füllstand“, pro geladener Fracht | 0–100 %, Schritt 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
+| „Max. zusätzlicher Aufenthalt“ | 0–600 s, Schritt 10 | 60 s; 30 s an einem Straßen- oder Straßenbahnbahnhof ohne Schiene | `cargofilter_window.tl:827-831`, `line_util.tl:479-487` |
+| „Füllstand“, pro geladener Fracht | 0–100 %, Schritt 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:473` |
 
 - Ein Klick auf eine Zeit öffnet ein Zahlenfeld: Dort lassen sich Werte über 600 s eingeben (`cargofilter_window.tl:204-208`).
 - Die drei Zeiten halten ihre Reihenfolge: Wird das Minimum oder der zusätzliche Aufenthalt über das Maximum gehoben, steigt das Maximum mit (`cargofilter_window.tl:834-836`, `cargofilter_window.tl:848-850`); wird das Maximum gesenkt, sinken die beiden anderen mit (`cargofilter_window.tl:865-869`). Solange das Maximum „---“ ist, wird nichts angepasst.
-- Eine Änderung an einer davon markiert die Linie als angepasst: Die automatische Konfiguration fasst ihre Listen Ladung nicht mehr an (`cargofilter_window.tl:438`, siehe [Lade- und Entladegeschwindigkeit](loading.html)). Die automatische Konfiguration selbst ändert nie den Modus oder die Zeiten, setzt aber jeden Füllstand auf 100 % zurück (`line_util.tl:495-719`, `line_util.tl:511`, `line_util.tl:543`).
+- Eine Änderung an einer davon markiert die Linie als angepasst: Die automatische Konfiguration fasst ihre Listen Ladung nicht mehr an (`cargofilter_window.tl:438`, siehe [Lade- und Entladegeschwindigkeit](loading.html)). Die automatische Konfiguration selbst ändert nie den Modus oder die Zeiten, setzt aber jeden Füllstand auf 100 % zurück (`line_util.tl:497-721`, `line_util.tl:513`, `line_util.tl:545`).
 
 ## Füllstand: eine Obergrenze pro Fracht
 
@@ -51,7 +51,7 @@ Der Füllstand ist das Höchste, was das Fahrzeug von dieser Fracht an diesem Ha
 - **Vollladen einer Güterart**: Das Fahrzeug fährt ab, wenn eine Fracht voll ist. Ein Zug für Holz und Bretter fuhr nach 369–380 s mit 143 und 144 Holz ab; zwei andere Abfahrten nach etwa 30 s mit 57 und 118 Holz sind nicht erklärt.
 - **Max. Haltezeit** beendet das Warten, auch wenn nichts geladen wurde. Ein Gemüsezug mit Vollladen jeder Güterart und 120 s Maximum war entweder in etwa 25 s voll (64 von 64) oder fuhr nach 116–120 s mit 26 oder **0** ab. Mit den standardmäßigen 600 s fuhr er nach 596–600 s mit 26 von 64 ab.
 - **Min. Haltezeit** ist der ganze Halt, Laden inklusive, keine zusätzliche Zeit danach: Mit 60 s hielten Glaszüge jedes Mal 55–61 s, egal was sie luden.
-- **Max. zusätzlicher Aufenthalt**: „Maximum wait time after loading to improve vehicle distribution“ (`cargofilter_window.tl:828`). Das Fahrzeugfenster zeigt „Sicheren Abstand garantieren“, während es auf seine planmäßige Abfahrt wartet (`entity_window_util.tl:2283-2284`), vermutlich also während dieser Wartezeit.
+- **Max. zusätzlicher Aufenthalt**: „Maximum wait time after loading to improve vehicle distribution“ (`cargofilter_window.tl:828`). Das Fahrzeugfenster zeigt „Sicheren Abstand garantieren“, während es auf seine planmäßige Abfahrt wartet (`entity_window_util.tl:2285-2286`), vermutlich also während dieser Wartezeit.
 - **Mehrere Fahrzeuge an einem Halt laden gleichzeitig**, egal wann jedes ankam (im Spiel gesehen). Zwei Holz-LKW, die etwa 90 s nacheinander ankamen, fuhren in derselben Sekunde ab, jeder mit 8. Wie die Fracht zwischen ihnen aufgeteilt wird, wurde nicht gemessen.
 
 ```engine

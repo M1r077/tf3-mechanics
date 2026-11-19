@@ -5,7 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 4 s | 달력 속도 ×1, 게임 속도 1x에서 달력의 하루
 fact: ≈ 24 min | 같은 속도에서 달력의 1년
 fact: 0 ×0.25 ×0.5 ×1 ×2 ×4 | 달력 속도 단계
@@ -23,7 +23,7 @@ fact: 0 1x 2x 4x | 게임 속도 단계
 
 - 달력 속도 ×1에서 하루는 게임 시간으로 **4초**다(공식 위키). 그래서 1x에서 한 달은 약 2분, 1년은 약 **24분**이다. [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)로 측정: ×1에서 하루 4.0초, ×4에서 1초, ×0.5에서 8초, ×0.25에서 16초.
 - ×4는 날짜를 네 배 빠르게 흐르게 한다. **일시 정지됨**은 날짜를 멈추지만 시뮬레이션은 계속된다.
-- 2x와 4x는 최댓값이다. 컴퓨터가 따라가지 못하면 게임이 이를 낮춘다(`game.tl:636-642`). 측정 결과 2x는 평균 1.9x, 4x는 평균 3.6x였다.
+- 2x와 4x는 최댓값이다. 컴퓨터가 따라가지 못하면 게임이 이를 낮춘다(`game.tl:682-688`). 측정 결과 2x는 평균 1.9x, 4x는 평균 3.6x였다.
 - **시각**과 날씨는 세 번째의, 보이기만 하는 시계다. 기본적으로 달력과 상관없이 스스로 바뀐다(`game_time_config.res.lua:5`, `weather_config.res.lua:5`).
 
 ## 달력과 상관없이 게임 시간을 따르는 것
@@ -33,7 +33,7 @@ fact: 0 1x 2x 4x | 게임 속도 단계
 - **생산**: 산업의 생산 시간은 표준 1년의 일정한 비율이다(`industry_react_util.tl:51`). 산업 창은 이를 현재 달력의 날짜 수로 보여준다(`industry_react_util.tl:23`). ×0.25에서는 같은 속도라도 날짜 수가 4분의 1로 보인다.
 - **대출 상환**: 게임 시간으로 표준 한 달마다 한 번이며, 달력이 멈춰도 같다(`loan.script.tl:83-88`).
 - **보조금 기한**과 보너스 지속 기간, 표준 5년(`subvention_util.tl:286`, `subvention_util.tl:290-292`).
-- **마을 평판 회복**(`towns.script.tl:121-130`), 최대 표준 2년 동안 집계되는 **노동자 효과**(`industry_productivity_util.tl:3`), 몇 년 동안 운송이 없을 때의 **산업 폐쇄**(`industries.script.tl:119-128`).
+- **마을 평판 회복**(`towns.script.tl:118-127`), 최대 표준 2년 동안 집계되는 **노동자 효과**(`industry_productivity_util.tl:3`), 몇 년 동안 운송이 없을 때의 **산업 폐쇄**(`industries.script.tl:119-128`).
 - 최근 반년 동안의 마을 **배송 평가**(`town_util.tl:840`).
 - **새 산업**: 달력을 멈춘 상태에서도 게임 시간 1809초 동안 3개가 760초와 728초 간격으로 생겼다. 달력이 흐를 때(약 730초)와 같은 리듬이다. [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)로 측정. [산업](industries.html) 참고.
 
@@ -58,7 +58,7 @@ fact: 0 1x 2x 4x | 게임 속도 단계
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard)는 달력이 멈춰도 읽기 쉬운 재무 그래프를 보여준다.
 
 ```engine
-표준 하루, 한 달, 1년의 길이(getDefaultDayDuration 등)는 엔진에서 온다. 마을 스크립트는 한 달을 30 × 4초로 센다(`towns.script.tl:121`). 이는 측정한 하루 4초와 맞는다. 다른 몇몇 상수는 아직 하루를 2초로 가정한다(`cargotype.script.lua:3`, `mod.script.tl:172`).
+표준 하루, 한 달, 1년의 길이(getDefaultDayDuration 등)는 엔진에서 온다. 마을 스크립트는 한 달을 30 × 4초로 센다(`towns.script.tl:118`). 이는 측정한 하루 4초와 맞는다. 다른 몇몇 상수는 아직 하루를 2초로 가정한다(`cargotype.script.lua:3`, `mod.script.tl:173`).
 ```
 
 ```check

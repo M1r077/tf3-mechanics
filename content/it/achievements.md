@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | obiettivi sbloccati dallo script del gioco stesso
 fact: 500 m | altezza del primo vagone di un treno a una fermata per Fermata in vetta
 fact: < 1 % | di Reputazione della cittadina per Non è colpa mia
@@ -21,10 +21,10 @@ La wiki ufficiale elenca 41 obiettivi. Lo script del gioco (`achievements.script
 | **C'è posta per te** | un'unità di merce arriva a destinazione | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **Liberati dal giogo** | una sovvenzione completata | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Raffica di commesse** | 10 sovvenzioni completate senza nessuna fallita in mezzo; una sovvenzione fallita riporta il conteggio a 0 | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Custode** | la valutazione delle consegne di una cittadina passa a **Eccellente** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Custode** | la valutazione delle consegne di una cittadina passa a **Eccellente** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Sviluppo urbano** | una cittadina sale di livello | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Incremento della domanda** | una cittadina ottiene la domanda di un nuovo tipo di merce | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **Non è colpa mia** | la Reputazione di una cittadina **scende** sotto l'**1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **Non è colpa mia** | la Reputazione di una cittadina **scende** sotto l'**1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Promozione** | l'azienda sale di grado | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Scalata sociale** | l'azienda raggiunge il grado più alto | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Paesaggista** | piazzi alberi, e solo alberi, in una costruzione (niente rimosso, non con il rimboschimento) | `achievements.script.tl:346-377` |

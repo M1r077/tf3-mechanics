@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | rozmiary statków: małe i duże
 fact: 1, 2, 4 | terminale na port
 fact: 27 | statków w podstawowej grze

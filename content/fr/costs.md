@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | facteur d'année sur l'entretien des entrepôts, ports et aéroports en 2020
 fact: 6 ans | de coûts d'exploitation : le prix d'un véhicule
 fact: une fois | le taux d'un emprunt est appliqué au montant, pas chaque année
@@ -24,16 +24,16 @@ Le réglage **Inflation** n'augmente aucun coût : il baisse seulement tes reven
 | **Coût des véhicules**, **Entretien des véhicules** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Coût des infrastructures**, **Entretien des infrastructures** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Effet de la maintenance des véhicules** | Aucun(e) ×0 · Bas ×0,5 · Moyen ×1 · Élevée ×1,5 · Très élevée ×2 | Bas · Moyen · Élevée · Très élevée | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflation** | revenus seulement, voir [Revenus du fret](income.html) | Faible · Normale · Élevée · Très élevée | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflation** | revenus seulement, voir [Revenus du fret](income.html) | Faible · Normale · Élevée · Très élevée | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Coût des infrastructures** règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Il règle aussi le coût de démolition des bâtiments (`construction.script.tl:39-44`). **Entretien des infrastructures** règle l'entretien des routes, voies, ponts, tunnels, passages à niveau et modules au chargement (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Pour les bâtiments, les scripts ne l'appliquent que dans la fenêtre du bâtiment (`entity_window_util.tl:186`) ; ce qui est facturé est décidé par le moteur.
+- **Coût des infrastructures** règle le prix des routes, voies, ponts, tunnels, passages à niveau, bâtiments et modules, ainsi que les travaux de terrain (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). Il règle aussi le coût de démolition des bâtiments (`construction.script.tl:39-44`). **Entretien des infrastructures** règle l'entretien des routes, voies, ponts, tunnels, passages à niveau et modules au chargement (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Pour les bâtiments, les scripts ne l'appliquent que dans la fenêtre du bâtiment (`entity_window_util.tl:186`) ; ce qui est facturé est décidé par le moteur.
 - **Coût des véhicules** et **Entretien des véhicules** règlent le prix d'achat et les coûts d'exploitation de chaque véhicule (`post_run_util.tl:54-81`).
-- **Effet de la maintenance des véhicules** règle à quel point un véhicule en mauvais état perd vitesse, puissance et confort et gagne bruit, pollution et coûts d'exploitation (`mod.script.tl:241-245`).
+- **Effet de la maintenance des véhicules** règle à quel point un véhicule en mauvais état perd vitesse, puissance et confort et gagne bruit, pollution et coûts d'exploitation (`mod.script.tl:242-246`).
 
 ## Ce qui monte avec l'année du calendrier
 
-- **Entretien des bâtiments** : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque toutes les méta-constructions (dans le jeu de base : entrepôts, aérodromes, aéroports et ports) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- Les **modules** ajoutés à un tel bâtiment sont facturés à l'année de construction du bâtiment, leur entretien à l'année en cours (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Entretien des bâtiments** : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque toutes les méta-constructions (dans le jeu de base : entrepôts, aérodromes, aéroports et ports) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- Les **modules** ajoutés à un tel bâtiment sont facturés à l'année de construction du bâtiment, leur entretien à l'année en cours (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Variantes par époque** : dépôts, ateliers d'entretien, entrepôts, gares, ports et aéroports ont une variante par époque, et chaque variante suivante coûte **×3** (époque B) ou **×9** (époque C) de la première (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Argent des contrats** : ×1 en 1900 jusqu'à ×4 dès 2000 (`finances_util.tl:87-90`). **Montant des emprunts** : ×0,4 en 1900 jusqu'à ×2,4 en 2020 (`loan_util.tl:7-10`).
 - Les **revenus** n'ont aucun facteur d'année (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ L'entretien réellement prélevé, et le fait que routes, voies et véhicules su
 
 ## Voies, routes et bâtiments
 
-Les fichiers des routes et des voies donnent le prix et l'entretien annuel par mètre ; le menu de construction les affiche par kilomètre (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). Pour la plupart des types, l'entretien vaut **un sixième** du prix de construction :
+Les fichiers des routes et des voies donnent le prix et l'entretien annuel par mètre ; le menu de construction les affiche par kilomètre (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). Pour la plupart des types, l'entretien vaut **un sixième** du prix de construction :
 
 | Type | Disponible dès | Construction par km | Entretien par km et par an | Source |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ Les fichiers des routes et des voies donnent le prix et l'entretien annuel par m
 | Grande rue moderne | 1940 | 540 000 | 90 000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - La caténaire ajoute **30 %** du prix de la voie ; une voie de bus 10 %, une voie de tram 20 %, une voie de tram électrique 40 % du prix de la rue (`mod.script.tl:24-28`).
-- Relever le terrain coûte 4,5 par m³, l'abaisser 5,25 par m³, les deux × Coût des infrastructures ; supprimer un champ 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Relever le terrain coûte 4,5 par m³, l'abaisser 5,25 par m³, les deux × Coût des infrastructures ; supprimer un champ 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - Un bâtiment qui ne fixe pas d'entretien paie **un sixième de son prix** par an, calculé sur le prix avant le réglage Coût des infrastructures (`construction.script.tl:25-27`).
 - La config de base fixe un facteur de remboursement à la démolition de 0,75 et un délai de 60 (`mod.script.tl:30-31`) : démolir ce que tu viens de construire rend la plus grande partie de l'argent. C'est le moteur qui l'applique.
 

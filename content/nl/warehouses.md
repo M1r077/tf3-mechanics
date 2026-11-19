@@ -5,7 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 500 | eenheden vracht per module, van elk type
 fact: ×2 | laadsnelheid bij een gespecialiseerde module, ×1 bij een universele
 fact: 150.000 / 300.000 | prijs van een universele / gespecialiseerde module

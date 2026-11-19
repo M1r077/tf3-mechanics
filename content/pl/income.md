@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3,8 | ten sam mnożnik przychodu dla każdego towaru
 fact: +8 × wzniesienie | metry wzniesienia dodawane do odległości
 fact: 100 % | zapłaty nawet za spóźnioną dostawę
@@ -21,7 +21,7 @@ Dostawa jest opłacana za **odległość w linii prostej**, nic innego w podró�
 Cały wzór to jeden krótki skrypt gry (`cargo_income.script.lua:10-13`):
 
 1. **Mnożnik przychodu** towaru. Każdy towar z podstawowej gry używa tej samej funkcji i tych samych cen (`initialPrice = 4`, `finalPrice = 3.2`), co daje **3,8 dla wszystkich 36 towarów** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Węgiel na tej samej odległości płaci dokładnie tyle samo co produkty gotowe.
-2. Ustawienie **Przychód z towarów**: 50 %, 75 %, 100 %, 125 % lub 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Wszystkie cztery gotowe poziomy trudności używają 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
+2. Ustawienie **Przychód z towarów**: 50 %, 75 %, 100 %, 125 % lub 150 % (`difficulty_util.tl:38`, `mod.script.tl:212`). Wszystkie cztery gotowe poziomy trudności używają 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Odległość**, patrz niżej.
 
 Funkcja otrzymuje czas podróży, ale **go nie używa** (`cargotype.script.lua:7-13`): powolna lub spóźniona dostawa płaci tyle samo.
@@ -61,8 +61,8 @@ Skrypty liczą tylko sumę (`economy/cargo_income.script.lua`); podział wykonuj
 
 | Co | Efekt | Źródło |
 |---|---|---|
-| **Ranga firmy** z ustawieniem „Inflacja” | ranga 1: ×1, równomiernie malejąco do rangi 15: ×0,9 („Niska”), **×0,75 („Normalna”)**, ×0,6 („Wysoka”), ×0,5 („Bardzo wysoka”); „Brak”: zawsze ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Wykonane subsydium** | ×2 za dostawy do zakładu lub miasta z kontraktu, na liniach, które dostarczały towar w ramach kontraktu | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Ranga firmy** z ustawieniem „Inflacja” | ranga 1: ×1, równomiernie malejąco do rangi 15: ×0,9 („Niska”), **×0,75 („Normalna”)**, ×0,6 („Wysoka”), ×0,5 („Bardzo wysoka”); „Brak”: zawsze ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:695-698` |
+| **Wykonane subsydium** | ×2 za dostawy do zakładu lub miasta z kontraktu, na liniach, które dostarczały towar w ramach kontraktu | `deliver_cargo.script.tl:456-462`, `deliver_cargo_town.script.tl:547-558` |
 | **Spóźniona dostawa** | brak wpływu na przychód | `cargotype.script.lua:7-13` |
 
 - Mnożnik rangi dotyczy **wszystkich** płatności za towary i pasażerów (`company_growth.script.tl:159-170`). Gotowe poziomy trudności używają inflacji „Niska” („Niski”), „Normalna” („Normalny”), „Wysoka” („Wysoki”), „Bardzo wysoka” („Bardzo wysoki”) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
@@ -70,7 +70,7 @@ Skrypty liczą tylko sumę (`economy/cargo_income.script.lua`); podział wykonuj
 
 ## Pasażerowie
 
-Pasażerowie używają tej samej odległości i stałego mnożnika przychodu około 3,61 (`cargotype.script.lua:50-53`), pomnożonego przez **0,5 + mnożnik ceny biletu pojazdu** (`cargo_income.script.lua:14-17`). Gdy model pojazdu nie ustawia własnego mnożnika komfortu, gra ustawia mnożnik ceny na 0,3 dla autobusów i tramwajów, 0,9 dla samolotów, 0,1 dla statków i 0,5 dla pociągów (`base_mod.lua:46-61`); dla pozostałych modeli to wartość silnika, niewidoczna w skryptach. Subsydium pasażerskie podwaja tylko pasażerów jadących między jego dwoma miastami, na jego jednej linii (`deliver_passengers.script.tl:292-296`).
+Pasażerowie używają tej samej odległości i stałego mnożnika przychodu około 3,61 (`cargotype.script.lua:50-53`), pomnożonego przez **0,5 + mnożnik ceny biletu pojazdu** (`cargo_income.script.lua:14-17`). Gdy model pojazdu nie ustawia własnego mnożnika komfortu, gra ustawia mnożnik ceny na 0,3 dla autobusów i tramwajów, 0,9 dla samolotów, 0,1 dla statków i 0,5 dla pociągów (`base_mod.lua:46-61`); dla pozostałych modeli to wartość silnika, niewidoczna w skryptach. Subsydium pasażerskie podwaja tylko pasażerów jadących między jego dwoma miastami, na jego jednej linii, tej, która wypełniła kontrakt (`deliver_passengers.script.tl:288-293`).
 
 ## Limity czasu dostawy
 
@@ -80,7 +80,7 @@ Każdy towar ma własny limit czasu (`meat.cargo.lua:30`, `coal.cargo.lua:30`). 
 ```
 
 - **Finanse › Czas dostawy** pokazuje limit każdego towaru na twojej mapie; warstwa satysfakcji z dostaw koloruje trasy od zielonego do czerwonego.
-- Dostawa liczy się jako **opóźniona**, gdy dotrze po upływie limitu (`towns.script.tl:425`).
+- Dostawa liczy się jako **opóźniona**, gdy dotrze po upływie limitu (`towns.script.tl:422`).
 - Specjalistyczne moduły magazynu **zatrzymują** licznik czasu przechowywanego towaru (oficjalna wiki, Warehouses).
 
 ```engine

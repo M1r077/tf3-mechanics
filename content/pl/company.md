@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | rang firmy, od Stażysty do Magnata
 fact: ×12,5 | populacji świata potrzeba do rangi 15, w porównaniu ze startem
 fact: ×0,75 | dochodu na randze 15 przy Inflacji Normalnej
@@ -61,7 +61,7 @@ Przy **Inflacji** wszystkie dochody z ładunków i pasażerów spadają równomi
 
 | Inflacja | Dochód na randze 15 | Źródło |
 |---|---|---|
-| Brak | ×1 (bez zmian) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| Brak | ×1 (bez zmian) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Niska | ×0,9 | |
 | Normalna | ×0,75 | |
 | Wysoka | ×0,6 | |

@@ -5,7 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 65–80 dB | 城镇噪音：65 时满分，80 时为零
 fact: 60–74 | 城镇污染，按脚本的对数刻度（不是声音大小）：60 时满分，74 时为零
 fact: −80 % | 绿化后产业的噪音和污染

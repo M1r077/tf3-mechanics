@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 分鐘 | 車輛靜止多久遊戲時間後被回報為卡住
 fact: 20 % | 觸發警告的狀況，直到車輛回到 30 % 以上
 fact: 11 | 新遊戲中關閉的通知類型

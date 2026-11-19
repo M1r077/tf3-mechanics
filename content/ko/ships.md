@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | 선박 크기: 소형과 대형
 fact: 1, 2, 4 | 항구당 터미널 수
 fact: 27 | 기본 게임의 선박 수

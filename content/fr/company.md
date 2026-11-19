@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | rangs d'entreprise, de Junior à Magnat
 fact: ×12,5 | de population mondiale nécessaire pour le rang 15, par rapport au départ
 fact: ×0,75 | de revenus au rang 15 avec l'Inflation Normale
@@ -61,7 +61,7 @@ Avec l'**Inflation**, tous les revenus du fret et des passagers baissent réguli
 
 | Inflation | Revenus au rang 15 | Source |
 |---|---|---|
-| Aucune | ×1 (aucun changement) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| Aucune | ×1 (aucun changement) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Faible | ×0,9 | |
 | Normale | ×0,75 | |
 | Élevée | ×0,6 | |

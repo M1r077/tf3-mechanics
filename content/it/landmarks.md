@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | monumenti: 9 nel gioco base (gradi dal 2 al 15), altri 3 con i pacchetti DLC (grado 1)
 fact: +20 % / +25 % / -20 % / -25 % | velocità massima, inquinamento o comfort per i veicoli della sua città
 fact: ×0 a ×4 | di merci necessarie, con l'impostazione Livello risorse per luoghi di riferimento

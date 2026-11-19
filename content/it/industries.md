@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 anni | senza carico né consumo rendono un'industria candidata alla chiusura
 fact: 1,1 % | di probabilità all'anno con Raramente (predefinito), poi 730 giorni di conto alla rovescia
 fact: +50–150 % | di bonus dal carico booster, fisso per ogni industria
@@ -19,7 +19,7 @@ Ogni industria funziona con **regole**: «prendi questo dalle scorte in entrata,
 
 - Una regola indica il carico usato e prodotto per ciclo, e quanti cicli all'anno: un ciclo dura un anno ÷ quel numero, meno con i bonus nelle regole di produzione (`industry_react_util.tl:51-57`). La sezione Produzione della finestra dell'industria lo mostra con numeri piccoli.
 - Il numero **Massimo** della finestra è: per ciclo × cicli all'anno × il fattore di dimensione (`rule.consumptionFactor`) × i bonus × l'impostazione **Produttività industrie**, gli ultimi due solo nelle regole di produzione (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Produttività industrie**: 50 %, 75 %, 100 %, 150 % o 200 %. Preimpostazioni: Facile 150 %, Normale 100 %, Difficile 75 %, Molto difficile 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Produttività industrie**: 50 %, 75 %, 100 %, 150 % o 200 %. Preimpostazioni: Facile 150 %, Normale 100 %, Difficile 75 %, Molto difficile 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Esempio, Acciaieria: 6 minerale di ferro + 6 carbone → 3 acciaio + 4 lamine di metallo, 121,7 cicli all'anno: 730 minerale di ferro e 730 carbone → 365 acciaio e 487 lamine di metallo (`steel_mill.con.lua:43-71`). Se manca un'entrata, la regola si ferma.
 - La Fabbrica di conserve ha due regole: pesce + lamine di metallo, oppure carne + lamine di metallo (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ Il motore esegue le regole. Può allungare un ciclo: il tooltip del ciclo mostra
 
 - Ogni carico ha la sua scorta con un limite: ad es. una Miniera di carbone tiene 100 strumenti e 400 carbone, un'Acciaieria 800 minerale di ferro, 800 carbone, 400 acciaio e 500 lamine di metallo (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Le scorte non si deteriorano mai (`industryutil.lua:25-29`): il carico aspetta quanto serve.
-- Una scorta in uscita piena non ferma la produzione: l'eccesso viene buttato (wiki ufficiale). Il grafico **Flusso di carichi** mostra **Consumato**, **Prodotto** e **Distrutto** (`industry_eow.script.tl:804-816`).
+- Una scorta in uscita piena non ferma la produzione: l'eccesso viene buttato (wiki ufficiale). Il grafico **Flusso di carichi** mostra **Consumato**, **Prodotto** e **Distrutto** (`industry_eow.script.tl:807-819`).
 - Con il parametro di costruzione **Ingresso** su Disattivato, le regole perdono le entrate e l'industria non ha scorte in entrata (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Lotti ed espansione
@@ -145,7 +145,7 @@ Il controllo passa ogni 100 aggiornamenti per ogni industria (`industries.script
 | Frequentemente | 4,4 % | circa 16 anni | – | `difficulty_util.tl:37` |
 | Regolarmente | 8,8 % | circa 8 anni | Molto difficile | `difficulty_util.tl:176` |
 
-La probabilità è 0,011 all'anno × 0, 1, 2, 4 o 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Le industrie di tua proprietà non chiudono mai, né quelle a sviluppo manuale; finché le chiusure sono in pausa (nel gioco base, solo durante il tutorial) non ne inizia nessuna e un conto alla rovescia in corso viene annullato (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+La probabilità è 0,011 all'anno × 0, 1, 2, 4 o 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Le industrie di tua proprietà non chiudono mai, né quelle a sviluppo manuale; finché le chiusure sono in pausa (nel gioco base, solo durante il tutorial) non ne inizia nessuna e un conto alla rovescia in corso viene annullato (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Cosa conta come «caricato» e «consumato» (i registri itemsLoaded e itemsConsumed, ad es. se il carico booster conta), il flag manualDevelopment, e perché le industrie con un deposito sono escluse (`industries.script.tl:140-146`) dipendono dal motore. Così come cosa fa il motore di una regola booster che ha perso l'entrata (Ingresso disattivato).
@@ -155,7 +155,7 @@ Cosa conta come «caricato» e «consumato» (i registri itemsLoaded e itemsCons
 
 Il motore aggiunge nuove industrie durante la partita. La notifica è **Nuova industria fondata**: «Una stella dell'imprenditoria ha intravisto un'opportunità di profitto e ha fondato {industry}.» (`industry_spawn.script.tl:34-36`); la sua etichetta di tipo è **Industria fondata** (`industry_spawn.res.lua:6`). Nessuno script di gioco sceglie il posto, il tipo o il momento, e nessuno filtra ciò che il motore propone.
 
-Cosa danno gli script al motore (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+Cosa danno gli script al motore (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | Valore di configurazione | Valore | Significato |
 |---|---|---|

@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | tory podstawowe, standardowe i dużych prędkości
 fact: ×9 | cena i utrzymanie torów dużych prędkości w porównaniu z torami podstawowymi
 fact: +30 % | ceny toru za sieć trakcyjną
@@ -23,7 +23,7 @@ Każdy typ ulicy i toru ma prędkość maksymalną, cenę za metr i utrzymanie z
 | Tory dużych prędkości | 1980 | 350 km/h | 540 000 | 90 000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - **Sieć trakcyjna** kosztuje **30 %** więcej niż tor (`mod.script.tl:24-25`). Jest dostępna od 1921 na torach podstawowych i od początku każdego nowszego typu (`simple_catenary.street_template.lua:4`). W plikach nie kosztuje nic dodatkowo rocznie: wariant elektryczny ma to samo utrzymanie (`simple_catenary.street_template.lua:34`).
-- Wszystkie trzy typy pozwalają na te same nachylenia i łuki: **8,5 %** przy budowie (suwak Pochyłość sięga do tej wartości), najwyżej 13 % dla kształtu toru oraz promień łuku 55 m przy budowie, co najmniej 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- Wszystkie trzy typy pozwalają na te same nachylenia i łuki: **8,5 %** przy budowie (suwak Pochyłość sięga do tej wartości), najwyżej 13 % dla kształtu toru oraz promień łuku 55 m przy budowie, co najmniej 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - Zanieczyszczenie samego toru rośnie z typem: 2, 4 i 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ Tory dużych prędkości kosztują 9 razy więcej niż tory podstawowe, przy bud
 | Narzędzie ekranów akustycznych | -65 % | bez zmian | bez zmian | ulice i tory, nie w tunelach | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Oba kosztują w swoich plikach 100 i 10 rocznie, jak ulica za metr (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- Typy ulic „z drzewami” i „z ekranami” w menu budowy to te same ulice z już nałożonymi dekoracjami (`town_new_medium_trees.street_template.lua:12-14`). Menu budowy sumuje ich efekty (`construction_react_util.tl:2116-2139`).
+- Typy ulic „z drzewami” i „z ekranami” w menu budowy to te same ulice z już nałożonymi dekoracjami (`town_new_medium_trees.street_template.lua:12-14`). Menu budowy sumuje ich efekty (`construction_react_util.tl:2119-2142`).
 - Ulica z drzewami jest więc **o jedną czwartą wolniejsza**: nowa średnia ulica z drzewami pozwala na około 38 km/h zamiast 50.
 
 ```tip scripts

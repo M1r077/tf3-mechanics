@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | achievements unlocked by the game script itself
 fact: 500 m | height of the first wagon of a train at a stop for Summit Stopover
 fact: < 1 % | town reputation for It Wasn't Me
@@ -21,10 +21,10 @@ The official wiki lists 41 achievements. The game script (`achievements.script.t
 | **Package Arrived** | one cargo item reaches its destination | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **On Behalf Of** | one subsidy completed | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Subsidy Streak** | 10 subsidies completed with no failed one between them; a failed subsidy resets the count to 0 | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Caretaker** | a town's delivery rating changes to **Excellent** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Caretaker** | a town's delivery rating changes to **Excellent** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Urban Development** | a town levels up | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Increased Demand** | a town gets a new cargo type demand | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **It Wasn't Me** | a town's Reputation goes **down** to below **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **It Wasn't Me** | a town's Reputation goes **down** to below **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Promotion** | the company gains a rank | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Career Ladder** | the company reaches the highest rank | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Landscaper** | you place trees, and only trees, in one build (nothing removed, not by reforestation) | `achievements.script.tl:346-377` |

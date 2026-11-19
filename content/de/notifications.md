@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | Spielzeit Stillstand, bevor ein Fahrzeug als festsitzend gemeldet wird
 fact: 20 % | Zustand, der die Warnung auslöst, bis das Fahrzeug wieder über 30 % liegt
 fact: 11 | Benachrichtigungstypen, die in einem neuen Spiel aus sind

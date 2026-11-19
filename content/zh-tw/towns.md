@@ -5,7 +5,8 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
+change: 40444 | 升級道路時會保留建築的貨物庫存（官方更新說明）。
 fact: 0 % | 有一項評價為極差時的成長
 fact: ×1.5 | 每升一級所需經驗值（等級 2 需 1,000）
 fact: ×40 | 升 17 級後的規模
@@ -95,10 +96,11 @@ fact: ×40 | 升 17 級後的規模
 - 城鎮的需求是它所有**建築**的總和。每棟建築對其所在區域需要的每種貨物都有一個小的輸入庫存：容量 ÷ 4，無條件進位，再 × 該貨物在城鎮需求中的係數（未另行設定時為 1；係數來源不在腳本中）（`townbuildingutil.lua:226-251`）。每種貨物都定義了 townConsumptionFactor，為 1、0.5 或 0.25（`placementparamsutil.lua:506-616`）；它如何傳到建築由引擎決定。遊戲程式碼註明這個庫存大小「is currently nowhere shown in the UI」（`townbuildingutil.lua:249`）。
 - 城鎮視窗中的需求是這些庫存上限的總和；評價中計入的供應以需求為上限（`town_util.tl:95-99`，`town_util.tl:194-198`）。城鎮越大建築越多，需要的也越多。
 - 建築視窗顯示**消耗量評價**：建築使用貨物的速度與其最大值相比（`town_building.tl:103-132`）。
+- 自 40444 起，升級道路不再清空受影響建築的庫存（官方更新說明："Fixed cargo needs disappearing in buildings affected by upgrading streets"）。
 - 一個單位進入建築庫存時，才會獲得經驗值與貨款（`town_growth.script.tl:620-642`）。
 - 站點只能涵蓋其服務範圍內的建築。即使整個城鎮仍有缺口，這些建築的庫存也可能已滿：這時放不下的貨物**留在車輛上**，除非勾選了**抵達時強制卸載所有貨物**（「即使庫存已滿仍卸載貨物。」）（`cargofilter_window.tl:757-763`），這會銷毀放不下的部分（見[裝載與卸貨速度](loading.html)）。
 - 留在車上的貨物會觸發通知**貨物卸載問題**：「{vehicle}上有{cargoCount}件貨物未在路線上卸載。」（`cargo_rtc_warning.script.tl:28-41`，`cargo_rtc_warning.script.tl:37`）；其類型標籤為**貨物未卸載**（`cargo_rtc_warning.res.lua:6`）。
-- **城鎮貨物需求**（「選擇每個城鎮的貨物需求數量上限。」）：2、4 或 6，預設 2（`difficulty_util.tl:54`，`difficulty_util.tl:83`，`mod.script.tl:173`，`mod.script.tl:205`）。腳本依等級新增需求（見上文），並把這個值傳給引擎。
+- **城鎮貨物需求**（「選擇每個城鎮的貨物需求數量上限。」）：2、4 或 6，預設 2（`difficulty_util.tl:54`，`difficulty_util.tl:83`，`mod.script.tl:174`，`mod.script.tl:206`）。腳本依等級新增需求（見上文），並把這個值傳給引擎。
 
 ```engine
 建築消耗庫存的速度（consumeFrequency）、服務範圍內哪棟建築得到每個單位、被來回運送的貨物會怎樣，以及引擎如何使用城鎮貨物需求，都在引擎端。
@@ -107,7 +109,7 @@ fact: ×40 | 升 17 級後的規模
 ## 能阻止城鎮成長嗎？
 
 - 在一般遊戲中，**沒有設定**可以限制城鎮最大規模（`difficulty_util.tl:90-199`）。
-- 在**沙盒模式**中，城鎮視窗有一張**目標區域容量**卡片，其中有**啟用城鎮發展**（`town_eow.script.tl:1041-1052`，`town_eow.script.tl:1170-1171`，`town_eow_editor_initial_capacity.res.lua:6`）。取消勾選後，城鎮不會獲得經驗值，也不會改變規模；視窗顯示**未啟用城鎮發展**（`town_growth.script.tl:28`，`town_growth.script.tl:345`，`town_eow.script.tl:107`）。
+- 在**沙盒模式**中，城鎮視窗有一張**目標區域容量**卡片，其中有**啟用城鎮發展**（`town_eow.script.tl:1044-1055`，`town_eow.script.tl:1173-1174`，`town_eow_editor_initial_capacity.res.lua:6`）。取消勾選後，城鎮不會獲得經驗值，也不會改變規模；視窗顯示**未啟用城鎮發展**（`town_growth.script.tl:28`，`town_growth.script.tl:345`，`town_eow.script.tl:107`）。
 - 沒有沙盒時，只有間接的辦法：城鎮只靠你的乘客與貨物成長，只要有一項評價為極差就會停止（見上文）。
 
 ## 小知識

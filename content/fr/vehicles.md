@@ -5,7 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 5 | niveaux d'état, de Très mauvais à Très bon, 20 % chacun
 fact: 20 % | état qui déclenche l'avertissement État du véhicule
 fact: 6 × | le coût d'exploitation annuel de base : le prix d'un véhicule
@@ -51,9 +51,9 @@ La façon dont la vitesse de chargement du véhicule, le facteur de chargement d
 
 - L'état d'un train est la **moyenne** de tous ses wagons et locomotives (`vehicle_util.tl:285-295`).
 - Un véhicule usé perd vitesse maximale, puissance et confort, et gagne bruit, pollution et coûts d'exploitation (`vehicle_store_util.tl:236-258`). L'ampleur, et l'état à partir duquel cela commence, sont des valeurs du moteur. La fenêtre du véhicule liste ces pénalités sous **État**.
-- La force de ces pénalités est réglée par **Effet de la maintenance des véhicules** (Aucun(e), Bas, Moyen, Élevée, Très élevée) ; avec Aucun(e), l'état n'a aucun effet (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Détails : [Coûts, entretien et emprunts](costs.html).
+- La force de ces pénalités est réglée par **Effet de la maintenance des véhicules** (Aucun(e), Bas, Moyen, Élevée, Très élevée) ; avec Aucun(e), l'état n'a aucun effet (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Détails : [Coûts, entretien et emprunts](costs.html).
 - À **20 %** ou moins, tu reçois l'avertissement **État du véhicule**. Il reste jusqu'à ce que le véhicule repasse au-dessus de **30 %** (`notifications.script.tl:310-318`).
-- Un véhicule cloné est un nouvel achat : état 100 %, nouvelle date d'achat (`manager_window.tl:8502-8506`).
+- Un véhicule cloné est un nouvel achat : état 100 %, nouvelle date d'achat (`manager_window.tl:8744-8748`).
 
 ```engine
 La vitesse à laquelle l'état baisse, ce que rétablit un passage à une station de maintenance, et l'ampleur de chaque pénalité (getMaintenanceTopSpeedPenalty et les autres) sont des valeurs du moteur. Chaque modèle de véhicule peut aussi fixer sa propre pénalité de vitesse maximale par niveau (`vehicle_store_util.tl:250-253`).
@@ -92,7 +92,7 @@ La station à laquelle un véhicule est affecté, ce qui se passe quand plus de 
 
 ## Âge et durée de vie
 
-- Chaque modèle a une **durée de vie** (`vehicle_util.tl:31-34`). La colonne **Âge** de la fenêtre de ligne montre l'âge ; son info-bulle montre le temps restant, ou **Durée de vie atteinte** (`line_eow.script.tl:133-147`). La part de la durée de vie dans cette info-bulle affiche **0 %** jusqu'à ce que la durée de vie soit atteinte : le script arrondit la fraction à l'entier inférieur avant de l'afficher (`line_eow.script.tl:139`), alors que la même part est calculée en entier ailleurs (`vehicle_util.tl:311`). Fie-toi plutôt au temps restant.
+- Chaque modèle a une **durée de vie** (`vehicle_util.tl:31-34`). La colonne **Âge** de la fenêtre de ligne montre l'âge ; son info-bulle montre le temps restant, ou **Durée de vie atteinte** (`line_eow.script.tl:136-150`). La part de la durée de vie dans cette info-bulle affiche **0 %** jusqu'à ce que la durée de vie soit atteinte : le script arrondit la fraction à l'entier inférieur avant de l'afficher (`line_eow.script.tl:142`), alors que la même part est calculée en entier ailleurs (`vehicle_util.tl:311`). Fie-toi plutôt au temps restant.
 - Pour un train, c'est la partie **la plus ancienne** qui compte (`vehicle_util.tl:36-52`). Un seul vieux wagon fait apparaître tout le train comme vieux.
 
 ```engine
@@ -104,7 +104,7 @@ Ce que change le fait d'atteindre la durée de vie (par exemple une perte d'éta
 1. **L'état reste bas** même avec une station de maintenance proche : le véhicule perd de la vitesse et paie plus de coûts d'exploitation. Vérifie d'abord la réserve de la station : elle est peut-être pleine.
 2. **Durée de vie atteinte** dans l'info-bulle Âge : le modèle a dépassé sa durée de vie prévue.
 3. **Un meilleur modèle existe** : les véhicules plus rapides ou plus grands coûtent plus cher à exploiter, mais transportent plus (le prix suit vitesse × capacité).
-4. Utilise **Remplacer les véhicules** dans le gestionnaire de lignes. Il ouvre le magasin avec une comparaison avec le véhicule actuel (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+4. Utilise **Remplacer les véhicules** dans le gestionnaire de lignes. Il ouvre le magasin avec une comparaison avec le véhicule actuel (`vehicle_store_window.tl:4997-5032`, `vehicle_store_window.tl:2678`).
 
 ```tip scripts
 **Des véhicules restent en mauvais état près d'un dépôt ? Ouvre sa fenêtre et regarde « utilisé / pool ».** Un dépôt ferroviaire sert 6 trains, une station de maintenance ferroviaire 12. Ce que fait le moteur des véhicules au-delà du pool n'est pas dans les scripts ; un deuxième bâtiment est la réponse sûre.

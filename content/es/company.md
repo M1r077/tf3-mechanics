@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | rangos de empresa, de Júnior a Magnate
 fact: ×12,5 | de población mundial necesaria para el rango 15, respecto al inicio
 fact: ×0,75 | de ingresos en el rango 15 con Inflación Normal
@@ -61,7 +61,7 @@ Con **Inflación**, todos los ingresos de carga y pasajeros bajan de forma regul
 
 | Inflación | Ingresos en el rango 15 | Fuente |
 |---|---|---|
-| Ninguna | ×1 (sin cambio) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| Ninguna | ×1 (sin cambio) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Baja | ×0,9 | |
 | Normal | ×0,75 | |
 | Alta | ×0,6 | |

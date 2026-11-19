@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | gradi azienda, da Apprendista a Magnate
 fact: ×12,5 | di popolazione mondiale necessaria per il grado 15, rispetto all'inizio
 fact: ×0,75 | di entrate al grado 15 con Inflazione Normale
@@ -61,7 +61,7 @@ Con l'**Inflazione**, tutte le entrate da merci e passeggeri calano in modo unif
 
 | Inflazione | Entrate al grado 15 | Fonte |
 |---|---|---|
-| Nessuna | ×1 (nessun cambiamento) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| Nessuna | ×1 (nessun cambiamento) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Ridotta | ×0,9 | |
 | Normale | ×0,75 | |
 | Elevata | ×0,6 | |

@@ -1,10 +1,10 @@
 {
- "stable": 40425,
+ "stable": 40444,
  "builds": {
   "40444": {
-   "branch": "preview",
-   "date": "2026-11-13",
-   "store": "Steam",
+   "branch": "stable",
+   "date": "2026-11-19",
+   "store": "",
    "findings": [
     {
      "page": "subsidies",
@@ -77,8 +77,8 @@
     40444
    ],
    "triage": {
-    "status": "todo",
-    "why": "in-game labels quoted in the pages may change: re-read them with gamestrings.py",
+    "status": "done",
+    "why": "gamestrings.py: the quoted English labels are unchanged; new subsidy card labels quoted in subsidies.md",
     "pages": [
      "all"
     ]
@@ -121,7 +121,8 @@
    "text": "Fixed save game overwrite window not receiving focus when using a controller",
    "tag": "",
    "builds": [
-    40439
+    40439,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -132,7 +133,8 @@
    "text": "Fixed mission task links not being selectable with a controller",
    "tag": "Campaign",
    "builds": [
-    40439
+    40439,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -143,7 +145,8 @@
    "text": "Improved vehicle store: better consist display for trains and trams",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "watch",
@@ -184,7 +187,8 @@
    "text": "Improved line manager: added filtering by lines that have errors",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -195,7 +199,8 @@
    "text": "Improved line manager: better alternative terminals selection",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "done",
@@ -218,7 +223,8 @@
    "text": "Improved graphics settings and defaults for Steam Deck",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -263,7 +269,8 @@
    "text": "Fixed road stop naming logic to use all stop names per town before falling back to numbers",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -307,7 +314,8 @@
    "text": "Fixed overtaking in traffic not working properly in certain cases",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -318,7 +326,8 @@
    "text": "Fixed position of preview images in construction menu to not overlap with parameters",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -329,7 +338,8 @@
    "text": "Fixed issue where shortcut keys (M, N) for rotating constructions stopped working",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -351,25 +361,27 @@
    "text": "Fixed line specific subsidy reward notifications triggered repeatedly",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
-    "status": "todo",
+    "status": "done",
     "pages": [
      "subsidies"
     ],
-    "why": "the scripts of 40444 show more than the notification: Connect Towns now keeps the x2 on the line that completed it (see the findings of 40444)"
+    "why": "subsidies.md rewritten for 40444: Connect Towns line fixed at completion, card labels"
    }
   },
   {
    "text": "Fixed cargo needs disappearing in buildings affected by upgrading streets",
    "tag": "",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
-    "status": "todo",
-    "why": "towns.md, Cargo demand and building stocks: building stocks were lost on a street upgrade before this build",
+    "status": "done",
+    "why": "towns.md: change line 40444 and note in Cargo demand and building stocks",
     "pages": [
      "towns"
     ]
@@ -390,7 +402,8 @@
    "text": "Fixed crash caused by invalid build proposals",
    "tag": "Modding",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -401,7 +414,8 @@
    "text": "Fixed inconsistent column widths in mod activation list view",
    "tag": "Modding",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -412,7 +426,8 @@
    "text": "Fixed issues related to upload and management of mod gallery images",
    "tag": "Modding",
    "builds": [
-    40438
+    40438,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -457,7 +472,8 @@
    "text": "Fixed crash when modifying tram tracks on two-way intersections",
    "tag": "",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -468,7 +484,8 @@
    "text": "Fixed crash when starting new game with mods that are no longer subscribed",
    "tag": "",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -479,7 +496,8 @@
    "text": "Fixed rare crash while building streets",
    "tag": "",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -501,7 +519,8 @@
    "text": "Fixed income incorrectly earned when cargo is force-unloaded",
    "tag": "",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "watch",
@@ -518,7 +537,8 @@
    "text": "Fixed category filter icons not working when configuring a station",
    "tag": "",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -529,7 +549,8 @@
    "text": "Fixed borderless mode not recognized as fullscreen in some situations",
    "tag": "",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -574,7 +595,8 @@
    "text": "Fixed crash when importing towns and industries",
    "tag": "Map Editor",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -585,7 +607,8 @@
    "text": "Fixed crash caused by missing resources (e.g. mesh files)",
    "tag": "Modding",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -596,7 +619,8 @@
    "text": "Fixed crash while loading game related to misconfigured vehicle icons",
    "tag": "Modding",
    "builds": [
-    40427
+    40427,
+    40444
    ],
    "triage": {
     "status": "none",
@@ -1250,6 +1274,106 @@
    "triage": {
     "status": "done",
     "why": "in a build up to 40425, the build the pages were checked on"
+   }
+  },
+  {
+   "text": "Improved line manager: added filtering by cargo or passengers",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Improved line manager: configure passengers with one instead three clicks",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Improved vehicle store: optimized sorting behaviour",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Improved mod hub: show used and available mod storage space",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Improved mod hub: added button to open folder where mods are installed",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Improved mod hub: better handling of errors such as 20997, 20487, 20489 and similar",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Improved signals, railroad crossings and double slip switches dropdown in object window",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Improved error handling when mods cause stability problems",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Fixed some performance issues related to notifications",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
+   }
+  },
+  {
+   "text": "Fixed some performance issues in the mod hub",
+   "tag": "",
+   "builds": [
+    40444
+   ],
+   "triage": {
+    "status": "none"
    }
   }
  ]

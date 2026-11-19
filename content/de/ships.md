@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | Schiffsgrößen: klein und groß
 fact: 1, 2, 4 | Terminals pro Hafen
 fact: 27 | Schiffe im Basisspiel

@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 年 | 沒有裝載也沒有消耗，產業就成為關閉候選
 fact: 1.1 % | 極少（預設）時每年的機率，之後 730 天倒數
 fact: +50–150 % | 加速貨物的加成，每個產業固定
@@ -19,7 +19,7 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 
 - 規則給出每輪使用和產出的貨物，以及每年的輪數：一輪持續一年 ÷ 該數，生產規則會因加速而縮短（`industry_react_util.tl:51-57`）。產業視窗的「生產」部分以小數字顯示。
 - 視窗中的**上限**數值是：每輪 × 每年輪數 × 規模係數（`rule.consumptionFactor`）× 加速 × 設定**產業產能**，後兩項僅用於生產規則（`industry_util.tl:310-379`、`industry_util.tl:357-362`）。
-- **產業產能**：50 %、75 %、100 %、150 % 或 200 %。預設組合：簡單 150 %，普通 100 %，困難 75 %，極度困難 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:196-197`）。
+- **產業產能**：50 %、75 %、100 %、150 % 或 200 %。預設組合：簡單 150 %，普通 100 %，困難 75 %，極度困難 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:197-198`）。
 - 例如煉鋼廠：6 鐵礦 + 6 煤 → 3 鋼 + 4 板金屬，每年 121.7 輪：730 鐵礦和 730 煤 → 365 鋼和 487 板金屬（`steel_mill.con.lua:43-71`）。缺一種投入，規則就停。
 - 罐頭工廠有兩條規則：漁獲 + 板金屬，或肉品 + 板金屬（`food_factory.con.lua:43-74`）。
 
@@ -31,7 +31,7 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 
 - 每種貨物有自己的庫存和上限：例如煤礦場存 100 工具和 400 煤，煉鋼廠存 800 鐵礦、800 煤、400 鋼和 500 板金屬（`coal_mine.con.lua:44-67`、`steel_mill.con.lua:43-71`）。
 - 庫存永不損耗（`industryutil.lua:25-29`）：貨物可以一直等。
-- 產出庫存滿了不會停產：多出的貨物被丟棄（官方 wiki）。**貨物流動**圖表顯示**已消耗**、**已生產**和**已銷毀**（`industry_eow.script.tl:804-816`）。
+- 產出庫存滿了不會停產：多出的貨物被丟棄（官方 wiki）。**貨物流動**圖表顯示**已消耗**、**已生產**和**已銷毀**（`industry_eow.script.tl:807-819`）。
 - 建造參數**投入**設為關閉時，規則失去投入，產業也沒有投入庫存（`industryutil.lua:280-287`、`industryutil.lua:383-387`、`industryutil.lua:432-441`）。
 
 ## 用地與擴展
@@ -145,7 +145,7 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 | 經常 | 4.4 % | 約 16 年 | – | `difficulty_util.tl:37` |
 | 頻繁 | 8.8 % | 約 8 年 | 極度困難 | `difficulty_util.tl:176` |
 
-機率為每年 0.011 × 0、1、2、4 或 8（`mod.script.tl:171`、`mod.script.tl:202-203`、`difficulty_util.tl:37`）。你擁有的產業永不關閉，手動發展的產業也不會；關閉暫停期間（基礎遊戲中只在教學期間）不會開始關閉，進行中的倒數會被取消（`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`）。
+機率為每年 0.011 × 0、1、2、4 或 8（`mod.script.tl:172`、`mod.script.tl:203-204`、`difficulty_util.tl:37`）。你擁有的產業永不關閉，手動發展的產業也不會；關閉暫停期間（基礎遊戲中只在教學期間）不會開始關閉，進行中的倒數會被取消（`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`）。
 
 ```engine
 什麼算「裝載」和「消耗」（日誌 itemsLoaded 和 itemsConsumed，例如加速貨物算不算）、manualDevelopment 旗標，以及有車庫的產業為何被跳過（`industries.script.tl:140-146`），都在引擎一側。引擎如何處理失去投入的加速規則（投入關閉）也是如此。
@@ -155,7 +155,7 @@ fact: ×2/3 – ×1.5 | 產業密度目標：新產業無法關閉
 
 引擎會在遊戲中增加新產業。通知為**新產業已建立**：「一位有遠見的企業家嗅到商機，於是建立了{industry}。」（`industry_spawn.script.tl:34-36`）；其類型標籤為**產業已建立**（`industry_spawn.res.lua:6`）。沒有遊戲腳本選擇地點、類型或時間，也沒有腳本過濾引擎的提議。
 
-腳本交給引擎的值（`mod.script.tl:128-133`、`mod.script.tl:166-168`、`mod.script.tl:194-195`）：
+腳本交給引擎的值（`mod.script.tl:128-133`、`mod.script.tl:167-169`、`mod.script.tl:195-196`）：
 
 | 設定項 | 值 | 意義 |
 |---|---|---|

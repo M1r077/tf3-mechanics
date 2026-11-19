@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | monuments : 9 dans le jeu de base (rangs 2 à 15), 3 de plus avec les packs DLC (rang 1)
 fact: +20 % / +25 % / -20 % / -25 % | vitesse maximale, pollution ou confort pour les véhicules de sa ville
 fact: ×0 à ×4 | de fret nécessaire, avec le réglage Ressources nécessaires aux monuments

@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5년 | 동안 적재도 소비도 없으면 산업이 폐쇄 후보가 된다
 fact: 1.1 % | 드물게(기본값)에서 1년당 확률, 그 뒤 730일 카운트다운
 fact: +50–150 % | 부스터 화물 보너스, 산업마다 고정
@@ -19,7 +19,7 @@ fact: ×2/3 – ×1.5 | 산업 목표 밀도: 새 산업은 끌 수 없다
 
 - 규칙은 한 번에 쓰고 만드는 화물과 1년 횟수를 정한다. 한 번은 1년 ÷ 그 횟수 동안 걸리며, 생산 규칙은 부스트만큼 짧아진다(`industry_react_util.tl:51-57`). 산업 창의 생산량 부분에 작은 숫자로 나온다.
 - 창의 **최대치** 숫자는: 한 번당 × 1년 횟수 × 크기 계수(`rule.consumptionFactor`) × 부스트 × 설정 **산업 생산성**. 마지막 두 개는 생산 규칙에만 적용(`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **산업 생산성**: 50 %, 75 %, 100 %, 150 %, 200 %. 프리셋: 쉬움 150 %, 보통 100 %, 어려움 75 %, 매우 어려움 50 %(`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **산업 생산성**: 50 %, 75 %, 100 %, 150 %, 200 %. 프리셋: 쉬움 150 %, 보통 100 %, 어려움 75 %, 매우 어려움 50 %(`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - 예: 제철소는 철광석 6 + 석탄 6 → 강철 3 + 판금 4, 1년 121.7번: 철광석 730과 석탄 730 → 강철 365와 판금 487(`steel_mill.con.lua:43-71`). 투입이 하나라도 없으면 규칙이 멈춘다.
 - 통조림 공장에는 규칙이 두 개 있다: 어류 + 판금, 또는 고기 + 판금(`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ fact: ×2/3 – ×1.5 | 산업 목표 밀도: 새 산업은 끌 수 없다
 
 - 화물마다 한도가 있는 재고가 따로 있다. 예: 석탄 광산은 도구 100과 석탄 400, 제철소는 철광석 800, 석탄 800, 강철 400, 판금 500(`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - 재고는 절대 줄지 않는다(`industryutil.lua:25-29`): 화물은 필요한 만큼 기다린다.
-- 산출 재고가 가득 차도 생산은 멈추지 않는다: 넘친 것은 버려진다(공식 위키). **화물 흐름** 그래프에 **소비됨**, **생산됨**, **파괴됨**이 나온다(`industry_eow.script.tl:804-816`).
+- 산출 재고가 가득 차도 생산은 멈추지 않는다: 넘친 것은 버려진다(공식 위키). **화물 흐름** 그래프에 **소비됨**, **생산됨**, **파괴됨**이 나온다(`industry_eow.script.tl:807-819`).
 - 건설 매개변수 **투입**을 끄면 규칙에서 투입이 사라지고 투입 재고도 없어진다(`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## 구획과 확장
@@ -145,7 +145,7 @@ fact: ×2/3 – ×1.5 | 산업 목표 밀도: 새 산업은 끌 수 없다
 | 자주 | 4.4 % | 약 16년 | – | `difficulty_util.tl:37` |
 | 매우 자주 | 8.8 % | 약 8년 | 매우 어려움 | `difficulty_util.tl:176` |
 
-확률은 1년 0.011 × 0, 1, 2, 4, 8이다(`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). 당신이 소유한 산업은 폐쇄되지 않고, 수동 개발 산업도 마찬가지다. 폐쇄가 일시 정지된 동안(기본 게임에서는 튜토리얼 중에만)에는 폐쇄가 시작되지 않고 진행 중인 카운트다운은 취소된다(`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+확률은 1년 0.011 × 0, 1, 2, 4, 8이다(`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). 당신이 소유한 산업은 폐쇄되지 않고, 수동 개발 산업도 마찬가지다. 폐쇄가 일시 정지된 동안(기본 게임에서는 튜토리얼 중에만)에는 폐쇄가 시작되지 않고 진행 중인 카운트다운은 취소된다(`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 무엇이 "적재"와 "소비"로 세어지는지(로그 itemsLoaded와 itemsConsumed, 예: 부스터 화물도 세는지), manualDevelopment 플래그, 차량기지가 있는 산업이 빠지는 이유(`industries.script.tl:140-146`)는 엔진 쪽이다. 투입을 잃은 부스터 규칙(투입 끔)을 엔진이 어떻게 다루는지도 마찬가지다.
@@ -155,7 +155,7 @@ fact: ×2/3 – ×1.5 | 산업 목표 밀도: 새 산업은 끌 수 없다
 
 엔진은 게임 중에 새 산업을 더한다. 알림은 **새로운 산업 설립됨**: "통찰력 있는 사업가가 큰 이익을 얻을 기회를 포착하고 {industry} 산업을 설립했습니다."(`industry_spawn.script.tl:34-36`); 유형 라벨은 **산업 설립됨**(`industry_spawn.res.lua:6`). 장소, 종류, 시간을 고르는 게임 스크립트는 없고, 엔진의 제안을 거르는 스크립트도 없다.
 
-스크립트가 엔진에 주는 값(`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+스크립트가 엔진에 주는 값(`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | 설정 값 | 값 | 뜻 |
 |---|---|---|

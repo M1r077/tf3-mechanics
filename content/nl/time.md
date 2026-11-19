@@ -5,7 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 4 s | één kalenderdag bij kalendersnelheid ×1, spelsnelheid 1x
 fact: ≈ 24 min | één kalenderjaar bij dezelfde snelheden
 fact: 0 ×0,25 ×0,5 ×1 ×2 ×4 | stappen van de kalendersnelheid
@@ -23,7 +23,7 @@ Het spel heeft **twee klokken**. De **spelsnelheid** (pauze, 1x, 2x, 4x) laat al
 
 - Bij kalendersnelheid ×1 duurt een dag **4 seconden** speltijd (officiële wiki), dus een maand duurt ongeveer 2 minuten en een jaar ongeveer **24 minuten** bij 1x. Gemeten met het [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard): 4,0 s per dag bij ×1, 1 s bij ×4, 8 s bij ×0.5, 16 s bij ×0.25.
 - ×4 laat de datum vier keer sneller lopen; **Gepauzeerd** stopt de datum, de simulatie gaat door.
-- 2x en 4x zijn een maximum: het spel verlaagt ze als de computer het niet bijhoudt (`game.tl:636-642`). Gemeten: 2x gaf gemiddeld 1,9x, 4x gaf 3,6x.
+- 2x en 4x zijn een maximum: het spel verlaagt ze als de computer het niet bijhoudt (`game.tl:682-688`). Gemeten: 2x gaf gemiddeld 1,9x, 4x gaf 3,6x.
 - Het **Tijdstip** en het weer zijn een derde, visuele klok: standaard veranderen ze vanzelf, los van de kalender (`game_time_config.res.lua:5`, `weather_config.res.lua:5`).
 
 ## Wat speltijd volgt, los van de kalender
@@ -33,7 +33,7 @@ Deze worden in speltijd geteld, dus een tragere of gepauzeerde kalender vertraag
 - **Productie**: de productietijd van een industrie is een vast deel van een standaardjaar (`industry_react_util.tl:51`). Het industrievenster toont die in dagen van de huidige kalender (`industry_react_util.tl:23`): bij ×0.25 toont hetzelfde tempo een kwart van de dagen.
 - **Aflossingen van leningen**: één per standaardmaand speltijd, ook met een gepauzeerde kalender (`loan.script.tl:83-88`).
 - **Deadlines van subsidies** en de duur van de bonus, 5 standaardjaren (`subvention_util.tl:286`, `subvention_util.tl:290-292`).
-- **Herstel van de reputatie van steden** (`towns.script.tl:121-130`), **effecten van arbeiders**, geteld over hooguit 2 standaardjaren (`industry_productivity_util.tl:3`), en **sluiting van industrieën** na jaren zonder bediening (`industries.script.tl:119-128`).
+- **Herstel van de reputatie van steden** (`towns.script.tl:118-127`), **effecten van arbeiders**, geteld over hooguit 2 standaardjaren (`industry_productivity_util.tl:3`), en **sluiting van industrieën** na jaren zonder bediening (`industries.script.tl:119-128`).
 - **Leveringsbeoordelingen** van steden, over het laatste halfjaar (`town_util.tl:840`).
 - **Nieuwe bedrijven**: met gepauzeerde kalender verschenen er 3 in 1809 s speltijd, 760 s en 728 s na elkaar, in hetzelfde ritme als met lopende kalender (ongeveer 730 s). Gemeten met het [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); zie [Industrie](industries.html).
 
@@ -58,7 +58,7 @@ Met een lopende kalender toont het spel deze tijdsduren in jaren, maanden en dag
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) houdt de financiële grafieken leesbaar met een gepauzeerde kalender.
 
 ```engine
-De lengte van de standaarddag, -maand en -jaar (getDefaultDayDuration en de andere) komt van de engine. Het stadsscript telt een maand als 30 × 4 seconden (`towns.script.tl:121`), wat past bij de gemeten dag van 4 seconden; een paar andere constanten gaan nog uit van een dag van 2 seconden (`cargotype.script.lua:3`, `mod.script.tl:172`).
+De lengte van de standaarddag, -maand en -jaar (getDefaultDayDuration en de andere) komt van de engine. Het stadsscript telt een maand als 30 × 4 seconden (`towns.script.tl:118`), wat past bij de gemeten dag van 4 seconden; een paar andere constanten gaan nog uit van een dag van 2 seconden (`cargotype.script.lua:3`, `mod.script.tl:173`).
 ```
 
 ```check

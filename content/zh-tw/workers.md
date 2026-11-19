@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | 觸發加速效果所需的工人
 fact: 2 年 | 一次抵達的計入期限
 fact: ×1.5–2.5 | 加速係數，每個產業固定
@@ -28,7 +28,7 @@ fact: ×1.5–2.5 | 加速係數，每個產業固定
 
 ## 已指派的工人
 
-指工作地點就是這個產業的居民。產業視窗中的工作場所長條，以及產業統計數據中的 **工作場所** 欄位（「12/20」）顯示的就是這個數字（`entity_window_util.tl:1238`，`statistic_industries.tl:305`）。光有已指派的工人**不會**帶來任何加速效果：他們必須真的前往產業。
+指工作地點就是這個產業的居民。產業視窗中的工作場所長條，以及產業統計數據中的 **工作場所** 欄位（「12/20」）顯示的就是這個數字（`entity_window_util.tl:1238`，`statistic_industries.tl:304`）。光有已指派的工人**不會**帶來任何加速效果：他們必須真的前往產業。
 
 ## 計入加速效果的工人
 
@@ -75,7 +75,7 @@ fact: ×1.5–2.5 | 加速係數，每個產業固定
 - **轉乘也算。** 腳本只看行程的方式，不看用了幾條路線（`industry_workers.script.tl:91`）。來自四條路線之外城鎮的工人和隔壁的工人計數相同，但可能要久得多才抵達。
 - **你的任何路線都能送他們**，包括載貨的路線，只要車輛能載客、站點會裝載乘客。腳本不檢查車輛類型（`industry_workers.script.tl:86-118`）。玩家回報使用獨立的客運路線問題較少。
 - 有些產業（例如鑽油設施）有內建站點，可接乘客和貨物（`industryutil.lua:156-165`）。
-- 產業視窗會為每位已指派的工人顯示他是**目前位置**還是**移動途中**（`entity_window_util.tl:1371-1384`）。「加速效果」區塊列出計入的工人及其 2 年中的**剩餘時間**（`entity_window_util.tl:1579-1630`、`industry_eow.script.tl:644-649`）。
+- 產業視窗會為每位已指派的工人顯示他是**目前位置**還是**移動途中**（`entity_window_util.tl:1371-1384`）。「加速效果」區塊列出計入的工人及其 2 年中的**剩餘時間**（`entity_window_util.tl:1579-1630`、`industry_eow.script.tl:647-652`）。
 - 沒有計入任何抵達時（過去 2 年內一次也沒有），加速部分的工人清單會顯示：「將這個地點與大眾交通連接，讓居民可在此工作。」（`entity_window_util.tl:1650-1652`、`entity_window_util.tl:1608`、`entity_window_util.tl:1632`）。
 
 ```engine

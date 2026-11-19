@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: ×2 | spezialisierter Bahnsteigabschnitt
 fact: ×0,25 | falscher Abschnitt oder Zug zu lang
 fact: ×4 | bestenfalls: Bahnsteig und Lager spezialisiert
@@ -88,7 +88,7 @@ Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ 
 
 | Option im „Güterfilter“ | Wirkung | Quelle |
 |---|---|---|
-| „Entladen aller Güter nach Ankunft erzwingen“ | Tooltip: „Güter auch bei vollen Beständen entladen“; die Güter, die nicht hineinpassen, werden vernichtet: Das Spiel nennt den Bahnhof als Ziel, und ein Bahnhof verbraucht nie Fracht (im Spiel gemessen). Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Entladen aller Güter nach Ankunft erzwingen“ | Tooltip: „Güter auch bei vollen Beständen entladen“; die Güter, die nicht hineinpassen, werden vernichtet: Das Spiel nennt den Bahnhof als Ziel, und ein Bahnhof verbraucht nie Fracht (im Spiel gemessen). Bei einem neuen Halt aus. | `cargofilter_window.tl:757`, `line_util.tl:477` |
 | „Bei Konfigurationsänderung Güter nach Ankunft zerstören“ | entlädt oder zerstört die Fracht an Bord, wenn an diesem Halt Fracht für eine andere Ladekonfiguration des Fahrzeugs wartet; was davon geschieht, entscheidet die Engine | `cargofilter_window.tl:767` |
 | „Durch neuere Güter ersetzen, falls verfügbar“ | zerstört Fracht, die zu dem Halt zurückgekommen ist, an dem sie geladen wurde, wenn neuere Fracht derselben Art wartet | `cargofilter_window.tl:778` |
 
@@ -96,10 +96,10 @@ Jeder Halt einer Linie hat eine Liste **Ladung**, im Fenster „Güterfilter“ 
 
 ## Mehrere Frachten auf einer Linie
 
-- Die Liste **Ladung** eines Halts ist ein Ja/Nein pro Güterart, **ohne Reihenfolge**: Der Spieler kann nicht festlegen, welche Fracht zuerst geladen wird. Die Symbole werden einfach in der Güterreihenfolge des Spiels gezeichnet (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Die Liste **Ladung** eines Halts ist ein Ja/Nein pro Güterart, **ohne Reihenfolge**: Der Spieler kann nicht festlegen, welche Fracht zuerst geladen wird. Die Symbole werden einfach in der Güterreihenfolge des Spiels gezeichnet (`line_util.tl:472-476`, `line_util.tl:512`, `cargofilter_window.tl:533-535`).
 - Ein Wagen oder Lkw, der mehrere Frachten aufnimmt, hat pro Abteil mehrere **Ladekonfigurationen**; die Kapazität des Abteils ist die größte davon, nicht ihre Summe (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Er transportiert also jeweils nur eine davon.
 - Bei neuen Fahrzeugen ist die automatische Wahl der Konfiguration für jedes Abteil eingeschaltet (`vehicle_react_util.tl:339`), und das Spiel hat kein Fenster, um die Fracht eines Fahrzeugs von Hand zu wählen.
-- Passagiere und Fracht können sich eine Linie teilen: Die Skripte lehnen Fracht an einem Halt nie ab, weil er auch Passagiere aufnimmt (`line_util.tl:1381-1386`). Fracht wird nur an einem Halt gestrichen, dessen Terminal keine Fracht laden oder entladen kann (`line_util.tl:554-559`).
+- Passagiere und Fracht können sich eine Linie teilen: Die Skripte lehnen Fracht an einem Halt nie ab, weil er auch Passagiere aufnimmt (`line_util.tl:1383-1388`). Fracht wird nur an einem Halt gestrichen, dessen Terminal keine Fracht laden oder entladen kann (`line_util.tl:556-561`).
 - Bei mehreren Frachten verhalten sich **Vollladen einer Güterart** und **Vollladen jeder Güterart** unterschiedlich: siehe [Abfahrtseinstellungen: Vollladen, Füllstand und Haltezeiten](departure.html).
 - Passt die Konfiguration nicht, zeigt die Linie **Einige Gütertyp-Konfigurationen dieser Linie stehen in Konflikt**, zum Beispiel "Ein konfigurierter Gütertyp der Linie kann von keinem Fahrzeug transportiert werden." (`line_warning.script.tl:10-36`).
 
@@ -109,12 +109,12 @@ In welcher Reihenfolge mehrere Frachten geladen werden, wie ein gemeinsamer Best
 
 ## Die automatische Konfiguration
 
-Solange niemand eine Änderung im Fenster „Güterfilter“ eines Halts gespeichert hat, was sie auf dieser Linie für immer abschaltet (`line_util.tl:495-498`, `cargofilter_window.tl:438`), füllt das Spiel die Listen Ladung selbst, jedes Mal wenn die Linie erstellt, ein Halt hinzugefügt oder entfernt, die Halte umsortiert oder ein Wegpunkt hinzugefügt wird (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Einen Halt an einen anderen Bahnhof oder Bahnsteig zu verschieben sowie einen Wegpunkt zu entfernen oder zu verschieben, startet sie nicht (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
+Solange niemand eine Änderung im Fenster „Güterfilter“ eines Halts gespeichert hat, was sie auf dieser Linie für immer abschaltet (`line_util.tl:497-500`, `cargofilter_window.tl:438`), füllt das Spiel die Listen Ladung selbst, jedes Mal wenn die Linie erstellt, ein Halt hinzugefügt oder entfernt, die Halte umsortiert oder ein Wegpunkt hinzugefügt wird (`manager_window.tl:6938`, `:6786`, `:6845`, `:6879`, `:6963`). Einen Halt an einen anderen Bahnhof oder Bahnsteig zu verschieben sowie einen Wegpunkt zu entfernen oder zu verschieben, startet sie nicht (`manager_window.tl:7077-7094`, `manager_window.tl:7194-7218`).
 
-- Sie beginnt wieder mit leeren Listen, mit Passagieren an Personenbahnhöfen (`line_util.tl:542-588`).
+- Sie beginnt wieder mit leeren Listen, mit Passagieren an Personenbahnhöfen (`line_util.tl:544-590`).
 - Sie sucht Erzeuger und Abnehmer nur unter Industrien und Stadtgebäuden: Lager zählen nicht (`cargo_util.tl:518-526`).
-- Sie setzt eine Fracht auf die Liste Ladung eines Halts, wenn die Fracht weiter hinten gebraucht wird und am Halt nichts sie annimmt. Ein Lager zählt so, als nehme es alles an, was es lagert (`line_util.tl:676-693`): An einem Halt neben einem Lager, das die Fracht lagert, bleibt sie von der Liste, und der Zug entlädt sie dort.
-- Sobald ein Filter von Hand geändert wurde, ist die Linie als angepasst markiert (`cargofilter_window.tl:438`), und die automatische Konfiguration fasst sie nie wieder an, auch nicht, wenn später Halte hinzukommen (`line_util.tl:496`).
+- Sie setzt eine Fracht auf die Liste Ladung eines Halts, wenn die Fracht weiter hinten gebraucht wird und am Halt nichts sie annimmt. Ein Lager zählt so, als nehme es alles an, was es lagert (`line_util.tl:678-695`): An einem Halt neben einem Lager, das die Fracht lagert, bleibt sie von der Liste, und der Zug entlädt sie dort.
+- Sobald ein Filter von Hand geändert wurde, ist die Linie als angepasst markiert (`cargofilter_window.tl:438`), und die automatische Konfiguration fasst sie nie wieder an, auch nicht, wenn später Halte hinzukommen (`line_util.tl:498`).
 
 ```engine
 Die Skripte schreiben nur die Listen Ladung; das Entladen selbst macht die Engine. Die Regel oben (was nicht auf der Liste steht, wird in jeden Bestand entladen, der es annimmt) wurde im Spiel mit [Platform Details](https://mod.io/g/transportfever3/m/platform-details) beobachtet, November 2026.

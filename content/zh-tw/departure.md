@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 600 s | 新站點的預設最長停留時間
 fact: 30 s / 60 s | 預設額外等待時間上限，道路 / 鐵路
 fact: 0–100 % | 裝填量，依貨物計，占車輛容量的比例
@@ -20,12 +20,12 @@ fact: 0–100 % | 裝填量，依貨物計，占車輛容量的比例
 | 「若有貨物即裝載」、「滿載（任意）」、「滿載（所有）」 | 三選一 | 若有貨物即裝載（實測） | `cargofilter_window.tl:798-821` |
 | 「最短停留時間」 | 0–600 s，間隔 10 | 0 s（實測） | `cargofilter_window.tl:841-845` |
 | 「最長停留時間」 | 0–600 s，或「---」（無限制，滑桿在最右端） | **600 s**（實測） | `cargofilter_window.tl:855-863` |
-| 「額外等待時間上限」 | 0–600 s，間隔 10 | 60 s；沒有鐵路的道路或電車站為 30 s | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| 「裝填量」，依每種裝載的貨物 | 0–100 %，間隔 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
+| 「額外等待時間上限」 | 0–600 s，間隔 10 | 60 s；沒有鐵路的道路或電車站為 30 s | `cargofilter_window.tl:827-831`, `line_util.tl:479-487` |
+| 「裝填量」，依每種裝載的貨物 | 0–100 %，間隔 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:473` |
 
 - 點擊時間會開啟一個數字輸入框：大於 600 s 的值可以在那裡輸入（`cargofilter_window.tl:204-208`）。
 - 三個時間會維持彼此的順序：把最短時間或額外等待時間調到高於最長時間，最長時間也會跟著提高（`cargofilter_window.tl:834-836`, `cargofilter_window.tl:848-850`）；降低最長時間會同時降低另外兩個（`cargofilter_window.tl:865-869`）。最長時間為「---」時不做任何調整。
-- 修改其中任何一項都會把路線標記為自訂：自動配置不再改動它的裝載清單（`cargofilter_window.tl:438`，見[裝載與卸貨速度](loading.html)）。自動配置本身從不改變模式或時間，但會把每個裝填量重設為 100 %（`line_util.tl:495-719`, `line_util.tl:511`, `line_util.tl:543`）。
+- 修改其中任何一項都會把路線標記為自訂：自動配置不再改動它的裝載清單（`cargofilter_window.tl:438`，見[裝載與卸貨速度](loading.html)）。自動配置本身從不改變模式或時間，但會把每個裝填量重設為 100 %（`line_util.tl:497-721`, `line_util.tl:513`, `line_util.tl:545`）。
 
 ## 裝填量：每種貨物的上限
 
@@ -51,7 +51,7 @@ fact: 0–100 % | 裝填量，依貨物計，占車輛容量的比例
 - **滿載（任意）**：一種貨物裝滿時車輛就離開。一列原木與木板列車在 369–380 s 後載著 143 和 144 原木離開；另外兩次約 30 s 後載著 57 和 118 原木的發車無法解釋。
 - **最長停留時間**會結束等待，即使什麼都沒裝上。一列滿載（所有）、最長 120 s 的蔬菜列車，要麼約 25 s 內裝滿（64 中的 64），要麼在 116–120 s 後載著 26 或 **0** 離開。使用預設的 600 s 時，它在 596–600 s 後載著 64 中的 26 離開。
 - **最短停留時間**是整個停靠時間，包括裝貨，而不是裝貨之後額外的時間：設為 60 s 時，玻璃列車每次都停留 55–61 s，無論裝了多少。
-- **額外等待時間上限**：「Maximum wait time after loading to improve vehicle distribution」（`cargofilter_window.tl:828`）。車輛等待按排定時間發車時，車輛視窗顯示「保持安全距離中」（`entity_window_util.tl:2283-2284`），推測就是這段等待期間。
+- **額外等待時間上限**：「Maximum wait time after loading to improve vehicle distribution」（`cargofilter_window.tl:828`）。車輛等待按排定時間發車時，車輛視窗顯示「保持安全距離中」（`entity_window_util.tl:2285-2286`），推測就是這段等待期間。
 - **同一站點的多輛車會同時裝貨**，無論各自何時抵達（遊戲內觀察）。兩輛相隔約 90 s 抵達的原木卡車在同一秒離開，各載 8。貨物如何在它們之間分配並未測量。
 
 ```engine

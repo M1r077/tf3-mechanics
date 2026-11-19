@@ -5,7 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: −33 % | per interrupted main connection to another town
 fact: ≈ 67 % | recovered per year at calendar speed ×1 (≈ 200 % during a Marketing Campaign); the town window shows 33 % and 100 %
 fact: 0.25 % | per removed full-size tree next to the town
@@ -19,7 +19,7 @@ fact: 2 M m³ | of terrain work cost the whole reputation
 
 ## What lowers it
 
-Every build you confirm is checked before it is applied; the cost is booked to the town concerned (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Only your own builds count, and nothing counts in the map editor (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
+Every build you confirm is checked before it is applied; the cost is booked to the town concerned (`towns.script.tl:268-288`, `town_util.tl:1062-1080`). Only your own builds count, and nothing counts in the map editor (`town_util.tl:1078-1080`, `towns.script.tl:230`, `towns.script.tl:268`).
 
 | Reason in the town window | What costs reputation | Source |
 |---|---|---|
@@ -27,11 +27,11 @@ Every build you confirm is checked before it is applied; the cost is booked to t
 | **Removed Rocks** | 0.25 % per rock, × the distance factor | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Landscaping** | 0.00005 % per m³ of terrain raised **or** lowered: 2 million m³ = 100 %. Terrain shaped by tracks, roads and buildings counts too (scaled down from 10,000 m², to half at 50,000 m² or more), and so does net new tunnel volume | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Demolished Buildings** | 100 % for 40.5 % of a district's capacity removed (homes, shops or jobs of that town) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Failed Subsidy** | Supply Town: one penalty drawn at random, the reputation loss (10 % up to 60–90 % by risk) or a money fine; always the reputation loss when no fine is offered. Connect Towns: 10–100 % × the distance factor, in **both** towns (see [Subsidies](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Failed Subsidy** | Supply Town: one penalty drawn at random, the reputation loss (10 % up to 60–90 % by risk) or a money fine; always the reputation loss when no fine is offered. Connect Towns: 10–100 % × the distance factor, in **both** towns (see [Subsidies](subsidies.html)) | `deliver_cargo_town.script.tl:208-216`, `deliver_cargo_town.script.tl:215-217`, `deliver_cargo_town.script.tl:231`, `deliver_passengers.script.tl:120-121`, `towns.script.tl:328-330` |
 | **Interrupted Main Connections** | **1/3** per other town whose main connection is cut or too long | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Each reason is capped at 100 % (`town_util.tl:1611-1620`).
-- While you build, the tooltip shows **Reputation: −x %**, with the number of towns hit when there are several (`construction_react_util.tl:3818-3864`). It counts the cost from a full rating.
+- While you build, the tooltip shows **Reputation: −x %**, with the number of towns hit when there are several (`construction_react_util.tl:3829-3875`). It counts the cost from a full rating.
 - Planting trees or placing rocks only cancels **Removed Trees** or **Removed Rocks**, at the same 0.25 % each. It does nothing for the other reasons, and nothing at full reputation (`town_util.tl:1228-1238`, `town_util.tl:1630-1641`).
 - The Reputation setting of a new game is **Off** or **On** (On in every preset). Off means a full rating, always (`difficulty_util.tl:44`, `difficulty_util.tl:110`, `town_util.tl:396-399`).
 
@@ -49,7 +49,7 @@ A main connection counts as cut when the game raises **Road Connection Between T
 | 2 | 33 % | Mediocre | `town_util.tl:983-985` |
 | 3 | 0 % | Very Poor: the town stops growing | `town_util.tl:607-633` |
 
-- While the cut lasts, the penalty is also written into the stored score, step by step, over 3 months (`towns.script.tl:137-145`). After you repair the road, that stored part comes back only at the normal recovery speed: a long cut keeps costing reputation for a while.
+- While the cut lasts, the penalty is also written into the stored score, step by step, over 3 months (`towns.script.tl:134-142`). After you repair the road, that stored part comes back only at the normal recovery speed: a long cut keeps costing reputation for a while.
 - 67 % is right on the Very Good limit: any other small loss drops the town to Good.
 
 ```tip scripts
@@ -58,10 +58,10 @@ A main connection counts as cut when the game raises **Road Connection Between T
 
 ## How it comes back
 
-- **By itself**: one level (1/6) every 3 months of game time (360 s), every month (120 s) during a Marketing Campaign (`towns.script.tl:121-135`). At calendar speed ×1 that is about **67 %** a year, **200 %** with a campaign: from 0 % back to full in about 1.5 years. The town window shows **Annual Recovery** 33 % and 100 %: fixed texts, half the real speed (`town_react_util.tl:1066`). Measured on a test town: one level every 358 s, every 120 s with a campaign.
+- **By itself**: one level (1/6) every 3 months of game time (360 s), every month (120 s) during a Marketing Campaign (`towns.script.tl:118-132`). At calendar speed ×1 that is about **67 %** a year, **200 %** with a campaign: from 0 % back to full in about 1.5 years. The town window shows **Annual Recovery** 33 % and 100 %: fixed texts, half the real speed (`town_react_util.tl:1066`). Measured on a test town: one level every 358 s, every 120 s with a campaign.
 - Recovery shares the gain over all reasons; it never goes past the cut connections still open (`town_util.tl:1649-1687`).
 - **Celebrations** add **+50 %** for the first passenger who boards one of your lines in a town, +50 % for the first cargo delivered to a town, +50 % at every level-up of the town, and +20 % to the closest town for the first cargo delivered to each industry (`celebrations.script.tl:181-273`). The message then ends with **Settlement reputation improved.** or **Reputation improved in …** (`celebration_react_util.tl:63-75`). They only count while the reputation is below what the cut main connections still allow (full minus 1/3 per cut connection) and the Reputation setting is On, not in campaign missions (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Supply Town** gives on acceptance either a cash advance or +5 % to +20 % × the risk factor, drawn at random (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Like every gain, it only removes existing losses (`towns.script.tl:324-330`).
+- **Supply Town** gives on acceptance either a cash advance or +5 % to +20 % × the risk factor, drawn at random (`deliver_cargo_town.script.tl:203-206`, `deliver_cargo_town.script.tl:226-228`). Like every gain, it only removes existing losses (`towns.script.tl:321-327`).
 
 ## Marketing Campaign
 
@@ -70,8 +70,8 @@ A main connection counts as cut when the game raises **Road Connection Between T
 | Price | 10 M × year factor: 4 M in 1900 up to 25 M in 2020, rounded to 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | Needs | one permit of the company perks | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Duration | one year | `marketing_campaign_tool.script.tl:136` |
-| Reputation | recovery ×3 (≈ 200 % a year, the window shows 100 %); **no** instant gain | `towns.script.tl:126`, `town_util.tl:915-925` |
-| Residents | your lines in that town count as half as costly when residents choose how to travel | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
+| Reputation | recovery ×3 (≈ 200 % a year, the window shows 100 %); **no** instant gain | `towns.script.tl:123`, `town_util.tl:915-925` |
+| Residents | your lines in that town count as half as costly when residents choose how to travel | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:373-395` |
 
 ```engine
 The script counts 360 seconds of game time per level (120 with a campaign), with a month of 30 days of 4 seconds. Recovery runs on game time: with a slower calendar a calendar year lasts longer, so more comes back per year shown. How strongly the halved line cost moves residents to your lines is decided by the engine's route choice.
@@ -82,7 +82,7 @@ The script counts 360 seconds of game time per level (120 with a campaign), with
 - Watch the build tooltip: if it shows **Reputation: −x %**, a tunnel or a gentler route is often cheaper than the reputation.
 - Never leave a main road between two towns cut: each one is −33 % at once, and three cuts stop the town.
 - A Marketing Campaign at full reputation only helps your lines, not the rating. Launch it right after big works, when the recovery has something to recover.
-- The **Reputation Recovery** bonus of the large headquarters module (+1 %) shows in the Bonuses tab, but in the scripts it only changes a value that no rating reads (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
+- The **Reputation Recovery** bonus of the large headquarters module (+1 %) shows in the Bonuses tab, but in the scripts it only changes a value that no rating reads (`hq_module_l.module.lua:171`, `towns.script.tl:154`, `town_util.tl:829`, `town_util.tl:857`).
 - The achievement **It Wasn't Me** needs a town whose reputation falls below 1 % (`achievements.script.tl:261-267`).
 
 ```check

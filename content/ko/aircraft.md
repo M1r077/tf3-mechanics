@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | 비행기 크기: 소형과 대형
 fact: 1950 | 첫 공항과 첫 헬리콥터
 fact: 1980 | 두 번째 활주로

@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | 個地標：基礎遊戲 9 個（等級 2 到 15），DLC 包再加 3 個（等級 1）
 fact: +20 % / +25 % / -20 % / -25 % | 所在城鎮車輛的最高速度、污染或舒適度
 fact: ×0 到 ×4 | 地標所需資源 設定下所需貨物的倍率

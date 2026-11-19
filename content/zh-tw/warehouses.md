@@ -5,7 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 500 | 每個模組可存的貨物單位，不論類型
 fact: ×2 | 專用模組的裝載速度，通用模組為 ×1
 fact: 15 萬 / 30 萬 | 通用 / 專用模組的價格

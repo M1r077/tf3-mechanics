@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | simple, standard and high-speed track
 fact: ×9 | price and upkeep of high-speed track compared with simple track
 fact: +30 % | price of catenary on a track
@@ -23,7 +23,7 @@ Each street and track type has a top speed, a price per metre and an upkeep per 
 | High-Speed Tracks | 1980 | 350 km/h | 540,000 | 90,000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - **Catenary** costs **30 %** more than the track (`mod.script.tl:24-25`). It is available from 1921 on simple track and from the start of each newer type (`simple_catenary.street_template.lua:4`). It costs nothing extra per year in the files: the electric variant has the same upkeep (`simple_catenary.street_template.lua:34`).
-- All three types allow the same incline and curves: **8.5 %** when you build (the Incline slider goes up to that), 13 % at most for the shape of the track, and a curve radius of 55 m when you build, 40 m at least (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- All three types allow the same incline and curves: **8.5 %** when you build (the Incline slider goes up to that), 13 % at most for the shape of the track, and a curve radius of 55 m when you build, 40 m at least (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - Pollution of the track itself grows with its type: 2, 4 and 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ High-speed track costs 9 times simple track, to build and every year. Lay it onl
 | Noise Barrier Tool | −65 % | no change | no change | streets and tracks, not in tunnels | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Both cost 100 and 10 a year in their files, like a street per metre (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- The street types "with trees" and "with barriers" of the build menu are the same streets with these decorations already on them (`town_new_medium_trees.street_template.lua:12-14`). The build menu adds up their effects (`construction_react_util.tl:2116-2139`).
+- The street types "with trees" and "with barriers" of the build menu are the same streets with these decorations already on them (`town_new_medium_trees.street_template.lua:12-14`). The build menu adds up their effects (`construction_react_util.tl:2119-2142`).
 - So a street with trees is **a quarter slower**: a new medium street with trees allows about 38 km/h instead of 50.
 
 ```tip scripts

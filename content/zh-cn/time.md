@@ -5,7 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 4 s | 日历速度 ×1、游戏速度 1x 时的一个日历日
 fact: ≈ 24 min | 相同速度下的一个日历年
 fact: 0 ×0.25 ×0.5 ×1 ×2 ×4 | 日历速度档位
@@ -23,7 +23,7 @@ fact: 0 1x 2x 4x | 游戏速度档位
 
 - 日历速度 ×1 时，一天是 **4 秒**游戏时间（官方 wiki），所以在 1x 下一个月约 2 分钟，一年约 **24 分钟**。用 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 实测：×1 时每天 4.0 秒，×4 时 1 秒，×0.5 时 8 秒，×0.25 时 16 秒。
 - ×4 让日期走快四倍；**已暂停**让日期停下，模拟继续运行。
-- 2x 和 4x 是上限：电脑跟不上时，游戏会降低它们（`game.tl:636-642`）。实测：2x 平均为 1.9x，4x 平均为 3.6x。
+- 2x 和 4x 是上限：电脑跟不上时，游戏会降低它们（`game.tl:682-688`）。实测：2x 平均为 1.9x，4x 平均为 3.6x。
 - **每日时间**和天气是第三个、只影响画面的时钟：默认情况下它们自己变化，与日历无关（`game_time_config.res.lua:5`，`weather_config.res.lua:5`）。
 
 ## 不论日历如何，都按游戏时间走的东西
@@ -33,7 +33,7 @@ fact: 0 1x 2x 4x | 游戏速度档位
 - **生产**：产业的生产时间是标准一年的固定比例（`industry_react_util.tl:51`）。产业窗口按当前日历的天数显示它（`industry_react_util.tl:23`）：在 ×0.25 下，同样的速率显示的天数只有四分之一。
 - **贷款还款**：每个标准月的游戏时间还一次，日历暂停时也一样（`loan.script.tl:83-88`）。
 - **补贴期限**和奖励持续时间，5 个标准年（`subvention_util.tl:286`，`subvention_util.tl:290-292`）。
-- **城镇声望恢复**（`towns.script.tl:121-130`）、最多按 2 个标准年计算的**工人效果**（`industry_productivity_util.tl:3`），以及多年无人服务后的**产业关闭**（`industries.script.tl:119-128`）。
+- **城镇声望恢复**（`towns.script.tl:118-127`）、最多按 2 个标准年计算的**工人效果**（`industry_productivity_util.tl:3`），以及多年无人服务后的**产业关闭**（`industries.script.tl:119-128`）。
 - 城镇最近半年的**送货评价**（`town_util.tl:840`）。
 - **新产业**：日历暂停时，1809 秒游戏时间内出现了 3 个，间隔 760 秒和 728 秒，与日历运行时的节奏相同（约 730 秒）。用 [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 测得；见 [产业](industries.html)。
 
@@ -58,7 +58,7 @@ fact: 0 1x 2x 4x | 游戏速度档位
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) 在日历暂停时也能保持易读的财务图表。
 
 ```engine
-标准日、月、年的长度（getDefaultDayDuration 等）来自引擎。城镇脚本把一个月算作 30 × 4 秒（`towns.script.tl:121`），这与实测的每天 4 秒相符；另外几个常量仍假定一天为 2 秒（`cargotype.script.lua:3`，`mod.script.tl:172`）。
+标准日、月、年的长度（getDefaultDayDuration 等）来自引擎。城镇脚本把一个月算作 30 × 4 秒（`towns.script.tl:118`），这与实测的每天 4 秒相符；另外几个常量仍假定一天为 2 秒（`cargotype.script.lua:3`，`mod.script.tl:173`）。
 ```
 
 ```check

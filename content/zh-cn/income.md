@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3.8 | 所有货物相同的收入系数
 fact: +8 × 爬升 | 爬升的米数计入距离
 fact: 100 % | 即使迟到也全额支付
@@ -21,7 +21,7 @@ fact: 100 % | 即使迟到也全额支付
 整个公式就是一段很短的游戏脚本（`cargo_income.script.lua:10-13`）：
 
 1. 货物的**收入系数**。每种基础游戏货物都使用同一个函数和同样的价格（`initialPrice = 4`，`finalPrice = 3.2`），因此**全部 36 种货物都是 3.8**（`cargotype.script.lua:7-13`，`coal.cargo.lua:21-22`）。在相同距离上，煤炭和商品赚的钱完全一样。
-2. **货物收入** 设置：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:211`）。四个难度预设都使用 100 %（`difficulty_util.tl:97`，`difficulty_util.tl:124`，`difficulty_util.tl:152`，`difficulty_util.tl:179`）。
+2. **货物收入** 设置：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:212`）。四个难度预设都使用 100 %（`difficulty_util.tl:97`，`difficulty_util.tl:124`，`difficulty_util.tl:152`，`difficulty_util.tl:179`）。
 3. **距离**，见下文。
 
 这个函数会收到行程时间，但**并不使用它**（`cargotype.script.lua:7-13`）：慢的或迟到的交付收入一样。
@@ -61,8 +61,8 @@ fact: 100 % | 即使迟到也全额支付
 
 | 因素 | 效果 | 来源 |
 |---|---|---|
-| **公司等级**，配合通货膨胀设置 | 等级 1：×1，均匀下降到等级 15：×0.9（低）、**×0.75（正常）**、×0.6（高）、×0.5（非常高）；无：始终 ×1 | `company_progression_util.tl:25-40`，`difficulty_util.tl:50`，`mod.script.tl:694-697` |
-| **已完成的补贴** | 交付到合同产业或城镇的货物 ×2，只限为该合同交付过的线路 | `deliver_cargo.script.tl:463-469`，`deliver_cargo_town.script.tl:554-565` |
+| **公司等级**，配合通货膨胀设置 | 等级 1：×1，均匀下降到等级 15：×0.9（低）、**×0.75（正常）**、×0.6（高）、×0.5（非常高）；无：始终 ×1 | `company_progression_util.tl:25-40`，`difficulty_util.tl:50`，`mod.script.tl:695-698` |
+| **已完成的补贴** | 交付到合同产业或城镇的货物 ×2，只限为该合同交付过的线路 | `deliver_cargo.script.tl:456-462`，`deliver_cargo_town.script.tl:547-558` |
 | **迟到交付** | 对收入没有影响 | `cargotype.script.lua:7-13` |
 
 - 等级乘数作用于**所有**货物和乘客收入（`company_growth.script.tl:159-170`）。难度预设使用的通货膨胀分别为：低（简单）、正常（正常）、高（困难）、非常高（极难）（`difficulty_util.tl:108`，`difficulty_util.tl:136`，`difficulty_util.tl:163`，`difficulty_util.tl:190`）。
@@ -70,7 +70,7 @@ fact: 100 % | 即使迟到也全额支付
 
 ## 乘客
 
-乘客使用同样的距离和约 3.61 的固定收入系数（`cargotype.script.lua:50-53`），再乘以 **0.5 + 载具的票价系数**（`cargo_income.script.lua:14-17`）。当载具模型没有设置舒适度系数时，游戏把票价系数设为：公交车和有轨电车 0.3，飞机 0.9，船只 0.1，列车 0.5（`base_mod.lua:46-61`）；其他模型的数值来自引擎，在脚本中看不到。乘客补贴只让往返其两座城镇的乘客翻倍，且只限其那一条线路（`deliver_passengers.script.tl:292-296`）。
+乘客使用同样的距离和约 3.61 的固定收入系数（`cargotype.script.lua:50-53`），再乘以 **0.5 + 载具的票价系数**（`cargo_income.script.lua:14-17`）。当载具模型没有设置舒适度系数时，游戏把票价系数设为：公交车和有轨电车 0.3，飞机 0.9，船只 0.1，列车 0.5（`base_mod.lua:46-61`）；其他模型的数值来自引擎，在脚本中看不到。乘客补贴只让往返其两座城镇的乘客翻倍，且只限其那一条线路，即完成合同的线路（`deliver_passengers.script.tl:288-293`）。
 
 ## 运输时间限制
 
@@ -80,7 +80,7 @@ fact: 100 % | 即使迟到也全额支付
 ```
 
 - **资金 › 货物运输时间** 显示你的地图上每种货物的时间限制；货物满意度图层把路线从绿色到红色着色。
-- 交付在超过时间限制后到达，就算作**延误**（`towns.script.tl:425`）。
+- 交付在超过时间限制后到达，就算作**延误**（`towns.script.tl:422`）。
 - 专用仓库模块会**冻结**所存货物的计时（官方 wiki，仓库）。
 
 ```engine

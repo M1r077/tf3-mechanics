@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | 랜드마크: 기본 게임에 9개(랭크 2~15), DLC 팩으로 3개 더(랭크 1)
 fact: +20 % / +25 % / -20 % / -25 % | 그 마을 운송 수단의 최고 속도, 오염 또는 편안함
 fact: ×0 ~ ×4 | 랜드마크 필요 자원 설정에 따른 필요 화물 배율

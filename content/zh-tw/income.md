@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3.8 | 所有貨物相同的收益係數
 fact: +8 × 爬升 | 爬升的公尺數計入距離
 fact: 100 % | 即使遲到也全額支付
@@ -21,7 +21,7 @@ fact: 100 % | 即使遲到也全額支付
 整個公式就是一段很短的遊戲腳本（`cargo_income.script.lua:10-13`）：
 
 1. 貨物的**收益係數**。每種基本遊戲貨物都使用同一個函式與相同的價格（`initialPrice = 4`，`finalPrice = 3.2`），因此**全部 36 種貨物都是 3.8**（`cargotype.script.lua:7-13`，`coal.cargo.lua:21-22`）。在相同距離下，煤和一般貨物賺的錢完全一樣。
-2. **貨運收益** 設定：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:211`）。四種難度預設都使用 100 %（`difficulty_util.tl:97`，`difficulty_util.tl:124`，`difficulty_util.tl:152`，`difficulty_util.tl:179`）。
+2. **貨運收益** 設定：50 %、75 %、100 %、125 % 或 150 %（`difficulty_util.tl:38`，`mod.script.tl:212`）。四種難度預設都使用 100 %（`difficulty_util.tl:97`，`difficulty_util.tl:124`，`difficulty_util.tl:152`，`difficulty_util.tl:179`）。
 3. **距離**，見下文。
 
 這個函式會收到行程時間，但**並不使用它**（`cargotype.script.lua:7-13`）：慢的或遲到的配送收益都一樣。
@@ -61,8 +61,8 @@ fact: 100 % | 即使遲到也全額支付
 
 | 因素 | 效果 | 來源 |
 |---|---|---|
-| **公司等級**，搭配通貨膨脹設定 | 等級 1：×1，平均下降至等級 15：×0.9（低）、**×0.75（普通）**、×0.6（高）、×0.5（極高）；無：始終 ×1 | `company_progression_util.tl:25-40`，`difficulty_util.tl:50`，`mod.script.tl:694-697` |
-| **已達成的補助** | 配送到合約產業或城鎮的貨物 ×2，只限為該合約配送過的路線 | `deliver_cargo.script.tl:463-469`，`deliver_cargo_town.script.tl:554-565` |
+| **公司等級**，搭配通貨膨脹設定 | 等級 1：×1，平均下降至等級 15：×0.9（低）、**×0.75（普通）**、×0.6（高）、×0.5（極高）；無：始終 ×1 | `company_progression_util.tl:25-40`，`difficulty_util.tl:50`，`mod.script.tl:695-698` |
+| **已達成的補助** | 配送到合約產業或城鎮的貨物 ×2，只限為該合約配送過的路線 | `deliver_cargo.script.tl:456-462`，`deliver_cargo_town.script.tl:547-558` |
 | **配送遲到** | 對收益沒有影響 | `cargotype.script.lua:7-13` |
 
 - 等級乘數作用於**所有**貨物與乘客收益（`company_growth.script.tl:159-170`）。難度預設使用的通貨膨脹分別為：低（簡單）、普通（普通）、高（困難）、極高（極度困難）（`difficulty_util.tl:108`，`difficulty_util.tl:136`，`difficulty_util.tl:163`，`difficulty_util.tl:190`）。
@@ -70,7 +70,7 @@ fact: 100 % | 即使遲到也全額支付
 
 ## 乘客
 
-乘客使用相同的距離與約 3.61 的固定收益係數（`cargotype.script.lua:50-53`），再乘上 **0.5 + 車輛的票價係數**（`cargo_income.script.lua:14-17`）。當車輛模型沒有設定舒適度係數時，遊戲會把票價係數設為：公車與輕軌 0.3、飛行器 0.9、船舶 0.1、列車 0.5（`base_mod.lua:46-61`）；其他模型的數值來自引擎，在腳本中看不到。乘客補助只讓往返其兩座城鎮的乘客加倍，且只限其那一條路線（`deliver_passengers.script.tl:292-296`）。
+乘客使用相同的距離與約 3.61 的固定收益係數（`cargotype.script.lua:50-53`），再乘上 **0.5 + 車輛的票價係數**（`cargo_income.script.lua:14-17`）。當車輛模型沒有設定舒適度係數時，遊戲會把票價係數設為：公車與輕軌 0.3、飛行器 0.9、船舶 0.1、列車 0.5（`base_mod.lua:46-61`）；其他模型的數值來自引擎，在腳本中看不到。乘客補助只讓往返其兩座城鎮的乘客加倍，且只限其那一條路線，即讓合約達成的路線（`deliver_passengers.script.tl:288-293`）。
 
 ## 配送時限
 
@@ -80,7 +80,7 @@ fact: 100 % | 即使遲到也全額支付
 ```
 
 - **財務狀況 › 配送時間** 會顯示你的地圖上每種貨物的時限；貨運滿意度圖層會把路線從綠色到紅色上色。
-- 配送超過時限才送達，就算是**延誤**（`towns.script.tl:425`）。
+- 配送超過時限才送達，就算是**延誤**（`towns.script.tl:422`）。
 - 專用貨物倉庫模組會**凍結**所存貨物的計時（官方 wiki，貨物倉庫）。
 
 ```engine

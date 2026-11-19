@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: ×2 | specjalistyczna sekcja peronu
 fact: ×0,25 | niewłaściwa sekcja lub za długi pociąg
 fact: ×4 | najlepszy przypadek: specjalistyczny peron i magazyn
@@ -88,7 +88,7 @@ Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” prz
 
 | Opcja w „Filtr towarów” | Co robi | Źródło |
 |---|---|---|
-| „Wymuś rozładowanie wszystkich towarów po przybyciu” | podpowiedź: „Rozładuj towary, nawet jeśli zapasy są pełne”; towar, który się nie mieści, jest niszczony: gra podaje stację jako cel, a stacja nigdy nie zużywa towaru (zmierzone w grze). Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| „Wymuś rozładowanie wszystkich towarów po przybyciu” | podpowiedź: „Rozładuj towary, nawet jeśli zapasy są pełne”; towar, który się nie mieści, jest niszczony: gra podaje stację jako cel, a stacja nigdy nie zużywa towaru (zmierzone w grze). Wyłączona dla nowego przystanku. | `cargofilter_window.tl:757`, `line_util.tl:477` |
 | „Przy zmianie konfiguracji zniszcz ładunek po przybyciu” | rozładowuje lub niszczy towar na pokładzie, gdy na tym przystanku czeka towar dla innej konfiguracji załadunku pojazdu; co z tych dwóch, decyduje silnik | `cargofilter_window.tl:767` |
 | „Zastąp nowym ładunkiem, jeśli jest dostępny” | niszczy towar, który wrócił na przystanek, gdzie go załadowano, gdy czeka nowszy towar tego samego rodzaju | `cargofilter_window.tl:778` |
 
@@ -96,10 +96,10 @@ Każdy przystanek linii ma listę **Ładunek**, w oknie „Filtr towarów” prz
 
 ## Kilka towarów na jednej linii
 
-- Lista **Ładunek** przystanku to tak/nie dla każdego rodzaju towaru, **bez kolejności**: gracz nie może ustawić, który towar jest ładowany jako pierwszy. Ikony są po prostu rysowane w kolejności towarów w grze (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- Lista **Ładunek** przystanku to tak/nie dla każdego rodzaju towaru, **bez kolejności**: gracz nie może ustawić, który towar jest ładowany jako pierwszy. Ikony są po prostu rysowane w kolejności towarów w grze (`line_util.tl:472-476`, `line_util.tl:512`, `cargofilter_window.tl:533-535`).
 - Wagon lub ciężarówka przyjmujące kilka towarów mają w każdym przedziale kilka **konfiguracji załadunku**; pojemność przedziału to największa z nich, a nie ich suma (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Przewożą więc naraz tylko jedną z nich.
 - Nowe pojazdy mają włączony automatyczny wybór konfiguracji dla każdego przedziału (`vehicle_react_util.tl:339`), a gra nie ma żadnego okna do ręcznego wyboru towaru pojazdu.
-- Pasażerowie i towary mogą dzielić linię: skrypty nigdy nie odrzucają towaru na przystanku dlatego, że przyjmuje on też pasażerów (`line_util.tl:1381-1386`). Towar jest usuwany tylko z przystanku, którego terminal nie może ładować ani rozładowywać towarów (`line_util.tl:554-559`).
+- Pasażerowie i towary mogą dzielić linię: skrypty nigdy nie odrzucają towaru na przystanku dlatego, że przyjmuje on też pasażerów (`line_util.tl:1383-1388`). Towar jest usuwany tylko z przystanku, którego terminal nie może ładować ani rozładowywać towarów (`line_util.tl:556-561`).
 - Przy kilku towarach **Do pełna (dowolny)** i **Do pełna (wszystkie)** działają inaczej: zobacz [Ustawienia odjazdu: ładowanie do pełna, Poziom napełnienia i czasy postoju](departure.html).
 - Gdy konfiguracja nie pasuje, linia pokazuje **Niektóre konfiguracje rodzajów ładunków tej linii są sprzeczne**, na przykład "Brak na linii pojazdu mogącego załadować towar pomimo skonfigurowania jego załadunku." (`line_warning.script.tl:10-36`).
 
@@ -109,12 +109,12 @@ O tym, w jakiej kolejności ładowanych jest kilka towarów, jak wspólny zapas 
 
 ## Konfiguracja automatyczna
 
-Dopóki nikt nie zapisał zmiany w oknie „Filtr towarów” przystanku, co wyłącza ją na tej linii na stałe (`line_util.tl:495-498`, `cargofilter_window.tl:438`), gra sama wypełnia listy Ładunek za każdym razem, gdy linia jest tworzona, przystanek jest dodawany lub usuwany, kolejność przystanków się zmienia albo dodawany jest punkt trasy (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Przeniesienie przystanku na inną stację lub peron oraz usunięcie lub przesunięcie punktu trasy jej nie uruchamiają (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
+Dopóki nikt nie zapisał zmiany w oknie „Filtr towarów” przystanku, co wyłącza ją na tej linii na stałe (`line_util.tl:497-500`, `cargofilter_window.tl:438`), gra sama wypełnia listy Ładunek za każdym razem, gdy linia jest tworzona, przystanek jest dodawany lub usuwany, kolejność przystanków się zmienia albo dodawany jest punkt trasy (`manager_window.tl:6938`, `:6786`, `:6845`, `:6879`, `:6963`). Przeniesienie przystanku na inną stację lub peron oraz usunięcie lub przesunięcie punktu trasy jej nie uruchamiają (`manager_window.tl:7077-7094`, `manager_window.tl:7194-7218`).
 
-- Zaczyna od pustych list, z pasażerami na stacjach pasażerskich (`line_util.tl:542-588`).
+- Zaczyna od pustych list, z pasażerami na stacjach pasażerskich (`line_util.tl:544-590`).
 - Szuka producentów i odbiorców tylko wśród zakładów i budynków miejskich: magazyny się nie liczą (`cargo_util.tl:518-526`).
-- Wpisuje towar na listę Ładunek przystanku, gdy towar jest potrzebny dalej, a na przystanku nic go nie przyjmuje. Magazyn liczy się tak, jakby przyjmował wszystko, co przechowuje (`line_util.tl:676-693`): na przystanku obok magazynu, który przechowuje ten towar, towar zostaje poza listą, a pociąg go tam rozładowuje.
-- Gdy tylko filtr zostanie zmieniony ręcznie, linia jest oznaczona jako własna (`cargofilter_window.tl:438`) i konfiguracja automatyczna już jej nie rusza, nawet gdy później dochodzą przystanki (`line_util.tl:496`).
+- Wpisuje towar na listę Ładunek przystanku, gdy towar jest potrzebny dalej, a na przystanku nic go nie przyjmuje. Magazyn liczy się tak, jakby przyjmował wszystko, co przechowuje (`line_util.tl:678-695`): na przystanku obok magazynu, który przechowuje ten towar, towar zostaje poza listą, a pociąg go tam rozładowuje.
+- Gdy tylko filtr zostanie zmieniony ręcznie, linia jest oznaczona jako własna (`cargofilter_window.tl:438`) i konfiguracja automatyczna już jej nie rusza, nawet gdy później dochodzą przystanki (`line_util.tl:498`).
 
 ```engine
 Skrypty tylko zapisują listy Ładunek; samo rozładowanie wykonuje silnik. Powyższą regułę (to, czego nie ma na liście, jest rozładowywane do każdego zapasu, który to przyjmuje) zaobserwowano w grze z [Platform Details](https://mod.io/g/transportfever3/m/platform-details), listopad 2026.

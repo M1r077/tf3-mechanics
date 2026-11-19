@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 years | without loading or consumption make an industry a closure candidate
 fact: 1.1 % | chance per year at Rarely (the default), then 730 days of countdown
 fact: +50–150 % | booster cargo boost, fixed per industry
@@ -19,7 +19,7 @@ Every industry works by **rules**: "take this from the input stocks, put that in
 
 - A rule gives the cargo used and made per run, and how many runs per year: one run lasts one year ÷ that number, shorter by the boosts for production rules (`industry_react_util.tl:51-57`). The Production section of the industry window shows it as small numbers.
 - The **Max.** number of the window is: per run × runs per year × the size factor (`rule.consumptionFactor`) × the boosts × the **Industry Productivity** setting, the last two for production rules only (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Industry Productivity**: 50 %, 75 %, 100 %, 150 % or 200 %. Presets: Easy 150 %, Normal 100 %, Hard 75 %, Very Hard 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Industry Productivity**: 50 %, 75 %, 100 %, 150 % or 200 %. Presets: Easy 150 %, Normal 100 %, Hard 75 %, Very Hard 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Example, Steel Mill: 6 iron ore + 6 coal → 3 steel + 4 sheet metal, 121.7 runs a year: 730 iron ore and 730 coal → 365 steel and 487 sheet metal (`steel_mill.con.lua:43-71`). Missing one input stops the rule.
 - The Canning Factory has two rules: fish + sheet metal, or meat + sheet metal (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ The engine runs the rules. It can make a run last longer: the run tooltip then s
 
 - Each cargo has its own stock with a limit: e.g. a Coal Mine keeps 100 tools and 400 coal, a Steel Mill 800 iron ore, 800 coal, 400 steel and 500 sheet metal (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Stocks never decay (`industryutil.lua:25-29`): cargo waits as long as needed.
-- A full output stock does not stop production: the extra cargo is thrown away (official wiki). The **Cargo Flow** chart shows **Consumed**, **Produced** and **Destroyed** (`industry_eow.script.tl:804-816`).
+- A full output stock does not stop production: the extra cargo is thrown away (official wiki). The **Cargo Flow** chart shows **Consumed**, **Produced** and **Destroyed** (`industry_eow.script.tl:807-819`).
 - With the construction parameter **Input** set to Off, the rules lose their inputs and the industry has no input stocks (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Plots and expansion
@@ -145,7 +145,7 @@ The check runs every 100 updates for each industry (`industries.script.tl:84-85`
 | Often | 4.4 % | about 16 years | – | `difficulty_util.tl:37` |
 | Very Often | 8.8 % | about 8 years | Very Hard | `difficulty_util.tl:176` |
 
-The chance is 0.011 a year × 0, 1, 2, 4 or 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Industries you own never close, and neither do industries with manual development; while closures are paused (in the base game, only during the tutorial) none starts and a running countdown is cancelled (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+The chance is 0.011 a year × 0, 1, 2, 4 or 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Industries you own never close, and neither do industries with manual development; while closures are paused (in the base game, only during the tutorial) none starts and a running countdown is cancelled (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 What counts as "loaded" and "consumed" (the logs itemsLoaded and itemsConsumed, e.g. whether booster cargo counts), the manualDevelopment flag, and why industries with a depot are left out (`industries.script.tl:140-146`) are engine-side. So is what the engine does with a booster rule that lost its input (Input Off).
@@ -155,7 +155,7 @@ What counts as "loaded" and "consumed" (the logs itemsLoaded and itemsConsumed, 
 
 The engine adds new industries during the game. The notification is **New Industry Founded**: "A visionary entrepreneur smells an opportunity for profit and has founded {industry}." (`industry_spawn.script.tl:34-36`); its type label is **Industry Founded** (`industry_spawn.res.lua:6`). No game script picks the place, the type or the time, and none filters what the engine proposes.
 
-What the scripts give the engine (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+What the scripts give the engine (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | Config value | Value | Meaning |
 |---|---|---|

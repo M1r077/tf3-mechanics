@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | pontos de referência: 9 no jogo base (níveis 2 a 15), mais 3 com os pacotes DLC (nível 1)
 fact: +20 % / +25 % / −20 % / −25 % | velocidade máxima, poluição ou conforto para os veículos da sua cidade
 fact: ×0 a ×4 | de carga necessária, com a configuração Recursos Necessários para Marcos

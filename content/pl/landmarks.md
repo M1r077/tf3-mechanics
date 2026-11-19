@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | zabytków: 9 w grze podstawowej (rangi od 2 do 15), 3 więcej z pakietami DLC (ranga 1)
 fact: +20 % / +25 % / −20 % / −25 % | prędkość maksymalna, zanieczyszczenie lub komfort pojazdów jego miasta
 fact: ×0 do ×4 | potrzebnego ładunku, z ustawieniem Surowce budynków specjalnych

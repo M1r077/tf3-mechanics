@@ -5,7 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 65–80 dB | 마을 소음: 65에서 만점, 80에서 0
 fact: 60–74 | 마을 오염, 스크립트의 로그 척도(소리 크기가 아님): 60에서 만점, 74에서 0
 fact: −80 % | 녹화된 산업의 소음과 오염

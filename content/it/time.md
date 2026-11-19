@@ -5,7 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 4 s | un giorno di calendario a velocità calendario ×1, velocità di gioco x1
 fact: ≈ 24 min | un anno di calendario alle stesse velocità
 fact: 0 ×0,25 ×0,5 ×1 ×2 ×4 | livelli della velocità calendario
@@ -23,7 +23,7 @@ Il gioco ha **due orologi**. La **velocità di gioco** (pausa, x1, x2, x4) fa an
 
 - A velocità calendario ×1 un giorno dura **4 secondi** di tempo di gioco (wiki ufficiale), quindi un mese dura circa 2 minuti e un anno circa **24 minuti** a x1. Misurato con [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard): 4,0 s al giorno a ×1, 1 s a ×4, 8 s a ×0,5, 16 s a ×0,25.
 - ×4 fa avanzare la data quattro volte più veloce; **In pausa** ferma la data, la simulazione continua.
-- x2 e x4 sono un massimo: il gioco li abbassa quando il computer non tiene il passo (`game.tl:636-642`). Misurato: x2 ha dato x1,9 e x4 ha dato x3,6 in media.
+- x2 e x4 sono un massimo: il gioco li abbassa quando il computer non tiene il passo (`game.tl:682-688`). Misurato: x2 ha dato x1,9 e x4 ha dato x3,6 in media.
 - L'**Ora del giorno** e il meteo sono un terzo orologio, visivo: di base cambiano da soli, qualunque sia il calendario (`game_time_config.res.lua:5`, `weather_config.res.lua:5`).
 
 ## Cosa segue il tempo di gioco, qualunque sia il calendario
@@ -33,7 +33,7 @@ Queste cose si contano in tempo di gioco, quindi un calendario più lento o in p
 - **Produzione**: il tempo di produzione di un'industria è una quota fissa di un anno standard (`industry_react_util.tl:51`). La finestra dell'industria lo mostra in giorni del calendario attuale (`industry_react_util.tl:23`): a ×0,25 lo stesso ritmo mostra un quarto dei giorni.
 - **Rate dei prestiti**: una ogni mese standard di tempo di gioco, anche con il calendario in pausa (`loan.script.tl:83-88`).
 - **Scadenze dei sussidi** e la durata del bonus, 5 anni standard (`subvention_util.tl:286`, `subvention_util.tl:290-292`).
-- **Recupero della reputazione delle cittadine** (`towns.script.tl:121-130`), **effetti dei lavoratori**, contati su al massimo 2 anni standard (`industry_productivity_util.tl:3`), e **chiusura delle industrie** dopo anni senza servizio (`industries.script.tl:119-128`).
+- **Recupero della reputazione delle cittadine** (`towns.script.tl:118-127`), **effetti dei lavoratori**, contati su al massimo 2 anni standard (`industry_productivity_util.tl:3`), e **chiusura delle industrie** dopo anni senza servizio (`industries.script.tl:119-128`).
 - **Valutazioni delle consegne** delle cittadine, sull'ultimo semestre (`town_util.tl:840`).
 - **Nuove industrie**: con il calendario in pausa ne sono comparse 3 in 1809 s di tempo di gioco, a 760 s e 728 s l'una dall'altra, allo stesso ritmo del calendario in moto (circa 730 s). Misurato con [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard); vedi [Industrie](industries.html).
 
@@ -58,7 +58,7 @@ Con il calendario in moto, il gioco mostra queste durate in anni, mesi e giorni 
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) mantiene grafici finanziari leggibili con il calendario in pausa.
 
 ```engine
-La durata del giorno, del mese e dell'anno standard (getDefaultDayDuration e gli altri) viene dal motore. Lo script delle cittadine conta un mese come 30 × 4 secondi (`towns.script.tl:121`), il che corrisponde al giorno misurato di 4 secondi; alcune altre costanti presumono ancora un giorno di 2 secondi (`cargotype.script.lua:3`, `mod.script.tl:172`).
+La durata del giorno, del mese e dell'anno standard (getDefaultDayDuration e gli altri) viene dal motore. Lo script delle cittadine conta un mese come 30 × 4 secondi (`towns.script.tl:118`), il che corrisponde al giorno misurato di 4 secondi; alcune altre costanti presumono ancora un giorno di 2 secondi (`cargotype.script.lua:3`, `mod.script.tl:173`).
 ```
 
 ```check

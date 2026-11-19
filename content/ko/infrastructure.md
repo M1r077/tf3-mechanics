@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | 간소한 선로, 표준 선로, 고속 선로
 fact: ×9 | 간소한 선로와 비교한 고속 선로의 가격과 관리비
 fact: +30 % | 선로에 전차선을 놓는 가격
@@ -23,7 +23,7 @@ fact: -65 % | 소음 장벽이 있는 도로나 선로의 소음
 | 고속 선로 | 1980 | 350 km/h | 54만 | 9만 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - **전차선**은 선로보다 **30 %** 비싸다(`mod.script.tl:24-25`). 간소한 선로에서는 1921년부터, 더 새로운 종류에서는 등장할 때부터 쓸 수 있다(`simple_catenary.street_template.lua:4`). 파일상 연간 추가 비용은 없으며, 전기 버전의 관리비는 같다(`simple_catenary.street_template.lua:34`).
-- 세 종류 모두 경사와 곡선 조건이 같다. 건설할 때 **8.5 %**(**경사** 슬라이더의 최대값), 선로 형태로는 최대 13 %, 곡선 반경은 건설할 때 55 m, 최소 40 m다(`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- 세 종류 모두 경사와 곡선 조건이 같다. 건설할 때 **8.5 %**(**경사** 슬라이더의 최대값), 선로 형태로는 최대 13 %, 곡선 반경은 건설할 때 55 m, 최소 40 m다(`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - 선로 자체의 오염은 종류에 따라 커진다. 2, 4, 6(`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ fact: -65 % | 소음 장벽이 있는 도로나 선로의 소음
 | 소음 장벽 도구 | -65 % | 변화 없음 | 변화 없음 | 도로와 선로. 터널 안은 안 됨 | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - 둘 다 파일상 100, 연간 10으로, 도로의 미터당 값과 같다(`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- 건설 메뉴의 "가로수 있음", "장벽 있음" 도로는 이 장식이 이미 붙은 같은 도로다(`town_new_medium_trees.street_template.lua:12-14`). 건설 메뉴는 그 효과를 합산한다(`construction_react_util.tl:2116-2139`).
+- 건설 메뉴의 "가로수 있음", "장벽 있음" 도로는 이 장식이 이미 붙은 같은 도로다(`town_new_medium_trees.street_template.lua:12-14`). 건설 메뉴는 그 효과를 합산한다(`construction_react_util.tl:2119-2142`).
 - 그래서 가로수가 있는 도로는 **4분의 1 느리다**. 가로수가 있는 새 중형 거리는 50 km/h 대신 약 38 km/h다.
 
 ```tip scripts

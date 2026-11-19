@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 1 | оплата за единицу груза, у потребителя, за прямую линию
 fact: 0 | оплата на складе или при пересадке
 fact: 100 % | оплата даже при опоздании

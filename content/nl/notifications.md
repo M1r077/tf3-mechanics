@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | speltijd stilstaan voordat een voertuig als vastgelopen wordt gemeld
 fact: 20 % | staat die de waarschuwing geeft, tot het voertuig weer boven 30 % zit
 fact: 11 | meldingstypes uit in een nieuw spel

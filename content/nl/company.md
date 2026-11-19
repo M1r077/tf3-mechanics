@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | bedrijfsrangen, van Junior tot Tycoon
 fact: ×12,5 | wereldbevolking nodig voor rang 15, vergeleken met de start
 fact: ×0,75 | inkomsten op rang 15 met Inflatie Gemiddeld
@@ -61,7 +61,7 @@ Met **Inflatie** dalen alle inkomsten uit vracht en passagiers gelijkmatig van �
 
 | Inflatie | Inkomsten op rang 15 | Bron |
 |---|---|---|
-| Geen | ×1 (geen verandering) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| Geen | ×1 (geen verandering) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Laag | ×0,9 | |
 | Gemiddeld | ×0,75 | |
 | Hoog | ×0,6 | |

@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 ans | sans chargement ni consommation font d'une industrie une candidate à la fermeture
 fact: 1,1 % | de chance par an à Rarement (le défaut), puis 730 jours de compte à rebours
 fact: +50–150 % | de bonus du fret booster, fixe pour chaque industrie
@@ -19,7 +19,7 @@ Chaque industrie fonctionne par **règles** : « prendre ceci dans les stocks en
 
 - Une règle donne le fret utilisé et produit par cycle, et combien de cycles par an : un cycle dure un an ÷ ce nombre, moins avec les bonus pour les règles de production (`industry_react_util.tl:51-57`). La section Production de la fenêtre de l'industrie l'affiche en petits nombres.
 - Le nombre **Max.** de la fenêtre vaut : par cycle × cycles par an × le facteur de taille (`rule.consumptionFactor`) × les bonus × le réglage **Productivité des industries**, ces deux derniers pour les règles de production seulement (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Productivité des industries** : 50 %, 75 %, 100 %, 150 % ou 200 %. Préréglages : Facile 150 %, Normale 100 %, Difficile 75 %, Très difficile 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Productivité des industries** : 50 %, 75 %, 100 %, 150 % ou 200 %. Préréglages : Facile 150 %, Normale 100 %, Difficile 75 %, Très difficile 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Exemple, Acierie : 6 minerai de fer + 6 charbon → 3 acier + 4 tôle, 121,7 cycles par an : 730 minerai de fer et 730 charbon → 365 acier et 487 tôle (`steel_mill.con.lua:43-71`). Une entrée qui manque arrête la règle.
 - La Conserverie a deux règles : poisson + tôle, ou viande + tôle (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ Le moteur exécute les règles. Il peut rallonger un cycle : l'infobulle du cycl
 
 - Chaque fret a son propre stock avec une limite : par ex. une Mine de charbon garde 100 outils et 400 charbon, une Acierie 800 minerai de fer, 800 charbon, 400 acier et 500 tôle (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Les stocks ne se dégradent jamais (`industryutil.lua:25-29`) : le fret attend aussi longtemps qu'il faut.
-- Un stock sortant plein n'arrête pas la production : le surplus est jeté (wiki officiel). Le graphique **Flux de fret** montre **Consommé**, **Produit** et **Détruit** (`industry_eow.script.tl:804-816`).
+- Un stock sortant plein n'arrête pas la production : le surplus est jeté (wiki officiel). Le graphique **Flux de fret** montre **Consommé**, **Produit** et **Détruit** (`industry_eow.script.tl:807-819`).
 - Avec le paramètre de construction **Entrée** sur Désactivé, les règles perdent leurs entrées et l'industrie n'a pas de stocks entrants (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Parcelles et extension
@@ -145,7 +145,7 @@ La vérification passe toutes les 100 mises à jour pour chaque industrie (`indu
 | Souvent | 4,4 % | environ 16 ans | – | `difficulty_util.tl:37` |
 | Très souvent | 8,8 % | environ 8 ans | Très difficile | `difficulty_util.tl:176` |
 
-La chance vaut 0,011 par an × 0, 1, 2, 4 ou 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Les industries qui t'appartiennent ne ferment jamais, ni celles en développement manuel ; tant que les fermetures sont en pause (dans le jeu de base, seulement pendant le tutoriel), aucune ne commence et un compte à rebours en cours est annulé (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+La chance vaut 0,011 par an × 0, 1, 2, 4 ou 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Les industries qui t'appartiennent ne ferment jamais, ni celles en développement manuel ; tant que les fermetures sont en pause (dans le jeu de base, seulement pendant le tutoriel), aucune ne commence et un compte à rebours en cours est annulé (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Ce qui compte comme « chargé » et « consommé » (les journaux itemsLoaded et itemsConsumed, par ex. si le fret booster compte), l'indicateur manualDevelopment, et pourquoi les industries avec un dépôt sont laissées de côté (`industries.script.tl:140-146`) relèvent du moteur. De même que ce que fait le moteur d'une règle booster qui a perdu son entrée (Entrée désactivée).
@@ -155,7 +155,7 @@ Ce qui compte comme « chargé » et « consommé » (les journaux itemsLoaded e
 
 Le moteur ajoute de nouvelles industries pendant la partie. La notification est **Nouvelle industrie fondée** : « Un entrepreneur visionnaire a flairé une opportunité de profit et a fondé {industry}. » (`industry_spawn.script.tl:34-36`) ; son libellé de type est **Industrie fondée** (`industry_spawn.res.lua:6`). Aucun script du jeu ne choisit l'endroit, le type ou le moment, et aucun ne filtre ce que le moteur propose.
 
-Ce que les scripts donnent au moteur (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`) :
+Ce que les scripts donnent au moteur (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`) :
 
 | Valeur de config | Valeur | Sens |
 |---|---|---|

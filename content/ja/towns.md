@@ -5,7 +5,8 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
+change: 40444 | 道路をアップグレードしても建物の貨物在庫は保持される（公式リリースノート）。
 fact: 0 % | 評価が 1 つでも「劣」のときの成長
 fact: ×1.5 | 次のレベルごとに必要な経験値（レベル 2 は 1,000）
 fact: ×40 | 17 レベル上がった後の規模
@@ -95,10 +96,11 @@ fact: ×40 | 17 レベル上がった後の規模
 - 町の需要はその**建物**の合計である。どの建物も、その地区が求める貨物ごとに小さな入力在庫を持つ。容量 ÷ 4 を切り上げ、町の需要におけるその貨物の係数を掛けた値（指定がなければ 1。係数の出どころはスクリプトにない）（`townbuildingutil.lua:226-251`）。各貨物は townConsumptionFactor として 1、0.5、0.25 のいずれかを定める（`placementparamsutil.lua:506-616`）。それが建物にどう届くかはエンジン側。ゲームのコードには、この在庫の大きさは「is currently nowhere shown in the UI」と書かれている（`townbuildingutil.lua:249`）。
 - 町のウィンドウの需要はこれらの在庫の上限の合計で、評価に数えられる供給は需要で頭打ちになる（`town_util.tl:95-99`、`town_util.tl:194-198`）。大きな町ほど建物が多いので、求める量も多い。
 - 建物のウィンドウには**消費率**が表示される。建物が貨物を使う速さを最大値と比べたもの（`town_building.tl:103-132`）。
+- 40444 以降、道路のアップグレードで影響を受ける建物の在庫は空にならない（公式リリースノート："Fixed cargo needs disappearing in buildings affected by upgrading streets"）。
 - 経験値と支払いは、1 単位が建物の在庫に入ったときに得られる（`town_growth.script.tl:620-642`）。
 - 停留所が届くのは集客範囲内の建物だけである。町全体ではまだ足りなくても、それらの在庫は満杯になりうる。その場合、入りきらない貨物は**車両に残る**。ただし**到着時にすべての貨物を強制的に積み下ろし**（「在庫が満タンでも貨物を積み下ろす。」）にチェックが入っていると（`cargofilter_window.tl:757-763`）、入りきらない分は破棄される（[積み込みと積み下ろしの速度](loading.html)を参照）。
 - 車内に残った貨物は通知**貨物積み下ろしの問題**を出す。「路線にある {vehicle} の貨物 {cargoCount} 個が積み下ろされませんでした。」（`cargo_rtc_warning.script.tl:28-41`、`cargo_rtc_warning.script.tl:37`）。種類のラベルは**積み下ろされていない貨物**（`cargo_rtc_warning.res.lua:6`）。
-- **町の貨物需要**（「町ごとの貨物需要の最大数を選択します。」）：2、4、6 のいずれかで、初期値は 2（`difficulty_util.tl:54`、`difficulty_util.tl:83`、`mod.script.tl:173`、`mod.script.tl:205`）。スクリプトはレベルに応じて需要を追加し（上記）、この値をエンジンに渡す。
+- **町の貨物需要**（「町ごとの貨物需要の最大数を選択します。」）：2、4、6 のいずれかで、初期値は 2（`difficulty_util.tl:54`、`difficulty_util.tl:83`、`mod.script.tl:174`、`mod.script.tl:206`）。スクリプトはレベルに応じて需要を追加し（上記）、この値をエンジンに渡す。
 
 ```engine
 建物が在庫を消費する速さ（consumeFrequency）、集客範囲内のどの建物が各単位を受け取るか、運び回される貨物がどうなるか、エンジンが「町の貨物需要」をどう使うかはエンジン側にある。
@@ -107,7 +109,7 @@ fact: ×40 | 17 レベル上がった後の規模
 ## 町の成長を止められるか？
 
 - 通常のゲームには、町の最大規模を決める**設定はない**（`difficulty_util.tl:90-199`）。
-- **サンドボックスモード**では、町のウィンドウに**対象地区の収容能力**のカードがあり、**町の開発を有効化**がある（`town_eow.script.tl:1041-1052`、`town_eow.script.tl:1170-1171`、`town_eow_editor_initial_capacity.res.lua:6`）。チェックを外すと町は経験値を得ず、規模も変わらない。ウィンドウには**町開発が無効になっています**と表示される（`town_growth.script.tl:28`、`town_growth.script.tl:345`、`town_eow.script.tl:107`）。
+- **サンドボックスモード**では、町のウィンドウに**対象地区の収容能力**のカードがあり、**町の開発を有効化**がある（`town_eow.script.tl:1044-1055`、`town_eow.script.tl:1173-1174`、`town_eow_editor_initial_capacity.res.lua:6`）。チェックを外すと町は経験値を得ず、規模も変わらない。ウィンドウには**町開発が無効になっています**と表示される（`town_growth.script.tl:28`、`town_growth.script.tl:345`、`town_eow.script.tl:107`）。
 - サンドボックスでなければ、方法は間接的なものしかない。町はあなたの旅客と貨物からしか成長せず、評価が 1 つでも「劣」なら止まる（上記）。
 
 ## 知っておくと便利なこと

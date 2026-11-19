@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: ×2 | seção de plataforma especializada
 fact: ×0,25 | seção errada ou trem longo demais
 fact: ×4 | melhor caso: plataforma e armazém especializados
@@ -88,7 +88,7 @@ Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" 
 
 | Opção de "Filtro de Cargas" | O que faz | Fonte |
 |---|---|---|
-| "Forçar descarregamento de todas as cargas na chegada" | dica: "Descarregar a carga mesmo se os estoques estiverem cheios"; a carga que não cabe é destruída: o jogo indica a estação como destino, e uma estação nunca consome carga (medido no jogo). Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forçar descarregamento de todas as cargas na chegada" | dica: "Descarregar a carga mesmo se os estoques estiverem cheios"; a carga que não cabe é destruída: o jogo indica a estação como destino, e uma estação nunca consome carga (medido no jogo). Desligada numa parada nova. | `cargofilter_window.tl:757`, `line_util.tl:477` |
 | "Destruir cargas na chegada quando a configuração mudar" | descarrega ou destrói a carga a bordo quando há carga esperando nesta parada para outra configuração de carregamento do veículo; qual das duas coisas acontece é o motor que decide | `cargofilter_window.tl:767` |
 | "Substituir com carga mais nova, se disponível" | destrói a carga que voltou à parada onde foi carregada, quando há carga mais nova do mesmo tipo esperando | `cargofilter_window.tl:778` |
 
@@ -96,10 +96,10 @@ Cada parada de uma linha tem uma lista **Volume**, na janela "Filtro de Cargas" 
 
 ## Várias cargas na mesma linha
 
-- A lista Volume de uma parada é um sim/não por tipo de carga, **sem ordem**: o jogador não pode definir qual carga é carregada primeiro. Os ícones são apenas desenhados na ordem de cargas do jogo (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- A lista Volume de uma parada é um sim/não por tipo de carga, **sem ordem**: o jogador não pode definir qual carga é carregada primeiro. Os ícones são apenas desenhados na ordem de cargas do jogo (`line_util.tl:472-476`, `line_util.tl:512`, `cargofilter_window.tl:533-535`).
 - Um vagão ou caminhão que leva várias cargas tem, por compartimento, várias **configurações de carga**; a capacidade do compartimento é a maior delas, não a soma (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Por isso ele leva uma delas de cada vez.
 - Veículos novos têm a escolha automática de configuração ligada em todos os compartimentos (`vehicle_react_util.tl:339`), e o jogo não tem janela para escolher à mão a carga de um veículo.
-- Passageiros e carga podem dividir uma linha: os scripts nunca recusam carga numa parada por ela também receber passageiros (`line_util.tl:1381-1386`). A carga só é retirada de uma parada cujo terminal não pode carregar nem descarregar carga (`line_util.tl:554-559`).
+- Passageiros e carga podem dividir uma linha: os scripts nunca recusam carga numa parada por ela também receber passageiros (`line_util.tl:1383-1388`). A carga só é retirada de uma parada cujo terminal não pode carregar nem descarregar carga (`line_util.tl:556-561`).
 - Com várias cargas, **Carga Completa (Qualquer)** e **Carga Completa (Tudo)** se comportam de forma diferente: veja [Configurações de partida: carga completa, Nível de Preenchimento e tempos de parada](departure.html).
 - Quando a configuração não serve, a linha mostra **Algumas configurações de tipos de carga desta linha estão em conflito**, por exemplo "Nenhum veículo na linha pode transportar parte da carga configurada para transporte." (`line_warning.script.tl:10-36`).
 
@@ -109,12 +109,12 @@ A ordem em que várias cargas são carregadas, como um estoque compartilhado é 
 
 ## A configuração automática
 
-Enquanto ninguém salvar uma mudança na janela "Filtro de Cargas" de uma parada, o que a desliga de vez nessa linha (`line_util.tl:495-498`, `cargofilter_window.tl:438`), o próprio jogo preenche as listas Volume cada vez que a linha é criada, uma parada é adicionada ou removida, as paradas são reordenadas ou um ponto de passagem é adicionado (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Mover uma parada para outra estação ou plataforma, e remover ou mover um ponto de passagem, não a executam (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
+Enquanto ninguém salvar uma mudança na janela "Filtro de Cargas" de uma parada, o que a desliga de vez nessa linha (`line_util.tl:497-500`, `cargofilter_window.tl:438`), o próprio jogo preenche as listas Volume cada vez que a linha é criada, uma parada é adicionada ou removida, as paradas são reordenadas ou um ponto de passagem é adicionado (`manager_window.tl:6938`, `:6786`, `:6845`, `:6879`, `:6963`). Mover uma parada para outra estação ou plataforma, e remover ou mover um ponto de passagem, não a executam (`manager_window.tl:7077-7094`, `manager_window.tl:7194-7218`).
 
-- Ela recomeça de listas vazias, com passageiros nas estações de passageiros (`line_util.tl:542-588`).
+- Ela recomeça de listas vazias, com passageiros nas estações de passageiros (`line_util.tl:544-590`).
 - Ela procura produtores e consumidores só entre indústrias e prédios da cidade: armazéns não contam (`cargo_util.tl:518-526`).
-- Ela coloca uma carga na lista Volume de uma parada quando a carga é necessária mais adiante e nada na parada a aceita. Um armazém conta como se aceitasse tudo o que armazena (`line_util.tl:676-693`): numa parada ao lado de um armazém que guarda essa carga, a carga fica fora da lista e o trem a descarrega ali.
-- Assim que um filtro é mudado à mão, a linha fica marcada como personalizada (`cargofilter_window.tl:438`) e a configuração automática nunca mais mexe nela, nem quando paradas são adicionadas depois (`line_util.tl:496`).
+- Ela coloca uma carga na lista Volume de uma parada quando a carga é necessária mais adiante e nada na parada a aceita. Um armazém conta como se aceitasse tudo o que armazena (`line_util.tl:678-695`): numa parada ao lado de um armazém que guarda essa carga, a carga fica fora da lista e o trem a descarrega ali.
+- Assim que um filtro é mudado à mão, a linha fica marcada como personalizada (`cargofilter_window.tl:438`) e a configuração automática nunca mais mexe nela, nem quando paradas são adicionadas depois (`line_util.tl:498`).
 
 ```engine
 Os scripts só escrevem as listas Volume; a descarga em si é feita pelo motor. A regra acima (o que não está na lista é descarregado em qualquer estoque que o aceite) foi observada no jogo com [Platform Details](https://mod.io/g/transportfever3/m/platform-details), novembro de 2026.

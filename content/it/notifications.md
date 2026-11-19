@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | di tempo di gioco da fermo prima che un veicolo venga segnalato bloccato
 fact: 20 % | di condizione che fa scattare l'avviso, finché il veicolo non torna sopra il 30 %
 fact: 11 | tipi di notifica disattivati in una nuova partita

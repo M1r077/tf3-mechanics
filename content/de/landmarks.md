@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | Wahrzeichen: 9 im Basisspiel (Ränge 2 bis 15), 3 weitere mit den DLC-Paketen (Rang 1)
 fact: +20 % / +25 % / -20 % / -25 % | Höchstgeschwindigkeit, Verschmutzung oder Komfort für die Fahrzeuge seiner Stadt
 fact: ×0 bis ×4 | benötigte Fracht, mit der Einstellung Benötigte Ressourcen für Wahrzeichen

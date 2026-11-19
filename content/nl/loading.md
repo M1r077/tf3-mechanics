@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: ×2 | gespecialiseerde perronsectie
 fact: ×0,25 | verkeerde sectie of trein te lang
 fact: ×4 | in het beste geval: gespecialiseerd perron en opslagplaats
@@ -88,7 +88,7 @@ Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter
 
 | Optie in "Vrachtfilter" | Wat het doet | Bron |
 |---|---|---|
-| "Alle vracht bij aankomst verplicht lossen" | tooltip: "Vracht lossen, ook als de voorraden vol zijn"; de vracht die niet past, wordt vernietigd: het spel geeft het station als bestemming, en een station verbruikt nooit vracht (gemeten in het spel). Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Alle vracht bij aankomst verplicht lossen" | tooltip: "Vracht lossen, ook als de voorraden vol zijn"; de vracht die niet past, wordt vernietigd: het spel geeft het station als bestemming, en een station verbruikt nooit vracht (gemeten in het spel). Uit bij een nieuwe halte. | `cargofilter_window.tl:757`, `line_util.tl:477` |
 | "Vracht bij aankomst vernietigen na wijziging configuratie" | lost of vernietigt de vracht aan boord als er bij deze halte vracht wacht voor een andere laadconfiguratie van het voertuig; welke van de twee bepaalt de engine | `cargofilter_window.tl:767` |
 | "Vervangen door nieuwere vracht indien beschikbaar" | vernietigt vracht die terug is bij de halte waar hij geladen werd, als er nieuwere vracht van hetzelfde type wacht | `cargofilter_window.tl:778` |
 
@@ -96,10 +96,10 @@ Elke halte van een lijn heeft een lijst **Lading**, in het venster "Vrachtfilter
 
 ## Meerdere soorten vracht op één lijn
 
-- De lijst **Lading** van een halte is een ja/nee per vrachttype, **zonder volgorde**: de speler kan niet instellen welke vracht als eerste geladen wordt. De pictogrammen worden gewoon in de vrachtvolgorde van het spel getekend (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- De lijst **Lading** van een halte is een ja/nee per vrachttype, **zonder volgorde**: de speler kan niet instellen welke vracht als eerste geladen wordt. De pictogrammen worden gewoon in de vrachtvolgorde van het spel getekend (`line_util.tl:472-476`, `line_util.tl:512`, `cargofilter_window.tl:533-535`).
 - Een wagon of vrachtwagen die meerdere soorten vracht aanneemt, heeft per compartiment meerdere **laadconfiguraties**; de capaciteit van het compartiment is de grootste daarvan, niet hun som (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Hij vervoert er dus één tegelijk.
 - Bij nieuwe voertuigen staat de automatische keuze van de configuratie aan voor elk compartiment (`vehicle_react_util.tl:339`), en het spel heeft geen venster om de vracht van een voertuig met de hand te kiezen.
-- Passagiers en vracht kunnen een lijn delen: de scripts weigeren nooit vracht bij een halte omdat die ook passagiers aanneemt (`line_util.tl:1381-1386`). Vracht wordt alleen geschrapt bij een halte waarvan de terminal geen vracht kan laden of lossen (`line_util.tl:554-559`).
+- Passagiers en vracht kunnen een lijn delen: de scripts weigeren nooit vracht bij een halte omdat die ook passagiers aanneemt (`line_util.tl:1383-1388`). Vracht wordt alleen geschrapt bij een halte waarvan de terminal geen vracht kan laden of lossen (`line_util.tl:556-561`).
 - Met meerdere soorten vracht gedragen **Volledige belading (willekeurig)** en **Volledige belading (alle)** zich verschillend: zie [Vertrekinstellingen: volledige belading, Vulniveau en stoptijden](departure.html).
 - Als de configuratie niet past, toont de lijn **Sommige ladingstypeconfiguraties van deze lijn conflicteren**, bijvoorbeeld "Een deel van de vracht die zal worden geladen, is niet geschikt voor de voertuigen op de lijn." (`line_warning.script.tl:10-36`).
 
@@ -109,12 +109,12 @@ In welke volgorde meerdere soorten vracht geladen worden, hoe een gedeelde voorr
 
 ## De automatische configuratie
 
-Zolang niemand een wijziging heeft opgeslagen in het venster "Vrachtfilter" van een halte, wat haar op die lijn voorgoed uitschakelt (`line_util.tl:495-498`, `cargofilter_window.tl:438`), vult het spel de lijsten Lading zelf telkens als de lijn wordt aangemaakt, een halte wordt toegevoegd of verwijderd, de haltes worden herschikt of een waypoint wordt toegevoegd (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Een halte naar een ander station of perron verplaatsen, en een waypoint verwijderen of verplaatsen, start haar niet (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
+Zolang niemand een wijziging heeft opgeslagen in het venster "Vrachtfilter" van een halte, wat haar op die lijn voorgoed uitschakelt (`line_util.tl:497-500`, `cargofilter_window.tl:438`), vult het spel de lijsten Lading zelf telkens als de lijn wordt aangemaakt, een halte wordt toegevoegd of verwijderd, de haltes worden herschikt of een waypoint wordt toegevoegd (`manager_window.tl:6938`, `:6786`, `:6845`, `:6879`, `:6963`). Een halte naar een ander station of perron verplaatsen, en een waypoint verwijderen of verplaatsen, start haar niet (`manager_window.tl:7077-7094`, `manager_window.tl:7194-7218`).
 
-- Ze begint opnieuw met lege lijsten, met passagiers bij passagiersstations (`line_util.tl:542-588`).
+- Ze begint opnieuw met lege lijsten, met passagiers bij passagiersstations (`line_util.tl:544-590`).
 - Ze zoekt producenten en afnemers alleen onder industriebedrijven en stadsgebouwen: opslagplaatsen tellen niet mee (`cargo_util.tl:518-526`).
-- Ze zet een vracht op de lijst Lading van een halte als die verderop nodig is en niets bij de halte hem aanneemt. Een opslagplaats telt alsof hij alles aanneemt wat hij opslaat (`line_util.tl:676-693`): bij een halte naast een opslagplaats die die vracht opslaat, blijft de vracht van de lijst en lost de trein hem daar.
-- Zodra een filter met de hand is gewijzigd, is de lijn gemarkeerd als aangepast (`cargofilter_window.tl:438`) en raakt de automatische configuratie haar nooit meer aan, ook niet als er later haltes bijkomen (`line_util.tl:496`).
+- Ze zet een vracht op de lijst Lading van een halte als die verderop nodig is en niets bij de halte hem aanneemt. Een opslagplaats telt alsof hij alles aanneemt wat hij opslaat (`line_util.tl:678-695`): bij een halte naast een opslagplaats die die vracht opslaat, blijft de vracht van de lijst en lost de trein hem daar.
+- Zodra een filter met de hand is gewijzigd, is de lijn gemarkeerd als aangepast (`cargofilter_window.tl:438`) en raakt de automatische configuratie haar nooit meer aan, ook niet als er later haltes bijkomen (`line_util.tl:498`).
 
 ```engine
 De scripts schrijven alleen de lijsten Lading; het lossen zelf doet de engine. De regel hierboven (wat niet op de lijst staat, wordt gelost in elke voorraad die het aanneemt) is in het spel waargenomen met [Platform Details](https://mod.io/g/transportfever3/m/platform-details), november 2026.

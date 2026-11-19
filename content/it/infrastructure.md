@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | binario semplice, standard e ad alta velocità
 fact: ×9 | prezzo e manutenzione del binario ad alta velocità rispetto a quello semplice
 fact: +30% | prezzo della catenaria su un binario
@@ -23,7 +23,7 @@ Ogni tipo di strada e di binario ha una velocità massima, un prezzo al metro e 
 | Binari ad alta velocità | 1980 | 350 km/h | 540.000 | 90.000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - La **catenaria** costa il **30%** in più del binario (`mod.script.tl:24-25`). È disponibile dal 1921 sul binario semplice e dall'inizio di ogni tipo più recente (`simple_catenary.street_template.lua:4`). Nei file non costa nulla in più all'anno: la variante elettrica ha la stessa manutenzione (`simple_catenary.street_template.lua:34`).
-- I tre tipi permettono la stessa pendenza e le stesse curve: **8,5%** quando costruisci (il cursore Inclina arriva fin lì), al massimo 13% per la forma del binario, e un raggio di curva di 55 m quando costruisci, almeno 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- I tre tipi permettono la stessa pendenza e le stesse curve: **8,5%** quando costruisci (il cursore Inclina arriva fin lì), al massimo 13% per la forma del binario, e un raggio di curva di 55 m quando costruisci, almeno 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - L'inquinamento del binario stesso cresce con il tipo: 2, 4 e 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ Il binario ad alta velocità costa 9 volte quello semplice, in costruzione e ogn
 | Strumento barriera antirumore | -65% | nessun cambiamento | nessun cambiamento | strade e binari, non in galleria | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Entrambi costano 100 e 10 all'anno nei loro file, come una strada al metro (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- I tipi di strada «con alberi» e «con barriere» del menu di costruzione sono le stesse strade con queste decorazioni già applicate (`town_new_medium_trees.street_template.lua:12-14`). Il menu di costruzione somma i loro effetti (`construction_react_util.tl:2116-2139`).
+- I tipi di strada «con alberi» e «con barriere» del menu di costruzione sono le stesse strade con queste decorazioni già applicate (`town_new_medium_trees.street_template.lua:12-14`). Il menu di costruzione somma i loro effetti (`construction_react_util.tl:2119-2142`).
 - Quindi una strada con alberi è **più lenta di un quarto**: una strada media nuova con alberi permette circa 38 km/h invece di 50.
 
 ```tip scripts

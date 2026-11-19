@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | trabalhadores necessários para o reforço
 fact: 2 anos | tempo durante o qual uma chegada conta
 fact: ×1,5–2,5 | fator de reforço, fixo para cada indústria
@@ -28,7 +28,7 @@ Como um morador escolhe um emprego entre todos os lugares que consegue alcançar
 
 ## Trabalhadores atribuídos
 
-São os moradores cujo emprego é esta indústria. É a barra de locais de trabalho da janela da indústria e a coluna **Locais de Trabalho** das estatísticas de indústrias ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Estar atribuído **não** basta para o reforço: o trabalhador precisa de fato fazer a viagem.
+São os moradores cujo emprego é esta indústria. É a barra de locais de trabalho da janela da indústria e a coluna **Locais de Trabalho** das estatísticas de indústrias ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Estar atribuído **não** basta para o reforço: o trabalhador precisa de fato fazer a viagem.
 
 ## Trabalhadores contados para o reforço
 
@@ -75,7 +75,7 @@ Uma mina de carvão com 20 locais de trabalho e "+84 %".
 - **Baldeações contam.** O script só olha o modo da viagem, não quantas linhas foram usadas (`industry_workers.script.tl:91`). Um trabalhador de um município a quatro linhas de distância conta igual a um vizinho, mas pode demorar muito mais para chegar.
 - **Qualquer uma das suas linhas pode trazê-los**, também uma linha que leva carga, desde que os veículos levem passageiros e a parada carregue passageiros. O script não verifica o tipo de veículo (`industry_workers.script.tl:86-118`). Jogadores relatam menos problemas com linhas de passageiros separadas.
 - Algumas indústrias (por exemplo plataformas de petróleo) têm uma parada própria embutida, que aceita passageiros e carga (`industryutil.lua:156-165`).
-- A janela da indústria mostra, para cada trabalhador atribuído, se está **Aqui** ou **A caminho** (`entity_window_util.tl:1371-1384`). A seção Reforço lista os trabalhadores contados com o **Tempo Restante** dos 2 anos (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- A janela da indústria mostra, para cada trabalhador atribuído, se está **Aqui** ou **A caminho** (`entity_window_util.tl:1371-1384`). A seção Reforço lista os trabalhadores contados com o **Tempo Restante** dos 2 anos (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - Quando nenhuma chegada é contada (nenhuma nos últimos 2 anos), a lista de trabalhadores da seção de reforço mostra: "Conecte este local ao transporte público para que os habitantes possam trabalhar aqui." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | Jahresfaktor auf den Unterhalt von Lagern, Häfen und Flughäfen bis 2020
 fact: 6 Jahre | Betriebskosten: der Preis eines Fahrzeugs
 fact: einmal | wird der Zinssatz eines Darlehens auf den Betrag angewandt, nicht jedes Jahr
@@ -24,16 +24,16 @@ Die Einstellung **Inflation** erhöht keine Kosten: Sie senkt nur deine Einnahme
 | **Fahrzeugkosten**, **Fahrzeugwartung** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Infrastrukturkosten**, **Unterhalt der Infrastruktur** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Fahrzeugwartungseffekt** | Keine ×0 · Niedrig ×0,5 · Mittel ×1 · Hoch ×1,5 · Sehr hoch ×2 | Niedrig · Mittel · Hoch · Sehr hoch | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflation** | nur Einnahmen, siehe [Fracht-Einnahmen](income.html) | Niedrig · Normal · Hoch · Sehr hoch | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflation** | nur Einnahmen, siehe [Fracht-Einnahmen](income.html) | Niedrig · Normal · Hoch · Sehr hoch | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Infrastrukturkosten** skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Sie skaliert auch die Abrisskosten von Gebäuden (`construction.script.tl:39-44`). **Unterhalt der Infrastruktur** skaliert beim Laden den Unterhalt von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen und Modulen (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Bei Gebäuden wenden die Skripte ihn nur im Gebäudefenster an (`entity_window_util.tl:186`); was abgebucht wird, entscheidet die Engine.
+- **Infrastrukturkosten** skaliert den Preis von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen, Gebäuden und Modulen sowie Geländearbeiten (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). Sie skaliert auch die Abrisskosten von Gebäuden (`construction.script.tl:39-44`). **Unterhalt der Infrastruktur** skaliert beim Laden den Unterhalt von Straßen, Gleisen, Brücken, Tunneln, Bahnübergängen und Modulen (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Bei Gebäuden wenden die Skripte ihn nur im Gebäudefenster an (`entity_window_util.tl:186`); was abgebucht wird, entscheidet die Engine.
 - **Fahrzeugkosten** und **Fahrzeugwartung** skalieren Kaufpreis und Betriebskosten jedes Fahrzeugs (`post_run_util.tl:54-81`).
-- **Fahrzeugwartungseffekt** legt fest, wie stark ein Fahrzeug in schlechtem Zustand Geschwindigkeit, Leistung und Komfort verliert und Lärm, Verschmutzung und Betriebskosten gewinnt (`mod.script.tl:241-245`).
+- **Fahrzeugwartungseffekt** legt fest, wie stark ein Fahrzeug in schlechtem Zustand Geschwindigkeit, Leistung und Komfort verliert und Lärm, Verschmutzung und Betriebskosten gewinnt (`mod.script.tl:242-246`).
 
 ## Was mit dem Kalenderjahr steigt
 
-- **Gebäudeunterhalt**: ×1 im Jahr 1900, ×1,5 1920, ×2,2 1940, ×3,2 1960, ×4 1980, ×5 2000, ×6 2020 (`mod.script.tl:92-100`). Das Gebäudefenster und das Baumenü wenden ihn auf jedes Gebäude an, das dem Jahr folgen soll, und das Baumenü markiert jede Meta-Konstruktion (im Basisspiel: Lager, Flugfelder, Flughäfen und Häfen) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- **Module** eines solchen Gebäudes kosten den Preis des Baujahrs des Gebäudes, ihr Unterhalt den des aktuellen Jahres (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Gebäudeunterhalt**: ×1 im Jahr 1900, ×1,5 1920, ×2,2 1940, ×3,2 1960, ×4 1980, ×5 2000, ×6 2020 (`mod.script.tl:92-100`). Das Gebäudefenster und das Baumenü wenden ihn auf jedes Gebäude an, das dem Jahr folgen soll, und das Baumenü markiert jede Meta-Konstruktion (im Basisspiel: Lager, Flugfelder, Flughäfen und Häfen) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Module** eines solchen Gebäudes kosten den Preis des Baujahrs des Gebäudes, ihr Unterhalt den des aktuellen Jahres (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Epochenvarianten**: Depots, Wartungsstationen, Lager, Bahnhöfe, Häfen und Flughäfen haben eine Variante pro Epoche, und jede spätere Variante kostet **×3** (Epoche B) oder **×9** (Epoche C) der ersten (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Geld aus Subventionen**: ×1 im Jahr 1900 bis ×4 ab 2000 (`finances_util.tl:87-90`). **Darlehensbeträge**: ×0,4 im Jahr 1900 bis ×2,4 im Jahr 2020 (`loan_util.tl:7-10`).
 - **Einnahmen** haben gar keinen Jahresfaktor (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ Der tatsächlich abgebuchte Unterhalt, und ob Straßen, Gleise und Fahrzeuge ebe
 
 ## Gleise, Straßen und Gebäude
 
-Straßen- und Gleisdateien geben Preis und jährlichen Unterhalt pro Meter an; das Baumenü zeigt sie pro Kilometer (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). Bei den meisten Typen beträgt der Unterhalt **ein Sechstel** des Baupreises:
+Straßen- und Gleisdateien geben Preis und jährlichen Unterhalt pro Meter an; das Baumenü zeigt sie pro Kilometer (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). Bei den meisten Typen beträgt der Unterhalt **ein Sechstel** des Baupreises:
 
 | Typ | Verfügbar ab | Bau pro km | Unterhalt pro km und Jahr | Quelle |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ Straßen- und Gleisdateien geben Preis und jährlichen Unterhalt pro Meter an; d
 | Große neue Stadtstraße | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Eine Oberleitung kostet zusätzlich **30 %** des Gleispreises; eine Busspur 10 %, ein Straßenbahngleis 20 %, ein elektrisches Straßenbahngleis 40 % des Straßenpreises (`mod.script.tl:24-28`).
-- Gelände anheben kostet 4,5 pro m³, absenken 5,25 pro m³, beides × Infrastrukturkosten; ein Feld entfernen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Gelände anheben kostet 4,5 pro m³, absenken 5,25 pro m³, beides × Infrastrukturkosten; ein Feld entfernen 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - Ein Gebäude ohne eigenen Unterhalt zahlt **ein Sechstel seines Preises** pro Jahr, berechnet aus dem Preis vor der Einstellung Infrastrukturkosten (`construction.script.tl:25-27`).
 - Die Grundkonfiguration setzt einen Rückerstattungsfaktor beim Abriss von 0,75 und eine Frist von 60 (`mod.script.tl:30-31`): Was du gerade gebaut hast, bringt beim Abriss den Großteil des Geldes zurück. Die Engine wendet das an.
 

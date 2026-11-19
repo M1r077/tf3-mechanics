@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3.8 | すべての貨物に共通の収入係数
 fact: +8 × 上昇量 | 上った高さ（m）を距離に加算
 fact: 100 % | 遅延しても全額支払われる
@@ -21,7 +21,7 @@ fact: 100 % | 遅延しても全額支払われる
 計算式全体は 1 つの短いゲームスクリプトである（`cargo_income.script.lua:10-13`）。
 
 1. 貨物の**収入係数**。基本ゲームのすべての貨物は同じ関数と同じ価格（`initialPrice = 4`、`finalPrice = 3.2`）を使うため、**36 種類すべての貨物で 3.8** になる（`cargotype.script.lua:7-13`、`coal.cargo.lua:21-22`）。同じ距離なら、石炭は商品とまったく同じ額を稼ぐ。
-2. **貨物収入** 設定：50 %、75 %、100 %、125 %、150 %（`difficulty_util.tl:38`、`mod.script.tl:211`）。4 つの難易度プリセットはすべて 100 % を使う（`difficulty_util.tl:97`、`difficulty_util.tl:124`、`difficulty_util.tl:152`、`difficulty_util.tl:179`）。
+2. **貨物収入** 設定：50 %、75 %、100 %、125 %、150 %（`difficulty_util.tl:38`、`mod.script.tl:212`）。4 つの難易度プリセットはすべて 100 % を使う（`difficulty_util.tl:97`、`difficulty_util.tl:124`、`difficulty_util.tl:152`、`difficulty_util.tl:179`）。
 3. **距離**。下記を参照。
 
 この関数は移動時間を受け取るが、**使用しない**（`cargotype.script.lua:7-13`）。遅い配送も遅延した配送も同じ額が支払われる。
@@ -61,8 +61,8 @@ fact: 100 % | 遅延しても全額支払われる
 
 | 要素 | 効果 | ソース |
 |---|---|---|
-| **会社ランク**とインフレ設定 | ランク 1：×1、ランク 15 まで均等に低下：×0.9（低い）、**×0.75（普通）**、×0.6（高い）、×0.5（とても高い）。なし：常に ×1 | `company_progression_util.tl:25-40`、`difficulty_util.tl:50`、`mod.script.tl:694-697` |
-| **達成した助成金** | 契約の産業または町への配送で ×2（契約のために配送した路線のみ） | `deliver_cargo.script.tl:463-469`、`deliver_cargo_town.script.tl:554-565` |
+| **会社ランク**とインフレ設定 | ランク 1：×1、ランク 15 まで均等に低下：×0.9（低い）、**×0.75（普通）**、×0.6（高い）、×0.5（とても高い）。なし：常に ×1 | `company_progression_util.tl:25-40`、`difficulty_util.tl:50`、`mod.script.tl:695-698` |
+| **達成した助成金** | 契約の産業または町への配送で ×2（契約のために配送した路線のみ） | `deliver_cargo.script.tl:456-462`、`deliver_cargo_town.script.tl:547-558` |
 | **遅延した配送** | 収入には影響なし | `cargotype.script.lua:7-13` |
 
 - ランクの倍率は**すべての**貨物と旅客の支払いに適用される（`company_growth.script.tl:159-170`）。難易度プリセットのインフレは、低い（イージー）、普通（ノーマル）、高い（ハード）、とても高い（ベリーハード）である（`difficulty_util.tl:108`、`difficulty_util.tl:136`、`difficulty_util.tl:163`、`difficulty_util.tl:190`）。
@@ -70,7 +70,7 @@ fact: 100 % | 遅延しても全額支払われる
 
 ## 旅客
 
-旅客は同じ距離と約 3.61 の固定収入係数を使い（`cargotype.script.lua:50-53`）、それに **0.5 + 車両の運賃係数** が掛けられる（`cargo_income.script.lua:14-17`）。車両モデルが快適性係数を設定していない場合、ゲームは運賃係数をバスと路面電車で 0.3、航空機で 0.9、船舶で 0.1、列車で 0.5 に設定する（`base_mod.lua:46-61`）。それ以外のモデルではエンジン側の値であり、スクリプトからは見えない。旅客の助成金が 2 倍にするのは、2 つの町の間を移動する旅客だけで、その 1 路線のみ（`deliver_passengers.script.tl:292-296`）。
+旅客は同じ距離と約 3.61 の固定収入係数を使い（`cargotype.script.lua:50-53`）、それに **0.5 + 車両の運賃係数** が掛けられる（`cargo_income.script.lua:14-17`）。車両モデルが快適性係数を設定していない場合、ゲームは運賃係数をバスと路面電車で 0.3、航空機で 0.9、船舶で 0.1、列車で 0.5 に設定する（`base_mod.lua:46-61`）。それ以外のモデルではエンジン側の値であり、スクリプトからは見えない。旅客の助成金が 2 倍にするのは、2 つの町の間を移動する旅客だけで、その 1 路線、つまり契約を達成した路線のみ（`deliver_passengers.script.tl:288-293`）。
 
 ## 配送の制限時間
 
@@ -80,7 +80,7 @@ fact: 100 % | 遅延しても全額支払われる
 ```
 
 - **財務 › 配達時間** には、あなたのマップでの各貨物の制限時間が表示される。貨物駅満足度レイヤーは経路を緑から赤に色分けする。
-- 制限時間を過ぎて到着した配送は**遅延**として数えられる（`towns.script.tl:425`）。
+- 制限時間を過ぎて到着した配送は**遅延**として数えられる（`towns.script.tl:422`）。
 - 専門倉庫モジュールは、保管している貨物のタイマーを**止める**（公式wiki、倉庫）。
 
 ```engine

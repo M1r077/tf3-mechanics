@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | достижений открывает сам игровой скрипт
 fact: 500 м | высота первого вагона поезда на остановке для «Остановка у вершины»
 fact: < 1 % | репутация города для «А я тут причем?»
@@ -21,10 +21,10 @@ fact: 10 | достопримечательностей с одним и тем 
 | **Доставлено** | одна единица груза достигает места назначения | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **По поручению** | выполнена одна субсидия | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Поток субсидий** | 10 субсидий выполнено без проваленных между ними; проваленная субсидия сбрасывает счёт до 0 | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Услужливый** | оценка поставок города меняется на **Прекрасное** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Услужливый** | оценка поставок города меняется на **Прекрасное** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Городское развитие** | город поднимается на уровень | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Рост спроса** | у города появляется спрос на новый тип груза | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **А я тут причем?** | Репутация города **падает** ниже **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **А я тут причем?** | Репутация города **падает** ниже **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Повышение** | компания получает ранг | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Карьерная лестница** | компания достигает высшего ранга | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Ландшафтный дизайнер** | вы ставите деревья, и только деревья, за одну постройку (ничего не удалено, не через лесовосстановление) | `achievements.script.tl:346-377` |

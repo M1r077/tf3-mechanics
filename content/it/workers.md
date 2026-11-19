@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | lavoratori necessari per il booster
 fact: 2 anni | per quanto tempo conta un arrivo
 fact: ×1,5–2,5 | fattore del booster, fisso per ogni industria
@@ -28,7 +28,7 @@ Il modo in cui un residente sceglie un lavoro tra tutti i luoghi che può raggiu
 
 ## Lavoratori assegnati
 
-Sono i residenti il cui lavoro è questa industria. È la barra dei luoghi di lavoro nella finestra dell'industria e la colonna **Luoghi di lavoro** delle statistiche delle industrie ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Essere assegnati da soli **non** attiva nulla: i lavoratori devono davvero compiere il viaggio.
+Sono i residenti il cui lavoro è questa industria. È la barra dei luoghi di lavoro nella finestra dell'industria e la colonna **Luoghi di lavoro** delle statistiche delle industrie ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Essere assegnati da soli **non** attiva nulla: i lavoratori devono davvero compiere il viaggio.
 
 ## Lavoratori contati per il booster
 
@@ -75,7 +75,7 @@ Una miniera di carbone con 20 luoghi di lavoro e "+84%".
 - **I cambi contano.** Lo script guarda solo il modo del viaggio, non quante linee sono state usate (`industry_workers.script.tl:91`). Un lavoratore da una città a quattro linee di distanza conta come uno della porta accanto, ma può metterci molto di più ad arrivare.
 - **Qualsiasi tua linea può portarli**, anche una linea che trasporta merci, purché i suoi veicoli prendano passeggeri e la fermata carichi passeggeri. Lo script non controlla il tipo di veicolo (`industry_workers.script.tl:86-118`). I giocatori segnalano meno problemi con linee passeggeri separate.
 - Alcune industrie (per esempio le piattaforme petrolifere) hanno una fermata integrata, che prende passeggeri e merci (`industryutil.lua:156-165`).
-- La finestra dell'industria mostra, per ogni lavoratore assegnato, se è **In posizione** o **In viaggio** (`entity_window_util.tl:1371-1384`). La sezione Booster elenca i lavoratori contati con il loro **Tempo rimanente** sui 2 anni (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- La finestra dell'industria mostra, per ogni lavoratore assegnato, se è **In posizione** o **In viaggio** (`entity_window_util.tl:1371-1384`). La sezione Booster elenca i lavoratori contati con il loro **Tempo rimanente** sui 2 anni (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - Quando nessun arrivo è conteggiato (nessuno negli ultimi 2 anni), l'elenco dei lavoratori della sezione Booster mostra: "Collega questo luogo al trasporto pubblico per consentire ai residenti di lavorare qui." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

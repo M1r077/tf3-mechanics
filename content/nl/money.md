@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 1 | betaling per eenheid, bij de afnemer, voor de rechte lijn
 fact: 0 | betaald bij een opslagplaats of een overstap
 fact: 100 % | betaald, ook als het te laat is

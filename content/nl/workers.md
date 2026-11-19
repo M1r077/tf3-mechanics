@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | werknemers nodig voor de boost
 fact: 2 jaar | zo lang telt een aankomst mee
 fact: ×1,5–2,5 | boostfactor, vast per industriebedrijf
@@ -28,7 +28,7 @@ Hoe een inwoner één baan kiest uit alle plekken die hij kan bereiken (reistijd
 
 ## Toegewezen werknemers
 
-De inwoners van wie dit industriebedrijf de baan is. Dit is de werkplekkenbalk in het industrievenster en de kolom **Werkplekken** in de industriestatistieken ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Toegewezen werknemers alleen leveren **geen** boost op: ze moeten er echt naartoe reizen.
+De inwoners van wie dit industriebedrijf de baan is. Dit is de werkplekkenbalk in het industrievenster en de kolom **Werkplekken** in de industriestatistieken ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Toegewezen werknemers alleen leveren **geen** boost op: ze moeten er echt naartoe reizen.
 
 ## Werknemers die meetellen voor de boost
 
@@ -75,7 +75,7 @@ Een steenkolenmijn met 20 werkplekken en "+84 %".
 - **Overstappen telt.** Het script kijkt alleen naar de wijze van de reis, niet naar hoeveel lijnen gebruikt zijn (`industry_workers.script.tl:91`). Een werknemer uit een stad vier lijnen verderop telt net zo als een van naast de deur, maar kan veel langer over de reis doen.
 - **Elk van jouw lijnen kan ze brengen**, ook een lijn die vracht vervoert, zolang de voertuigen passagiers meenemen en de halte passagiers laadt. Het script controleert het voertuigtype niet (`industry_workers.script.tl:86-118`). Spelers melden minder problemen met aparte passagierslijnen.
 - Sommige bedrijven (bijvoorbeeld olieplatforms) hebben een eigen ingebouwde halte, die passagiers en vracht neemt (`industryutil.lua:156-165`).
-- Het industrievenster toont voor elke toegewezen werknemer of hij **Momenteel hier** of **Onderweg** is (`entity_window_util.tl:1371-1384`). Het onderdeel Booster toont de getelde werknemers met hun **Resterende tijd** van de 2 jaar (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- Het industrievenster toont voor elke toegewezen werknemer of hij **Momenteel hier** of **Onderweg** is (`entity_window_util.tl:1371-1384`). Het onderdeel Booster toont de getelde werknemers met hun **Resterende tijd** van de 2 jaar (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - Als er geen aankomst geteld wordt (geen in de laatste 2 jaar), toont de werknemerslijst van het Booster-onderdeel: "Sluit deze locatie aan op het openbaar vervoer, zodat de inwoners er kunnen gaan werken." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

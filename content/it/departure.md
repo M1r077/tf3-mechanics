@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 600 s | Tempo arresto massimo predefinito di una nuova fermata
 fact: 30 s / 60 s | Attesa aggiuntiva massima predefinita, strada / ferrovia
 fact: 0–100 % | Riempi livello, per carico, della capacità del veicolo
@@ -20,12 +20,12 @@ Ogni fermata di una linea ha le sue impostazioni di partenza, nella finestra "Fi
 | "Carica se disponibile", "Carico completo (qualsiasi)", "Carico completo (tutto)" | una delle tre | Carica se disponibile (misurato) | `cargofilter_window.tl:798-821` |
 | "Tempo arresto minimo" | 0–600 s, passo 10 | 0 s (misurato) | `cargofilter_window.tl:841-845` |
 | "Tempo arresto massimo" | 0–600 s, oppure "---" (nessun limite, cursore in fondo) | **600 s** (misurato) | `cargofilter_window.tl:855-863` |
-| "Attesa aggiuntiva massima" | 0–600 s, passo 10 | 60 s; 30 s a una stazione stradale o del tram senza ferrovia | `cargofilter_window.tl:827-831`, `line_util.tl:478-490` |
-| "Riempi livello", per ogni carico caricato | 0–100 %, passo 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:472` |
+| "Attesa aggiuntiva massima" | 0–600 s, passo 10 | 60 s; 30 s a una stazione stradale o del tram senza ferrovia | `cargofilter_window.tl:827-831`, `line_util.tl:479-487` |
+| "Riempi livello", per ogni carico caricato | 0–100 %, passo 1 | 100 % | `cargofilter_window.tl:698-704`, `line_util.tl:473` |
 
 - Cliccando un tempo si apre un campo numerico: lì si possono digitare valori oltre 600 s (`cargofilter_window.tl:204-208`).
 - I tre tempi restano in ordine tra loro: alzare il minimo o l'attesa aggiuntiva sopra il massimo alza anche il massimo (`cargofilter_window.tl:834-836`, `cargofilter_window.tl:848-850`); abbassare il massimo abbassa gli altri due (`cargofilter_window.tl:865-869`). Non si regola nulla finché il massimo è "---".
-- Cambiarne uno qualsiasi segna la linea come personalizzata: la configurazione automatica non tocca più le sue liste Carico (`cargofilter_window.tl:438`, vedi [Velocità di carico e scarico](loading.html)). La configurazione automatica non cambia mai la modalità né i tempi, ma riporta ogni Riempi livello al 100 % (`line_util.tl:495-719`, `line_util.tl:511`, `line_util.tl:543`).
+- Cambiarne uno qualsiasi segna la linea come personalizzata: la configurazione automatica non tocca più le sue liste Carico (`cargofilter_window.tl:438`, vedi [Velocità di carico e scarico](loading.html)). La configurazione automatica non cambia mai la modalità né i tempi, ma riporta ogni Riempi livello al 100 % (`line_util.tl:497-721`, `line_util.tl:513`, `line_util.tl:545`).
 
 ## Riempi livello: un limite per carico
 
@@ -51,7 +51,7 @@ Riempi livello è la quantità massima di quel carico che il veicolo prende a qu
 - **Carico completo (qualsiasi)**: il veicolo parte quando un carico è pieno. Un treno per tronchi e assi è partito con 143 e 144 tronchi dopo 369–380 s; altre due partenze dopo circa 30 s con 57 e 118 tronchi non sono spiegate.
 - **Tempo arresto massimo** termina l'attesa, anche senza niente caricato. Un treno di verdure in Carico completo (tutto) con un massimo di 120 s si è riempito (64 su 64) in circa 25 s, oppure è partito dopo 116–120 s con 26 o **0**. Con i 600 s predefiniti è partito con 26 su 64 dopo 596–600 s.
 - **Tempo arresto minimo** è l'intera sosta, carico compreso, non tempo extra dopo di esso: con 60 s, i treni del vetro si sono fermati 55–61 s ogni volta, qualunque cosa caricassero.
-- **Attesa aggiuntiva massima**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). La finestra del veicolo mostra "Mantenimento distanza di sicurezza" mentre aspetta la partenza programmata (`entity_window_util.tl:2283-2284`), presumibilmente durante questa attesa.
+- **Attesa aggiuntiva massima**: "Maximum wait time after loading to improve vehicle distribution" (`cargofilter_window.tl:828`). La finestra del veicolo mostra "Mantenimento distanza di sicurezza" mentre aspetta la partenza programmata (`entity_window_util.tl:2285-2286`), presumibilmente durante questa attesa.
 - **Più veicoli a una stessa fermata caricano contemporaneamente**, indipendentemente da quando è arrivato ciascuno (visto in gioco). Due camion di tronchi arrivati a circa 90 s di distanza sono partiti nello stesso secondo, ciascuno con 8. Come il carico venga diviso tra loro non è stato misurato.
 
 ```engine

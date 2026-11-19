@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | ゲームスクリプト自身が解除する実績
 fact: 500 m | 高峰の駅で、停車した列車の先頭車両の高さ
 fact: < 1 % | 私のせいじゃないの条件となる町の評判
@@ -21,10 +21,10 @@ fact: 10 | 中央集権化で最寄りの町が同じでなければならない
 | **荷物到着** | 貨物が 1 つ目的地に届く | `achievements.script.tl:221-225`、`achievements.script.tl:632-636` |
 | **代表者** | 補助を 1 件達成する | `achievements.script.tl:241-244`、`achievements.script.tl:638-642` |
 | **連続補助** | 間に失敗を挟まずに補助を 10 件達成する。失敗するとカウントは 0 に戻る | `achievements.script.tl:243-249`、`achievements.script.tl:644-648` |
-| **管理人** | 町の配達評価が「**秀**」に変わる | `achievements.script.tl:270-276`、`towns.script.tl:30-33`、`achievements.script.tl:650-654` |
+| **管理人** | 町の配達評価が「**秀**」に変わる | `achievements.script.tl:270-276`、`towns.script.tl:27-30`、`achievements.script.tl:650-654` |
 | **都市開発** | 町のレベルが上がる | `achievements.script.tl:253-255`、`town_growth.script.tl:92` |
 | **需要の高まり** | 町に新しい貨物の需要が生まれる | `achievements.script.tl:257-259`、`achievements.script.tl:668-672` |
-| **私のせいじゃない** | 町の評判が**下がって** **1 %** 未満になる | `achievements.script.tl:261-267`、`towns.script.tl:36-39` |
+| **私のせいじゃない** | 町の評判が**下がって** **1 %** 未満になる | `achievements.script.tl:261-267`、`towns.script.tl:33-36` |
 | **昇格** | 会社のランクが上がる | `achievements.script.tl:280-282`、`achievements.script.tl:680-684` |
 | **出世頭** | 会社が最高ランクに達する | `achievements.script.tl:284-290`、`achievements.script.tl:686-690` |
 | **美観管理** | 1 回の建設で木だけを置く（何も撤去せず、植林によるものでもない） | `achievements.script.tl:346-377` |

@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | 会社のランク、ジュニアからタイクーンまで
 fact: ×12.5 | ランク 15 に必要な世界人口（開始時との比較）
 fact: ×0.75 | インフレ「普通」でのランク 15 の収入
@@ -61,7 +61,7 @@ fact: 0 | 人口が減っても失うランク
 
 | インフレ | ランク 15 の収入 | ソース |
 |---|---|---|
-| なし | ×1（変化なし） | `difficulty_util.tl:50`、`mod.script.tl:694-697` |
+| なし | ×1（変化なし） | `difficulty_util.tl:50`、`mod.script.tl:695-698` |
 | 低い | ×0.9 | |
 | 普通 | ×0.75 | |
 | 高い | ×0.6 | |

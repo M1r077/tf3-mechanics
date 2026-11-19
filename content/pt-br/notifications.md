@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | de tempo de jogo parado antes de um veículo ser dado como preso
 fact: 20% | de condição que dispara o aviso, até o veículo voltar acima de 30%
 fact: 11 | tipos de notificação desligados num jogo novo

@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | logros que desbloquea el propio script del juego
 fact: 500 m | altura del primer vagón de un tren en una parada para Escala en la cima
 fact: < 1 % | de Reputación de la localidad para Yo no he sido
@@ -21,10 +21,10 @@ La wiki oficial lista 41 logros. El script del juego (`achievements.script.tl`) 
 | **Paquete entregado** | una unidad de carga llega a su destino | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **En nombre de...** | una subvención completada | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Racha de subvenciones** | 10 subvenciones completadas sin ninguna fallida entre ellas; una subvención fallida pone la cuenta a 0 | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Que no falte de nada** | la valoración de entregas de una localidad pasa a **Excelente** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Que no falte de nada** | la valoración de entregas de una localidad pasa a **Excelente** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Desarrollo urbano** | una localidad sube de nivel | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Demanda en aumento** | una localidad obtiene la demanda de un nuevo tipo de carga | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **Yo no he sido** | la Reputación de una localidad **baja** por debajo del **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **Yo no he sido** | la Reputación de una localidad **baja** por debajo del **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Ascenso** | la empresa sube un rango | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **La cima del escalafón** | la empresa alcanza el rango más alto | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Paisajista** | colocas árboles, y solo árboles, en una construcción (nada retirado, no por reforestación) | `achievements.script.tl:346-377` |

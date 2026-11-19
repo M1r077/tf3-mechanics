@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3,8 | o mesmo fator de renda para todas as cargas
 fact: +8 × subida | metros de subida somados à distância
 fact: 100% | pago mesmo quando a entrega atrasa
@@ -21,7 +21,7 @@ Uma entrega paga pela **distância em linha reta**, e nada mais da viagem. A vel
 A fórmula inteira é um script curto do jogo (`cargo_income.script.lua:10-13`):
 
 1. **Fator de renda** da carga. Todas as cargas do jogo base usam a mesma função e os mesmos preços (`initialPrice = 4`, `finalPrice = 3.2`), o que dá **3,8 para as 36 cargas** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). O carvão paga exatamente o mesmo que as mercadorias na mesma distância.
-2. Configuração **Renda por Carga**: 50%, 75%, 100%, 125% ou 150% (`difficulty_util.tl:38`, `mod.script.tl:211`). As quatro predefinições de dificuldade usam 100% (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
+2. Configuração **Renda por Carga**: 50%, 75%, 100%, 125% ou 150% (`difficulty_util.tl:38`, `mod.script.tl:212`). As quatro predefinições de dificuldade usam 100% (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distância**, veja abaixo.
 
 A função recebe o tempo de viagem, mas **não o usa** (`cargotype.script.lua:7-13`): uma entrega lenta ou atrasada paga o mesmo.
@@ -61,8 +61,8 @@ Os scripts só calculam o total (`economy/cargo_income.script.lua`); a divisão 
 
 | O quê | Efeito | Fonte |
 |---|---|---|
-| **Ranque da Empresa** com a configuração Inflação | ranque 1: ×1, caindo de forma regular até o ranque 15: ×0,9 (Baixa), **×0,75 (Normal)**, ×0,6 (Alta), ×0,5 (Muito Alta); Nenhuma: sempre ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Subsídio cumprido** | ×2 para entregas à indústria ou ao município do contrato, nas linhas que entregaram para o contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Ranque da Empresa** com a configuração Inflação | ranque 1: ×1, caindo de forma regular até o ranque 15: ×0,9 (Baixa), **×0,75 (Normal)**, ×0,6 (Alta), ×0,5 (Muito Alta); Nenhuma: sempre ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:695-698` |
+| **Subsídio cumprido** | ×2 para entregas à indústria ou ao município do contrato, nas linhas que entregaram para o contrato | `deliver_cargo.script.tl:456-462`, `deliver_cargo_town.script.tl:547-558` |
 | **Entrega atrasada** | nenhum efeito na renda | `cargotype.script.lua:7-13` |
 
 - O multiplicador de ranque vale para **todos** os pagamentos de carga e de passageiros (`company_growth.script.tl:159-170`). As predefinições de dificuldade usam Inflação Baixa (Fácil), Normal (Normal), Alta (Difícil), Muito Alta (Muito Difícil) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
@@ -70,7 +70,7 @@ Os scripts só calculam o total (`economy/cargo_income.script.lua`); a divisão 
 
 ## Passageiros
 
-Os passageiros usam a mesma distância e um fator de renda fixo de cerca de 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + o fator de preço da passagem do veículo** (`cargo_income.script.lua:14-17`). Quando um modelo de veículo não define o seu fator de conforto, o jogo define o fator de preço como 0,3 para ônibus e bondes, 0,9 para aeronaves, 0,1 para navios e 0,5 para trens (`base_mod.lua:46-61`); para os outros modelos é um valor do motor, não visível nos scripts. Um subsídio de passageiros dobra só os passageiros que viajam entre os seus dois municípios, na sua única linha (`deliver_passengers.script.tl:292-296`).
+Os passageiros usam a mesma distância e um fator de renda fixo de cerca de 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + o fator de preço da passagem do veículo** (`cargo_income.script.lua:14-17`). Quando um modelo de veículo não define o seu fator de conforto, o jogo define o fator de preço como 0,3 para ônibus e bondes, 0,9 para aeronaves, 0,1 para navios e 0,5 para trens (`base_mod.lua:46-61`); para os outros modelos é um valor do motor, não visível nos scripts. Um subsídio de passageiros dobra só os passageiros que viajam entre os seus dois municípios, na sua única linha, a linha que cumpriu o contrato (`deliver_passengers.script.tl:288-293`).
 
 ## Prazos de entrega
 
@@ -80,7 +80,7 @@ Cada carga tem o seu próprio prazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`). 
 ```
 
 - **Finanças › Tempo de Entrega** mostra o prazo de cada carga no seu mapa; a Camada de Satisfação de Carga colore as rotas de verde a vermelho.
-- Uma entrega conta como **atrasada** quando chega depois do prazo (`towns.script.tl:425`).
+- Uma entrega conta como **atrasada** quando chega depois do prazo (`towns.script.tl:422`).
 - Módulos de armazém especializados **congelam** o prazo da carga que guardam (wiki oficial, Warehouses).
 
 ```engine

@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3.8 | 모든 화물에 같은 수입 계수
 fact: +8 × 오르막 | 오르막 높이(m)가 거리에 더해짐
 fact: 100 % | 배송이 늦어도 전액 지급
@@ -21,7 +21,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 공식 전체가 짧은 게임 스크립트 하나다(`cargo_income.script.lua:10-13`).
 
 1. 화물의 **수입 계수**. 기본 게임의 모든 화물이 같은 함수와 같은 가격(`initialPrice = 4`, `finalPrice = 3.2`)을 쓰므로 **36종 화물 모두 3.8**이다(`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). 같은 거리라면 석탄도 상품과 똑같이 번다.
-2. **화물 수입** 설정: 50 %, 75 %, 100 %, 125 % 또는 150 %(`difficulty_util.tl:38`, `mod.script.tl:211`). 네 가지 난이도 프리셋은 모두 100 %를 쓴다(`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
+2. **화물 수입** 설정: 50 %, 75 %, 100 %, 125 % 또는 150 %(`difficulty_util.tl:38`, `mod.script.tl:212`). 네 가지 난이도 프리셋은 모두 100 %를 쓴다(`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **거리**, 아래 참조.
 
 이 함수는 이동 시간을 받지만 **사용하지 않는다**(`cargotype.script.lua:7-13`). 느린 배송이나 늦은 배송도 같은 금액을 받는다.
@@ -61,8 +61,8 @@ fact: 100 % | 배송이 늦어도 전액 지급
 
 | 요소 | 효과 | 출처 |
 |---|---|---|
-| **회사 랭크**와 인플레이션 설정 | 랭크 1: ×1, 랭크 15까지 균일하게 감소: ×0.9(낮음), **×0.75(보통)**, ×0.6(높음), ×0.5(매우 높음). 없음: 항상 ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **완료된 보조금** | 계약의 산업이나 마을로의 배송에 ×2, 계약을 위해 배송한 노선에서만 | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **회사 랭크**와 인플레이션 설정 | 랭크 1: ×1, 랭크 15까지 균일하게 감소: ×0.9(낮음), **×0.75(보통)**, ×0.6(높음), ×0.5(매우 높음). 없음: 항상 ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:695-698` |
+| **완료된 보조금** | 계약의 산업이나 마을로의 배송에 ×2, 계약을 위해 배송한 노선에서만 | `deliver_cargo.script.tl:456-462`, `deliver_cargo_town.script.tl:547-558` |
 | **늦은 배송** | 수입에 영향 없음 | `cargotype.script.lua:7-13` |
 
 - 랭크 배수는 **모든** 화물 및 승객 수입에 적용된다(`company_growth.script.tl:159-170`). 난이도 프리셋별 인플레이션: 낮음(쉬움), 보통(보통), 높음(어려움), 매우 높음(매우 어려움)(`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
@@ -70,7 +70,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 
 ## 승객
 
-승객은 같은 거리와 약 3.61의 고정 수입 계수를 쓰며(`cargotype.script.lua:50-53`), 여기에 **0.5 + 운송 수단의 운임 계수**가 곱해진다(`cargo_income.script.lua:14-17`). 운송 수단 모델이 편안함 계수를 지정하지 않으면 게임은 운임 계수를 버스와 전차 0.3, 항공기 0.9, 선박 0.1, 열차 0.5로 설정한다(`base_mod.lua:46-61`). 다른 모델의 값은 엔진 값이라 스크립트에서 보이지 않는다. 승객 보조금은 두 마을 사이를 오가는 승객만, 그 한 노선에서만 두 배로 만든다(`deliver_passengers.script.tl:292-296`).
+승객은 같은 거리와 약 3.61의 고정 수입 계수를 쓰며(`cargotype.script.lua:50-53`), 여기에 **0.5 + 운송 수단의 운임 계수**가 곱해진다(`cargo_income.script.lua:14-17`). 운송 수단 모델이 편안함 계수를 지정하지 않으면 게임은 운임 계수를 버스와 전차 0.3, 항공기 0.9, 선박 0.1, 열차 0.5로 설정한다(`base_mod.lua:46-61`). 다른 모델의 값은 엔진 값이라 스크립트에서 보이지 않는다. 승객 보조금은 두 마을 사이를 오가는 승객만, 그 한 노선, 즉 계약을 완료한 노선에서만 두 배로 만든다(`deliver_passengers.script.tl:288-293`).
 
 ## 배송 제한 시간
 
@@ -80,7 +80,7 @@ fact: 100 % | 배송이 늦어도 전액 지급
 ```
 
 - **재정 › 배송 시간**에서 현재 맵의 화물별 제한 시간을 볼 수 있다. 화물 만족도 레이어는 경로를 초록색에서 빨간색까지 칠한다.
-- 제한 시간이 지난 뒤 도착한 배송은 **지연**으로 집계된다(`towns.script.tl:425`).
+- 제한 시간이 지난 뒤 도착한 배송은 **지연**으로 집계된다(`towns.script.tl:422`).
 - 특화된 창고 모듈은 보관 중인 화물의 타이머를 **멈춘다**(공식 위키, 창고).
 
 ```engine

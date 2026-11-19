@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | ランドマーク：ベースゲームに 9 個（ランク 2 から 15）、DLC パックでさらに 3 個（ランク 1）
 fact: +20 % / +25 % / -20 % / -25 % | その町の車両の最高速度、汚染、快適性
 fact: ×0 から ×4 | ランドマークの必要資源 設定による必要貨物の倍率

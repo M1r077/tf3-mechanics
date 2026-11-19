@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | 简易轨道、标准铁轨和高速铁轨
 fact: ×9 | 高速铁轨相对简易轨道的价格和维护费
 fact: +30 % | 给轨道加接触网的价格
@@ -23,7 +23,7 @@ fact: -65 % | 装了隔音屏障的街道或轨道的噪音
 | 高速铁轨 | 1980 | 350 km/h | 54 万 | 9 万 | `high_speed.street_template.lua:4`，`high_speed.street_template.lua:11`，`high_speed.street_template.lua:30`，`high_speed.street_template.lua:35` |
 
 - **接触网** 比轨道贵 **30 %**（`mod.script.tl:24-25`）。简易轨道从 1921 年起可用，更新的类型从出现起就可用（`simple_catenary.street_template.lua:4`）。文件里它每年没有额外费用：电气化版本的维护费相同（`simple_catenary.street_template.lua:34`）。
-- 三种轨道的坡度和弯道条件相同：建造时 **8.5 %**（**坡度** 滑块的上限），轨道形状最多 13 %，弯道半径建造时 55 m，最小 40 m（`standard.street_template.lua:36-37`，`standard.street_template.lua:48-49`，`construction_react_util.tl:241-242`，`construction_react_util.tl:1821`）。
+- 三种轨道的坡度和弯道条件相同：建造时 **8.5 %**（**坡度** 滑块的上限），轨道形状最多 13 %，弯道半径建造时 55 m，最小 40 m（`standard.street_template.lua:36-37`，`standard.street_template.lua:48-49`，`construction_react_util.tl:241-242`，`construction_react_util.tl:1824`）。
 - 轨道本身的污染随类型增加：2、4、6（`simple.street_template.lua:18`，`standard.street_template.lua:20`，`high_speed.street_template.lua:20`）。
 
 ```engine
@@ -66,7 +66,7 @@ fact: -65 % | 装了隔音屏障的街道或轨道的噪音
 | 防噪音隔离栏工具 | -65 % | 不变 | 不变 | 街道和轨道，不能在隧道里 | `barrier_b.edge.lua:43`，`barrier_b.edge.lua:47`，`barrier_track_b.edge.lua:43` |
 
 - 两者在文件里都是 100、每年 10，和街道每米的写法一样（`alley.edge.lua:8`，`alley.edge.lua:12`，`barrier_b.edge.lua:7`，`barrier_b.edge.lua:11`）。
-- 建造菜单里“带树木”和“带屏障”的街道，就是已经装好这些装饰的同一种街道（`town_new_medium_trees.street_template.lua:12-14`）。建造菜单会把它们的效果加起来（`construction_react_util.tl:2116-2139`）。
+- 建造菜单里“带树木”和“带屏障”的街道，就是已经装好这些装饰的同一种街道（`town_new_medium_trees.street_template.lua:12-14`）。建造菜单会把它们的效果加起来（`construction_react_util.tl:2119-2142`）。
 - 所以带树木的街道 **慢四分之一**：带树木的新中型街道只能跑约 38 km/h，而不是 50。
 
 ```tip scripts

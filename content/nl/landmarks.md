@@ -5,7 +5,7 @@ domain: landmarks
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 9 + 3 | bezienswaardigheden: 9 in het basisspel (rangen 2 tot 15), 3 extra met de DLC-pakketten (rang 1)
 fact: +20 % / +25 % / −20 % / −25 % | topsnelheid, vervuiling of comfort voor de voertuigen van haar stad
 fact: ×0 tot ×4 | benodigde vracht, met de instelling Grondstoffen voor trekpleisters

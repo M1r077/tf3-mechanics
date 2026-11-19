@@ -5,7 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 5 | poziomów stanu, od Bardzo zły do Bardzo dobry, po 20 %
 fact: 20 % | stanu, przy którym pojawia się ostrzeżenie Stan pojazdu
 fact: 6 × | bazowy roczny koszt eksploatacji: cena pojazdu
@@ -51,9 +51,9 @@ Jak szybkość załadunku pojazdu, współczynnik załadunku towaru oraz mnożni
 
 - Stan pociągu to **średnia** wszystkich jego wagonów i lokomotyw (`vehicle_util.tl:285-295`).
 - Zużyty pojazd traci prędkość maksymalną, moc i komfort, a zyskuje hałas, zanieczyszczenie i koszty eksploatacji (`vehicle_store_util.tl:236-258`). Ile i od jakiego stanu, to wartości silnika gry. Okno pojazdu wymienia te kary w sekcji **Stan techniczny**.
-- Siłę tych kar ustawia **Wpływ konserwacji pojazdów** („Brak”, „Niski”, „Średni”, „Wysoki”, „Bardzo wysoki”); przy „Brak” stan nie ma wpływu (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Szczegóły: [Koszty, utrzymanie i kredyty](costs.html).
+- Siłę tych kar ustawia **Wpływ konserwacji pojazdów** („Brak”, „Niski”, „Średni”, „Wysoki”, „Bardzo wysoki”); przy „Brak” stan nie ma wpływu (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Szczegóły: [Koszty, utrzymanie i kredyty](costs.html).
 - Przy **20 %** lub mniej pojawia się ostrzeżenie **Stan pojazdu**. Pozostaje, dopóki pojazd nie wróci powyżej **30 %** (`notifications.script.tl:310-318`).
-- Sklonowany pojazd to nowy zakup: stan 100 %, nowa data zakupu (`manager_window.tl:8502-8506`).
+- Sklonowany pojazd to nowy zakup: stan 100 %, nowa data zakupu (`manager_window.tl:8744-8748`).
 
 ```engine
 Jak szybko spada stan, ile przywraca wizyta w stacji konserwacji i wielkość każdej kary (getMaintenanceTopSpeedPenalty i pozostałe) to wartości silnika. Każdy model pojazdu może też ustawić własną karę prędkości maksymalnej na poziom (`vehicle_store_util.tl:250-253`).
@@ -92,7 +92,7 @@ Do której stacji pojazd zostaje przypisany, co się dzieje, gdy stację używa 
 
 ## Wiek i okres trwałości
 
-- Każdy model ma **okres trwałości** (`vehicle_util.tl:31-34`). Kolumna **Wiek** w oknie linii pokazuje wiek; jej podpowiedź pokazuje pozostały czas albo **Osiągnięto koniec okresu trwałości** (`line_eow.script.tl:133-147`). Część okresu trwałości w tej podpowiedzi wynosi **0 %**, dopóki okres trwałości nie minie: skrypt zaokrągla ułamek w dół przed pokazaniem (`line_eow.script.tl:139`), a ta sama część jest gdzie indziej liczona w całości (`vehicle_util.tl:311`). Patrz raczej na pozostały czas.
+- Każdy model ma **okres trwałości** (`vehicle_util.tl:31-34`). Kolumna **Wiek** w oknie linii pokazuje wiek; jej podpowiedź pokazuje pozostały czas albo **Osiągnięto koniec okresu trwałości** (`line_eow.script.tl:136-150`). Część okresu trwałości w tej podpowiedzi wynosi **0 %**, dopóki okres trwałości nie minie: skrypt zaokrągla ułamek w dół przed pokazaniem (`line_eow.script.tl:142`), a ta sama część jest gdzie indziej liczona w całości (`vehicle_util.tl:311`). Patrz raczej na pozostały czas.
 - Dla pociągu liczy się **najstarsza** część (`vehicle_util.tl:36-52`). Jeden stary wagon sprawia, że cały pociąg wygląda na stary.
 
 ```engine
@@ -104,7 +104,7 @@ Co zmienia osiągnięcie okresu trwałości (na przykład szybszą utratę stanu
 1. **Stan pozostaje niski** mimo pobliskiej stacji konserwacji: pojazd traci prędkość i płaci wyższe koszty eksploatacji. Najpierw sprawdź pulę stacji: może być pełna.
 2. **Osiągnięto koniec okresu trwałości** w podpowiedzi Wiek: model przekroczył planowany okres eksploatacji.
 3. **Istnieje lepszy model**: szybsze lub większe pojazdy kosztują więcej w eksploatacji, ale przewożą więcej (cena wynika z prędkości × pojemności).
-4. Użyj **Wymień pojazdy** w menedżerze linii. Otwiera sklep z porównaniem z obecnym pojazdem (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+4. Użyj **Wymień pojazdy** w menedżerze linii. Otwiera sklep z porównaniem z obecnym pojazdem (`vehicle_store_window.tl:4997-5032`, `vehicle_store_window.tl:2678`).
 
 ```tip scripts
 **Pojazdy przy bazie wciąż są w złym stanie? Otwórz jej okno i sprawdź „użyte / pula”.** Baza kolejowa obsługuje 6 pociągów, kolejowa stacja konserwacji 12. Co silnik robi z pojazdami ponad pulę, nie ma w skryptach; drugi budynek to bezpieczna odpowiedź.

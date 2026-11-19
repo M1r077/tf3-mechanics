@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | tailles de navire : petit et grand
 fact: 1, 2, 4 | terminaux par port
 fact: 27 | navires dans le jeu de base

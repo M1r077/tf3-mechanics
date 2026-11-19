@@ -5,7 +5,7 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: −33 % | per onderbroken hoofdaansluiting naar een andere stad
 fact: ≈ 67 % | herstel per jaar bij kalendersnelheid ×1 (≈ 200 % tijdens een marketingcampagne); het stadsvenster toont 33 % en 100 %
 fact: 0,25 % | per verwijderde volgroeide boom bij de stad
@@ -19,7 +19,7 @@ fact: 2 mln. m³ | terreinwerk kost de hele reputatie
 
 ## Wat haar verlaagt
 
-Elke bouw die je bevestigt, wordt gecontroleerd voordat hij wordt uitgevoerd; de kosten gaan naar de betrokken stad (`towns.script.tl:271-291`, `town_util.tl:1062-1080`). Alleen je eigen bouwwerken tellen, en in de kaarteditor telt niets (`town_util.tl:1078-1080`, `towns.script.tl:233`, `towns.script.tl:271`).
+Elke bouw die je bevestigt, wordt gecontroleerd voordat hij wordt uitgevoerd; de kosten gaan naar de betrokken stad (`towns.script.tl:268-288`, `town_util.tl:1062-1080`). Alleen je eigen bouwwerken tellen, en in de kaarteditor telt niets (`town_util.tl:1078-1080`, `towns.script.tl:230`, `towns.script.tl:268`).
 
 | Reden in het stadsvenster | Wat reputatie kost | Bron |
 |---|---|---|
@@ -27,11 +27,11 @@ Elke bouw die je bevestigt, wordt gecontroleerd voordat hij wordt uitgevoerd; de
 | **Rotsen verwijderd** | 0,25 % per rots, × de afstandsfactor | `town_util.tl:1148-1149`, `town_util.tl:884-885` |
 | **Landschapsverfraaiing** | 0,00005 % per m³ verhoogd **of** verlaagd terrein: 2 miljoen m³ = 100 %. Terrein dat sporen, wegen en gebouwen vormen telt ook (verminderd vanaf 10.000 m², tot de helft vanaf 50.000 m²), net als netto nieuw tunnelvolume | `town_util.tl:873-886`, `town_util.tl:1245-1269`, `town_util.tl:1403-1436` |
 | **Gesloopte gebouwen** | 100 % voor 40,5 % verwijderde capaciteit van een wijk (woningen, winkels of banen van die stad) | `town_util.tl:867-869`, `town_util.tl:1165-1184` |
-| **Mislukte subsidie** | Bevoorraad stad: één willekeurig gekozen straf, het reputatieverlies (10 % tot 60–90 % naar risico) of een geldboete; altijd het reputatieverlies als er geen boete wordt aangeboden. Steden verbinden: 10–100 % × de afstandsfactor, in **beide** steden (zie [Subsidies](subsidies.html)) | `deliver_cargo_town.script.tl:202-210`, `deliver_cargo_town.script.tl:209-211`, `deliver_cargo_town.script.tl:225`, `deliver_passengers.script.tl:113-114`, `towns.script.tl:331-333` |
+| **Mislukte subsidie** | Bevoorraad stad: één willekeurig gekozen straf, het reputatieverlies (10 % tot 60–90 % naar risico) of een geldboete; altijd het reputatieverlies als er geen boete wordt aangeboden. Steden verbinden: 10–100 % × de afstandsfactor, in **beide** steden (zie [Subsidies](subsidies.html)) | `deliver_cargo_town.script.tl:208-216`, `deliver_cargo_town.script.tl:215-217`, `deliver_cargo_town.script.tl:231`, `deliver_passengers.script.tl:120-121`, `towns.script.tl:328-330` |
 | **Onderbroken hoofdaansluitingen** | **1/3** per andere stad waarvan de hoofdaansluiting onderbroken of te lang is | `town_util.tl:376-394`, `town_util.tl:1608` |
 
 - Elke reden is begrensd op 100 % (`town_util.tl:1611-1620`).
-- Tijdens het bouwen toont de tooltip **Reputatie: −x %**, met het aantal getroffen steden als het er meerdere zijn (`construction_react_util.tl:3818-3864`). Hij rekent vanaf een volle beoordeling.
+- Tijdens het bouwen toont de tooltip **Reputatie: −x %**, met het aantal getroffen steden als het er meerdere zijn (`construction_react_util.tl:3829-3875`). Hij rekent vanaf een volle beoordeling.
 - Bomen planten of rotsen plaatsen heft alleen **Bomen verwijderd** of **Rotsen verwijderd** op, met dezelfde 0,25 % per stuk. Het doet niets voor de andere redenen, en niets bij volle reputatie (`town_util.tl:1228-1238`, `town_util.tl:1630-1641`).
 - De instelling Reputatie van een nieuw spel is **Uit** of **Aan** (Aan in elke voorinstelling). Uit betekent altijd een volle beoordeling (`difficulty_util.tl:44`, `difficulty_util.tl:110`, `town_util.tl:396-399`).
 
@@ -49,7 +49,7 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 | 2 | 33 % | Middelmatig | `town_util.tl:983-985` |
 | 3 | 0 % | Zeer slecht: de stad groeit niet meer | `town_util.tl:607-633` |
 
-- Zolang de onderbreking duurt, wordt de straf ook stap voor stap over 3 maanden in de opgeslagen score geschreven (`towns.script.tl:137-145`). Na het herstel van de weg komt dat opgeslagen deel alleen met het normale herstel terug: een lange onderbreking blijft nog een tijd reputatie kosten.
+- Zolang de onderbreking duurt, wordt de straf ook stap voor stap over 3 maanden in de opgeslagen score geschreven (`towns.script.tl:134-142`). Na het herstel van de weg komt dat opgeslagen deel alleen met het normale herstel terug: een lange onderbreking blijft nog een tijd reputatie kosten.
 - 67 % ligt precies op de grens van Zeer goed: elk ander klein verlies zet de stad op Goed.
 
 ```tip scripts
@@ -58,10 +58,10 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 
 ## Hoe ze terugkomt
 
-- **Vanzelf**: één niveau (1/6) per 3 maanden speltijd (360 s), elke maand (120 s) tijdens een marketingcampagne (`towns.script.tl:121-135`). Bij kalendersnelheid ×1 is dat ongeveer **67 %** per jaar, **200 %** met een campagne: van 0 % weer vol in ongeveer 1,5 jaar. Het stadsvenster toont **Jaarlijks herstel** 33 % en 100 %: vaste teksten, de helft van de echte snelheid (`town_react_util.tl:1066`). Gemeten bij een teststad: één niveau per 358 s, per 120 s met een campagne.
+- **Vanzelf**: één niveau (1/6) per 3 maanden speltijd (360 s), elke maand (120 s) tijdens een marketingcampagne (`towns.script.tl:118-132`). Bij kalendersnelheid ×1 is dat ongeveer **67 %** per jaar, **200 %** met een campagne: van 0 % weer vol in ongeveer 1,5 jaar. Het stadsvenster toont **Jaarlijks herstel** 33 % en 100 %: vaste teksten, de helft van de echte snelheid (`town_react_util.tl:1066`). Gemeten bij een teststad: één niveau per 358 s, per 120 s met een campagne.
 - Het herstel verdeelt de winst over alle redenen; het gaat nooit voorbij de onderbroken aansluitingen die nog open zijn (`town_util.tl:1649-1687`).
 - **Feesten** geven **+50 %** voor de eerste passagier die in een stad op een van je lijnen stapt, +50 % voor de eerste vracht aan een stad, +50 % bij elke niveaustijging van de stad, en +20 % voor de dichtstbijzijnde stad bij de eerste vracht aan elke industrie (`celebrations.script.tl:181-273`). Het bericht eindigt dan met **Reputatie in stad verbeterd.** of **Reputatie verbeterd in …** (`celebration_react_util.tl:63-75`). Ze tellen alleen als de reputatie lager is dan wat de verbroken hoofdverbindingen nog toelaten (vol min 1/3 per verbroken verbinding) en de instelling Reputatie op Aan staat, en niet in campagnemissies (`celebrations.script.tl:79-93`, `celebrations.script.tl:140-142`).
-- **Bevoorraad stad** geeft bij aanvaarding een voorschot in geld of +5 % tot +20 % × de risicofactor, willekeurig gekozen (`deliver_cargo_town.script.tl:197-200`, `deliver_cargo_town.script.tl:220-222`). Zoals elke winst haalt dat alleen bestaande verliezen weg (`towns.script.tl:324-330`).
+- **Bevoorraad stad** geeft bij aanvaarding een voorschot in geld of +5 % tot +20 % × de risicofactor, willekeurig gekozen (`deliver_cargo_town.script.tl:203-206`, `deliver_cargo_town.script.tl:226-228`). Zoals elke winst haalt dat alleen bestaande verliezen weg (`towns.script.tl:321-327`).
 
 ## Marketingcampagne
 
@@ -70,8 +70,8 @@ Een hoofdaansluiting telt als onderbroken wanneer het spel **De wegverbinding tu
 | Prijs | 10 M × jaarfactor: 4 M in 1900 tot 25 M in 2020, afgerond op 1 M | `marketing_campaign_tool.script.tl:9-14` |
 | Vereist | één vergunning uit de bedrijfsvoordelen | `marketing_campaign_tool.script.tl:83-95`, `company.script.tl:416-423` |
 | Duur | één jaar | `marketing_campaign_tool.script.tl:136` |
-| Reputatie | herstel ×3 (≈ 200 % per jaar, het venster toont 100 %); **geen** directe winst | `towns.script.tl:126`, `town_util.tl:915-925` |
-| Bewoners | je lijnen in die stad tellen als half zo duur wanneer bewoners kiezen hoe ze reizen | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:376-398` |
+| Reputatie | herstel ×3 (≈ 200 % per jaar, het venster toont 100 %); **geen** directe winst | `towns.script.tl:123`, `town_util.tl:915-925` |
+| Bewoners | je lijnen in die stad tellen als half zo duur wanneer bewoners kiezen hoe ze reizen | `marketing_campaign_tool.script.tl:137`, `towns.script.tl:373-395` |
 
 ```engine
 Het script rekent 360 seconden speltijd per niveau (120 met een campagne), met een maand van 30 dagen van 4 seconden. Het herstel volgt de speltijd: met een tragere kalender duurt een kalenderjaar langer, dus komt er per getoond jaar meer terug. Hoe sterk de gehalveerde lijnkosten bewoners naar je lijnen trekken, beslist de routekeuze van de engine.
@@ -82,7 +82,7 @@ Het script rekent 360 seconden speltijd per niveau (120 met een campagne), met e
 - Let op de bouwtooltip: toont hij **Reputatie: −x %**, dan is een tunnel of een zachter tracé vaak goedkoper dan de reputatie.
 - Laat nooit een hoofdweg tussen twee steden onderbroken: elke kost meteen −33 %, en drie onderbrekingen stoppen de stad.
 - Een marketingcampagne bij volle reputatie helpt alleen je lijnen, niet de beoordeling. Start haar direct na groot werk, wanneer het herstel iets in te halen heeft.
-- De bonus **Reputatieherstel** van de grote hoofdkwartiermodule (+1 %) staat in het tabblad Bonussen, maar in de scripts verandert hij alleen een waarde die geen enkele beoordeling leest (`hq_module_l.module.lua:171`, `towns.script.tl:157`, `town_util.tl:829`, `town_util.tl:857`).
+- De bonus **Reputatieherstel** van de grote hoofdkwartiermodule (+1 %) staat in het tabblad Bonussen, maar in de scripts verandert hij alleen een waarde die geen enkele beoordeling leest (`hq_module_l.module.lua:171`, `towns.script.tl:154`, `town_util.tl:829`, `town_util.tl:857`).
 - De prestatie **De hatelijke nul** vraagt een stad waarvan de reputatie onder 1 % zakt (`achievements.script.tl:261-267`).
 
 ```check

@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | 船のサイズ：小型と大型
 fact: 1, 2, 4 | 港 1 つあたりのターミナル数
 fact: 27 | 基本ゲームの船舶数

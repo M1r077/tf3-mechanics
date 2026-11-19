@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | airplane sizes: small and large
 fact: 1950 | first airport, and first helicopters
 fact: 1980 | second runway

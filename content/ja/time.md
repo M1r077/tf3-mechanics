@@ -5,7 +5,7 @@ domain: time
 official: gamemanual:simulation:overview#simulation_speed
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 4 s | カレンダー速度 ×1、ゲーム速度 1x でのカレンダーの 1 日
 fact: ≈ 24 min | 同じ速度でのカレンダーの 1 年
 fact: 0 ×0.25 ×0.5 ×1 ×2 ×4 | カレンダー速度の段階
@@ -23,7 +23,7 @@ fact: 0 1x 2x 4x | ゲーム速度の段階
 
 - カレンダー速度 ×1 では、1 日はゲーム時間で **4 秒**である（公式wiki）。1x では 1 か月は約 2 分、1 年は約 **24 分**になる。[Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) で計測：×1 で 1 日 4.0 秒、×4 で 1 秒、×0.5 で 8 秒、×0.25 で 16 秒。
 - ×4 では日付が 4 倍速く進む。**一時停止**では日付が止まるが、シミュレーションは続く。
-- 2x と 4x は上限である。コンピューターが追いつかないと、ゲームはこれを下げる（`game.tl:636-642`）。計測では、2x は平均 1.9x、4x は平均 3.6x だった。
+- 2x と 4x は上限である。コンピューターが追いつかないと、ゲームはこれを下げる（`game.tl:682-688`）。計測では、2x は平均 1.9x、4x は平均 3.6x だった。
 - **時刻**と天気は 3 つ目の、見た目だけの時計である。初期設定では、カレンダーに関係なく自動で変わる（`game_time_config.res.lua:5`、`weather_config.res.lua:5`）。
 
 ## カレンダーに関係なくゲーム時間に従うもの
@@ -33,7 +33,7 @@ fact: 0 1x 2x 4x | ゲーム速度の段階
 - **生産**：産業の生産時間は標準の 1 年の決まった割合である（`industry_react_util.tl:51`）。産業ウィンドウは、それを現在のカレンダーの日数で表示する（`industry_react_util.tl:23`）。×0.25 では、同じ速さでも日数は 4 分の 1 と表示される。
 - **融資の支払い**：ゲーム時間の標準の 1 か月ごとに 1 回。カレンダーが止まっていても同じである（`loan.script.tl:83-88`）。
 - **補助金の期限**とボーナスの期間（標準 5 年）（`subvention_util.tl:286`、`subvention_util.tl:290-292`）。
-- **町の評判の回復**（`towns.script.tl:121-130`）、最大で標準 2 年分を数える**労働者の効果**（`industry_productivity_util.tl:3`）、何年も輸送がないときの**産業の閉鎖**（`industries.script.tl:119-128`）。
+- **町の評判の回復**（`towns.script.tl:118-127`）、最大で標準 2 年分を数える**労働者の効果**（`industry_productivity_util.tl:3`）、何年も輸送がないときの**産業の閉鎖**（`industries.script.tl:119-128`）。
 - 直近半年の町の**配送評価**（`town_util.tl:840`）。
 - **新しい産業**：カレンダー停止中もゲーム時間 1809 秒で 3 つ、760 秒と 728 秒の間隔で現れた。カレンダーが動いているとき（約 730 秒）と同じリズム。[Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) で計測。[産業](industries.html) を参照。
 
@@ -58,7 +58,7 @@ fact: 0 1x 2x 4x | ゲーム速度の段階
 - [Second Screen Dashboard](https://mod.io/g/transportfever3/m/second-screen-dashboard) は、カレンダーが止まっていても読みやすい財務グラフを表示する。
 
 ```engine
-標準の 1 日、1 か月、1 年の長さ（getDefaultDayDuration など）はエンジンから来る。町のスクリプトは 1 か月を 30 × 4 秒と数える（`towns.script.tl:121`）。これは計測した 1 日 4 秒と合う。ほかのいくつかの定数は、まだ 1 日を 2 秒としている（`cargotype.script.lua:3`、`mod.script.tl:172`）。
+標準の 1 日、1 か月、1 年の長さ（getDefaultDayDuration など）はエンジンから来る。町のスクリプトは 1 か月を 30 × 4 秒と数える（`towns.script.tl:118`）。これは計測した 1 日 4 秒と合う。ほかのいくつかの定数は、まだ 1 日を 2 秒としている（`cargotype.script.lua:3`、`mod.script.tl:173`）。
 ```
 
 ```check

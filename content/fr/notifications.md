@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | de temps de jeu à l'arrêt avant qu'un véhicule soit signalé bloqué
 fact: 20 % | d'état qui déclenche l'avertissement, jusqu'à ce que le véhicule repasse au-dessus de 30 %
 fact: 11 | types de notifications désactivés dans une nouvelle partie

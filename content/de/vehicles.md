@@ -5,7 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 5 | Zustandsstufen, von Sehr schlecht bis Sehr gut, je 20 %
 fact: 20 % | Zustand, der die Warnung Fahrzeugzustand auslöst
 fact: 6 × | die jährlichen Grund-Betriebskosten: der Preis eines Fahrzeugs
@@ -51,9 +51,9 @@ Wie Ladegeschwindigkeit des Fahrzeugs, Ladefaktor der Fracht sowie Bahnsteig- un
 
 - Der Zustand eines Zuges ist der **Durchschnitt** aller seiner Wagen und Lokomotiven (`vehicle_util.tl:285-295`).
 - Ein abgenutztes Fahrzeug verliert Höchstgeschwindigkeit, Leistung und Komfort und gewinnt Lärm, Verschmutzung und Betriebskosten (`vehicle_store_util.tl:236-258`). Wie viel und ab welchem Zustand, sind Werte der Engine. Das Fahrzeugfenster listet diese Abzüge unter **Zustand**.
-- Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keine, Niedrig, Mittel, Hoch, Sehr hoch); bei Keine hat der Zustand keine Wirkung (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
+- Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keine, Niedrig, Mittel, Hoch, Sehr hoch); bei Keine hat der Zustand keine Wirkung (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
 - Bei **20 %** oder weniger erhältst du die Warnung **Fahrzeugzustand**. Sie bleibt, bis das Fahrzeug wieder über **30 %** liegt (`notifications.script.tl:310-318`).
-- Ein geklontes Fahrzeug ist ein Neukauf: Zustand 100 %, neues Kaufdatum (`manager_window.tl:8502-8506`).
+- Ein geklontes Fahrzeug ist ein Neukauf: Zustand 100 %, neues Kaufdatum (`manager_window.tl:8744-8748`).
 
 ```engine
 Wie schnell der Zustand sinkt, wie viel ein Besuch in einer Wartungsstation wiederherstellt und wie groß jeder Abzug ist (getMaintenanceTopSpeedPenalty und die anderen), sind Engine-Werte. Jedes Fahrzeugmodell kann außerdem pro Stufe einen eigenen Abzug der Höchstgeschwindigkeit festlegen (`vehicle_store_util.tl:250-253`).
@@ -92,7 +92,7 @@ Welcher Station ein Fahrzeug zugeordnet wird, was passiert, wenn mehr Fahrzeuge 
 
 ## Alter und Lebensdauer
 
-- Jedes Modell hat eine **Lebensdauer** (`vehicle_util.tl:31-34`). Die Spalte **Alter** im Linienfenster zeigt das Alter; ihr Tooltip zeigt die verbleibende Zeit oder **Lebensdauer erreicht** (`line_eow.script.tl:133-147`). Der Anteil der Lebensdauer in diesem Tooltip steht auf **0 %**, bis die Lebensdauer erreicht ist: Das Skript rundet den Bruch vor der Anzeige ab (`line_eow.script.tl:139`), während derselbe Anteil an anderer Stelle vollständig berechnet wird (`vehicle_util.tl:311`). Nimm stattdessen die verbleibende Zeit.
+- Jedes Modell hat eine **Lebensdauer** (`vehicle_util.tl:31-34`). Die Spalte **Alter** im Linienfenster zeigt das Alter; ihr Tooltip zeigt die verbleibende Zeit oder **Lebensdauer erreicht** (`line_eow.script.tl:136-150`). Der Anteil der Lebensdauer in diesem Tooltip steht auf **0 %**, bis die Lebensdauer erreicht ist: Das Skript rundet den Bruch vor der Anzeige ab (`line_eow.script.tl:142`), während derselbe Anteil an anderer Stelle vollständig berechnet wird (`vehicle_util.tl:311`). Nimm stattdessen die verbleibende Zeit.
 - Bei einem Zug zählt der **älteste** Teil (`vehicle_util.tl:36-52`). Ein einziger alter Wagen lässt den ganzen Zug alt erscheinen.
 
 ```engine
@@ -104,7 +104,7 @@ Was das Erreichen der Lebensdauer ändert (zum Beispiel schnellerer Zustandsverl
 1. **Der Zustand bleibt niedrig**, obwohl eine Wartungsstation in der Nähe ist: Das Fahrzeug verliert Geschwindigkeit und zahlt höhere Betriebskosten. Prüfe zuerst den Pool der Station: Er ist vielleicht voll.
 2. **Lebensdauer erreicht** im Tooltip von Alter: Das Modell hat seine geplante Lebensdauer überschritten.
 3. **Es gibt ein besseres Modell**: Schnellere oder größere Fahrzeuge kosten mehr im Betrieb, transportieren aber mehr (der Preis folgt Geschwindigkeit × Kapazität).
-4. Nutze **Fahrzeuge ersetzen** im Linienmanager. Es öffnet den Katalog mit einem Vergleich zum aktuellen Fahrzeug (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+4. Nutze **Fahrzeuge ersetzen** im Linienmanager. Es öffnet den Katalog mit einem Vergleich zum aktuellen Fahrzeug (`vehicle_store_window.tl:4997-5032`, `vehicle_store_window.tl:2678`).
 
 ```tip scripts
 **Fahrzeuge bleiben neben einem Depot in schlechtem Zustand? Öffne sein Fenster und prüfe „belegt / Pool“.** Ein Zugdepot bedient 6 Züge, eine Zug-Wartungsstation 12. Was die Engine mit Fahrzeugen über dem Pool macht, steht nicht in den Skripten; ein zweites Gebäude ist die sichere Lösung.

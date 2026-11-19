@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | 簡易軌道、標準軌道與高速軌道
 fact: ×9 | 高速軌道相對簡易軌道的價格與維護費
 fact: +30 % | 為軌道加上電纜的價格
@@ -23,7 +23,7 @@ fact: -65 % | 裝了隔音牆的街道或軌道的噪音
 | 高速軌道 | 1980 | 350 km/h | 54 萬 | 9 萬 | `high_speed.street_template.lua:4`，`high_speed.street_template.lua:11`，`high_speed.street_template.lua:30`，`high_speed.street_template.lua:35` |
 
 - **電纜** 比軌道貴 **30 %**（`mod.script.tl:24-25`）。簡易軌道從 1921 年起可用，較新的類型從開放起就可用（`simple_catenary.street_template.lua:4`）。檔案裡它每年沒有額外費用：電氣化版本的維護費相同（`simple_catenary.street_template.lua:34`）。
-- 三種軌道的坡度與彎道條件相同：建造時 **8.5 %**（**坡度** 滑桿的上限），軌道形狀最多 13 %，彎道半徑建造時 55 m，最小 40 m（`standard.street_template.lua:36-37`，`standard.street_template.lua:48-49`，`construction_react_util.tl:241-242`，`construction_react_util.tl:1821`）。
+- 三種軌道的坡度與彎道條件相同：建造時 **8.5 %**（**坡度** 滑桿的上限），軌道形狀最多 13 %，彎道半徑建造時 55 m，最小 40 m（`standard.street_template.lua:36-37`，`standard.street_template.lua:48-49`，`construction_react_util.tl:241-242`，`construction_react_util.tl:1824`）。
 - 軌道本身的污染隨類型增加：2、4、6（`simple.street_template.lua:18`，`standard.street_template.lua:20`，`high_speed.street_template.lua:20`）。
 
 ```engine
@@ -66,7 +66,7 @@ fact: -65 % | 裝了隔音牆的街道或軌道的噪音
 | 隔音牆工具 | -65 % | 不變 | 不變 | 街道與軌道，不能在隧道內 | `barrier_b.edge.lua:43`，`barrier_b.edge.lua:47`，`barrier_track_b.edge.lua:43` |
 
 - 兩者在檔案裡都是 100、每年 10，與街道每公尺的寫法一樣（`alley.edge.lua:8`，`alley.edge.lua:12`，`barrier_b.edge.lua:7`，`barrier_b.edge.lua:11`）。
-- 建造選單裡「有樹木」與「有隔音牆」的街道，就是已經裝好這些裝飾的同一種街道（`town_new_medium_trees.street_template.lua:12-14`）。建造選單會把它們的效果加總（`construction_react_util.tl:2116-2139`）。
+- 建造選單裡「有樹木」與「有隔音牆」的街道，就是已經裝好這些裝飾的同一種街道（`town_new_medium_trees.street_template.lua:12-14`）。建造選單會把它們的效果加總（`construction_react_util.tl:2119-2142`）。
 - 所以有樹木的街道 **慢四分之一**：有樹木的新中型街道只能跑約 38 km/h，而不是 50。
 
 ```tip scripts

@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 年 | 没有装载也没有消耗，产业就成为关闭候选
 fact: 1.1 % | 极少（默认）时每年的概率，之后 730 天倒计时
 fact: +50–150 % | 加成货物的加成，每个产业固定
@@ -19,7 +19,7 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 
 - 规则给出每轮使用和产出的货物，以及每年的轮数：一轮持续一年 ÷ 该数，生产规则会因加成而缩短（`industry_react_util.tl:51-57`）。产业窗口的“生产”部分用小数字显示。
 - 窗口中的**最大**数值是：每轮 × 每年轮数 × 规模系数（`rule.consumptionFactor`）× 加成 × 设置**工业生产力**，后两项仅用于生产规则（`industry_util.tl:310-379`、`industry_util.tl:357-362`）。
-- **工业生产力**：50 %、75 %、100 %、150 % 或 200 %。预设：简单 150 %，正常 100 %，困难 75 %，极难 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:196-197`）。
+- **工业生产力**：50 %、75 %、100 %、150 % 或 200 %。预设：简单 150 %，正常 100 %，困难 75 %，极难 50 %（`difficulty_util.tl:41`、`difficulty_util.tl:93`、`difficulty_util.tl:120`、`difficulty_util.tl:148`、`difficulty_util.tl:175`、`mod.script.tl:197-198`）。
 - 例如铁厂：6 铁矿石 + 6 煤炭 → 3 钢 + 4 金属薄板，每年 121.7 轮：730 铁矿石和 730 煤炭 → 365 钢和 487 金属薄板（`steel_mill.con.lua:43-71`）。缺一种输入，规则就停。
 - 罐头工厂有两条规则：鱼 + 金属薄板，或肉类 + 金属薄板（`food_factory.con.lua:43-74`）。
 
@@ -31,7 +31,7 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 
 - 每种货物有自己的库存和上限：例如煤矿存 100 工具和 400 煤炭，铁厂存 800 铁矿石、800 煤炭、400 钢和 500 金属薄板（`coal_mine.con.lua:44-67`、`steel_mill.con.lua:43-71`）。
 - 库存永不损耗（`industryutil.lua:25-29`）：货物可以一直等。
-- 输出库存满了不会停产：多出的货物被丢弃（官方 wiki）。**货流量**图表显示**已消耗**、**已生产**和**已摧毁**（`industry_eow.script.tl:804-816`）。
+- 输出库存满了不会停产：多出的货物被丢弃（官方 wiki）。**货流量**图表显示**已消耗**、**已生产**和**已摧毁**（`industry_eow.script.tl:807-819`）。
 - 建造参数**输入**设为关闭时，规则失去输入，产业也没有输入库存（`industryutil.lua:280-287`、`industryutil.lua:383-387`、`industryutil.lua:432-441`）。
 
 ## 地块与扩张
@@ -145,7 +145,7 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 | 经常 | 4.4 % | 约 16 年 | – | `difficulty_util.tl:37` |
 | 极频繁 | 8.8 % | 约 8 年 | 极难 | `difficulty_util.tl:176` |
 
-概率为每年 0.011 × 0、1、2、4 或 8（`mod.script.tl:171`、`mod.script.tl:202-203`、`difficulty_util.tl:37`）。你拥有的产业永不关闭，手动发展的产业也不会；关闭暂停期间（基础游戏中只在教程期间）不会开始关闭，进行中的倒计时会被取消（`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`）。
+概率为每年 0.011 × 0、1、2、4 或 8（`mod.script.tl:172`、`mod.script.tl:203-204`、`difficulty_util.tl:37`）。你拥有的产业永不关闭，手动发展的产业也不会；关闭暂停期间（基础游戏中只在教程期间）不会开始关闭，进行中的倒计时会被取消（`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`）。
 
 ```engine
 什么算“装载”和“消耗”（日志 itemsLoaded 和 itemsConsumed，例如加成货物算不算）、manualDevelopment 标志，以及有车库的产业为何被跳过（`industries.script.tl:140-146`），都在引擎一侧。引擎如何处理失去输入的加成规则（输入关闭）也是如此。
@@ -155,7 +155,7 @@ fact: ×2/3 – ×1.5 | 产业目标密度：新产业无法关闭
 
 引擎在游戏中增加新产业。通知为**新行业创立**：“一位有远见的企业家嗅到盈利机会，并创立了 {industry}。”（`industry_spawn.script.tl:34-36`）；其类型标签为**行业创立**（`industry_spawn.res.lua:6`）。没有游戏脚本选择地点、类型或时间，也没有脚本过滤引擎的提议。
 
-脚本交给引擎的值（`mod.script.tl:128-133`、`mod.script.tl:166-168`、`mod.script.tl:194-195`）：
+脚本交给引擎的值（`mod.script.tl:128-133`、`mod.script.tl:167-169`、`mod.script.tl:195-196`）：
 
 | 配置项 | 值 | 含义 |
 |---|---|---|

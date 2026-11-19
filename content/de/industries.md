@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 Jahre | ohne Verladen oder Verbrauch machen eine Industrie zum Schließungskandidaten
 fact: 1,1 % | Chance pro Jahr bei Selten (Standard), dann 730 Tage Countdown
 fact: +50–150 % | Bonus der Booster-Fracht, pro Industrie fest
@@ -19,7 +19,7 @@ Jede Industrie arbeitet nach **Regeln**: „nimm dies aus den Eingangsbeständen
 
 - Eine Regel gibt die verbrauchte und erzeugte Fracht pro Durchlauf an und wie viele Durchläufe pro Jahr: ein Durchlauf dauert ein Jahr ÷ diese Zahl, bei Produktionsregeln um die Boni kürzer (`industry_react_util.tl:51-57`). Der Abschnitt Produktion im Industriefenster zeigt sie als kleine Zahlen.
 - Die Zahl **Max.** im Fenster ist: pro Durchlauf × Durchläufe pro Jahr × Größenfaktor (`rule.consumptionFactor`) × die Boni × die Einstellung **Industrieproduktivität**, die letzten beiden nur bei Produktionsregeln (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Industrieproduktivität**: 50 %, 75 %, 100 %, 150 % oder 200 %. Voreinstellungen: Einfach 150 %, Normal 100 %, Schwierig 75 %, Sehr schwierig 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Industrieproduktivität**: 50 %, 75 %, 100 %, 150 % oder 200 %. Voreinstellungen: Einfach 150 %, Normal 100 %, Schwierig 75 %, Sehr schwierig 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Beispiel Stahlwerk: 6 Eisenerz + 6 Kohle → 3 Stahl + 4 Blech, 121,7 Durchläufe pro Jahr: 730 Eisenerz und 730 Kohle → 365 Stahl und 487 Blech (`steel_mill.con.lua:43-71`). Fehlt ein Eingang, steht die Regel.
 - Die Konservenfabrik hat zwei Regeln: Fisch + Blech oder Fleisch + Blech (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ Die Engine führt die Regeln aus. Sie kann einen Durchlauf verlängern: der Tool
 
 - Jede Fracht hat ihr eigenes Lager mit Grenze: z. B. hält ein Kohlebergwerk 100 Werkzeuge und 400 Kohle, ein Stahlwerk 800 Eisenerz, 800 Kohle, 400 Stahl und 500 Blech (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Lager verfallen nie (`industryutil.lua:25-29`): Fracht wartet so lange wie nötig.
-- Ein volles Ausgangslager stoppt die Produktion nicht: der Überschuss wird vernichtet (offizielles Wiki). Das Diagramm **Güterfluss** zeigt **Verbraucht**, **Produziert** und **Vernichtet** (`industry_eow.script.tl:804-816`).
+- Ein volles Ausgangslager stoppt die Produktion nicht: der Überschuss wird vernichtet (offizielles Wiki). Das Diagramm **Güterfluss** zeigt **Verbraucht**, **Produziert** und **Vernichtet** (`industry_eow.script.tl:807-819`).
 - Mit dem Bauparameter **Eingang** auf Aus verlieren die Regeln ihre Eingänge und die Industrie hat keine Eingangsbestände (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Parzellen und Erweiterung
@@ -145,7 +145,7 @@ Die Prüfung läuft alle 100 Updates für jede Industrie (`industries.script.tl:
 | Oft | 4,4 % | etwa 16 Jahren | – | `difficulty_util.tl:37` |
 | Sehr oft | 8,8 % | etwa 8 Jahren | Sehr schwierig | `difficulty_util.tl:176` |
 
-Die Chance ist 0,011 pro Jahr × 0, 1, 2, 4 oder 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Industrien in deinem Besitz schließen nie, ebenso wenig Industrien mit manueller Entwicklung; solange Schließungen pausiert sind (im Grundspiel nur während des Tutorials), beginnt keine und ein laufender Countdown wird abgebrochen (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+Die Chance ist 0,011 pro Jahr × 0, 1, 2, 4 oder 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Industrien in deinem Besitz schließen nie, ebenso wenig Industrien mit manueller Entwicklung; solange Schließungen pausiert sind (im Grundspiel nur während des Tutorials), beginnt keine und ein laufender Countdown wird abgebrochen (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Was als „verladen“ und „verbraucht“ zählt (die Logs itemsLoaded und itemsConsumed, z. B. ob Booster-Fracht zählt), das Flag manualDevelopment und warum Industrien mit Depot ausgenommen sind (`industries.script.tl:140-146`), liegt in der Engine. Ebenso, was die Engine mit einer Booster-Regel ohne Eingang macht (Eingang aus).
@@ -155,7 +155,7 @@ Was als „verladen“ und „verbraucht“ zählt (die Logs itemsLoaded und ite
 
 Die Engine fügt während des Spiels neue Industrien hinzu. Die Meldung heißt **Neue Industrie gegründet**: „Ein visionärer Unternehmer wittert eine Gewinnchance und hat {industry} gegründet.“ (`industry_spawn.script.tl:34-36`); ihr Typname lautet im Spiel genauso (`industry_spawn.res.lua:6`). Kein Spielskript wählt Ort, Typ oder Zeitpunkt, und keines filtert, was die Engine vorschlägt.
 
-Was die Skripte der Engine geben (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+Was die Skripte der Engine geben (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | Config-Wert | Wert | Bedeutung |
 |---|---|---|

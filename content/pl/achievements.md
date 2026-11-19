@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | osiągnięć odblokowywanych przez sam skrypt gry
 fact: 500 m | wysokość pierwszego wagonu pociągu na przystanku dla Transport górski
 fact: < 1 % | reputacja miasta dla To nie ja
@@ -21,10 +21,10 @@ Oficjalna wiki wymienia 41 osiągnięć. Skrypt gry (`achievements.script.tl`) s
 | **Paczka przyszła** | jedna sztuka ładunku dociera do celu | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **Zapomoga** | jedno subsydium zrealizowane | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Seria subsydiów** | 10 subsydiów zrealizowanych bez nieudanego pomiędzy; nieudane subsydium zeruje licznik | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Opieka** | ocena dostaw miasta zmienia się na **Znakomite** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Opieka** | ocena dostaw miasta zmienia się na **Znakomite** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Budujemy nowy dom** | miasto awansuje o poziom | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Więcej, więcej!** | miasto zgłasza zapotrzebowanie na nowy typ ładunku | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **To nie ja** | Reputacja miasta **spada** poniżej **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **To nie ja** | Reputacja miasta **spada** poniżej **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Awans** | firma zdobywa rangę | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Szczeble kariery** | firma osiąga najwyższą rangę | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Ogrodnictwo** | stawiasz drzewa, i tylko drzewa, w jednej budowie (nic nie usunięto, nie przez zalesianie) | `achievements.script.tl:346-377` |

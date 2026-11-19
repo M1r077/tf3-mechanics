@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | factor de año sobre la conservación de almacenes, puertos y aeropuertos en 2020
 fact: 6 años | de gastos de mantenimiento: el precio de un vehículo
 fact: una vez | el interés de un préstamo se aplica al importe, no cada año
@@ -24,16 +24,16 @@ El ajuste **Inflación** no sube ningún coste: solo baja tus ingresos a medida 
 | **Gastos de vehículos**, **Mantenimiento de vehículos** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Gastos de infraestructura**, **Conservación de infraestructura** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Efecto del mantenimiento de vehículos** | Ninguno ×0 · Bajo ×0,5 · Medio ×1 · Alto ×1,5 · Muy alto ×2 | Bajo · Medio · Alto · Muy alto | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflación** | solo ingresos, ver [Ingresos por cargamento](income.html) | Baja · Normal · Alta · Muy alta | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflación** | solo ingresos, ver [Ingresos por cargamento](income.html) | Baja · Normal · Alta · Muy alta | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Gastos de infraestructura** escala el precio de calles, vías, puentes, túneles, cruces, edificios y módulos, y también de los trabajos de terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). También escala el coste de demolición de los edificios (`construction.script.tl:39-44`). **Conservación de infraestructura** escala al cargar la conservación de calles, vías, puentes, túneles, cruces y módulos (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). En los edificios, los scripts solo la aplican en la ventana del edificio (`entity_window_util.tl:186`); lo que se cobra lo decide el motor.
+- **Gastos de infraestructura** escala el precio de calles, vías, puentes, túneles, cruces, edificios y módulos, y también de los trabajos de terreno (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). También escala el coste de demolición de los edificios (`construction.script.tl:39-44`). **Conservación de infraestructura** escala al cargar la conservación de calles, vías, puentes, túneles, cruces y módulos (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). En los edificios, los scripts solo la aplican en la ventana del edificio (`entity_window_util.tl:186`); lo que se cobra lo decide el motor.
 - **Gastos de vehículos** y **Mantenimiento de vehículos** escalan el precio de compra y los gastos de mantenimiento de cada vehículo (`post_run_util.tl:54-81`).
-- **Efecto del mantenimiento de vehículos** fija cuánto pierde un vehículo en mal estado en velocidad, potencia y comodidad, y cuánto gana en ruido, contaminación y gastos de mantenimiento (`mod.script.tl:241-245`).
+- **Efecto del mantenimiento de vehículos** fija cuánto pierde un vehículo en mal estado en velocidad, potencia y comodidad, y cuánto gana en ruido, contaminación y gastos de mantenimiento (`mod.script.tl:242-246`).
 
 ## Qué crece con el año del calendario
 
-- **Conservación de edificios**: ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La ventana del edificio y el menú de construcción lo aplican a cada edificio marcado para seguir el año, y el menú de construcción marca todas las metaconstrucciones (en el juego base: almacenes, aeródromos, aeropuertos y puertos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- Los **módulos** añadidos a un edificio así se cobran según el año en que se construyó el edificio, y su conservación según el año actual (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Conservación de edificios**: ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La ventana del edificio y el menú de construcción lo aplican a cada edificio marcado para seguir el año, y el menú de construcción marca todas las metaconstrucciones (en el juego base: almacenes, aeródromos, aeropuertos y puertos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- Los **módulos** añadidos a un edificio así se cobran según el año en que se construyó el edificio, y su conservación según el año actual (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Variantes por época**: depósitos, edificios de mantenimiento, almacenes, estaciones, puertos y aeropuertos tienen una variante por época, y cada variante posterior cuesta **×3** (época B) o **×9** (época C) de la primera (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Dinero de las subvenciones**: ×1 en 1900 hasta ×4 desde 2000 (`finances_util.tl:87-90`). **Importe de los préstamos**: ×0,4 en 1900 hasta ×2,4 en 2020 (`loan_util.tl:7-10`).
 - Los **ingresos** no tienen ningún factor de año (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ La conservación que se cobra de verdad, y si calles, vías y vehículos tambié
 
 ## Vías, carreteras y edificios
 
-Los archivos de calles y vías dan el precio y la conservación anual por metro; el menú de construcción los muestra por kilómetro (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). En la mayoría de los tipos, la conservación es **un sexto** del precio de construcción:
+Los archivos de calles y vías dan el precio y la conservación anual por metro; el menú de construcción los muestra por kilómetro (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). En la mayoría de los tipos, la conservación es **un sexto** del precio de construcción:
 
 | Tipo | Disponible desde | Construcción por km | Conservación por km y año | Fuente |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ Los archivos de calles y vías dan el precio y la conservación anual por metro;
 | Calle urbana moderna grande | 1940 | 540.000 | 90.000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - La catenaria suma un **30 %** del precio de la vía; un carril bus, un 10 %; una vía de tranvía, un 20 %; una vía de tranvía eléctrico, un 40 % del precio de la calle (`mod.script.tl:24-28`).
-- Subir el terreno cuesta 4,5 por m³, bajarlo 5,25 por m³, ambos × Gastos de infraestructura; y quitar un campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Subir el terreno cuesta 4,5 por m³, bajarlo 5,25 por m³, ambos × Gastos de infraestructura; y quitar un campo 200.000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - Un edificio que no fija conservación paga **un sexto de su precio** al año, calculado sobre el precio antes del ajuste Gastos de infraestructura (`construction.script.tl:25-27`).
 - La configuración base fija un factor de reembolso al demoler de 0,75 y un tiempo de reembolso de 60 (`mod.script.tl:30-31`): si demueles lo que acabas de construir, recuperas la mayor parte del dinero. Lo aplica el motor.
 

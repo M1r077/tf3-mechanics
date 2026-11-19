@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | níveis de empresa, de Júnior a Magnata
 fact: ×12,5 | população mundial necessária para o nível 15, comparada com o início
 fact: ×0,75 | de receita no nível 15 com Inflação Normal
@@ -61,7 +61,7 @@ Com **Inflação**, toda a receita de cargas e passageiros cai de forma uniforme
 
 | Inflação | Receita no nível 15 | Fonte |
 |---|---|---|
-| Nenhuma | ×1 (sem mudança) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| Nenhuma | ×1 (sem mudança) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Baixa | ×0,9 | |
 | Normal | ×0,75 | |
 | Alta | ×0,6 | |

@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | Arbeiter für den Bonus nötig
 fact: 2 Jahre | so lange zählt eine Ankunft
 fact: ×1,5–2,5 | Bonusfaktor, pro Industrie fest
@@ -28,7 +28,7 @@ Wie ein Einwohner einen Arbeitsplatz unter allen erreichbaren Orten wählt (Reis
 
 ## Zugeteilte Arbeiter
 
-Die Einwohner, deren Arbeitsplatz diese Industrie ist. Das ist die Arbeitsplatzanzeige im Industriefenster und die Spalte **Arbeitsplätze** der Industriestatistik („12/20“) (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Zugeteilt zu sein reicht **nicht** für den Bonus: die Fahrt muss wirklich stattfinden.
+Die Einwohner, deren Arbeitsplatz diese Industrie ist. Das ist die Arbeitsplatzanzeige im Industriefenster und die Spalte **Arbeitsplätze** der Industriestatistik („12/20“) (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Zugeteilt zu sein reicht **nicht** für den Bonus: die Fahrt muss wirklich stattfinden.
 
 ## Für den Bonus gezählte Arbeiter
 
@@ -75,7 +75,7 @@ Ein Kohlebergwerk mit 20 Arbeitsplätzen und „+84 %“.
 - **Umstiege zählen.** Das Skript schaut nur auf den Modus der Fahrt, nicht auf die Zahl der benutzten Linien (`industry_workers.script.tl:91`). Ein Arbeiter aus einer Stadt vier Linien weiter zählt genauso wie einer von nebenan, braucht aber vielleicht viel länger.
 - **Jede deiner Linien kann sie bringen**, auch eine Frachtlinie, solange ihre Fahrzeuge Passagiere mitnehmen und die Haltestelle Passagiere lädt. Das Skript prüft den Fahrzeugtyp nicht (`industry_workers.script.tl:86-118`). Spieler berichten von weniger Problemen mit getrennten Personenlinien.
 - Manche Industrien (zum Beispiel Ölplattformen) haben eine eigene eingebaute Haltestelle für Passagiere und Fracht (`industryutil.lua:156-165`).
-- Das Industriefenster zeigt für jeden zugeteilten Arbeiter, ob er **Derzeit hier** oder **Unterwegs** ist (`entity_window_util.tl:1371-1384`). Der Bereich Booster listet die gezählten Arbeiter mit ihrer **Zeit übrig** von den 2 Jahren (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- Das Industriefenster zeigt für jeden zugeteilten Arbeiter, ob er **Derzeit hier** oder **Unterwegs** ist (`entity_window_util.tl:1371-1384`). Der Bereich Booster listet die gezählten Arbeiter mit ihrer **Zeit übrig** von den 2 Jahren (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - Wird keine Ankunft gezählt (keine in den letzten 2 Jahren), zeigt die Arbeiterliste im Booster-Abschnitt: „Erschliesse diesen Standort mit dem öffentlichen Verkehr, um den Einwohnern zu ermöglichen, dort zu arbeiten.“ (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

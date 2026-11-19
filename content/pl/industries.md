@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 lat | bez załadunku i zużycia czyni zakład kandydatem do zamknięcia
 fact: 1,1 % | szansy na rok przy Rzadko (domyślne), potem 730 dni odliczania
 fact: +50–150 % | premii z towaru premiującego, stałej dla zakładu
@@ -19,7 +19,7 @@ Każdy zakład działa według **reguł**: „weź to z zapasów wejściowych, p
 
 - Reguła podaje towar zużyty i wytworzony w jednym cyklu oraz liczbę cykli w roku: cykl trwa rok ÷ ta liczba, krócej o premie w regułach produkcji (`industry_react_util.tl:51-57`). Sekcja Produkcja okna zakładu pokazuje to małymi liczbami.
 - Liczba **Maks.** w oknie to: na cykl × cykle na rok × współczynnik wielkości (`rule.consumptionFactor`) × premie × ustawienie **Wydajność przemysłu**, dwa ostatnie tylko w regułach produkcji (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Wydajność przemysłu**: 50 %, 75 %, 100 %, 150 % lub 200 %. Ustawienia wstępne: Niski 150 %, Normalny 100 %, Wysoki 75 %, Bardzo wysoki 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Wydajność przemysłu**: 50 %, 75 %, 100 %, 150 % lub 200 %. Ustawienia wstępne: Niski 150 %, Normalny 100 %, Wysoki 75 %, Bardzo wysoki 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Przykład, Stalownia: 6 rudy żelaza + 6 węgla → 3 stal + 4 blacha, 121,7 cyklu w roku: 730 rudy żelaza i 730 węgla → 365 stali i 487 blachy (`steel_mill.con.lua:43-71`). Brak jednego wejścia zatrzymuje regułę.
 - Fabryka konserw ma dwie reguły: ryby + blacha albo mięso + blacha (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ Silnik wykonuje reguły. Może wydłużyć cykl: podpowiedź cyklu pokazuje wted
 
 - Każdy towar ma własny zapas z limitem: np. Kopalnia węgla trzyma 100 narzędzi i 400 węgla, Stalownia 800 rudy żelaza, 800 węgla, 400 stali i 500 blachy (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Zapasy nigdy się nie psują (`industryutil.lua:25-29`): towar czeka tak długo, jak trzeba.
-- Pełny zapas wyjściowy nie zatrzymuje produkcji: nadwyżka jest wyrzucana (oficjalna wiki). Wykres **Przepływ towarów** pokazuje **Zużyte**, **Wyprodukowane** i **Zniszczone** (`industry_eow.script.tl:804-816`).
+- Pełny zapas wyjściowy nie zatrzymuje produkcji: nadwyżka jest wyrzucana (oficjalna wiki). Wykres **Przepływ towarów** pokazuje **Zużyte**, **Wyprodukowane** i **Zniszczone** (`industry_eow.script.tl:807-819`).
 - Z parametrem budowy **Przybywa** ustawionym na Wył. reguły tracą wejścia, a zakład nie ma zapasów wejściowych (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Parcele i rozbudowa
@@ -145,7 +145,7 @@ Sprawdzenie odbywa się co 100 aktualizacji dla każdego zakładu (`industries.s
 | Często | 4,4 % | około 16 latach | – | `difficulty_util.tl:37` |
 | Bardzo często | 8,8 % | około 8 latach | Bardzo wysoki | `difficulty_util.tl:176` |
 
-Szansa to 0,011 na rok × 0, 1, 2, 4 lub 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Zakłady należące do ciebie nigdy się nie zamykają, tak samo zakłady z ręcznym rozwojem; dopóki zamykanie jest wstrzymane (w grze podstawowej tylko w samouczku), żadne się nie zaczyna, a trwające odliczanie zostaje anulowane (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+Szansa to 0,011 na rok × 0, 1, 2, 4 lub 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Zakłady należące do ciebie nigdy się nie zamykają, tak samo zakłady z ręcznym rozwojem; dopóki zamykanie jest wstrzymane (w grze podstawowej tylko w samouczku), żadne się nie zaczyna, a trwające odliczanie zostaje anulowane (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Co liczy się jako „załadowane” i „zużyte” (logi itemsLoaded i itemsConsumed, np. czy liczy się towar premiujący), flaga manualDevelopment i dlaczego zakłady z zajezdnią są pomijane (`industries.script.tl:140-146`), zależy od silnika. Tak samo, co silnik robi z regułą premii, która straciła wejście (Przybywa wył.).
@@ -155,7 +155,7 @@ Co liczy się jako „załadowane” i „zużyte” (logi itemsLoaded i itemsCo
 
 Silnik dodaje nowe zakłady w trakcie gry. Powiadomienie to **Założono nowy zakład przemysłowy**: „Śmiały przedsiębiorca wyczuł okazję do zarobku i założył zakład przemysłowy {industry}.” (`industry_spawn.script.tl:34-36`); jego etykieta typu to **Założono zakład przemysłowy** (`industry_spawn.res.lua:6`). Żaden skrypt gry nie wybiera miejsca, typu ani czasu i żaden nie filtruje tego, co proponuje silnik.
 
-Co skrypty dają silnikowi (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+Co skrypty dają silnikowi (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | Wartość konfiguracji | Wartość | Znaczenie |
 |---|---|---|

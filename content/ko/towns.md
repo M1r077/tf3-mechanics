@@ -5,7 +5,8 @@ domain: towns
 official: gamemanual:simulation:towns
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
+change: 40444 | 도로를 업그레이드해도 건물의 화물 재고가 유지된다(공식 릴리스 노트).
 fact: 0 % | 평가 하나가 매우 형편없음일 때의 성장
 fact: ×1.5 | 다음 레벨마다 필요한 경험치(레벨 2는 1,000)
 fact: ×40 | 17레벨 상승 후의 규모
@@ -95,10 +96,11 @@ fact: ×40 | 17레벨 상승 후의 규모
 - 마을의 수요는 그 **건물**들의 합이다. 모든 건물은 그 구역이 요구하는 화물마다 작은 입력 재고를 하나씩 가진다. 수용량 ÷ 4, 올림, × 마을 수요에서 그 화물의 계수(따로 정하지 않으면 1. 계수의 출처는 스크립트에 없다)(`townbuildingutil.lua:226-251`). 각 화물은 townConsumptionFactor를 1, 0.5, 0.25 중 하나로 정한다(`placementparamsutil.lua:506-616`). 그것이 건물에 어떻게 전달되는지는 엔진 쪽이다. 게임 코드에는 이 재고 크기가 "is currently nowhere shown in the UI"라고 적혀 있다(`townbuildingutil.lua:249`).
 - 마을 창의 수요는 이 재고들의 한도 합계이고, 평가에 계산되는 공급은 수요를 넘지 않는다(`town_util.tl:95-99`, `town_util.tl:194-198`). 큰 마을은 건물이 더 많아서 더 많이 요구한다.
 - 건물 창에는 **소비 등급**이 표시된다. 건물이 화물을 쓰는 속도를 최대치와 비교한 값이다(`town_building.tl:103-132`).
+- 40444부터 도로 업그레이드가 영향을 받는 건물의 재고를 더 이상 비우지 않는다(공식 릴리스 노트: "Fixed cargo needs disappearing in buildings affected by upgrading streets").
 - 경험치와 대금은 한 단위가 건물 재고에 들어갈 때 생긴다(`town_growth.script.tl:620-642`).
 - 정류장은 자기 범위 안의 건물에만 닿는다. 마을 전체로는 아직 부족해도 그 건물들의 재고는 가득 찰 수 있다. 그러면 들어가지 않는 화물은 **차량에 남는다**. 단, **도착 시 모든 화물 강제 하차**("재고가 가득 찬 상태라도 화물 하차.")가 체크되어 있으면(`cargofilter_window.tl:757-763`) 들어가지 않는 화물은 파괴된다([상차 및 하차 속도](loading.html) 참고).
 - 차량에 남은 화물은 **화물 하차 문제** 알림을 띄운다. "{vehicle}의 {cargoCount}개 화물이 선로에 하차되지 않았습니다."(`cargo_rtc_warning.script.tl:28-41`, `cargo_rtc_warning.script.tl:37`). 유형 라벨은 **화물 하차되지 않음**이다(`cargo_rtc_warning.res.lua:6`).
-- **마을 화물 수요**("마을당 화물 수요의 최대치를 선택합니다."): 2, 4, 6 중 하나이며 기본값은 2다(`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:173`, `mod.script.tl:205`). 스크립트는 레벨에 따라 수요를 추가하고(위 참고) 이 값을 엔진에 넘긴다.
+- **마을 화물 수요**("마을당 화물 수요의 최대치를 선택합니다."): 2, 4, 6 중 하나이며 기본값은 2다(`difficulty_util.tl:54`, `difficulty_util.tl:83`, `mod.script.tl:174`, `mod.script.tl:206`). 스크립트는 레벨에 따라 수요를 추가하고(위 참고) 이 값을 엔진에 넘긴다.
 
 ```engine
 건물이 재고를 소비하는 속도(consumeFrequency), 범위 안의 어느 건물이 각 단위를 받는지, 계속 실려 다니는 화물이 어떻게 되는지, 엔진이 마을 화물 수요를 어떻게 쓰는지는 엔진 쪽에 있다.
@@ -107,7 +109,7 @@ fact: ×40 | 17레벨 상승 후의 규모
 ## 마을 성장을 멈출 수 있을까?
 
 - 일반 게임에는 마을 최대 규모를 정하는 **설정이 없다**(`difficulty_util.tl:90-199`).
-- **샌드박스 모드**에서는 마을 창에 **목표 구역 수용량** 카드가 있고, 그 안에 **마을 개발 활성화**가 있다(`town_eow.script.tl:1041-1052`, `town_eow.script.tl:1170-1171`, `town_eow_editor_initial_capacity.res.lua:6`). 체크를 해제하면 마을은 경험치를 받지 않고 크기도 바뀌지 않으며, 창에 **마을 개발 비활성**이 표시된다(`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
+- **샌드박스 모드**에서는 마을 창에 **목표 구역 수용량** 카드가 있고, 그 안에 **마을 개발 활성화**가 있다(`town_eow.script.tl:1044-1055`, `town_eow.script.tl:1173-1174`, `town_eow_editor_initial_capacity.res.lua:6`). 체크를 해제하면 마을은 경험치를 받지 않고 크기도 바뀌지 않으며, 창에 **마을 개발 비활성**이 표시된다(`town_growth.script.tl:28`, `town_growth.script.tl:345`, `town_eow.script.tl:107`).
 - 샌드박스가 아니면 간접적인 방법뿐이다. 마을은 플레이어의 승객과 화물로만 성장하고, 평가 하나라도 매우 형편없음이면 멈춘다(위 참고).
 
 ## 알아두면 좋은 점

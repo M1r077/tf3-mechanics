@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | mnożnik roku dla utrzymania magazynów, portów i lotnisk do 2020
 fact: 6 lat | kosztów bieżących: cena pojazdu
 fact: raz | naliczane jest oprocentowanie kredytu od kwoty, a nie co roku
@@ -24,16 +24,16 @@ Ustawienie **Inflacja** nie podnosi żadnych kosztów: obniża tylko twój przyc
 | **Koszty pojazdów**, **Konserwacja pojazdów** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Koszty infrastruktury**, **Utrzymanie infrastruktury** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Wpływ konserwacji pojazdów** | „Brak” ×0 · „Niski” ×0,5 · „Średni” ×1 · „Wysoki” ×1,5 · „Bardzo wysoki” ×2 | „Niski” · „Średni” · „Wysoki” · „Bardzo wysoki” | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflacja** | tylko przychód, patrz [Przychód z towarów](income.html) | „Niska” · „Normalna” · „Wysoka” · „Bardzo wysoka” | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflacja** | tylko przychód, patrz [Przychód z towarów](income.html) | „Niska” · „Normalna” · „Wysoka” · „Bardzo wysoka” | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Koszty infrastruktury** skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). Skalują też koszt rozbiórki budynków (`construction.script.tl:39-44`). **Utrzymanie infrastruktury** skaluje przy wczytaniu utrzymanie ulic, torów, mostów, tuneli, przejazdów i modułów (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Dla budynków skrypty stosują je tylko w oknie budynku (`entity_window_util.tl:186`); o tym, co jest pobierane, decyduje silnik.
+- **Koszty infrastruktury** skalują cenę ulic, torów, mostów, tuneli, przejazdów, budynków i modułów, a także prac terenowych (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). Skalują też koszt rozbiórki budynków (`construction.script.tl:39-44`). **Utrzymanie infrastruktury** skaluje przy wczytaniu utrzymanie ulic, torów, mostów, tuneli, przejazdów i modułów (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). Dla budynków skrypty stosują je tylko w oknie budynku (`entity_window_util.tl:186`); o tym, co jest pobierane, decyduje silnik.
 - **Koszty pojazdów** i **Konserwacja pojazdów** skalują cenę zakupu i koszty bieżące każdego pojazdu (`post_run_util.tl:54-81`).
-- **Wpływ konserwacji pojazdów** ustala, jak mocno pojazd w złym stanie traci prędkość, moc i komfort oraz zyskuje hałas, zanieczyszczenie i koszty bieżące (`mod.script.tl:241-245`).
+- **Wpływ konserwacji pojazdów** ustala, jak mocno pojazd w złym stanie traci prędkość, moc i komfort oraz zyskuje hałas, zanieczyszczenie i koszty bieżące (`mod.script.tl:242-246`).
 
 ## Co rośnie z rokiem kalendarzowym
 
-- **Utrzymanie budynków**: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020 (`mod.script.tl:92-100`). Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- **Moduły** dodane do takiego budynku kosztują według roku budowy budynku, a ich utrzymanie według bieżącego roku (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Utrzymanie budynków**: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020 (`mod.script.tl:92-100`). Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Moduły** dodane do takiego budynku kosztują według roku budowy budynku, a ich utrzymanie według bieżącego roku (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Warianty epok**: zajezdnie, stacje konserwacji, magazyny, dworce, porty i lotniska mają jeden wariant na epokę, a każdy późniejszy kosztuje **×3** (epoka B) lub **×9** (epoka C) pierwszego (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Pieniądze z subsydiów**: od ×1 w 1900 do ×4 od 2000 (`finances_util.tl:87-90`). **Kwoty kredytów**: od ×0,4 w 1900 do ×2,4 w 2020 (`loan_util.tl:7-10`).
 - **Przychód** nie ma żadnego mnożnika roku (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ O tym, jakie utrzymanie jest naprawdę pobierane i czy ulice, tory i pojazdy te�
 
 ## Tory, drogi i budynki
 
-Pliki ulic i torów podają cenę i roczne utrzymanie na metr; menu budowy pokazuje je na kilometr (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). W większości typów utrzymanie to **jedna szósta** ceny budowy:
+Pliki ulic i torów podają cenę i roczne utrzymanie na metr; menu budowy pokazuje je na kilometr (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). W większości typów utrzymanie to **jedna szósta** ceny budowy:
 
 | Typ | Dostępny od | Budowa za km | Utrzymanie za km i rok | Źródło |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ Pliki ulic i torów podają cenę i roczne utrzymanie na metr; menu budowy pokaz
 | Duża nowa ulica miejska | 1940 | 540 000 | 90 000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Sieć trakcyjna dodaje **30 %** ceny toru; buspas 10 %, tor tramwajowy 20 %, elektryczny tor tramwajowy 40 % ceny ulicy (`mod.script.tl:24-28`).
-- Podniesienie terenu kosztuje 4,5 za m³, obniżenie 5,25 za m³, oba × Koszty infrastruktury; usunięcie pola 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Podniesienie terenu kosztuje 4,5 za m³, obniżenie 5,25 za m³, oba × Koszty infrastruktury; usunięcie pola 200 000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - Budynek bez własnego utrzymania płaci rocznie **jedną szóstą swojej ceny**, liczoną od ceny przed ustawieniem Koszty infrastruktury (`construction.script.tl:25-27`).
 - Podstawowa konfiguracja ustawia współczynnik zwrotu przy wyburzeniu 0,75 i czas zwrotu 60 (`mod.script.tl:30-31`): wyburzenie tego, co właśnie zbudowałeś, oddaje większość pieniędzy. Stosuje to silnik.
 

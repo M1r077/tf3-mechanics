@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5 min | of game time standing still before a vehicle is reported stuck
 fact: 20 % | condition that triggers the warning, until the vehicle is back above 30 %
 fact: 11 | notification types off in a new game

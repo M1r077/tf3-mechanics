@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: ×2 | sezione di piattaforma specializzata
 fact: ×0,25 | sezione sbagliata o treno troppo lungo
 fact: ×4 | caso migliore: piattaforma e magazzino specializzati
@@ -88,7 +88,7 @@ Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico
 
 | Opzione di "Filtro carico" | Che cosa fa | Fonte |
 |---|---|---|
-| "Forza scarico di tutte le merci all'arrivo" | tooltip: "Scarica le merci anche se le scorte sono piene"; le merci che non entrano vengono distrutte: il gioco indica la stazione come destinazione, e una stazione non consuma mai merci (misurato in gioco). Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Forza scarico di tutte le merci all'arrivo" | tooltip: "Scarica le merci anche se le scorte sono piene"; le merci che non entrano vengono distrutte: il gioco indica la stazione come destinazione, e una stazione non consuma mai merci (misurato in gioco). Disattivata per una nuova fermata. | `cargofilter_window.tl:757`, `line_util.tl:477` |
 | "Distrugge il carico all'arrivo se la configurazione cambia" | scarica o distrugge il carico a bordo quando a questa fermata aspetta merce per un'altra configurazione di carico del veicolo; quale delle due lo decide il motore | `cargofilter_window.tl:767` |
 | "Sostituisci con nuovo carico se disponibile" | distrugge il carico tornato alla fermata dove era stato caricato, quando aspetta un carico più recente dello stesso tipo | `cargofilter_window.tl:778` |
 
@@ -96,10 +96,10 @@ Ogni fermata di una linea ha una lista **Carico**, nella finestra "Filtro carico
 
 ## Più merci su una linea
 
-- La lista **Carico** di una fermata è un sì/no per tipo di merce, **senza ordine**: il giocatore non può decidere quale merce viene caricata per prima. Le icone sono solo disegnate nell'ordine delle merci del gioco (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- La lista **Carico** di una fermata è un sì/no per tipo di merce, **senza ordine**: il giocatore non può decidere quale merce viene caricata per prima. Le icone sono solo disegnate nell'ordine delle merci del gioco (`line_util.tl:472-476`, `line_util.tl:512`, `cargofilter_window.tl:533-535`).
 - Un vagone o un camion che accetta più merci ha, per scomparto, più **configurazioni di carico**; la capacità dello scomparto è la più grande di esse, non la loro somma (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). Quindi ne trasporta una sola alla volta.
 - I nuovi veicoli hanno la scelta automatica della configurazione attivata per ogni scomparto (`vehicle_react_util.tl:339`), e il gioco non ha alcuna finestra per scegliere a mano la merce di un veicolo.
-- Passeggeri e merci possono condividere una linea: gli script non rifiutano mai merci a una fermata perché accetta anche passeggeri (`line_util.tl:1381-1386`). Le merci vengono tolte solo da una fermata il cui terminal non può caricare né scaricare merci (`line_util.tl:554-559`).
+- Passeggeri e merci possono condividere una linea: gli script non rifiutano mai merci a una fermata perché accetta anche passeggeri (`line_util.tl:1383-1388`). Le merci vengono tolte solo da una fermata il cui terminal non può caricare né scaricare merci (`line_util.tl:556-561`).
 - Con più merci, **Carico completo (qualsiasi)** e **Carico completo (tutto)** si comportano in modo diverso: vedi [Impostazioni di partenza: carico completo, Riempi livello e tempi di sosta](departure.html).
 - Quando la configurazione non va bene, la linea mostra **Alcune configurazioni dei tipi di merce di questa linea sono in conflitto**, per esempio "Nessun veicolo sulla linea può trasportare parte delle merci configurate per il carico." (`line_warning.script.tl:10-36`).
 
@@ -109,12 +109,12 @@ L'ordine in cui vengono caricate più merci, come una scorta condivisa viene rip
 
 ## La configurazione automatica
 
-Finché nessuno ha salvato una modifica nella finestra "Filtro carico" di una fermata, cosa che la disattiva per sempre su quella linea (`line_util.tl:495-498`, `cargofilter_window.tl:438`), il gioco riempie da solo le liste Carico ogni volta che la linea viene creata, una fermata viene aggiunta o tolta, le fermate vengono riordinate o viene aggiunto un punto di passaggio (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Spostare una fermata su un'altra stazione o piattaforma, e togliere o spostare un punto di passaggio, non la riavviano (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
+Finché nessuno ha salvato una modifica nella finestra "Filtro carico" di una fermata, cosa che la disattiva per sempre su quella linea (`line_util.tl:497-500`, `cargofilter_window.tl:438`), il gioco riempie da solo le liste Carico ogni volta che la linea viene creata, una fermata viene aggiunta o tolta, le fermate vengono riordinate o viene aggiunto un punto di passaggio (`manager_window.tl:6938`, `:6786`, `:6845`, `:6879`, `:6963`). Spostare una fermata su un'altra stazione o piattaforma, e togliere o spostare un punto di passaggio, non la riavviano (`manager_window.tl:7077-7094`, `manager_window.tl:7194-7218`).
 
-- Riparte da liste vuote, con i passeggeri nelle stazioni passeggeri (`line_util.tl:542-588`).
+- Riparte da liste vuote, con i passeggeri nelle stazioni passeggeri (`line_util.tl:544-590`).
 - Cerca produttori e consumatori solo tra industrie ed edifici della città: i magazzini non contano (`cargo_util.tl:518-526`).
-- Mette una merce nella lista Carico di una fermata quando serve più avanti e alla fermata niente la accetta. Un magazzino conta come se accettasse tutto ciò che immagazzina (`line_util.tl:676-693`): a una fermata accanto a un magazzino che conserva quella merce, la merce resta fuori dalla lista e il treno la scarica lì.
-- Non appena un filtro viene cambiato a mano, la linea è segnata come personalizzata (`cargofilter_window.tl:438`) e la configurazione automatica non la tocca più, nemmeno quando in seguito si aggiungono fermate (`line_util.tl:496`).
+- Mette una merce nella lista Carico di una fermata quando serve più avanti e alla fermata niente la accetta. Un magazzino conta come se accettasse tutto ciò che immagazzina (`line_util.tl:678-695`): a una fermata accanto a un magazzino che conserva quella merce, la merce resta fuori dalla lista e il treno la scarica lì.
+- Non appena un filtro viene cambiato a mano, la linea è segnata come personalizzata (`cargofilter_window.tl:438`) e la configurazione automatica non la tocca più, nemmeno quando in seguito si aggiungono fermate (`line_util.tl:498`).
 
 ```engine
 Gli script scrivono solo le liste Carico; lo scarico vero e proprio lo fa il motore. La regola qui sopra (ciò che non è nella lista viene scaricato in qualsiasi scorta che lo accetti) è stata osservata in gioco con [Platform Details](https://mod.io/g/transportfever3/m/platform-details), novembre 2026.

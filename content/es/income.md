@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3,8 | el mismo factor de ingresos para todos los cargamentos
 fact: +8 × desnivel | metros de subida sumados a la distancia
 fact: 100 % | se paga aunque la entrega llegue tarde
@@ -21,7 +21,7 @@ Una entrega paga por la **distancia en línea recta**, y nada más del viaje. La
 La fórmula completa es un breve script del juego (`cargo_income.script.lua:10-13`):
 
 1. **Factor de ingresos** del cargamento. Todos los cargamentos del juego base usan la misma función y los mismos precios (`initialPrice = 4`, `finalPrice = 3.2`), lo que da **3,8 para los 36 cargamentos** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). El carbón paga exactamente lo mismo que las mercancías en la misma distancia.
-2. Ajuste **Ingresos por el cargamento**: 50 %, 75 %, 100 %, 125 % o 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Los cuatro niveles de dificultad predefinidos usan 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
+2. Ajuste **Ingresos por el cargamento**: 50 %, 75 %, 100 %, 125 % o 150 % (`difficulty_util.tl:38`, `mod.script.tl:212`). Los cuatro niveles de dificultad predefinidos usan 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Distancia**, ver más abajo.
 
 La función recibe el tiempo de viaje pero **no lo usa** (`cargotype.script.lua:7-13`): una entrega lenta o con retraso paga lo mismo.
@@ -61,8 +61,8 @@ Los scripts solo calculan el total (`economy/cargo_income.script.lua`); el repar
 
 | Qué | Efecto | Fuente |
 |---|---|---|
-| **Rango de la empresa** con el ajuste Inflación | rango 1: ×1, bajando de forma regular hasta el rango 15: ×0,9 (Baja), **×0,75 (Normal)**, ×0,6 (Alta), ×0,5 (Muy alta); Ninguna: siempre ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Subvención cumplida** | ×2 para entregas a la industria o localidad del contrato, en las líneas que entregaron para el contrato | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Rango de la empresa** con el ajuste Inflación | rango 1: ×1, bajando de forma regular hasta el rango 15: ×0,9 (Baja), **×0,75 (Normal)**, ×0,6 (Alta), ×0,5 (Muy alta); Ninguna: siempre ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:695-698` |
+| **Subvención cumplida** | ×2 para entregas a la industria o localidad del contrato, en las líneas que entregaron para el contrato | `deliver_cargo.script.tl:456-462`, `deliver_cargo_town.script.tl:547-558` |
 | **Entrega con retraso** | ningún efecto en los ingresos | `cargotype.script.lua:7-13` |
 
 - El multiplicador de rango se aplica a **todos** los pagos de cargamento y de pasajeros (`company_growth.script.tl:159-170`). Los niveles de dificultad usan Inflación Baja (Fácil), Normal (Normal), Alta (Difícil), Muy alta (Muy difícil) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
@@ -70,7 +70,7 @@ Los scripts solo calculan el total (`economy/cargo_income.script.lua`); el repar
 
 ## Pasajeros
 
-Los pasajeros usan la misma distancia y un factor de ingresos fijo de unos 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + el factor de precio del billete del vehículo** (`cargo_income.script.lua:14-17`). Cuando un modelo de vehículo no define su factor de comodidad, el juego fija el factor de precio en 0,3 para autobuses y tranvías, 0,9 para aeronaves, 0,1 para barcos y 0,5 para trenes (`base_mod.lua:46-61`); para los demás modelos es un valor del motor, no visible en los scripts. Una subvención de pasajeros solo duplica los pasajeros que viajan entre sus dos localidades, en su única línea (`deliver_passengers.script.tl:292-296`).
+Los pasajeros usan la misma distancia y un factor de ingresos fijo de unos 3,61 (`cargotype.script.lua:50-53`), multiplicado por **0,5 + el factor de precio del billete del vehículo** (`cargo_income.script.lua:14-17`). Cuando un modelo de vehículo no define su factor de comodidad, el juego fija el factor de precio en 0,3 para autobuses y tranvías, 0,9 para aeronaves, 0,1 para barcos y 0,5 para trenes (`base_mod.lua:46-61`); para los demás modelos es un valor del motor, no visible en los scripts. Una subvención de pasajeros solo duplica los pasajeros que viajan entre sus dos localidades, en su única línea, la que cumplió el contrato (`deliver_passengers.script.tl:288-293`).
 
 ## Plazos de entrega
 
@@ -80,7 +80,7 @@ Cada cargamento tiene su propio plazo (`meat.cargo.lua:30`, `coal.cargo.lua:30`)
 ```
 
 - **Finanzas › Tiempo de entrega** muestra el plazo de cada cargamento en tu mapa; la capa de satisfacción de cargamento colorea las rutas de verde a rojo.
-- Una entrega cuenta como **retrasada** cuando llega después de su plazo (`towns.script.tl:425`).
+- Una entrega cuenta como **retrasada** cuando llega después de su plazo (`towns.script.tl:422`).
 - Los módulos de almacén especializados **congelan** el plazo del cargamento que guardan (wiki oficial, Warehouses).
 
 ```engine

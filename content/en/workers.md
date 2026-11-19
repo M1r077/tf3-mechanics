@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | workers needed for the boost
 fact: 2 years | how long an arrival counts
 fact: ×1.5–2.5 | boost factor, fixed per industry
@@ -28,7 +28,7 @@ How a resident picks one job among all the places it can reach (travel time, cos
 
 ## Assigned workers
 
-The residents whose job is this industry. This is the workplaces bar of the industry window and the **Workplaces** column of the industry statistics ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:305`). Assigned workers alone do **not** boost anything: they must actually travel there.
+The residents whose job is this industry. This is the workplaces bar of the industry window and the **Workplaces** column of the industry statistics ("12/20") (`entity_window_util.tl:1238`, `statistic_industries.tl:304`). Assigned workers alone do **not** boost anything: they must actually travel there.
 
 ## Workers counted for the boost
 
@@ -75,7 +75,7 @@ A coal mine with 20 workplaces and "+84 %".
 - **Transfers count.** The script only looks at the mode of the trip, not at how many lines were used (`industry_workers.script.tl:91`). A worker from a town four lines away counts the same as one from next door, but may take much longer to arrive.
 - **Any of your lines can bring them**, also a line that carries cargo, as long as its vehicles take passengers and the stop loads passengers. The script does not check the vehicle type (`industry_workers.script.tl:86-118`). Players report fewer problems with separate passenger lines.
 - Some industries (for example oil rigs) have their own built-in stop, which takes passengers and cargo (`industryutil.lua:156-165`).
-- The industry window shows, for each assigned worker, whether it is **Currently Here** or **On the Way** (`entity_window_util.tl:1371-1384`). The Booster section lists the counted workers with their **Time Left** of the 2 years (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:644-649`).
+- The industry window shows, for each assigned worker, whether it is **Currently Here** or **On the Way** (`entity_window_util.tl:1371-1384`). The Booster section lists the counted workers with their **Time Left** of the 2 years (`entity_window_util.tl:1579-1630`, `industry_eow.script.tl:647-652`).
 - When no arrival is counted (none in the last 2 years), the worker list of the Booster section shows: "Connect this location with public transport to allow residents to work here." (`entity_window_util.tl:1650-1652`, `entity_window_util.tl:1608`, `entity_window_util.tl:1632`).
 
 ```engine

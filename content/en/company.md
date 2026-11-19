@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | company ranks, from Junior to Tycoon
 fact: ×12.5 | world population needed for rank 15, compared with the start
 fact: ×0.75 | income at rank 15 with Inflation Normal
@@ -61,7 +61,7 @@ With **Inflation**, all cargo and passenger income falls evenly from ×1 at rank
 
 | Inflation | Income at rank 15 | Source |
 |---|---|---|
-| None | ×1 (no change) | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| None | ×1 (no change) | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 | Low | ×0.9 | |
 | Normal | ×0.75 | |
 | High | ×0.6 | |

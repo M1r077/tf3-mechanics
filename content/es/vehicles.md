@@ -5,7 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 5 | niveles de condición, de Muy mala a Muy buena, 20 % cada uno
 fact: 20 % | condición que activa el aviso Condición del vehículo
 fact: 6 × | el coste de funcionamiento anual base: el precio de un vehículo
@@ -51,9 +51,9 @@ Cómo se combinan la velocidad de carga del vehículo, el factor de carga del ca
 
 - La condición de un tren es la **media** de todos sus vagones y locomotoras (`vehicle_util.tl:285-295`).
 - Un vehículo desgastado pierde velocidad máxima, potencia y comodidad, y gana ruido, contaminación y costes de funcionamiento (`vehicle_store_util.tl:236-258`). Cuánto, y a partir de qué condición, son valores del motor. La ventana del vehículo enumera estas penalizaciones en **Condición**.
-- La intensidad de estas penalizaciones la fija **Efecto del mantenimiento de vehículos** (Ninguno, Bajo, Medio, Alto, Muy alto); con Ninguno, la condición no tiene efecto (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Detalles: [Costes, conservación y préstamos](costs.html).
+- La intensidad de estas penalizaciones la fija **Efecto del mantenimiento de vehículos** (Ninguno, Bajo, Medio, Alto, Muy alto); con Ninguno, la condición no tiene efecto (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Detalles: [Costes, conservación y préstamos](costs.html).
 - Con un **20 %** o menos recibes el aviso **Condición del vehículo**. Se mantiene hasta que el vehículo vuelve a superar el **30 %** (`notifications.script.tl:310-318`).
-- Un vehículo clonado es una compra nueva: condición 100 %, nueva fecha de compra (`manager_window.tl:8502-8506`).
+- Un vehículo clonado es una compra nueva: condición 100 %, nueva fecha de compra (`manager_window.tl:8744-8748`).
 
 ```engine
 La rapidez con que baja la condición, cuánto restablece una visita a una estación de mantenimiento y el tamaño de cada penalización (getMaintenanceTopSpeedPenalty y las demás) son valores del motor. Cada modelo de vehículo también puede fijar su propia penalización de velocidad máxima por nivel (`vehicle_store_util.tl:250-253`).
@@ -92,7 +92,7 @@ A qué estación se asigna un vehículo, qué pasa cuando más vehículos usan u
 
 ## Edad y vida útil
 
-- Cada modelo tiene una **vida útil** (`vehicle_util.tl:31-34`). La columna **Edad** de la ventana de la línea muestra la edad; su descripción emergente muestra el tiempo restante, o **Vida útil cumplida** (`line_eow.script.tl:133-147`). La parte de la vida útil en esa descripción marca **0 %** hasta que se cumple la vida útil: el script redondea la fracción hacia abajo antes de mostrarla (`line_eow.script.tl:139`), mientras que la misma parte se calcula completa en otro lugar (`vehicle_util.tl:311`). Usa el tiempo restante.
+- Cada modelo tiene una **vida útil** (`vehicle_util.tl:31-34`). La columna **Edad** de la ventana de la línea muestra la edad; su descripción emergente muestra el tiempo restante, o **Vida útil cumplida** (`line_eow.script.tl:136-150`). La parte de la vida útil en esa descripción marca **0 %** hasta que se cumple la vida útil: el script redondea la fracción hacia abajo antes de mostrarla (`line_eow.script.tl:142`), mientras que la misma parte se calcula completa en otro lugar (`vehicle_util.tl:311`). Usa el tiempo restante.
 - Para un tren, cuenta la parte **más antigua** (`vehicle_util.tl:36-52`). Un solo vagón viejo hace que todo el tren aparezca como viejo.
 
 ```engine
@@ -104,7 +104,7 @@ Qué cambia al alcanzar la vida útil (por ejemplo, una pérdida de condición m
 1. **La condición sigue baja** aunque haya una estación de mantenimiento cerca: el vehículo pierde velocidad y paga más costes de funcionamiento. Revisa primero los recursos de la estación: pueden estar llenos.
 2. **Vida útil cumplida** en la descripción emergente de Edad: el modelo ha superado su vida prevista.
 3. **Existe un modelo mejor**: los vehículos más rápidos o más grandes cuestan más de mantener en servicio, pero transportan más (el precio sigue a velocidad × capacidad).
-4. Usa **Sustituir vehículos** en el gestor de líneas. Abre la tienda con una comparación con el vehículo actual (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+4. Usa **Sustituir vehículos** en el gestor de líneas. Abre la tienda con una comparación con el vehículo actual (`vehicle_store_window.tl:4997-5032`, `vehicle_store_window.tl:2678`).
 
 ```tip scripts
 **¿Los vehículos siguen en mal estado junto a un depósito? Abre su ventana y mira «usado / cupo».** Un depósito de trenes atiende 6 trenes; una estación de mantenimiento de trenes, 12. Lo que hace el motor con los vehículos que superan el cupo no está en los scripts; un segundo edificio es la respuesta segura.

@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3,8 | dezelfde inkomstenfactor voor elke vracht
 fact: +8 × stijging | meters stijging opgeteld bij de afstand
 fact: 100 % | betaald, ook als de bezorging te laat is
@@ -21,7 +21,7 @@ Een bezorging betaalt voor de **afstand in vogelvlucht**, en verder niets van de
 De hele formule staat in één kort spelscript (`cargo_income.script.lua:10-13`):
 
 1. **Inkomstenfactor** van de vracht. Elke vracht uit het basisspel gebruikt dezelfde functie en dezelfde prijzen (`initialPrice = 4`, `finalPrice = 3.2`), wat **3,8 voor alle 36 vrachten** oplevert (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Steenkool betaalt over dezelfde afstand precies evenveel als goederen.
-2. Instelling **Inkomsten vracht**: 50 %, 75 %, 100 %, 125 % of 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Alle vier de niveaupresets gebruiken 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
+2. Instelling **Inkomsten vracht**: 50 %, 75 %, 100 %, 125 % of 150 % (`difficulty_util.tl:38`, `mod.script.tl:212`). Alle vier de niveaupresets gebruiken 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Afstand**, zie hieronder.
 
 De functie krijgt de reistijd mee, maar **gebruikt die niet** (`cargotype.script.lua:7-13`): een trage of te late bezorging betaalt hetzelfde.
@@ -61,8 +61,8 @@ De scripts berekenen alleen het totaal (`economy/cargo_income.script.lua`); de v
 
 | Wat | Effect | Bron |
 |---|---|---|
-| **Bedrijfsrang** met de instelling Inflatie | rang 1: ×1, gelijkmatig dalend tot rang 15: ×0,9 (Laag), **×0,75 (Gemiddeld)**, ×0,6 (Hoog), ×0,5 (Zeer hoog); Geen: altijd ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Voltooide subsidie** | ×2 voor leveringen aan het industriebedrijf of de stad van het contract, op de lijnen die voor het contract hebben geleverd | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Bedrijfsrang** met de instelling Inflatie | rang 1: ×1, gelijkmatig dalend tot rang 15: ×0,9 (Laag), **×0,75 (Gemiddeld)**, ×0,6 (Hoog), ×0,5 (Zeer hoog); Geen: altijd ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:695-698` |
+| **Voltooide subsidie** | ×2 voor leveringen aan het industriebedrijf of de stad van het contract, op de lijnen die voor het contract hebben geleverd | `deliver_cargo.script.tl:456-462`, `deliver_cargo_town.script.tl:547-558` |
 | **Te late bezorging** | geen effect op de inkomsten | `cargotype.script.lua:7-13` |
 
 - De rangvermenigvuldiger geldt voor **elke** betaling voor vracht en reizigers (`company_growth.script.tl:159-170`). De niveaupresets gebruiken Inflatie Laag (Makkelijk), Gemiddeld (Gemiddeld), Hoog (Moeilijk), Zeer hoog (Heel moeilijk) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
@@ -70,7 +70,7 @@ De scripts berekenen alleen het totaal (`economy/cargo_income.script.lua`); de v
 
 ## Reizigers
 
-Reizigers gebruiken dezelfde afstand en een vaste inkomstenfactor van ongeveer 3,61 (`cargotype.script.lua:50-53`), vermenigvuldigd met **0,5 + de ticketprijsfactor van het voertuig** (`cargo_income.script.lua:14-17`). Als een voertuigmodel geen comfortfactor instelt, zet het spel de prijsfactor op 0,3 voor bussen en trams, 0,9 voor vliegtuigen, 0,1 voor schepen en 0,5 voor treinen (`base_mod.lua:46-61`); voor de andere modellen is het een enginewaarde, niet zichtbaar in de scripts. Een reizigerssubsidie verdubbelt alleen de reizigers tussen haar twee steden, op haar ene lijn (`deliver_passengers.script.tl:292-296`).
+Reizigers gebruiken dezelfde afstand en een vaste inkomstenfactor van ongeveer 3,61 (`cargotype.script.lua:50-53`), vermenigvuldigd met **0,5 + de ticketprijsfactor van het voertuig** (`cargo_income.script.lua:14-17`). Als een voertuigmodel geen comfortfactor instelt, zet het spel de prijsfactor op 0,3 voor bussen en trams, 0,9 voor vliegtuigen, 0,1 voor schepen en 0,5 voor treinen (`base_mod.lua:46-61`); voor de andere modellen is het een enginewaarde, niet zichtbaar in de scripts. Een reizigerssubsidie verdubbelt alleen de reizigers tussen haar twee steden, op haar ene lijn, de lijn die het contract voltooide (`deliver_passengers.script.tl:288-293`).
 
 ## Tijdslimieten voor bezorging
 
@@ -80,7 +80,7 @@ Elke vracht heeft haar eigen tijdslimiet (`meat.cargo.lua:30`, `coal.cargo.lua:3
 ```
 
 - **Financiën › Bezorgtijd** toont de limiet van elke vracht op jouw kaart; de laag Vrachttevredenheid kleurt de routes van groen tot rood.
-- Een bezorging telt als **vertraagd** als ze na haar limiet aankomt (`towns.script.tl:425`).
+- Een bezorging telt als **vertraagd** als ze na haar limiet aankomt (`towns.script.tl:422`).
 - Gespecialiseerde opslagmodules **bevriezen** de timer van de vracht die ze opslaan (officiële wiki, Warehouses).
 
 ```engine

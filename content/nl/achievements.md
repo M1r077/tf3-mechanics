@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | prestaties die het spelscript zelf ontgrendelt
 fact: 500 m | hoogte van de eerste wagon van een trein bij een halte voor Topper
 fact: < 1 % | reputatie van de stad voor De hatelijke nul
@@ -21,10 +21,10 @@ De officiële wiki noemt 41 prestaties. Het spelscript (`achievements.script.tl`
 | **Pakket bezorgd** | één vrachtstuk bereikt zijn bestemming | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **Mede mogelijk gemaakt door** | één subsidie voltooid | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Subsidiepakker** | 10 subsidies voltooid zonder mislukte ertussen; een mislukte subsidie zet de telling terug op 0 | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Zorgplicht** | de leveringsbeoordeling van een stad wordt **Uitstekend** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Zorgplicht** | de leveringsbeoordeling van een stad wordt **Uitstekend** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Stedelijke ontwikkeling** | een stad stijgt een niveau | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Groeiende vraag** | een stad krijgt vraag naar een nieuw vrachttype | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **De hatelijke nul** | de Reputatie van een stad **daalt** tot onder **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **De hatelijke nul** | de Reputatie van een stad **daalt** tot onder **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Promotie** | het bedrijf stijgt een rang | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Carrièreladder** | het bedrijf bereikt de hoogste rang | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Landschapsverfraaiing** | je plaatst bomen, en alleen bomen, in één bouwactie (niets verwijderd, niet via herbebossing) | `achievements.script.tl:346-377` |

@@ -5,7 +5,7 @@ domain: company
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 15 | 個公司等級，從初階員工到鐵路大亨
 fact: ×12.5 | 達到等級 15 所需的世界人口（與開局相比）
 fact: ×0.75 | 通貨膨脹為普通時等級 15 的收入
@@ -61,7 +61,7 @@ fact: 0 | 人口下降時失去的等級
 
 | 通貨膨脹 | 等級 15 的收入 | 來源 |
 |---|---|---|
-| 無 | ×1（不變） | `difficulty_util.tl:50`，`mod.script.tl:694-697` |
+| 無 | ×1（不變） | `difficulty_util.tl:50`，`mod.script.tl:695-698` |
 | 低 | ×0.9 | |
 | 普通 | ×0.75 | |
 | 高 | ×0.6 | |

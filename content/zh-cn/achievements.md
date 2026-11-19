@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | 由游戏脚本自己解锁的成就
 fact: 500 m | 高峰停靠中列车停站时第一节车厢的高度
 fact: < 1 % | 不是我的错所需的城镇声誉
@@ -21,10 +21,10 @@ fact: 10 | 集中建设中最近城镇必须相同的地标数
 | **包裹到达** | 一件货物送达目的地 | `achievements.script.tl:221-225`，`achievements.script.tl:632-636` |
 | **以谁之名** | 完成一项补贴 | `achievements.script.tl:241-244`，`achievements.script.tl:638-642` |
 | **补贴风潮** | 连续完成 10 项补贴，中间没有失败；补贴失败会把计数重置为 0 | `achievements.script.tl:243-249`，`achievements.script.tl:644-648` |
-| **守护者** | 城镇的送货评价变为**极佳** | `achievements.script.tl:270-276`，`towns.script.tl:30-33`，`achievements.script.tl:650-654` |
+| **守护者** | 城镇的送货评价变为**极佳** | `achievements.script.tl:270-276`，`towns.script.tl:27-30`，`achievements.script.tl:650-654` |
 | **城市发展** | 城镇升级 | `achievements.script.tl:253-255`，`town_growth.script.tl:92` |
 | **增加需求** | 城镇产生新的货物类型需求 | `achievements.script.tl:257-259`，`achievements.script.tl:668-672` |
-| **不是我的错** | 城镇的声誉**下降**到 **1 %** 以下 | `achievements.script.tl:261-267`，`towns.script.tl:36-39` |
+| **不是我的错** | 城镇的声誉**下降**到 **1 %** 以下 | `achievements.script.tl:261-267`，`towns.script.tl:33-36` |
 | **升值** | 公司提升一个等级 | `achievements.script.tl:280-282`，`achievements.script.tl:680-684` |
 | **职业阶梯** | 公司达到最高等级 | `achievements.script.tl:284-290`，`achievements.script.tl:686-690` |
 | **园艺师** | 在一次建造中只放置树木（没有移除任何东西，也不是通过植树造林） | `achievements.script.tl:346-377` |

@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 1 | 1 個ごとの支払い。消費地で、直線距離に対して
 fact: 0 | 倉庫や乗り換えでの支払い
 fact: 100 % | 遅れても支払われる

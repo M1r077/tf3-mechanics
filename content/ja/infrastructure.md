@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | シンプルな線路、標準線路、高速線路
 fact: ×9 | シンプルな線路と比べた高速線路の価格と維持費
 fact: +30 % | 線路に架線を付けるときの価格
@@ -23,7 +23,7 @@ fact: -65 % | 防音壁を付けた道路や線路の騒音
 | 高速線路 | 1980 | 350 km/h | 54万 | 9万 | `high_speed.street_template.lua:4`、`high_speed.street_template.lua:11`、`high_speed.street_template.lua:30`、`high_speed.street_template.lua:35` |
 
 - **架線** は線路より **30 %** 高い（`mod.script.tl:24-25`）。シンプルな線路では 1921 年から、より新しい種類では登場時から使える（`simple_catenary.street_template.lua:4`）。ファイル上は年ごとの追加費用はなく、電化版の維持費は同じである（`simple_catenary.street_template.lua:34`）。
-- 3 種類とも勾配とカーブの条件は同じ：建設時は **8.5 %**（**勾配** スライダーの上限）、線路の形状としては最大 13 %、カーブ半径は建設時 55 m、最小 40 m（`standard.street_template.lua:36-37`、`standard.street_template.lua:48-49`、`construction_react_util.tl:241-242`、`construction_react_util.tl:1821`）。
+- 3 種類とも勾配とカーブの条件は同じ：建設時は **8.5 %**（**勾配** スライダーの上限）、線路の形状としては最大 13 %、カーブ半径は建設時 55 m、最小 40 m（`standard.street_template.lua:36-37`、`standard.street_template.lua:48-49`、`construction_react_util.tl:241-242`、`construction_react_util.tl:1824`）。
 - 線路そのものの汚染は種類とともに増える：2、4、6（`simple.street_template.lua:18`、`standard.street_template.lua:20`、`high_speed.street_template.lua:20`）。
 
 ```engine
@@ -66,7 +66,7 @@ fact: -65 % | 防音壁を付けた道路や線路の騒音
 | 防音ツール | -65 % | 変化なし | 変化なし | 道路と線路。トンネル内は不可 | `barrier_b.edge.lua:43`、`barrier_b.edge.lua:47`、`barrier_track_b.edge.lua:43` |
 
 - どちらもファイル上は 100 と年 10 で、道路の 1 m あたりと同じ扱いである（`alley.edge.lua:8`、`alley.edge.lua:12`、`barrier_b.edge.lua:7`、`barrier_b.edge.lua:11`）。
-- 建設メニューの「並木付き」「防音壁付き」の道路は、これらの装飾が最初から付いた同じ道路である（`town_new_medium_trees.street_template.lua:12-14`）。建設メニューはその効果を合算する（`construction_react_util.tl:2116-2139`）。
+- 建設メニューの「並木付き」「防音壁付き」の道路は、これらの装飾が最初から付いた同じ道路である（`town_new_medium_trees.street_template.lua:12-14`）。建設メニューはその効果を合算する（`construction_react_util.tl:2119-2142`）。
 - そのため並木付きの道路は **4 分の 1 遅い**。並木付きの新しい街道（中）は 50 km/h ではなく約 38 km/h になる。
 
 ```tip scripts

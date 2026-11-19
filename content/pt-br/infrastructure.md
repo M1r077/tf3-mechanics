@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | trilhos simples, padrão e de alta velocidade
 fact: ×9 | preço e manutenção dos trilhos de alta velocidade comparados com os trilhos simples
 fact: +30% | no preço de um trilho com catenária
@@ -23,7 +23,7 @@ Cada tipo de rua e de trilho tem uma velocidade máxima, um preço por metro e u
 | Trilhos de Alta Velocidade | 1980 | 350 km/h | 540.000 | 90.000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - A **catenária** custa **30%** a mais que o trilho (`mod.script.tl:24-25`). Ela está disponível a partir de 1921 nos trilhos simples e desde o início de cada tipo mais novo (`simple_catenary.street_template.lua:4`). Nos arquivos, ela não custa nada a mais por ano: a variante elétrica tem a mesma manutenção (`simple_catenary.street_template.lua:34`).
-- Os três tipos permitem a mesma inclinação e as mesmas curvas: **8,5%** ao construir (o controle Inclinação vai até esse valor), no máximo 13% para a forma do trilho, e um raio de curva de 55 m ao construir, 40 m no mínimo (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- Os três tipos permitem a mesma inclinação e as mesmas curvas: **8,5%** ao construir (o controle Inclinação vai até esse valor), no máximo 13% para a forma do trilho, e um raio de curva de 55 m ao construir, 40 m no mínimo (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - A poluição do próprio trilho cresce com o tipo: 2, 4 e 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ Os trilhos de alta velocidade custam 9 vezes os trilhos simples, na construção
 | Ferramenta de Barreira de Som | -65% | sem mudança | sem mudança | ruas e trilhos, não em túneis | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - As duas custam 100 e 10 por ano nos seus arquivos, como uma rua por metro (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- Os tipos de rua "com árvores" e "com barreiras" do menu de construção são as mesmas ruas já com essas decorações (`town_new_medium_trees.street_template.lua:12-14`). O menu de construção soma os efeitos delas (`construction_react_util.tl:2116-2139`).
+- Os tipos de rua "com árvores" e "com barreiras" do menu de construção são as mesmas ruas já com essas decorações (`town_new_medium_trees.street_template.lua:12-14`). O menu de construção soma os efeitos delas (`construction_react_util.tl:2119-2142`).
 - Por isso uma rua com árvores fica **um quarto mais lenta**: uma rua média moderna com árvores permite cerca de 38 km/h em vez de 50.
 
 ```tip scripts

@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | vía simple, estándar y de alta velocidad
 fact: ×9 | precio y conservación de la vía de alta velocidad frente a la vía simple
 fact: +30 % | precio de la catenaria sobre una vía
@@ -23,7 +23,7 @@ Cada tipo de calle y de vía tiene una velocidad máxima, un precio por metro y 
 | Vías de alta velocidad | 1980 | 350 km/h | 540.000 | 90.000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - La **catenaria** cuesta un **30 %** más que la vía (`mod.script.tl:24-25`). Está disponible desde 1921 en la vía simple y desde el inicio de cada tipo más reciente (`simple_catenary.street_template.lua:4`). En los archivos no cuesta nada más al año: la variante eléctrica tiene la misma conservación (`simple_catenary.street_template.lua:34`).
-- Los tres tipos permiten la misma pendiente y las mismas curvas: **8,5 %** al construir (el control Inclinación llega hasta ahí), 13 % como máximo para la forma de la vía, y un radio de curva de 55 m al construir, 40 m como mínimo (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- Los tres tipos permiten la misma pendiente y las mismas curvas: **8,5 %** al construir (el control Inclinación llega hasta ahí), 13 % como máximo para la forma de la vía, y un radio de curva de 55 m al construir, 40 m como mínimo (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - La contaminación de la propia vía crece con su tipo: 2, 4 y 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ La vía de alta velocidad cuesta 9 veces la vía simple, al construirla y cada a
 | Herramienta de barrera acústica | -65 % | sin cambio | sin cambio | calles y vías, no en túneles | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Ambas cuestan 100 y 10 al año en sus archivos, como una calle por metro (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- Los tipos de calle «con árboles» y «con barreras» del menú de construcción son las mismas calles con estas decoraciones ya puestas (`town_new_medium_trees.street_template.lua:12-14`). El menú de construcción suma sus efectos (`construction_react_util.tl:2116-2139`).
+- Los tipos de calle «con árboles» y «con barreras» del menú de construcción son las mismas calles con estas decoraciones ya puestas (`town_new_medium_trees.street_template.lua:12-14`). El menú de construcción suma sus efectos (`construction_react_util.tl:2119-2142`).
 - Así que una calle con árboles es **un cuarto más lenta**: una calle mediana moderna con árboles permite unos 38 km/h en lugar de 50.
 
 ```tip scripts

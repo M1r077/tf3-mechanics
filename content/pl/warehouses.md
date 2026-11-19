@@ -5,7 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 500 | jednostek towaru na moduł, niezależnie od jego typu
 fact: ×2 | szybkość załadunku przy module specjalistycznym, ×1 przy uniwersalnym
 fact: 150 000 / 300 000 | cena modułu uniwersalnego / specjalistycznego

@@ -5,7 +5,8 @@ domain: subsidies
 official: gamemanual:management:subsidies
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
+change: 40444 | Conectar Municípios: a linha que recebe o 2x é fixada quando o contrato é cumprido; um passageiro só conta depois de a oferta ser aceita; qualquer linha direta com um veículo de passageiros bloqueia a oferta.
 fact: 4 | tipos de contrato em um jogo livre
 fact: 5 | contratos aceitos no máximo ao mesmo tempo
 fact: ×2 | de renda por 5 anos nas linhas que entregaram
@@ -24,21 +25,21 @@ Um subsídio é um contrato: uma indústria ou um município oferece uma tarefa,
 
 | Contrato | Alvo | O que o cumpre | Fonte |
 |---|---|---|---|
-| **Abastecer Indústria** | uma indústria que nunca produziu nada e que precisa de uma carga já produzida em algum lugar do mapa (`deliver_cargo.script.tl:157`) | o número exigido de entregas a ela, **de qualquer uma das suas cargas de entrada** | `deliver_cargo.script.tl:54-61`, `deliver_cargo.script.tl:230-234`, `deliver_cargo.script.tl:470-479` |
-| **Abastecer Município** | uma carga que o município pede e não recebe de forma alguma | o número exigido de unidades **dessa carga** entregues a prédios do município | `deliver_cargo_town.script.tl:566-581` |
-| **Conectar Municípios** | dois municípios | **um único** passageiro que começa uma viagem entre os dois municípios em uma linha que para nos dois | `deliver_passengers.script.tl:263-280`, `subvention_util.tl:561-592` |
+| **Abastecer Indústria** | uma indústria que nunca produziu nada e que precisa de uma carga já produzida em algum lugar do mapa (`deliver_cargo.script.tl:163`) | o número exigido de entregas a ela, **de qualquer uma das suas cargas de entrada** | `deliver_cargo.script.tl:60-67`, `deliver_cargo.script.tl:236-240`, `deliver_cargo.script.tl:463-472` |
+| **Abastecer Município** | uma carga que o município pede e não recebe de forma alguma | o número exigido de unidades **dessa carga** entregues a prédios do município | `deliver_cargo_town.script.tl:559-574` |
+| **Conectar Municípios** | dois municípios | **um único** passageiro que começa uma viagem entre os dois municípios em uma linha que para nos dois | `deliver_passengers.script.tl:252-274`, `subvention_util.tl:561-592` |
 | **Transportar Trabalhadores** | uma indústria que já envia ou recebe carga, ainda sem bônus | o seu bônus de trabalhadores fica ativo (metade dos seus postos de trabalho) | `deliver_workers.script.tl:121-131`, `deliver_workers.script.tl:152-156` |
 
 - Cada nova oferta sorteia um dos tipos que podem aparecer no momento, com chances iguais (`subventions.script.tl:147-169`).
-- **Abastecer Indústria** e **Abastecer Município** contam entregas, não viagens: cada unidade paga que chega ao alvo soma 1. Transferências são permitidas (`deliver_cargo.script.tl:470-479`).
-- **Conectar Municípios** não exige um número de passageiros: o primeiro passageiro que embarca na sua linha entre os dois municípios o cumpre. "Sem transferência" significa que esse trecho é feito em uma única linha que atende os dois municípios. Nenhuma oferta aparece se uma linha já embarca passageiros nos dois municípios e tem um veículo que pode levá-los (`deliver_passengers.script.tl:72-78`).
-- Municípios próximos são bem mais prováveis: o peso do par é (peso da distância)^7 × 100 mais a **média** dos valores dos dois municípios, cada um de pelo menos 1, que o motor lê na posição do município na sua grade de infraestrutura do jogador (`deliver_passengers.script.tl:156`, `deliver_passengers.script.tl:186`, `deliver_passengers.script.tl:191`). O peso da distância é 1 a 1 km e cai de forma uniforme até 0,01 a 20 km (`deliver_passengers.script.tl:154-156`, `deliver_passengers.script.tl:175-191`). Assim, a parte da distância vale cerca de 19 a 5 km, cerca de 1 a 10 km e quase zero acima de uns 15 km, onde só sobram os valores dos municípios.
-- **Abastecer Município** prefere cargas que já são produzidas em algum lugar do mapa: 16 vezes mais prováveis que as outras (`deliver_cargo_town.script.tl:277-280`).
+- **Abastecer Indústria** e **Abastecer Município** contam entregas, não viagens: cada unidade paga que chega ao alvo soma 1. Transferências são permitidas (`deliver_cargo.script.tl:463-472`).
+- **Conectar Municípios** não exige um número de passageiros: o primeiro passageiro que embarca na sua linha entre os dois municípios o cumpre. "Sem transferência" significa que esse trecho é feito em uma única linha que atende os dois municípios. Nenhuma oferta aparece se uma linha já embarca passageiros nos dois municípios e tem um veículo que pode levá-los (`deliver_passengers.script.tl:76-85`).
+- Municípios próximos são bem mais prováveis: o peso do par é (peso da distância)^7 × 100 mais a **média** dos valores dos dois municípios, cada um de pelo menos 1, que o motor lê na posição do município na sua grade de infraestrutura do jogador (`deliver_passengers.script.tl:159`, `deliver_passengers.script.tl:183`, `deliver_passengers.script.tl:188`). O peso da distância é 1 a 1 km e cai de forma uniforme até 0,01 a 20 km (`deliver_passengers.script.tl:157-159`, `deliver_passengers.script.tl:175-191`). Assim, a parte da distância vale cerca de 19 a 5 km, cerca de 1 a 10 km e quase zero acima de uns 15 km, onde só sobram os valores dos municípios.
+- **Abastecer Município** prefere cargas que já são produzidas em algum lugar do mapa: 16 vezes mais prováveis que as outras (`deliver_cargo_town.script.tl:283-286`).
 - A quantidade a entregar depende da configuração **Risco dos Subsídios**:
 
 | Risco dos Subsídios | Abastecer Indústria | Abastecer Município (no máximo a demanda do município) | Fonte |
 |---|---|---|---|
-| Nenhum | 10–50 | 10–30 | `deliver_cargo.script.tl:100-114`, `deliver_cargo_town.script.tl:165-188` |
+| Nenhum | 10–50 | 10–30 | `deliver_cargo.script.tl:106-120`, `deliver_cargo_town.script.tl:171-194` |
 | Justo | 50–100 | 30–100 | |
 | Arriscado | 75–150 | 35–125 | |
 | Muito Arriscado | 150–300 | 45–150 | |
@@ -48,10 +49,10 @@ Um subsídio é um contrato: uma indústria ou um município oferece uma tarefa,
 O cartão **Conectar Municípios** pede: "Crie uma conexão sem transferência entre {fromTownName} e {toTownName} e transporte passageiros entre os dois municípios." (`deliver_passengers.script.tl:14`).
 
 - **Uma linha com uma parada em cada município.** O jogo percorre as paradas da linha e pega o município de cada uma; a linha conta quando pelo menos uma parada fica em cada um dos dois municípios. As outras paradas, a ordem delas e o tipo de veículo (ônibus, bonde, trem, navio, aeronave) não importam (`subvention_util.tl:561-592`).
-- **Um passageiro o cumpre**: o primeiro passageiro que viaja nessa linha de uma parada em um município até uma parada no outro, em qualquer sentido (`deliver_passengers.script.tl:263-280`, `deliver_passengers.script.tl:210-218`). A verificação só olha para essa viagem, então trocar de linha antes ou depois dela não deve importar.
+- **Um passageiro o cumpre**: o primeiro passageiro, depois que você aceita a oferta, que viaja nessa linha de uma parada em um município até uma parada no outro, em qualquer sentido (`deliver_passengers.script.tl:252-274`, `deliver_passengers.script.tl:207-215`). A verificação só olha para essa viagem, então trocar de linha antes ou depois dela não deve importar.
 - **O município de uma parada** é o município da primeira estação do seu grupo de estações (`town_util.tl:1844-1873`). A qual município uma estação pertence é decidido pelo motor.
-- **Nenhuma oferta** aparece quando uma linha já tem uma parada que embarca passageiros em cada município e um veículo que leva passageiros (`deliver_passengers.script.tl:72-78`). Uma linha só de carga entre eles não bloqueia a oferta.
-- O contrato termina como **Subsídio Removido** quando um dos dois municípios, ou a linha que o cumpriu, muda de um jeito que o jogo conta como uma nova versão (`deliver_passengers.script.tl:232-240`).
+- **Nenhuma oferta** aparece quando qualquer linha já tem uma parada que embarca passageiros em cada município e um veículo que leva passageiros; toda linha assim é verificada (`deliver_passengers.script.tl:76-85`). Uma linha só de carga entre eles não bloqueia a oferta.
+- O contrato termina como **Subsídio Removido** quando um dos dois municípios, ou a linha que o cumpriu, muda de um jeito que o jogo conta como uma nova versão (`deliver_passengers.script.tl:229-237`).
 
 ```engine
 A qual município uma estação pertence (stationSystem.getTown), quando exatamente um passageiro "começa a usar" uma linha (OnStartedLineUsage) e quais edições de uma linha contam como uma nova versão ficam do lado do motor. Não foi testado se uma edição da linha depois do cumprimento encerra o efeito Renda x2.
@@ -59,33 +60,34 @@ A qual município uma estação pertence (stationSystem.getTown), quando exatame
 
 ## Recompensas e penalidades
 
-Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**, **Ao cumprir** e **Ao fracassar**; os scripts as aplicam ao aceitar, ao cumprir e ao fracassar (`subvention_util.tl:449-471`). Em caso de fracasso, tudo o que foi dado ao aceitar é retirado, mais uma penalidade, ou duas em Conectar Municípios, uma perda de reputação em cada município (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:134-136`, `deliver_passengers.script.tl:111-114`).
+Cada contrato guarda três listas, mostradas no seu cartão como **Ao aceitar**, **Ao cumprir** e **Ao fracassar**; os scripts as aplicam ao aceitar, ao cumprir e ao fracassar (`subvention_util.tl:449-471`). Em caso de fracasso, tudo o que foi dado ao aceitar é retirado, mais uma penalidade, ou duas em Conectar Municípios, uma perda de reputação em cada município (`subvention_util.tl:457-463`, `deliver_cargo.script.tl:140-142`, `deliver_passengers.script.tl:118-121`).
 
 | Contrato | Ao aceitar | Ao cumprir | Ao fracassar | Fonte |
 |---|---|---|---|---|
-| Abastecer Indústria | dinheiro | só o efeito **Renda x2** | adiantamento devolvido + multa | `deliver_cargo.script.tl:120-136` |
-| Abastecer Município | dinheiro **ou** reputação no município | experiência do município **ou** dinheiro, mais Renda x2 | adiantamento devolvido + perda de reputação **ou** multa | `deliver_cargo_town.script.tl:194-229` |
-| Conectar Municípios | dinheiro, mais para municípios distantes | experiência nos **dois** municípios, mais Renda x2 | adiantamento devolvido + perda de reputação nos **dois** municípios | `deliver_passengers.script.tl:105-119` |
+| Abastecer Indústria | dinheiro | só o efeito **Renda x2** | adiantamento devolvido + multa | `deliver_cargo.script.tl:126-142` |
+| Abastecer Município | dinheiro **ou** reputação no município | experiência do município **ou** dinheiro, mais Renda x2 | adiantamento devolvido + perda de reputação **ou** multa | `deliver_cargo_town.script.tl:200-235` |
+| Conectar Municípios | dinheiro, mais para municípios distantes | experiência nos **dois** municípios, mais Renda x2 | adiantamento devolvido + perda de reputação nos **dois** municípios | `deliver_passengers.script.tl:112-126` |
 | Transportar Trabalhadores | dinheiro | dinheiro | adiantamento devolvido + multa | `deliver_workers.script.tl:92-116` |
 
-- **Dinheiro**, antes do ajuste pelo ano: adiantamento de 1,5 a 3,75 milhões × o fator de risco (Nenhum ×2, Justo ×1, Arriscado ×0,75, Muito Arriscado ×0,5, ou ×0,625 em Conectar Municípios e Transportar Trabalhadores), e em Conectar Municípios também × o fator de distância (0,3 a 3,0); multa de 3 a 6 milhões; pagamento ao cumprir de 3,75 a 11,25 milhões (`deliver_cargo.script.tl:100-128`, `deliver_passengers.script.tl:82-106`, `deliver_workers.script.tl:64-104`). Cada valor em dinheiro também é multiplicado por um fator da configuração base, `subventionFinancialRewardMultiplier` (`deliver_cargo.script.tl:120`), cujo valor não está definido nos scripts.
+- **Dinheiro**, antes do ajuste pelo ano: adiantamento de 1,5 a 3,75 milhões × o fator de risco (Nenhum ×2, Justo ×1, Arriscado ×0,75, Muito Arriscado ×0,5, ou ×0,625 em Conectar Municípios e Transportar Trabalhadores), e em Conectar Municípios também × o fator de distância (0,3 a 3,0); multa de 3 a 6 milhões; pagamento ao cumprir de 3,75 a 11,25 milhões (`deliver_cargo.script.tl:106-134`, `deliver_passengers.script.tl:89-113`, `deliver_workers.script.tl:64-104`). Cada valor em dinheiro também é multiplicado por um fator da configuração base, `subventionFinancialRewardMultiplier` (`deliver_cargo.script.tl:126`), cujo valor não está definido nos scripts.
 - O dinheiro cresce com o **ano do calendário**, não com a configuração Inflação: ×1 em 1900, subindo de forma regular até ×4 em 2000 e depois, arredondado para cima a 10.000 (`finances_util.tl:87-90`). Ele é lançado como **Subsídios** nas finanças (`subvention_util.tl:126-135`).
-- **Abastecer Município** só pode ter um pagamento em dinheiro ao cumprir e uma multa em dinheiro se a sua conta bancária estiver abaixo de 100 milhões quando a oferta é criada; acima disso, só 1 oferta em 10 ainda pode, as outras dão experiência ao município e tiram reputação no lugar. O adiantamento não muda (`deliver_cargo_town.script.tl:194-229`).
-- A **experiência do município** é uma parte do nível atual do município: de 20% a 100% do XP entre o seu nível e o seguinte (`deliver_cargo_town.script.tl:216`, `town_growth.script.tl:605-608`). Para **Conectar Municípios** ela é multiplicada pelo fator de distância, de 0,3 a 1 km até 3,0 a 20 km: municípios distantes podem ganhar vários níveis (`deliver_passengers.script.tl:94-96`, `deliver_passengers.script.tl:116-118`).
-- A **reputação** perdida depois de um fracasso aparece na classificação Reputação do município como **Subsídio Fracassado** (`towns.script.tl:313-334`). A reputação ganha ao aceitar só remove penalidades existentes, não pode passar do máximo (`town_util.tl:1644-1647`).
+- **Abastecer Município** só pode ter um pagamento em dinheiro ao cumprir e uma multa em dinheiro se a sua conta bancária estiver abaixo de 100 milhões quando a oferta é criada; acima disso, só 1 oferta em 10 ainda pode, as outras dão experiência ao município e tiram reputação no lugar. O adiantamento não muda (`deliver_cargo_town.script.tl:200-235`).
+- A **experiência do município** é uma parte do nível atual do município: de 20% a 100% do XP entre o seu nível e o seguinte (`deliver_cargo_town.script.tl:222`, `town_growth.script.tl:605-608`). Para **Conectar Municípios** ela é multiplicada pelo fator de distância, de 0,3 a 1 km até 3,0 a 20 km: municípios distantes podem ganhar vários níveis (`deliver_passengers.script.tl:101-103`, `deliver_passengers.script.tl:123-125`).
+- A **reputação** perdida depois de um fracasso aparece na classificação Reputação do município como **Subsídio Fracassado** (`towns.script.tl:310-331`). A reputação ganha ao aceitar só remove penalidades existentes, não pode passar do máximo (`town_util.tl:1644-1647`).
 
 ## O efeito Renda x2
 
 - Ele dura **60 meses** (5 anos) depois que o contrato é cumprido (`subvention_util.tl:286`, `subvention_util.tl:292`).
-- **Abastecer Indústria**: entregas a essa indústria, nas linhas que entregaram a ela durante o contrato (`deliver_cargo.script.tl:463-469`).
-- **Abastecer Município**: entregas a qualquer prédio desse município, **de qualquer carga**, nas linhas que entregaram a carga do contrato (`deliver_cargo_town.script.tl:554-565`).
-- **Conectar Municípios**: passageiros entre os dois municípios, em **uma** única linha direta: a última linha direta em que embarcou um passageiro entre eles. Isso continua sendo atualizado depois do contrato, então com duas linhas diretas o ×2 pode passar de uma para a outra (`deliver_passengers.script.tl:263-296`).
+- **Abastecer Indústria**: entregas a essa indústria, nas linhas que entregaram a ela durante o contrato (`deliver_cargo.script.tl:456-462`).
+- **Abastecer Município**: entregas a qualquer prédio desse município, **de qualquer carga**, nas linhas que entregaram a carga do contrato (`deliver_cargo_town.script.tl:547-558`).
+- **Conectar Municípios**: passageiros entre os dois municípios, em **uma** única linha direta: a linha que cumpriu o contrato. Isso não muda mais depois do cumprimento, mesmo com várias linhas diretas (`deliver_passengers.script.tl:252-299`).
+- O cartão nomeia as linhas: "2x Income for {duration} on All Supplying Lines" para Abastecer Indústria e Abastecer Município (`deliver_cargo.script.tl:40-41`, `deliver_cargo_town.script.tl:44-45`), "2x Income for {duration} on First Established Connection" para Conectar Municípios (`deliver_passengers.script.tl:48-51`).
 - **Transportar Trabalhadores** não tem efeito na renda (`deliver_workers.script.tl:189-190`).
 - Em Abastecer Indústria e Abastecer Município, uma linha que só começou a entregar depois que o contrato foi cumprido não ganha nada: a lista de linhas só é preenchida durante o contrato.
 - Dois contratos nunca dobram o mesmo pagamento duas vezes: quando vários se aplicam, só a última resposta é usada (`subventions.script.tl:570-583`).
 
 ```tip scripts
-**Quer a renda dobrada de Abastecer Indústria ou Abastecer Município em várias linhas? Faça todas entregarem antes de o contrato ser cumprido.** Uma linha adicionada depois não ganha nada. Conectar Municípios dobra só uma linha, a última direta em que passageiros embarcaram: mantenha uma única linha direta entre os dois municípios.
+**Quer a renda dobrada de Abastecer Indústria ou Abastecer Município em várias linhas? Faça todas entregarem antes de o contrato ser cumprido.** Uma linha adicionada depois não ganha nada. Conectar Municípios dobra só uma linha, a que o cumpriu: faça a linha que você quer dobrar levar o primeiro passageiro.
 ```
 
 ```engine
@@ -98,8 +100,8 @@ O prazo começa quando você aceita. Ele é mais longo quando a carga precisa vi
 
 | Contrato | Prazo em meses | Distância usada | Fonte |
 |---|---|---|---|
-| Abastecer Indústria, Abastecer Município | (6 + 32 × E) × fator de risco | até a indústria mais próxima que produz a carga | `deliver_cargo.script.tl:116-117` |
-| Conectar Municípios | (9 + 4 × E) × fator de risco | entre os dois municípios | `deliver_passengers.script.tl:98-99` |
+| Abastecer Indústria, Abastecer Município | (6 + 32 × E) × fator de risco | até a indústria mais próxima que produz a carga | `deliver_cargo.script.tl:122-123` |
+| Conectar Municípios | (9 + 4 × E) × fator de risco | entre os dois municípios | `deliver_passengers.script.tl:105-106` |
 | Transportar Trabalhadores | (6 + 15 × E) × fator de risco × fator de época (×1,75 antes de 1940, ×1,25 antes de 1980) | até o município mais próximo | `deliver_workers.script.tl:75-87` |
 
 E é o tempo que um trem na velocidade máxima da época (120 km/h a partir de 1900 até 300 km/h a partir de 1981) leva para essa distância, arredondado para cima, no mínimo 1 (`subvention_util.tl:486-489`, `vehicle_util.tl:225-230`).
@@ -115,13 +117,13 @@ A duração de um mês de jogo, e portanto a duração real dos prazos, é defin
 
 ## Com que frequência chegam novas ofertas
 
-- **Disponibilidade de Subsídios**: Raramente, Às Vezes (o padrão), Frequentemente, Muito Frequentemente dão uma nova oferta a cada 12, 6, 3 ou 1 mês; **Nunca** desliga os subsídios (`subvention_util.tl:13-38`, `mod.script.tl:247-248`).
+- **Disponibilidade de Subsídios**: Raramente, Às Vezes (o padrão), Frequentemente, Muito Frequentemente dão uma nova oferta a cada 12, 6, 3 ou 1 mês; **Nunca** desliga os subsídios (`subvention_util.tl:13-38`, `mod.script.tl:248-249`).
 - O intervalo cresce com o **ranque da empresa**: ×1 no ranque 1 até ×2 no ranque 15 (`subvention_util.tl:19-22`).
 - **Recusar** uma oferta corta o próximo intervalo pela metade; aceitar ou uma nova oferta o restaura (`subventions.script.tl:429`, `subventions.script.tl:395`, `subventions.script.tl:118`).
 - Nenhuma nova oferta enquanto **5 contratos** aceitos estão em andamento (`subventions.script.tl:23`, `subventions.script.tl:256-262`). A primeira oferta chega depois de meio mês (`subventions.script.tl:25`).
 - O mesmo alvo (indústria, município e carga, par de municípios) é oferecido **só uma vez por jogo**, mesmo depois de um contrato perdido ou fracassado (`subventions.script.tl:107-113`, `subventions.script.tl:186`).
 - Predefinições de dificuldade, disponibilidade / risco (`difficulty_util.tl:104-105`, `difficulty_util.tl:132-133`, `difficulty_util.tl:159-160`, `difficulty_util.tl:186-187`): Fácil Frequentemente / Nenhum, Normal Às Vezes / Justo, Difícil Raramente / Arriscado, **Muito Difícil Nunca**: nenhum subsídio.
-- A verificação da classificação do município que só permitiria subsídios em municípios com classificação Muito Boa existe, mas está desligada (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:272-275`).
+- A verificação da classificação do município que só permitiria subsídios em municípios com classificação Muito Boa existe, mas está desligada (`town_util.tl:1574-1580`, `deliver_cargo_town.script.tl:278-281`).
 
 ## Bom saber
 

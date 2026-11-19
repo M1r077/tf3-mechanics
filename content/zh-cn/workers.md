@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos#booster
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 10 / 20 | 触发加成所需的工人
 fact: 2 年 | 一次到达的计入时长
 fact: ×1.5–2.5 | 加成系数，每个产业固定
@@ -28,7 +28,7 @@ fact: ×1.5–2.5 | 加成系数，每个产业固定
 
 ## 分配的工人
 
-指工作地点是这个产业的居民。产业窗口中的工作岗位条，以及产业统计中的 **工作场所** 一栏（“12/20”）显示的就是这个数字（`entity_window_util.tl:1238`，`statistic_industries.tl:305`）。仅有分配的工人**不会**带来任何加成：他们必须真正前往产业。
+指工作地点是这个产业的居民。产业窗口中的工作岗位条，以及产业统计中的 **工作场所** 一栏（“12/20”）显示的就是这个数字（`entity_window_util.tl:1238`，`statistic_industries.tl:304`）。仅有分配的工人**不会**带来任何加成：他们必须真正前往产业。
 
 ## 计入加成的工人
 
@@ -75,7 +75,7 @@ fact: ×1.5–2.5 | 加成系数，每个产业固定
 - **换乘也算。** 脚本只看行程的方式，不看用了几条线路（`industry_workers.script.tl:91`）。来自四条线路之外城镇的工人和隔壁的工人计数相同，但可能要久得多才到达。
 - **你的任何线路都能送他们**，包括运货的线路，只要车辆能载客、站点会装载乘客。脚本不检查车辆类型（`industry_workers.script.tl:86-118`）。玩家报告使用单独的客运线路问题更少。
 - 有些产业（例如石油钻井）有自带站点，可接乘客和货物（`industryutil.lua:156-165`）。
-- 产业窗口为每个分配的工人显示他是**目前在此处的**还是**在路上的**（`entity_window_util.tl:1371-1384`）。“加成”部分列出计入的工人及其 2 年中的**剩余时间**（`entity_window_util.tl:1579-1630`、`industry_eow.script.tl:644-649`）。
+- 产业窗口为每个分配的工人显示他是**目前在此处的**还是**在路上的**（`entity_window_util.tl:1371-1384`）。“加成”部分列出计入的工人及其 2 年中的**剩余时间**（`entity_window_util.tl:1579-1630`、`industry_eow.script.tl:647-652`）。
 - 没有计入任何到达时（过去 2 年内一次也没有），加成部分的工人列表显示：“将此位置接入公共交通网，以使居民能够来这里工作。”（`entity_window_util.tl:1650-1652`、`entity_window_util.tl:1608`、`entity_window_util.tl:1632`）。
 
 ```engine

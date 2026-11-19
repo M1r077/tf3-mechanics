@@ -5,7 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 500 | Einheiten Fracht pro Modul, egal welcher Art
 fact: ×2 | Ladegeschwindigkeit an einem spezialisierten Modul, ×1 an einem Universalmodul
 fact: 150.000 / 300.000 | Preis eines Universal- / spezialisierten Moduls

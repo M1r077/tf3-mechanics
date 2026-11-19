@@ -5,7 +5,7 @@ domain: notifications
 official: gamemanual:ui:userinterface
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 5분 | 운송 수단이 멈춘 것으로 보고되기까지 서 있는 게임 시간
 fact: 20 % | 경고가 나타나는 상태, 운송 수단이 30 %를 넘을 때까지 유지
 fact: 11 | 새 게임에서 꺼져 있는 알림 종류

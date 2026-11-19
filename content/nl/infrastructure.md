@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | eenvoudig spoor, standaardspoor en hogesnelheidslijn
 fact: ×9 | prijs en onderhoud van een hogesnelheidslijn vergeleken met eenvoudig spoor
 fact: +30 % | prijs van een bovenleiding op een spoor
@@ -23,7 +23,7 @@ Elk straat- en spoortype heeft een topsnelheid, een prijs per meter en een onder
 | Hogesnelheidslijn | 1980 | 350 km/h | 540.000 | 90.000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - Een **bovenleiding** kost **30 %** meer dan het spoor (`mod.script.tl:24-25`). Ze is beschikbaar vanaf 1921 op eenvoudig spoor en vanaf de start van elk nieuwer type (`simple_catenary.street_template.lua:4`). Volgens de bestanden kost ze per jaar niets extra: de elektrische variant heeft hetzelfde onderhoud (`simple_catenary.street_template.lua:34`).
-- Alle drie de typen staan dezelfde helling en bochten toe: **8,5 %** bij het bouwen (de schuifregelaar Hoek gaat tot daar), hooguit 13 % voor de vorm van het spoor, en een bochtstraal van 55 m bij het bouwen, minstens 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- Alle drie de typen staan dezelfde helling en bochten toe: **8,5 %** bij het bouwen (de schuifregelaar Hoek gaat tot daar), hooguit 13 % voor de vorm van het spoor, en een bochtstraal van 55 m bij het bouwen, minstens 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - De vervuiling van het spoor zelf stijgt met het type: 2, 4 en 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ Een hogesnelheidslijn kost 9 keer zoveel als eenvoudig spoor, bij de bouw en elk
 | Geluidsschermtool | -65 % | geen verandering | geen verandering | straten en sporen, niet in tunnels | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Beide kosten in hun bestanden 100 en 10 per jaar, zoals een straat per meter (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- De straattypen "met bomen" en "met schermen" in het bouwmenu zijn dezelfde straten met deze versieringen er al op (`town_new_medium_trees.street_template.lua:12-14`). Het bouwmenu telt hun effecten op (`construction_react_util.tl:2116-2139`).
+- De straattypen "met bomen" en "met schermen" in het bouwmenu zijn dezelfde straten met deze versieringen er al op (`town_new_medium_trees.street_template.lua:12-14`). Het bouwmenu telt hun effecten op (`construction_react_util.tl:2119-2142`).
 - Een straat met bomen is dus **een kwart trager**: een nieuwe middelgrote straat met bomen staat ongeveer 38 km/h toe in plaats van 50.
 
 ```tip scripts

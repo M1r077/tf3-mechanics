@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | 2020년까지 창고, 항구, 공항 관리비에 붙는 연도 계수
 fact: 6년 | 치 운영 비용: 이것이 운송 수단의 가격
 fact: 한 번 | 대출 이자율은 매년이 아니라 금액에 한 번만 붙음
@@ -24,16 +24,16 @@ fact: 4 | 동시에 받을 수 있는 대출 수
 | **운송 수단 비용**, **운송 수단 유지보수** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **기반 시설 비용**, **기반 시설 관리** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **운송 수단 유지보수 효과** | 없음 ×0 · 낮음 ×0.5 · 중간 ×1 · 높음 ×1.5 · 아주 높음 ×2 | 낮음 · 중간 · 높음 · 아주 높음 | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **인플레이션** | 수입에만 적용, [화물 수입과 배송 시간](income.html) 참조 | 낮음 · 보통 · 높음 · 매우 높음 | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **인플레이션** | 수입에만 적용, [화물 수입과 배송 시간](income.html) 참조 | 낮음 · 보통 · 높음 · 매우 높음 | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **기반 시설 비용**은 도로, 선로, 다리, 터널, 건널목, 건물, 모듈의 가격과 지형 작업 비용을 바꾼다(`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). 건물의 철거 비용도 바꾼다(`construction.script.tl:39-44`). **기반 시설 관리**는 불러올 때 도로, 선로, 다리, 터널, 건널목, 모듈의 관리비를 바꾼다(`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). 건물의 경우 스크립트는 건물 창에서만 이를 적용한다(`entity_window_util.tl:186`). 실제로 청구되는 금액은 엔진이 정한다.
+- **기반 시설 비용**은 도로, 선로, 다리, 터널, 건널목, 건물, 모듈의 가격과 지형 작업 비용을 바꾼다(`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). 건물의 철거 비용도 바꾼다(`construction.script.tl:39-44`). **기반 시설 관리**는 불러올 때 도로, 선로, 다리, 터널, 건널목, 모듈의 관리비를 바꾼다(`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). 건물의 경우 스크립트는 건물 창에서만 이를 적용한다(`entity_window_util.tl:186`). 실제로 청구되는 금액은 엔진이 정한다.
 - **운송 수단 비용**과 **운송 수단 유지보수**는 모든 운송 수단의 구매 가격과 운영 비용을 바꾼다(`post_run_util.tl:54-81`).
-- **운송 수단 유지보수 효과**는 상태가 나쁜 운송 수단이 속도, 출력, 편안함을 얼마나 잃고 소음, 오염, 운영 비용이 얼마나 늘어나는지 정한다(`mod.script.tl:241-245`).
+- **운송 수단 유지보수 효과**는 상태가 나쁜 운송 수단이 속도, 출력, 편안함을 얼마나 잃고 소음, 오염, 운영 비용이 얼마나 늘어나는지 정한다(`mod.script.tl:242-246`).
 
 ## 달력 연도에 따라 커지는 것
 
-- **건물 관리비**: 1900년 ×1, 1920년 ×1.5, 1940년 ×2.2, 1960년 ×3.2, 1980년 ×4, 2000년 ×5, 2020년 ×6(`mod.script.tl:92-100`). 건물 창과 건설 메뉴는 연도를 따르도록 표시된 모든 건물에 이를 적용하며, 건설 메뉴는 모든 메타 건설물을 이렇게 표시한다(기본 게임에서는 창고, 비행장, 공항, 항구)(`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- 이런 건물에 추가한 **모듈**은 가격은 건물을 지은 연도로, 관리비는 현재 연도로 정해진다(`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **건물 관리비**: 1900년 ×1, 1920년 ×1.5, 1940년 ×2.2, 1960년 ×3.2, 1980년 ×4, 2000년 ×5, 2020년 ×6(`mod.script.tl:92-100`). 건물 창과 건설 메뉴는 연도를 따르도록 표시된 모든 건물에 이를 적용하며, 건설 메뉴는 모든 메타 건설물을 이렇게 표시한다(기본 게임에서는 창고, 비행장, 공항, 항구)(`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- 이런 건물에 추가한 **모듈**은 가격은 건물을 지은 연도로, 관리비는 현재 연도로 정해진다(`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **시대별 종류**: 차량기지, 정비소, 창고, 역, 항구, 공항은 시대마다 종류가 하나씩 있고, 뒤의 종류는 첫 종류의 **×3**(시대 B) 또는 **×9**(시대 C)가 든다(`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **보조금 현금**: 1900년 ×1에서 2000년 이후 ×4까지(`finances_util.tl:87-90`). **대출 금액**: 1900년 ×0.4에서 2020년 ×2.4까지(`loan_util.tl:7-10`).
 - **수입**에는 연도 계수가 전혀 없다(`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ fact: 4 | 동시에 받을 수 있는 대출 수
 
 ## 선로, 도로, 건물
 
-도로와 선로 파일에는 미터당 가격과 연간 관리비가 적혀 있고, 건설 메뉴는 킬로미터당으로 보여 준다(`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). 대부분의 종류에서 관리비는 건설 가격의 **6분의 1**이다.
+도로와 선로 파일에는 미터당 가격과 연간 관리비가 적혀 있고, 건설 메뉴는 킬로미터당으로 보여 준다(`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). 대부분의 종류에서 관리비는 건설 가격의 **6분의 1**이다.
 
 | 종류 | 등장 | km당 건설비 | km당 연간 관리비 | 출처 |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ fact: 4 | 동시에 받을 수 있는 대출 수
 | 새로운 큰 시내 도로 | 1940 | 54만 | 9만 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - 전차선은 선로 가격의 **30 %**를 더한다. 버스 전용 차로는 도로 가격의 10 %, 전차 선로는 20 %, 전기 전차 선로는 40 %를 더한다(`mod.script.tl:24-28`).
-- 지형을 높이는 데는 m³당 4.5, 낮추는 데는 m³당 5.25(둘 다 기반 시설 비용을 곱한다), 밭을 없애는 데는 20만이 든다(`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- 지형을 높이는 데는 m³당 4.5, 낮추는 데는 m³당 5.25(둘 다 기반 시설 비용을 곱한다), 밭을 없애는 데는 20만이 든다(`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - 관리비를 지정하지 않은 건물은 해마다 **가격의 6분의 1**을 낸다(기반 시설 비용 설정을 곱하기 전의 가격에서 계산, `construction.script.tl:25-27`).
 - 기본 설정은 철거 환불 계수 0.75, 환불 시간 60을 지정한다(`mod.script.tl:30-31`). 방금 지은 것을 철거하면 돈 대부분을 돌려받는다. 이를 적용하는 것은 엔진이다.
 

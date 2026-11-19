@@ -5,7 +5,7 @@ domain: industries
 official: gamemanual:simulation:industriescargos
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 5 jaar | zonder laden of verbruik maken een bedrijf kandidaat voor sluiting
 fact: 1,1 % | kans per jaar bij Zelden (standaard), daarna 730 dagen aftellen
 fact: +50–150 % | bonus van boostervracht, vast per bedrijf
@@ -19,7 +19,7 @@ Elk industriebedrijf werkt met **regels**: „neem dit uit de invoervoorraad, le
 
 - Een regel geeft de gebruikte en gemaakte vracht per ronde, en hoeveel rondes per jaar: een ronde duurt een jaar ÷ dat getal, korter door de boosts bij productieregels (`industry_react_util.tl:51-57`). Het onderdeel Productie van het bedrijfsvenster toont dit met kleine getallen.
 - Het getal **Max.** in het venster is: per ronde × rondes per jaar × de groottefactor (`rule.consumptionFactor`) × de boosts × de instelling **Productiviteit industrie**, de laatste twee alleen bij productieregels (`industry_util.tl:310-379`, `industry_util.tl:357-362`).
-- **Productiviteit industrie**: 50 %, 75 %, 100 %, 150 % of 200 %. Voorinstellingen: Makkelijk 150 %, Gemiddeld 100 %, Moeilijk 75 %, Heel moeilijk 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:196-197`).
+- **Productiviteit industrie**: 50 %, 75 %, 100 %, 150 % of 200 %. Voorinstellingen: Makkelijk 150 %, Gemiddeld 100 %, Moeilijk 75 %, Heel moeilijk 50 % (`difficulty_util.tl:41`, `difficulty_util.tl:93`, `difficulty_util.tl:120`, `difficulty_util.tl:148`, `difficulty_util.tl:175`, `mod.script.tl:197-198`).
 - Voorbeeld, Staalbedrijf: 6 ijzererts + 6 steenkool → 3 staal + 4 plaatmetaal, 121,7 rondes per jaar: 730 ijzererts en 730 steenkool → 365 staal en 487 plaatmetaal (`steel_mill.con.lua:43-71`). Ontbreekt één invoer, dan staat de regel stil.
 - De Conservenfabriek heeft twee regels: vis + plaatmetaal, of vlees + plaatmetaal (`food_factory.con.lua:43-74`).
 
@@ -31,7 +31,7 @@ De engine voert de regels uit. Hij kan een ronde langer maken: de tooltip toont 
 
 - Elke vracht heeft een eigen voorraad met een grens: bijv. een Steenkolenmijn houdt 100 gereedschap en 400 steenkool, een Staalbedrijf 800 ijzererts, 800 steenkool, 400 staal en 500 plaatmetaal (`coal_mine.con.lua:44-67`, `steel_mill.con.lua:43-71`).
 - Voorraden bederven nooit (`industryutil.lua:25-29`): vracht wacht zo lang als nodig.
-- Een volle uitvoervoorraad stopt de productie niet: het overschot wordt weggegooid (officiële wiki). De grafiek **Vrachtstroom** toont **Verbruikt**, **Gemaakt** en **Vernietigd** (`industry_eow.script.tl:804-816`).
+- Een volle uitvoervoorraad stopt de productie niet: het overschot wordt weggegooid (officiële wiki). De grafiek **Vrachtstroom** toont **Verbruikt**, **Gemaakt** en **Vernietigd** (`industry_eow.script.tl:807-819`).
 - Met de bouwparameter **Invoer** op Uit verliezen de regels hun invoer en heeft het bedrijf geen invoervoorraad (`industryutil.lua:280-287`, `industryutil.lua:383-387`, `industryutil.lua:432-441`).
 
 ## Percelen en uitbreiding
@@ -145,7 +145,7 @@ De controle loopt elke 100 updates voor elk bedrijf (`industries.script.tl:84-85
 | Vaak | 4,4 % | ongeveer 16 jaar | – | `difficulty_util.tl:37` |
 | Zeer vaak | 8,8 % | ongeveer 8 jaar | Heel moeilijk | `difficulty_util.tl:176` |
 
-De kans is 0,011 per jaar × 0, 1, 2, 4 of 8 (`mod.script.tl:171`, `mod.script.tl:202-203`, `difficulty_util.tl:37`). Bedrijven die van jou zijn sluiten nooit, net als bedrijven met handmatige ontwikkeling; zolang sluitingen gepauzeerd zijn (in het basisspel alleen tijdens de tutorial) begint er geen en wordt een lopend aftellen geannuleerd (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
+De kans is 0,011 per jaar × 0, 1, 2, 4 of 8 (`mod.script.tl:172`, `mod.script.tl:203-204`, `difficulty_util.tl:37`). Bedrijven die van jou zijn sluiten nooit, net als bedrijven met handmatige ontwikkeling; zolang sluitingen gepauzeerd zijn (in het basisspel alleen tijdens de tutorial) begint er geen en wordt een lopend aftellen geannuleerd (`industries.script.tl:94-102`, `mission_sim.script.tl:814`, `mission_sim.script.tl:850`).
 
 ```engine
 Wat telt als „geladen” en „verbruikt” (de logs itemsLoaded en itemsConsumed, bijv. of boostervracht telt), de vlag manualDevelopment, en waarom bedrijven met een depot overgeslagen worden (`industries.script.tl:140-146`) liggen bij de engine. Net als wat de engine doet met een boosterregel zonder invoer (Invoer uit).
@@ -155,7 +155,7 @@ Wat telt als „geladen” en „verbruikt” (de logs itemsLoaded en itemsConsu
 
 De engine voegt tijdens het spel nieuwe bedrijven toe. De melding is **Nieuw industriebedrijf opgericht**: „Een ondernemer met een neusje voor winstgevende bedrijven heeft {industry} opgericht.” (`industry_spawn.script.tl:34-36`); het typelabel is **Industriebedrijf opgericht** (`industry_spawn.res.lua:6`). Geen spelscript kiest de plek, het type of het moment, en geen enkel script filtert wat de engine voorstelt.
 
-Wat de scripts de engine geven (`mod.script.tl:128-133`, `mod.script.tl:166-168`, `mod.script.tl:194-195`):
+Wat de scripts de engine geven (`mod.script.tl:128-133`, `mod.script.tl:167-169`, `mod.script.tl:195-196`):
 
 | Configuratiewaarde | Waarde | Betekenis |
 |---|---|---|

@@ -5,7 +5,7 @@ domain: finance
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: ×6 | year factor on the upkeep of warehouses, harbours and airports by 2020
 fact: 6 years | of running costs: the price of a vehicle
 fact: once | a loan's interest rate is charged on the amount, not every year
@@ -24,16 +24,16 @@ The **Inflation** setting does not raise any cost: it only lowers your income as
 | **Vehicle Costs**, **Vehicle Maintenance** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:39`, `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Infrastructure Costs**, **Infrastructure Upkeep** | 50 % · 75 % · 100 % · 125 % · 150 % | 50 % · 100 % · 125 % · 150 % | `difficulty_util.tl:98-101`, `difficulty_util.tl:125-128`, `difficulty_util.tl:153-156`, `difficulty_util.tl:180-183` |
 | **Vehicle Maintenance Effect** | None ×0 · Low ×0.5 · Medium ×1 · High ×1.5 · Very High ×2 | Low · Medium · High · Very High | `difficulty_util.tl:42`, `difficulty_util.tl:103`, `difficulty_util.tl:185` |
-| **Inflation** | income only, see [Cargo income](income.html) | Low · Normal · High · Very High | `difficulty_util.tl:50`, `mod.script.tl:694-697` |
+| **Inflation** | income only, see [Cargo income](income.html) | Low · Normal · High · Very High | `difficulty_util.tl:50`, `mod.script.tl:695-698` |
 
-- **Infrastructure Costs** scales the price of streets, tracks, bridges, tunnels, crossings, buildings and modules, and also terrain work (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:223-226`). It also scales the bulldoze cost of buildings (`construction.script.tl:39-44`). **Infrastructure Upkeep** scales the upkeep of streets, tracks, bridges, tunnels, crossings and modules when the game loads (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). For buildings the scripts apply it only in the building window (`entity_window_util.tl:186`); what is charged is decided by the engine.
+- **Infrastructure Costs** scales the price of streets, tracks, bridges, tunnels, crossings, buildings and modules, and also terrain work (`post_run_util.tl:23-52`, `post_run_util.tl:83-120`, `construction.script.tl:31-35`, `mod.script.tl:224-227`). It also scales the bulldoze cost of buildings (`construction.script.tl:39-44`). **Infrastructure Upkeep** scales the upkeep of streets, tracks, bridges, tunnels, crossings and modules when the game loads (`post_run_util.tl:43-45`, `post_run_util.tl:105-112`). For buildings the scripts apply it only in the building window (`entity_window_util.tl:186`); what is charged is decided by the engine.
 - **Vehicle Costs** and **Vehicle Maintenance** scale the purchase price and the running costs of every vehicle (`post_run_util.tl:54-81`).
-- **Vehicle Maintenance Effect** sets how strongly a vehicle in bad condition loses speed, power and comfort and gains noise, pollution and running costs (`mod.script.tl:241-245`).
+- **Vehicle Maintenance Effect** sets how strongly a vehicle in bad condition loses speed, power and comfort and gains noise, pollution and running costs (`mod.script.tl:242-246`).
 
 ## What grows with the calendar year
 
-- **Building upkeep**: ×1 in 1900, ×1.5 in 1920, ×2.2 in 1940, ×3.2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). The building window and the build menu apply it to every building marked to follow the year, and the build menu marks every meta-construction (in the base game: warehouses, airfields, airports and harbours) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1149`, `warehouse.tl:7`, `harbor_modular.tl:24`).
-- **Modules** added to such a building are priced at the year the building was built, their upkeep at the current year (`construction.tl:3720-3727`, `construction.tl:4364-4367`).
+- **Building upkeep**: ×1 in 1900, ×1.5 in 1920, ×2.2 in 1940, ×3.2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). The building window and the build menu apply it to every building marked to follow the year, and the build menu marks every meta-construction (in the base game: warehouses, airfields, airports and harbours) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Modules** added to such a building are priced at the year the building was built, their upkeep at the current year (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Era variants**: depots, maintenance stations, warehouses, stations, harbours and airports have one variant per era, and each later variant costs **×3** (era B) or **×9** (era C) of the first (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Subsidy cash**: ×1 in 1900 up to ×4 from 2000 (`finances_util.tl:87-90`). **Loan amounts**: ×0.4 in 1900 up to ×2.4 in 2020 (`loan_util.tl:7-10`).
 - **Income** has no year factor at all (`cargo_income.script.lua:10-13`).
@@ -44,7 +44,7 @@ The upkeep that is actually charged, and whether streets, tracks and vehicles al
 
 ## Tracks, roads and buildings
 
-Street and track files give the price and the yearly upkeep per metre; the build menu shows them per kilometre (`construction_react_util.tl:2463`, `construction_react_util.tl:2477-2485`). For most types the upkeep is **one sixth** of the build price:
+Street and track files give the price and the yearly upkeep per metre; the build menu shows them per kilometre (`construction_react_util.tl:2466`, `construction_react_util.tl:2480-2488`). For most types the upkeep is **one sixth** of the build price:
 
 | Type | Available from | Build per km | Upkeep per km and year | Source |
 |---|---|---|---|---|
@@ -55,7 +55,7 @@ Street and track files give the price and the yearly upkeep per metre; the build
 | Large new town street | 1940 | 540,000 | 90,000 | `town_new_large.street_template.lua:11`, `town_new_large.street_template.lua:91` |
 
 - Catenary adds **30 %** of the track price; a bus lane 10 %, a tram track 20 %, an electric tram track 40 % of the street price (`mod.script.tl:24-28`).
-- Raising terrain costs 4.5 per m³, lowering it 5.25 per m³, both × Infrastructure Costs; removing a field 200,000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:225-226`).
+- Raising terrain costs 4.5 per m³, lowering it 5.25 per m³, both × Infrastructure Costs; removing a field 200,000 (`mod.script.tl:20-22`, `mod.script.tl:33`, `mod.script.tl:226-227`).
 - A building that sets no upkeep pays **one sixth of its price** per year, taken from the price before the Infrastructure Costs setting (`construction.script.tl:25-27`).
 - The base config sets a bulldoze refund factor of 0.75 and a refund time of 60 (`mod.script.tl:30-31`): removing what you just built gives most of the money back. The engine applies it.
 

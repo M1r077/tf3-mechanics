@@ -5,7 +5,7 @@ domain: vehicles
 official: gamemanual:management:linesvehicles
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 5 | condition levels, from Very Bad to Very Good, 20 % each
 fact: 20 % | condition that triggers the Vehicle Condition warning
 fact: 6 × | the base yearly running cost: the price of a vehicle
@@ -51,9 +51,9 @@ How the vehicle load speed, the cargo load factor and the platform and stock fac
 
 - A train's condition is the **average** of all its wagons and locomotives (`vehicle_util.tl:285-295`).
 - A worn vehicle loses top speed, power and comfort, and gains noise, pollution and running costs (`vehicle_store_util.tl:236-258`). How much, and from which condition, are engine values. The vehicle window lists these penalties under **Condition**.
-- How strong these penalties are is set by **Vehicle Maintenance Effect** (None, Low, Medium, High, Very High); with None, condition has no effect (`difficulty_util.tl:42`, `mod.script.tl:241-245`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Costs, upkeep and loans](costs.html).
+- How strong these penalties are is set by **Vehicle Maintenance Effect** (None, Low, Medium, High, Very High); with None, condition has no effect (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Costs, upkeep and loans](costs.html).
 - At **20 %** or less you get the **Vehicle Condition** warning. It stays until the vehicle is back above **30 %** (`notifications.script.tl:310-318`).
-- A cloned vehicle is a new purchase: condition 100 %, new purchase date (`manager_window.tl:8502-8506`).
+- A cloned vehicle is a new purchase: condition 100 %, new purchase date (`manager_window.tl:8744-8748`).
 
 ```engine
 How fast condition falls, how much a visit to a maintenance station restores, and the size of each penalty (getMaintenanceTopSpeedPenalty and the others) are engine values. Each vehicle model can also set its own top-speed penalty per level (`vehicle_store_util.tl:250-253`).
@@ -92,7 +92,7 @@ Which station a vehicle is assigned to, what happens when more vehicles use a st
 
 ## Age and lifespan
 
-- Each model has a **lifespan** (`vehicle_util.tl:31-34`). The **Age** column of the line window shows the age; its tooltip shows the time left, or **Lifetime Reached** (`line_eow.script.tl:133-147`). The share of the lifetime in that tooltip reads **0 %** until the lifespan is reached: the script rounds the fraction down before showing it (`line_eow.script.tl:139`), while the same share is computed in full elsewhere (`vehicle_util.tl:311`). Use the time left instead.
+- Each model has a **lifespan** (`vehicle_util.tl:31-34`). The **Age** column of the line window shows the age; its tooltip shows the time left, or **Lifetime Reached** (`line_eow.script.tl:136-150`). The share of the lifetime in that tooltip reads **0 %** until the lifespan is reached: the script rounds the fraction down before showing it (`line_eow.script.tl:142`), while the same share is computed in full elsewhere (`vehicle_util.tl:311`). Use the time left instead.
 - For a train, the **oldest** part counts (`vehicle_util.tl:36-52`). One old wagon makes the whole train show as old.
 
 ```engine
@@ -104,7 +104,7 @@ What reaching the lifespan changes (for example faster loss of condition or lowe
 1. **Condition stays low** even with a maintenance station nearby: the vehicle loses speed and pays more running costs. Check the pool of the station first: it may be full.
 2. **Lifetime Reached** in the Age tooltip: the model is past its planned life.
 3. **A better model exists**: faster or bigger vehicles cost more to run, but they carry more (price follows speed × capacity).
-4. Use **Replace Vehicles** in the line manager. It opens the store with a comparison against the current vehicle (`vehicle_store_window.tl:4893-4928`, `vehicle_store_window.tl:2611`).
+4. Use **Replace Vehicles** in the line manager. It opens the store with a comparison against the current vehicle (`vehicle_store_window.tl:4997-5032`, `vehicle_store_window.tl:2678`).
 
 ```tip scripts
 **Vehicles stay in bad condition next to a depot? Open its window and check "used / pool".** A train depot serves 6 trains, a train maintenance station 12. What the engine does with the vehicles over the pool is not in the scripts; a second building is the safe answer.

@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:infrastructure:stationsdepots
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: 2 | ship sizes: small and large
 fact: 1, 2, 4 | terminals per port
 fact: 27 | ships in the base game

@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | succès débloqués par le script du jeu lui-même
 fact: 500 m | hauteur du premier wagon d'un train à un arrêt pour Halte au sommet
 fact: < 1 % | de Réputation de la ville pour C’est pas moi
@@ -21,10 +21,10 @@ Le wiki officiel liste 41 succès. Le script du jeu (`achievements.script.tl`) e
 | **Colis arrivé** | une unité de fret arrive à destination | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **Pour le compte de** | un contrat de subvention terminé | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Série de contrats** | 10 subventions terminées sans aucun échec entre elles ; une subvention échouée remet le compte à 0 | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Intendant** | la note de livraison d'une ville passe à **Excellent** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Intendant** | la note de livraison d'une ville passe à **Excellent** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Développement urbain** | une ville monte de niveau | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Demande accrue** | une ville obtient une demande pour un nouveau type de fret | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **C’est pas moi** | la Réputation d'une ville **baisse** sous **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **C’est pas moi** | la Réputation d'une ville **baisse** sous **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Promotion** | l'entreprise gagne un rang | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Gravir les échelons** | l'entreprise atteint le rang le plus élevé | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Paysagiste** | tu places des arbres, et seulement des arbres, en une construction (rien de retiré, pas par reboisement) | `achievements.script.tl:346-377` |

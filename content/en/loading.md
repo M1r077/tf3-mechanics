@@ -5,7 +5,7 @@ domain: stations
 official: gamemanual:management:linesvehicles#loading_speed
 status: verified
 updated: 2026-11-15
-game: 40425
+game: 40444
 fact: ×2 | specialised platform section
 fact: ×0.25 | wrong section or train too long
 fact: ×4 | best case: specialised platform and warehouse
@@ -88,7 +88,7 @@ Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At
 
 | Option in "Cargo Filter" | What it does | Source |
 |---|---|---|
-| "Force Unload All Cargo On Arrival" | tooltip: "Unload cargo even if stocks are full"; the cargo that does not fit is destroyed: the game gives the station as its destination, and a station never consumes cargo (measured in game). Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:476` |
+| "Force Unload All Cargo On Arrival" | tooltip: "Unload cargo even if stocks are full"; the cargo that does not fit is destroyed: the game gives the station as its destination, and a station never consumes cargo (measured in game). Off for a new stop. | `cargofilter_window.tl:757`, `line_util.tl:477` |
 | "Destroy Cargo On Arrival When Config Changes" | unloads or destroys the cargo on board when cargo for another load configuration of the vehicle is waiting at this stop; which of the two is up to the engine | `cargofilter_window.tl:767` |
 | "Replace with Newer Cargo if Available" | destroys cargo that came back to the stop where it was loaded, when newer cargo of the same type is waiting | `cargofilter_window.tl:778` |
 
@@ -96,10 +96,10 @@ Each stop of a line has a **Load** list, in the stop's "Cargo Filter" window. At
 
 ## Several cargos on one line
 
-- A stop's Load list is a yes/no per cargo type, with **no order**: the player cannot set which cargo loads first. The icons are just drawn in the game's cargo order (`line_util.tl:471-475`, `line_util.tl:510`, `cargofilter_window.tl:533-535`).
+- A stop's Load list is a yes/no per cargo type, with **no order**: the player cannot set which cargo loads first. The icons are just drawn in the game's cargo order (`line_util.tl:472-476`, `line_util.tl:512`, `cargofilter_window.tl:533-535`).
 - A wagon or truck that takes several cargos has, per compartment, several **load configurations**; the compartment's capacity is the largest of them, not their sum (`model_metadata_util.lua:682-733`, `vehicle_metadata_util.lua:27-37`). So it carries one of them at a time.
 - New vehicles have the automatic choice of configuration switched on for every compartment (`vehicle_react_util.tl:339`), and the game has no window to choose the cargo of a vehicle by hand.
-- Passengers and freight can share a line: the scripts never refuse freight at a stop because it also takes passengers (`line_util.tl:1381-1386`). Freight is only dropped from a stop whose terminal cannot load or unload cargo (`line_util.tl:554-559`).
+- Passengers and freight can share a line: the scripts never refuse freight at a stop because it also takes passengers (`line_util.tl:1383-1388`). Freight is only dropped from a stop whose terminal cannot load or unload cargo (`line_util.tl:556-561`).
 - With several cargos, **Full Load (Any)** and **Full Load (All)** behave differently: see [Departure settings: full load, Fill Level and stop times](departure.html).
 - When the configuration does not fit, the line shows **Some Cargo Type Configurations of This Line Are Clashing**, for example "No vehicle on the line can transport some of the cargo configured to be loaded." (`line_warning.script.tl:10-36`).
 
@@ -109,12 +109,12 @@ In which order several cargos are loaded, how a shared stock is split between wa
 
 ## The automatic configuration
 
-As long as nobody has saved a change in a stop's "Cargo Filter" window, which switches it off for good on that line (`line_util.tl:495-498`, `cargofilter_window.tl:438`), the game fills the Load lists itself each time the line is created, a stop is added or removed, the stops are reordered, or a waypoint is added (`manager_window.tl:6712`, `:6786`, `:6845`, `:6879`, `:6963`). Moving a stop to another station or platform, and removing or moving a waypoint, do not run it (`manager_window.tl:6851-6868`, `manager_window.tl:6968-6992`).
+As long as nobody has saved a change in a stop's "Cargo Filter" window, which switches it off for good on that line (`line_util.tl:497-500`, `cargofilter_window.tl:438`), the game fills the Load lists itself each time the line is created, a stop is added or removed, the stops are reordered, or a waypoint is added (`manager_window.tl:6938`, `:6786`, `:6845`, `:6879`, `:6963`). Moving a stop to another station or platform, and removing or moving a waypoint, do not run it (`manager_window.tl:7077-7094`, `manager_window.tl:7194-7218`).
 
-- It starts again from empty lists, with passengers at passenger stations (`line_util.tl:542-588`).
+- It starts again from empty lists, with passengers at passenger stations (`line_util.tl:544-590`).
 - It looks for producers and consumers among industries and town buildings only: warehouses do not count (`cargo_util.tl:518-526`).
-- It puts a cargo in a stop's Load list when the cargo is needed further on and nothing at the stop takes it. A warehouse counts as taking everything it stores (`line_util.tl:676-693`): at a stop next to a warehouse that stores the cargo, the cargo is left out of the list, and the train unloads it there.
-- Once a filter has been changed by hand, the line is marked as custom (`cargofilter_window.tl:438`) and the automatic configuration never touches it again, even when stops are added later (`line_util.tl:496`).
+- It puts a cargo in a stop's Load list when the cargo is needed further on and nothing at the stop takes it. A warehouse counts as taking everything it stores (`line_util.tl:678-695`): at a stop next to a warehouse that stores the cargo, the cargo is left out of the list, and the train unloads it there.
+- Once a filter has been changed by hand, the line is marked as custom (`cargofilter_window.tl:438`) and the automatic configuration never touches it again, even when stops are added later (`line_util.tl:498`).
 
 ```engine
 The scripts only write the Load lists; the unloading itself is done by the engine. The rule above (what is not in the list is unloaded into any stock that takes it) was observed in game with [Platform Details](https://mod.io/g/transportfever3/m/platform-details), November 2026.

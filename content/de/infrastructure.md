@@ -5,7 +5,7 @@ domain: infrastructure
 official: gamemanual:infrastructure:streetstracks
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 100 / 160 / 350 km/h | einfaches, Standard- und Hochgeschwindigkeitsgleis
 fact: ×9 | Preis und Unterhalt eines Hochgeschwindigkeitsgleises im Vergleich zum einfachen Gleis
 fact: +30 % | Preis der Oberleitung auf einem Gleis
@@ -23,7 +23,7 @@ Jeder Straßen- und Gleistyp hat eine Höchstgeschwindigkeit, einen Preis pro Me
 | Hochgeschwindigkeitsgleise | 1980 | 350 km/h | 540.000 | 90.000 | `high_speed.street_template.lua:4`, `high_speed.street_template.lua:11`, `high_speed.street_template.lua:30`, `high_speed.street_template.lua:35` |
 
 - Die **Oberleitung** kostet **30 %** mehr als das Gleis (`mod.script.tl:24-25`). Sie ist ab 1921 auf dem einfachen Gleis verfügbar und ab dem Start jedes neueren Typs (`simple_catenary.street_template.lua:4`). Pro Jahr kostet sie laut den Dateien nichts extra: die elektrische Variante hat denselben Unterhalt (`simple_catenary.street_template.lua:34`).
-- Alle drei Typen erlauben dieselbe Steigung und dieselben Kurven: **8,5 %** beim Bauen (so weit geht der Regler Steigung), höchstens 13 % für die Form des Gleises, und einen Kurvenradius von 55 m beim Bauen, mindestens 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1821`).
+- Alle drei Typen erlauben dieselbe Steigung und dieselben Kurven: **8,5 %** beim Bauen (so weit geht der Regler Steigung), höchstens 13 % für die Form des Gleises, und einen Kurvenradius von 55 m beim Bauen, mindestens 40 m (`standard.street_template.lua:36-37`, `standard.street_template.lua:48-49`, `construction_react_util.tl:241-242`, `construction_react_util.tl:1824`).
 - Die Verschmutzung des Gleises selbst steigt mit seinem Typ: 2, 4 und 6 (`simple.street_template.lua:18`, `standard.street_template.lua:20`, `high_speed.street_template.lua:20`).
 
 ```engine
@@ -66,7 +66,7 @@ Hochgeschwindigkeitsgleis kostet das 9-Fache des einfachen Gleises, beim Bau und
 | Lärmschutzwand-Werkzeug | -65 % | keine Änderung | keine Änderung | Straßen und Gleise, nicht in Tunneln | `barrier_b.edge.lua:43`, `barrier_b.edge.lua:47`, `barrier_track_b.edge.lua:43` |
 
 - Beide kosten laut ihren Dateien 100 und 10 pro Jahr, wie eine Straße pro Meter (`alley.edge.lua:8`, `alley.edge.lua:12`, `barrier_b.edge.lua:7`, `barrier_b.edge.lua:11`).
-- Die Straßentypen „mit Bäumen“ und „mit Lärmschutz“ im Baumenü sind dieselben Straßen, auf denen diese Dekorationen schon angebracht sind (`town_new_medium_trees.street_template.lua:12-14`). Das Baumenü addiert ihre Wirkungen (`construction_react_util.tl:2116-2139`).
+- Die Straßentypen „mit Bäumen“ und „mit Lärmschutz“ im Baumenü sind dieselben Straßen, auf denen diese Dekorationen schon angebracht sind (`town_new_medium_trees.street_template.lua:12-14`). Das Baumenü addiert ihre Wirkungen (`construction_react_util.tl:2119-2142`).
 - Eine Straße mit Bäumen ist also **ein Viertel langsamer**: eine neue mittlere Straße mit Bäumen erlaubt etwa 38 km/h statt 50.
 
 ```tip scripts

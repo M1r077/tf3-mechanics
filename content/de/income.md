@@ -5,7 +5,7 @@ domain: economy
 official: gamemanual:management:companyandfinances
 status: verified
 updated: 2026-11-14
-game: 40425
+game: 40444
 fact: 3,8 | derselbe Einnahmefaktor für jede Fracht
 fact: +8 × Steigung | Höhenmeter, die zur Entfernung addiert werden
 fact: 100 % | bezahlt, auch wenn die Lieferung verspätet ist
@@ -21,7 +21,7 @@ Eine Lieferung bezahlt die **Luftlinie**, sonst nichts von der Fahrt. Die Geschw
 Die ganze Formel steht in einem kurzen Spielskript (`cargo_income.script.lua:10-13`):
 
 1. **Einnahmefaktor** der Fracht. Alle Frachten des Grundspiels nutzen dieselbe Funktion und dieselben Preise (`initialPrice = 4`, `finalPrice = 3.2`), das ergibt **3,8 für alle 36 Frachten** (`cargotype.script.lua:7-13`, `coal.cargo.lua:21-22`). Kohle bringt über dieselbe Entfernung genau so viel wie Güter.
-2. Einstellung **Gütereinnahmen**: 50 %, 75 %, 100 %, 125 % oder 150 % (`difficulty_util.tl:38`, `mod.script.tl:211`). Alle vier Schwierigkeitsvorgaben nutzen 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
+2. Einstellung **Gütereinnahmen**: 50 %, 75 %, 100 %, 125 % oder 150 % (`difficulty_util.tl:38`, `mod.script.tl:212`). Alle vier Schwierigkeitsvorgaben nutzen 100 % (`difficulty_util.tl:97`, `difficulty_util.tl:124`, `difficulty_util.tl:152`, `difficulty_util.tl:179`).
 3. **Entfernung**, siehe unten.
 
 Die Funktion erhält die Fahrzeit, **nutzt sie aber nicht** (`cargotype.script.lua:7-13`): Eine langsame oder verspätete Lieferung bringt gleich viel.
@@ -61,8 +61,8 @@ Die Skripte berechnen nur den Gesamtbetrag (`economy/cargo_income.script.lua`); 
 
 | Was | Wirkung | Quelle |
 |---|---|---|
-| **Unternehmensrang** mit der Einstellung Inflation | Rang 1: ×1, dann gleichmäßig sinkend bis Rang 15: ×0,9 (Niedrig), **×0,75 (Normal)**, ×0,6 (Hoch), ×0,5 (Sehr hoch); Aus: immer ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:694-697` |
-| **Erfüllte Subvention** | ×2 für Lieferungen an die Industrie oder Stadt des Vertrags, auf den Linien, die für die Subvention geliefert haben | `deliver_cargo.script.tl:463-469`, `deliver_cargo_town.script.tl:554-565` |
+| **Unternehmensrang** mit der Einstellung Inflation | Rang 1: ×1, dann gleichmäßig sinkend bis Rang 15: ×0,9 (Niedrig), **×0,75 (Normal)**, ×0,6 (Hoch), ×0,5 (Sehr hoch); Aus: immer ×1 | `company_progression_util.tl:25-40`, `difficulty_util.tl:50`, `mod.script.tl:695-698` |
+| **Erfüllte Subvention** | ×2 für Lieferungen an die Industrie oder Stadt des Vertrags, auf den Linien, die für die Subvention geliefert haben | `deliver_cargo.script.tl:456-462`, `deliver_cargo_town.script.tl:547-558` |
 | **Verspätete Lieferung** | keine Wirkung auf die Einnahme | `cargotype.script.lua:7-13` |
 
 - Der Rangmultiplikator gilt für **alle** Fracht- und Passagierzahlungen (`company_growth.script.tl:159-170`). Die Schwierigkeitsvorgaben nutzen Inflation Niedrig (Easy), Normal (Normal), Hoch (Hard), Sehr hoch (Very Hard) (`difficulty_util.tl:108`, `difficulty_util.tl:136`, `difficulty_util.tl:163`, `difficulty_util.tl:190`).
@@ -70,7 +70,7 @@ Die Skripte berechnen nur den Gesamtbetrag (`economy/cargo_income.script.lua`); 
 
 ## Passagiere
 
-Passagiere nutzen dieselbe Entfernung und einen festen Einnahmefaktor von etwa 3,61 (`cargotype.script.lua:50-53`), multipliziert mit **0,5 + dem Ticketpreisfaktor des Fahrzeugs** (`cargo_income.script.lua:14-17`). Legt ein Fahrzeugmodell keinen Komfortfaktor fest, setzt das Spiel den Preisfaktor auf 0,3 für Busse und Trams, 0,9 für Flugzeuge, 0,1 für Schiffe und 0,5 für Züge (`base_mod.lua:46-61`); bei den übrigen Modellen ist es ein Wert der Engine, in den Skripten nicht sichtbar. Eine Passagier-Subvention verdoppelt nur die Passagiere zwischen ihren beiden Städten, auf ihrer einen Linie (`deliver_passengers.script.tl:292-296`).
+Passagiere nutzen dieselbe Entfernung und einen festen Einnahmefaktor von etwa 3,61 (`cargotype.script.lua:50-53`), multipliziert mit **0,5 + dem Ticketpreisfaktor des Fahrzeugs** (`cargo_income.script.lua:14-17`). Legt ein Fahrzeugmodell keinen Komfortfaktor fest, setzt das Spiel den Preisfaktor auf 0,3 für Busse und Trams, 0,9 für Flugzeuge, 0,1 für Schiffe und 0,5 für Züge (`base_mod.lua:46-61`); bei den übrigen Modellen ist es ein Wert der Engine, in den Skripten nicht sichtbar. Eine Passagier-Subvention verdoppelt nur die Passagiere zwischen ihren beiden Städten, auf ihrer einen Linie, der Linie, die den Vertrag erfüllt hat (`deliver_passengers.script.tl:288-293`).
 
 ## Lieferzeiten
 
@@ -80,7 +80,7 @@ Jede Fracht hat ihre eigene Lieferzeit (`meat.cargo.lua:30`, `coal.cargo.lua:30`
 ```
 
 - **Finanzen › Lieferzeit** zeigt die Zeit jeder Fracht auf deiner Karte; die Ebene Güterzufriedenheit färbt die Strecken von grün bis rot.
-- Eine Lieferung gilt als **verzögert**, wenn sie nach ihrer Lieferzeit ankommt (`towns.script.tl:425`).
+- Eine Lieferung gilt als **verzögert**, wenn sie nach ihrer Lieferzeit ankommt (`towns.script.tl:422`).
 - Spezialisierte Lagermodule **frieren** die Lieferzeit der gelagerten Fracht ein (offizielles Wiki, Warehouses).
 
 ```engine

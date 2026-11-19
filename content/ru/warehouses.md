@@ -5,7 +5,7 @@ domain: warehouses
 official: gamemanual:infrastructure:warehouses
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 500 | единиц груза на модуль, какого бы типа он ни был
 fact: ×2 | скорость погрузки у специализированного модуля, ×1 у универсального
 fact: 150 000 / 300 000 | цена универсального / специализированного модуля

@@ -5,7 +5,7 @@ domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
 updated: 2026-11-17
-game: 40425
+game: 40444
 fact: 17 | Erfolge, die das Spielskript selbst freischaltet
 fact: 500 m | Höhe des ersten Wagens eines Zuges an einem Halt für Zwischenstopp am Gipfel
 fact: < 1 % | Ruf der Stadt für Ich war es nicht
@@ -21,10 +21,10 @@ Das offizielle Wiki listet 41 Erfolge. Das Spielskript (`achievements.script.tl`
 | **Paket angekommen** | eine Frachteinheit erreicht ihr Ziel | `achievements.script.tl:221-225`, `achievements.script.tl:632-636` |
 | **Im Auftrag von** | eine Subvention abgeschlossen | `achievements.script.tl:241-244`, `achievements.script.tl:638-642` |
 | **Subventionsserie** | 10 Subventionen abgeschlossen ohne eine gescheiterte dazwischen; eine gescheiterte Subvention setzt den Zähler auf 0 zurück | `achievements.script.tl:243-249`, `achievements.script.tl:644-648` |
-| **Hausmeister** | die Lieferbewertung einer Stadt wechselt zu **Ausgezeichnet** | `achievements.script.tl:270-276`, `towns.script.tl:30-33`, `achievements.script.tl:650-654` |
+| **Hausmeister** | die Lieferbewertung einer Stadt wechselt zu **Ausgezeichnet** | `achievements.script.tl:270-276`, `towns.script.tl:27-30`, `achievements.script.tl:650-654` |
 | **Stadtentwicklung** | eine Stadt steigt eine Stufe auf | `achievements.script.tl:253-255`, `town_growth.script.tl:92` |
 | **Gestiegene Nachfrage** | eine Stadt bekommt eine Nachfrage nach einem neuen Frachttyp | `achievements.script.tl:257-259`, `achievements.script.tl:668-672` |
-| **Ich war es nicht** | der Ruf einer Stadt **sinkt** unter **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:36-39` |
+| **Ich war es nicht** | der Ruf einer Stadt **sinkt** unter **1 %** | `achievements.script.tl:261-267`, `towns.script.tl:33-36` |
 | **Beförderung** | das Unternehmen steigt einen Rang auf | `achievements.script.tl:280-282`, `achievements.script.tl:680-684` |
 | **Karriereleiter** | das Unternehmen erreicht den höchsten Rang | `achievements.script.tl:284-290`, `achievements.script.tl:686-690` |
 | **Landschaftsgärtner** | du setzt Bäume, und nur Bäume, in einem Bau (nichts entfernt, nicht durch Aufforstung) | `achievements.script.tl:346-377` |

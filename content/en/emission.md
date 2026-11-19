@@ -5,7 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 65–80 dB | town noise: full rating at 65, zero at 80
 fact: 60–74 | town pollution, on the scripts' log scale (not a sound level): full rating at 60, zero at 74
 fact: −80 % | noise and pollution of a greenified industry

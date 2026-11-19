@@ -5,7 +5,7 @@ domain: emission
 official: gamemanual:simulation:towns#town_authority_rating
 status: verified
 updated: 2026-11-16
-game: 40425
+game: 40444
 fact: 65–80 dB | 町の騒音：65 で満点、80 でゼロ
 fact: 60–74 | 町の汚染（スクリプトの対数スケールで、音の大きさではない）：60 で満点、74 でゼロ
 fact: −80 % | 緑化した産業の騒音と汚染
