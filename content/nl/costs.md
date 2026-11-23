@@ -32,7 +32,7 @@ De instelling **Inflatie** verhoogt geen enkele kost: ze verlaagt alleen je inko
 
 ## Wat met het kalenderjaar stijgt
 
-- **Onderhoud van gebouwen**: ×1 in 1900, ×1,5 in 1920, ×2,2 in 1940, ×3,2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). Het gebouwvenster en het bouwmenu passen dit toe op elk gebouw dat het jaar moet volgen, en het bouwmenu markeert elke meta-constructie (in het basisspel: opslagplaatsen, vliegvelden, luchthavens en havens) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Onderhoud van gebouwen**: ×1 in 1900, ×1,5 in 1920, ×2,2 in 1940, ×3,2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). Het gebouwvenster en het bouwmenu passen dit toe op elk gebouw dat het jaar moet volgen, en het bouwmenu markeert elke meta-constructie (in het basisspel: opslagplaatsen, vliegvelden, luchthavens en havens) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). Voor opslagplaatsen vermenigvuldigt hij het onderhoud per variant uit de tabel hieronder.
 - **Modules** van zo'n gebouw kosten de prijs van het bouwjaar van het gebouw, hun onderhoud dat van het huidige jaar (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Tijdperkvarianten**: depots, onderhoudsstations, opslagplaatsen, stations, havens en luchthavens hebben één variant per tijdperk, en elke latere variant kost **×3** (tijdperk B) of **×9** (tijdperk C) van de eerste (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Geld van subsidies**: ×1 in 1900 tot ×4 vanaf 2000 (`finances_util.tl:87-90`). **Leningbedragen**: ×0,4 in 1900 tot ×2,4 in 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Jaarlijks onderhoud volgens de bestanden, voor de eerste variant (vóór 1940) e
 | Gespecialiseerde opslagplaats | 50.000 | 150.000 | 450.000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Elk van deze gebouwen kost **6 ×** zijn onderhoud om te bouwen (`rail_depot.con.lua:35`, `warehouse.tl:76`): 2,7 M voor een gespecialiseerde opslagplaats van het laatste tijdperk, vóór de jaarfactor.
+
+Voor een opslagplaats is het jaarlijkse onderhoud de waarde uit de tabel **×** de jaarfactor. Voorbeeld: een gespecialiseerde opslagplaats in 1960 gebruikt de variant van 1940 (150.000) × 3,2 = **480.000** per jaar (berekend uit de bestanden, niet gemeten in het spel).
 
 - Het eerste **vliegveld** (tot 1950) gebruikt al de ×3 van het tweede tijdperk: de test leest het eindjaar van de variant in plaats van het beginjaar (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 

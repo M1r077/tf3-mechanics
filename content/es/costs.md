@@ -32,7 +32,7 @@ El ajuste **Inflación** no sube ningún coste: solo baja tus ingresos a medida 
 
 ## Qué crece con el año del calendario
 
-- **Conservación de edificios**: ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La ventana del edificio y el menú de construcción lo aplican a cada edificio marcado para seguir el año, y el menú de construcción marca todas las metaconstrucciones (en el juego base: almacenes, aeródromos, aeropuertos y puertos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Conservación de edificios**: ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La ventana del edificio y el menú de construcción lo aplican a cada edificio marcado para seguir el año, y el menú de construcción marca todas las metaconstrucciones (en el juego base: almacenes, aeródromos, aeropuertos y puertos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). En los almacenes multiplica la conservación de cada variante de la tabla de abajo.
 - Los **módulos** añadidos a un edificio así se cobran según el año en que se construyó el edificio, y su conservación según el año actual (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Variantes por época**: depósitos, edificios de mantenimiento, almacenes, estaciones, puertos y aeropuertos tienen una variante por época, y cada variante posterior cuesta **×3** (época B) o **×9** (época C) de la primera (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Dinero de las subvenciones**: ×1 en 1900 hasta ×4 desde 2000 (`finances_util.tl:87-90`). **Importe de los préstamos**: ×0,4 en 1900 hasta ×2,4 en 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Conservación anual escrita en los archivos, para la primera variante (antes de 
 | Almacén especializado | 50.000 | 150.000 | 450.000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Construir cada uno de estos edificios cuesta **6 ×** su conservación (`rail_depot.con.lua:35`, `warehouse.tl:76`): 2,7 M para un almacén especializado de la última época, antes del factor de año.
+
+En un almacén, la conservación anual es el valor de la tabla **×** el factor de año. Ejemplo: un almacén especializado en 1960 usa la variante de 1940 (150.000) × 3,2 = **480.000** al año (calculado a partir de los archivos, no medido en el juego).
 
 - El primer **aeródromo** (hasta 1950) ya usa el ×3 de la segunda época: su comprobación lee el año final de la variante en lugar del año inicial (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 

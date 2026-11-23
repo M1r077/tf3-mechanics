@@ -32,7 +32,7 @@ A configuração **Inflação** não aumenta nenhum custo: ela só baixa a sua r
 
 ## O que cresce com o ano do calendário
 
-- **Manutenção de prédios**: ×1 em 1900, ×1,5 em 1920, ×2,2 em 1940, ×3,2 em 1960, ×4 em 1980, ×5 em 2000, ×6 em 2020 (`mod.script.tl:92-100`). A janela do prédio e o menu de construção aplicam isso a cada prédio marcado para seguir o ano, e o menu de construção marca toda metaconstrução (no jogo base: armazéns, aeródromos, aeroportos e portos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Manutenção de prédios**: ×1 em 1900, ×1,5 em 1920, ×2,2 em 1940, ×3,2 em 1960, ×4 em 1980, ×5 em 2000, ×6 em 2020 (`mod.script.tl:92-100`). A janela do prédio e o menu de construção aplicam isso a cada prédio marcado para seguir o ano, e o menu de construção marca toda metaconstrução (no jogo base: armazéns, aeródromos, aeroportos e portos) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). Para os armazéns, ele multiplica a manutenção de cada variante na tabela abaixo.
 - Os **módulos** adicionados a um prédio assim custam o preço do ano em que o prédio foi construído, e a manutenção deles segue o ano atual (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Variantes por era**: pátios, edifícios de manutenção, armazéns, estações, portos e aeroportos têm uma variante por era, e cada variante seguinte custa **×3** (era B) ou **×9** (era C) da primeira (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Dinheiro dos subsídios**: ×1 em 1900 até ×4 a partir de 2000 (`finances_util.tl:87-90`). **Valor dos empréstimos**: ×0,4 em 1900 até ×2,4 em 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Manutenção anual escrita nos arquivos, para a primeira variante (antes de 1940
 | Armazém especializado | 50.000 | 150.000 | 450.000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Construir cada um desses prédios custa **6 ×** a sua manutenção (`rail_depot.con.lua:35`, `warehouse.tl:76`): 2,7 M para um armazém especializado da última era, antes do fator de ano.
+
+Para um armazém, a manutenção anual é o valor da tabela **×** o fator de ano. Exemplo: um armazém especializado em 1960 usa a variante de 1940 (150.000) × 3,2 = **480.000** por ano (calculado a partir dos arquivos, não medido no jogo).
 
 - O primeiro **aeródromo** (até 1950) já usa o ×3 da segunda era: o teste dele lê o ano final da variante em vez do ano inicial (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 

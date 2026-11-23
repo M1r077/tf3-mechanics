@@ -64,7 +64,7 @@
 </ul>
 <h2 id="随日历年份增长的东西"><span class="n">2</span><span>随日历年份增长的东西</span></h2>
 <ul>
-<li><strong>建筑维护费</strong>：1900 年 ×1，1920 年 ×1.5，1940 年 ×2.2，1960 年 ×3.2，1980 年 ×4，2000 年 ×5，2020 年 ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建筑窗口和建造菜单会把它用于每个标记为跟随年份的建筑，而建造菜单会标记每个元建筑（基础游戏中为：仓库、单跑道机场、双跑道机场和港口）<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>，<code class="src">construction_react_util.tl:1152</code>，<code class="src">warehouse.tl:7</code>，<code class="src">harbor_modular.tl:24</code>）</span>。</li>
+<li><strong>建筑维护费</strong>：1900 年 ×1，1920 年 ×1.5，1940 年 ×2.2，1960 年 ×3.2，1980 年 ×4，2000 年 ×5，2020 年 ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建筑窗口和建造菜单会把它用于每个标记为跟随年份的建筑，而建造菜单会标记每个元建筑（基础游戏中为：仓库、单跑道机场、双跑道机场和港口）<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>，<code class="src">construction_react_util.tl:1152</code>，<code class="src">warehouse.tl:7</code>，<code class="src">harbor_modular.tl:24</code>）</span>。对于仓库，它会乘到下表中每个版本的维护费上。</li>
 <li>加到这类建筑上的<strong>模块</strong>，价格按建筑建造的年份计算，维护费按当前年份计算<span class="sr">（<code class="src">construction.tl:3741-3748</code>，<code class="src">construction.tl:4413-4416</code>）</span>。</li>
 <li><strong>时代版本</strong>：车库、维修站、仓库、车站、港口和机场每个时代有一个版本，后面的版本花费是第一个的 <strong>×3</strong>（时代 B）或 <strong>×9</strong>（时代 C）<span class="sr">（<code class="src">rail_depot.con.lua:7</code>，<code class="src">warehouse.tl:48</code>，<code class="src">modular_station.con.lua:71</code>，<code class="src">harbor_modular.tl:76</code>，<code class="src">airport.tl:8</code>）</span>。</li>
 <li><strong>补贴现金</strong>：从 1900 年的 ×1 到 2000 年起的 ×4<span class="sr">（<code class="src">finances_util.tl:87-90</code>）</span>。<strong>贷款金额</strong>：从 1900 年的 ×0.4 到 2020 年的 ×2.4<span class="sr">（<code class="src">loan_util.tl:7-10</code>）</span>。</li>
@@ -191,6 +191,7 @@
 </tbody>
 </table></div>
 <p>这些建筑的建造费都是维护费的 <strong>6 倍</strong><span class="sr">（<code class="src">rail_depot.con.lua:35</code>，<code class="src">warehouse.tl:76</code>）</span>：最后一个时代的专用仓库，在乘年份系数之前是 270 万。</p>
+<p>仓库每年的维护费是表中的数值 <strong>×</strong> 年份系数。例如：1960 年的专用仓库使用 1940 年的版本（15 万）× 3.2 = 每年 <strong>48 万</strong>（根据文件计算，未在游戏中实测）。</p>
 <ul>
 <li>第一个<strong>单跑道机场</strong>（到 1950 年为止）就已经使用第二个时代的 ×3：它的判断读取的是版本的结束年份，而不是开始年份<span class="sr">（<code class="src">airfield.tl:8</code>，<code class="src">airfield_era_a.metacon.tl:3</code>）</span>。</li>
 </ul>

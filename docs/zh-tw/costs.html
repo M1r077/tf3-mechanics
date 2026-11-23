@@ -64,7 +64,7 @@
 </ul>
 <h2 id="隨月曆年份成長的項目"><span class="n">2</span><span>隨月曆年份成長的項目</span></h2>
 <ul>
-<li><strong>建築維護費</strong>：1900 年 ×1、1920 年 ×1.5、1940 年 ×2.2、1960 年 ×3.2、1980 年 ×4、2000 年 ×5、2020 年 ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建築視窗與建造選單會把它套用到每個標記為跟隨年份的建築，而建造選單會標記每個元建築（基礎遊戲中為：貨物倉庫、飛行場、機場與港口）<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>，<code class="src">construction_react_util.tl:1152</code>，<code class="src">warehouse.tl:7</code>，<code class="src">harbor_modular.tl:24</code>）</span>。</li>
+<li><strong>建築維護費</strong>：1900 年 ×1、1920 年 ×1.5、1940 年 ×2.2、1960 年 ×3.2、1980 年 ×4、2000 年 ×5、2020 年 ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建築視窗與建造選單會把它套用到每個標記為跟隨年份的建築，而建造選單會標記每個元建築（基礎遊戲中為：貨物倉庫、飛行場、機場與港口）<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>，<code class="src">construction_react_util.tl:1152</code>，<code class="src">warehouse.tl:7</code>，<code class="src">harbor_modular.tl:24</code>）</span>。對於貨物倉庫，它會乘到下表中每個版本的維護費上。</li>
 <li>加到這類建築上的<strong>模組</strong>，價格依建築興建的年份計算，維護費依目前年份計算<span class="sr">（<code class="src">construction.tl:3741-3748</code>，<code class="src">construction.tl:4413-4416</code>）</span>。</li>
 <li><strong>時代版本</strong>：車庫、維修站、貨物倉庫、車站、港口與機場每個時代各有一個版本，後面的版本花費是第一個的 <strong>×3</strong>（時代 B）或 <strong>×9</strong>（時代 C）<span class="sr">（<code class="src">rail_depot.con.lua:7</code>，<code class="src">warehouse.tl:48</code>，<code class="src">modular_station.con.lua:71</code>，<code class="src">harbor_modular.tl:76</code>，<code class="src">airport.tl:8</code>）</span>。</li>
 <li><strong>補助現金</strong>：從 1900 年的 ×1 到 2000 年以後的 ×4<span class="sr">（<code class="src">finances_util.tl:87-90</code>）</span>。<strong>貸款金額</strong>：從 1900 年的 ×0.4 到 2020 年的 ×2.4<span class="sr">（<code class="src">loan_util.tl:7-10</code>）</span>。</li>
@@ -191,6 +191,7 @@
 </tbody>
 </table></div>
 <p>這些建築的建造費都是維護費的 <strong>6 倍</strong><span class="sr">（<code class="src">rail_depot.con.lua:35</code>，<code class="src">warehouse.tl:76</code>）</span>：最後一個時代的專用貨物倉庫，在乘上年份係數之前是 270 萬。</p>
+<p>貨物倉庫每年的維護費是表中的數值 <strong>×</strong> 年份係數。例如：1960 年的專用貨物倉庫使用 1940 年的版本（15 萬）× 3.2 = 每年 <strong>48 萬</strong>（根據檔案計算，未在遊戲中實測）。</p>
 <ul>
 <li>第一個<strong>飛行場</strong>（到 1950 年為止）就已經使用第二個時代的 ×3：它的判斷讀取的是版本的結束年份，而不是開始年份<span class="sr">（<code class="src">airfield.tl:8</code>，<code class="src">airfield_era_a.metacon.tl:3</code>）</span>。</li>
 </ul>

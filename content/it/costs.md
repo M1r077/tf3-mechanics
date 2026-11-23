@@ -32,7 +32,7 @@ L'impostazione **Inflazione** non aumenta nessun costo: abbassa solo le tue entr
 
 ## Cosa cresce con l'anno del calendario
 
-- **Manutenzione degli edifici**: ×1 nel 1900, ×1,5 nel 1920, ×2,2 nel 1940, ×3,2 nel 1960, ×4 nel 1980, ×5 nel 2000, ×6 nel 2020 (`mod.script.tl:92-100`). La finestra dell'edificio e il menu di costruzione lo applicano a ogni edificio contrassegnato per seguire l'anno, e il menu di costruzione contrassegna ogni meta-costruzione (nel gioco base: magazzini, aerodromi, aeroporti e porti) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Manutenzione degli edifici**: ×1 nel 1900, ×1,5 nel 1920, ×2,2 nel 1940, ×3,2 nel 1960, ×4 nel 1980, ×5 nel 2000, ×6 nel 2020 (`mod.script.tl:92-100`). La finestra dell'edificio e il menu di costruzione lo applicano a ogni edificio contrassegnato per seguire l'anno, e il menu di costruzione contrassegna ogni meta-costruzione (nel gioco base: magazzini, aerodromi, aeroporti e porti) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). Per i magazzini moltiplica la manutenzione di ogni variante nella tabella qui sotto.
 - I **moduli** aggiunti a un edificio del genere costano secondo l'anno in cui l'edificio è stato costruito, la loro manutenzione secondo l'anno attuale (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Varianti per epoca**: depositi, edifici di manutenzione, magazzini, stazioni, porti e aeroporti hanno una variante per epoca, e ogni variante successiva costa **×3** (epoca B) o **×9** (epoca C) rispetto alla prima (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Denaro delle commesse**: da ×1 nel 1900 fino a ×4 dal 2000 (`finances_util.tl:87-90`). **Importo dei prestiti**: da ×0,4 nel 1900 fino a ×2,4 nel 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Manutenzione annua scritta nei file, per la prima variante (prima del 1940) e le
 | Magazzino specializzato | 50.000 | 150.000 | 450.000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Costruire ognuno di questi edifici costa **6 ×** la sua manutenzione (`rail_depot.con.lua:35`, `warehouse.tl:76`): 2,7 M per un magazzino specializzato dell'ultima epoca, prima del fattore dell'anno.
+
+Per un magazzino, la manutenzione annua è il valore della tabella **×** il fattore dell'anno. Esempio: un magazzino specializzato nel 1960 usa la variante del 1940 (150.000) × 3,2 = **480.000** all'anno (calcolato dai file, non misurato in gioco).
 
 - Il primo **aerodromo** (fino al 1950) usa già il ×3 della seconda epoca: il suo controllo legge l'anno finale della variante invece dell'anno iniziale (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 

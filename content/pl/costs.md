@@ -32,7 +32,7 @@ Ustawienie **Inflacja** nie podnosi żadnych kosztów: obniża tylko twój przyc
 
 ## Co rośnie z rokiem kalendarzowym
 
-- **Utrzymanie budynków**: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020 (`mod.script.tl:92-100`). Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Utrzymanie budynków**: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020 (`mod.script.tl:92-100`). Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). Dla magazynów mnoży on utrzymanie poszczególnych wariantów z tabeli poniżej.
 - **Moduły** dodane do takiego budynku kosztują według roku budowy budynku, a ich utrzymanie według bieżącego roku (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Warianty epok**: zajezdnie, stacje konserwacji, magazyny, dworce, porty i lotniska mają jeden wariant na epokę, a każdy późniejszy kosztuje **×3** (epoka B) lub **×9** (epoka C) pierwszego (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Pieniądze z subsydiów**: od ×1 w 1900 do ×4 od 2000 (`finances_util.tl:87-90`). **Kwoty kredytów**: od ×0,4 w 1900 do ×2,4 w 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Roczne utrzymanie zapisane w plikach, dla pierwszego wariantu (przed 1940) i pó
 | Magazyn specjalistyczny | 50 000 | 150 000 | 450 000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Budowa każdego z tych budynków kosztuje **6 ×** jego utrzymanie (`rail_depot.con.lua:35`, `warehouse.tl:76`): 2,7 M za magazyn specjalistyczny ostatniej epoki, przed mnożnikiem roku.
+
+Dla magazynu roczne utrzymanie to wartość z tabeli **×** mnożnik roku. Przykład: magazyn specjalistyczny w 1960 używa wariantu z 1940 (150 000) × 3,2 = **480 000** rocznie (obliczone z plików, nie zmierzone w grze).
 
 - Pierwsze **lądowisko** (do 1950) używa już ×3 drugiej epoki: jego test czyta rok końcowy wariantu zamiast roku początkowego (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 

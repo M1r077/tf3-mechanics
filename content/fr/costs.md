@@ -32,7 +32,7 @@ Le réglage **Inflation** n'augmente aucun coût : il baisse seulement tes reven
 
 ## Ce qui monte avec l'année du calendrier
 
-- **Entretien des bâtiments** : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque toutes les méta-constructions (dans le jeu de base : entrepôts, aérodromes, aéroports et ports) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Entretien des bâtiments** : ×1 en 1900, ×1,5 en 1920, ×2,2 en 1940, ×3,2 en 1960, ×4 en 1980, ×5 en 2000, ×6 en 2020 (`mod.script.tl:92-100`). La fenêtre du bâtiment et le menu de construction l'appliquent à chaque bâtiment marqué pour suivre l'année, et le menu de construction marque toutes les méta-constructions (dans le jeu de base : entrepôts, aérodromes, aéroports et ports) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). Pour les entrepôts, il multiplie l'entretien de chaque variante du tableau ci-dessous.
 - Les **modules** ajoutés à un tel bâtiment sont facturés à l'année de construction du bâtiment, leur entretien à l'année en cours (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Variantes par époque** : dépôts, ateliers d'entretien, entrepôts, gares, ports et aéroports ont une variante par époque, et chaque variante suivante coûte **×3** (époque B) ou **×9** (époque C) de la première (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Argent des contrats** : ×1 en 1900 jusqu'à ×4 dès 2000 (`finances_util.tl:87-90`). **Montant des emprunts** : ×0,4 en 1900 jusqu'à ×2,4 en 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Entretien annuel écrit dans les fichiers, pour la première variante (avant 194
 | Entrepôt spécialisé | 50 000 | 150 000 | 450 000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Chacun de ces bâtiments coûte **6 ×** son entretien à construire (`rail_depot.con.lua:35`, `warehouse.tl:76`) : 2,7 M pour un entrepôt spécialisé de la dernière époque, avant le facteur d'année.
+
+Pour un entrepôt, l'entretien annuel est la valeur du tableau **×** le facteur d'année. Exemple : un entrepôt spécialisé en 1960 utilise la variante de 1940 (150 000) × 3,2 = **480 000** par an (calculé à partir des fichiers, non mesuré en jeu).
 
 - Le premier **aérodrome** (jusqu'en 1950) utilise déjà le ×3 de la deuxième époque : son test lit l'année de fin de la variante au lieu de l'année de début (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 

@@ -64,7 +64,7 @@
 </ul>
 <h2 id="暦年とともに増えるもの"><span class="n">2</span><span>暦年とともに増えるもの</span></h2>
 <ul>
-<li><strong>建物の維持費</strong>：1900 年は ×1、1920 年は ×1.5、1940 年は ×2.2、1960 年は ×3.2、1980 年は ×4、2000 年は ×5、2020 年は ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建物ウィンドウと建設メニューは、年に従うと指定されたすべての建物にこれを適用する。建設メニューはすべてのメタ建設物にこの指定をする（ベースゲームでは貨物倉庫、飛行場、空港、港）<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>、<code class="src">construction_react_util.tl:1152</code>、<code class="src">warehouse.tl:7</code>、<code class="src">harbor_modular.tl:24</code>）</span>。</li>
+<li><strong>建物の維持費</strong>：1900 年は ×1、1920 年は ×1.5、1940 年は ×2.2、1960 年は ×3.2、1980 年は ×4、2000 年は ×5、2020 年は ×6<span class="sr">（<code class="src">mod.script.tl:92-100</code>）</span>。建物ウィンドウと建設メニューは、年に従うと指定されたすべての建物にこれを適用する。建設メニューはすべてのメタ建設物にこの指定をする（ベースゲームでは貨物倉庫、飛行場、空港、港）<span class="sr">（<code class="src">entity_window_util.tl:186-193</code>、<code class="src">construction_react_util.tl:1152</code>、<code class="src">warehouse.tl:7</code>、<code class="src">harbor_modular.tl:24</code>）</span>。貨物倉庫では、下の表にある種類ごとの維持費にこれがかかる。</li>
 <li>そうした建物に追加した<strong>モジュール</strong>は、価格は建物を建てた年、維持費は現在の年で決まる<span class="sr">（<code class="src">construction.tl:3741-3748</code>、<code class="src">construction.tl:4413-4416</code>）</span>。</li>
 <li><strong>時代ごとの種類</strong>：デポ、整備施設、貨物倉庫、駅、港、空港には時代ごとに 1 つの種類があり、後の種類は最初の種類の <strong>×3</strong>（時代 B）または <strong>×9</strong>（時代 C）のコストがかかる<span class="sr">（<code class="src">rail_depot.con.lua:7</code>、<code class="src">warehouse.tl:48</code>、<code class="src">modular_station.con.lua:71</code>、<code class="src">harbor_modular.tl:76</code>、<code class="src">airport.tl:8</code>）</span>。</li>
 <li><strong>助成金の資金</strong>：1900 年の ×1 から 2000 年以降の ×4 まで<span class="sr">（<code class="src">finances_util.tl:87-90</code>）</span>。<strong>融資の金額</strong>：1900 年の ×0.4 から 2020 年の ×2.4 まで<span class="sr">（<code class="src">loan_util.tl:7-10</code>）</span>。</li>
@@ -191,6 +191,7 @@
 </tbody>
 </table></div>
 <p>これらの建物の建設費は、どれも維持費の <strong>6 倍</strong> である<span class="sr">（<code class="src">rail_depot.con.lua:35</code>、<code class="src">warehouse.tl:76</code>）</span>。最後の時代の専門の貨物倉庫なら、年係数の前で 270万 になる。</p>
+<p>貨物倉庫の年間の維持費は、表の値 <strong>×</strong> 年係数である。例：1960 年の専門の貨物倉庫は 1940 年の種類（15万）を使い、× 3.2 = 年 <strong>48万</strong> になる（ファイルから計算した値で、ゲーム内で測ったものではない）。</p>
 <ul>
 <li>最初の<strong>飛行場</strong>（1950 年まで）は、すでに 2 番目の時代の ×3 を使う。判定が種類の開始年ではなく終了年を読んでいるためである<span class="sr">（<code class="src">airfield.tl:8</code>、<code class="src">airfield_era_a.metacon.tl:3</code>）</span>。</li>
 </ul>

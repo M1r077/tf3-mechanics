@@ -32,7 +32,7 @@ Die Einstellung **Inflation** erhöht keine Kosten: Sie senkt nur deine Einnahme
 
 ## Was mit dem Kalenderjahr steigt
 
-- **Gebäudeunterhalt**: ×1 im Jahr 1900, ×1,5 1920, ×2,2 1940, ×3,2 1960, ×4 1980, ×5 2000, ×6 2020 (`mod.script.tl:92-100`). Das Gebäudefenster und das Baumenü wenden ihn auf jedes Gebäude an, das dem Jahr folgen soll, und das Baumenü markiert jede Meta-Konstruktion (im Basisspiel: Lager, Flugfelder, Flughäfen und Häfen) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Gebäudeunterhalt**: ×1 im Jahr 1900, ×1,5 1920, ×2,2 1940, ×3,2 1960, ×4 1980, ×5 2000, ×6 2020 (`mod.script.tl:92-100`). Das Gebäudefenster und das Baumenü wenden ihn auf jedes Gebäude an, das dem Jahr folgen soll, und das Baumenü markiert jede Meta-Konstruktion (im Basisspiel: Lager, Flugfelder, Flughäfen und Häfen) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). Bei Lagern multipliziert er den Unterhalt jeder Variante in der Tabelle unten.
 - **Module** eines solchen Gebäudes kosten den Preis des Baujahrs des Gebäudes, ihr Unterhalt den des aktuellen Jahres (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Epochenvarianten**: Depots, Wartungsstationen, Lager, Bahnhöfe, Häfen und Flughäfen haben eine Variante pro Epoche, und jede spätere Variante kostet **×3** (Epoche B) oder **×9** (Epoche C) der ersten (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Geld aus Subventionen**: ×1 im Jahr 1900 bis ×4 ab 2000 (`finances_util.tl:87-90`). **Darlehensbeträge**: ×0,4 im Jahr 1900 bis ×2,4 im Jahr 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Jährlicher Unterhalt laut Dateien, für die erste Variante (vor 1940) und die s
 | Speziallager | 50.000 | 150.000 | 450.000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Jedes dieser Gebäude kostet **6 ×** seinen Unterhalt im Bau (`rail_depot.con.lua:35`, `warehouse.tl:76`): 2,7 M für ein Speziallager der letzten Epoche, vor dem Jahresfaktor.
+
+Bei einem Lager ist der jährliche Unterhalt der Tabellenwert **×** der Jahresfaktor. Beispiel: Ein Speziallager im Jahr 1960 nutzt die Variante von 1940 (150.000) × 3,2 = **480.000** pro Jahr (aus den Dateien berechnet, nicht im Spiel gemessen).
 
 - Das erste **Flugfeld** (bis 1950) nutzt schon das ×3 der zweiten Epoche: Seine Prüfung liest das Endjahr der Variante statt des Startjahres (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 

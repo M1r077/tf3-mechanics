@@ -64,7 +64,7 @@
 </ul>
 <h2 id="co-rośnie-z-rokiem-kalendarzowym"><span class="n">2</span><span>Co rośnie z rokiem kalendarzowym</span></h2>
 <ul>
-<li><strong>Utrzymanie budynków</strong>: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty)<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1152</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>.</li>
+<li><strong>Utrzymanie budynków</strong>: ×1 w 1900, ×1,5 w 1920, ×2,2 w 1940, ×3,2 w 1960, ×4 w 1980, ×5 w 2000, ×6 w 2020<span class="sr"> (<code class="src">mod.script.tl:92-100</code>)</span>. Okno budynku i menu budowy stosują go do każdego budynku oznaczonego jako zależny od roku, a menu budowy oznacza każdą metakonstrukcję (w grze podstawowej: magazyny, lądowiska, lotniska i porty)<span class="sr"> (<code class="src">entity_window_util.tl:186-193</code>, <code class="src">construction_react_util.tl:1152</code>, <code class="src">warehouse.tl:7</code>, <code class="src">harbor_modular.tl:24</code>)</span>. Dla magazynów mnoży on utrzymanie poszczególnych wariantów z tabeli poniżej.</li>
 <li><strong>Moduły</strong> dodane do takiego budynku kosztują według roku budowy budynku, a ich utrzymanie według bieżącego roku<span class="sr"> (<code class="src">construction.tl:3741-3748</code>, <code class="src">construction.tl:4413-4416</code>)</span>.</li>
 <li><strong>Warianty epok</strong>: zajezdnie, stacje konserwacji, magazyny, dworce, porty i lotniska mają jeden wariant na epokę, a każdy późniejszy kosztuje <strong>×3</strong> (epoka B) lub <strong>×9</strong> (epoka C) pierwszego<span class="sr"> (<code class="src">rail_depot.con.lua:7</code>, <code class="src">warehouse.tl:48</code>, <code class="src">modular_station.con.lua:71</code>, <code class="src">harbor_modular.tl:76</code>, <code class="src">airport.tl:8</code>)</span>.</li>
 <li><strong>Pieniądze z subsydiów</strong>: od ×1 w 1900 do ×4 od 2000<span class="sr"> (<code class="src">finances_util.tl:87-90</code>)</span>. <strong>Kwoty kredytów</strong>: od ×0,4 w 1900 do ×2,4 w 2020<span class="sr"> (<code class="src">loan_util.tl:7-10</code>)</span>.</li>
@@ -191,6 +191,7 @@
 </tbody>
 </table></div>
 <p>Budowa każdego z tych budynków kosztuje <strong>6 ×</strong> jego utrzymanie<span class="sr"> (<code class="src">rail_depot.con.lua:35</code>, <code class="src">warehouse.tl:76</code>)</span>: 2,7 M za magazyn specjalistyczny ostatniej epoki, przed mnożnikiem roku.</p>
+<p>Dla magazynu roczne utrzymanie to wartość z tabeli <strong>×</strong> mnożnik roku. Przykład: magazyn specjalistyczny w 1960 używa wariantu z 1940 (150 000) × 3,2 = <strong>480 000</strong> rocznie (obliczone z plików, nie zmierzone w grze).</p>
 <ul>
 <li>Pierwsze <strong>lądowisko</strong> (do 1950) używa już ×3 drugiej epoki: jego test czyta rok końcowy wariantu zamiast roku początkowego<span class="sr"> (<code class="src">airfield.tl:8</code>, <code class="src">airfield_era_a.metacon.tl:3</code>)</span>.</li>
 </ul>

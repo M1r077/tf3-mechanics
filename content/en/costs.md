@@ -32,7 +32,7 @@ The **Inflation** setting does not raise any cost: it only lowers your income as
 
 ## What grows with the calendar year
 
-- **Building upkeep**: ×1 in 1900, ×1.5 in 1920, ×2.2 in 1940, ×3.2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). The building window and the build menu apply it to every building marked to follow the year, and the build menu marks every meta-construction (in the base game: warehouses, airfields, airports and harbours) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`).
+- **Building upkeep**: ×1 in 1900, ×1.5 in 1920, ×2.2 in 1940, ×3.2 in 1960, ×4 in 1980, ×5 in 2000, ×6 in 2020 (`mod.script.tl:92-100`). The building window and the build menu apply it to every building marked to follow the year, and the build menu marks every meta-construction (in the base game: warehouses, airfields, airports and harbours) (`entity_window_util.tl:186-193`, `construction_react_util.tl:1152`, `warehouse.tl:7`, `harbor_modular.tl:24`). For warehouses it multiplies the per-variant upkeep in the table below.
 - **Modules** added to such a building are priced at the year the building was built, their upkeep at the current year (`construction.tl:3741-3748`, `construction.tl:4413-4416`).
 - **Era variants**: depots, maintenance stations, warehouses, stations, harbours and airports have one variant per era, and each later variant costs **×3** (era B) or **×9** (era C) of the first (`rail_depot.con.lua:7`, `warehouse.tl:48`, `modular_station.con.lua:71`, `harbor_modular.tl:76`, `airport.tl:8`).
 - **Subsidy cash**: ×1 in 1900 up to ×4 from 2000 (`finances_util.tl:87-90`). **Loan amounts**: ×0.4 in 1900 up to ×2.4 in 2020 (`loan_util.tl:7-10`).
@@ -72,6 +72,8 @@ Yearly upkeep written in the files, for the first variant (before 1940) and the 
 | Specialised warehouse | 50,000 | 150,000 | 450,000 | `warehouse.tl:51`, `warehouse.tl:75` |
 
 Each of these buildings costs **6 ×** its upkeep to build (`rail_depot.con.lua:35`, `warehouse.tl:76`): 2.7 M for a specialised warehouse of the last era, before the year factor.
+
+For a warehouse, the yearly upkeep is the table value **×** the year factor. Example: a specialised warehouse in 1960 uses the 1940 variant (150,000) × 3.2 = **480,000** per year (computed from the files, not measured in game).
 
 - The first **airfield** (until 1950) already uses the ×3 of the second era: its test reads the end year of the variant instead of the start year (`airfield.tl:8`, `airfield_era_a.metacon.tl:3`).
 
