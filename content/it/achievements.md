@@ -70,21 +70,22 @@ Se un obiettivo può ancora essere sbloccato (isAchievementUnlockable), se i con
 
 ## Mod e obiettivi
 
-Usare mod **non** disattiva da solo gli obiettivi. Conta se ogni mod attiva è contrassegnata come **cosmetica**.
+Usare mod **non** disattiva da solo gli obiettivi. Decidono due cose: se ogni mod attiva è contrassegnata come **cosmetica** e se le impostazioni di gioco restano ai valori standard.
 
 - Ogni mod ha un indicatore `cosmetic` nel suo `mod.json`. La documentazione dell'API del gioco (cartella `api/tealdef`, campo `ModDesc.cosmetic`) dice: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (se la mod è puramente cosmetica, permette comunque di ottenere obiettivi).
-- Il motore controlla l'elenco delle mod attive (`ModRep.couldAchievementsBeEarned`) e salva il risultato in ogni salvataggio (`achievementsEarnable`), stessa cartella.
 - Anche i DLC ufficiali e le missioni della campagna sono mod, e sono tutte contrassegnate come cosmetiche (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- Quando gli obiettivi sono bloccati, il gioco lo dice: ha i messaggi "Achievements Disabled!" (obiettivi disattivati) e "Achievements cannot be earned." (non si possono ottenere obiettivi) (`base/strings`).
+- Nella pagina di nuova partita e in quella di caricamento, il gioco controlla se l'elenco delle mod attive permette ancora gli obiettivi (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Se no, una banda arancione dice **"Achievements cannot be earned."** (non si possono ottenere obiettivi) (`savegame_react_util.tl:1485-1496`).
+- Ogni salvataggio ha anche un proprio indicatore (`achievementsEarnable`). Se è disattivato, la pagina di caricamento mostra comunque la banda arancione, qualunque mod tu scelga ora (`savegame_react_util.tl:1035-1037`). Viene ricontrollata solo una mod che forza la riattivazione degli obiettivi (`savegame_react_util.tl:1063`).
+- Le impostazioni di gioco (difficoltà e gli altri parametri della partita) sono un secondo motivo: con valori diversi da quelli standard la difficoltà appare come **Custom** (personalizzata) (`difficulty_util.tl:201-229`) e, secondo il wiki ufficiale, gli obiettivi non sono disponibili.
 
-Quindi una partita con solo mod cosmetiche può ancora ottenere obiettivi. Basta una sola mod non cosmetica, o impostazioni di gioco diverse dai valori standard, per bloccarli (wiki ufficiale).
+Quindi una partita con solo mod cosmetiche e impostazioni standard può ancora ottenere obiettivi. Basta una sola mod non cosmetica, o impostazioni diverse dai valori standard, per bloccarli, e un salvataggio bloccato una volta resta bloccato.
 
 ```engine
-La regola esatta (quali impostazioni contano, e se un salvataggio bloccato una volta resta bloccato dopo aver rimosso la mod) è decisa nel motore e non è nei file leggibili: sconosciuto.
+Quali impostazioni contano esattamente come «diverse dai valori standard», e quando viene impostato l'indicatore del salvataggio, lo decide il motore: non è nei file leggibili.
 ```
 
 ```tip scripts
-È l'autore della mod a scegliere l'indicatore. Controlla la riga `cosmetic` nel `mod.json` della mod, o chiedi all'autore. Una mod che cambia il gameplay (costi, produzione, regole) di solito non è cosmetica.
+Cerca la banda arancione prima di avviare o caricare una partita: niente banda significa che si possono ottenere obiettivi. Un buon modo di giocare: ottieni gli obiettivi in una partita con le impostazioni standard e solo mod cosmetiche, e usa partite libere o sandbox separate per le mod e le impostazioni che cambiano il gameplay. È l'autore della mod a scegliere l'indicatore cosmetico; controlla la riga `cosmetic` nel `mod.json` della mod, o chiedi all'autore.
 ```
 
 ## Da sapere

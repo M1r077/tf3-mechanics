@@ -70,21 +70,22 @@ Whether an achievement can still be unlocked (isAchievementUnlockable), whether 
 
 ## Mods and achievements
 
-Using mods does **not** switch achievements off by itself. What counts is whether each active mod is marked **cosmetic**.
+Using mods does **not** switch achievements off by itself. Two things decide it: whether each active mod is marked **cosmetic**, and whether the gameplay settings stay at the standard values.
 
 - Every mod has a `cosmetic` flag in its `mod.json`. The game's own API documentation (folder `api/tealdef`, field `ModDesc.cosmetic`) says: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing".
-- The engine checks the list of active mods (`ModRep.couldAchievementsBeEarned`) and stores the result in each savegame (`achievementsEarnable`), same folder.
 - The official DLCs and campaign missions are mods too, and all of them are marked cosmetic (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- When achievements are blocked, the game says so: it has the messages "Achievements Disabled!" and "Achievements cannot be earned." (`base/strings`).
+- In the new game page and in the load game page, the game asks whether the list of active mods still allows achievements (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). If not, an orange band says **"Achievements cannot be earned."** (`savegame_react_util.tl:1485-1496`).
+- Each savegame also keeps its own flag (`achievementsEarnable`). If it is off, the load page shows the orange band too, whatever mods you pick now (`savegame_react_util.tl:1035-1037`). Only a mod that forces achievements back on is checked again (`savegame_react_util.tl:1063`).
+- The gameplay settings (difficulty and the other game parameters) are a second reason: with values away from the standard ones the difficulty shows as **Custom** (`difficulty_util.tl:201-229`) and, per the official wiki, achievements are unavailable.
 
-So a game with only cosmetic mods can still earn achievements. A single non-cosmetic mod, or gameplay settings away from the standard values, is enough to block them (official wiki).
+So a game with only cosmetic mods and standard settings can still earn achievements. One non-cosmetic mod, or settings away from the standard values, is enough to block them, and a savegame that was blocked once stays blocked.
 
 ```engine
-The exact rule (which settings count, and whether a savegame that was once blocked stays blocked after the mod is removed) is decided in the engine and is not in the readable files: unknown.
+Which settings exactly count as "away from the standard values", and when the savegame flag is set, is decided by the engine: not in the readable files.
 ```
 
 ```tip scripts
-The mod author chooses the flag. Check the `cosmetic` line in the mod's `mod.json`, or ask the author. A mod that changes gameplay (costs, production, rules) is usually not cosmetic.
+Look for the orange band before you start or load a game: no band means achievements can be earned. A good way to play: earn the achievements in a game with the standard settings and cosmetic mods only, and use separate free or sandbox games for mods and settings that change the gameplay. The mod author chooses the cosmetic flag; check the `cosmetic` line in the mod's `mod.json`, or ask the author.
 ```
 
 ## Good to know

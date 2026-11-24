@@ -70,21 +70,22 @@ Se uma conquista ainda pode ser desbloqueada (isAchievementUnlockable), se os co
 
 ## Mods e conquistas
 
-Usar mods **não** desliga as conquistas por si só. O que conta é se cada mod ativo está marcado como **cosmético**.
+Usar mods **não** desliga as conquistas por si só. Duas coisas decidem: se cada mod ativo está marcado como **cosmético**, e se as configurações de jogo continuam nos valores padrão.
 
 - Todo mod tem uma flag `cosmetic` no seu `mod.json`. A própria documentação da API do jogo (pasta `api/tealdef`, campo `ModDesc.cosmetic`) diz: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (se o mod é puramente cosmético, ainda é possível ganhar conquistas).
-- O motor verifica a lista de mods ativos (`ModRep.couldAchievementsBeEarned`) e guarda o resultado em cada jogo salvo (`achievementsEarnable`), mesma pasta.
 - As DLCs oficiais e as missões da campanha também são mods, e todas estão marcadas como cosméticas (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- Quando as conquistas estão bloqueadas, o jogo avisa: ele tem as mensagens "Achievements Disabled!" (conquistas desativadas) e "Achievements cannot be earned." (conquistas não podem ser ganhas) (`base/strings`).
+- Na página de novo jogo e na página de carregar jogo, o jogo verifica se a lista de mods ativos ainda permite conquistas (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Se não, uma faixa laranja mostra **"Achievements cannot be earned."** (conquistas não podem ser ganhas) (`savegame_react_util.tl:1485-1496`).
+- Cada jogo salvo também guarda sua própria flag (`achievementsEarnable`). Se ela estiver desligada, a página de carregar também mostra a faixa laranja, sejam quais forem os mods que você escolher agora (`savegame_react_util.tl:1035-1037`). Só um mod que força as conquistas de volta é verificado de novo (`savegame_react_util.tl:1063`).
+- As configurações de jogo (dificuldade e os outros parâmetros do jogo) são um segundo motivo: com valores diferentes dos padrão, a dificuldade aparece como **Custom** (personalizada) (`difficulty_util.tl:201-229`) e, segundo a wiki oficial, as conquistas ficam indisponíveis.
 
-Então um jogo só com mods cosméticos ainda pode ganhar conquistas. Um único mod não cosmético, ou configurações de jogo diferentes dos valores padrão, basta para bloqueá-las (wiki oficial).
+Então um jogo só com mods cosméticos e configurações padrão ainda pode ganhar conquistas. Um único mod não cosmético, ou configurações diferentes dos valores padrão, basta para bloqueá-las, e um jogo salvo que foi bloqueado uma vez continua bloqueado.
 
 ```engine
-A regra exata (quais configurações contam, e se um jogo salvo que já foi bloqueado continua bloqueado depois que o mod é removido) é decidida no motor e não está nos arquivos legíveis: desconhecido.
+Quais configurações exatamente contam como "diferentes dos valores padrão", e quando a flag do jogo salvo é definida, é decidido pelo motor: não está nos arquivos legíveis.
 ```
 
 ```tip scripts
-O autor do mod escolhe a flag. Confira a linha `cosmetic` no `mod.json` do mod, ou pergunte ao autor. Um mod que muda a jogabilidade (custos, produção, regras) normalmente não é cosmético.
+Procure a faixa laranja antes de começar ou carregar um jogo: sem faixa, as conquistas podem ser ganhas. Um bom jeito de jogar: ganhe as conquistas em um jogo com as configurações padrão e só mods cosméticos, e use jogos livres ou sandbox separados para mods e configurações que mudam a jogabilidade. O autor do mod escolhe a flag cosmética; confira a linha `cosmetic` no `mod.json` do mod, ou pergunte ao autor.
 ```
 
 ## Bom saber

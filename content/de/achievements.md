@@ -70,21 +70,22 @@ Ob ein Erfolg noch freigeschaltet werden kann (isAchievementUnlockable), ob die 
 
 ## Mods und Erfolge
 
-Mods zu benutzen schaltet Erfolge **nicht** von selbst ab. Entscheidend ist, ob jeder aktive Mod als **kosmetisch** markiert ist.
+Mods zu benutzen schaltet Erfolge **nicht** von selbst ab. Zwei Dinge entscheiden: ob jeder aktive Mod als **kosmetisch** markiert ist und ob die Spieleinstellungen auf den Standardwerten bleiben.
 
 - Jeder Mod hat in seiner `mod.json` ein Kennzeichen `cosmetic`. Die API-Dokumentation des Spiels (Ordner `api/tealdef`, Feld `ModDesc.cosmetic`) sagt: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (rein kosmetische Mods erlauben weiterhin Erfolge).
-- Die Engine prüft die Liste der aktiven Mods (`ModRep.couldAchievementsBeEarned`) und speichert das Ergebnis in jedem Spielstand (`achievementsEarnable`), gleicher Ordner.
 - Die offiziellen DLCs und Kampagnenmissionen sind ebenfalls Mods, und alle sind als kosmetisch markiert (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- Wenn Erfolge gesperrt sind, sagt das Spiel es: Es hat die Meldungen "Achievements Disabled!" (Erfolge deaktiviert) und "Achievements cannot be earned." (Erfolge können nicht erzielt werden) (`base/strings`).
+- Auf der Seite für ein neues Spiel und auf der Ladeseite fragt das Spiel, ob die Liste der aktiven Mods noch Erfolge erlaubt (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Falls nicht, zeigt ein oranges Band **"Achievements cannot be earned."** (Erfolge können nicht erzielt werden) (`savegame_react_util.tl:1485-1496`).
+- Jeder Spielstand hat außerdem ein eigenes Kennzeichen (`achievementsEarnable`). Ist es aus, zeigt die Ladeseite ebenfalls das orange Band, egal welche Mods du jetzt wählst (`savegame_react_util.tl:1035-1037`). Nur ein Mod, der Erfolge wieder erzwingt, wird erneut geprüft (`savegame_react_util.tl:1063`).
+- Die Spieleinstellungen (Schwierigkeit und die anderen Spielparameter) sind ein zweiter Grund: Bei Werten abseits der Standardwerte wird die Schwierigkeit als **Custom** (benutzerdefiniert) angezeigt (`difficulty_util.tl:201-229`), und laut offiziellem Wiki sind Erfolge dann nicht verfügbar.
 
-Ein Spiel nur mit kosmetischen Mods kann also weiterhin Erfolge erzielen. Ein einziger nicht kosmetischer Mod oder Spieleinstellungen abseits der Standardwerte reichen, um sie zu sperren (offizielles Wiki).
+Ein Spiel nur mit kosmetischen Mods und Standardeinstellungen kann also weiterhin Erfolge erzielen. Ein einziger nicht kosmetischer Mod oder Einstellungen abseits der Standardwerte reichen, um sie zu sperren, und ein einmal gesperrter Spielstand bleibt gesperrt.
 
 ```engine
-Die genaue Regel (welche Einstellungen zählen und ob ein einmal gesperrter Spielstand nach Entfernen des Mods gesperrt bleibt) wird in der Engine entschieden und steht nicht in den lesbaren Dateien: unbekannt.
+Welche Einstellungen genau als „abseits der Standardwerte“ zählen und wann das Kennzeichen des Spielstands gesetzt wird, entscheidet die Engine: nicht in den lesbaren Dateien.
 ```
 
 ```tip scripts
-Der Mod-Autor wählt das Kennzeichen. Prüfe die Zeile `cosmetic` in der `mod.json` des Mods oder frage den Autor. Ein Mod, der das Gameplay ändert (Kosten, Produktion, Regeln), ist meist nicht kosmetisch.
+Achte auf das orange Band, bevor du ein Spiel startest oder lädst: Kein Band heißt, Erfolge können erzielt werden. Eine gute Spielweise: Erziele die Erfolge in einem Spiel mit Standardeinstellungen und nur kosmetischen Mods, und nutze getrennte freie oder Sandbox-Spiele für Mods und Einstellungen, die das Gameplay ändern. Der Mod-Autor wählt das Kennzeichen cosmetic; prüfe die Zeile `cosmetic` in der `mod.json` des Mods oder frage den Autor.
 ```
 
 ## Gut zu wissen

@@ -70,21 +70,22 @@ Si un succès peut encore être débloqué (isAchievementUnlockable), si les com
 
 ## Mods et succès
 
-Utiliser des mods ne désactive **pas** les succès à lui seul. Ce qui compte, c'est que chaque mod actif soit marqué **cosmétique**.
+Utiliser des mods ne désactive **pas** les succès à lui seul. Deux choses décident : si chaque mod actif est marqué **cosmétique**, et si les réglages de jeu restent aux valeurs standard.
 
 - Chaque mod a un indicateur `cosmetic` dans son `mod.json`. La documentation de l'API du jeu (dossier `api/tealdef`, champ `ModDesc.cosmetic`) indique : "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (si le mod est purement cosmétique, il permet toujours d'obtenir des succès).
-- Le moteur vérifie la liste des mods actifs (`ModRep.couldAchievementsBeEarned`) et enregistre le résultat dans chaque sauvegarde (`achievementsEarnable`), même dossier.
 - Les DLC officiels et les missions de campagne sont aussi des mods, et tous sont marqués cosmétiques (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- Quand les succès sont bloqués, le jeu l'indique : il contient les messages "Achievements Disabled!" (succès désactivés) et "Achievements cannot be earned." (les succès ne peuvent pas être obtenus) (`base/strings`).
+- Dans la page de nouvelle partie et dans la page de chargement, le jeu demande si la liste des mods actifs permet encore les succès (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Sinon, une bande orange indique **"Achievements cannot be earned."** (les succès ne peuvent pas être obtenus) (`savegame_react_util.tl:1485-1496`).
+- Chaque sauvegarde garde aussi son propre indicateur (`achievementsEarnable`). S'il est désactivé, la page de chargement affiche aussi la bande orange, quels que soient les mods choisis maintenant (`savegame_react_util.tl:1035-1037`). Seul un mod qui force le retour des succès est vérifié à nouveau (`savegame_react_util.tl:1063`).
+- Les réglages de jeu (difficulté et autres paramètres de partie) sont une deuxième raison : avec des valeurs différentes des valeurs standard, la difficulté s'affiche comme **Custom** (personnalisée) (`difficulty_util.tl:201-229`) et, selon le wiki officiel, les succès ne sont pas disponibles.
 
-Une partie avec uniquement des mods cosmétiques peut donc toujours obtenir des succès. Un seul mod non cosmétique, ou des réglages de jeu différents des valeurs standard, suffit à les bloquer (wiki officiel).
+Une partie avec uniquement des mods cosmétiques et des réglages standard peut donc toujours obtenir des succès. Un seul mod non cosmétique, ou des réglages différents des valeurs standard, suffit à les bloquer, et une sauvegarde bloquée une fois le reste.
 
 ```engine
-La règle exacte (quels réglages comptent, et si une sauvegarde bloquée une fois le reste après le retrait du mod) est décidée dans le moteur et n'est pas dans les fichiers lisibles : inconnu.
+Quels réglages comptent exactement comme « différents des valeurs standard », et quand l'indicateur de la sauvegarde est fixé, est décidé par le moteur : pas dans les fichiers lisibles.
 ```
 
 ```tip scripts
-C'est l'auteur du mod qui choisit l'indicateur. Vérifie la ligne `cosmetic` dans le `mod.json` du mod, ou demande à l'auteur. Un mod qui change le gameplay (coûts, production, règles) n'est généralement pas cosmétique.
+Cherche la bande orange avant de lancer ou de charger une partie : pas de bande, les succès peuvent être obtenus. Une bonne façon de jouer : obtiens les succès dans une partie avec les réglages standard et uniquement des mods cosmétiques, et utilise des parties libres ou bac à sable séparées pour les mods et réglages qui changent le gameplay. C'est l'auteur du mod qui choisit l'indicateur cosmétique ; vérifie la ligne `cosmetic` dans le `mod.json` du mod, ou demande à l'auteur.
 ```
 
 ## Bon à savoir
