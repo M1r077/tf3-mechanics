@@ -4,7 +4,7 @@ summary: O que o script do jogo verifica para cada conquista do Jogo Livre e qua
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | conquistas desbloqueadas pelo próprio script do jogo
 fact: 500 m | altura do primeiro vagão de um trem numa parada para Chegada ao Topo
@@ -66,6 +66,25 @@ Estes continuam de um jogo para outro (a plataforma os guarda). O script só env
 
 ```engine
 Se uma conquista ainda pode ser desbloqueada (isAchievementUnlockable), se os contadores estão desligados (areStatsDisabled), as metas de cada contador e as 24 conquistas fora do script ficam a cargo do motor e da plataforma. A wiki oficial diz que as conquistas geralmente ficam indisponíveis com mods não cosméticos ou com configurações de jogo diferentes dos valores padrão.
+```
+
+## Mods e conquistas
+
+Usar mods **não** desliga as conquistas por si só. O que conta é se cada mod ativo está marcado como **cosmético**.
+
+- Todo mod tem uma flag `cosmetic` no seu `mod.json`. A própria documentação da API do jogo (pasta `api/tealdef`, campo `ModDesc.cosmetic`) diz: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (se o mod é puramente cosmético, ainda é possível ganhar conquistas).
+- O motor verifica a lista de mods ativos (`ModRep.couldAchievementsBeEarned`) e guarda o resultado em cada jogo salvo (`achievementsEarnable`), mesma pasta.
+- As DLCs oficiais e as missões da campanha também são mods, e todas estão marcadas como cosméticas (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- Quando as conquistas estão bloqueadas, o jogo avisa: ele tem as mensagens "Achievements Disabled!" (conquistas desativadas) e "Achievements cannot be earned." (conquistas não podem ser ganhas) (`base/strings`).
+
+Então um jogo só com mods cosméticos ainda pode ganhar conquistas. Um único mod não cosmético, ou configurações de jogo diferentes dos valores padrão, basta para bloqueá-las (wiki oficial).
+
+```engine
+A regra exata (quais configurações contam, e se um jogo salvo que já foi bloqueado continua bloqueado depois que o mod é removido) é decidida no motor e não está nos arquivos legíveis: desconhecido.
+```
+
+```tip scripts
+O autor do mod escolhe a flag. Confira a linha `cosmetic` no `mod.json` do mod, ou pergunte ao autor. Um mod que muda a jogabilidade (custos, produção, regras) normalmente não é cosmético.
 ```
 
 ## Bom saber

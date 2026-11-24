@@ -4,7 +4,7 @@ summary: 遊戲腳本對每個自由遊戲成就檢查什麼、何時檢查，�
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | 由遊戲腳本自己解鎖的成就
 fact: 500 m | 停靠山巔中列車停站時第一節車廂的高度
@@ -66,6 +66,25 @@ fact: 10 | 集中管理中最近城鎮必須相同的地標數
 
 ```engine
 成就是否仍可解鎖（isAchievementUnlockable）、計數器是否被關閉（areStatsDisabled）、各計數器的目標，以及腳本中沒有的 24 個成就，都由引擎與平台處理。官方 wiki 指出，使用非外觀類模組或遊戲設定偏離標準值時，通常無法取得成就。
+```
+
+## 模組與成就
+
+使用模組本身**不會**關閉成就。關鍵在於每個已啟用的模組是否被標記為 **cosmetic**（外觀類）。
+
+- 每個模組的 `mod.json` 中都有 `cosmetic` 旗標。遊戲自帶的 API 文件（資料夾 `api/tealdef`，欄位 `ModDesc.cosmetic`）寫道："If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing"（如果模組純屬外觀類，使用外觀類模組時仍可在遊戲中取得成就）。
+- 引擎會檢查已啟用模組的清單（`ModRep.couldAchievementsBeEarned`），並把結果儲存在每個存檔中（`achievementsEarnable`），同一資料夾。
+- 官方 DLC 與戰役任務也是模組，而且全部被標記為外觀類（`dlcs/*/mod.json`、`mods/release/urbangames_campaign*/mod.json`）。
+- 成就被阻擋時，遊戲會提示：有 "Achievements Disabled!"（成就已停用！）與 "Achievements cannot be earned."（無法取得成就。）這兩則訊息（`base/strings`）。
+
+所以，只使用外觀類模組的遊戲仍然可以取得成就。只要有一個非外觀類模組，或遊戲設定偏離標準值，就足以阻擋成就（官方 wiki）。
+
+```engine
+確切的規則（哪些設定算數，以及曾被阻擋的存檔在移除模組後是否仍被阻擋）由引擎決定，不在可讀的檔案中：未知。
+```
+
+```tip scripts
+旗標由模組作者決定。查看模組 `mod.json` 中的 `cosmetic` 一行，或詢問作者。改變玩法（費用、產量、規則）的模組通常不是外觀類。
 ```
 
 ## 小提示

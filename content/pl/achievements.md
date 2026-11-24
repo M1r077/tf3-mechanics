@@ -4,7 +4,7 @@ summary: Co skrypt gry sprawdza dla każdego osiągnięcia w Wolnej grze i kiedy
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | osiągnięć odblokowywanych przez sam skrypt gry
 fact: 500 m | wysokość pierwszego wagonu pociągu na przystanku dla Transport górski
@@ -66,6 +66,25 @@ Te liczniki przechodzą z gry do gry (przechowuje je platforma). Skrypt wysyła 
 
 ```engine
 To, czy osiągnięcie da się jeszcze odblokować (isAchievementUnlockable), czy liczniki są wyłączone (areStatsDisabled), cele każdego licznika i 24 osiągnięcia spoza skryptu obsługują silnik i platforma. Oficjalna wiki mówi, że osiągnięcia są zwykle niedostępne z modami niekosmetycznymi lub z ustawieniami rozgrywki odbiegającymi od standardowych.
+```
+
+## Mody a osiągnięcia
+
+Używanie modów samo w sobie **nie** wyłącza osiągnięć. Liczy się to, czy każdy aktywny mod jest oznaczony jako **kosmetyczny**.
+
+- Każdy mod ma flagę `cosmetic` w swoim `mod.json`. Własna dokumentacja API gry (folder `api/tealdef`, pole `ModDesc.cosmetic`) mówi: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (jeśli mod jest czysto kosmetyczny, nadal można zdobywać osiągnięcia).
+- Silnik sprawdza listę aktywnych modów (`ModRep.couldAchievementsBeEarned`) i zapisuje wynik w każdym zapisie gry (`achievementsEarnable`), ten sam folder.
+- Oficjalne DLC i misje kampanii też są modami i wszystkie są oznaczone jako kosmetyczne (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- Gdy osiągnięcia są zablokowane, gra o tym informuje: ma komunikaty "Achievements Disabled!" (osiągnięcia wyłączone) i "Achievements cannot be earned." (nie można zdobywać osiągnięć) (`base/strings`).
+
+Gra z samymi modami kosmetycznymi nadal może więc zdobywać osiągnięcia. Jeden mod niekosmetyczny albo ustawienia rozgrywki odbiegające od standardowych wystarczą, by je zablokować (oficjalna wiki).
+
+```engine
+Dokładna reguła (które ustawienia się liczą i czy zapis gry raz zablokowany pozostaje zablokowany po usunięciu moda) jest ustalana w silniku i nie ma jej w czytelnych plikach: nieznane.
+```
+
+```tip scripts
+Flagę wybiera autor moda. Sprawdź linię `cosmetic` w `mod.json` moda albo zapytaj autora. Mod zmieniający rozgrywkę (koszty, produkcję, zasady) zwykle nie jest kosmetyczny.
 ```
 
 ## Warto wiedzieć

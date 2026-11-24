@@ -4,7 +4,7 @@ summary: 게임 스크립트가 자유 게임의 각 업적에서 무엇을 언�
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | 게임 스크립트가 직접 해제하는 업적
 fact: 500 m | 꼭대기 체류에서 정류장에 선 열차의 첫 차량 높이
@@ -66,6 +66,25 @@ fact: 10 | 중앙 집중을 위해 가장 가까운 마을이 같아야 하는 �
 
 ```engine
 업적을 아직 해제할 수 있는지(isAchievementUnlockable), 카운터가 꺼져 있는지(areStatsDisabled), 각 카운터의 목표, 그리고 스크립트에 없는 24개 업적은 엔진과 플랫폼이 처리한다. 공식 위키에 따르면 외형용이 아닌 모드를 쓰거나 게임플레이 설정을 표준값에서 바꾸면 업적은 대체로 얻을 수 없다.
+```
+
+## 모드와 업적
+
+모드를 쓴다고 해서 업적이 저절로 꺼지는 것은 **아니다**. 중요한 것은 활성화된 각 모드가 **cosmetic**(외형용)으로 표시되어 있는지다.
+
+- 모든 모드는 `mod.json`에 `cosmetic` 플래그가 있다. 게임 자체의 API 문서(폴더 `api/tealdef`, 필드 `ModDesc.cosmetic`)에는 "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing"(모드가 순수하게 외형용이면, 외형용 모드를 써도 플레이 중 업적을 얻을 수 있다)라고 적혀 있다.
+- 엔진은 활성화된 모드 목록을 확인하고(`ModRep.couldAchievementsBeEarned`) 그 결과를 각 세이브 파일에 저장한다(`achievementsEarnable`). 같은 폴더에 있다.
+- 공식 DLC와 캠페인 미션도 모드이며, 모두 cosmetic으로 표시되어 있다(`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- 업적이 막히면 게임이 알려 준다. "Achievements Disabled!"(업적 비활성화!)와 "Achievements cannot be earned."(업적을 얻을 수 없습니다.) 메시지가 있다(`base/strings`).
+
+따라서 외형용 모드만 쓰는 게임에서는 업적을 계속 얻을 수 있다. 외형용이 아닌 모드가 하나라도 있거나 게임플레이 설정이 표준값에서 벗어나면 업적이 막힌다(공식 위키).
+
+```engine
+정확한 규칙(어떤 설정이 해당되는지, 한 번 막힌 세이브 파일이 모드를 제거한 뒤에도 계속 막혀 있는지)은 엔진에서 결정되며 읽을 수 있는 파일에는 없다: 알 수 없음.
+```
+
+```tip scripts
+플래그는 모드 제작자가 정한다. 모드의 `mod.json`에서 `cosmetic` 줄을 확인하거나 제작자에게 물어보자. 게임플레이(비용, 생산, 규칙)를 바꾸는 모드는 대개 외형용이 아니다.
 ```
 
 ## 알아 두면 좋은 점

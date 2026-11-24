@@ -4,7 +4,7 @@ summary: Was das Spielskript für jeden Erfolg des freien Spiels prüft und wann
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | Erfolge, die das Spielskript selbst freischaltet
 fact: 500 m | Höhe des ersten Wagens eines Zuges an einem Halt für Zwischenstopp am Gipfel
@@ -66,6 +66,25 @@ Diese laufen von Spiel zu Spiel weiter (die Plattform speichert sie). Das Skript
 
 ```engine
 Ob ein Erfolg noch freigeschaltet werden kann (isAchievementUnlockable), ob die Zähler abgeschaltet sind (areStatsDisabled), die Ziele jedes Zählers und die 24 Erfolge, die nicht im Skript stehen, werden von der Engine und der Plattform behandelt. Das offizielle Wiki sagt, dass Erfolge mit nicht kosmetischen Mods oder mit Spieleinstellungen abseits der Standardwerte im Allgemeinen nicht verfügbar sind.
+```
+
+## Mods und Erfolge
+
+Mods zu benutzen schaltet Erfolge **nicht** von selbst ab. Entscheidend ist, ob jeder aktive Mod als **kosmetisch** markiert ist.
+
+- Jeder Mod hat in seiner `mod.json` ein Kennzeichen `cosmetic`. Die API-Dokumentation des Spiels (Ordner `api/tealdef`, Feld `ModDesc.cosmetic`) sagt: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (rein kosmetische Mods erlauben weiterhin Erfolge).
+- Die Engine prüft die Liste der aktiven Mods (`ModRep.couldAchievementsBeEarned`) und speichert das Ergebnis in jedem Spielstand (`achievementsEarnable`), gleicher Ordner.
+- Die offiziellen DLCs und Kampagnenmissionen sind ebenfalls Mods, und alle sind als kosmetisch markiert (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- Wenn Erfolge gesperrt sind, sagt das Spiel es: Es hat die Meldungen "Achievements Disabled!" (Erfolge deaktiviert) und "Achievements cannot be earned." (Erfolge können nicht erzielt werden) (`base/strings`).
+
+Ein Spiel nur mit kosmetischen Mods kann also weiterhin Erfolge erzielen. Ein einziger nicht kosmetischer Mod oder Spieleinstellungen abseits der Standardwerte reichen, um sie zu sperren (offizielles Wiki).
+
+```engine
+Die genaue Regel (welche Einstellungen zählen und ob ein einmal gesperrter Spielstand nach Entfernen des Mods gesperrt bleibt) wird in der Engine entschieden und steht nicht in den lesbaren Dateien: unbekannt.
+```
+
+```tip scripts
+Der Mod-Autor wählt das Kennzeichen. Prüfe die Zeile `cosmetic` in der `mod.json` des Mods oder frage den Autor. Ein Mod, der das Gameplay ändert (Kosten, Produktion, Regeln), ist meist nicht kosmetisch.
 ```
 
 ## Gut zu wissen

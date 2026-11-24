@@ -4,7 +4,7 @@ summary: Ce que le script du jeu vérifie pour chaque succès de la partie libre
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | succès débloqués par le script du jeu lui-même
 fact: 500 m | hauteur du premier wagon d'un train à un arrêt pour Halte au sommet
@@ -66,6 +66,25 @@ Ils continuent d'une partie à l'autre (la plateforme les enregistre). Le script
 
 ```engine
 Si un succès peut encore être débloqué (isAchievementUnlockable), si les compteurs sont désactivés (areStatsDisabled), les objectifs de chaque compteur et les 24 succès absents du script sont gérés par le moteur et la plateforme. Le wiki officiel dit que les succès sont en général indisponibles avec des mods non cosmétiques ou avec des réglages de jeu différents des valeurs standard.
+```
+
+## Mods et succès
+
+Utiliser des mods ne désactive **pas** les succès à lui seul. Ce qui compte, c'est que chaque mod actif soit marqué **cosmétique**.
+
+- Chaque mod a un indicateur `cosmetic` dans son `mod.json`. La documentation de l'API du jeu (dossier `api/tealdef`, champ `ModDesc.cosmetic`) indique : "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (si le mod est purement cosmétique, il permet toujours d'obtenir des succès).
+- Le moteur vérifie la liste des mods actifs (`ModRep.couldAchievementsBeEarned`) et enregistre le résultat dans chaque sauvegarde (`achievementsEarnable`), même dossier.
+- Les DLC officiels et les missions de campagne sont aussi des mods, et tous sont marqués cosmétiques (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- Quand les succès sont bloqués, le jeu l'indique : il contient les messages "Achievements Disabled!" (succès désactivés) et "Achievements cannot be earned." (les succès ne peuvent pas être obtenus) (`base/strings`).
+
+Une partie avec uniquement des mods cosmétiques peut donc toujours obtenir des succès. Un seul mod non cosmétique, ou des réglages de jeu différents des valeurs standard, suffit à les bloquer (wiki officiel).
+
+```engine
+La règle exacte (quels réglages comptent, et si une sauvegarde bloquée une fois le reste après le retrait du mod) est décidée dans le moteur et n'est pas dans les fichiers lisibles : inconnu.
+```
+
+```tip scripts
+C'est l'auteur du mod qui choisit l'indicateur. Vérifie la ligne `cosmetic` dans le `mod.json` du mod, ou demande à l'auteur. Un mod qui change le gameplay (coûts, production, règles) n'est généralement pas cosmétique.
 ```
 
 ## Bon à savoir

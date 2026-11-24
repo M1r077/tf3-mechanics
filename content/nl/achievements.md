@@ -4,7 +4,7 @@ summary: Wat het spelscript voor elke prestatie in het Vrije spel controleert en
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | prestaties die het spelscript zelf ontgrendelt
 fact: 500 m | hoogte van de eerste wagon van een trein bij een halte voor Topper
@@ -66,6 +66,25 @@ Deze lopen door van spel tot spel (het platform bewaart ze). Het script stuurt a
 
 ```engine
 Of een prestatie nog ontgrendeld kan worden (isAchievementUnlockable), of de tellers uitgeschakeld zijn (areStatsDisabled), de doelen van elke teller en de 24 prestaties die niet in het script staan, worden door de engine en het platform afgehandeld. De officiële wiki zegt dat prestaties over het algemeen niet beschikbaar zijn met niet-cosmetische mods of met spelinstellingen die afwijken van de standaardwaarden.
+```
+
+## Mods en prestaties
+
+Mods gebruiken schakelt prestaties **niet** vanzelf uit. Waar het om gaat, is of elke actieve mod als **cosmetisch** is gemarkeerd.
+
+- Elke mod heeft een `cosmetic`-vlag in zijn `mod.json`. De eigen API-documentatie van het spel (map `api/tealdef`, veld `ModDesc.cosmetic`) zegt: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (als de mod puur cosmetisch is, kunnen er nog steeds prestaties worden behaald).
+- De engine controleert de lijst met actieve mods (`ModRep.couldAchievementsBeEarned`) en slaat het resultaat op in elke savegame (`achievementsEarnable`), zelfde map.
+- De officiële DLC's en campagnemissies zijn ook mods, en ze zijn allemaal als cosmetisch gemarkeerd (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- Als prestaties geblokkeerd zijn, meldt het spel dat: het heeft de berichten "Achievements Disabled!" (prestaties uitgeschakeld) en "Achievements cannot be earned." (prestaties kunnen niet worden behaald) (`base/strings`).
+
+Een spel met alleen cosmetische mods kan dus nog steeds prestaties opleveren. Eén niet-cosmetische mod, of spelinstellingen die afwijken van de standaardwaarden, is genoeg om ze te blokkeren (officiële wiki).
+
+```engine
+De precieze regel (welke instellingen meetellen, en of een savegame die eenmaal geblokkeerd was geblokkeerd blijft nadat de mod is verwijderd) wordt in de engine bepaald en staat niet in de leesbare bestanden: onbekend.
+```
+
+```tip scripts
+De mod-maker kiest de vlag. Kijk naar de regel `cosmetic` in de `mod.json` van de mod, of vraag het de maker. Een mod die de gameplay verandert (kosten, productie, regels) is meestal niet cosmetisch.
 ```
 
 ## Goed om te weten

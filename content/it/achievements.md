@@ -4,7 +4,7 @@ summary: Cosa controlla lo script del gioco per ogni obiettivo della partita lib
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | obiettivi sbloccati dallo script del gioco stesso
 fact: 500 m | altezza del primo vagone di un treno a una fermata per Fermata in vetta
@@ -66,6 +66,25 @@ Continuano da una partita all'altra (la piattaforma li salva). Lo script invia s
 
 ```engine
 Se un obiettivo può ancora essere sbloccato (isAchievementUnlockable), se i contatori sono disattivati (areStatsDisabled), i traguardi di ogni contatore e i 24 obiettivi che non sono nello script sono gestiti dal motore e dalla piattaforma. La wiki ufficiale dice che gli obiettivi in genere non sono disponibili con mod non cosmetiche o con impostazioni di gioco diverse dai valori standard.
+```
+
+## Mod e obiettivi
+
+Usare mod **non** disattiva da solo gli obiettivi. Conta se ogni mod attiva è contrassegnata come **cosmetica**.
+
+- Ogni mod ha un indicatore `cosmetic` nel suo `mod.json`. La documentazione dell'API del gioco (cartella `api/tealdef`, campo `ModDesc.cosmetic`) dice: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (se la mod è puramente cosmetica, permette comunque di ottenere obiettivi).
+- Il motore controlla l'elenco delle mod attive (`ModRep.couldAchievementsBeEarned`) e salva il risultato in ogni salvataggio (`achievementsEarnable`), stessa cartella.
+- Anche i DLC ufficiali e le missioni della campagna sono mod, e sono tutte contrassegnate come cosmetiche (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- Quando gli obiettivi sono bloccati, il gioco lo dice: ha i messaggi "Achievements Disabled!" (obiettivi disattivati) e "Achievements cannot be earned." (non si possono ottenere obiettivi) (`base/strings`).
+
+Quindi una partita con solo mod cosmetiche può ancora ottenere obiettivi. Basta una sola mod non cosmetica, o impostazioni di gioco diverse dai valori standard, per bloccarli (wiki ufficiale).
+
+```engine
+La regola esatta (quali impostazioni contano, e se un salvataggio bloccato una volta resta bloccato dopo aver rimosso la mod) è decisa nel motore e non è nei file leggibili: sconosciuto.
+```
+
+```tip scripts
+È l'autore della mod a scegliere l'indicatore. Controlla la riga `cosmetic` nel `mod.json` della mod, o chiedi all'autore. Una mod che cambia il gameplay (costi, produzione, regole) di solito non è cosmetica.
 ```
 
 ## Da sapere

@@ -4,7 +4,7 @@ summary: フリーゲームの各実績をゲームスクリプトが何をい�
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | ゲームスクリプト自身が解除する実績
 fact: 500 m | 高峰の駅で、停車した列車の先頭車両の高さ
@@ -66,6 +66,25 @@ fact: 10 | 中央集権化で最寄りの町が同じでなければならない
 
 ```engine
 実績がまだ解除できるか（isAchievementUnlockable）、カウンターが無効になっているか（areStatsDisabled）、各カウンターの目標値、そしてスクリプトにない 24 の実績は、エンジンとプラットフォームが扱う。公式 wiki によると、見た目だけではない MOD を使ったり、ゲームプレイ設定を標準値から変えたりすると、実績は基本的に獲得できない。
+```
+
+## MOD と実績
+
+MOD を使うだけで実績が無効になるわけでは**ない**。重要なのは、有効な各 MOD が **cosmetic**（見た目だけ）として指定されているかどうかである。
+
+- すべての MOD は `mod.json` に `cosmetic` フラグを持つ。ゲーム自身の API ドキュメント（フォルダー `api/tealdef`、フィールド `ModDesc.cosmetic`）には "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing"（MOD が純粋に見た目だけなら、cosmetic MOD でもプレイ中に実績を獲得できる）とある。
+- エンジンは有効な MOD の一覧を確認し（`ModRep.couldAchievementsBeEarned`）、その結果を各セーブデータに保存する（`achievementsEarnable`）。同じフォルダーにある。
+- 公式 DLC とキャンペーンのミッションも MOD であり、すべて cosmetic として指定されている（`dlcs/*/mod.json`、`mods/release/urbangames_campaign*/mod.json`）。
+- 実績がブロックされると、ゲームはそれを表示する。"Achievements Disabled!"（実績が無効です！）と "Achievements cannot be earned."（実績を獲得できません。）というメッセージがある（`base/strings`）。
+
+つまり、cosmetic MOD だけのゲームなら実績はまだ獲得できる。cosmetic ではない MOD が 1 つでもあるか、ゲームプレイ設定が標準値から外れていれば、それだけでブロックされる（公式 wiki）。
+
+```engine
+正確なルール（どの設定が対象になるか、一度ブロックされたセーブデータが MOD を外した後もブロックされたままか）はエンジンで決まり、読めるファイルには含まれていない：不明。
+```
+
+```tip scripts
+フラグは MOD 作者が決める。MOD の `mod.json` にある `cosmetic` の行を確認するか、作者に聞こう。ゲームプレイを変える MOD（費用、生産、ルール）は、たいてい cosmetic ではない。
 ```
 
 ## 知っておくと便利なこと

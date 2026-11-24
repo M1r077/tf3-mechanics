@@ -4,7 +4,7 @@ summary: Qué comprueba el script del juego para cada logro de la partida libre 
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | logros que desbloquea el propio script del juego
 fact: 500 m | altura del primer vagón de un tren en una parada para Escala en la cima
@@ -66,6 +66,25 @@ Continúan de una partida a otra (la plataforma los guarda). El script solo env�
 
 ```engine
 Si un logro aún puede desbloquearse (isAchievementUnlockable), si los contadores están desactivados (areStatsDisabled), los objetivos de cada contador y los 24 logros que no están en el script los gestionan el motor y la plataforma. La wiki oficial dice que los logros en general no están disponibles con mods no cosméticos o con ajustes de juego distintos de los valores estándar.
+```
+
+## Mods y logros
+
+Usar mods **no** desactiva los logros por sí solo. Lo que cuenta es si cada mod activo está marcado como **cosmético**.
+
+- Cada mod tiene un indicador `cosmetic` en su `mod.json`. La documentación de la API del juego (carpeta `api/tealdef`, campo `ModDesc.cosmetic`) dice: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (si el mod es puramente cosmético, sigue permitiendo conseguir logros).
+- El motor comprueba la lista de mods activos (`ModRep.couldAchievementsBeEarned`) y guarda el resultado en cada partida guardada (`achievementsEarnable`), misma carpeta.
+- Los DLC oficiales y las misiones de campaña también son mods, y todos están marcados como cosméticos (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- Cuando los logros están bloqueados, el juego lo indica: tiene los mensajes "Achievements Disabled!" (logros desactivados) y "Achievements cannot be earned." (no se pueden conseguir logros) (`base/strings`).
+
+Así que una partida solo con mods cosméticos puede seguir consiguiendo logros. Un solo mod no cosmético, o ajustes de juego distintos de los valores estándar, basta para bloquearlos (wiki oficial).
+
+```engine
+La regla exacta (qué ajustes cuentan y si una partida bloqueada una vez sigue bloqueada tras quitar el mod) se decide en el motor y no está en los archivos legibles: desconocido.
+```
+
+```tip scripts
+El autor del mod elige el indicador. Revisa la línea `cosmetic` en el `mod.json` del mod, o pregunta al autor. Un mod que cambia la jugabilidad (costes, producción, reglas) normalmente no es cosmético.
 ```
 
 ## Conviene saber

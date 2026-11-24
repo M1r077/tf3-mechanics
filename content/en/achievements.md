@@ -4,7 +4,7 @@ summary: What the game script checks for each Free Game achievement and when, wh
 domain: achievements
 official: gamemanual:gamemodes:achievements
 status: verified
-updated: 2026-11-17
+updated: 2026-11-24
 game: 40444
 fact: 17 | achievements unlocked by the game script itself
 fact: 500 m | height of the first wagon of a train at a stop for Summit Stopover
@@ -66,6 +66,25 @@ These go on from game to game (the platform stores them). The script only sends 
 
 ```engine
 Whether an achievement can still be unlocked (isAchievementUnlockable), whether the counters are switched off (areStatsDisabled), the targets of each counter and the 24 achievements not in the script are handled by the engine and the platform. The official wiki says achievements are generally unavailable with non-cosmetic mods or with gameplay settings away from the standard values.
+```
+
+## Mods and achievements
+
+Using mods does **not** switch achievements off by itself. What counts is whether each active mod is marked **cosmetic**.
+
+- Every mod has a `cosmetic` flag in its `mod.json`. The game's own API documentation (folder `api/tealdef`, field `ModDesc.cosmetic`) says: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing".
+- The engine checks the list of active mods (`ModRep.couldAchievementsBeEarned`) and stores the result in each savegame (`achievementsEarnable`), same folder.
+- The official DLCs and campaign missions are mods too, and all of them are marked cosmetic (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
+- When achievements are blocked, the game says so: it has the messages "Achievements Disabled!" and "Achievements cannot be earned." (`base/strings`).
+
+So a game with only cosmetic mods can still earn achievements. A single non-cosmetic mod, or gameplay settings away from the standard values, is enough to block them (official wiki).
+
+```engine
+The exact rule (which settings count, and whether a savegame that was once blocked stays blocked after the mod is removed) is decided in the engine and is not in the readable files: unknown.
+```
+
+```tip scripts
+The mod author chooses the flag. Check the `cosmetic` line in the mod's `mod.json`, or ask the author. A mod that changes gameplay (costs, production, rules) is usually not cosmetic.
 ```
 
 ## Good to know
