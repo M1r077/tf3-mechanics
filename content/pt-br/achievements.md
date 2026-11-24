@@ -85,7 +85,7 @@ Quais configurações exatamente contam como "diferentes dos valores padrão", e
 ```
 
 ```tip scripts
-Procure o rótulo amarelo ao lado da dificuldade antes de começar ou carregar um jogo: sem rótulo, as conquistas podem ser ganhas. Um bom jeito de jogar: ganhe as conquistas em um jogo com as configurações padrão e só mods cosméticos, e use jogos livres ou sandbox separados para mods e configurações que mudam a jogabilidade. O autor do mod escolhe a flag cosmética; confira a linha `cosmetic` no `mod.json` do mod, ou pergunte ao autor.
+A regra do próprio jogo é clara: conquistas só têm valor quando todos jogam pelas mesmas regras; senão, qual é a graça? Uma conquista ganha burlando as regras não é de verdade uma conquista. Os scripts as bloqueiam assim que um mod não cosmético está ativo, e um jogo salvo continua bloqueado se já foi bloqueado uma vez. Você não precisa conferir cada mod: se o rótulo amarelo ao lado da dificuldade aparece, as conquistas estão desligadas; se não aparece, elas valem. Um bom jeito de jogar: ganhe as conquistas com as configurações padrão e só mods cosméticos, e use jogos livres ou sandbox separados para mods de jogabilidade e configurações personalizadas.
 ```
 
 ## Bom saber

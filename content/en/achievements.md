@@ -85,7 +85,7 @@ Which settings exactly count as "away from the standard values", and when the sa
 ```
 
 ```tip scripts
-Look for the yellow label next to the difficulty before you start or load a game: no label means achievements can be earned. A good way to play: earn the achievements in a game with the standard settings and cosmetic mods only, and use separate free or sandbox games for mods and settings that change the gameplay. The mod author chooses the cosmetic flag; check the `cosmetic` line in the mod's `mod.json`, or ask the author.
+The game's own rule is clear: achievements only mean something when everyone plays by the same rules; otherwise, what's the point? An achievement earned with the rules bent isn't really an achievement. The scripts block them as soon as a non-cosmetic mod is active, and keep a savegame blocked once it was. You don't need to check each mod: if the yellow label next to the difficulty is shown, achievements are off; if it isn't, they count. A good way to play: earn the achievements with the standard settings and cosmetic mods only, and use separate free or sandbox games for gameplay mods and custom settings.
 ```
 
 ## Good to know

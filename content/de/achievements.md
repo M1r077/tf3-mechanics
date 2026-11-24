@@ -85,7 +85,7 @@ Welche Einstellungen genau als „abseits der Standardwerte“ zählen und wann 
 ```
 
 ```tip scripts
-Achte auf das gelbe Label neben der Schwierigkeit, bevor du ein Spiel startest oder lädst: Kein Label heißt, Erfolge können erzielt werden. Eine gute Spielweise: Erziele die Erfolge in einem Spiel mit Standardeinstellungen und nur kosmetischen Mods, und nutze getrennte freie oder Sandbox-Spiele für Mods und Einstellungen, die das Gameplay ändern. Der Mod-Autor wählt das Kennzeichen cosmetic; prüfe die Zeile `cosmetic` in der `mod.json` des Mods oder frage den Autor.
+Die Regel des Spiels ist klar: Erfolge bedeuten nur etwas, wenn alle nach denselben Regeln spielen; wozu sonst das Ganze? Ein Erfolg, der mit gebogenen Regeln erzielt wurde, ist eigentlich kein Erfolg. Die Skripte sperren sie, sobald ein nicht kosmetischer Mod aktiv ist, und ein Spielstand bleibt gesperrt, wenn er es einmal war. Du musst nicht jeden Mod prüfen: Wird das gelbe Label neben der Schwierigkeit angezeigt, sind Erfolge aus; wenn nicht, zählen sie. Eine gute Spielweise: Erziele die Erfolge mit Standardeinstellungen und nur kosmetischen Mods, und nutze getrennte freie oder Sandbox-Spiele für Gameplay-Mods und eigene Einstellungen.
 ```
 
 ## Gut zu wissen

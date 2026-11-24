@@ -85,7 +85,7 @@ Welke instellingen precies als "afwijkend van de standaardwaarden" tellen, en wa
 ```
 
 ```tip scripts
-Kijk naar het gele label naast de moeilijkheid voordat je een spel start of laadt: geen label betekent dat prestaties kunnen worden behaald. Een goede manier van spelen: haal de prestaties in een spel met de standaardinstellingen en alleen cosmetische mods, en gebruik aparte vrije of sandbox-spellen voor mods en instellingen die de gameplay veranderen. De mod-maker kiest de cosmetische vlag; kijk naar de regel `cosmetic` in de `mod.json` van de mod, of vraag het de maker.
+De regel van het spel zelf is duidelijk: prestaties betekenen alleen iets als iedereen volgens dezelfde regels speelt; wat heeft het anders voor zin? Een prestatie behaald door de regels te buigen is eigenlijk geen prestatie. De scripts blokkeren ze zodra er een niet-cosmetische mod actief is, en een savegame blijft geblokkeerd als hij dat ooit was. Je hoeft niet elke mod te controleren: staat het gele label naast de moeilijkheid er, dan staan prestaties uit; zo niet, dan tellen ze. Een goede manier van spelen: haal de prestaties met de standaardinstellingen en alleen cosmetische mods, en gebruik aparte vrije of sandbox-spellen voor gameplay-mods en aangepaste instellingen.
 ```
 
 ## Goed om te weten

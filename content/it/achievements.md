@@ -85,7 +85,7 @@ Quali impostazioni contano esattamente come «diverse dai valori standard», e q
 ```
 
 ```tip scripts
-Cerca l'etichetta gialla accanto alla difficoltà prima di avviare o caricare una partita: niente etichetta significa che si possono ottenere obiettivi. Un buon modo di giocare: ottieni gli obiettivi in una partita con le impostazioni standard e solo mod cosmetiche, e usa partite libere o sandbox separate per le mod e le impostazioni che cambiano il gameplay. È l'autore della mod a scegliere l'indicatore cosmetico; controlla la riga `cosmetic` nel `mod.json` della mod, o chiedi all'autore.
+La regola del gioco stesso è chiara: gli obiettivi hanno senso solo se tutti giocano con le stesse regole; altrimenti, che senso ha? Un obiettivo ottenuto aggirando le regole non è davvero un obiettivo. Gli script li bloccano non appena è attiva una mod non cosmetica, e un salvataggio resta bloccato se lo è stato una volta. Non serve controllare ogni mod: se compare l'etichetta gialla accanto alla difficoltà, gli obiettivi sono disattivati; se no, contano. Un buon modo di giocare: ottieni gli obiettivi con le impostazioni standard e solo mod cosmetiche, e usa partite libere o sandbox separate per le mod di gameplay e le impostazioni personalizzate.
 ```
 
 ## Da sapere

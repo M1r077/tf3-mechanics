@@ -85,7 +85,7 @@ Qué ajustes cuentan exactamente como «distintos de los valores estándar», y 
 ```
 
 ```tip scripts
-Busca la etiqueta amarilla junto a la dificultad antes de empezar o cargar una partida: sin etiqueta, se pueden conseguir logros. Una buena forma de jugar: consigue los logros en una partida con los ajustes estándar y solo mods cosméticos, y usa partidas libres o sandbox aparte para los mods y ajustes que cambian la jugabilidad. El autor del mod elige el indicador cosmético; revisa la línea `cosmetic` en el `mod.json` del mod, o pregunta al autor.
+La regla del propio juego es clara: los logros solo significan algo cuando todos juegan con las mismas reglas; si no, ¿qué sentido tiene? Un logro conseguido saltándose las reglas no es realmente un logro. Los scripts los bloquean en cuanto hay activo un mod no cosmético, y una partida guardada sigue bloqueada si alguna vez lo estuvo. No hace falta revisar cada mod: si aparece la etiqueta amarilla junto a la dificultad, los logros están desactivados; si no, cuentan. Una buena forma de jugar: consigue los logros con los ajustes estándar y solo mods cosméticos, y usa partidas libres o sandbox aparte para los mods de jugabilidad y los ajustes personalizados.
 ```
 
 ## Conviene saber

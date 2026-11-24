@@ -85,7 +85,7 @@ Quels réglages comptent exactement comme « différents des valeurs standard »
 ```
 
 ```tip scripts
-Cherche l'étiquette jaune à côté de la difficulté avant de lancer ou de charger une partie : pas d'étiquette, les succès peuvent être obtenus. Une bonne façon de jouer : obtiens les succès dans une partie avec les réglages standard et uniquement des mods cosmétiques, et utilise des parties libres ou bac à sable séparées pour les mods et réglages qui changent le gameplay. C'est l'auteur du mod qui choisit l'indicateur cosmétique ; vérifie la ligne `cosmetic` dans le `mod.json` du mod, ou demande à l'auteur.
+La règle du jeu lui-même est claire : les succès n'ont de sens que si tout le monde joue avec les mêmes règles ; sinon, à quoi bon ? Un succès obtenu en contournant les règles n'en est pas vraiment un. Les scripts les bloquent dès qu'un mod non cosmétique est actif, et une sauvegarde reste bloquée dès qu'elle l'a été. Pas besoin de vérifier chaque mod : si l'étiquette jaune à côté de la difficulté s'affiche, les succès sont désactivés ; sinon, ils comptent. Une bonne façon de jouer : obtiens les succès avec les réglages standard et uniquement des mods cosmétiques, et utilise des parties libres ou bac à sable séparées pour les mods de gameplay et les réglages personnalisés.
 ```
 
 ## Bon à savoir

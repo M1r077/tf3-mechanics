@@ -85,7 +85,7 @@ To, które dokładnie ustawienia liczą się jako "odbiegające od standardowych
 ```
 
 ```tip scripts
-Przed rozpoczęciem lub wczytaniem gry sprawdź, czy obok poziomu trudności jest żółta etykieta: brak etykiety oznacza, że można zdobywać osiągnięcia. Dobry sposób gry: zdobywaj osiągnięcia w grze ze standardowymi ustawieniami i wyłącznie modami kosmetycznymi, a do modów i ustawień zmieniających rozgrywkę używaj osobnych gier swobodnych lub piaskownicy. Flagę kosmetyczną wybiera autor moda; sprawdź linię `cosmetic` w `mod.json` moda albo zapytaj autora.
+Zasada samej gry jest jasna: osiągnięcia coś znaczą tylko wtedy, gdy wszyscy grają według tych samych reguł; inaczej po co to wszystko? Osiągnięcie zdobyte na naginanych zasadach nie jest tak naprawdę osiągnięciem. Skrypty blokują je, gdy tylko aktywny jest mod niekosmetyczny, a zapis gry, który raz został zablokowany, pozostaje zablokowany. Nie musisz sprawdzać każdego moda: jeśli obok poziomu trudności widać żółtą etykietę, osiągnięcia są wyłączone; jeśli nie, liczą się. Dobry sposób gry: zdobywaj osiągnięcia ze standardowymi ustawieniami i wyłącznie modami kosmetycznymi, a do modów zmieniających rozgrywkę i własnych ustawień używaj osobnych gier swobodnych lub piaskownicy.
 ```
 
 ## Warto wiedzieć
