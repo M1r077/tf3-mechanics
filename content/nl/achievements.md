@@ -74,8 +74,8 @@ Mods gebruiken schakelt prestaties **niet** vanzelf uit. Twee dingen bepalen het
 
 - Elke mod heeft een `cosmetic`-vlag in zijn `mod.json`. De eigen API-documentatie van het spel (map `api/tealdef`, veld `ModDesc.cosmetic`) zegt: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (als de mod puur cosmetisch is, kunnen er nog steeds prestaties worden behaald).
 - De officiële DLC's en campagnemissies zijn ook mods, en ze zijn allemaal als cosmetisch gemarkeerd (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- Op de pagina voor een nieuw spel en de pagina voor het laden van een spel vraagt het spel of de lijst met actieve mods nog prestaties toestaat (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Zo niet, dan staat er een oranje balk met **"Achievements cannot be earned."** (prestaties kunnen niet worden behaald) (`savegame_react_util.tl:1485-1496`).
-- Elke savegame heeft ook een eigen vlag (`achievementsEarnable`). Staat die uit, dan toont de laadpagina ook de oranje balk, welke mods je nu ook kiest (`savegame_react_util.tl:1035-1037`). Alleen een mod die prestaties weer geforceerd aanzet, wordt opnieuw gecontroleerd (`savegame_react_util.tl:1063`).
+- Op de pagina voor een nieuw spel en de pagina voor het laden van een spel vraagt het spel of de lijst met actieve mods nog prestaties toestaat (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Zo niet, dan staat er naast de moeilijkheid een geel label met **"Achievements cannot be earned."** (prestaties kunnen niet worden behaald) (`savegame_react_util.tl:1485-1496`).
+- Elke savegame heeft ook een eigen vlag (`achievementsEarnable`). Staat die uit, dan toont de laadpagina ook dit gele label, welke mods je nu ook kiest (`savegame_react_util.tl:1035-1037`). Alleen een mod die prestaties weer geforceerd aanzet, wordt opnieuw gecontroleerd (`savegame_react_util.tl:1063`).
 - De spelinstellingen (moeilijkheid en de andere spelparameters) zijn een tweede reden: met waarden die afwijken van de standaardwaarden staat de moeilijkheid op **Custom** (aangepast) (`difficulty_util.tl:201-229`) en zijn prestaties volgens de officiële wiki niet beschikbaar.
 
 Een spel met alleen cosmetische mods en standaardinstellingen kan dus nog steeds prestaties opleveren. Eén niet-cosmetische mod, of instellingen die afwijken van de standaardwaarden, is genoeg om ze te blokkeren, en een savegame die eenmaal geblokkeerd was, blijft geblokkeerd.
@@ -85,7 +85,7 @@ Welke instellingen precies als "afwijkend van de standaardwaarden" tellen, en wa
 ```
 
 ```tip scripts
-Kijk naar de oranje balk voordat je een spel start of laadt: geen balk betekent dat prestaties kunnen worden behaald. Een goede manier van spelen: haal de prestaties in een spel met de standaardinstellingen en alleen cosmetische mods, en gebruik aparte vrije of sandbox-spellen voor mods en instellingen die de gameplay veranderen. De mod-maker kiest de cosmetische vlag; kijk naar de regel `cosmetic` in de `mod.json` van de mod, of vraag het de maker.
+Kijk naar het gele label naast de moeilijkheid voordat je een spel start of laadt: geen label betekent dat prestaties kunnen worden behaald. Een goede manier van spelen: haal de prestaties in een spel met de standaardinstellingen en alleen cosmetische mods, en gebruik aparte vrije of sandbox-spellen voor mods en instellingen die de gameplay veranderen. De mod-maker kiest de cosmetische vlag; kijk naar de regel `cosmetic` in de `mod.json` van de mod, of vraag het de maker.
 ```
 
 ## Goed om te weten

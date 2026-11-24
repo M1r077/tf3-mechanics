@@ -74,8 +74,8 @@ fact: 10 | 集中管理中最近城鎮必須相同的地標數
 
 - 每個模組的 `mod.json` 中都有 `cosmetic` 旗標。遊戲自帶的 API 文件（資料夾 `api/tealdef`，欄位 `ModDesc.cosmetic`）寫道："If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing"（如果模組純屬外觀類，使用外觀類模組時仍可在遊戲中取得成就）。
 - 官方 DLC 與戰役任務也是模組，而且全部被標記為外觀類（`dlcs/*/mod.json`、`mods/release/urbangames_campaign*/mod.json`）。
-- 在新遊戲頁面與讀取遊戲頁面，遊戲會檢查已啟用模組的清單是否仍允許取得成就（`new_game_or_map_settings_page.tl:902-903`、`savegame_react_util.tl:1063-1064`）。如果不允許，會出現一條橘色橫條，顯示 **"Achievements cannot be earned."**（無法取得成就。）（`savegame_react_util.tl:1485-1496`）。
-- 每個存檔也有自己的旗標（`achievementsEarnable`）。如果它是關閉的，無論你現在選擇哪些模組，讀取頁面也會顯示橘色橫條（`savegame_react_util.tl:1035-1037`）。只有強制重新開啟成就的模組才會被再次檢查（`savegame_react_util.tl:1063`）。
+- 在新遊戲頁面與讀取遊戲頁面，遊戲會檢查已啟用模組的清單是否仍允許取得成就（`new_game_or_map_settings_page.tl:902-903`、`savegame_react_util.tl:1063-1064`）。如果不允許，難度旁會出現黃色標籤，顯示 **"Achievements cannot be earned."**（無法取得成就。）（`savegame_react_util.tl:1485-1496`）。
+- 每個存檔也有自己的旗標（`achievementsEarnable`）。如果它是關閉的，無論你現在選擇哪些模組，讀取頁面也會顯示這個黃色標籤（`savegame_react_util.tl:1035-1037`）。只有強制重新開啟成就的模組才會被再次檢查（`savegame_react_util.tl:1063`）。
 - 遊戲設定（難度與其他遊戲參數）是第二個原因：數值偏離標準值時，難度會顯示為 **"Custom"**（自訂）（`difficulty_util.tl:201-229`），而根據官方 wiki，此時無法取得成就。
 
 所以，只使用外觀類模組且設定為標準值的遊戲仍然可以取得成就。只要有一個非外觀類模組，或設定偏離標準值，就足以阻擋成就；而存檔一旦被阻擋，就會一直被阻擋。
@@ -85,7 +85,7 @@ fact: 10 | 集中管理中最近城鎮必須相同的地標數
 ```
 
 ```tip scripts
-開始或讀取遊戲前先看看有沒有橘色橫條：沒有橫條就表示可以取得成就。推薦玩法：在標準設定、只用外觀類模組的遊戲中取得成就，把改變玩法的模組與設定留給單獨的自由模式或沙盒遊戲。cosmetic 旗標由模組作者決定；查看模組 `mod.json` 中的 `cosmetic` 一行，或詢問作者。
+開始或讀取遊戲前先看看難度旁有沒有黃色標籤：沒有標籤就表示可以取得成就。推薦玩法：在標準設定、只用外觀類模組的遊戲中取得成就，把改變玩法的模組與設定留給單獨的自由模式或沙盒遊戲。cosmetic 旗標由模組作者決定；查看模組 `mod.json` 中的 `cosmetic` 一行，或詢問作者。
 ```
 
 ## 小提示

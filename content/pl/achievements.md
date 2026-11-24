@@ -74,8 +74,8 @@ Używanie modów samo w sobie **nie** wyłącza osiągnięć. Decydują o tym dw
 
 - Każdy mod ma flagę `cosmetic` w swoim `mod.json`. Własna dokumentacja API gry (folder `api/tealdef`, pole `ModDesc.cosmetic`) mówi: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (jeśli mod jest czysto kosmetyczny, nadal można zdobywać osiągnięcia).
 - Oficjalne DLC i misje kampanii też są modami i wszystkie są oznaczone jako kosmetyczne (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- Na stronie nowej gry i na stronie wczytywania gry gra sprawdza, czy lista aktywnych modów nadal pozwala na osiągnięcia (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Jeśli nie, pomarańczowy pasek wyświetla **"Achievements cannot be earned."** (nie można zdobywać osiągnięć) (`savegame_react_util.tl:1485-1496`).
-- Każdy zapis gry ma też własną flagę (`achievementsEarnable`). Jeśli jest wyłączona, strona wczytywania również pokazuje pomarańczowy pasek, niezależnie od tego, jakie mody teraz wybierzesz (`savegame_react_util.tl:1035-1037`). Ponownie sprawdzany jest tylko mod, który wymusza włączenie osiągnięć (`savegame_react_util.tl:1063`).
+- Na stronie nowej gry i na stronie wczytywania gry gra sprawdza, czy lista aktywnych modów nadal pozwala na osiągnięcia (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Jeśli nie, żółta etykieta obok poziomu trudności wyświetla **"Achievements cannot be earned."** (nie można zdobywać osiągnięć) (`savegame_react_util.tl:1485-1496`).
+- Każdy zapis gry ma też własną flagę (`achievementsEarnable`). Jeśli jest wyłączona, strona wczytywania również pokazuje tę żółtą etykietę, niezależnie od tego, jakie mody teraz wybierzesz (`savegame_react_util.tl:1035-1037`). Ponownie sprawdzany jest tylko mod, który wymusza włączenie osiągnięć (`savegame_react_util.tl:1063`).
 - Ustawienia rozgrywki (poziom trudności i pozostałe parametry gry) to drugi powód: przy wartościach odbiegających od standardowych poziom trudności jest pokazywany jako **Custom** (niestandardowy) (`difficulty_util.tl:201-229`), a według oficjalnej wiki osiągnięcia są niedostępne.
 
 Gra z samymi modami kosmetycznymi i standardowymi ustawieniami nadal może więc zdobywać osiągnięcia. Jeden mod niekosmetyczny albo ustawienia odbiegające od standardowych wystarczą, by je zablokować, a zapis gry raz zablokowany pozostaje zablokowany.
@@ -85,7 +85,7 @@ To, które dokładnie ustawienia liczą się jako "odbiegające od standardowych
 ```
 
 ```tip scripts
-Przed rozpoczęciem lub wczytaniem gry sprawdź, czy jest pomarańczowy pasek: brak paska oznacza, że można zdobywać osiągnięcia. Dobry sposób gry: zdobywaj osiągnięcia w grze ze standardowymi ustawieniami i wyłącznie modami kosmetycznymi, a do modów i ustawień zmieniających rozgrywkę używaj osobnych gier swobodnych lub piaskownicy. Flagę kosmetyczną wybiera autor moda; sprawdź linię `cosmetic` w `mod.json` moda albo zapytaj autora.
+Przed rozpoczęciem lub wczytaniem gry sprawdź, czy obok poziomu trudności jest żółta etykieta: brak etykiety oznacza, że można zdobywać osiągnięcia. Dobry sposób gry: zdobywaj osiągnięcia w grze ze standardowymi ustawieniami i wyłącznie modami kosmetycznymi, a do modów i ustawień zmieniających rozgrywkę używaj osobnych gier swobodnych lub piaskownicy. Flagę kosmetyczną wybiera autor moda; sprawdź linię `cosmetic` w `mod.json` moda albo zapytaj autora.
 ```
 
 ## Warto wiedzieć

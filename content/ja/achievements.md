@@ -74,8 +74,8 @@ MOD を使うだけで実績が無効になるわけでは**ない**。決め手
 
 - すべての MOD は `mod.json` に `cosmetic` フラグを持つ。ゲーム自身の API ドキュメント（フォルダー `api/tealdef`、フィールド `ModDesc.cosmetic`）には "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing"（MOD が純粋に見た目だけなら、cosmetic MOD でもプレイ中に実績を獲得できる）とある。
 - 公式 DLC とキャンペーンのミッションも MOD であり、すべて cosmetic として指定されている（`dlcs/*/mod.json`、`mods/release/urbangames_campaign*/mod.json`）。
-- 新規ゲーム画面とロード画面で、ゲームは有効な MOD の一覧でまだ実績を獲得できるかを確認する（`new_game_or_map_settings_page.tl:902-903`、`savegame_react_util.tl:1063-1064`）。できない場合、オレンジ色の帯に **"Achievements cannot be earned."**（実績を獲得できません。）と表示される（`savegame_react_util.tl:1485-1496`）。
-- 各セーブデータも独自のフラグ（`achievementsEarnable`）を持つ。これがオフだと、今どの MOD を選んでもロード画面にオレンジ色の帯が表示される（`savegame_react_util.tl:1035-1037`）。再確認されるのは、実績を強制的にオンに戻す MOD だけである（`savegame_react_util.tl:1063`）。
+- 新規ゲーム画面とロード画面で、ゲームは有効な MOD の一覧でまだ実績を獲得できるかを確認する（`new_game_or_map_settings_page.tl:902-903`、`savegame_react_util.tl:1063-1064`）。できない場合、難易度の横の黄色いラベルに **"Achievements cannot be earned."**（実績を獲得できません。）と表示される（`savegame_react_util.tl:1485-1496`）。
+- 各セーブデータも独自のフラグ（`achievementsEarnable`）を持つ。これがオフだと、今どの MOD を選んでもロード画面にこの黄色いラベルが表示される（`savegame_react_util.tl:1035-1037`）。再確認されるのは、実績を強制的にオンに戻す MOD だけである（`savegame_react_util.tl:1063`）。
 - ゲームプレイ設定（難易度やその他のゲームパラメーター）が 2 つ目の理由である：標準値から外れると難易度が **"Custom"**（カスタム）と表示され（`difficulty_util.tl:201-229`）、公式 wiki によれば実績は獲得できない。
 
 つまり、cosmetic MOD だけで標準設定のゲームなら実績はまだ獲得できる。cosmetic ではない MOD が 1 つでもあるか、設定が標準値から外れていれば、それだけでブロックされる。そして一度ブロックされたセーブデータはブロックされたままになる。
@@ -85,7 +85,7 @@ MOD を使うだけで実績が無効になるわけでは**ない**。決め手
 ```
 
 ```tip scripts
-ゲームを開始またはロードする前に、オレンジ色の帯を確認しよう：帯がなければ実績を獲得できる。おすすめの遊び方：実績は標準設定と cosmetic MOD だけのゲームで獲得し、ゲームプレイを変える MOD や設定は別のフリーゲームやサンドボックスゲームで使う。cosmetic フラグは MOD 作者が決める。MOD の `mod.json` にある `cosmetic` の行を確認するか、作者に聞こう。
+ゲームを開始またはロードする前に、難易度の横の黄色いラベルを確認しよう：ラベルがなければ実績を獲得できる。おすすめの遊び方：実績は標準設定と cosmetic MOD だけのゲームで獲得し、ゲームプレイを変える MOD や設定は別のフリーゲームやサンドボックスゲームで使う。cosmetic フラグは MOD 作者が決める。MOD の `mod.json` にある `cosmetic` の行を確認するか、作者に聞こう。
 ```
 
 ## 知っておくと便利なこと

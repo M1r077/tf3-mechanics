@@ -74,8 +74,8 @@ Usar mods **no** desactiva los logros por sí solo. Dos cosas lo deciden: si cad
 
 - Cada mod tiene un indicador `cosmetic` en su `mod.json`. La documentación de la API del juego (carpeta `api/tealdef`, campo `ModDesc.cosmetic`) dice: "If the mod is purely cosmetic, cosmetic mods still allow achievement from being earned while playing" (si el mod es puramente cosmético, sigue permitiendo conseguir logros).
 - Los DLC oficiales y las misiones de campaña también son mods, y todos están marcados como cosméticos (`dlcs/*/mod.json`, `mods/release/urbangames_campaign*/mod.json`).
-- En la página de nueva partida y en la de cargar partida, el juego comprueba si la lista de mods activos sigue permitiendo logros (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Si no, una franja naranja dice **"Achievements cannot be earned."** (no se pueden conseguir logros) (`savegame_react_util.tl:1485-1496`).
-- Cada partida guardada también tiene su propio indicador (`achievementsEarnable`). Si está desactivado, la página de carga muestra también la franja naranja, elijas los mods que elijas ahora (`savegame_react_util.tl:1035-1037`). Solo se vuelve a comprobar un mod que fuerce la reactivación de los logros (`savegame_react_util.tl:1063`).
+- En la página de nueva partida y en la de cargar partida, el juego comprueba si la lista de mods activos sigue permitiendo logros (`new_game_or_map_settings_page.tl:902-903`, `savegame_react_util.tl:1063-1064`). Si no, una etiqueta amarilla junto a la dificultad dice **"Achievements cannot be earned."** (no se pueden conseguir logros) (`savegame_react_util.tl:1485-1496`).
+- Cada partida guardada también tiene su propio indicador (`achievementsEarnable`). Si está desactivado, la página de carga muestra también esta etiqueta amarilla, elijas los mods que elijas ahora (`savegame_react_util.tl:1035-1037`). Solo se vuelve a comprobar un mod que fuerce la reactivación de los logros (`savegame_react_util.tl:1063`).
 - Los ajustes de juego (dificultad y los demás parámetros de partida) son una segunda razón: con valores distintos de los estándar, la dificultad aparece como **Custom** (personalizada) (`difficulty_util.tl:201-229`) y, según la wiki oficial, los logros no están disponibles.
 
 Así que una partida solo con mods cosméticos y ajustes estándar puede seguir consiguiendo logros. Un solo mod no cosmético, o ajustes distintos de los valores estándar, basta para bloquearlos, y una partida guardada bloqueada una vez sigue bloqueada.
@@ -85,7 +85,7 @@ Qué ajustes cuentan exactamente como «distintos de los valores estándar», y 
 ```
 
 ```tip scripts
-Busca la franja naranja antes de empezar o cargar una partida: sin franja, se pueden conseguir logros. Una buena forma de jugar: consigue los logros en una partida con los ajustes estándar y solo mods cosméticos, y usa partidas libres o sandbox aparte para los mods y ajustes que cambian la jugabilidad. El autor del mod elige el indicador cosmético; revisa la línea `cosmetic` en el `mod.json` del mod, o pregunta al autor.
+Busca la etiqueta amarilla junto a la dificultad antes de empezar o cargar una partida: sin etiqueta, se pueden conseguir logros. Una buena forma de jugar: consigue los logros en una partida con los ajustes estándar y solo mods cosméticos, y usa partidas libres o sandbox aparte para los mods y ajustes que cambian la jugabilidad. El autor del mod elige el indicador cosmético; revisa la línea `cosmetic` en el `mod.json` del mod, o pregunta al autor.
 ```
 
 ## Conviene saber
