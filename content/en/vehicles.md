@@ -52,6 +52,7 @@ How the vehicle load speed, the cargo load factor and the platform and stock fac
 - A train's condition is the **average** of all its wagons and locomotives (`vehicle_util.tl:285-295`).
 - A worn vehicle loses top speed, power and comfort, and gains noise, pollution and running costs (`vehicle_store_util.tl:236-258`). How much, and from which condition, are engine values. The vehicle window lists these penalties under **Condition**.
 - How strong these penalties are is set by **Vehicle Maintenance Effect** (None, Low, Medium, High, Very High); with None, condition has no effect (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Costs, upkeep and loans](costs.html).
+- On a train pulled by a locomotive, the red part of the **Comfort** bar is not only wear. The train's comfort is the lowest comfort of the parts with seats, but the comfort after wear is the average of **all** parts, and the locomotive counts as 0. So 1 locomotive and 2 coaches show at most 2/3 of the comfort, even when new. This only shows when the condition penalties are on (setting above) (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`).
 - At **20 %** or less you get the **Vehicle Condition** warning. It stays until the vehicle is back above **30 %** (`notifications.script.tl:310-318`).
 - A cloned vehicle is a new purchase: condition 100 %, new purchase date (`manager_window.tl:8744-8748`).
 
@@ -115,7 +116,6 @@ What reaching the lifespan changes (for example faster loss of condition or lowe
 - Build enough maintenance capacity: one train depot serves only 6 trains.
 - With **Vehicle Maintenance Effect** on None, condition does not matter.
 - **Send to Depot** sends a vehicle to the nearest reachable depot, not to the one where it was bought (official wiki).
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) helps compare models before replacing them.
 
 ```check
 official: "This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

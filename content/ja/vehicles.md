@@ -52,6 +52,7 @@ fact: 4 to 16 | 台：車庫または整備ステーション 1 つの整備プ�
 - 列車の状況は、すべての貨車と機関車の**平均**である（`vehicle_util.tl:285-295`）。
 - 傷んだ車両は最高速度、出力、快適性を失い、騒音、汚染、運行費が増える（`vehicle_store_util.tl:236-258`）。その量と、どの状況から始まるかはエンジンの値である。車両ウィンドウはこれらのペナルティを**状況**の下に一覧表示する。
 - これらのペナルティの強さは**車両整備エフェクト**（なし、低、中、高、極高）で決まる。なしでは状況は何の影響もない（`difficulty_util.tl:42`、`mod.script.tl:242-246`、`vehicle_store_util.tl:166-168`、`vehicle_store_util.tl:216-228`）。詳細：[コスト、維持費、融資](costs.html)。
+- 機関車が牽引する列車では、**快適さ**バーの赤い部分は摩耗だけではありません。列車の快適さは座席のある車両の最低値ですが、摩耗後の快適さは**全**車両の平均で、機関車は0として数えられます。そのため機関車1両と客車2両では、新車でも快適さは最大2/3しか表示されません。これは状態によるペナルティが有効なとき（上の設定）だけ表示されます (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`)。
 - **20 %** 以下になると**車両状態**の警告が出る。警告は車両が **30 %** を超えるまで消えない（`notifications.script.tl:310-318`）。
 - 複製した車両は新規購入となる。状況 100 %、新しい購入日（`manager_window.tl:8744-8748`）。
 
@@ -115,7 +116,6 @@ fact: 4 to 16 | 台：車庫または整備ステーション 1 つの整備プ�
 - 十分な整備能力を建てること。鉄道車庫 1 つは 6 本の列車しか整備しない。
 - **車両整備エフェクト**がなしなら、状況は関係ない。
 - **車庫へ送る**は、車両を購入した車庫ではなく、到達できる最寄りの車庫へ送る（公式wiki）。
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) は、置き換え前にモデルを比較するのに役立つ。
 
 ```check
 official: "This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

@@ -52,6 +52,7 @@ fact: 4 to 16 | 輛車輛：一座倉庫或維修站的維修容量
 - 列車的狀態是其所有車廂和機車的**平均值**（`vehicle_util.tl:285-295`）。
 - 磨損的車輛會損失最高速度、功率和舒適度，噪音、污染和營運成本會增加（`vehicle_store_util.tl:236-258`）。影響多大、從哪個狀態開始，都是引擎數值。車輛視窗在**狀態**下列出這些懲罰。
 - 這些懲罰的強度由**車輛維修效果**（無、低、中、高、極高）決定；設為無時，狀態沒有任何影響（`difficulty_util.tl:42`，`mod.script.tl:242-246`，`vehicle_store_util.tl:166-168`，`vehicle_store_util.tl:216-228`）。詳見：[成本、維護費與貸款](costs.html)。
+- 在由機車牽引的列車上，**舒適度**條的紅色部分不只是磨損。列車的舒適度取有座位車輛中的最低值，但磨損後的舒適度是**所有**車輛的平均值，機車按 0 計算。因此 1 台機車加 2 節客車即使是新車，最多也只顯示 2/3 的舒適度。只有在狀態懲罰開啟時（上面的設定）才會出現 (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`)。
 - 狀態降到 **20 %** 或以下時會出現**車輛狀況**警告，直到車輛回到 **30 %** 以上才消失（`notifications.script.tl:310-318`）。
 - 複製的車輛算作新購買：狀態 100 %，新的購買日期（`manager_window.tl:8744-8748`）。
 
@@ -115,7 +116,6 @@ fact: 4 to 16 | 輛車輛：一座倉庫或維修站的維修容量
 - 建造足夠的維修能力：一座火車倉庫只服務 6 列列車。
 - **車輛維修效果**設為無時，狀態無關緊要。
 - **派遣至倉庫**會把車輛送到最近的可到達倉庫，而不是購買它的那座倉庫（官方 wiki）。
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) 可在替換前幫助比較型號。
 
 ```check
 official: "This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

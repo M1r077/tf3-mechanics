@@ -52,6 +52,7 @@ La façon dont la vitesse de chargement du véhicule, le facteur de chargement d
 - L'état d'un train est la **moyenne** de tous ses wagons et locomotives (`vehicle_util.tl:285-295`).
 - Un véhicule usé perd vitesse maximale, puissance et confort, et gagne bruit, pollution et coûts d'exploitation (`vehicle_store_util.tl:236-258`). L'ampleur, et l'état à partir duquel cela commence, sont des valeurs du moteur. La fenêtre du véhicule liste ces pénalités sous **État**.
 - La force de ces pénalités est réglée par **Effet de la maintenance des véhicules** (Aucun(e), Bas, Moyen, Élevée, Très élevée) ; avec Aucun(e), l'état n'a aucun effet (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Détails : [Coûts, entretien et emprunts](costs.html).
+- Sur un train tiré par une locomotive, la partie rouge de la barre **Confort** n'est pas que de l'usure. Le confort du train est le plus bas des véhicules qui ont des sièges, mais le confort après usure est la moyenne de **tous** les véhicules, et la locomotive compte pour 0. Une locomotive et 2 voitures affichent donc au plus 2/3 du confort, même neuves. Cela n'apparaît que si les pénalités d'état sont actives (réglage ci-dessus) (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`).
 - À **20 %** ou moins, tu reçois l'avertissement **État du véhicule**. Il reste jusqu'à ce que le véhicule repasse au-dessus de **30 %** (`notifications.script.tl:310-318`).
 - Un véhicule cloné est un nouvel achat : état 100 %, nouvelle date d'achat (`manager_window.tl:8744-8748`).
 
@@ -115,7 +116,6 @@ Ce que change le fait d'atteindre la durée de vie (par exemple une perte d'éta
 - Construis assez de capacité de maintenance : un dépôt ferroviaire ne sert que 6 trains.
 - Avec **Effet de la maintenance des véhicules** sur Aucun(e), l'état ne compte pas.
 - **Envoyer au dépôt** envoie un véhicule au dépôt accessible le plus proche, pas à celui où il a été acheté (wiki officiel).
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) aide à comparer les modèles avant de les remplacer.
 
 ```check
 official: « This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties. » « Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store. » ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

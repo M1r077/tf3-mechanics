@@ -52,6 +52,7 @@ fact: 4 to 16 | 대: 차고지 또는 정비소 하나의 유지보수 풀에 �
 - 열차의 상태는 모든 객차·화차와 기관차의 **평균**이다(`vehicle_util.tl:285-295`).
 - 낡은 운송 수단은 최고 속도, 출력, 쾌적도를 잃고, 소음, 오염, 운행비가 는다(`vehicle_store_util.tl:236-258`). 얼마나, 어느 상태부터인지는 엔진 값이다. 운송 수단 창은 이 페널티를 **상태** 아래에 나열한다.
 - 이 페널티의 세기는 **운송 수단 유지보수 효과**(없음, 낮음, 중간, 높음, 아주 높음)로 정해진다. 없음이면 상태는 아무 영향이 없다(`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). 자세한 내용: [비용, 유지비, 대출](costs.html).
+- 기관차가 끄는 열차에서 **쾌적함** 막대의 빨간 부분은 마모만이 아닙니다. 열차의 쾌적함은 좌석이 있는 차량 중 가장 낮은 값이지만, 마모 후 쾌적함은 **모든** 차량의 평균이며 기관차는 0으로 계산됩니다. 따라서 기관차 1량과 객차 2량은 새 차량이어도 쾌적함이 최대 2/3만 표시됩니다. 상태 페널티가 켜져 있을 때(위 설정)만 나타납니다 (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`).
 - **20 %** 이하가 되면 **운송 수단 상태** 경고가 뜬다. 경고는 운송 수단이 다시 **30 %**를 넘을 때까지 남는다(`notifications.script.tl:310-318`).
 - 복제한 운송 수단은 새로 구매한 것이다. 상태 100 %, 새 구매일(`manager_window.tl:8744-8748`).
 
@@ -115,7 +116,6 @@ fact: 4 to 16 | 대: 차고지 또는 정비소 하나의 유지보수 풀에 �
 - 정비 능력을 충분히 지어라. 철도 차고지 하나는 열차 6대만 정비한다.
 - **운송 수단 유지보수 효과**가 없음이면 상태는 중요하지 않다.
 - **차고지로 보내기**는 운송 수단을 구매한 차고지가 아니라 도달 가능한 가장 가까운 차고지로 보낸다(공식 위키).
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison)은 교체 전에 모델을 비교하는 데 도움이 된다.
 
 ```check
 official: "This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

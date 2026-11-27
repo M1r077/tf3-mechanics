@@ -52,6 +52,7 @@ Jak szybkość załadunku pojazdu, współczynnik załadunku towaru oraz mnożni
 - Stan pociągu to **średnia** wszystkich jego wagonów i lokomotyw (`vehicle_util.tl:285-295`).
 - Zużyty pojazd traci prędkość maksymalną, moc i komfort, a zyskuje hałas, zanieczyszczenie i koszty eksploatacji (`vehicle_store_util.tl:236-258`). Ile i od jakiego stanu, to wartości silnika gry. Okno pojazdu wymienia te kary w sekcji **Stan techniczny**.
 - Siłę tych kar ustawia **Wpływ konserwacji pojazdów** („Brak”, „Niski”, „Średni”, „Wysoki”, „Bardzo wysoki”); przy „Brak” stan nie ma wpływu (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Szczegóły: [Koszty, utrzymanie i kredyty](costs.html).
+- W pociągu ciągniętym przez lokomotywę czerwona część paska **Komfortu** to nie tylko zużycie. Komfort pociągu to najniższy komfort części z miejscami, ale komfort po zużyciu to średnia **wszystkich** części, a lokomotywa liczy się jako 0. Zatem 1 lokomotywa i 2 wagony pokazują najwyżej 2/3 komfortu, nawet nowe. Widać to tylko, gdy kary za stan są włączone (ustawienie powyżej) (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`).
 - Przy **20 %** lub mniej pojawia się ostrzeżenie **Stan pojazdu**. Pozostaje, dopóki pojazd nie wróci powyżej **30 %** (`notifications.script.tl:310-318`).
 - Sklonowany pojazd to nowy zakup: stan 100 %, nowa data zakupu (`manager_window.tl:8744-8748`).
 
@@ -115,7 +116,6 @@ Co zmienia osiągnięcie okresu trwałości (na przykład szybszą utratę stanu
 - Zbuduj wystarczającą zdolność konserwacji: jedna baza kolejowa obsługuje tylko 6 pociągów.
 - Gdy **Wpływ konserwacji pojazdów** ma wartość „Brak”, stan nie ma znaczenia.
 - **Wyślij do bazy** wysyła pojazd do najbliższej osiągalnej bazy, a nie do tej, w której został kupiony (oficjalna wiki).
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) pomaga porównać modele przed ich wymianą.
 
 ```check
 official: "This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

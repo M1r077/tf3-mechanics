@@ -52,6 +52,7 @@ Como a velocidade de carga do veículo, o fator de carga da carga e os fatores d
 - A condição de um trem é a **média** de todos os seus vagões e locomotivas (`vehicle_util.tl:285-295`).
 - Um veículo desgastado perde velocidade máxima, potência e conforto, e ganha ruído, poluição e custos operacionais (`vehicle_store_util.tl:236-258`). Quanto, e a partir de qual condição, são valores do motor do jogo. A janela do veículo lista essas penalidades em **Condição**.
 - A força dessas penalidades é definida por **Efeito da Manutenção do Veículo** (Nenhum, Baixo, Médio, Alto, Muito Alto); com Nenhum, a condição não tem efeito (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Detalhes: [Custos, manutenção e empréstimos](costs.html).
+- Em um trem puxado por locomotiva, a parte vermelha da barra de **Conforto** não é só desgaste. O conforto do trem é o menor entre as partes com assentos, mas o conforto após o desgaste é a média de **todas** as partes, e a locomotiva conta como 0. Assim, 1 locomotiva e 2 carros mostram no máximo 2/3 do conforto, mesmo novos. Isso só aparece se as penalidades de condição estiverem ativas (configuração acima) (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`).
 - Com **20 %** ou menos você recebe o aviso **Condição do Veículo**. Ele fica até o veículo voltar acima de **30 %** (`notifications.script.tl:310-318`).
 - Um veículo clonado é uma compra nova: condição 100 %, nova data de compra (`manager_window.tl:8744-8748`).
 
@@ -115,7 +116,6 @@ O que muda ao atingir a vida útil (por exemplo perda de condição mais rápida
 - Construa capacidade de manutenção suficiente: um pátio ferroviário atende só 6 trens.
 - Com **Efeito da Manutenção do Veículo** em Nenhum, a condição não importa.
 - **Enviar ao Pátio** manda um veículo para o pátio alcançável mais próximo, não para aquele onde foi comprado (wiki oficial).
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) ajuda a comparar modelos antes de substituí-los.
 
 ```check
 official: "This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

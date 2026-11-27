@@ -52,6 +52,7 @@ fact: 4 to 16 | 辆载具：一个车库或维护站的维护池容量
 - 列车的状况是其所有车厢和机车的**平均值**（`vehicle_util.tl:285-295`）。
 - 磨损的载具会损失最高速度、功率和舒适度，噪音、污染和运营成本会增加（`vehicle_store_util.tl:236-258`）。影响多大、从哪个状况开始，都是引擎数值。载具窗口在**状况**下列出这些惩罚。
 - 这些惩罚的强度由**载具老化影响**（无、低、中、高、非常高）决定；设为无时，状况没有任何影响（`difficulty_util.tl:42`，`mod.script.tl:242-246`，`vehicle_store_util.tl:166-168`，`vehicle_store_util.tl:216-228`）。详见：[成本、维护费与贷款](costs.html)。
+- 在由机车牵引的列车上，**舒适度**条的红色部分不只是磨损。列车的舒适度取有座位车辆中的最低值，但磨损后的舒适度是**所有**车辆的平均值，机车按 0 计算。因此 1 台机车加 2 节客车即使是新车，最多也只显示 2/3 的舒适度。只有在状态惩罚开启时（上面的设置）才会出现 (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`)。
 - 状况降到 **20 %** 或以下时会出现**载具状况**警告，直到载具回到 **30 %** 以上才消失（`notifications.script.tl:310-318`）。
 - 克隆的载具算作新购买：状况 100 %，新的购买日期（`manager_window.tl:8744-8748`）。
 
@@ -115,7 +116,6 @@ fact: 4 to 16 | 辆载具：一个车库或维护站的维护池容量
 - 建造足够的维护能力：一座火车车库只服务 6 列列车。
 - **载具老化影响**设为无时，状况无关紧要。
 - **送往车库**会把载具送到最近的可到达车库，而不是购买它的那个车库（官方 wiki）。
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) 可在替换前帮助比较型号。
 
 ```check
 official: "This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties." "Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store." ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))

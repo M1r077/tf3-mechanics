@@ -52,6 +52,7 @@ Wie Ladegeschwindigkeit des Fahrzeugs, Ladefaktor der Fracht sowie Bahnsteig- un
 - Der Zustand eines Zuges ist der **Durchschnitt** aller seiner Wagen und Lokomotiven (`vehicle_util.tl:285-295`).
 - Ein abgenutztes Fahrzeug verliert Höchstgeschwindigkeit, Leistung und Komfort und gewinnt Lärm, Verschmutzung und Betriebskosten (`vehicle_store_util.tl:236-258`). Wie viel und ab welchem Zustand, sind Werte der Engine. Das Fahrzeugfenster listet diese Abzüge unter **Zustand**.
 - Wie stark diese Abzüge sind, legt **Fahrzeugwartungseffekt** fest (Keine, Niedrig, Mittel, Hoch, Sehr hoch); bei Keine hat der Zustand keine Wirkung (`difficulty_util.tl:42`, `mod.script.tl:242-246`, `vehicle_store_util.tl:166-168`, `vehicle_store_util.tl:216-228`). Details: [Kosten, Unterhalt und Darlehen](costs.html).
+- Bei einem Zug mit Lokomotive ist der rote Teil des **Komfort**-Balkens nicht nur Verschleiß. Der Komfort des Zuges ist der niedrigste Komfort der Teile mit Sitzplätzen, der Komfort nach Verschleiß aber der Durchschnitt **aller** Teile, und die Lokomotive zählt als 0. 1 Lokomotive und 2 Wagen zeigen daher höchstens 2/3 des Komforts, auch neu. Das zeigt sich nur, wenn die Zustandsstrafen aktiv sind (Einstellung oben) (`vehicle_store_util.tl:299-307`, `vehicle_store_util.tl:369-371`, `vehicle_eow.script.tl:459-460`).
 - Bei **20 %** oder weniger erhältst du die Warnung **Fahrzeugzustand**. Sie bleibt, bis das Fahrzeug wieder über **30 %** liegt (`notifications.script.tl:310-318`).
 - Ein geklontes Fahrzeug ist ein Neukauf: Zustand 100 %, neues Kaufdatum (`manager_window.tl:8744-8748`).
 
@@ -115,7 +116,6 @@ Was das Erreichen der Lebensdauer ändert (zum Beispiel schnellerer Zustandsverl
 - Baue genug Wartungskapazität: Ein Zugdepot bedient nur 6 Züge.
 - Mit **Fahrzeugwartungseffekt** auf Keine spielt der Zustand keine Rolle.
 - **Ins Depot schicken** schickt ein Fahrzeug zum nächsten erreichbaren Depot, nicht zu dem, in dem es gekauft wurde (offizielles Wiki).
-- [Vehicle Comparison](https://mod.io/g/transportfever3/m/vehicle-comparison) hilft, Modelle vor dem Ersetzen zu vergleichen.
 
 ```check
 official: „This section shows how well the vehicle is maintained and how the maintenance state affects the vehicle properties.“ „Loading speed modifies a vehicle's base loading speed which can be seen in the vehicle window or in the vehicle store.“ ([Lines and Vehicles](https://wiki.transportfever3.com/doku.php?id=gamemanual:management:linesvehicles))
